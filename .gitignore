@@ -1,11 +1,16 @@
 node_modules/
 
-# Build files
-packages/*/lib
+# Compiled output
+packages/*/build
 
-# Log files
-lerna-debug.log
-npm-debug.log
+# Logs
+*.log*
 
 # Idea project files
 .idea
+
+# Miscellaneous
+.env*
+!.env.example
+.eslintcache
+.stylelintcache

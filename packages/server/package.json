@@ -2,20 +2,19 @@
   "name": "@fintruth-sdk/server",
   "version": "0.0.0",
   "description": "> TODO: description",
-  "author": "Andrew Stalker <andrew@stabtechs.com>",
-  "homepage": "",
-  "license": "ISC",
-  "main": "lib/server.js",
-  "typings": "lib/server.d.js",
+  "author": "Fintruth LLC",
+  "license": "UNLICENSED",
+  "main": "build/server.js",
+  "typings": "build/server.d.js",
   "directories": {
-    "lib": "lib",
+    "build": "build",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "build"
   ],
   "scripts": {
-    "tsc": "tsc",
+    "build": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   }
 }
