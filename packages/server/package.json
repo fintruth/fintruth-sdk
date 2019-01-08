@@ -1,0 +1,21 @@
+{
+  "name": "@fintruth-sdk/server",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Andrew Stalker <andrew@stabtechs.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/server.js",
+  "typings": "lib/server.d.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

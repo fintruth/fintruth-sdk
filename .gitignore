@@ -1,0 +1,11 @@
+node_modules/
+
+# Build files
+packages/*/lib
+
+# Log files
+lerna-debug.log
+npm-debug.log
+
+# Idea project files
+.idea
