@@ -5,6 +5,7 @@
     "@types/node": "~10.12.18",
     "del-cli": "~1.1.0",
     "lerna": "~3.9.1",
+    "prettier": "~1.15.3",
     "typescript": "~3.2.2"
   },
   "workspaces": [
