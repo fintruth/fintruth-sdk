@@ -4,16 +4,14 @@
   "description": "> TODO: description",
   "author": "Fintruth LLC",
   "license": "UNLICENSED",
-  "main": "build/server.js",
-  "typings": "build/server.d.js",
-  "directories": {
-    "build": "build",
-    "test": "__tests__"
-  },
+  "main": "build/main.js",
+  "typings": "build/main.d.js",
   "files": [
     "build"
   ],
   "scripts": {
+    "clean": "del build",
+    "prebuild": "yarn clean",
     "build": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   }

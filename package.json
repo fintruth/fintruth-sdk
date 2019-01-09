@@ -11,7 +11,7 @@
     "packages/*"
   ],
   "scripts": {
-    "clean": "lerna exec --parallel -- del-cli build",
+    "clean": "lerna exec --parallel -- del build",
     "prebuild": "yarn clean",
     "build": "lerna run build"
   }
