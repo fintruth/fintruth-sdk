@@ -1,0 +1,20 @@
+extends:
+  - airbnb-base
+  - plugin:typescript/recommended
+  - prettier
+parser: eslint-plugin-typescript/parser
+plugins:
+  - import
+  - prettier
+  - typescript
+rules:
+  no-undef: error
+  prettier/prettier: error
+  typescript/indent:
+    - error
+    - 2
+  typescript/member-delimiter-style: off
+  typescript/member-ordering: error
+settings:
+  import/resolver:
+    typescript: true
