@@ -9,14 +9,26 @@
   "files": [
     "build"
   ],
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "apollo-server-koa": "~2.3.1",
+    "koa": "~2.6.2",
+    "pg": "~7.7.1",
+    "reflect-metadata": "~0.1.12",
+    "typeorm": "~0.2.11"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "nodemon": "^1.18.9",
+    "ts-node": "^7.0.1",
+    "tsconfig-paths": "^3.7.0",
+    "typescript": "~3.2.2"
+  },
   "scripts": {
     "clean": "del build",
     "prebuild": "yarn clean",
     "build": "tsc",
     "lint": "eslint --cache 'src/**/*.{js,ts,tsx}'",
-    "start": "node build/main.js",
+    "start": "nodemon",
     "test": "echo \"Error: run tests from root\" && exit 1"
   }
 }
