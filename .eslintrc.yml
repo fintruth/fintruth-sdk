@@ -1,7 +1,8 @@
 extends:
-  - airbnb-base
+  - standard
   - plugin:typescript/recommended
   - prettier
+  - prettier/standard
 overrides:
   - env:
       jest: true
@@ -29,9 +30,6 @@ plugins:
 rules:
   no-undef: error
   prettier/prettier: error
-  typescript/indent:
-    - error
-    - 2
   typescript/member-delimiter-style: off
   typescript/member-ordering: error
 settings:
