@@ -1,6 +1,7 @@
 extends:
   - standard
   - plugin:jest/recommended
+  - plugin:monorepo/recommended
   - plugin:typescript/recommended
   - prettier
   - prettier/standard
@@ -14,11 +15,13 @@ overrides:
 parser: eslint-plugin-typescript/parser
 plugins:
   - import
+  - monorepo
   - prettier
   - typescript
 rules:
   no-undef: error
   prettier/prettier: error
+  typescript/explicit-member-accessibility: off
   typescript/indent:
     - error
     - 2
