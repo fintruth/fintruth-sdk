@@ -15,7 +15,7 @@
     "clean": "del build",
     "prebuild": "yarn clean",
     "build": "tsc",
-    "lint": "eslint --cache 'src/**/*.ts'",
+    "lint": "eslint --cache 'src/**/*.{js,ts,tsx}'",
     "test": "echo \"Error: run tests from root\" && exit 1"
   }
 }
