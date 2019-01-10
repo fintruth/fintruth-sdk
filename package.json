@@ -31,8 +31,8 @@
   ],
   "scripts": {
     "clean": "lerna exec --parallel -- del build",
-    "lint": "yarn lint-scripts",
-    "lint-scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts,tsx}'",
+    "lint": "yarn lint:scripts",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts,tsx}'",
     "prebuild": "yarn clean",
     "build": "lerna run build",
     "start": "lerna run start --scope @fintruth-sdk/server",

@@ -3,6 +3,9 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "build",
+    "paths": {
+      "*": ["server/src/*"]
+    },
     "types": ["node"]
   }
 }

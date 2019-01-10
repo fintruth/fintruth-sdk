@@ -1,9 +1,16 @@
 import Koa from 'koa'
+import { initializeDatabase } from 'database'
 
-const app = new Koa()
+const bootstrap = async (): Promise<void> => {
+  await initializeDatabase()
 
-app.use(async ctx => {
-  ctx.body = 'It works!\n'
-})
+  const app = new Koa()
 
-app.listen(3000)
+  app.use(async ctx => {
+    ctx.body = 'It works!\n'
+  })
+
+  app.listen(3000)
+}
+
+bootstrap()
