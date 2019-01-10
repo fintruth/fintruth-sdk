@@ -21,6 +21,7 @@ plugins:
 rules:
   no-undef: error
   prettier/prettier: error
+  typescript/explicit-member-accessibility: off
   typescript/indent:
     - error
     - 2

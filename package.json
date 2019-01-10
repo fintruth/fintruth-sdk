@@ -35,6 +35,7 @@
     "lint-scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts,tsx}'",
     "prebuild": "yarn clean",
     "build": "lerna run build",
+    "start": "lerna run start --scope @fintruth-sdk/server",
     "test": "jest"
   },
   "husky": {
