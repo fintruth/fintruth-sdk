@@ -1,0 +1,39 @@
+extends:
+  - airbnb-base
+  - plugin:typescript/recommended
+  - prettier
+overrides:
+  - env:
+      jest: true
+    files:
+      - '**/?(*.)test.ts?(x)'
+    plugins:
+      - jest
+    rules:
+      jest/no-alias-methods: warn
+      jest/no-disabled-tests: warn
+      jest/no-focused-tests: error
+      jest/no-identical-title: error
+      jest/no-jasmine-globals: warn
+      jest/no-jest-import: error
+      jest/no-test-prefixes: error
+      jest/valid-describe: error
+      jest/valid-expect-in-promise: error
+      jest/valid-expect: error
+      strict: off
+parser: eslint-plugin-typescript/parser
+plugins:
+  - import
+  - prettier
+  - typescript
+rules:
+  no-undef: error
+  prettier/prettier: error
+  typescript/indent:
+    - error
+    - 2
+  typescript/member-delimiter-style: off
+  typescript/member-ordering: error
+settings:
+  import/resolver:
+    typescript: true
