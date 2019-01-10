@@ -1,13 +1,15 @@
-# Fintruth SDK 
+# Fintruth SDK
 
-* https://github.com/lerna/lerna
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
-### Installation
+### Setup
+
 ```
 yarn install
 ```
 
 ### Build
+
 ```
 yarn run build
 ```

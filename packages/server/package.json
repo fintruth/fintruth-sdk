@@ -4,17 +4,18 @@
   "description": "> TODO: description",
   "author": "Fintruth LLC",
   "license": "UNLICENSED",
-  "main": "build/server.js",
-  "typings": "build/server.d.js",
-  "directories": {
-    "build": "build",
-    "test": "__tests__"
-  },
+  "main": "build/main.js",
+  "typings": "build/main.d.js",
   "files": [
     "build"
   ],
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
+    "clean": "del build",
+    "prebuild": "yarn clean",
     "build": "tsc",
+    "lint": "eslint --cache 'src/**/*.{js,ts,tsx}'",
     "test": "echo \"Error: run tests from root\" && exit 1"
   }
 }
