@@ -1,16 +1,25 @@
 import Koa from 'koa'
-import { initializeDatabase } from 'database'
+
+import { createApolloServer } from 'apollo'
+import { createDatabaseConnection } from 'database'
+import { router } from 'routes'
 
 const bootstrap = async (): Promise<void> => {
-  await initializeDatabase()
+  await createDatabaseConnection()
 
   const app = new Koa()
+  const server = createApolloServer()
 
-  app.use(async ctx => {
-    ctx.body = 'It works!\n'
-  })
+  server.applyMiddleware({ app })
 
-  app.listen(3000)
+  app
+    .use(router.routes())
+    .use(router.allowedMethods())
+    .listen(3000, () =>
+      console.log(
+        `🚀 Server ready at http://localhost:3000${server.graphqlPath}`
+      )
+    )
 }
 
 bootstrap()

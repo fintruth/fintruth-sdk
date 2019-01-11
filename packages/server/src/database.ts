@@ -2,7 +2,7 @@ import path from 'path'
 import { Connection, createConnection } from 'typeorm'
 import { User } from 'entities/user'
 
-export const initializeDatabase = (): Promise<User> =>
+export const createDatabaseConnection = (): Promise<User> =>
   createConnection({
     type: 'postgres',
     host: '0.0.0.0',
