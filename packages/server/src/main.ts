@@ -8,7 +8,7 @@ const bootstrap = async (): Promise<void> => {
   await createDatabaseConnection()
 
   const app = new Koa()
-  const server = createApolloServer()
+  const server = await createApolloServer()
 
   server.applyMiddleware({ app })
 
