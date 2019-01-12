@@ -19,6 +19,7 @@ plugins:
   - prettier
   - typescript
 rules:
+  no-console: error
   no-undef: error
   prettier/prettier: error
   typescript/explicit-member-accessibility: off
