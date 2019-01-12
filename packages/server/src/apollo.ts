@@ -1,4 +1,5 @@
 import { ApolloServer } from 'apollo-server-koa'
+import { Request } from 'koa'
 import { Container } from 'typedi'
 import { useContainer as typeORMUseContainer } from 'typeorm'
 import {
@@ -16,5 +17,8 @@ export const createApolloServer = async (): Promise<ApolloServer> => {
     resolvers: [UserResolver],
   })
 
-  return new ApolloServer({ schema, context: {} })
+  return new ApolloServer({
+    schema,
+    context: ({ ctx: { res, state } }: Request) => ({ res, state }),
+  })
 }
