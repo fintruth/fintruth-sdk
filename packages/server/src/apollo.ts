@@ -14,6 +14,7 @@ typeGraphQLUseContainer(Container)
 
 export const createApolloServer = async (): Promise<ApolloServer> => {
   const schema = await buildSchema({
+    emitSchemaFile: './schema.graphql',
     resolvers: [UserResolver],
   })
 

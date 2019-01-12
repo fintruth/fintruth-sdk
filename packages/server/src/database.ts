@@ -1,15 +1,13 @@
 import path from 'path'
 import { Connection, createConnection } from 'typeorm'
+
+import { database } from 'config'
 import { User } from 'entities/user'
 
 export const createDatabaseConnection = (): Promise<User> =>
   createConnection({
+    ...database,
     type: 'postgres',
-    host: '0.0.0.0',
-    username: 'postgres',
-    password: 'postgres',
-    database: 'database',
-    port: 5432,
     entities: [path.resolve(__dirname, 'entities/*.ts')],
     logging: ['query', 'error'],
     synchronize: true,
