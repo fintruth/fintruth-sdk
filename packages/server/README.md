@@ -1,11 +1,25 @@
 # `server`
 
-> TODO: description
+Quick starter for GraphQL API projects
 
-## Usage
+## Features
 
+- [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
+- [Koa](https://koajs.com/#application)
+- [TypeORM](http://typeorm.io/#/)
+- [TypeGraphQL](https://19majkel94.github.io/type-graphql/)
+
+## Get Started
+
+```bash
+yarn install
+yarn start
 ```
-const server = require('server');
 
-// TODO: DEMONSTRATE API
+View the GraphQL playground by opening http://localhost:3000/graphql
+
+## Run Tests
+
+```bash
+yarn test
 ```
