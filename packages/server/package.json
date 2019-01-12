@@ -9,14 +9,43 @@
   "files": [
     "build"
   ],
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "apollo-server-koa": "~2.3.1",
+    "dotenv-safe": "~6.1.0",
+    "graphql": "~14.0.2",
+    "koa": "~2.6.2",
+    "koa-morgan": "~1.0.1",
+    "koa-router": "~7.4.0",
+    "pg": "~7.7.1",
+    "reflect-metadata": "~0.1.12",
+    "split": "~1.0.1",
+    "type-graphql": "~0.16.0",
+    "typedi": "~0.8.0",
+    "typeorm": "~0.2.11",
+    "typeorm-typedi-extensions": "~0.2.1",
+    "winston": "~3.1.0"
+  },
+  "devDependencies": {
+    "@types/dotenv-safe": "~5.0.3",
+    "@types/graphql": "~14.0.4",
+    "@types/koa-morgan": "~1.0.4",
+    "@types/koa-router": "~7.0.37",
+    "@types/node": "^10.12.18",
+    "@types/split": "~1.0.0",
+    "nodemon": "^1.18.9",
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^7.0.1",
+    "tsconfig-paths": "^3.7.0",
+    "typescript": "~3.2.2"
+  },
   "scripts": {
     "clean": "del build",
     "prebuild": "yarn clean",
     "build": "tsc",
-    "lint": "eslint --cache 'src/**/*.{js,ts,tsx}'",
-    "start": "node build/main.js",
+    "lint": "run-p lint:*",
+    "lint:types": "tsc --noEmit",
+    "lint:scripts": "eslint --cache 'src/**/*.{js,ts,tsx}'",
+    "start": "nodemon",
     "test": "echo \"Error: run tests from root\" && exit 1"
   }
 }

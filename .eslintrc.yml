@@ -19,6 +19,7 @@ plugins:
   - prettier
   - typescript
 rules:
+  no-console: error
   no-undef: error
   prettier/prettier: error
   typescript/explicit-member-accessibility: off
@@ -27,6 +28,7 @@ rules:
     - 2
   typescript/member-delimiter-style: off
   typescript/member-ordering: error
+  typescript/no-explicit-any: off
 settings:
   import/resolver:
     typescript: true
