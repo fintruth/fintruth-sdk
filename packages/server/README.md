@@ -23,3 +23,11 @@ View the GraphQL playground by opening http://localhost:3000/graphql
 ```bash
 yarn test
 ```
+
+## Build
+
+```bash
+docker build -t fintruth/server .
+...
+docker-compose -f docker-compose.yml -f docker-compose.stage.yml up
+```
