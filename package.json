@@ -48,6 +48,10 @@
     "url": "git+https://github.com/fintruth/fintruth-sdk.git"
   },
   "scripts": {
+    "clean": "lerna exec --parallel -- del build",
+    "lint": "yarn lint:scripts",
+    "lint:scripts": "eslint --cache --ext .js,.ts .",
+    "prebuild": "yarn clean",
     "build": "lerna run build",
     "clean": "del .eslintcache .stylelintcache && lerna run clean",
     "lint": "yarn lint-scripts && yarn lint-styles && yarn lint-types",

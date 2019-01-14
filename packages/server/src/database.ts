@@ -1,4 +1,3 @@
-import path from 'path'
 import { Connection, createConnection } from 'typeorm'
 
 import { database } from 'config'
@@ -8,7 +7,7 @@ export const createDatabaseConnection = (): Promise<User> =>
   createConnection({
     ...database,
     type: 'postgres',
-    entities: [path.resolve(__dirname, 'entities/*.ts')],
+    entities: [User],
     logging: ['query', 'error'],
     synchronize: true,
   }).then((connection: Connection) => {
