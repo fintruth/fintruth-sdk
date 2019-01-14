@@ -1,6 +1,7 @@
 {
-  "name": "root",
-  "private": true,
+  "author": "Fintruth LLC",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "description": "Software development kit for Fintruth projects",
   "devDependencies": {
     "@types/jest": "^23.3.12",
     "@types/node": "^10.12.18",
@@ -8,36 +9,59 @@
     "eslint": "^5.12.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-config-standard": "^12.0.0",
-    "eslint-import-resolver-typescript": "^1.1.1",
+    "eslint-config-standard-react": "^7.0.2",
+    "eslint-import-resolver-node": "^0.3.2",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.1.3",
-    "eslint-plugin-monorepo": "~0.2.1",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-monorepo": "^0.2.1",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.12.3",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-typescript": "^1.0.0-rc.2",
-    "husky": "~1.3.1",
+    "eslint-plugin-unicorn": "^6.0.1",
+    "husky": "^1.3.1",
     "jest": "^23.6.0",
-    "jest-junit": "^5.2.0",
-    "lerna": "^3.10.2",
+    "jest-circus": "^23.6.0",
+    "lerna": "^3.10.5",
     "lint-staged": "^8.1.0",
     "prettier": "^1.15.3",
-    "ts-jest": "^23.10.5",
-    "typescript": "~3.2.2"
+    "stylelint": "^9.9.0",
+    "stylelint-config-prettier": "^4.0.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-order": "^2.0.0",
+    "stylelint-processor-styled-components": "^1.5.1",
+    "typescript": "~3.1.6"
   },
+  "engines": {
+    "node": ">=10.15.0",
+    "yarn": ">=1.13.0"
+  },
+  "license": "UNLICENSED",
+  "name": "fintruth-sdk",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fintruth/fintruth-sdk.git"
+  },
+  "scripts": {
+    "build": "lerna run build",
+    "clean": "del .eslintcache .stylelintcache && lerna run clean",
+    "lint": "yarn lint-scripts && yarn lint-styles && yarn lint-types",
+    "lint-scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts,tsx}'",
+    "lint-styles": "stylelint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{ts,tsx}'",
+    "lint-types": "lerna run lint-types",
+    "start": "lerna run start",
+    "test": "yarn test-units",
+    "test-units": "lerna run test-units"
+  },
+  "version": "0.0.0",
   "workspaces": [
     "packages/*"
   ],
-  "scripts": {
-    "clean": "lerna exec --parallel -- del build",
-    "lint": "yarn lint-scripts",
-    "lint-scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts,tsx}'",
-    "prebuild": "yarn clean",
-    "build": "lerna run build",
-    "start": "lerna run start --scope @fintruth-sdk/server",
-    "test": "jest"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -47,6 +71,7 @@
     "linters": {
       "*.{js,ts,tsx}": [
         "eslint --fix",
+        "stylelint",
         "jest --bail --findRelatedTests",
         "git add"
       ],

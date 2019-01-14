@@ -1,13 +1,18 @@
-node_modules/
+# Read about how to use .gitignore: https://git-scm.com/docs/gitignore
 
 # Compiled output
-packages/*/build
+packages/client/build/*.js
+packages/client/build/*.js.map
+packages/server/build
+
+# Test coverage
+coverage
+
+# Dependencies
+node_modules
 
 # Logs
 *.log*
-
-# Idea project files
-.idea
 
 # Miscellaneous
 .env*

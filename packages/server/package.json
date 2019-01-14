@@ -1,22 +1,31 @@
 {
-  "name": "@fintruth-sdk/server",
-  "version": "0.0.0",
-  "description": "> TODO: description",
   "author": "Fintruth LLC",
-  "license": "UNLICENSED",
-  "main": "build/main.js",
-  "typings": "build/main.d.js",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "dependencies": {},
+  "description": "",
+  "devDependencies": {
+    "ts-jest": "^23.10.5"
+  },
+  "engines": {
+    "node": ">=10.15.0",
+    "yarn": ">=1.13.0"
+  },
   "files": [
     "build"
   ],
-  "dependencies": {},
-  "devDependencies": {},
+  "license": "UNLICENSED",
+  "main": "build/main.js",
+  "name": "@fintruth-sdk/server",
+  "private": true,
+  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/server",
   "scripts": {
-    "clean": "del build",
-    "prebuild": "yarn clean",
     "build": "tsc",
-    "lint": "eslint --cache 'src/**/*.{js,ts,tsx}'",
-    "start": "node build/main.js",
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  }
+    "clean": "del build",
+    "lint-types": "tsc --noEmit",
+    "prebuild": "del build",
+    "start": "yarn build && node build/main.js",
+    "test-units": "exit 0 && jest"
+  },
+  "typings": "build/main.d.js",
+  "version": "0.0.0"
 }

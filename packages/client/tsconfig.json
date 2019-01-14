@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "declaration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "module": "commonjs",
+    "isolatedModules": true,
+    "jsx": "react",
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
     "outDir": "build",
     "paths": {
       "*": ["src/*"]
     },
-    "sourceMap": true,
     "typeRoots": ["types", "../../node_modules/@types"]
   },
   "exclude": ["build", "node_modules"],
