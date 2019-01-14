@@ -3,15 +3,20 @@ const path = require('path')
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
-const isDebug = !process.argv.includes('--release')
+const isRelease = process.argv.includes('--release')
+const mode = isRelease ? 'production' : 'development'
 
 module.exports = {
-  bail: false,
-  context: path.resolve(__dirname),
-  devtool: isDebug ? 'cheap-module-source-map' : 'source-map',
+  bail: isRelease,
+  devtool: isRelease ? 'source-map' : 'cheap-module-source-map',
   entry: './src/main.ts',
-  externals: [nodeExternals()],
-  mode: isDebug ? 'development' : 'production',
+  target: 'node',
+  externals: [
+    nodeExternals(),
+    nodeExternals({
+      modulesDir: path.resolve(__dirname, '../../node_modules')
+    })],
+  mode,
   module: {
     rules: [
       {
@@ -24,9 +29,11 @@ module.exports = {
       },
     ],
   },
-  node: false,
   resolve: {
-    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    modules: [
+      path.resolve(__dirname, 'src'),
+      'node_modules'
+    ],
     symlinks: false,
     extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.js', '.json'],
   },
@@ -35,13 +42,14 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
   },
   plugins: [
-    new webpack.IgnorePlugin(/^pg-native$/),
     new ForkTsCheckerWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': mode,
+    }),
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
       entryOnly: false,
       raw: true,
     }),
   ],
-  target: 'node',
 }
