@@ -44,7 +44,7 @@ module.exports = {
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': mode,
+      'process.env.NODE_ENV': `'${mode}'`,
     }),
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
