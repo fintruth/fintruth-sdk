@@ -50,7 +50,7 @@
     "build": "webpack",
     "lint": "run-p lint:*",
     "lint:types": "tsc --noEmit",
-    "lint:scripts": "eslint --cache ",
+    "lint:scripts": "eslint --ext .js,.ts .",
     "start": "nodemon",
     "test": "echo \"Error: run tests from root\" && exit 1"
   }
