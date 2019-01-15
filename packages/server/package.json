@@ -47,7 +47,7 @@
   },
   "scripts": {
     "clean": "del build",
-    "build": "webpack",
+    "build": "webpack --config config/webpack.config.js",
     "lint": "run-p lint:*",
     "lint:types": "tsc --noEmit",
     "lint:scripts": "eslint . --ext .js,.ts",

@@ -26,6 +26,8 @@ yarn test
 
 ## Build
 
+From project root
+
 ```bash
 docker build -t fintruth/server .
 ...
