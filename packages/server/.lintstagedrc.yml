@@ -1,0 +1,8 @@
+linters:
+  src/*.{ts,tsx}:
+    - eslint --fix
+    - jest --bail --findRelatedTests
+    - git add
+  '*.{json,md,yml}':
+    - prettier --write
+    - git add

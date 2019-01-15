@@ -18,42 +18,29 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-typescript": "^1.0.0-rc.2",
     "husky": "~1.3.1",
-    "jest": "^23.6.0",
-    "jest-junit": "^5.2.0",
+    "jest": "~23.6.0",
+    "jest-junit": "^6.0.1",
     "lerna": "^3.10.2",
     "lint-staged": "^8.1.0",
+    "npm-run-all": "~4.1.5",
     "prettier": "^1.15.3",
-    "ts-jest": "^23.10.5",
-    "typescript": "~3.2.2"
+    "ts-jest": "~23.10.5",
+    "typescript": "~3.1.1"
   },
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "clean": "lerna exec --parallel -- del build",
-    "lint": "yarn lint:scripts",
-    "lint:scripts": "eslint --cache --ext .js,.ts .",
-    "prebuild": "yarn clean",
     "build": "lerna run build",
+    "clean": "lerna exec --parallel -- del build",
+    "lint": "lerna run --parallel lint",
+    "prebuild": "yarn clean",
     "start": "lerna run --scope @fintruth-sdk/server start",
-    "test": "jest"
+    "test": "lerna run test"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "linters": {
-      "*.{js,ts,tsx}": [
-        "eslint --fix",
-        "jest --bail --findRelatedTests",
-        "git add"
-      ],
-      "*.{json,md,yml}": [
-        "prettier --write",
-        "git add"
-      ]
+      "pre-commit": "lerna run --concurrency 1 --stream precommit"
     }
   }
 }

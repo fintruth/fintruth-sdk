@@ -12,6 +12,17 @@ overrides:
       - '**/?(*.)test.ts?(x)'
     plugins:
       - jest
+    rules:
+      jest/no-alias-methods: warn
+      jest/no-disabled-tests: warn
+      jest/no-focused-tests: error
+      jest/no-identical-title: error
+      jest/no-jasmine-globals: warn
+      jest/no-jest-import: error
+      jest/no-test-prefixes: error
+      jest/valid-describe: error
+      jest/valid-expect-in-promise: error
+      jest/valid-expect: error
 parser: eslint-plugin-typescript/parser
 plugins:
   - import
