@@ -18,12 +18,11 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-typescript": "^1.0.0-rc.2",
     "husky": "~1.3.1",
-    "jest": "^23.6.0",
-    "jest-junit": "^5.2.0",
+    "jest": "~23.6.0",
+    "jest-junit": "^6.0.1",
     "lerna": "^3.10.2",
-    "lint-staged": "^8.1.0",
     "prettier": "^1.15.3",
-    "ts-jest": "^23.10.5",
+    "ts-jest": "~23.10.5",
     "typescript": "~3.1.1"
   },
   "workspaces": [
@@ -35,7 +34,7 @@
     "lint": "lerna run --parallel lint",
     "prebuild": "yarn clean",
     "start": "lerna run --scope @fintruth-sdk/server start",
-    "test": "lerna run jest"
+    "test": "lerna run test"
   },
   "husky": {
     "hooks": {

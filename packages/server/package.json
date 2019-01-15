@@ -50,10 +50,10 @@
     "build": "webpack",
     "lint": "run-p lint:*",
     "lint:types": "tsc --noEmit",
-    "lint:scripts": "eslint --ext .js,.ts .",
+    "lint:scripts": "eslint . --ext .js,.ts",
     "prebuild": "yarn clean",
     "precommit": "lint-staged",
     "start": "nodemon",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "jest"
   }
 }
