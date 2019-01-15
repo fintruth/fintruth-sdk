@@ -1,12 +1,12 @@
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const path = require('path')
-const webpack = require('webpack')
-const nodeExternals = require('webpack-node-externals')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 
-const isRelease = process.argv.includes('--release')
-const mode = isRelease ? 'production' : 'development'
+const isRelease = process.argv.includes('--release');
+const mode = isRelease ? 'production' : 'development';
 
-const rootDir = path.resolve(__dirname, '..')
+const rootDir = path.resolve(__dirname, '..');
 
 module.exports = {
   bail: isRelease,
@@ -55,4 +55,4 @@ module.exports = {
       raw: true,
     }),
   ],
-}
+};
