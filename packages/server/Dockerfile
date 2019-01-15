@@ -13,16 +13,26 @@ RUN yarn install --non-interactive --silent
 # Build
 FROM dependencies AS build
 COPY . .
-RUN yarn build
+RUN yarn build --release
 
 # Release
 FROM base AS release
+# Install dockerize
+ENV DOCKERIZE_VERSION v0.6.1
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+&& rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+# Copy dependencies and build
 COPY --from=dependencies /app/prod_node_modules ./node_modules
 COPY --from=dependencies /app/packages/server/node_modules ./packages/server/node_modules
 COPY --from=build /app/packages/server/build ./packages/server/
+# Copy server configuration
 WORKDIR ./packages/server
 COPY ./packages/server/.env.prod ./.env
 COPY ./packages/server/.env.example \
-     ./packages/server/ormconfig.js ./
+     ./packages/server/ormconfig.js \
+     ./packages/server/docker-entrypoint.sh ./
+# Run application
 EXPOSE 3000
+ENTRYPOINT [ "docker-entrypoint.sh" ]
 CMD [ "node", "main.js" ]

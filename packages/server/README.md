@@ -26,10 +26,20 @@ yarn test
 
 ## Build
 
-From project root
+```bash
+yarn build
+```
+
+## Docker
+
+Build docker image (from project root):
 
 ```bash
-docker build -t fintruth/server .
-...
-docker-compose -f docker-compose.yml -f docker-compose.stage.yml up
+docker build -t fintruth/server:latest -f ./packages/server/Dockerfile .
+```
+
+Start application locally:
+
+```bash
+docker-compose up
 ```
