@@ -9,6 +9,7 @@ import {
 
 import { isDev } from 'config'
 import { logger } from 'logger'
+import { AuthResolver } from 'resolvers/auth-resolver'
 import { UserResolver } from 'resolvers/user-resolver'
 
 typeORMUseContainer(Container)
@@ -17,7 +18,8 @@ typeGraphQLUseContainer(Container)
 export const createApolloServer = async (): Promise<ApolloServer> => {
   const schema = await buildSchema({
     emitSchemaFile: './schema.graphql',
-    resolvers: [UserResolver],
+    resolvers: [AuthResolver, UserResolver],
+    validate: true, // see https://github.com/typestack/class-validator/issues/261
   })
 
   return new ApolloServer({

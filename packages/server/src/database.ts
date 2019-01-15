@@ -14,6 +14,7 @@ export const createDatabaseConnection = (): Promise<User> =>
     const user = new User()
     user.id = '496ca0bf-470b-479a-b56d-f17c063003b1'
     user.email = 'demo@fintruth.com'
+    user.password = 'nopassword'
 
     return connection.manager.save(user)
   })
