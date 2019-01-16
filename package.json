@@ -48,6 +48,7 @@
     "prebuild": "yarn clean",
     "test": "lerna run test"
   },
+  "version": "0.0.0",
   "workspaces": {
     "nohoist": [
       "**/@loadable/server",
@@ -61,7 +62,6 @@
       "packages/*"
     ]
   },
-  "version": "0.0.0",
   "husky": {
     "hooks": {
       "pre-commit": "lerna exec --concurrency 1 --stream lint-staged"
