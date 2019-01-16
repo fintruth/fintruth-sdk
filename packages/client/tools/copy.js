@@ -20,7 +20,7 @@ const copy = async () => {
         2
       )
     ),
-    copyFile('yarn.lock', 'build/yarn.lock'),
+    copyFile('../../yarn.lock', 'build/yarn.lock'),
     copyDir('public', 'build/public'),
   ])
 

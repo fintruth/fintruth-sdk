@@ -1,6 +1,6 @@
 # Fintruth SDK
 
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
+[![Lerna](https://flat.badgen.net/badge/maintained%20with/lerna/cc00ff)](https://github.com/lerna/lerna/)
 
 ### Setup
 

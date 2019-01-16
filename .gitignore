@@ -1,21 +1,7 @@
 # Read about how to use .gitignore: https://git-scm.com/docs/gitignore
 
-# Compiled output
-packages/client/build/*.js
-packages/client/build/*.js.map
-packages/server/build
-
-# Test coverage
-coverage
-
 # Dependencies
 node_modules
 
 # Logs
 *.log*
-
-# Miscellaneous
-.env*
-!.env.example
-.eslintcache
-.stylelintcache

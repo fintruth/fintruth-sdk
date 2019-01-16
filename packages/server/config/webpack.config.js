@@ -1,12 +1,12 @@
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const path = require('path');
-const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const path = require('path')
+const webpack = require('webpack')
+const nodeExternals = require('webpack-node-externals')
 
-const isRelease = process.argv.includes('--release');
-const mode = isRelease ? 'production' : 'development';
+const isRelease = process.argv.includes('--release')
+const mode = isRelease ? 'production' : 'development'
 
-const rootDir = path.resolve(__dirname, '..');
+const rootDir = path.resolve(__dirname, '..')
 
 module.exports = {
   bail: isRelease,
@@ -17,8 +17,9 @@ module.exports = {
   externals: [
     nodeExternals(),
     nodeExternals({
-      modulesDir: path.resolve(rootDir, '../../node_modules')
-    })],
+      modulesDir: path.resolve(rootDir, '../../node_modules'),
+    }),
+  ],
   mode,
   module: {
     rules: [
@@ -33,10 +34,7 @@ module.exports = {
     ],
   },
   resolve: {
-    modules: [
-      path.resolve(rootDir, 'src'),
-      'node_modules'
-    ],
+    modules: [path.resolve(rootDir, 'src'), 'node_modules'],
     symlinks: false,
     extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.js', '.json'],
   },
@@ -55,4 +53,4 @@ module.exports = {
       raw: true,
     }),
   ],
-};
+}

@@ -95,8 +95,8 @@ const sharedConfig = {
   },
   plugins: [
     new DotenvPlugin({
-      path: path.resolve(__dirname, `../.env${isRelease ? '' : '.local'}`),
-      safe: path.resolve(__dirname, '../.env.example'),
+      path: path.join(ROOT_DIR, `.env${isRelease ? '' : '.local'}`),
+      safe: path.join(ROOT_DIR, '.env.example'),
     }),
   ],
   resolve: {
@@ -143,7 +143,7 @@ const clientConfig = {
     splitChunks: {
       cacheGroups: {
         commons: {
-          test: /[\\/]node_modules[\\/]/,
+          test: /[/\\\\]node_modules[/\\\\]/,
           chunks: 'initial',
           name: 'vendors',
         },

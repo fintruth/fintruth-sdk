@@ -2,7 +2,6 @@
 
 # Compiled output
 build
-storybook-static
 
 # Test coverage
 coverage
@@ -11,4 +10,3 @@ coverage
 .env*
 !.env.example
 .eslintcache
-.stylelintcache

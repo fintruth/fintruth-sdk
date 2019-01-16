@@ -21,7 +21,6 @@ overrides:
       typescript/array-type: error
       typescript/ban-types: error
       typescript/class-name-casing: error
-      typescript/explicit-member-accessibility: error
       typescript/interface-name-prefix: error
       typescript/no-angle-bracket-type-assertion: error
       typescript/no-array-constructor: error

@@ -30,7 +30,7 @@ COPY --from=build /app/packages/server/build ./packages/server/
 WORKDIR ./packages/server
 COPY ./packages/server/.env.prod ./.env
 COPY ./packages/server/.env.example \
-     ./packages/server/ormconfig.js \
+     ./packages/server/ormconfig.yml \
      ./packages/server/docker-entrypoint.sh ./
 # Run application
 EXPOSE 3000

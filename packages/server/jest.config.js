@@ -1,7 +1,9 @@
+'use strict'
+
 module.exports = {
   collectCoverageFrom: ['src/**/*.ts'],
   errorOnDeprecated: true,
-  moduleDirectories: ['<rootDir>/node_modules', '<rootDir>/src'],
+  moduleDirectories: ['node_modules', '<rootDir>/src'],
   moduleFileExtensions: ['js', 'json', 'ts', 'tsx'],
   restoreMocks: true,
   testMatch: ['<rootDir>/src/**/?(*.)test.ts?(x)'],

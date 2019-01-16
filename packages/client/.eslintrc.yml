@@ -3,7 +3,9 @@ extends:
   - standard-react
   - plugin:import/recommended
   - plugin:jsx-a11y/recommended
+  - plugin:monorepo/recommended
   - plugin:promise/recommended
+  - plugin:ramda/recommended
   - plugin:react/recommended
   - plugin:unicorn/recommended
   - prettier
@@ -65,8 +67,10 @@ overrides:
 plugins:
   - import
   - jsx-a11y
+  - monorepo
   - prettier
   - promise
+  - ramda
   - react
   - standard
   - unicorn
