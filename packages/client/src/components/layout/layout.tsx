@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { Link as BaseLink } from '@reach/router'
 import { rem } from 'polished'
-import { contentContainer, medium, untilMedium } from 'styles/mixins'
+import { content, medium, untilMedium } from 'styles/mixins'
 
 interface Props {
   children: React.ReactNode
@@ -15,7 +15,7 @@ const Root = styled.div`
 `
 
 const Navbar = styled.nav`
-  ${contentContainer};
+  ${content};
   display: flex;
   min-height: ${rem(52)};
   width: 100%;

@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import Layout from 'components/layout'
-import { contentContainer, title } from 'styles/mixins'
+import { content, title } from 'styles/mixins'
 
 const Root = styled.div`
-  ${contentContainer};
+  ${content};
   align-items: center;
   display: flex;
   flex-direction: column;

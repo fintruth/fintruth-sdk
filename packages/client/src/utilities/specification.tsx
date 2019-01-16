@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   LocationProvider,
-  LocationProviderRenderFn, // eslint-disable-line import/named
+  LocationProviderRenderFn,
   createHistory,
   createMemorySource,
 } from '@reach/router'

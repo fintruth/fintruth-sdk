@@ -1,18 +1,20 @@
 import { FlattenInterpolation, ThemedStyledProps, css } from 'styled-components' // eslint-disable-line import/named
 import { rem } from 'polished'
 import {
+  azure,
   jet,
   viewportLg,
   viewportMd,
   viewportSm,
   viewportXl,
+  watermelon,
 } from './variables'
 
 const media = (queries: string) => (
   content: FlattenInterpolation<ThemedStyledProps<{}, {}>>
 ) => css`
   @media ${queries} {
-    ${content};
+    ${content}
   }
 `
 
@@ -40,7 +42,7 @@ export const isHiddenTablet = css`
   `)};
 `
 
-export const contentContainer = css`
+export const content = css`
   margin: 0 auto;
 
   ${medium(css`
@@ -57,6 +59,23 @@ export const contentContainer = css`
     max-width: 1344px;
     width: 1344px;
   `)};
+`
+
+export const link = css`
+  color: ${azure};
+  font-size: ${rem(12)};
+  font-weight: 700;
+
+  &:hover {
+    color: ${azure};
+    text-decoration: underline;
+  }
+`
+
+export const notice = css`
+  color: ${watermelon};
+  font-size: ${rem(12)};
+  font-weight: 500;
 `
 
 export const title = css`

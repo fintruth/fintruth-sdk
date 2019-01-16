@@ -20,21 +20,27 @@ const createConfig = ({ env }) => {
       },
     },
     ignore: ['build', 'node_modules'],
+    overrides: [
+      {
+        test: /src\/client\.tsx$/,
+        presets: [
+          ['@babel/preset-env', { modules: false, useBuiltIns: 'entry' }],
+        ],
+      },
+    ],
     plugins: [
       '@babel/plugin-proposal-class-properties',
       ['@babel/plugin-proposal-object-rest-spread', { useBuiltIns: true }],
       '@babel/plugin-syntax-dynamic-import',
       ['@babel/plugin-transform-runtime', { corejs: 2, helpers: false }],
+      '@loadable/babel-plugin',
+      'graphql-tag',
       'polished',
+      ['ramda', { useEs: true }],
       ['styled-components', { displayName: isEnvDev, pure: isEnvProd }],
     ],
     presets: [
-      [
-        '@babel/preset-env',
-        isEnvTest
-          ? { targets: { node: node.match(/(\d+\.?)+/)[0] } }
-          : { modules: false, useBuiltIns: 'entry' },
-      ],
+      ['@babel/preset-env', { targets: { node: node.match(/(\d+\.?)+/)[0] } }],
       [
         '@babel/preset-react',
         { development: isEnvDev || isEnvTest, useBuiltIns: true },

@@ -28,9 +28,9 @@ setAddon({
 addDecorator(
   withOptions({
     hierarchyRootSeparator: /\|/,
-    name: '',
+    name: '@fintruth-sdk/client',
     selectedAddonPanel: 'storybooks/storybook-addon-knobs',
-    url: '',
+    url: 'https://github.com/fintruth/fintruth-sdk/tree/master/packages/client',
   })
 )
 addDecorator(checkA11y)

@@ -1,16 +1,27 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "lib": ["dom", "esnext"],
     "module": "esnext",
+    "moduleResolution": "node",
+    "noErrorTruncation": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "build",
     "paths": {
       "*": ["src/*"]
     },
-    "typeRoots": ["types", "../../node_modules/@types"]
+    "removeComments": true,
+    "strict": true,
+    "target": "esnext"
   },
   "exclude": ["build", "node_modules"],
-  "extends": "../../config/tsconfig.json"
+  "include": ["**/*", ".*/**/*"]
 }
