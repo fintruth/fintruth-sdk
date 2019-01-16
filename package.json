@@ -27,7 +27,7 @@
     "jest-circus": "^23.6.0",
     "lerna": "^3.10.5",
     "lint-staged": "^8.1.0",
-    "npm-run-all": "~4.1.5",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.15.3",
     "stylelint": "^9.9.0",
     "stylelint-config-prettier": "^4.0.0",
@@ -49,16 +49,11 @@
     "url": "git+https://github.com/fintruth/fintruth-sdk.git"
   },
   "scripts": {
-    "clean": "del .eslintcache .stylelintcache && lerna run clean",
-    "prebuild": "yarn clean",
     "build": "lerna run build",
-    "lint": "run-p lint:*",
-    "lint:scripts": "eslint --cache '**/*.{ts,tsx}'",
-    "lint:styles": "stylelint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{ts,tsx}'",
-    "lint:types": "lerna run lint-types",
-    "start": "lerna run start",
-    "test": "yarn test-units",
-    "test-units": "lerna run test-units"
+    "clean": "lerna run clean",
+    "lint": "lerna run lint",
+    "prebuild": "yarn clean",
+    "test": "lerna run test"
   },
   "version": "0.0.0",
   "workspaces": [
@@ -66,7 +61,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run --concurrency 1 --stream precommit"
+      "pre-commit": "lerna exec -- lint-staged"
     }
   }
 }

@@ -24,7 +24,6 @@
     "@types/graphql": "~14.0.4",
     "@types/koa-morgan": "~1.0.4",
     "@types/koa-router": "~7.0.37",
-    "@types/node": "^10.12.18",
     "@types/split": "~1.0.0",
     "fork-ts-checker-webpack-plugin": "~0.5.2",
     "nodemon": "^1.18.9",
@@ -33,7 +32,6 @@
     "ts-loader": "~5.3.3",
     "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.7.0",
-    "typescript": "~3.2.2",
     "webpack": "~4.28.4",
     "webpack-cli": "~3.2.1",
     "webpack-node-externals": "~1.7.2"
@@ -51,14 +49,14 @@
   "private": true,
   "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/server",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config config/webpack.config.js",
     "clean": "del build",
     "lint": "run-p lint:*",
-    "lint:types": "tsc --noEmit",
     "lint:scripts": "eslint --ext .js,.ts .",
+    "lint:types": "tsc --noEmit",
     "prebuild": "yarn clean",
     "start": "nodemon",
-    "test-units": "exit 0 && jest"
+    "test": "jest"
   },
   "typings": "build/main.d.js",
   "version": "0.0.0"

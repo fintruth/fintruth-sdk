@@ -1,20 +1,23 @@
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const path = require('path')
-const webpack = require('webpack')
-const nodeExternals = require('webpack-node-externals')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 
-const isRelease = process.argv.includes('--release')
-const mode = isRelease ? 'production' : 'development'
+const isRelease = process.argv.includes('--release');
+const mode = isRelease ? 'production' : 'development';
+
+const rootDir = path.resolve(__dirname, '..');
 
 module.exports = {
   bail: isRelease,
+  context: rootDir,
   devtool: isRelease ? 'source-map' : 'cheap-module-source-map',
   entry: './src/main.ts',
   target: 'node',
   externals: [
     nodeExternals(),
     nodeExternals({
-      modulesDir: path.resolve(__dirname, '../../node_modules')
+      modulesDir: path.resolve(rootDir, '../../node_modules')
     })],
   mode,
   module: {
@@ -31,7 +34,7 @@ module.exports = {
   },
   resolve: {
     modules: [
-      path.resolve(__dirname, 'src'),
+      path.resolve(rootDir, 'src'),
       'node_modules'
     ],
     symlinks: false,
@@ -39,7 +42,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(rootDir, 'build'),
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
@@ -52,4 +55,4 @@ module.exports = {
       raw: true,
     }),
   ],
-}
+};
