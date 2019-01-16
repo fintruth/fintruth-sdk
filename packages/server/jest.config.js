@@ -1,9 +1,15 @@
+'use strict'
+
 module.exports = {
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  roots: ['<rootDir>/src'],
-  setupTestFrameworkScriptFile: '<rootDir>/config/jest.setup.ts',
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+  collectCoverageFrom: ['src/**/*.ts'],
+  errorOnDeprecated: true,
+  moduleDirectories: ['node_modules', '<rootDir>/src'],
+  moduleFileExtensions: ['js', 'json', 'ts', 'tsx'],
+  restoreMocks: true,
+  testMatch: ['<rootDir>/src/**/?(*.)test.ts?(x)'],
+  testRunner: 'jest-circus/runner',
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.ts(x)?$': 'ts-jest',
   },
+  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.js$'],
 }

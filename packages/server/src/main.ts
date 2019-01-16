@@ -13,7 +13,7 @@ const bootstrap = async (): Promise<void> => {
 
   const app = new Koa()
   app
-    .use(morgan('common', { stream: logger.stream } as any))
+    .use(morgan('common', { stream: logger.stream } as any)) // eslint-disable-line typescript/no-explicit-any
     .use(jwt({ secret, passthrough: true }))
 
   const server = await createApolloServer()
