@@ -1,0 +1,90 @@
+extends:
+  - standard
+  - standard-react
+  - plugin:import/recommended
+  - plugin:jsx-a11y/recommended
+  - plugin:monorepo/recommended
+  - plugin:promise/recommended
+  - plugin:ramda/recommended
+  - plugin:react/recommended
+  - plugin:unicorn/recommended
+  - prettier
+  - prettier/react
+  - prettier/standard
+globals:
+  __DEV__: false
+overrides:
+  - files:
+      - '**/*.ts?(x)'
+      - '.*/**/*.ts?(x)'
+    parser: eslint-plugin-typescript/parser
+    plugins:
+      - typescript
+    rules:
+      no-array-constructor: off
+      no-unused-vars: off
+      no-use-before-define: off
+      typescript/adjacent-overload-signatures: error
+      typescript/array-type: error
+      typescript/ban-types: error
+      typescript/class-name-casing: error
+      typescript/explicit-member-accessibility: error
+      typescript/interface-name-prefix: error
+      typescript/no-angle-bracket-type-assertion: error
+      typescript/no-array-constructor: error
+      typescript/no-empty-interface: error
+      typescript/no-inferrable-types: error
+      typescript/no-misused-new: error
+      typescript/no-namespace: error
+      typescript/no-non-null-assertion: error
+      typescript/no-object-literal-type-assertion: error
+      typescript/no-parameter-properties: error
+      typescript/no-triple-slash-reference: error
+      typescript/no-unused-vars: warn
+      typescript/no-use-before-define: error
+      typescript/no-var-requires: error
+      typescript/prefer-interface: error
+      typescript/prefer-namespace-keyword: error
+      typescript/type-annotation-spacing: error
+  - files:
+      - 'config/jest/**/*.?(js|ts)'
+      - 'src/**/?(*.)test.ts?(x)'
+    env:
+      jest: true
+    plugins:
+      - jest
+    rules:
+      jest/no-alias-methods: warn
+      jest/no-disabled-tests: warn
+      jest/no-focused-tests: error
+      jest/no-identical-title: error
+      jest/no-jasmine-globals: warn
+      jest/no-jest-import: error
+      jest/no-test-prefixes: error
+      jest/valid-describe: error
+      jest/valid-expect-in-promise: error
+      jest/valid-expect: error
+plugins:
+  - import
+  - jsx-a11y
+  - monorepo
+  - prettier
+  - promise
+  - ramda
+  - react
+  - standard
+  - unicorn
+rules:
+  no-console:
+    - error
+    - allow:
+        - error
+        - info
+        - warn
+  no-param-reassign:
+    - error
+    - props: true
+  prettier/prettier: error
+settings:
+  import/resolver:
+    typescript: true

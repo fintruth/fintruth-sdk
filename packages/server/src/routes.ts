@@ -2,6 +2,7 @@ import Router from 'koa-router'
 
 export const router = new Router()
 
-router.get('/', ctx => {
-  ctx.body = 'It works!'
-})
+router.get('/', (ctx: unknown) => ({
+  ...ctx,
+  body: 'It works!',
+}))

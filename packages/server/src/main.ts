@@ -10,7 +10,7 @@ const bootstrap = async (): Promise<void> => {
   await createDatabaseConnection()
 
   const app = new Koa()
-  app.use(morgan('common', { stream: logger.stream } as any))
+  app.use(morgan('common', { stream: logger.stream } as any)) // eslint-disable-line typescript/no-explicit-any
 
   const server = await createApolloServer()
   server.applyMiddleware({ app })

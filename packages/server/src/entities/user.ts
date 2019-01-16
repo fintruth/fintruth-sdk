@@ -12,17 +12,17 @@ import {
 export class User {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  id!: string
 
   @Field()
   @Column()
-  email: string
+  email!: string
 
   @Field()
   @CreateDateColumn()
-  createdAt: Date
+  createdAt!: Date
 
   @Field()
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt!: Date
 }

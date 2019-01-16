@@ -1,55 +1,74 @@
 {
-  "name": "@fintruth-sdk/server",
-  "version": "0.0.0",
-  "description": "> TODO: description",
   "author": "Fintruth LLC",
-  "license": "UNLICENSED",
-  "main": "build/main.js",
-  "typings": "build/main.d.js",
-  "files": [
-    "build"
-  ],
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "apollo-server-koa": "~2.3.1",
     "dotenv-safe": "~6.1.0",
-    "graphql": "~14.0.2",
+    "graphql": "^14.1.0",
     "koa": "~2.6.2",
     "koa-morgan": "~1.0.1",
     "koa-router": "~7.4.0",
-    "pg": "~7.7.1",
-    "reflect-metadata": "~0.1.12",
-    "source-map-support": "~0.5.10",
+    "pg": "~7.8.0",
+    "reflect-metadata": "~0.1.13",
+    "source-map-support": "^0.5.10",
     "split": "~1.0.1",
     "type-graphql": "~0.16.0",
     "typedi": "~0.8.0",
     "typeorm": "~0.2.11",
-    "typeorm-typedi-extensions": "~0.2.1",
+    "typeorm-typedi-extensions": "~0.2.3",
     "winston": "~3.1.0"
   },
+  "description": "An opinionated boilerplate for server development",
   "devDependencies": {
     "@types/dotenv-safe": "~5.0.3",
-    "@types/graphql": "~14.0.4",
     "@types/koa-morgan": "~1.0.4",
     "@types/koa-router": "~7.0.37",
     "@types/split": "~1.0.0",
+    "del-cli": "^1.1.0",
     "fork-ts-checker-webpack-plugin": "~0.5.2",
     "nodemon": "^1.18.9",
+    "ts-jest": "^23.10.5",
     "ts-loader": "~5.3.3",
     "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.7.0",
-    "webpack": "~4.28.4",
-    "webpack-cli": "~3.2.1",
-    "webpack-node-externals": "~1.7.2"
+    "webpack-cli": "~3.2.1"
   },
+  "engines": {
+    "node": ">=10.15.0",
+    "yarn": ">=1.12.0"
+  },
+  "files": [
+    "build"
+  ],
+  "license": "UNLICENSED",
+  "main": "build/main.js",
+  "name": "@fintruth-sdk/server",
+  "private": true,
+  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/server",
   "scripts": {
-    "clean": "del build",
     "build": "webpack --config config/webpack.config.js",
+    "clean": "del build",
     "lint": "run-p lint:*",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
     "lint:types": "tsc --noEmit",
-    "lint:scripts": "eslint . --ext .js,.ts",
     "prebuild": "yarn clean",
-    "precommit": "lint-staged",
     "start": "nodemon",
-    "test": "jest"
+    "test": "run-p test:*",
+    "test:units": "exit 0 && jest"
+  },
+  "typings": "build/main.d.js",
+  "version": "0.0.0",
+  "lint-staged": {
+    "linters": {
+      "*.{js,ts}": [
+        "eslint --fix",
+        "jest --bail --findRelatedTests",
+        "git add"
+      ],
+      "*.{json,md,yml}": [
+        "prettier --write",
+        "git add"
+      ]
+    }
   }
 }

@@ -7,7 +7,7 @@ import { User } from 'entities/user'
 @Resolver(() => User)
 export class UserResolver {
   @InjectRepository(User)
-  private readonly userRepository: Repository<User>
+  private readonly userRepository!: Repository<User>
 
   @Query(() => User, { nullable: true })
   user(@Arg('id', () => ID) id: string): Promise<User | undefined> {

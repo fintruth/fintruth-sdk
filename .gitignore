@@ -1,16 +1,7 @@
-node_modules/
+# Read about how to use .gitignore: https://git-scm.com/docs/gitignore
 
-# Compiled output
-packages/*/build
+# Dependencies
+node_modules
 
 # Logs
 *.log*
-
-# Idea project files
-.idea
-
-# Miscellaneous
-.env*
-!.env.example
-.eslintcache
-.stylelintcache
