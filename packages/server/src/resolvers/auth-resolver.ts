@@ -1,4 +1,5 @@
 import { ApolloError } from 'apollo-server-express'
+import { GraphQLBoolean } from 'graphql'
 import jwt from 'jsonwebtoken'
 import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
@@ -35,6 +36,13 @@ export class AuthResolver {
     })
 
     return user
+  }
+
+  @Mutation(() => GraphQLBoolean)
+  logout(@Ctx() { res }: Context) {
+    res.clearCookie('token-id')
+
+    return true
   }
 
   @Mutation(() => RegistrationResponse)

@@ -17,6 +17,7 @@ type LoginResponse {
 
 type Mutation {
   login(input: LoginInput!): User!
+  logout: Boolean!
   register(input: RegistrationInput!): RegistrationResponse!
 }
 
