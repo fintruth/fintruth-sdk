@@ -8,8 +8,8 @@ extends:
   - prettier/standard
 overrides:
   - files:
-      - '**/*.ts?(x)'
-      - '.*/**/*.ts?(x)'
+      - '**/*.ts'
+      - '.*/**/*.ts'
     parser: eslint-plugin-typescript/parser
     plugins:
       - typescript
@@ -42,7 +42,7 @@ overrides:
       typescript/type-annotation-spacing: error
   - files:
       - 'config/jest/**/*.?(js|ts)'
-      - 'src/**/?(*.)test.ts?(x)'
+      - 'src/**/?(*.)test.ts'
     env:
       jest: true
     plugins:

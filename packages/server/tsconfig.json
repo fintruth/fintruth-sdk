@@ -24,5 +24,5 @@
     "strictPropertyInitialization": false,
     "target": "esnext"
   },
-  "exclude": ["config", "node_modules", "**/*.test.ts"]
+  "exclude": ["config", "node_modules", "src/**/?(*.)test.ts"]
 }
