@@ -16,7 +16,7 @@ type LoginResponse {
 }
 
 type Mutation {
-  login(input: LoginInput!): LoginResponse!
+  login(input: LoginInput!): User!
   register(input: RegistrationInput!): RegistrationResponse!
 }
 

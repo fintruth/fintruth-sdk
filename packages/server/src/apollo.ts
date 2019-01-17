@@ -1,5 +1,4 @@
 import { ApolloError, ApolloServer } from 'apollo-server-express'
-import { Request, Response } from 'express'
 import { tap } from 'ramda'
 import { Container } from 'typedi'
 import { useContainer as typeORMUseContainer } from 'typeorm'
@@ -13,15 +12,23 @@ import { logger } from 'logger'
 import { AuthResolver } from 'resolvers/auth-resolver'
 import { UserResolver } from 'resolvers/user-resolver'
 
-interface Context {
-  req: Request
-  res: Response
+import { ServerRequest, ServerResponse } from './server'
+import { User } from 'entities/user'
+
+interface RequestParams {
+  req: ServerRequest
+  res: ServerResponse
+}
+
+export interface Context {
+  res: ServerResponse
+  user?: User
 }
 
 typeORMUseContainer(Container)
 typeGraphQLUseContainer(Container)
 
-const logError = (e: ApolloError) => logger.error('[graphql]', e)
+const logError = (e: ApolloError) => logger.error('[apollo]', e)
 
 export const createApolloServer = async (): Promise<ApolloServer> => {
   const schema = await buildSchema({
@@ -31,7 +38,10 @@ export const createApolloServer = async (): Promise<ApolloServer> => {
   })
 
   return new ApolloServer({
-    context: ({ req, res }: Context) => ({ req, res }),
+    context: ({ req, res }: RequestParams): Context => ({
+      res,
+      user: req.user,
+    }),
     debug: isDev,
     formatError: tap(logError),
     playground: isDev,

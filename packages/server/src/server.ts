@@ -4,7 +4,16 @@ import expressJwt, { UnauthorizedError } from 'express-jwt'
 import morgan from 'morgan'
 
 import { secret, trustProxy } from 'config'
+import { User } from 'entities/user'
 import { logger } from 'logger'
+
+export interface ServerRequest extends Request {
+  user?: User
+}
+
+export interface ServerResponse extends Response {
+  cookies: Cookies
+}
 
 const logUnauthorizedError = (
   err: any,

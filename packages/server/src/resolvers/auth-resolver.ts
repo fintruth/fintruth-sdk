@@ -1,28 +1,52 @@
+import { ApolloError } from 'apollo-server-express'
+import jwt from 'jsonwebtoken'
 import { Inject } from 'typedi'
-import { Arg, Mutation, Resolver } from 'type-graphql'
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 
-import {
-  LoginInput,
-  LoginResponse,
-  RegistrationInput,
-  RegistrationResponse,
-} from './types'
-import { AuthService } from 'services/auth-service'
+import { LoginInput, RegistrationInput, RegistrationResponse } from './types'
+import { Context } from 'apollo'
+import { secret } from 'config'
+import { User } from 'entities/user'
+import { UserService } from 'services/user-service'
 
 @Resolver()
 export class AuthResolver {
   @Inject()
-  authService: AuthService
+  userService: UserService
 
-  @Mutation(() => LoginResponse)
-  async login(@Arg('input') input: LoginInput): Promise<LoginResponse> {
-    return this.authService.login(input)
+  @Mutation(() => User)
+  async login(
+    @Arg('input') { email, password }: LoginInput,
+    @Ctx() { res }: Context
+  ): Promise<User> {
+    const user = await this.userService.authenticate(email, password)
+
+    if (!user) {
+      throw new ApolloError('The user does not exist')
+    }
+
+    const expiresIn = 60 * 60 * 24 * 180
+    const token = jwt.sign({ id: user.id }, secret, { expiresIn })
+
+    res.cookies.set('token-id', token, {
+      httpOnly: true,
+      maxAge: expiresIn * 1000,
+      signed: false,
+    })
+
+    return user
   }
 
   @Mutation(() => RegistrationResponse)
-  async register(
-    @Arg('input') input: RegistrationInput
-  ): Promise<RegistrationResponse> {
-    return this.authService.register(input)
+  async register(@Arg('input') { email, password }: RegistrationInput): Promise<
+    RegistrationResponse
+  > {
+    const token = await this.userService.register(email, password)
+
+    if (!token) {
+      throw new ApolloError('The email is already taken')
+    }
+
+    return { token }
   }
 }
