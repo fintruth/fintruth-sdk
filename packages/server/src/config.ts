@@ -7,6 +7,7 @@ export const isProd = env === 'production'
 export const isDev = !isProd
 
 export const secret = process.env.APP_SECRET || ''
+export const trustProxy = process.env.TRUST_PROXY || 'loopback'
 
 export const database = {
   host: process.env.DB_HOST || '0.0.0.0',

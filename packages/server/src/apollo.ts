@@ -1,5 +1,5 @@
-import { ApolloError, ApolloServer } from 'apollo-server-koa'
-import { Request } from 'koa'
+import { ApolloError, ApolloServer } from 'apollo-server-express'
+import { Request, Response } from 'express'
 import { tap } from 'ramda'
 import { Container } from 'typedi'
 import { useContainer as typeORMUseContainer } from 'typeorm'
@@ -12,6 +12,11 @@ import { isDev } from 'config'
 import { logger } from 'logger'
 import { AuthResolver } from 'resolvers/auth-resolver'
 import { UserResolver } from 'resolvers/user-resolver'
+
+interface Context {
+  req: Request
+  res: Response
+}
 
 typeORMUseContainer(Container)
 typeGraphQLUseContainer(Container)
@@ -26,7 +31,7 @@ export const createApolloServer = async (): Promise<ApolloServer> => {
   })
 
   return new ApolloServer({
-    context: ({ ctx: { res, state } }: Request) => ({ res, state }),
+    context: ({ req, res }: Context) => ({ req, res }),
     debug: isDev,
     formatError: tap(logError),
     playground: isDev,

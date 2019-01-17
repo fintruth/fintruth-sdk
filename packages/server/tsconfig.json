@@ -16,7 +16,8 @@
     "noUnusedParameters": true,
     "outDir": "build",
     "paths": {
-      "*": ["src/*"]
+      "*": ["src/*"],
+      "express": ["node_modules/express"]
     },
     "removeComments": true,
     "sourceMap": true,
@@ -24,5 +25,5 @@
     "strictPropertyInitialization": false,
     "target": "esnext"
   },
-  "exclude": ["config", "node_modules", "src/**/?(*.)test.ts"]
+  "exclude": ["build", "node_modules"]
 }
