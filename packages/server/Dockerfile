@@ -13,7 +13,7 @@ RUN yarn install --non-interactive --silent
 # Build
 FROM dependencies AS build
 COPY . .
-RUN yarn build --release
+RUN cd packages/server && yarn build --release
 
 # Release
 FROM base AS release
@@ -32,7 +32,8 @@ COPY ./packages/server/.env.prod ./.env
 COPY ./packages/server/.env.example \
      ./packages/server/ormconfig.yml \
      ./packages/server/docker-entrypoint.sh ./
+RUN chmod +x docker-entrypoint.sh
 # Run application
 EXPOSE 3000
-ENTRYPOINT [ "docker-entrypoint.sh" ]
+ENTRYPOINT [ "/app/packages/server/docker-entrypoint.sh" ]
 CMD [ "node", "main.js" ]
