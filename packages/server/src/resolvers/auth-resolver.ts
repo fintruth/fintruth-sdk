@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 
-import { LoginInput, RegistrationInput, RegistrationResponse } from './types'
+import { RegistrationInput, RegistrationResponse } from './types'
 import { Context } from 'apollo'
 import { secret } from 'config'
 import { User } from 'entities/user'
@@ -17,7 +17,8 @@ export class AuthResolver {
 
   @Mutation(() => User)
   async login(
-    @Arg('input') { email, password }: LoginInput,
+    @Arg('email') email: string,
+    @Arg('password') password: string,
     @Ctx() { res }: Context
   ): Promise<User> {
     const user = await this.userService.authenticate(email, password)
