@@ -2,12 +2,12 @@ import { createApolloServer } from 'apollo'
 
 import { createDatabaseConnection } from 'database'
 import { logger } from 'logger'
-import { createExpressServer } from 'server'
+import { createServer } from 'server'
 
 const bootstrap = async (): Promise<void> => {
   await createDatabaseConnection()
 
-  const app = createExpressServer()
+  const app = createServer()
 
   const server = await createApolloServer()
   server.applyMiddleware({ app, path: '/api' })

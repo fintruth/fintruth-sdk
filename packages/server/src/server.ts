@@ -29,7 +29,7 @@ const logUnauthorizedError = (
   return next(err)
 }
 
-export const createExpressServer = () =>
+export const createServer = () =>
   express()
     .set('trust proxy', trustProxy)
     .use(Cookies.express(['token-id']))
