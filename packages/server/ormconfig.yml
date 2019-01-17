@@ -1,18 +1,18 @@
+type: postgres
+host: localhost
+username: postgres
+password: postgres
+port: 5432
+database: database
+logging: false
+synchronize: true
 cli:
   entitiesDir: src/entities
   migrationsDir: src/migrations
   subscribersDir: src/subscribers
-database: database
 entities:
   - src/entities/**/*.ts
-host: localhost
-logging: false
 migrations:
   - src/migrations/**/*.ts
-password: postgres
-port: 5432
 subscribers:
   - src/subscribers/**/*.ts
-synchronize: true
-type: postgres
-username: postgres

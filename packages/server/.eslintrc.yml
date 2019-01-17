@@ -3,6 +3,7 @@ extends:
   - plugin:import/recommended
   - plugin:monorepo/recommended
   - plugin:promise/recommended
+  - plugin:ramda/recommended
   - plugin:unicorn/recommended
   - prettier
   - prettier/standard
@@ -32,7 +33,7 @@ overrides:
       typescript/no-object-literal-type-assertion: error
       typescript/no-parameter-properties: error
       typescript/no-triple-slash-reference: error
-      typescript/no-unused-vars: warn
+      typescript/no-unused-vars: off
       typescript/no-use-before-define: error
       typescript/no-var-requires: error
       typescript/prefer-interface: error
@@ -61,6 +62,7 @@ plugins:
   - monorepo
   - prettier
   - promise
+  - ramda
   - standard
   - unicorn
 rules:

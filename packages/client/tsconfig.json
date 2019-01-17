@@ -20,6 +20,7 @@
     },
     "removeComments": true,
     "strict": true,
+    "strictPropertyInitialization": false,
     "target": "esnext"
   },
   "exclude": ["build", "node_modules"],
