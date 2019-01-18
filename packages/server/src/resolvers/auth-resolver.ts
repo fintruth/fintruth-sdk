@@ -16,17 +16,17 @@ export class AuthResolver {
   userService: UserService
 
   @Mutation(() => User)
+  async confirmRegistration(@Arg('token') token: string) {
+    return this.userService.confirmRegistration(token)
+  }
+
+  @Mutation(() => User)
   async login(
     @Arg('email') email: string,
     @Arg('password') password: string,
     @Ctx() { res }: Context
   ): Promise<User> {
     const user = await this.userService.authenticate(email, password)
-
-    if (!user) {
-      throw new ApolloError('The user does not exist')
-    }
-
     const expiresIn = 60 * 60 * 24 * 180
     const token = jwt.sign({ id: user.id }, secret, { expiresIn })
 

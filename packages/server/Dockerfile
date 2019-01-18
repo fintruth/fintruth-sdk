@@ -1,5 +1,6 @@
 # Base image
 FROM node:10.15-alpine AS base
+RUN apk add --no-cache make gcc g++ python
 WORKDIR /app
 COPY ./package.json yarn.lock ./
 COPY ./packages/server/package.json ./packages/server/
