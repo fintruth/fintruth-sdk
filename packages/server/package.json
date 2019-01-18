@@ -3,6 +3,7 @@
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "apollo-server-express": "^2.3.1",
+    "base64url": "^3.0.1",
     "cookies": "^0.7.3",
     "dotenv-safe": "^6.1.0",
     "express": "^4.16.4",
