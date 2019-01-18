@@ -1,3 +1,4 @@
+import { compareSync } from 'bcrypt'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
   Entity,
@@ -28,4 +29,8 @@ export class User {
   @Field()
   @UpdateDateColumn()
   updatedAt: Date
+
+  validatePassword(password: string) {
+    return compareSync(password, this.password)
+  }
 }
