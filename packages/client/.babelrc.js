@@ -2,7 +2,7 @@
 
 const { node } = require('./package.json').engines
 
-const createConfig = ({ env }) => {
+const createConfig = ({ caller, env }) => {
   const isEnvDev = env('development')
   const isEnvProd = env('production')
   const isEnvTest = env('test')
@@ -20,14 +20,6 @@ const createConfig = ({ env }) => {
       },
     },
     ignore: ['build', 'node_modules'],
-    overrides: [
-      {
-        test: /src\/client\.tsx$/,
-        presets: [
-          ['@babel/preset-env', { modules: false, useBuiltIns: 'entry' }],
-        ],
-      },
-    ],
     plugins: [
       '@babel/plugin-proposal-class-properties',
       ['@babel/plugin-proposal-object-rest-spread', { useBuiltIns: true }],
@@ -40,7 +32,12 @@ const createConfig = ({ env }) => {
       ['styled-components', { displayName: isEnvDev, pure: isEnvProd }],
     ],
     presets: [
-      ['@babel/preset-env', { targets: { node: node.match(/(\d+\.?)+/)[0] } }],
+      [
+        '@babel/preset-env',
+        caller(({ target }) => target === 'web')
+          ? { modules: false, useBuiltIns: 'entry' }
+          : { targets: { node: node.match(/(\d+\.?)+/)[0] } },
+      ],
       [
         '@babel/preset-react',
         { development: isEnvDev || isEnvTest, useBuiltIns: true },

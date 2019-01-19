@@ -42,6 +42,12 @@ export const isHiddenTablet = css`
   `)};
 `
 
+export const centered = css`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+`
+
 export const content = css`
   margin: 0 auto;
 
@@ -59,6 +65,12 @@ export const content = css`
     max-width: 1344px;
     width: 1344px;
   `)};
+`
+
+export const fill = css`
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
 `
 
 export const link = css`

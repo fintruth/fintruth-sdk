@@ -21,7 +21,7 @@ interface State {
 
 const Html: React.FunctionComponent<Props> = ({
   children,
-  description = '',
+  description = 'An opinionated boilerplate for web development',
   links = [],
   scripts = [],
   state = {
@@ -29,7 +29,7 @@ const Html: React.FunctionComponent<Props> = ({
     __APOLLO_STATE__: {},
   },
   styles,
-  title = '',
+  title = 'Fintruth Starter Kit',
 }: Props) => (
   <html className="no-js" lang="en-US">
     <head>

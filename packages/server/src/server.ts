@@ -1,4 +1,5 @@
 import Cookies from 'cookies'
+import compression from 'compression'
 import express, { Request, Response, NextFunction } from 'express'
 import expressJwt, { UnauthorizedError } from 'express-jwt'
 import morgan from 'morgan'
@@ -33,6 +34,7 @@ export const createServer = () =>
   express()
     .set('trust proxy', trustProxy)
     .use(Cookies.express(['token-id']))
+    .use(compression())
     .use(morgan('common', { stream: logger.stream } as any))
     .use(
       expressJwt({

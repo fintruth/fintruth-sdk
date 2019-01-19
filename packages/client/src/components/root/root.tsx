@@ -18,6 +18,14 @@ const NotFound = loadable(() =>
   import(/* webpackChunkName: 'not-found' */ 'routes/not-found')
 )
 
+const SignIn = loadable(() =>
+  import(/* webpackChunkName: 'sign-in' */ 'routes/sign-in')
+)
+
+const SignUp = loadable(() =>
+  import(/* webpackChunkName: 'sign-up' */ 'routes/sign-up')
+)
+
 const Root: React.FunctionComponent<Props> = ({ client }: Props) => {
   const Fault = __DEV__ ? require('routes/fault').default : undefined
 
@@ -27,6 +35,8 @@ const Root: React.FunctionComponent<Props> = ({ client }: Props) => {
       <Router>
         {Fault && <Fault path="/error" />}
         <Home data-testid="home" path="/" />
+        <SignIn data-testid="sign-in" path="/sign-in" />
+        <SignUp data-testid="sign-up" path="/sign-up" />
         <NotFound data-testid="not-found" default />
       </Router>
     </ApolloProvider>
