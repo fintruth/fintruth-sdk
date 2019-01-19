@@ -9,35 +9,23 @@ import {
   stopReportingRuntimeErrors,
 } from 'react-error-overlay'
 
-setEditorHandler(errorLocation => {
-  const fileName = encodeURIComponent(errorLocation.fileName)
-  const lineNumber = encodeURIComponent(errorLocation.lineNumber || 1)
+setEditorHandler(errorLocation =>
+  // eslint-disable-next-line no-undef
+  fetch(
+    `${launchEditorEndpoint}?fileName=${encodeURIComponent(
+      errorLocation.fileName
+    )}&lineNumber=${encodeURIComponent(errorLocation.lineNumber || 1)}`
+  )
+)
 
-  fetch(`${launchEditorEndpoint}?fileName=${fileName}&lineNumber=${lineNumber}`) // eslint-disable-line no-undef
-})
-
+hotClient.setOptionsAndConnect({ name: 'client', reload: true })
 hotClient.useCustomOverlay({
-  showProblems(type, errors) {
-    const formatted = formatWebpackMessages({
-      errors,
-      warnings: [],
-    })
-
-    reportBuildError(formatted.errors[0])
-  },
-  clear() {
-    dismissBuildError()
-  },
+  clear: () => dismissBuildError(),
+  showProblems: (type, errors) =>
+    reportBuildError(formatWebpackMessages({ errors, warnings: [] }).errors[0]),
 })
 
-hotClient.setOptionsAndConnect({
-  name: 'client',
-  reload: true,
-})
-
-startReportingRuntimeErrors({
-  filename: '/assets/client.js',
-})
+startReportingRuntimeErrors({ filename: '/assets/client.js' })
 
 if (module.hot) {
   module.hot.dispose(stopReportingRuntimeErrors)

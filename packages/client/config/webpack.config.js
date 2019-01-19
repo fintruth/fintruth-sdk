@@ -15,113 +15,111 @@ const isAnalyze = process.argv.includes('--analyze')
 const isRelease = process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
 
-const sharedConfig = {
-  bail: isRelease,
-  cache: !isRelease,
-  context: ROOT_DIR,
-  devtool: isRelease ? 'source-map' : 'eval-source-map',
-  mode: isRelease ? 'production' : 'development',
-  module: {
-    rules: [
-      {
-        parser: {
-          requireEnsure: false,
+const createConfig = (target, configFactory) =>
+  configFactory({
+    bail: isRelease,
+    cache: !isRelease,
+    context: ROOT_DIR,
+    devtool: isRelease ? 'source-map' : 'eval-source-map',
+    mode: isRelease ? 'production' : 'development',
+    module: {
+      rules: [
+        { parser: { requireEnsure: false } },
+        {
+          oneOf: [
+            {
+              test: /\.(bmp|gif|jp(e)?g|png|webp)$/,
+              loader: require.resolve('url-loader'),
+              options: { limit: 10000, name: '[name].[hash:8].[ext]' },
+            },
+            {
+              test: /\.mjs$/,
+              include: /[/\\\\]node_modules[/\\\\]/,
+              type: 'javascript/auto',
+            },
+            {
+              test: /\.svg$/,
+              loader: require.resolve('@svgr/webpack'),
+            },
+            {
+              test: /\.ts(x)?$/,
+              include: [
+                path.join(ROOT_DIR, '.storybook'),
+                path.join(ROOT_DIR, 'src'),
+              ],
+              loader: require.resolve('babel-loader'),
+              options: {
+                cacheCompression: isRelease,
+                cacheDirectory: true,
+                caller: { target },
+                compact: isRelease,
+              },
+            },
+            ...(isRelease
+              ? [
+                  {
+                    test: require.resolve('react-deep-force-update'),
+                    loader: require.resolve('null-loader'),
+                  },
+                ]
+              : []),
+            {
+              exclude: /\.((e|m)?js|json|ts(x)?)$/,
+              loader: require.resolve('file-loader'),
+              options: {
+                name: isRelease
+                  ? '[hash:8].[ext]'
+                  : '[path][name].[ext]?[hash:8]',
+              },
+            },
+          ],
         },
-      },
-      {
-        oneOf: [
-          {
-            test: /\.(bmp|gif|jp(e)?g|png|webp)$/,
-            loader: require.resolve('url-loader'),
-            options: {
-              limit: 10000,
-              name: '[name].[hash:8].[ext]',
-            },
-          },
-          {
-            test: /\.mjs$/,
-            include: /[/\\\\]node_modules[/\\\\]/,
-            type: 'javascript/auto',
-          },
-          {
-            test: /\.svg$/,
-            loader: require.resolve('@svgr/webpack'),
-          },
-          {
-            test: /\.ts(x)?$/,
-            include: [
-              path.join(ROOT_DIR, '.storybook'),
-              path.join(ROOT_DIR, 'src'),
-            ],
-            loader: require.resolve('babel-loader'),
-            options: {
-              cacheDirectory: true,
-              compact: isRelease,
-              cacheCompression: isRelease,
-            },
-          },
-          ...(isRelease
-            ? [
-                {
-                  test: require.resolve('react-deep-force-update'),
-                  loader: require.resolve('null-loader'),
-                },
-              ]
-            : []),
-          {
-            exclude: /\.((e|m)?js|json|ts(x)?)$/,
-            loader: require.resolve('file-loader'),
-            options: {
-              name: isRelease
-                ? '[hash:8].[ext]'
-                : '[path][name].[ext]?[hash:8]',
-            },
-          },
-        ],
-      },
+      ],
+      strictExportPresence: true,
+    },
+    output: {
+      chunkFilename: isRelease
+        ? '[name].[chunkhash:8].chunk.js'
+        : '[name].chunk.js',
+      devtoolModuleFilenameTemplate: ({ absoluteResourcePath }) =>
+        path.resolve(absoluteResourcePath).replace(/\\/g, '/'),
+      filename: isRelease ? '[name].[chunkhash:8].js' : '[name].js',
+      path: path.resolve(BUILD_DIR, 'public/assets'),
+      pathinfo: isVerbose,
+      publicPath: '/assets/',
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env.BROWSER': target === 'web',
+        __DEV__: !isRelease,
+      }),
+      new DotenvPlugin({
+        path: path.join(ROOT_DIR, `.env${isRelease ? '' : '.local'}`),
+        safe: path.join(ROOT_DIR, '.env.example'),
+      }),
     ],
-    strictExportPresence: true,
-  },
-  output: {
-    chunkFilename: isRelease
-      ? '[name].[chunkhash:8].chunk.js'
-      : '[name].chunk.js',
-    devtoolModuleFilenameTemplate: ({ absoluteResourcePath }) =>
-      path.resolve(absoluteResourcePath).replace(/\\/g, '/'),
-    filename: isRelease ? '[name].[chunkhash:8].js' : '[name].js',
-    path: path.resolve(BUILD_DIR, 'public/assets'),
-    pathinfo: isVerbose,
-    publicPath: '/assets/',
-  },
-  plugins: [
-    new DotenvPlugin({
-      path: path.join(ROOT_DIR, `.env${isRelease ? '' : '.local'}`),
-      safe: path.join(ROOT_DIR, '.env.example'),
-    }),
-  ],
-  resolve: {
-    extensions: ['.js', '.json', '.mjs', '.ts', '.tsx', '.wasm'],
-    modules: ['node_modules', 'src'],
-  },
-  stats: {
-    cached: isVerbose,
-    cachedAssets: isVerbose,
-    chunkModules: isVerbose,
-    chunks: isVerbose,
-    colors: true,
-    hash: isVerbose,
-    modules: isVerbose,
-    reasons: !isRelease,
-    timings: true,
-    version: isVerbose,
-  },
-}
+    resolve: {
+      extensions: ['.js', '.json', '.mjs', '.ts', '.tsx', '.wasm'],
+      modules: ['node_modules', 'src'],
+    },
+    stats: {
+      cached: isVerbose,
+      cachedAssets: isVerbose,
+      chunkModules: isVerbose,
+      chunks: isVerbose,
+      colors: true,
+      hash: isVerbose,
+      modules: isVerbose,
+      reasons: !isRelease,
+      timings: true,
+      version: isVerbose,
+    },
+    target,
+  })
 
-const clientConfig = {
-  ...sharedConfig,
-  entry: {
-    client: './src/client.tsx',
-  },
+const clientConfig = createConfig('web', baseConfig => ({
+  ...baseConfig,
+  entry: { client: './src/client.tsx' },
   name: 'client',
   optimization: {
     minimize: isRelease,
@@ -131,15 +129,12 @@ const clientConfig = {
         parallel: true,
         sourceMap: true,
         terserOptions: {
-          mangle: {
-            safari10: true,
-          },
-          output: {
-            ascii_only: true,
-          },
+          mangle: { safari10: true },
+          output: { ascii_only: true },
         },
       }),
     ],
+    runtimeChunk: true,
     splitChunks: {
       cacheGroups: {
         commons: {
@@ -151,54 +146,38 @@ const clientConfig = {
       chunks: 'all',
       name: false,
     },
-    runtimeChunk: true,
   },
   plugins: [
-    ...sharedConfig.plugins,
-    new webpack.DefinePlugin({
-      'process.env.BROWSER': true,
-      __DEV__: !isRelease,
-    }),
+    ...baseConfig.plugins,
     new LoadablePlugin({
-      filename: '../../stats.json',
-      writeToDisk: true,
+      filename: 'stats.json',
+      writeToDisk: { filename: 'build' },
     }),
     ...(isAnalyze && isRelease ? [new BundleAnalyzerPlugin()] : []),
   ],
-  target: 'web',
-}
+}))
 
-const serverConfig = {
-  ...sharedConfig,
-  entry: {
-    server: [require.resolve('isomorphic-fetch'), './src/server.tsx'],
-  },
-  externals: [
-    './stats.json',
-    nodeExternals({ whitelist: [/\.(bmp|gif|jp(e)?g|png|webp)$/] }),
-  ],
+const serverConfig = createConfig('node', baseConfig => ({
+  ...baseConfig,
+  entry: { server: [require.resolve('isomorphic-fetch'), './src/server.tsx'] },
+  externals: [nodeExternals({ whitelist: [/\.(bmp|gif|jp(e)?g|png|webp)$/] })],
   name: 'server',
   node: false,
   output: {
-    ...sharedConfig.output,
+    ...baseConfig.output,
     chunkFilename: 'chunks/[name].js',
     filename: '[name].js',
     libraryTarget: 'commonjs2',
     path: BUILD_DIR,
   },
   plugins: [
-    ...sharedConfig.plugins,
-    new webpack.DefinePlugin({
-      'process.env.BROWSER': false,
-      __DEV__: !isRelease,
-    }),
+    ...baseConfig.plugins,
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
       entryOnly: false,
       raw: true,
     }),
   ],
-  target: 'node',
-}
+}))
 
 module.exports = [clientConfig, serverConfig]

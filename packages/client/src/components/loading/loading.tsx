@@ -52,19 +52,19 @@ const Icon = styled.div`
 `
 
 export default class Loading extends React.Component<Props, State> {
-  public static readonly defaultProps = {
+  static readonly defaultProps = {
     delay: 200,
   }
 
-  public readonly state = {
+  readonly state = {
     isVisible: false,
   }
 
-  public componentWillUnmount() {
+  componentWillUnmount() {
     clearTimeout(this.timeout)
   }
 
-  public render() {
+  render() {
     const { isVisible } = this.state
 
     return (

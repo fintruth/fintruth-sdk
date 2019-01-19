@@ -2,6 +2,7 @@ import path from 'path'
 import PrettyError from 'pretty-error'
 import React from 'react'
 import bodyParser from 'body-parser'
+import compression from 'compression'
 import cors from 'cors'
 import express, { NextFunction, Request, Response } from 'express'
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
@@ -24,10 +25,12 @@ global.navigator = global.navigator || { userAgent: 'all' }
 const app = express()
 const prettyError = new PrettyError()
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
-app.use(express.static(path.resolve(__dirname, 'public')))
+app
+  .use(bodyParser.json())
+  .use(bodyParser.urlencoded({ extended: true }))
+  .use(compression())
+  .use(cors())
+  .use(express.static(path.resolve(__dirname, 'public')))
 
 app.get('*', async (req: Request, res: Response, next: NextFunction) => {
   try {

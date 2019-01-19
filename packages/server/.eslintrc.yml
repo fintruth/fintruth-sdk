@@ -33,7 +33,8 @@ overrides:
       typescript/no-object-literal-type-assertion: error
       typescript/no-parameter-properties: error
       typescript/no-triple-slash-reference: error
-      typescript/no-unused-vars: off
+      # A parsing error occurs when decorators are encountered
+      # typescript/no-unused-vars: warn
       typescript/no-use-before-define: error
       typescript/no-var-requires: error
       typescript/prefer-interface: error

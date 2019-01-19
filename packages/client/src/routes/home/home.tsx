@@ -3,21 +3,18 @@ import styled from 'styled-components'
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import Layout from 'components/layout'
-import { content, title } from 'styles/mixins'
+import { centered, content, fill, title } from 'styles/mixins'
 
 const Root = styled.div`
+  ${centered};
   ${content};
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  flex-shrink: 0;
-  justify-content: center;
+  ${fill};
   padding: ${rem(48)} ${rem(24)};
 `
 
 const Title = styled.h1`
   ${title};
+  font-size: ${rem(36)};
 `
 
 const Home: React.FunctionComponent<RouteComponentProps> = ({

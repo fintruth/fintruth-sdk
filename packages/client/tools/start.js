@@ -11,14 +11,7 @@ import webpackConfig from '../config/webpack.config'
 
 const isRelease = process.argv.includes('--release')
 
-// https://webpack.js.org/configuration/watch/#watchoptions
-const watchOptions = {
-  // Watching may not work with NFS and machines in VirtualBox
-  // Uncomment next line if it is your case (use true or interval in milliseconds)
-  // poll: true,
-  // Decrease CPU or memory usage in some file systems
-  // ignored: /node_modules/,
-}
+const watchOptions = {}
 
 const createCompilationPromise = (name, compiler, config) =>
   new Promise((resolve, reject) => {
@@ -27,7 +20,7 @@ const createCompilationPromise = (name, compiler, config) =>
     compiler.hooks.compile.tap(name, () => {
       timeStart = new Date()
 
-      console.info(`[${format(timeStart)}] Compiling '${name}'...`)
+      console.info(`[${format(timeStart)}] Compiling '${name}'`)
     })
 
     compiler.hooks.done.tap(name, stats => {
@@ -63,45 +56,41 @@ const start = async () => {
   server.use(errorOverlayMiddleware())
   server.use(express.static(path.resolve(__dirname, '../public')))
 
-  // Configure client-side hot module replacement
-  const clientConfig = webpackConfig.find(config => config.name === 'client')
+  const clientConfig = webpackConfig.find(({ name }) => name === 'client')
+  const serverConfig = webpackConfig.find(({ name }) => name === 'server')
 
   clientConfig.entry.client = ['./tools/lib/webpack-hot-dev-client']
     .concat(clientConfig.entry.client)
     .sort((a, b) => b.includes('polyfill') - a.includes('polyfill'))
-  clientConfig.output.filename = clientConfig.output.filename.replace(
-    'chunkhash',
-    'hash'
+  clientConfig.module.rules = clientConfig.module.rules.filter(
+    ({ loader }) => loader !== 'null-loader'
   )
   clientConfig.output.chunkFilename = clientConfig.output.chunkFilename.replace(
     'chunkhash',
     'hash'
   )
-  clientConfig.module.rules = clientConfig.module.rules.filter(
-    x => x.loader !== 'null-loader'
+  clientConfig.output.filename = clientConfig.output.filename.replace(
+    'chunkhash',
+    'hash'
   )
   clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 
-  // Configure server-side hot module replacement
-  const serverConfig = webpackConfig.find(config => config.name === 'server')
-
-  serverConfig.output.hotUpdateMainFilename = 'updates/[hash].hot-update.json'
+  serverConfig.module.rules = serverConfig.module.rules.filter(
+    ({ loader }) => loader !== 'null-loader'
+  )
   serverConfig.output.hotUpdateChunkFilename =
     'updates/[id].[hash].hot-update.js'
-  serverConfig.module.rules = serverConfig.module.rules.filter(
-    x => x.loader !== 'null-loader'
-  )
+  serverConfig.output.hotUpdateMainFilename = 'updates/[hash].hot-update.json'
   serverConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 
-  // Configure compilation
   await run(clean)
 
   const multiCompiler = webpack(webpackConfig)
   const clientCompiler = multiCompiler.compilers.find(
-    compiler => compiler.name === 'client'
+    ({ name }) => name === 'client'
   )
   const serverCompiler = multiCompiler.compilers.find(
-    compiler => compiler.name === 'server'
+    ({ name }) => name === 'server'
   )
   const clientPromise = createCompilationPromise(
     'client',
@@ -114,42 +103,44 @@ const start = async () => {
     serverConfig
   )
 
-  // https://github.com/webpack/webpack-dev-middleware
   server.use(
     webpackDevMiddleware(clientCompiler, {
-      publicPath: clientConfig.output.publicPath,
       logLevel: 'silent',
+      publicPath: clientConfig.output.publicPath,
       watchOptions,
     })
   )
-
-  // https://github.com/glenjamin/webpack-hot-middleware
   server.use(webpackHotMiddleware(clientCompiler, { log: false }))
 
+  let app
   let appPromise
-  let appPromiseResolve
   let appPromiseIsResolved = true
+  let appPromiseResolve
+
   serverCompiler.hooks.compile.tap('server', () => {
-    if (!appPromiseIsResolved) return
+    if (!appPromiseIsResolved) {
+      return
+    }
+
     appPromiseIsResolved = false
     appPromise = new Promise(resolve => (appPromiseResolve = resolve))
   })
 
-  let app
-  server.use((req, res) => {
-    appPromise
-      .then(() => app.handle(req, res))
-      .catch(error => console.error(error))
-  })
+  server.use((req, res) =>
+    appPromise.then(() => app.handle(req, res)).catch(console.error)
+  )
 
-  function checkForUpdate(fromUpdate) {
+  const checkForUpdate = fromUpdate => {
     const hmrPrefix = '[\u001B[35mHMR\u001B[0m] '
+
     if (!app.hot) {
       throw new Error(`${hmrPrefix}Hot Module Replacement is disabled.`)
     }
+
     if (app.hot.status() !== 'idle') {
       return Promise.resolve()
     }
+
     return app.hot
       .check(true)
       .then(updatedModules => {
@@ -176,8 +167,11 @@ const start = async () => {
       .catch(error => {
         if (['abort', 'fail'].includes(app.hot.status())) {
           console.warn(`${hmrPrefix}Cannot apply update.`)
+
           delete require.cache[require.resolve('../build/server')]
+
           app = require('../build/server').default
+
           console.warn(`${hmrPrefix}App has been reloaded.`)
         } else {
           console.warn(
@@ -201,26 +195,24 @@ const start = async () => {
     }
   })
 
-  // Wait until both client-side and server-side bundles are ready
   await clientPromise
   await serverPromise
 
   const timeStart = new Date()
+
   console.info(`[${format(timeStart)}] Launching server...`)
 
-  // Load compiled src/server.js as a middleware
   app = require('../build/server').default
   appPromiseIsResolved = true
+
   appPromiseResolve()
 
-  // Launch the development server with Browsersync and HMR
   await new Promise((resolve, reject) =>
     browserSync.create().init(
       {
-        // https://www.browsersync.io/docs/options
-        server: 'src/server.js',
         middleware: [server],
         open: !process.argv.includes('--silent'),
+        server: 'build/server.js',
         ...(isRelease ? { notify: false, ui: false } : {}),
       },
       (error, bs) => (error ? reject(error) : resolve(bs))

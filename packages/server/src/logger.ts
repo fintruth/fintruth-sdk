@@ -28,4 +28,4 @@ export const logger = winston.createLogger({
   transports,
 })
 
-logger.stream = split().on('data', logger.info) as any // eslint-disable-line typescript/no-explicit-any
+logger.stream = split().on('data', logger.info) as any

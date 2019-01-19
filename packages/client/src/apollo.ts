@@ -20,7 +20,6 @@ export const createApolloClient = ({ storeOptions }: Options) => {
 
   return new ApolloClient({
     cache,
-    connectToDevTools: true,
     link: ApolloLink.from(links),
     ssrMode: !process.env.BROWSER,
   })
