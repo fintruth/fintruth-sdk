@@ -1,5 +1,22 @@
 {
+  "name": "@fintruth-sdk/server",
+  "private": true,
+  "version": "0.0.0",
+  "description": "An opinionated boilerplate for server development",
+  "scripts": {
+    "build": "webpack --config config/webpack.config.js",
+    "clean": "del build",
+    "lint": "run-p lint:*",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
+    "lint:types": "tsc --noEmit",
+    "prebuild": "yarn clean",
+    "start": "nodemon",
+    "test": "run-p test:*",
+    "test:units": "jest --passWithNoTests"
+  },
+  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/server",
   "author": "Fintruth LLC",
+  "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "apollo-server-express": "^2.3.1",
@@ -24,7 +41,6 @@
     "typeorm-typedi-extensions": "~0.2.3",
     "winston": "~3.1.0"
   },
-  "description": "An opinionated boilerplate for server development",
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/cookies": "^0.7.1",
@@ -46,27 +62,6 @@
     "node": ">=10.15.0",
     "yarn": ">=1.12.0"
   },
-  "files": [
-    "build"
-  ],
-  "license": "UNLICENSED",
-  "main": "build/main.js",
-  "name": "@fintruth-sdk/server",
-  "private": true,
-  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/server",
-  "scripts": {
-    "build": "webpack --config config/webpack.config.js",
-    "clean": "del build",
-    "lint": "run-p lint:*",
-    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
-    "lint:types": "tsc --noEmit",
-    "prebuild": "yarn clean",
-    "start": "nodemon",
-    "test": "run-p test:*",
-    "test:units": "jest --passWithNoTests"
-  },
-  "typings": "build/main.d.js",
-  "version": "0.0.0",
   "lint-staged": {
     "linters": {
       "*.{js,ts}": [
