@@ -18,12 +18,16 @@ const NotFound = loadable(() =>
   import(/* webpackChunkName: 'not-found' */ 'routes/not-found')
 )
 
-const SignIn = loadable(() =>
-  import(/* webpackChunkName: 'sign-in' */ 'routes/sign-in')
+const Recover = loadable(() =>
+  import(/* webpackChunkName: 'recover' */ 'routes/recover')
 )
 
-const SignUp = loadable(() =>
-  import(/* webpackChunkName: 'sign-up' */ 'routes/sign-up')
+const Register = loadable(() =>
+  import(/* webpackChunkName: 'register' */ 'routes/register')
+)
+
+const SignIn = loadable(() =>
+  import(/* webpackChunkName: 'sign-in' */ 'routes/sign-in')
 )
 
 const Root: React.FunctionComponent<Props> = ({ client }: Props) => {
@@ -35,8 +39,9 @@ const Root: React.FunctionComponent<Props> = ({ client }: Props) => {
       <Router>
         {Fault && <Fault path="/error" />}
         <Home data-testid="home" path="/" />
+        <Recover data-testid="recover" path="/recover" />
+        <Register data-testid="register" path="/register" />
         <SignIn data-testid="sign-in" path="/sign-in" />
-        <SignUp data-testid="sign-up" path="/sign-up" />
         <NotFound data-testid="not-found" default />
       </Router>
     </ApolloProvider>

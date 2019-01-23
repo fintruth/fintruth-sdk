@@ -15,6 +15,7 @@ export const selectionBlue = '#b3d4fc'
   General
   -------------------------------------------------------------------------- */
 
+export const aquaMarine = '#54dec3'
 export const azure = '#004cff'
 export const black = '#000'
 export const heather = '#c3c7ca'

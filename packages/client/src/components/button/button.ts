@@ -25,7 +25,7 @@ const Button = styled.button`
   cursor: pointer;
   font-size: ${rem(12)};
   font-weight: 700;
-  padding: ${rem(11)} ${rem(20)};
+  padding: ${rem(10)} ${rem(20)};
 
   ${({ isOutlined, status = 'default' }: Props) => {
     const statusColor = statusColors[status]
