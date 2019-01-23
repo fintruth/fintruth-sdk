@@ -4,7 +4,7 @@ import { select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import Input from '.'
 
-const options = { Default: 'default', Invalid: 'invalid' }
+const options = { Default: 'default', Failure: 'failure' }
 
 storiesOf('Components|Input', module).addCentered('Default', () => (
   <Input

@@ -1,21 +1,16 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { rem } from 'polished'
+import { centered, fill } from 'styles/mixins'
 import { raven } from 'styles/variables'
 
 interface Props {
   delay?: number
 }
 
-interface State {
-  isVisible: boolean
-}
-
 const Root = styled.div`
-  align-items: center;
-  display: flex;
-  height: 100%;
-  justify-content: center;
+  ${centered};
+  ${fill};
 `
 
 const ease = keyframes`
@@ -51,38 +46,25 @@ const Icon = styled.div`
   }
 `
 
-export default class Loading extends React.Component<Props, State> {
-  static readonly defaultProps = {
-    delay: 200,
-  }
+const Loading: React.FunctionComponent<Props> = ({
+  delay = 200,
+  ...rest
+}: Props) => {
+  const [isVisible, setVisible] = React.useState<boolean>(false)
 
-  readonly state = {
-    isVisible: false,
-  }
+  React.useEffect(() => {
+    const timeout = setTimeout(() => setVisible(true), delay)
 
-  componentWillUnmount() {
-    clearTimeout(this.timeout)
-  }
+    return () => clearTimeout(timeout)
+  })
 
-  render() {
-    const { isVisible } = this.state
-
-    return (
-      isVisible && (
-        <Root>
-          <Icon />
-          <Icon />
-          <Icon />
-        </Root>
-      )
-    )
-  }
-
-  private toggleVisibility = () => {
-    const { isVisible } = this.state
-
-    return this.setState({ isVisible: !isVisible })
-  }
-
-  private readonly timeout = setTimeout(this.toggleVisibility, this.props.delay)
+  return isVisible ? (
+    <Root {...rest}>
+      <Icon />
+      <Icon />
+      <Icon />
+    </Root>
+  ) : null
 }
+
+export default Loading

@@ -7,7 +7,6 @@ import {
   viewportMd,
   viewportSm,
   viewportXl,
-  watermelon,
 } from './variables'
 
 const media = (queries: string) => (
@@ -76,18 +75,11 @@ export const fill = css`
 export const link = css`
   color: ${azure};
   font-size: ${rem(12)};
-  font-weight: 700;
 
   &:hover {
     color: ${azure};
     text-decoration: underline;
   }
-`
-
-export const notice = css`
-  color: ${watermelon};
-  font-size: ${rem(12)};
-  font-weight: 500;
 `
 
 export const title = css`

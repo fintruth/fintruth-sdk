@@ -4,12 +4,12 @@ import { boolean, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import InputField from '.'
 
-const options = { Default: 'default', Invalid: 'invalid' }
+const options = { Default: 'default', Failure: 'failure' }
 
 storiesOf('Components|Input Field', module).addCentered('Default', () => (
   <InputField
     id="00000000-0000-0000-0000-000000000000"
-    isRequired={boolean('Is Required', false)}
+    isRequired={boolean('Is Required', true)}
     label={text('Label', 'Title')}
     notice={text('Notice', '')}
     onBlur={action('On Blur')}

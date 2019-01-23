@@ -7,7 +7,6 @@ import { object, string } from 'yup'
 import { rem } from 'polished'
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
-import BaseSubnavbar from 'components/subnavbar'
 import ControlledInputField from 'components/controlled-input-field'
 import { centered, link } from 'styles/mixins'
 
@@ -17,7 +16,6 @@ export interface Data {
 
 interface Payload {
   error: any
-  user: any
 }
 
 interface Props extends RouteComponentProps {
@@ -28,7 +26,6 @@ interface Props extends RouteComponentProps {
 
 interface Values {
   email: string
-  password: string
 }
 
 export interface Variables {
@@ -39,11 +36,6 @@ const Root = styled.div`
   ${centered};
   flex-direction: column;
   min-height: 100vh;
-`
-
-const Subnavbar = styled(BaseSubnavbar)`
-  margin-bottom: ${rem(50)};
-  width: ${rem(280)};
 `
 
 const Notice = styled(BaseNotice)`
@@ -62,35 +54,32 @@ const Button = styled(BaseButton)`
   margin-top: ${rem(40)};
 `
 
-const Link = styled(BaseLink)`
-  ${link};
+const Disclaimer = styled.div`
+  font-size: ${rem(12)};
   margin-top: ${rem(16)};
 `
 
-const initialValues = { email: '', password: '' }
+const Link = styled(BaseLink)`
+  ${link};
+`
 
-const items = [
-  { id: 'sign-in', content: 'SIGN IN', to: '/sign-in' },
-  { id: 'register', content: 'REGISTER', to: '/register' },
-]
+const initialValues = { email: '' }
 
 const validationSchema = object().shape({
   email: string()
     .required('This is a required field')
     .email('Please provide a valid email address'),
-  password: string().required('This is a required field'),
 })
 
-const formId = 'sign-in__Form'
+const formId = 'recover__Form'
 
-const SignIn: React.FunctionComponent<Props> = ({
+const Recover: React.FunctionComponent<Props> = ({
   notice,
   onSubmit,
   status,
   ...rest
 }: Props) => (
   <Root {...rest}>
-    <Subnavbar items={items} />
     {notice && <Notice status={status}>{notice}</Notice>}
     <Formik<Values>
       initialValues={initialValues}
@@ -107,17 +96,11 @@ const SignIn: React.FunctionComponent<Props> = ({
             name="email"
             type="email"
           />
-          <ControlledInputField
-            id={`${formId}-password`}
-            autoComplete="off"
-            form={formId}
-            label="PASSWORD"
-            name="password"
-            type="password"
-          />
-          <Link to="/recover">Forgot your password?</Link>
+          <Disclaimer>
+            Already have an account? <Link to="/sign-in">Sign in</Link>
+          </Disclaimer>
           <Button form={formId} status="primary" type="submit">
-            SIGN IN
+            RECOVER
           </Button>
         </Form>
       )}
@@ -125,4 +108,4 @@ const SignIn: React.FunctionComponent<Props> = ({
   </Root>
 )
 
-export default SignIn
+export default Recover

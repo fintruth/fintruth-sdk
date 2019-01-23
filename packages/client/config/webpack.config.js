@@ -99,8 +99,12 @@ const createConfig = (target, configFactory) =>
       }),
     ],
     resolve: {
+      alias: {
+        react: path.resolve(ROOT_DIR, '../../node_modules/react'),
+        'react-dom': path.resolve(ROOT_DIR, '../../node_modules/react-dom'),
+      },
       extensions: ['.js', '.json', '.mjs', '.ts', '.tsx', '.wasm'],
-      modules: ['node_modules', 'src'],
+      modules: ['node_modules', path.join(ROOT_DIR, 'src')],
     },
     stats: {
       cached: isVerbose,

@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { rem } from 'polished'
+import BaseNotice from 'components/notice'
 import Input from 'components/input'
 import Label from 'components/label'
-import { notice } from 'styles/mixins'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string
@@ -19,15 +19,14 @@ const Root = styled.div`
   }
 `
 
-const Notice = styled.div`
-  ${notice}
+const Notice = styled(BaseNotice)`
   margin-top: ${rem(6)};
 `
 
 const InputField: React.FunctionComponent<Props> = ({
   className,
   id,
-  isRequired = false,
+  isRequired = true,
   label,
   notice,
   status = 'default',
@@ -40,7 +39,7 @@ const InputField: React.FunctionComponent<Props> = ({
       </Label>
     )}
     <Input id={id} status={status} {...rest} />
-    {notice && <Notice>{notice}</Notice>}
+    {notice && <Notice status="failure">{notice}</Notice>}
   </Root>
 )
 

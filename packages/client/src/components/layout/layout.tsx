@@ -106,11 +106,11 @@ const Icon = styled.span`
     top: calc(50% + ${rem(5)});
   }
 
-  ${Toggler}:hover > & {
+  ${/* sc-selector */ Toggler}:hover > & {
     background-color: ${darken(0.05, raven)};
   }
 
-  ${Toggler}:active > & {
+  ${/* sc-selector */ Toggler}:active > & {
     background-color: ${darken(0.1, raven)};
   }
 `
@@ -154,47 +154,39 @@ const ItemLink = styled(BaseLink)`
   }
 `
 
-export default class Layout extends React.Component<Props, State> {
-  readonly state = {
-    isTogglerActive: false,
-  }
+const Layout: React.FunctionComponent<Props> = ({
+  children,
+  ...rest
+}: Props) => {
+  const [isTogglerActive, setTogglerActive] = React.useState<boolean>(false)
 
-  private handleTogglerClick = () => {
-    const { isTogglerActive } = this.state
-
-    return this.setState({ isTogglerActive: !isTogglerActive })
-  }
-
-  render() {
-    const { children, ...rest } = this.props
-    const { isTogglerActive } = this.state
-
-    return (
-      <Root {...rest}>
-        <header>
-          <Navbar aria-label="main navigation">
-            <Brand>
-              <LogoLink aria-label="home" data-testid="logo" to="/">
-                <Logo alt="Logo" src={logoUrl} />
-              </LogoLink>
-              <Toggler
-                aria-expanded={isTogglerActive}
-                aria-label="menu"
-                onClick={this.handleTogglerClick}
-                type="button"
-              >
-                <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
-                <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
-                <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
-              </Toggler>
-            </Brand>
-            <Menu isTogglerActive={isTogglerActive}>
-              <ItemLink to="/sign-in">Sign In</ItemLink>
-            </Menu>
-          </Navbar>
-        </header>
-        {children}
-      </Root>
-    )
-  }
+  return (
+    <Root {...rest}>
+      <header>
+        <Navbar aria-label="main navigation">
+          <Brand>
+            <LogoLink aria-label="home" data-testid="logo" to="/">
+              <Logo alt="Logo" src={logoUrl} />
+            </LogoLink>
+            <Toggler
+              aria-expanded={isTogglerActive}
+              aria-label="menu"
+              onClick={() => setTogglerActive(!isTogglerActive)}
+              type="button"
+            >
+              <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
+              <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
+              <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
+            </Toggler>
+          </Brand>
+          <Menu isTogglerActive={isTogglerActive}>
+            <ItemLink to="/sign-in">Sign In</ItemLink>
+          </Menu>
+        </Navbar>
+      </header>
+      {children}
+    </Root>
+  )
 }
+
+export default Layout

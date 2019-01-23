@@ -249,6 +249,12 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${selectionBlue};
     text-shadow: none;
   }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 `
 
 export default GlobalStyle
