@@ -1,8 +1,8 @@
 {
-  "name": "@fintruth-sdk/validators",
+  "name": "@fintruth-sdk/validation",
   "private": true,
   "version": "0.1.0",
-  "description": "JSON schema validators",
+  "description": "JSON schema validation",
   "main": "build/index.js",
   "typings": "build/index.d.ts",
   "scripts": {
@@ -14,7 +14,7 @@
     "prebuild": "yarn clean",
     "test": "echo \\\"No tests specified\\\" && exit 0"
   },
-  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/validators",
+  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/validation",
   "author": "Fintruth LLC",
   "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",

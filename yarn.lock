@@ -2601,11 +2601,6 @@
   resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.26.6.tgz#3197372455af255c48732f2e3b336b415e025701"
   integrity sha512-B5Wy5IcmI+mISP2O8Y4J4e4+XVdpMgo9mLQ5mOUvjNYBWWqVxtfB6KkJO+MTfZ/KbwDaXsWtYM6xQnNo/tYI7w==
 
-"@types/yup@^0.26.6":
-  version "0.26.6"
-  resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.26.6.tgz#3197372455af255c48732f2e3b336b415e025701"
-  integrity sha512-B5Wy5IcmI+mISP2O8Y4J4e4+XVdpMgo9mLQ5mOUvjNYBWWqVxtfB6KkJO+MTfZ/KbwDaXsWtYM6xQnNo/tYI7w==
-
 "@types/zen-observable@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
@@ -16009,18 +16004,6 @@ yup@^0.26.10:
   version "0.26.10"
   resolved "https://registry.yarnpkg.com/yup/-/yup-0.26.10.tgz#3545839663289038faf25facfc07e11fd67c0cb1"
   integrity sha512-keuNEbNSnsOTOuGCt3UJW69jDE3O4P+UHAakO7vSeFMnjaitcmlbij/a3oNb9g1Y1KvSKH/7O1R2PQ4m4TRylw==
-  dependencies:
-    "@babel/runtime" "7.0.0"
-    fn-name "~2.0.1"
-    lodash "^4.17.10"
-    property-expr "^1.5.0"
-    synchronous-promise "^2.0.5"
-    toposort "^2.0.2"
-
-yup@^0.26.7:
-  version "0.26.7"
-  resolved "https://registry.yarnpkg.com/yup/-/yup-0.26.7.tgz#7480312d1a3efd8a2f5c1f98b0f11fc21c80efc8"
-  integrity sha512-JrOZlPHNYTVerwrIS3x+F8/U/87lNNQU/ig3Y8b2dehZRhdegHVBr5AnUSB+kLLs3Gp9ne8ZybPtTGITKndu+w==
   dependencies:
     "@babel/runtime" "7.0.0"
     fn-name "~2.0.1"
