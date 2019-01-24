@@ -1,3 +1,4 @@
+import { object, string } from '@fintruth-sdk/validation'
 import { hash } from 'bcrypt'
 import { isNil } from 'ramda'
 import { Service } from 'typedi'
@@ -44,7 +45,23 @@ export class UserService {
   }
 
   async register(email: string, password: string) {
+    const schema = object().shape({
+      email: string()
+        .required()
+        .email(),
+      password: string()
+        .required()
+        .password(2),
+    })
+
+    await schema.validate({ email, password })
+
     const isAvailable = await this.emailAvailable(email)
+
+    if (!isAvailable) {
+      throw new Error('User already exists')
+    }
+
     const expiresAt = Date.now() + 60 * 60 * 1000
     const data: RegistrationTokenData = {
       email,
@@ -52,7 +69,7 @@ export class UserService {
       password: await hash(password, 10),
     }
 
-    return isAvailable ? createToken(data) : undefined
+    return createToken(data)
   }
 
   private async createUser(email: string, password: string): Promise<User> {
