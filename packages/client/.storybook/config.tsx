@@ -9,7 +9,6 @@ import {
   setAddon,
 } from '@storybook/react'
 import { checkA11y } from '@storybook/addon-a11y'
-import { withInfo } from '@storybook/addon-info' // eslint-disable-line import/named, import/namespace
 import { withKnobs } from '@storybook/addon-knobs'
 import { withOptions } from '@storybook/addon-options'
 import { withViewport } from '@storybook/addon-viewport'
@@ -34,7 +33,6 @@ addDecorator(
   })
 )
 addDecorator(checkA11y)
-addDecorator(withInfo())
 addDecorator(withKnobs)
 addDecorator(withViewport())
 addDecorator((story: RenderFunction) => (

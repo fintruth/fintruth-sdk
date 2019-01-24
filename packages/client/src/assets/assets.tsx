@@ -28,7 +28,7 @@ const Container = styled.div`
   flex-direction: column;
   margin: ${rem(5)};
   padding: ${rem(10)};
-  width: ${rem(150)};
+  width: ${rem(200)};
 `
 
 const Icon = styled.svg`

@@ -1,5 +1,7 @@
 'use strict'
 
+const path = require('path')
+
 module.exports = {
   collectCoverageFrom: ['src/**/*.ts?(x)', '!src/**/*.stories.tsx'],
   errorOnDeprecated: true,
@@ -8,6 +10,10 @@ module.exports = {
   },
   moduleDirectories: ['node_modules', '<rootDir>/src'],
   moduleFileExtensions: ['js', 'json', 'ts', 'tsx'],
+  moduleNameMapper: {
+    '^react$': path.resolve(__dirname, '../../node_modules/react'),
+    '^react-dom$': path.resolve(__dirname, '../../node_modules/react-dom'),
+  },
   restoreMocks: true,
   setupTestFrameworkScriptFile: '<rootDir>/config/jest/setup.ts',
   testMatch: ['<rootDir>/src/**/?(*.)test.ts?(x)'],

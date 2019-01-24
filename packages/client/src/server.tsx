@@ -4,7 +4,7 @@ import React from 'react'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import cors from 'cors'
-import express, { NextFunction, Request, Response } from 'express'
+import express, { Express, NextFunction, Request, Response } from 'express'
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 import { ServerLocation, isRedirect } from '@reach/router'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
@@ -22,7 +22,7 @@ process.on('unhandledRejection', () => {
 
 global.navigator = global.navigator || { userAgent: 'all' }
 
-const app = express()
+const app: Express = express()
 const prettyError = new PrettyError()
 
 app

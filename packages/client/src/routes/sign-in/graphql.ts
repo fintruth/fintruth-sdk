@@ -2,12 +2,18 @@ import gql from 'graphql-tag'
 
 export const signInMutation = gql`
   mutation SignInMutation($input: SignInInput!) {
-    user: signIn(input: $input) {
-      id
-      email
-      profile {
-        firstName
-        lastName
+    payload: signIn(input: $input) {
+      error {
+        id
+        message
+      }
+      user {
+        id
+        email
+        profile {
+          firstName
+          lastName
+        }
       }
     }
   }
@@ -15,7 +21,7 @@ export const signInMutation = gql`
 
 export const signInQuery = gql`
   query SignInQuery {
-    user: currentUser {
+    user {
       id
       email
       profile {

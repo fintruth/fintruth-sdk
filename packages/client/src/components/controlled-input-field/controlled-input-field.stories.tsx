@@ -14,7 +14,7 @@ storiesOf('Components|Controlled Input Field', module).addCentered(
       {() => (
         <ControlledInputField
           id="00000000-0000-0000-0000-000000000000"
-          isRequired={boolean('Is Required', false)}
+          isRequired={boolean('Is Required', true)}
           label={text('Label', 'Title')}
           name="title"
           placeholder={text('Placeholder', 'Current position')}
