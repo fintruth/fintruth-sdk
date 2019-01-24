@@ -4,6 +4,7 @@ RUN apk add --no-cache make gcc g++ python
 WORKDIR /app
 COPY ./package.json yarn.lock ./
 COPY ./packages/server/package.json ./packages/server/
+COPY ./packages/shared/package.json ./packages/shared/
 
 # Dependencies
 FROM base AS dependencies

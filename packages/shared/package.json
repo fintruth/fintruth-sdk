@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.1.0",
   "description": "",
-  "main": "build/main.js",
-  "types": "build/main.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
     "clean": "del build",
@@ -12,8 +12,7 @@
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
     "lint:types": "tsc --noEmit",
     "prebuild": "yarn clean",
-    "test": "run-p test:*",
-    "test:units": "jest --passWithNoTests"
+    "test": "echo 'No tests specified' && exit 0"
   },
   "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/shared",
   "author": "Fintruth LLC",

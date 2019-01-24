@@ -1,3 +1,4 @@
+import { User as UserEntity } from '@fintruth-sdk/shared'
 import { compareSync } from 'bcrypt'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
@@ -10,7 +11,7 @@ import {
 
 @ObjectType()
 @Entity()
-export class User {
+export class User implements UserEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string
