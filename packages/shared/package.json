@@ -2,9 +2,12 @@
   "name": "@fintruth-sdk/shared",
   "private": true,
   "version": "0.1.0",
-  "description": "",
+  "description": "Shared package",
+  "files": [
+    "build"
+  ],
   "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "typings": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
     "clean": "del build",
