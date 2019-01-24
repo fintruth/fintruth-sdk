@@ -1,0 +1,12 @@
+# Read about how to use .gitignore: https://git-scm.com/docs/gitignore
+
+# Compiled output
+build
+
+# Test coverage
+coverage
+
+# Miscellaneous
+.env*
+!.env.example
+.eslintcache

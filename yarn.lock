@@ -2676,10 +2676,20 @@
   resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.26.4.tgz#b6527d1ea167ac8049b6d62b45cff8eadfe883c5"
   integrity sha512-R6Mgx+puMTwst8jX3rJDN2Ncu9jF8P/88NOPa8DeCx3OU6Md+Fuo8AV4+WqNCujWNp/XjJtQd4o3fH0/9O19yw==
 
+"@types/yup@^0.26.6":
+  version "0.26.6"
+  resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.26.6.tgz#3197372455af255c48732f2e3b336b415e025701"
+  integrity sha512-B5Wy5IcmI+mISP2O8Y4J4e4+XVdpMgo9mLQ5mOUvjNYBWWqVxtfB6KkJO+MTfZ/KbwDaXsWtYM6xQnNo/tYI7w==
+
 "@types/zen-observable@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
+
+"@types/zxcvbn@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@types/zxcvbn/-/zxcvbn-4.4.0.tgz#fbc1d941cc6d9d37d18405c513ba6b294f89b609"
+  integrity sha512-GQLOT+SN20a+AI51y3fAimhyTF4Y0RG+YP3gf91OibIZ7CJmPFgoZi+ZR5a+vRbS01LbQosITWum4ATmJ1Z6Pg==
 
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
@@ -9924,6 +9934,15 @@ libnpmteam@^1.0.1:
     get-stream "^4.0.0"
     npm-registry-fetch "^3.8.0"
 
+libphonenumber-js@^1.7.7:
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.7.7.tgz#b7862432d4d893a6f0e6b9383a83c7ccf9c78cdf"
+  integrity sha512-oozLdGKnOB2zqqx85+cE+MVrQARCW2hjYyCU03fNIo7k7haMSUHzeiogqE2Ra25wDZO18KCkcYOYRMBO7zxQSw==
+  dependencies:
+    minimist "^1.2.0"
+    semver-compare "^1.0.0"
+    xml2js "^0.4.17"
+
 lightercollective@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/lightercollective/-/lightercollective-0.1.0.tgz#70df102c530dcb8d0ccabfe6175a8d00d5f61300"
@@ -12510,6 +12529,11 @@ quick-lru@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
   integrity sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
+
+ramda-adjunct@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/ramda-adjunct/-/ramda-adjunct-2.13.0.tgz#eed226631b29c58e5f07277dff2bed6139202cdb"
+  integrity sha512-X6KgtqhrP//qHD3YNxlzUjPgP6istv9H1IuQw+l3FK2qns+ZM6VuOdicKcOkfmGaHc4xQOx1XxWJUJnb+3KSzQ==
 
 ramda@0.25.0, ramda@^0.25.0:
   version "0.25.0"
@@ -16094,6 +16118,18 @@ yn@^2.0.0:
   resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
   integrity sha1-5a2ryKz0CPY4X8dklWhMiOavaJo=
 
+yup@^0.26.10:
+  version "0.26.10"
+  resolved "https://registry.yarnpkg.com/yup/-/yup-0.26.10.tgz#3545839663289038faf25facfc07e11fd67c0cb1"
+  integrity sha512-keuNEbNSnsOTOuGCt3UJW69jDE3O4P+UHAakO7vSeFMnjaitcmlbij/a3oNb9g1Y1KvSKH/7O1R2PQ4m4TRylw==
+  dependencies:
+    "@babel/runtime" "7.0.0"
+    fn-name "~2.0.1"
+    lodash "^4.17.10"
+    property-expr "^1.5.0"
+    synchronous-promise "^2.0.5"
+    toposort "^2.0.2"
+
 yup@^0.26.7:
   version "0.26.7"
   resolved "https://registry.yarnpkg.com/yup/-/yup-0.26.7.tgz#7480312d1a3efd8a2f5c1f98b0f11fc21c80efc8"
@@ -16117,3 +16153,8 @@ zen-observable@^0.8.0:
   version "0.8.11"
   resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.11.tgz#d3415885eeeb42ee5abb9821c95bb518fcd6d199"
   integrity sha512-N3xXQVr4L61rZvGMpWe8XoCGX8vhU35dPyQ4fm5CY/KDlG0F75un14hjbckPXTDuKUY6V0dqR2giT6xN8Y4GEQ==
+
+zxcvbn@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/zxcvbn/-/zxcvbn-4.4.2.tgz#28ec17cf09743edcab056ddd8b1b06262cc73c30"
+  integrity sha1-KOwXzwl0PtyrBW3dixsGJizHPDA=
