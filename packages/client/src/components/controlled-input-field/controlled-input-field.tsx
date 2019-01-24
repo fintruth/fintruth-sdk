@@ -32,7 +32,7 @@ const ControlledInputField: React.FunctionComponent<Props> = ({
           notice={touched[name] ? errors[name] : undefined}
           onBlur={onBlur}
           onChange={onChange}
-          status={touched[name] && errors[name] ? 'invalid' : 'default'}
+          status={touched[name] && errors[name] ? 'failure' : 'default'}
           value={value}
         />
       )

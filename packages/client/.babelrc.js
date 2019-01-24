@@ -24,7 +24,7 @@ const createConfig = ({ caller, env }) => {
       '@babel/plugin-proposal-class-properties',
       ['@babel/plugin-proposal-object-rest-spread', { useBuiltIns: true }],
       '@babel/plugin-syntax-dynamic-import',
-      ['@babel/plugin-transform-runtime', { corejs: 2, helpers: false }],
+      ['@babel/plugin-transform-runtime', { helpers: false }],
       '@loadable/babel-plugin',
       'graphql-tag',
       'polished',
@@ -34,7 +34,7 @@ const createConfig = ({ caller, env }) => {
     presets: [
       [
         '@babel/preset-env',
-        caller(({ target }) => target === 'web')
+        caller(({ target } = { target: 'node' }) => target === 'web')
           ? { modules: false, useBuiltIns: 'entry' }
           : { targets: { node: node.match(/(\d+\.?)+/)[0] } },
       ],

@@ -1,15 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Form as BaseForm, Formik } from 'formik'
-import { Link as BaseLink, RouteComponentProps } from '@reach/router' // eslint-disable-line typescript/no-unused-vars
 import { MutationFn } from 'react-apollo'
-import { object, string } from 'yup'
+import { RouteComponentProps } from '@reach/router' // eslint-disable-line typescript/no-unused-vars
+import { object, ref, string } from 'yup'
 import { rem } from 'polished'
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
 import BaseSubnavbar from 'components/subnavbar'
 import ControlledInputField from 'components/controlled-input-field'
-import { centered, link } from 'styles/mixins'
+import { centered } from 'styles/mixins'
 
 export interface Data {
   payload: Payload
@@ -17,7 +17,6 @@ export interface Data {
 
 interface Payload {
   error: any
-  user: any
 }
 
 interface Props extends RouteComponentProps {
@@ -28,6 +27,9 @@ interface Props extends RouteComponentProps {
 
 interface Values {
   email: string
+  emailConfirm: string
+  firstName: string
+  lastName: string
   password: string
 }
 
@@ -62,12 +64,13 @@ const Button = styled(BaseButton)`
   margin-top: ${rem(40)};
 `
 
-const Link = styled(BaseLink)`
-  ${link};
-  margin-top: ${rem(16)};
-`
-
-const initialValues = { email: '', password: '' }
+const initialValues = {
+  email: '',
+  emailConfirm: '',
+  firstName: '',
+  lastName: '',
+  password: '',
+}
 
 const items = [
   { id: 'sign-in', content: 'SIGN IN', to: '/sign-in' },
@@ -78,12 +81,19 @@ const validationSchema = object().shape({
   email: string()
     .required('This is a required field')
     .email('Please provide a valid email address'),
-  password: string().required('This is a required field'),
+  emailConfirm: string()
+    .required('This is a required field')
+    .oneOf([ref('email')], 'Please retype the email address'),
+  firstName: string().required('This is a required field'),
+  lastName: string().required('This is a required field'),
+  password: string()
+    .required('This is a required field')
+    .min(10, 'Minimum length is ${min} characters'), // eslint-disable-line no-template-curly-in-string
 })
 
-const formId = 'sign-in__Form'
+const formId = 'register__Form'
 
-const SignIn: React.FunctionComponent<Props> = ({
+const Register: React.FunctionComponent<Props> = ({
   notice,
   onSubmit,
   status,
@@ -100,11 +110,35 @@ const SignIn: React.FunctionComponent<Props> = ({
       {() => (
         <Form id={formId} noValidate>
           <ControlledInputField
+            id={`${formId}-firstName`}
+            autoComplete="given-name"
+            form={formId}
+            label="FIRST NAME"
+            name="firstName"
+            type="text"
+          />
+          <ControlledInputField
+            id={`${formId}-lastName`}
+            autoComplete="family-name"
+            form={formId}
+            label="LAST NAME"
+            name="lastName"
+            type="text"
+          />
+          <ControlledInputField
             id={`${formId}-email`}
             autoComplete="off"
             form={formId}
             label="EMAIL"
             name="email"
+            type="email"
+          />
+          <ControlledInputField
+            id={`${formId}-emailConfirm`}
+            autoComplete="off"
+            form={formId}
+            label="CONFIRM EMAIL"
+            name="emailConfirm"
             type="email"
           />
           <ControlledInputField
@@ -115,9 +149,8 @@ const SignIn: React.FunctionComponent<Props> = ({
             name="password"
             type="password"
           />
-          <Link to="/recover">Forgot your password?</Link>
           <Button form={formId} status="primary" type="submit">
-            SIGN IN
+            REGISTER
           </Button>
         </Form>
       )}
@@ -125,4 +158,4 @@ const SignIn: React.FunctionComponent<Props> = ({
   </Root>
 )
 
-export default SignIn
+export default Register

@@ -16,7 +16,7 @@ const Input = styled.input`
   width: 100%;
 
   ${({ status = 'default' }: Props) =>
-    status === 'invalid' &&
+    status === 'failure' &&
     css`
       border-bottom-color: ${watermelon};
       border-image: unset;
