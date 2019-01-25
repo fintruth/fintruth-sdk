@@ -1,4 +1,3 @@
-import { ApolloError } from 'apollo-server-express'
 import { GraphQLBoolean } from 'graphql'
 import jwt from 'jsonwebtoken'
 import { Inject } from 'typedi'
@@ -51,10 +50,6 @@ export class AuthResolver {
     RegistrationResponse
   > {
     const token = await this.userService.register(email, password)
-
-    if (!token) {
-      throw new ApolloError('The email is already taken')
-    }
 
     return { token }
   }

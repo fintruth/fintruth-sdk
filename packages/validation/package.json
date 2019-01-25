@@ -1,0 +1,50 @@
+{
+  "name": "@fintruth-sdk/validation",
+  "private": true,
+  "version": "0.1.0",
+  "description": "JSON schema validation",
+  "main": "build/index.js",
+  "typings": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "del build",
+    "lint": "run-p lint:*",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
+    "lint:types": "tsc --noEmit",
+    "prebuild": "yarn clean",
+    "test": "echo \\\"No tests specified\\\" && exit 0"
+  },
+  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/validation",
+  "author": "Fintruth LLC",
+  "license": "UNLICENSED",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "dependencies": {
+    "libphonenumber-js": "^1.7.7",
+    "ramda": "^0.26.1",
+    "ramda-adjunct": "^2.13.0",
+    "yup": "^0.26.10",
+    "zxcvbn": "^4.4.2"
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.25.47",
+    "@types/yup": "^0.26.6",
+    "@types/zxcvbn": "^4.4.0"
+  },
+  "engines": {
+    "node": ">=10.15.0",
+    "yarn": ">=1.12.0"
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{js,ts}": [
+        "eslint --fix",
+        "jest --bail --findRelatedTests",
+        "git add"
+      ],
+      "*.{json,md,yml}": [
+        "prettier --write",
+        "git add"
+      ]
+    }
+  }
+}

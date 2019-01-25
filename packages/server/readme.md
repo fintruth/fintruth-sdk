@@ -7,7 +7,7 @@
 ## Features
 
 - [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
-- [Koa](https://koajs.com/#application)
+- [Express](https://expressjs.com/)
 - [TypeORM](http://typeorm.io/#/)
 - [TypeGraphQL](https://19majkel94.github.io/type-graphql/)
 
