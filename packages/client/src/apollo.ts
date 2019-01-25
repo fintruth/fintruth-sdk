@@ -16,7 +16,12 @@ export const createApolloClient = ({ storeOptions }: Options) => {
     links.push(require('apollo-link-logger').default)
   }
 
-  links.push(createUploadLink({ credentials: 'include' }))
+  links.push(
+    createUploadLink({
+      credentials: 'include',
+      uri: 'http://localhost:3001/api',
+    })
+  )
 
   return new ApolloClient({
     cache,

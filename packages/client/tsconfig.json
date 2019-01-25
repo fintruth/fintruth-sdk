@@ -24,5 +24,6 @@
     "target": "esnext"
   },
   "exclude": ["build", "node_modules"],
-  "include": ["**/*", ".*/**/*"]
+  "include": ["**/*", ".*/**/*"],
+  "references": [{ "path": "../shared" }, { "path": "../validation" }]
 }
