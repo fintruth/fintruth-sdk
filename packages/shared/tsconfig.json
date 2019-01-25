@@ -2,7 +2,9 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "composite": true,
     "declaration": true,
+    "declarationMap": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -15,16 +17,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "build",
-    "paths": {
-      "*": ["src/*"],
-      "express": ["node_modules/express"]
-    },
-    "removeComments": true,
-    "sourceMap": true,
+    "rootDir": "src",
     "strict": true,
     "strictPropertyInitialization": false,
     "target": "esnext"
   },
-  "exclude": ["build", "node_modules"],
-  "references": [{ "path": "../shared" }]
+  "exclude": ["build", "node_modules"]
 }

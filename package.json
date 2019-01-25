@@ -1,7 +1,22 @@
 {
-  "author": "Fintruth LLC",
-  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "name": "fintruth-sdk",
+  "private": true,
+  "version": "0.0.0",
   "description": "Software development kit for Fintruth projects",
+  "scripts": {
+    "build": "lerna run build",
+    "clean": "lerna run clean",
+    "lint": "lerna run lint",
+    "prebuild": "yarn clean",
+    "test": "lerna run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fintruth/fintruth-sdk.git"
+  },
+  "author": "Fintruth LLC",
+  "license": "UNLICENSED",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "devDependencies": {
     "@types/compression": "^0.0.36",
     "@types/express": "^4.16.1",
@@ -38,21 +53,6 @@
     "node": ">=10.15.0",
     "yarn": ">=1.12.0"
   },
-  "license": "UNLICENSED",
-  "name": "fintruth-sdk",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fintruth/fintruth-sdk.git"
-  },
-  "scripts": {
-    "build": "lerna run build",
-    "clean": "lerna run clean",
-    "lint": "lerna run lint",
-    "prebuild": "yarn clean",
-    "test": "lerna run test"
-  },
-  "version": "0.0.0",
   "workspaces": {
     "nohoist": [
       "**/@loadable/server",

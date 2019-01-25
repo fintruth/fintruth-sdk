@@ -1,0 +1,43 @@
+{
+  "name": "@fintruth-sdk/shared",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Shared package",
+  "files": [
+    "build"
+  ],
+  "main": "build/index.js",
+  "typings": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "del build",
+    "lint": "run-p lint:*",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
+    "lint:types": "tsc --noEmit",
+    "prebuild": "yarn clean",
+    "test": "echo 'No tests specified' && exit 0"
+  },
+  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/shared",
+  "author": "Fintruth LLC",
+  "license": "UNLICENSED",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=10.15.0",
+    "yarn": ">=1.12.0"
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{js,ts}": [
+        "eslint --fix",
+        "jest --bail --findRelatedTests",
+        "git add"
+      ],
+      "*.{json,md,yml}": [
+        "prettier --write",
+        "git add"
+      ]
+    }
+  }
+}

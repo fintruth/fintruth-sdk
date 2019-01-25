@@ -1,5 +1,29 @@
 {
+  "name": "@fintruth-sdk/client",
+  "private": true,
+  "version": "0.0.0",
+  "description": "An opinionated boilerplate for web development",
+  "scripts": {
+    "build": "node --require @babel/register tools/run build",
+    "build:stats": "yarn build --analyze --release",
+    "build:storybook": "build-storybook",
+    "bundle": "node --require @babel/register tools/run bundle",
+    "clean": "node --require @babel/register tools/run clean",
+    "copy": "node --require @babel/register tools/run copy",
+    "deploy": "node --require @babel/register tools/run deploy",
+    "lint": "run-p lint:*",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts,tsx}'",
+    "lint:styles": "stylelint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{ts,tsx}'",
+    "lint:types": "tsc --noEmit",
+    "serve": "node --require @babel/register tools/run run-server",
+    "start": "node --require @babel/register tools/run start",
+    "storybook": "start-storybook --port 6006",
+    "test": "run-p test:*",
+    "test:units": "jest"
+  },
+  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/client",
   "author": "Fintruth LLC",
+  "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "@babel/runtime": "^7.3.1",
@@ -32,7 +56,6 @@
     "styled-components": "^4.1.3",
     "yup": "^0.26.10"
   },
-  "description": "An opinionated boilerplate for web development",
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.0",
@@ -123,29 +146,6 @@
     "node": ">=10.15.0",
     "yarn": ">=1.12.0"
   },
-  "license": "UNLICENSED",
-  "name": "@fintruth-sdk/client",
-  "private": true,
-  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/client",
-  "scripts": {
-    "build": "node --require @babel/register tools/run build",
-    "build:stats": "yarn build --analyze --release",
-    "build:storybook": "build-storybook",
-    "bundle": "node --require @babel/register tools/run bundle",
-    "clean": "node --require @babel/register tools/run clean",
-    "copy": "node --require @babel/register tools/run copy",
-    "deploy": "node --require @babel/register tools/run deploy",
-    "lint": "run-p lint:*",
-    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts,tsx}'",
-    "lint:styles": "stylelint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{ts,tsx}'",
-    "lint:types": "tsc --noEmit",
-    "serve": "node --require @babel/register tools/run run-server",
-    "start": "node --require @babel/register tools/run start",
-    "storybook": "start-storybook --port 6006",
-    "test": "run-p test:*",
-    "test:units": "jest"
-  },
-  "version": "0.0.0",
   "browserslist": [
     "> 0.20%",
     "not dead",
