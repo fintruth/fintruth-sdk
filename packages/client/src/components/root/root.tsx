@@ -31,13 +31,13 @@ const SignIn = loadable(() =>
 )
 
 const Root: React.FunctionComponent<Props> = ({ client }: Props) => {
-  const Fault = __DEV__ ? require('routes/fault').default : undefined
+  const Fault = __DEV__ ? require('routes/fault').default : null
 
   return (
     <ApolloProvider client={client}>
       <GlobalStyle />
       <Router>
-        {Fault && <Fault path="/error" />}
+        {Fault && <Fault data-testid="error" path="/error" />}
         <Home data-testid="home" path="/" />
         <Recover data-testid="recover" path="/recover" />
         <Register data-testid="register" path="/register" />

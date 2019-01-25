@@ -46,10 +46,28 @@ overrides:
       typescript/prefer-namespace-keyword: error
       typescript/type-annotation-spacing: error
   - files:
+      - 'config/cypress/**/*.?(js|ts)'
+      - 'test/**/*.ts?(x)'
+    env:
+      browser: true
+      mocha: true
+    globals:
+      Cypress: true
+      assert: true
+      cy: true
+      expect: true
+    plugins:
+      - cypress
+    rules:
+      cypress/no-assigning-return-values: error
+      cypress/no-unnecessary-waiting: error
+  - files:
       - 'config/jest/**/*.?(js|ts)'
       - 'src/**/?(*.)test.ts?(x)'
     env:
       jest: true
+    globals:
+      __DEV__: true
     plugins:
       - jest
     rules:

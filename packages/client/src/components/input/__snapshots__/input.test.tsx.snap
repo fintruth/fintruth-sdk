@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the default style correctly 1`] = `
+.c0 {
+  border-bottom-color: #c3c7ca;
+  border-width: 0 0 0.0625rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  outline: none;
+  padding: 0.5625rem 0 0.625rem;
+  width: 100%;
+}
+
+.c0:active,
+.c0:focus {
+  border-bottom-width: 0.125rem;
+  padding-bottom: 0.5625rem;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+.c0::-moz-placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+.c0:-ms-input-placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+.c0::placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+<input
+  class="c0"
+/>
+`;
+
+exports[`should render the default style if an invalid status is provided 1`] = `
+.c0 {
+  border-bottom-color: #c3c7ca;
+  border-width: 0 0 0.0625rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  outline: none;
+  padding: 0.5625rem 0 0.625rem;
+  width: 100%;
+}
+
+.c0:active,
+.c0:focus {
+  border-bottom-width: 0.125rem;
+  padding-bottom: 0.5625rem;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+.c0::-moz-placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+.c0:-ms-input-placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+.c0::placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+<input
+  class="c0"
+/>
+`;
+
+exports[`should render the failure style correctly 1`] = `
+.c0 {
+  border-bottom-color: #ed5357;
+  border-width: 0 0 0.0625rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  outline: none;
+  padding: 0.5625rem 0 0.625rem;
+  width: 100%;
+}
+
+.c0:active,
+.c0:focus {
+  border-bottom-width: 0.125rem;
+  padding-bottom: 0.5625rem;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+.c0::-moz-placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+.c0:-ms-input-placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+.c0::placeholder {
+  color: #c3c7ca;
+  font-style: italic;
+}
+
+<input
+  class="c0"
+/>
+`;

@@ -59,7 +59,7 @@ const start = async () => {
   const clientConfig = webpackConfig.find(({ name }) => name === 'client')
   const serverConfig = webpackConfig.find(({ name }) => name === 'server')
 
-  clientConfig.entry.client = ['./tools/lib/webpack-hot-dev-client']
+  clientConfig.entry.client = ['./scripts/lib/webpack-hot-dev-client']
     .concat(clientConfig.entry.client)
     .sort((a, b) => b.includes('polyfill') - a.includes('polyfill'))
   clientConfig.module.rules = clientConfig.module.rules.filter(

@@ -5,13 +5,12 @@ import {
   RenderFunction, // eslint-disable-line import/named
   Story, // eslint-disable-line import/named
   addDecorator,
+  addParameters,
   configure,
   setAddon,
 } from '@storybook/react'
-import { checkA11y } from '@storybook/addon-a11y'
+import { withA11Y } from '@storybook/addon-a11y'
 import { withKnobs } from '@storybook/addon-knobs'
-import { withOptions } from '@storybook/addon-options'
-import { withViewport } from '@storybook/addon-viewport'
 import GlobalStyle from 'styles/global'
 
 const req = require.context('../src', true, /\.stories\.tsx$/)
@@ -24,22 +23,22 @@ setAddon({
   },
 })
 
-addDecorator(
-  withOptions({
-    hierarchyRootSeparator: /\|/,
-    name: '@fintruth-sdk/client',
-    selectedAddonPanel: 'storybooks/storybook-addon-knobs',
-    url: 'https://github.com/fintruth/fintruth-sdk/tree/master/packages/client',
-  })
-)
-addDecorator(checkA11y)
+addDecorator(withA11Y)
 addDecorator(withKnobs)
-addDecorator(withViewport())
 addDecorator((story: RenderFunction) => (
   <React.Fragment>
     <GlobalStyle />
     {story()}
   </React.Fragment>
 ))
+
+addParameters({
+  options: {
+    hierarchyRootSeparator: /\|/,
+    name: '@fintruth-sdk/client',
+    selectedPanel: 'storybooks/knobs/panel',
+    url: 'https://github.com/fintruth/fintruth-sdk/tree/master/packages/client',
+  },
+})
 
 configure(() => req.keys().forEach((filename: string) => req(filename)), module)

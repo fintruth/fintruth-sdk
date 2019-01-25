@@ -165,7 +165,7 @@ const Layout: React.FunctionComponent<Props> = ({
       <header>
         <Navbar aria-label="main navigation">
           <Brand>
-            <LogoLink aria-label="home" data-testid="logo" to="/">
+            <LogoLink aria-label="home" to="/">
               <Logo alt="Logo" src={logoUrl} />
             </LogoLink>
             <Toggler
