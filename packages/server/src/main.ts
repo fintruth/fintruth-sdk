@@ -11,7 +11,7 @@ const bootstrap = async (): Promise<void> => {
   const app = createServer()
 
   const server = await createApolloServer()
-  server.applyMiddleware({ app, path: '/api' })
+  server.applyMiddleware({ app, cors: false, path: '/api' })
 
   app.listen(port, () =>
     logger.info(
