@@ -6,5 +6,14 @@ export class RegistrationInput {
   email: string
 
   @Field()
+  emailConfirm: string
+
+  @Field()
+  firstName: string
+
+  @Field()
+  lastName: string
+
+  @Field()
   password: string
 }

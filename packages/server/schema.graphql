@@ -20,6 +20,9 @@ type Query {
 
 input RegistrationInput {
   email: String!
+  emailConfirm: String!
+  firstName: String!
+  lastName: String!
   password: String!
 }
 
