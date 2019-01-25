@@ -3,10 +3,10 @@ import jwt from 'jsonwebtoken'
 import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 
-import { RegistrationInput, RegistrationResponse } from './types'
 import { Context } from 'apollo'
 import { secret } from 'config'
 import { User } from 'entities/user'
+import { RegistrationInput, RegistrationResponse } from 'resolvers/types'
 import { UserService } from 'services/user-service'
 
 @Resolver()

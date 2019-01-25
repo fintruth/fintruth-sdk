@@ -18,7 +18,7 @@ yarn install
 yarn start
 ```
 
-View the GraphQL playground by opening http://localhost:3000/graphql
+View the GraphQL playground by opening http://localhost:3000/api
 
 ## Run Tests
 
