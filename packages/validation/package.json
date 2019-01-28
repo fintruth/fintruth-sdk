@@ -26,8 +26,6 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@types/ramda": "^0.25.47",
-    "@types/yup": "^0.26.6",
     "@types/zxcvbn": "^4.4.0"
   },
   "engines": {
