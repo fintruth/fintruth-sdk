@@ -13,7 +13,7 @@ module.exports = {
     '^react$': path.resolve(__dirname, 'node_modules/react'),
   },
   restoreMocks: true,
-  setupTestFrameworkScriptFile: '<rootDir>/config/jest/setup.ts',
+  setupFilesAfterEnv: ['<rootDir>/config/jest/setup.ts'],
   testMatch: ['<rootDir>/src/**/?(*.)test.ts?(x)'],
   testRunner: 'jest-circus/runner',
   transform: {
