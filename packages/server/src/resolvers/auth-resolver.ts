@@ -6,7 +6,11 @@ import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 import { Context } from 'apollo'
 import { secret } from 'config'
 import { User } from 'entities/user'
-import { RegistrationInput, RegistrationResponse } from 'resolvers/types'
+import {
+  LoginResponse,
+  RegistrationInput,
+  RegistrationResponse,
+} from 'resolvers/types'
 import { UserService } from 'services/user-service'
 
 @Resolver()
@@ -19,13 +23,18 @@ export class AuthResolver {
     return this.userService.confirmRegistration(token)
   }
 
-  @Mutation(() => User)
+  @Mutation(() => LoginResponse)
   async login(
     @Arg('email') email: string,
     @Arg('password') password: string,
     @Ctx() { res }: Context
-  ): Promise<User> {
+  ): Promise<LoginResponse> {
     const user = await this.userService.authenticate(email, password)
+
+    if (!user) {
+      return { error: { message: 'invalid username or password' } }
+    }
+
     const expiresIn = 60 * 60 * 24 * 180
     const token = jwt.sign({ id: user.id }, secret, { expiresIn })
 
@@ -35,7 +44,7 @@ export class AuthResolver {
       signed: false,
     })
 
-    return user
+    return { user }
   }
 
   @Mutation(() => GraphQLBoolean)

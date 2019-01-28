@@ -23,7 +23,7 @@ export class UserService {
     const user = await this.userRepository.findOne({ email })
 
     if (!user || !user.validatePassword(password)) {
-      throw new Error('Invalid email or password')
+      return null
     }
 
     return user

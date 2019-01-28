@@ -12,10 +12,10 @@ import ControlledInputField from 'components/controlled-input-field'
 import { centered, link } from 'styles/mixins'
 
 export interface Data {
-  payload: Payload
+  response: Response
 }
 
-interface Payload {
+interface Response {
   error: any
   user: any
 }
@@ -32,7 +32,8 @@ interface Values {
 }
 
 export interface Variables {
-  input: Values
+  email: string
+  password: string
 }
 
 const Root = styled.div`
@@ -94,7 +95,9 @@ const SignIn: React.FunctionComponent<Props> = ({
     {notice && <Notice status={status}>{notice}</Notice>}
     <Formik<Values>
       initialValues={initialValues}
-      onSubmit={input => onSubmit({ variables: { input } })}
+      onSubmit={({ email, password }) =>
+        onSubmit({ variables: { email, password } })
+      }
       validationSchema={validationSchema}
     >
       {() => (
