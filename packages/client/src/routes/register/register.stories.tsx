@@ -19,7 +19,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
         },
       },
     },
-    result: { data: { payload: { error: null } } },
+    result: { data: { response: { error: null } } },
   },
   {
     request: {
@@ -36,9 +36,8 @@ const mocks: ReadonlyArray<MockedResponse> = [
     },
     result: {
       data: {
-        payload: {
+        response: {
           error: {
-            id: 'b4b61626-17d8-402b-b001-ad030d4b3589',
             message: 'The user already exists',
           },
         },
@@ -59,7 +58,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
         },
       },
     },
-    result: { data: { payload: { error: null } } },
+    result: { data: { response: { error: null } } },
   },
 ]
 

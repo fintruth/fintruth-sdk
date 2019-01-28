@@ -58,8 +58,6 @@ export class AuthResolver {
   async register(@Arg('input') { email, password }: RegistrationInput): Promise<
     RegistrationResponse
   > {
-    const token = await this.userService.register(email, password)
-
-    return { token }
+    return this.userService.register(email, password)
   }
 }
