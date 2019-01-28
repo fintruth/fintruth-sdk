@@ -8,7 +8,6 @@ module.exports = {
   errorOnDeprecated: true,
   globals: { __DEV__: true },
   moduleDirectories: [...defaults.moduleDirectories, '<rootDir>/src'],
-  moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
   moduleNameMapper: {
     '^react$': path.resolve(__dirname, 'node_modules/react'),
   },

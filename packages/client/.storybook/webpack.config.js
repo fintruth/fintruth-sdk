@@ -5,9 +5,9 @@ const { DefinePlugin } = require('webpack')
 
 const ROOT_DIR = path.resolve(__dirname, '..')
 
-module.exports = ({ config, mode }) => {
-  const isEnvDev = /dev(elopment)?/i.test(mode)
-  const isEnvProd = /prod(uction)?/i.test(mode)
+module.exports = (_, env, config) => {
+  const isEnvDev = /dev(elopment)?/i.test(env)
+  const isEnvProd = /prod(uction)?/i.test(env)
 
   return {
     ...config,

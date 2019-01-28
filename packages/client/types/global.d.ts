@@ -1,6 +1,5 @@
-declare const __DEV__: boolean // eslint-disable-line typescript/no-unused-vars
+declare const __DEV__: boolean
 
-// eslint-disable-next-line typescript/no-unused-vars
 declare namespace NodeJS {
   interface Global {
     navigator?: Navigator | { userAgent: string }
