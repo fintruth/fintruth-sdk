@@ -8,6 +8,7 @@
     "clean": "lerna run clean",
     "lint": "lerna run lint",
     "prebuild": "yarn clean",
+    "start": "lerna run start",
     "test": "lerna run test"
   },
   "repository": {
