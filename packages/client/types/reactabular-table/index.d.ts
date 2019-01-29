@@ -54,12 +54,12 @@ declare module 'reactabular-table' {
     cell?: string
   }
 
-  // eslint-disable-next-line typescript/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   class Body extends React.Component<BodyProps> {}
 
-  // eslint-disable-next-line typescript/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   class Header extends React.Component<HeaderProps> {}
 
-  // eslint-disable-next-line typescript/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   class Provider extends React.Component<ProviderProps> {}
 }

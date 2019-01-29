@@ -19,15 +19,13 @@
   "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
-    "libphonenumber-js": "^1.7.7",
+    "libphonenumber-js": "^1.7.8",
     "ramda": "^0.26.1",
-    "ramda-adjunct": "^2.13.0",
+    "ramda-adjunct": "^2.14.0",
     "yup": "^0.26.10",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@types/ramda": "^0.25.47",
-    "@types/yup": "^0.26.6",
     "@types/zxcvbn": "^4.4.0"
   },
   "engines": {

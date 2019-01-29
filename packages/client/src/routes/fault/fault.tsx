@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { RouteComponentProps } from '@reach/router' // eslint-disable-line typescript/no-unused-vars
+import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import { jet } from 'styles/variables'
 

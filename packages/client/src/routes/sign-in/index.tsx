@@ -2,14 +2,14 @@ import React from 'react'
 import { Mutation } from 'react-apollo'
 import { RouteComponentProps, navigate } from '@reach/router'
 import { renderLoadingIf } from 'utilities/loading'
-import SignIn, { Data, Variables } from './sign-in' // eslint-disable-line typescript/no-unused-vars
+import SignIn, { Data, Variables } from './sign-in' // eslint-disable-line @typescript-eslint/no-unused-vars
 import { signInMutation, signInQuery } from './graphql'
 
 const SignInContainer: React.FunctionComponent<RouteComponentProps> = ({
   ...rest
 }: RouteComponentProps) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState<string>('success')
+  const [status, setStatus] = React.useState('success')
 
   return (
     <Mutation<Data, Variables>

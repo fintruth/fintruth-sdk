@@ -1,28 +1,18 @@
 import React from 'react'
-import { fireEvent, render } from 'react-testing-library'
+import { fireEvent } from 'react-testing-library'
 import { renderWithRouter } from 'utilities/specification'
 import Layout from '.'
 
-test('The Layout component should render correctly', () => {
-  const { getByTestId } = render(
-    <Layout>
-      <div data-testid="test-child" />
-    </Layout>
-  )
-
-  expect(getByTestId('test-child')).toBeInTheDocument()
-})
-
-test('Clicking the logo icon should navigate to the root path', () => {
-  const { getByTestId, history } = renderWithRouter(<Layout>child</Layout>, {
-    initialPath: '/not-root',
+test('clicking the logo should navigate to the home route', () => {
+  const { getByAltText, history } = renderWithRouter(<Layout>child</Layout>, {
+    initialPath: '/not-found',
   })
-  const icon = getByTestId('logo')
+  const logoElement = getByAltText('Logo')
 
-  expect(icon).toBeInTheDocument()
-  expect(history.location.pathname).toStrictEqual('/not-root')
+  expect(logoElement).toBeInTheDocument()
+  expect(history.location.pathname).toStrictEqual('/not-found')
 
-  fireEvent.click(icon)
+  fireEvent.click(logoElement)
 
   expect(history.location.pathname).toStrictEqual('/')
 })

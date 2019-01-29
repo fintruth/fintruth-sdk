@@ -11,7 +11,7 @@ interface Asset {
 
 interface Props {
   assets: Asset[]
-  type: 'icon' | 'image'
+  type: string
 }
 
 const Root = styled.div`
@@ -47,8 +47,12 @@ const Label = styled.div`
   opacity: 0.6;
 `
 
-const Assets: React.FunctionComponent<Props> = ({ assets, type }: Props) => (
-  <Root>
+const Assets: React.FunctionComponent<Props> = ({
+  assets,
+  type,
+  ...rest
+}: Props) => (
+  <Root {...rest}>
     {assets.map(({ Icon: BaseIcon, label, src }: Asset) => {
       let asset
 

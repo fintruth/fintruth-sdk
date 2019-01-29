@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the default style correctly 1`] = `
+.c0 {
+  border-radius: 0.125rem;
+  border-style: solid;
+  border-width: 0.0625rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.625rem 1.25rem;
+  background-color: #fff;
+  border-color: transparent;
+  color: #333;
+}
+
+.c0:hover {
+  background-color: #f2f2f2;
+}
+
+.c0:active {
+  background-color: #e6e6e6;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render the default style correctly when outlined 1`] = `
+.c0 {
+  border-radius: 0.125rem;
+  border-style: solid;
+  border-width: 0.0625rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.625rem 1.25rem;
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+}
+
+.c0:hover {
+  border-color: #f2f2f2;
+  color: #f2f2f2;
+}
+
+.c0:active {
+  border-color: #e6e6e6;
+  color: #e6e6e6;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render the default style if an invalid status is provided 1`] = `
+.c0 {
+  border-radius: 0.125rem;
+  border-style: solid;
+  border-width: 0.0625rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.625rem 1.25rem;
+  background-color: #fff;
+  border-color: transparent;
+  color: #333;
+}
+
+.c0:hover {
+  background-color: #f2f2f2;
+}
+
+.c0:active {
+  background-color: #e6e6e6;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render the primary style correctly 1`] = `
+.c0 {
+  border-radius: 0.125rem;
+  border-style: solid;
+  border-width: 0.0625rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.625rem 1.25rem;
+  background-color: #004cff;
+  border-color: transparent;
+  color: #fff;
+}
+
+.c0:hover {
+  background-color: #0044e6;
+}
+
+.c0:active {
+  background-color: #003dcc;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render the primary style correctly when outlined 1`] = `
+.c0 {
+  border-radius: 0.125rem;
+  border-style: solid;
+  border-width: 0.0625rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.625rem 1.25rem;
+  background-color: transparent;
+  border-color: #004cff;
+  color: #004cff;
+}
+
+.c0:hover {
+  border-color: #0044e6;
+  color: #0044e6;
+}
+
+.c0:active {
+  border-color: #003dcc;
+  color: #003dcc;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;

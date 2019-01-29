@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Form as BaseForm, Formik } from 'formik'
 import { MutationFn } from 'react-apollo'
-import { RouteComponentProps } from '@reach/router' // eslint-disable-line typescript/no-unused-vars
+import { RouteComponentProps } from '@reach/router'
 import { object, ref, string } from 'yup'
 import { rem } from 'polished'
 import BaseButton from 'components/button'

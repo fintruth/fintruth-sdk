@@ -158,14 +158,14 @@ const Layout: React.FunctionComponent<Props> = ({
   children,
   ...rest
 }: Props) => {
-  const [isTogglerActive, setTogglerActive] = React.useState<boolean>(false)
+  const [isTogglerActive, setTogglerActive] = React.useState(false)
 
   return (
     <Root {...rest}>
       <header>
         <Navbar aria-label="main navigation">
           <Brand>
-            <LogoLink aria-label="home" data-testid="logo" to="/">
+            <LogoLink aria-label="home" to="/">
               <Logo alt="Logo" src={logoUrl} />
             </LogoLink>
             <Toggler

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { rem } from 'polished'
 import { aquaMarine, raven, watermelon } from 'styles/variables'
 
@@ -20,12 +20,10 @@ const statusColors: StatusColors = {
 }
 
 const Notice = styled.div`
+  color: ${({ status = 'default' }: Props) =>
+    statusColors[status] || statusColors['default']};
   font-size: ${rem(12)};
   font-weight: 500;
-
-  ${({ status = 'default' }: Props) => css`
-    color: ${statusColors[status]};
-  `}
 `
 
 export default Notice

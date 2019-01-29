@@ -1,23 +1,22 @@
-import * as StorybookReact from '@storybook/react'
+import {
+  DecoratorParameters, // eslint-disable-line import/named
+  RenderFunction, // eslint-disable-line import/named
+  Renderable, // eslint-disable-line import/named
+} from '@storybook/react'
 
 declare module '@storybook/react' {
   interface Context {
     kind: string
-    parameters: StorybookReact.DecoratorParameters
+    parameters: DecoratorParameters
     story: string
   }
 
   interface Story {
     add(
       storyName: string,
-      callback: (
-        context: Context
-      ) => StorybookReact.Renderable | StorybookReact.Renderable[] | null,
+      callback: (context: Context) => Renderable | Renderable[] | null,
       parameters?: DecoratorParameters
     ): this
-    addCentered(
-      storyName: string,
-      callback: StorybookReact.RenderFunction
-    ): this
+    addCentered(storyName: string, callback: RenderFunction): this
   }
 }
