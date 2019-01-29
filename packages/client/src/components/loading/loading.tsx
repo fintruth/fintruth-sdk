@@ -50,7 +50,7 @@ const Loading: React.FunctionComponent<Props> = ({
   delay = 200,
   ...rest
 }: Props) => {
-  const [isVisible, setVisible] = React.useState<boolean>(false)
+  const [isVisible, setVisible] = React.useState(false)
 
   React.useEffect(() => {
     const timeout = setTimeout(() => setVisible(true), delay)

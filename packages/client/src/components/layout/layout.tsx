@@ -158,7 +158,7 @@ const Layout: React.FunctionComponent<Props> = ({
   children,
   ...rest
 }: Props) => {
-  const [isTogglerActive, setTogglerActive] = React.useState<boolean>(false)
+  const [isTogglerActive, setTogglerActive] = React.useState(false)
 
   return (
     <Root {...rest}>
