@@ -21,9 +21,9 @@ const ControlledInputField: React.FunctionComponent<Props> = ({
   ...rest
 }: Props) => (
   <Field name={name} validate={validate}>
-    {(props: FieldProps<Values>) => {
-      const { onBlur, onChange, value } = props.field
-      const { errors, touched } = props.form
+    {({ field, form }: FieldProps<Values>) => {
+      const { onBlur, onChange, value } = field
+      const { errors, touched } = form
 
       return (
         <InputField

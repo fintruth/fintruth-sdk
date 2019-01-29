@@ -39,7 +39,7 @@ const Link = styled(BaseLink)`
     color: ${darken(0.1, heather)};
   }
 
-  &[data-current='true'] {
+  &[data-is-current='true'] {
     border-bottom-color: ${azure};
     border-bottom-width: ${rem(2)};
     color: ${azure};
@@ -56,7 +56,7 @@ const Subnavbar: React.FunctionComponent<Props> = ({
     {items.map(({ content, id, to }) => (
       <Link
         id={id}
-        getProps={({ isCurrent }) => ({ 'data-current': isCurrent })}
+        getProps={({ isCurrent }) => ({ 'data-is-current': isCurrent })}
         key={id}
         onClick={onItemClick}
         to={to}
