@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the default style correctly 1`] = `
+.c0 {
+  color: #333;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+<div
+  class="c0"
+>
+  child
+</div>
+`;
+
+exports[`should render the default style if an invalid status is provided 1`] = `
+.c0 {
+  color: #333;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+<div
+  class="c0"
+>
+  child
+</div>
+`;
+
+exports[`should render the failure style correctly 1`] = `
+.c0 {
+  color: #ed5357;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+<div
+  class="c0"
+>
+  child
+</div>
+`;
+
+exports[`should render the success style correctly 1`] = `
+.c0 {
+  color: #54dec3;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+<div
+  class="c0"
+>
+  child
+</div>
+`;

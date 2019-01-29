@@ -31,9 +31,9 @@ jobs:
       - run: yarn --no-progress
       - save_cache: *save_cache
       - run: mkdir --parents reports/junit
-      - run: yarn --silent lint-scripts --format junit --output-file reports/junit/lint-scripts-results.xml
-      - run: yarn --silent lint-styles --custom-formatter node_modules/stylelint-junit-formatter > reports/junit/lint-styles-results.xml
-      - run: yarn --silent lint-types
+      - run: yarn --silent lint:scripts --format junit --output-file reports/junit/lint-scripts-results.xml
+      - run: yarn --silent lint:styles --custom-formatter node_modules/stylelint-junit-formatter > reports/junit/lint-styles-results.xml
+      - run: yarn --silent lint:types
       - store_artifacts: *store_report_artifacts
       - store_test_results: *store_test_results
   test-node-10:
@@ -46,9 +46,9 @@ jobs:
       - save_cache: *save_cache
       - run: mkdir --parents reports/junit
       - run:
-          command: yarn --silent test-units --coverage --runInBand --reporters default jest-junit
+          command: yarn --silent test:units --coverage --runInBand --reporters default jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: reports/junit/unit-test-results.xml
+            JEST_JUNIT_OUTPUT: reports/junit/test-units-results.xml
       - run: yarn --silent codecov
       - store_artifacts: *store_report_artifacts
       - store_artifacts:
@@ -65,9 +65,9 @@ jobs:
       - save_cache: *save_cache
       - run: mkdir --parents reports/junit
       - run:
-          command: yarn --silent test-units --runInBand --reporters default jest-junit
+          command: yarn --silent test:units --runInBand --reporters default jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: reports/junit/unit-test-results.xml
+            JEST_JUNIT_OUTPUT: reports/junit/test-units-results.xml
       - store_artifacts: *store_report_artifacts
       - store_test_results: *store_test_results
 workflows:

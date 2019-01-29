@@ -5,7 +5,7 @@ const DotenvPlugin = require('dotenv-webpack')
 const LoadablePlugin = require('@loadable/webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
-const webpack = require('webpack')
+const { BannerPlugin, DefinePlugin } = require('webpack')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const ROOT_DIR = path.resolve(__dirname, '..')
@@ -43,10 +43,7 @@ const createConfig = (target, configFactory) =>
             },
             {
               test: /\.ts(x)?$/,
-              include: [
-                path.join(ROOT_DIR, '.storybook'),
-                path.join(ROOT_DIR, 'src'),
-              ],
+              include: [path.join(ROOT_DIR, 'src')],
               loader: require.resolve('babel-loader'),
               options: {
                 cacheCompression: isRelease,
@@ -89,7 +86,7 @@ const createConfig = (target, configFactory) =>
       publicPath: '/assets/',
     },
     plugins: [
-      new webpack.DefinePlugin({
+      new DefinePlugin({
         'process.env.BROWSER': target === 'web',
         __DEV__: !isRelease,
       }),
@@ -99,10 +96,7 @@ const createConfig = (target, configFactory) =>
       }),
     ],
     resolve: {
-      alias: {
-        react: path.resolve(ROOT_DIR, '../../node_modules/react'),
-        'react-dom': path.resolve(ROOT_DIR, '../../node_modules/react-dom'),
-      },
+      alias: { react: path.resolve(ROOT_DIR, 'node_modules/react') },
       extensions: ['.js', '.json', '.mjs', '.ts', '.tsx', '.wasm'],
       modules: ['node_modules', path.join(ROOT_DIR, 'src')],
     },
@@ -176,7 +170,7 @@ const serverConfig = createConfig('node', baseConfig => ({
   },
   plugins: [
     ...baseConfig.plugins,
-    new webpack.BannerPlugin({
+    new BannerPlugin({
       banner: 'require("source-map-support").install();',
       entryOnly: false,
       raw: true,

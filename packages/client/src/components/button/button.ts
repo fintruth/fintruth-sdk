@@ -28,7 +28,7 @@ const Button = styled.button`
   padding: ${rem(10)} ${rem(20)};
 
   ${({ isOutlined, status = 'default' }: Props) => {
-    const statusColor = statusColors[status]
+    const statusColor = statusColors[status] || statusColors['default']
 
     return isOutlined
       ? css`

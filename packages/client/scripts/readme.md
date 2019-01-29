@@ -1,4 +1,4 @@
-# Build Automation Tools
+# Build Automation Scripts
 
 ### `yarn start` (`start.js`)
 

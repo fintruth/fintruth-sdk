@@ -30,19 +30,19 @@ const SignIn = loadable(() =>
   import(/* webpackChunkName: 'sign-in' */ 'routes/sign-in')
 )
 
-const Root: React.FunctionComponent<Props> = ({ client }: Props) => {
-  const Fault = __DEV__ ? require('routes/fault').default : undefined
+const Root: React.FunctionComponent<Props> = ({ client, ...rest }: Props) => {
+  const Fault = __DEV__ ? require('routes/fault').default : null
 
   return (
     <ApolloProvider client={client}>
       <GlobalStyle />
       <Router>
-        {Fault && <Fault path="/error" />}
-        <Home data-testid="home" path="/" />
-        <Recover data-testid="recover" path="/recover" />
-        <Register data-testid="register" path="/register" />
-        <SignIn data-testid="sign-in" path="/sign-in" />
-        <NotFound data-testid="not-found" default />
+        {Fault && <Fault {...rest} path="/error" />}
+        <Home {...rest} path="/" />
+        <Recover {...rest} path="/recover" />
+        <Register {...rest} path="/register" />
+        <SignIn {...rest} path="/sign-in" />
+        <NotFound {...rest} default />
       </Router>
     </ApolloProvider>
   )

@@ -2,14 +2,14 @@ import React from 'react'
 import { Mutation } from 'react-apollo'
 import { RouteComponentProps } from '@reach/router'
 import { renderLoadingIf } from 'utilities/loading'
-import Recover, { Data, Variables } from './recover' // eslint-disable-line typescript/no-unused-vars
+import Recover, { Data, Variables } from './recover' // eslint-disable-line @typescript-eslint/no-unused-vars
 import { recoverMutation } from './graphql'
 
 const RecoverContainer: React.FunctionComponent<RouteComponentProps> = ({
   ...rest
 }: RouteComponentProps) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState<string>('success')
+  const [status, setStatus] = React.useState('success')
 
   return (
     <Mutation<Data, Variables>
