@@ -1,6 +1,6 @@
 import { object, string } from '@fintruth-sdk/validation'
 import { hash } from 'bcrypt'
-import { isNil } from 'ramda'
+import { is, isNil } from 'ramda'
 import { Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
@@ -58,8 +58,14 @@ export class UserService {
         .password(2),
     })
 
-    if (!schema.isValidSync({ email, password })) {
-      return { error: { message: 'Invalid input' } }
+    const validated = await schema
+      .validate({ email, password })
+      .catch(error => error)
+
+    if (is(Error, validated)) {
+      const { message } = validated
+
+      return { error: { message } }
     }
 
     const isAvailable = await this.emailAvailable(email)

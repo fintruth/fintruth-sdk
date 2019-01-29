@@ -25,5 +25,5 @@
   },
   "exclude": ["build", "node_modules"],
   "include": ["**/*", ".*/**/*"],
-  "references": [{ "path": "../shared" }, { "path": "../validation" }]
+  "references": [{ "path": "../shared" }]
 }
