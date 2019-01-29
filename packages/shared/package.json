@@ -15,7 +15,7 @@
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
     "lint:types": "tsc --noEmit",
     "prebuild": "yarn clean",
-    "test": "echo 'No tests specified' && exit 0"
+    "test": "echo \\\"No tests specified\\\" && exit 0"
   },
   "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/shared",
   "author": "Fintruth LLC",

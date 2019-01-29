@@ -7,7 +7,7 @@ import {
   useContainer as typeGraphQLUseContainer,
 } from 'type-graphql'
 
-import { isDev } from 'config'
+import { isProd } from 'config'
 import { logger } from 'logger'
 import { AuthResolver } from 'resolvers/auth-resolver'
 import { UserResolver } from 'resolvers/user-resolver'
@@ -34,7 +34,7 @@ export const createApolloServer = async (): Promise<ApolloServer> => {
   const schema = await buildSchema({
     emitSchemaFile: './schema.graphql',
     resolvers: [AuthResolver, UserResolver],
-    validate: true, // see https://github.com/typestack/class-validator/issues/261
+    validate: false, // see https://github.com/typestack/class-validator/issues/261
   })
 
   return new ApolloServer({
@@ -42,9 +42,9 @@ export const createApolloServer = async (): Promise<ApolloServer> => {
       res,
       user: req.user,
     }),
-    debug: isDev,
+    debug: !isProd,
     formatError: tap(logError),
-    playground: isDev,
+    playground: !isProd,
     schema,
   })
 }

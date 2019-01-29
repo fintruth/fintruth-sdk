@@ -8,6 +8,7 @@
     "clean": "lerna run clean",
     "lint": "lerna run lint",
     "prebuild": "yarn clean",
+    "start": "lerna run --parallel --stream --scope @fintruth-sdk/server --scope @fintruth-sdk/client start",
     "test": "lerna run test"
   },
   "repository": {

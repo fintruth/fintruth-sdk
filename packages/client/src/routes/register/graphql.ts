@@ -1,12 +1,12 @@
 import gql from 'graphql-tag'
 
 export const registerMutation = gql`
-  mutation RegisterMutation($input: RegisterInput!) {
-    payload: register(input: $input) {
+  mutation RegisterMutation($input: RegistrationInput!) {
+    response: register(input: $input) {
       error {
-        id
         message
       }
+      token
     }
   }
 `

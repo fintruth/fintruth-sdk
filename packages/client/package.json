@@ -28,6 +28,7 @@
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "@babel/runtime": "^7.3.1",
+    "@fintruth-sdk/shared": "^0.1.0",
     "@loadable/component": "^5.5.0",
     "@loadable/server": "^5.5.0",
     "@reach/router": "^1.2.1",

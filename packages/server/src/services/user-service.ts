@@ -1,11 +1,12 @@
 import { object, string } from '@fintruth-sdk/validation'
 import { hash } from 'bcrypt'
-import { isNil } from 'ramda'
+import { is, isNil } from 'ramda'
 import { Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { User } from 'entities/user'
+import { RegistrationResponse } from 'resolvers/types'
 import { createToken, parseToken } from 'security'
 
 interface RegistrationTokenData {
@@ -23,7 +24,7 @@ export class UserService {
     const user = await this.userRepository.findOne({ email })
 
     if (!user || !user.validatePassword(password)) {
-      throw new Error('Invalid email or password')
+      return null
     }
 
     return user
@@ -44,7 +45,10 @@ export class UserService {
     return isNil(await this.userRepository.findOne({ email }))
   }
 
-  async register(email: string, password: string) {
+  async register(
+    email: string,
+    password: string
+  ): Promise<RegistrationResponse> {
     const schema = object().shape({
       email: string()
         .required()
@@ -54,12 +58,20 @@ export class UserService {
         .password(2),
     })
 
-    await schema.validate({ email, password })
+    const validated = await schema
+      .validate({ email, password })
+      .catch(error => error)
+
+    if (is(Error, validated)) {
+      const { message } = validated
+
+      return { error: { message } }
+    }
 
     const isAvailable = await this.emailAvailable(email)
 
     if (!isAvailable) {
-      throw new Error('User already exists')
+      return { error: { message: 'User already exists' } }
     }
 
     const expiresAt = Date.now() + 60 * 60 * 1000
@@ -69,7 +81,7 @@ export class UserService {
       password: await hash(password, 10),
     }
 
-    return createToken(data)
+    return { token: createToken(data) }
   }
 
   private async createUser(email: string, password: string): Promise<User> {

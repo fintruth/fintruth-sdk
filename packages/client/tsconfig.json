@@ -19,10 +19,12 @@
       "*": ["src/*"]
     },
     "removeComments": true,
+    "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false,
     "target": "esnext"
   },
   "exclude": ["build", "node_modules"],
-  "include": ["**/*", ".*/**/*"]
+  "include": ["**/*", ".*/**/*"],
+  "references": [{ "path": "../shared" }]
 }

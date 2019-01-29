@@ -14,16 +14,16 @@ const SignInContainer: React.FunctionComponent<RouteComponentProps> = ({
   return (
     <Mutation<Data, Variables>
       mutation={signInMutation}
-      onCompleted={({ payload }) => {
-        if (payload.error) {
-          setNotice(payload.error.message)
+      onCompleted={({ response }) => {
+        if (response.error) {
+          setNotice(response.error.message)
           setStatus('failure')
         } else {
           navigate('/')
         }
       }}
-      update={(cache, { data = { payload: { user: null } } }) =>
-        cache.writeQuery({ data: data.payload, query: signInQuery })
+      update={(cache, { data = { response: { user: null } } }) =>
+        cache.writeQuery({ data: data.response, query: signInQuery })
       }
     >
       {(onSubmit, { loading }) =>

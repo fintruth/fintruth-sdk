@@ -12,11 +12,12 @@ import ControlledInputField from 'components/controlled-input-field'
 import { centered } from 'styles/mixins'
 
 export interface Data {
-  payload: Payload
+  response: Response
 }
 
-interface Payload {
+interface Response {
   error: any
+  token: string
 }
 
 interface Props extends RouteComponentProps {

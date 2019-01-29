@@ -17,7 +17,7 @@ const defaultMocks = new Array(5).fill({
       },
     },
   },
-  result: { data: { payload: { error: null } } },
+  result: { data: { response: { error: null } } },
 })
 
 const delayMocks = new Array(5).fill({
@@ -34,7 +34,7 @@ const delayMocks = new Array(5).fill({
       },
     },
   },
-  result: { data: { payload: { error: null } } },
+  result: { data: { response: { error: null } } },
 })
 
 const errorMocks = new Array(5).fill({
@@ -52,7 +52,7 @@ const errorMocks = new Array(5).fill({
   },
   result: {
     data: {
-      payload: {
+      response: {
         error: {
           id: 'b4b61626-17d8-402b-b001-ad030d4b3589',
           message: 'The user already exists',
