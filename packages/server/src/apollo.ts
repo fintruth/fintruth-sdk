@@ -31,7 +31,7 @@ const logError = (e: ApolloError) => logger.error('[apollo]', e)
 
 export const createApolloServer = async (): Promise<ApolloServer> => {
   const schema = await buildSchema({
-    emitSchemaFile: './schema.graphql',
+    emitSchemaFile: !isProd && './schema.graphql',
     resolvers: [AuthResolver, UserResolver],
     validate: false, // see https://github.com/typestack/class-validator/issues/261
   })

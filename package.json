@@ -5,6 +5,7 @@
   "description": "Software development kit for Fintruth projects",
   "scripts": {
     "build": "lerna run build",
+    "build:release": "lerna run build:release",
     "clean": "lerna run clean",
     "lint": "lerna run lint",
     "prebuild": "yarn clean",

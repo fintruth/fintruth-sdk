@@ -19,12 +19,17 @@ View the application by opening http://localhost:3000
 
 ## Build 
 
-> `yarn build` must be manually run before creating images
+> `build` or `build:release` must be manually run before creating images
 
 Run locally in docker:
 ```bash
 docker-compose up
 ````
+
+Build and recreate a running service:
+```bash
+docker-compose up --build --force-recreate --no-deps <service>
+```
 
 Build `client` image:
 ```bash

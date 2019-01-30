@@ -21,6 +21,9 @@ module.exports = {
     }),
   ],
   mode,
+  optimization: {
+    minimize: false,
+  },
   module: {
     rules: [
       {
