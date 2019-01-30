@@ -5,7 +5,7 @@ import { Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { User } from 'entities/user'
+import { User } from '../entities'
 import { RegistrationResponse } from 'resolvers/types'
 import { createToken, parseToken } from 'security'
 

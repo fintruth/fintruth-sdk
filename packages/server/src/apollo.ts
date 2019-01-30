@@ -7,13 +7,12 @@ import {
   useContainer as typeGraphQLUseContainer,
 } from 'type-graphql'
 
+import { User } from './entities'
+import { ServerRequest, ServerResponse } from './server'
 import { isProd } from 'config'
 import { logger } from 'logger'
 import { AuthResolver } from 'resolvers/auth-resolver'
 import { UserResolver } from 'resolvers/user-resolver'
-
-import { ServerRequest, ServerResponse } from './server'
-import { User } from 'entities/user'
 
 interface RequestParams {
   req: ServerRequest

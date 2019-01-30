@@ -1,7 +1,7 @@
 import { Connection, createConnection } from 'typeorm'
 
+import { User } from './entities'
 import { database } from 'config'
-import { User } from 'entities/user'
 
 export const createDatabaseConnection = (): Promise<User> =>
   createConnection({
