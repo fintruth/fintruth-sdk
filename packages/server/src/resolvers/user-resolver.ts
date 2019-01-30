@@ -1,7 +1,7 @@
-import { Arg, ID, Query, Resolver } from 'type-graphql'
+import { Arg, Ctx, ID, Query, Resolver } from 'type-graphql'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
-
+import { Context } from 'apollo'
 import { User } from 'entities/user'
 
 @Resolver(() => User)
@@ -10,12 +10,17 @@ export class UserResolver {
   private readonly userRepository: Repository<User>
 
   @Query(() => User, { nullable: true })
-  user(@Arg('id', () => ID) id: string): Promise<User | undefined> {
+  currentUser(@Ctx() { user }: Context) {
+    return this.userRepository.findOne(user ? user.id : undefined)
+  }
+
+  @Query(() => User, { nullable: true })
+  user(@Arg('id', () => ID) id: string) {
     return this.userRepository.findOne(id)
   }
 
   @Query(() => [User])
-  users(): Promise<User[]> {
+  users() {
     return this.userRepository.find()
   }
 }

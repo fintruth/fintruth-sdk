@@ -1,9 +1,9 @@
 import { Connection, createConnection } from 'typeorm'
-
-import { database } from 'config'
+import { hashSync } from 'bcrypt'
 import { User } from 'entities/user'
+import { database } from 'config'
 
-export const createDatabaseConnection = (): Promise<User> =>
+export const createDatabaseConnection = () =>
   createConnection({
     ...database,
     type: 'postgres',
@@ -14,7 +14,7 @@ export const createDatabaseConnection = (): Promise<User> =>
     const user = new User()
     user.id = '496ca0bf-470b-479a-b56d-f17c063003b1'
     user.email = 'demo@fintruth.com'
-    user.password = 'nopassword'
+    user.password = hashSync('nopassword', 10)
 
     return connection.manager.save(user)
   })
