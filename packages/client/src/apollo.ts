@@ -17,10 +17,7 @@ export const createApolloClient = ({ storeOptions }: Options) => {
   }
 
   links.push(
-    createUploadLink({
-      credentials: 'include',
-      uri: 'http://localhost:4000/api',
-    })
+    createUploadLink({ credentials: 'include', uri: process.env.API_URL })
   )
 
   return new ApolloClient({

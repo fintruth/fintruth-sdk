@@ -17,7 +17,6 @@ export interface Data {
 
 interface Response {
   error: any
-  token: string
 }
 
 interface Props extends RouteComponentProps {

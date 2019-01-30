@@ -25,7 +25,7 @@ const runServer = () =>
       if (match) {
         server.host = match[1]
         server.stdout.removeListener('data', onStdOut)
-        server.stdout.on('data', x => process.stdout.write(x))
+        server.stdout.on('data', process.stdout.write)
         pending = false
 
         resolve(server)
@@ -52,7 +52,7 @@ const runServer = () =>
     }
 
     server.stdout.on('data', onStdOut)
-    server.stderr.on('data', x => process.stderr.write(x))
+    server.stderr.on('data', process.stderr.write)
 
     return server
   })

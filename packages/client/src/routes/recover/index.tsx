@@ -14,9 +14,9 @@ const RecoverContainer: React.FunctionComponent<RouteComponentProps> = ({
   return (
     <Mutation<Data, Variables>
       mutation={recoverMutation}
-      onCompleted={({ payload }) => {
-        if (payload.error) {
-          setNotice(payload.error.message)
+      onCompleted={({ response }) => {
+        if (response.error) {
+          setNotice(response.error.message)
           setStatus('failure')
         } else {
           setNotice('A verification email has been sent')

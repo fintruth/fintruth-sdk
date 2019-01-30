@@ -7,9 +7,9 @@ import { User } from '../entities'
 import { Context } from 'apollo'
 import { secret } from 'config'
 import {
-  LoginResponse,
-  RegistrationInput,
-  RegistrationResponse,
+  RegisterInput,
+  RegisterResponse,
+  SignInResponse,
 } from 'resolvers/types'
 import { UserService } from 'services/user-service'
 
@@ -23,16 +23,22 @@ export class AuthResolver {
     return this.userService.confirmRegistration(token)
   }
 
-  @Mutation(() => LoginResponse)
-  async login(
+  @Mutation(() => SignInResponse)
+  async signIn(
     @Arg('email') email: string,
     @Arg('password') password: string,
     @Ctx() { res }: Context
-  ): Promise<LoginResponse> {
+  ): Promise<SignInResponse> {
     const user = await this.userService.authenticate(email, password)
 
     if (!user) {
-      return { error: { message: 'invalid username or password' } }
+      return {
+        error: {
+          id: 'b49e7dec-b1ad-495c-a853-d089816ed6bc',
+          message: 'Incorrect email or password',
+        },
+        user: null,
+      }
     }
 
     const expiresIn = 60 * 60 * 24 * 180
@@ -44,19 +50,19 @@ export class AuthResolver {
       signed: false,
     })
 
-    return { user }
+    return { error: null, user }
   }
 
   @Mutation(() => GraphQLBoolean)
-  logout(@Ctx() { res }: Context) {
+  signOut(@Ctx() { res }: Context) {
     res.clearCookie('token-id')
 
     return true
   }
 
-  @Mutation(() => RegistrationResponse)
-  async register(@Arg('input') { email, password }: RegistrationInput): Promise<
-    RegistrationResponse
+  @Mutation(() => RegisterResponse)
+  async register(@Arg('input') { email, password }: RegisterInput): Promise<
+    RegisterResponse
   > {
     return this.userService.register(email, password)
   }

@@ -95,9 +95,7 @@ const SignIn: React.FunctionComponent<Props> = ({
     {notice && <Notice status={status}>{notice}</Notice>}
     <Formik<Values>
       initialValues={initialValues}
-      onSubmit={({ email, password }) =>
-        onSubmit({ variables: { email, password } })
-      }
+      onSubmit={variables => onSubmit({ variables })}
       validationSchema={validationSchema}
     >
       {() => (

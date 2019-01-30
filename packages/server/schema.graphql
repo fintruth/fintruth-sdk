@@ -6,16 +6,11 @@
 # The javascript `Date` as string. Type represents date and time as the ISO Date string.
 scalar DateTime
 
-type LoginResponse {
-  error: ResponseError
-  user: User
-}
-
 type Mutation {
   confirmRegistration(token: String!): User!
-  login(password: String!, email: String!): LoginResponse!
-  logout: Boolean!
-  register(input: RegistrationInput!): RegistrationResponse!
+  signIn(password: String!, email: String!): SignInResponse!
+  signOut: Boolean!
+  register(input: RegisterInput!): RegisterResponse!
 }
 
 type Query {
@@ -23,7 +18,7 @@ type Query {
   users: [User!]!
 }
 
-input RegistrationInput {
+input RegisterInput {
   email: String!
   emailConfirm: String!
   firstName: String!
@@ -31,13 +26,18 @@ input RegistrationInput {
   password: String!
 }
 
-type RegistrationResponse {
+type RegisterResponse {
   error: ResponseError
-  token: String
 }
 
 type ResponseError {
+  id: ID!
   message: String!
+}
+
+type SignInResponse {
+  error: ResponseError
+  user: User
 }
 
 type User {
