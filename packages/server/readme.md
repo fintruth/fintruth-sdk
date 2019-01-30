@@ -13,12 +13,16 @@
 
 ## Get Started
 
-From project root:
+Start dependencies via Docker
 
 ```bash
 docker-compose -f docker-compose.yml up -d
-yarn install
-yarn start
+```
+
+Run application
+
+```bash
+yarn && yarn start
 ```
 
 View the GraphQL playground by opening http://localhost:4000/api

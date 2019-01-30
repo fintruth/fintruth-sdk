@@ -11,8 +11,7 @@ docker-compose -f docker-compose.yml up -d
 
 Run application
 ```bash
-yarn install
-yarn start
+yarn && yarn start
 ```
 
 View the application by opening http://localhost:3000

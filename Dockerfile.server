@@ -3,7 +3,6 @@
 # --------------------------------
 FROM node:10.15-alpine AS base
 
-# Set work
 WORKDIR /app
 
 # Native dependencies
