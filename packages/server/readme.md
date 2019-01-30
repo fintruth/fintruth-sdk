@@ -13,38 +13,15 @@
 
 ## Get Started
 
+From project root:
+
 ```bash
+docker-compose -f docker-compose.yml up -d
 yarn install
 yarn start
 ```
 
-View the GraphQL playground by opening http://localhost:3000/api
-
-## Run Tests
-
-```bash
-yarn test
-```
-
-## Build
-
-```bash
-yarn build
-```
-
-## Docker
-
-Build docker image (from project root):
-
-```bash
-docker build -t fintruth/server:latest -f Dockerfile.server .
-```
-
-Start application locally:
-
-```bash
-docker-compose up
-```
+View the GraphQL playground by opening http://localhost:4000/api
 
 ## License
 
