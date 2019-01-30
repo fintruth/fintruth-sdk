@@ -107,8 +107,10 @@ if (module.hot) {
   app.hot = module.hot
   module.hot.accept('components/root', () => {})
 } else {
-  app.listen(3000, () =>
-    console.info('The server is running at http://localhost:3000/')
+  app.listen(process.env.PORT, () =>
+    console.info(
+      `The server is running at http://localhost:${process.env.PORT}/`
+    )
   )
 }
 

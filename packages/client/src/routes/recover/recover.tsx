@@ -11,10 +11,10 @@ import ControlledInputField from 'components/controlled-input-field'
 import { centered, link } from 'styles/mixins'
 
 export interface Data {
-  payload: Payload
+  response: Response
 }
 
-interface Payload {
+interface Response {
   error: any
 }
 

@@ -1,3 +1,3 @@
-export { LoginResponse } from './login-response'
-export { RegistrationInput } from './registration-input'
-export { RegistrationResponse } from './registration-response'
+export { RegisterInput } from './register-input'
+export { RegisterResponse } from './register-response'
+export { SignInResponse } from './sign-in-response'

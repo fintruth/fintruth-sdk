@@ -8,7 +8,7 @@ const options = { Default: 'default', Failure: 'failure' }
 
 storiesOf('Components|Input Field', module).addCentered('Default', () => (
   <InputField
-    id="00000000-0000-0000-0000-000000000000"
+    id="f041106a-d438-462a-b129-11bfd35fa381"
     isRequired={boolean('Is Required', true)}
     label={text('Label', 'Title')}
     notice={text('Notice', '')}

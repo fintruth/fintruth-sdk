@@ -9,7 +9,7 @@ const defaultMocks = new Array(5).fill({
     query: recoverMutation,
     variables: { input: { email: 'logan.smith@gmail.com' } },
   },
-  result: { data: { payload: { error: null } } },
+  result: { data: { response: { error: null } } },
 })
 
 const delayMocks = new Array(5).fill({
@@ -18,7 +18,7 @@ const delayMocks = new Array(5).fill({
     query: recoverMutation,
     variables: { input: { email: 'logan.smith@gmail.com' } },
   },
-  result: { data: { payload: { error: null } } },
+  result: { data: { response: { error: null } } },
 })
 
 const errorMocks = new Array(5).fill({
@@ -28,7 +28,7 @@ const errorMocks = new Array(5).fill({
   },
   result: {
     data: {
-      payload: {
+      response: {
         error: {
           id: 'b49e7dec-b1ad-495c-a853-d089816ed6bc',
           message: 'The user does not exist',

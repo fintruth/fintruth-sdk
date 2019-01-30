@@ -13,12 +13,11 @@ const defaultMocks = new Array(5).fill({
   },
   result: {
     data: {
-      payload: {
+      response: {
         error: null,
         user: {
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
           email: 'logan.smith@gmail.com',
-          profile: { firstName: 'Logan', lastName: 'Smith' },
         },
       },
     },
@@ -35,12 +34,11 @@ const delayMocks = new Array(5).fill({
   },
   result: {
     data: {
-      payload: {
+      response: {
         error: null,
         user: {
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
           email: 'logan.smith@gmail.com',
-          profile: { firstName: 'Logan', lastName: 'Smith' },
         },
       },
     },
@@ -56,7 +54,7 @@ const errorMocks = new Array(5).fill({
   },
   result: {
     data: {
-      payload: {
+      response: {
         error: {
           id: 'b49e7dec-b1ad-495c-a853-d089816ed6bc',
           message: 'Incorrect email or password',

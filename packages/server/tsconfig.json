@@ -20,7 +20,7 @@
       "express": ["node_modules/express"]
     },
     "removeComments": true,
-    "skipLibCheck": true,
+    "rootDir": "src",
     "sourceMap": true,
     "strict": true,
     "strictPropertyInitialization": false,

@@ -2,8 +2,9 @@ import gql from 'graphql-tag'
 
 export const signInMutation = gql`
   mutation SignInMutation($email: String!, $password: String!) {
-    response: login(email: $email, password: $password) {
+    response: signIn(email: $email, password: $password) {
       error {
+        id
         message
       }
       user {

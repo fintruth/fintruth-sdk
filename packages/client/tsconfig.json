@@ -19,10 +19,11 @@
       "*": ["src/*"]
     },
     "removeComments": true,
-    "skipLibCheck": true,
+    "rootDir": "src",
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "esnext"
+    "target": "esnext",
+    "types": ["jest"]
   },
   "exclude": ["build", "node_modules"],
   "include": ["**/*", ".*/**/*"],
