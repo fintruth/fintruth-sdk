@@ -1,0 +1,66 @@
+# --------------------------------
+# Base
+# --------------------------------
+FROM node:10.15-alpine AS base
+
+# Set work
+WORKDIR /app
+
+# Native dependencies
+RUN apk add --no-cache make gcc g++ python
+
+# Install dockerize
+ENV DOCKERIZE_VERSION v0.6.1
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+&& rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+
+# Add packages
+COPY package.json yarn.lock ./
+COPY packages/client/package.json ./packages/client/
+COPY packages/server/package.json ./packages/server/
+COPY packages/shared/package.json ./packages/shared/
+COPY packages/validation/package.json ./packages/validation/
+
+# --------------------------------
+# Dependencies
+# --------------------------------
+FROM base AS dependencies
+
+# Install production dependencies
+RUN yarn install --prod --pure-lockfile --non-interactive --silent
+RUN cp -R node_modules prod_node_modules
+
+# Install dev dependencies
+RUN yarn install --non-interactive --silent
+
+# --------------------------------
+# Release
+# --------------------------------
+FROM base AS release
+
+# Production dependencies
+COPY --from=dependencies /app/prod_node_modules ./node_modules
+COPY --from=dependencies /app/packages/server/node_modules ./packages/server/node_modules
+COPY packages/shared ./packages/shared
+COPY packages/validation ./packages/validation
+
+WORKDIR ./packages/server
+
+# Build files
+COPY packages/server/build ./
+
+# Copy configuration
+COPY ./packages/server/.env.prod ./.env
+COPY ./packages/server/.env.example \
+     ./packages/server/ormconfig.yml \
+     ./packages/server/docker-entrypoint.sh ./
+
+USER node
+
+EXPOSE 4000
+
+#RUN chmod +x docker-entrypoint.sh
+ENTRYPOINT [ "/app/packages/server/docker-entrypoint.sh" ]
+
+CMD [ "node", "main.js" ]

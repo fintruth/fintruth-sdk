@@ -9,9 +9,13 @@ const bootstrap = async (): Promise<void> => {
   await createDatabaseConnection()
 
   const app = createServer()
-
   const server = await createApolloServer()
+
   server.applyMiddleware({ app, cors: false, path: '/api' })
+
+  app.get('/', (_, res) => {
+    res.sendStatus(200)
+  })
 
   app.listen(port, () =>
     logger.info(

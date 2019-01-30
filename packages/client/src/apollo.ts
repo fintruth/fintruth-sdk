@@ -19,7 +19,7 @@ export const createApolloClient = ({ storeOptions }: Options) => {
   links.push(
     createUploadLink({
       credentials: 'include',
-      uri: 'http://localhost:3001/api',
+      uri: 'http://localhost:4000/api',
     })
   )
 

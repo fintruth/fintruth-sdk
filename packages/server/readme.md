@@ -37,7 +37,7 @@ yarn build
 Build docker image (from project root):
 
 ```bash
-docker build -t fintruth/server:latest -f ./packages/server/Dockerfile .
+docker build -t fintruth/server:latest -f Dockerfile.server .
 ```
 
 Start application locally:
