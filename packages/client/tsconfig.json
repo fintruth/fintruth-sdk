@@ -25,7 +25,7 @@
     "target": "esnext",
     "types": ["jest"]
   },
-  "exclude": ["build", "node_modules"],
+  "exclude": ["build", "node_modules", "test"],
   "include": ["**/*", ".*/**/*"],
   "references": [{ "path": "../shared" }]
 }
