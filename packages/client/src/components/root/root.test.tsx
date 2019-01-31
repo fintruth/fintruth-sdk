@@ -1,20 +1,14 @@
 import React from 'react'
-import { ApolloClient } from 'apollo-client'
-import { ApolloLink } from 'apollo-link'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { MockedProvider } from 'react-apollo/test-utils'
 import { waitForElement } from 'react-testing-library'
 import { renderWithRouter } from 'utilities/specification'
 import Root from '.'
 
-const createApolloClient = () =>
-  new ApolloClient({
-    cache: new InMemoryCache(),
-    link: ApolloLink.empty(),
-  })
-
 test('should render the home route correctly', async () => {
   const { getByTestId, queryByTitle } = renderWithRouter(
-    <Root data-testid="home" client={createApolloClient()} />
+    <MockedProvider>
+      <Root data-testid="home" />
+    </MockedProvider>
   )
   const homeElement = await waitForElement(() => getByTestId('home'))
 
@@ -24,7 +18,9 @@ test('should render the home route correctly', async () => {
 
 test('should render the error route correctly', async () => {
   const { getByTestId, queryByTitle } = renderWithRouter(
-    <Root data-testid="error" client={createApolloClient()} />,
+    <MockedProvider>
+      <Root data-testid="error" />
+    </MockedProvider>,
     { initialPath: '/error' }
   )
   const errorElement = await waitForElement(() => getByTestId('error'))
@@ -35,7 +31,9 @@ test('should render the error route correctly', async () => {
 
 test('should render the recover route correctly', async () => {
   const { getByTestId, queryByTitle } = renderWithRouter(
-    <Root data-testid="recover" client={createApolloClient()} />,
+    <MockedProvider>
+      <Root data-testid="recover" />
+    </MockedProvider>,
     { initialPath: '/recover' }
   )
   const recoverElement = await waitForElement(() => getByTestId('recover'))
@@ -46,7 +44,9 @@ test('should render the recover route correctly', async () => {
 
 test('should render the register route correctly', async () => {
   const { getByTestId, queryByTitle } = renderWithRouter(
-    <Root data-testid="register" client={createApolloClient()} />,
+    <MockedProvider>
+      <Root data-testid="register" />
+    </MockedProvider>,
     { initialPath: '/register' }
   )
   const registerElement = await waitForElement(() => getByTestId('register'))
@@ -57,7 +57,9 @@ test('should render the register route correctly', async () => {
 
 test('should render the sign-in route correctly', async () => {
   const { getByTestId, queryByTitle } = renderWithRouter(
-    <Root data-testid="sign-in" client={createApolloClient()} />,
+    <MockedProvider>
+      <Root data-testid="sign-in" />
+    </MockedProvider>,
     { initialPath: '/sign-in' }
   )
   const signInElement = await waitForElement(() => getByTestId('sign-in'))
@@ -71,7 +73,9 @@ test('should render the default route correctly', async () => {
   __DEV__ = false
 
   const { getByTestId } = renderWithRouter(
-    <Root data-testid="error" client={createApolloClient()} />,
+    <MockedProvider>
+      <Root data-testid="error" />
+    </MockedProvider>,
     { initialPath: '/error' }
   )
   const notFoundElement = await waitForElement(() => getByTestId('error'))
