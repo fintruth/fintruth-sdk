@@ -59,7 +59,6 @@ USER node
 
 EXPOSE 4000
 
-#RUN chmod +x docker-entrypoint.sh
 ENTRYPOINT [ "/app/packages/server/docker-entrypoint.sh" ]
 
 CMD [ "node", "main.js" ]
