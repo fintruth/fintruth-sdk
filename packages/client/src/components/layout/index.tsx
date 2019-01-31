@@ -2,10 +2,10 @@ import React from 'react'
 import { Mutation, Query } from 'react-apollo'
 import { renderLoadingIf } from 'utilities/loading'
 import Layout, { Data } from './layout' // eslint-disable-line @typescript-eslint/no-unused-vars
-import { signOutMutation, signOutQuery } from './graphql'
+import { layoutQuery, signOutMutation } from './graphql'
 
 const LayoutContainer: React.FunctionComponent = ({ ...rest }) => (
-  <Query<Data> fetchPolicy="network-only" query={signOutQuery}>
+  <Query<Data> fetchPolicy="network-only" query={layoutQuery}>
     {({ client, data = {}, loading }) => (
       <Mutation
         mutation={signOutMutation}

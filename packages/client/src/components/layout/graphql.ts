@@ -6,8 +6,8 @@ export const signOutMutation = gql`
   }
 `
 
-export const signOutQuery = gql`
-  query SignOutQuery {
+export const layoutQuery = gql`
+  query LayoutQuery {
     user: currentUser {
       id
     }
