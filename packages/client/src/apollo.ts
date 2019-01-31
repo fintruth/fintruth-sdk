@@ -17,12 +17,13 @@ export const createApolloClient = ({ storeOptions }: Options) => {
   }
 
   links.push(
-    createUploadLink({ credentials: 'include', uri: process.env.API_URL })
+    createUploadLink({ credentials: 'include', uri: process.env.API_URI })
   )
 
   return new ApolloClient({
     cache,
     link: ApolloLink.from(links),
+    ssrForceFetchDelay: process.env.BROWSER ? 100 : undefined,
     ssrMode: !process.env.BROWSER,
   })
 }

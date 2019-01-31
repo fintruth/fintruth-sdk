@@ -5,7 +5,7 @@ import Layout, { Data } from './layout' // eslint-disable-line @typescript-eslin
 import { signOutMutation, signOutQuery } from './graphql'
 
 const LayoutContainer: React.FunctionComponent = ({ ...rest }) => (
-  <Query<Data> query={signOutQuery}>
+  <Query<Data> fetchPolicy="network-only" query={signOutQuery}>
     {({ client, data = {}, loading }) => (
       <Mutation
         mutation={signOutMutation}

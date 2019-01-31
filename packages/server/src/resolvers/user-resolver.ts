@@ -11,7 +11,7 @@ export class UserResolver {
 
   @Query(() => User, { nullable: true })
   currentUser(@Ctx() { user }: Context) {
-    return this.userRepository.findOne(user ? user.id : undefined)
+    return user ? this.userRepository.findOne(user.id) : null
   }
 
   @Query(() => User, { nullable: true })

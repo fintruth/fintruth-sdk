@@ -17,7 +17,7 @@ export const signInMutation = gql`
 
 export const signInQuery = gql`
   query SignInQuery {
-    user {
+    user: currentUser {
       id
       email
     }
