@@ -1,13 +1,21 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Link as BaseLink } from '@reach/router'
+import { MutationFn } from 'react-apollo'
+import { User } from '@fintruth-sdk/shared'
 import { darken, rem } from 'polished'
 import logoUrl from 'assets/logo.png'
 import { content, medium, untilMedium } from 'styles/mixins'
 import { raven } from 'styles/variables'
 
+export interface Data {
+  user?: User
+}
+
 interface Props {
-  children: React.ReactNode
+  children?: React.ReactNode
+  onSignOut: MutationFn
+  user?: User
 }
 
 interface State {
@@ -135,7 +143,7 @@ const Menu = styled.div`
   `)};
 `
 
-const ItemLink = styled(BaseLink)`
+const item = css`
   color: ${raven};
   display: block;
   padding: ${rem(8)} ${rem(12)};
@@ -154,8 +162,21 @@ const ItemLink = styled(BaseLink)`
   }
 `
 
+const ItemLink = styled(BaseLink)`
+  ${item};
+`
+
+const ItemButton = styled.button`
+  ${item};
+  background-color: unset;
+  border: unset;
+  cursor: pointer;
+`
+
 const Layout: React.FunctionComponent<Props> = ({
   children,
+  onSignOut,
+  user,
   ...rest
 }: Props) => {
   const [isTogglerActive, setTogglerActive] = React.useState(false)
@@ -180,7 +201,11 @@ const Layout: React.FunctionComponent<Props> = ({
             </Toggler>
           </Brand>
           <Menu isTogglerActive={isTogglerActive}>
-            <ItemLink to="/sign-in">Sign In</ItemLink>
+            {user ? (
+              <ItemButton onClick={() => onSignOut()}>Sign Out</ItemButton>
+            ) : (
+              <ItemLink to="/sign-in">Sign In</ItemLink>
+            )}
           </Menu>
         </Navbar>
       </header>

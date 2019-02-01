@@ -5,11 +5,11 @@ import bodyParser from 'body-parser'
 import compression from 'compression'
 import cors from 'cors'
 import express, { Express, NextFunction, Request, Response } from 'express'
+import { ApolloProvider, renderToStringWithData } from 'react-apollo'
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 import { ServerLocation, isRedirect } from '@reach/router'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
-import { renderToStringWithData } from 'react-apollo'
 import Fault from './routes/fault'
 import Html from './components/html'
 import Root from './components/root'
@@ -47,7 +47,9 @@ app.get('*', async (req: Request, res: Response, next: NextFunction) => {
       <ChunkExtractorManager extractor={extractor}>
         <StyleSheetManager sheet={sheet.instance}>
           <ServerLocation url={req.url}>
-            <Root client={client} />
+            <ApolloProvider client={client}>
+              <Root />
+            </ApolloProvider>
           </ServerLocation>
         </StyleSheetManager>
       </ChunkExtractorManager>

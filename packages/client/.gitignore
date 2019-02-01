@@ -4,6 +4,10 @@
 build
 storybook-static
 
+# Compiled test output
+test/screenshots
+test/videos
+
 # Test coverage
 coverage
 

@@ -137,6 +137,18 @@ const GlobalStyle = createGlobalStyle`
     max-width: 100%;
   }
 
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: 'Raleway', sans-serif;
+    font-size: 100%;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+  }
+
   code,
   pre {
     -moz-osx-font-smoothing: auto;
