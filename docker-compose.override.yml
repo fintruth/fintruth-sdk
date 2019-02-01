@@ -1,11 +1,20 @@
 version: '3'
 services:
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    image: fintruth/client:latest
+    links:
+      - server
+    ports:
+      - '3000:3000'
   server:
     build:
       context: .
-      dockerfile: ./packages/server/Dockerfile
+      dockerfile: Dockerfile.server
     image: fintruth/server:latest
     links:
       - database
     ports:
-      - '3000:3000'
+      - '4000:4000'

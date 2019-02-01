@@ -1,12 +1,12 @@
 import Cookies from 'cookies'
 import cors from 'cors'
 import compression from 'compression'
-import express, { Request, Response, NextFunction } from 'express'
+import express, { Application, NextFunction, Request, Response } from 'express'
 import expressJwt, { UnauthorizedError } from 'express-jwt'
 import morgan from 'morgan'
 
+import { User } from './entities'
 import { secret, trustProxy } from 'config'
-import { User } from 'entities/user'
 import { logger } from 'logger'
 
 export interface ServerRequest extends Request {
@@ -31,7 +31,7 @@ const logUnauthorizedError = (
   return next(err)
 }
 
-export const createServer = () =>
+export const createServer = (): Application =>
   express()
     .set('trust proxy', trustProxy)
     .use(Cookies.express(['token-id']))

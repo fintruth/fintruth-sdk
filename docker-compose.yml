@@ -3,7 +3,7 @@ services:
   database:
     image: postgres:10.6-alpine
     environment:
-      POSTGRES_DB: database
+      POSTGRES_DB: fintruth
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
     ports:

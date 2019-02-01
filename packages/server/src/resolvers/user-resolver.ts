@@ -1,8 +1,9 @@
 import { Arg, Ctx, ID, Query, Resolver } from 'type-graphql'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
+
+import { User } from '../entities'
 import { Context } from 'apollo'
-import { User } from 'entities/user'
 
 @Resolver(() => User)
 export class UserResolver {

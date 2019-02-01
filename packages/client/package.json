@@ -5,6 +5,7 @@
   "description": "An opinionated boilerplate for web development",
   "scripts": {
     "build": "node --require @babel/register scripts/run build",
+    "build:release": "yarn build --release",
     "build:stats": "yarn build --analyze --release",
     "build:storybook": "build-storybook",
     "bundle": "node --require @babel/register scripts/run bundle",

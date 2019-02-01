@@ -1,12 +1,20 @@
 import { ValidationError, object, string } from '@fintruth-sdk/validation'
+import { hash } from 'bcrypt'
 import { is, isNil } from 'ramda'
 import { Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { User } from 'entities/user'
+import { User } from '../entities'
+import { logger } from 'logger'
 import { RegisterResponse } from 'resolvers/types'
-import { parseToken } from 'security'
+import { createToken, parseToken } from 'security'
+
+interface RegistrationTokenData {
+  email: string
+  expiresAt: number
+  password: string
+}
 
 @Service()
 export class UserService {
@@ -71,6 +79,16 @@ export class UserService {
         },
       }
     }
+
+    const expiresAt = Date.now() + 60 * 60 * 1000
+    const data: RegistrationTokenData = {
+      email,
+      expiresAt,
+      password: await hash(password, 10),
+    }
+    const token = createToken(data)
+
+    logger.info('Registration token: ', token)
 
     return { error: null }
   }

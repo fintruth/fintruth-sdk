@@ -1,6 +1,7 @@
-import { Connection, createConnection } from 'typeorm'
 import { hashSync } from 'bcrypt'
-import { User } from 'entities/user'
+import { Connection, createConnection } from 'typeorm'
+
+import { User } from './entities'
 import { database } from 'config'
 
 export const createDatabaseConnection = () =>

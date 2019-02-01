@@ -10,6 +10,7 @@
   "typings": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "build:release": "yarn build",
     "clean": "del build",
     "lint": "run-p lint:*",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
