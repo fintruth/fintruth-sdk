@@ -7,9 +7,7 @@ import { signInMutation } from './graphql'
 const defaultMocks = new Array(5).fill({
   request: {
     query: signInMutation,
-    variables: {
-      input: { email: 'logan.smith@gmail.com', password: 'Asdfg!2345' },
-    },
+    variables: { email: 'logan.smith@gmail.com', password: 'Asdfg!2345' },
   },
   result: {
     data: {
@@ -28,9 +26,7 @@ const delayMocks = new Array(5).fill({
   delay: 5000,
   request: {
     query: signInMutation,
-    variables: {
-      input: { email: 'logan.smith@gmail.com', password: 'Asdfg!2345' },
-    },
+    variables: { email: 'logan.smith@gmail.com', password: 'Asdfg!2345' },
   },
   result: {
     data: {
@@ -48,9 +44,7 @@ const delayMocks = new Array(5).fill({
 const errorMocks = new Array(5).fill({
   request: {
     query: signInMutation,
-    variables: {
-      input: { email: 'logan.smith@gmail.com', password: 'Asdfg!2345' },
-    },
+    variables: { email: 'logan.smith@gmail.com', password: 'Asdfg!2345' },
   },
   result: {
     data: {

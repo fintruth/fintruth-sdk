@@ -19,13 +19,13 @@
       "*": ["src/*"]
     },
     "removeComments": true,
-    "rootDir": "src",
+    "rootDirs": [".storybook", "src"],
     "strict": true,
     "strictPropertyInitialization": false,
     "target": "esnext",
     "types": ["jest"]
   },
-  "exclude": ["build", "node_modules"],
+  "exclude": ["build", "node_modules", "test"],
   "include": ["**/*", ".*/**/*"],
   "references": [{ "path": "../shared" }]
 }
