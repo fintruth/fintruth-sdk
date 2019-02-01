@@ -6,9 +6,9 @@ import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { User } from '../entities'
+import { logger } from 'logger'
 import { RegisterResponse } from 'resolvers/types'
 import { createToken, parseToken } from 'security'
-import { logger } from '../logger'
 
 interface RegistrationTokenData {
   email: string

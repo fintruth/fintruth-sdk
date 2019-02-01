@@ -48,12 +48,9 @@ WORKDIR ./packages/server
 
 # Build files
 COPY packages/server/build ./
-
-# Copy configuration
-COPY ./packages/server/.env.prod ./.env
-COPY ./packages/server/.env.example \
-     ./packages/server/ormconfig.yml \
-     ./packages/server/docker-entrypoint.sh ./
+COPY packages/server/.env \
+     packages/server/.env.example \
+     packages/server/docker-entrypoint.sh ./
 
 USER node
 

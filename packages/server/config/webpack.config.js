@@ -1,3 +1,4 @@
+const DotenvPlugin = require('dotenv-webpack')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
@@ -49,6 +50,11 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': `'${mode}'`,
+    }),
+    new DotenvPlugin({
+      path: path.join(rootDir, `.env${isRelease ? '.prod' : '.local'}`),
+      safe: path.join(rootDir, '.env.example'),
+      systemvars: true,
     }),
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
