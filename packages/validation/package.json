@@ -27,6 +27,8 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "@fintruth-sdk/scripts": "^0.1.0",
+    "@types/yup": "^0.26.7",
     "@types/zxcvbn": "^4.4.0"
   },
   "engines": {

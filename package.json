@@ -20,14 +20,8 @@
   "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "devDependencies": {
-    "@types/compression": "^0.0.36",
-    "@types/cors": "^2.8.4",
-    "@types/express": "^4.16.1",
-    "@types/graphql": "^14.0.5",
     "@types/jest": "^23.3.13",
     "@types/node": "^10.12.20",
-    "@types/ramda": "^0.25.47",
-    "@types/yup": "^0.26.7",
     "@typescript-eslint/eslint-plugin": "^1.1.0",
     "@typescript-eslint/parser": "^1.1.0",
     "eslint": "^5.12.1",
@@ -61,6 +55,8 @@
   },
   "workspaces": {
     "nohoist": [
+      "**/@fintruth-sdk/scripts",
+      "**/@fintruth-sdk/scripts/**",
       "**/@loadable/server",
       "**/@loadable/server/**",
       "**/cypress",
