@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.base",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "composite": true,
+    "noImplicitAny": false,
+    "outDir": "build",
+    "paths": {
+      "*": ["src/*"]
+    },
+    "removeComments": false,
+    "rootDir": "src"
+  },
+  "exclude": ["build", "node_modules"]
+}
