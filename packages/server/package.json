@@ -20,6 +20,7 @@
   "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
+    "@fintruth-sdk/scripts": "^0.1.0",
     "@fintruth-sdk/shared": "^0.1.0",
     "apollo-server-express": "^2.3.3",
     "base64url": "^3.0.1",

@@ -1,25 +1,18 @@
 'use strict'
 
+const { eslintConfig } = require('@fintruth-sdk/scripts')
+const typescriptPlugin = require('@typescript-eslint/eslint-plugin')
 const cypressPlugin = require('eslint-plugin-cypress')
 const jestPlugin = require('eslint-plugin-jest')
 const prettierTypescriptConfig = require('eslint-config-prettier/@typescript-eslint')
-const typescriptPlugin = require('@typescript-eslint/eslint-plugin')
 
 module.exports = {
   extends: [
-    'standard',
     'standard-react',
-    'plugin:import/recommended',
     'plugin:jsx-a11y/recommended',
-    'plugin:monorepo/recommended',
-    'plugin:promise/recommended',
-    'plugin:ramda/recommended',
     'plugin:react/recommended',
-    'plugin:unicorn/recommended',
-    'prettier',
     'prettier/react',
-    'prettier/standard',
-    'prettier/unicorn',
+    ...eslintConfig.extends,
   ],
   globals: { __DEV__: false },
   overrides: [
@@ -49,21 +42,7 @@ module.exports = {
       rules: jestPlugin.configs.recommended.rules,
     },
   ],
-  plugins: [
-    'import',
-    'jsx-a11y',
-    'monorepo',
-    'prettier',
-    'promise',
-    'ramda',
-    'react',
-    'standard',
-    'unicorn',
-  ],
-  rules: {
-    'no-console': ['error', { allow: ['error', 'info', 'warn'] }],
-    'no-param-reassign': ['error', { props: true }],
-    'prettier/prettier': 'error',
-  },
-  settings: { 'import/resolver': { typescript: true } },
+  plugins: ['jsx-a11y', 'react', ...eslintConfig.plugins],
+  rules: eslintConfig.rules,
+  settings: eslintConfig.settings,
 }

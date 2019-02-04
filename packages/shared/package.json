@@ -23,7 +23,9 @@
   "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "@fintruth-sdk/scripts": "^0.1.0"
+  },
   "engines": {
     "node": ">=10.15.0",
     "yarn": ">=1.12.0"
