@@ -31,8 +31,8 @@
     "@types/zxcvbn": "^4.4.0"
   },
   "engines": {
-    "node": ">=10.15.1",
-    "yarn": ">=1.12.0"
+    "node": ">=10.15",
+    "yarn": ">=1.12"
   },
   "lint-staged": {
     "linters": {

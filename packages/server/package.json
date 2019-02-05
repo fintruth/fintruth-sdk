@@ -37,6 +37,7 @@
     "ramda": "^0.26.1",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.10",
+    "speakeasy": "^2.0.0",
     "split": "~1.0.1",
     "type-graphql": "~0.16.0",
     "typedi": "~0.8.0",
@@ -56,6 +57,7 @@
     "@types/jsonwebtoken": "8.3.0",
     "@types/morgan": "^1.7.35",
     "@types/ramda": "^0.25.47",
+    "@types/speakeasy": "^2.0.3",
     "@types/split": "^1.0.0",
     "del-cli": "^1.1.0",
     "dotenv-webpack": "^1.7.0",
@@ -68,8 +70,8 @@
     "webpack-cli": "~3.2.3"
   },
   "engines": {
-    "node": ">=10.15.1",
-    "yarn": ">=1.12.0"
+    "node": ">=10.15",
+    "yarn": ">=1.12"
   },
   "lint-staged": {
     "linters": {
