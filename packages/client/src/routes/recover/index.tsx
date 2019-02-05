@@ -1,9 +1,9 @@
 import React from 'react'
 import { Mutation } from 'react-apollo'
 import { RouteComponentProps } from '@reach/router'
-import { renderLoadingIf } from 'utilities/loading'
-import Recover, { Data, Variables } from './recover' // eslint-disable-line @typescript-eslint/no-unused-vars
+import Recover, { Data, Variables } from './recover'
 import { recoverMutation } from './graphql'
+import { renderLoadingIf } from 'utilities/loading'
 
 const RecoverContainer: React.FunctionComponent<RouteComponentProps> = ({
   ...rest

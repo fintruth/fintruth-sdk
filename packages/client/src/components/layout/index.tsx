@@ -1,8 +1,8 @@
 import React from 'react'
 import { Mutation, Query } from 'react-apollo'
-import { renderLoadingIf } from 'utilities/loading'
-import Layout, { Data } from './layout' // eslint-disable-line @typescript-eslint/no-unused-vars
+import Layout, { Data } from './layout'
 import { layoutQuery, signOutMutation } from './graphql'
+import { renderLoadingIf } from 'utilities/loading'
 
 const LayoutContainer: React.FunctionComponent = ({ ...rest }) => (
   <Query<Data> fetchPolicy="network-only" query={layoutQuery}>

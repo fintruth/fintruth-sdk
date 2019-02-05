@@ -1,9 +1,9 @@
 import React from 'react'
 import { Mutation } from 'react-apollo'
 import { RouteComponentProps, navigate } from '@reach/router'
-import { renderLoadingIf } from 'utilities/loading'
-import SignIn, { Data, Variables } from './sign-in' // eslint-disable-line @typescript-eslint/no-unused-vars
+import SignIn, { Data, Variables } from './sign-in'
 import { signInMutation, signInQuery } from './graphql'
+import { renderLoadingIf } from 'utilities/loading'
 
 const SignInContainer: React.FunctionComponent<RouteComponentProps> = ({
   ...rest

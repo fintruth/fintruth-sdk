@@ -4,7 +4,6 @@ import compression from 'compression'
 import express, { Application, NextFunction, Request, Response } from 'express'
 import expressJwt, { UnauthorizedError } from 'express-jwt'
 import morgan from 'morgan'
-
 import { User } from './entities'
 import { secret, trustProxy } from 'config'
 import { logger } from 'logger'

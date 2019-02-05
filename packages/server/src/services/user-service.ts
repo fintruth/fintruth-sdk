@@ -4,7 +4,6 @@ import { is, isNil } from 'ramda'
 import { Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
-
 import { User } from '../entities'
 import { logger } from 'logger'
 import { RegisterResponse } from 'resolvers/types'
