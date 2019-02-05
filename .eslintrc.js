@@ -1,6 +1,5 @@
 'use strict'
 
-const cypressPlugin = require('eslint-plugin-cypress')
 const jestPlugin = require('eslint-plugin-jest')
 const prettierTypescriptConfig = require('eslint-config-prettier/@typescript-eslint')
 const typescriptPlugin = require('@typescript-eslint/eslint-plugin')
@@ -34,12 +33,6 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off',
         ...prettierTypescriptConfig.rules,
       },
-    },
-    {
-      files: ['packages/*/config/cypress/**/*.?(js|ts)', 'packages/*/test/**/*.ts?(x)'],
-      globals: cypressPlugin.environments.globals.globals,
-      plugins: cypressPlugin.configs.recommended.plugins,
-      rules: cypressPlugin.configs.recommended.rules,
     },
     {
       files: ['packages/*/config/jest/**/*.?(js|ts)', 'packages/*/src/**/?(*.)test.ts?(x)'],
