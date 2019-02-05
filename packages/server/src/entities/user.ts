@@ -26,7 +26,7 @@ export default class User implements UserEntity {
   password: string
 
   @OneToOne(() => Profile, ({ user }) => user, { cascade: true })
-  profile!: Profile
+  profile: Profile
 
   @Field()
   @CreateDateColumn()
