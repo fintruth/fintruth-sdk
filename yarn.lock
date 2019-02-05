@@ -6722,11 +6722,6 @@ eslint-plugin-ramda@^2.5.1:
     ramda "0.25.0"
     req-all "^1.0.0"
 
-eslint-plugin-react-hooks@next:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-0.0.0.tgz#9988f14082a159931c3dfa9ba699130457da927a"
-  integrity sha512-SXyU7C3E8AJbXKMdb10P/zHazcxzfuWR5OFwAVZKXVU7P/H56NLszVG6WdQBo9Pt80FfnPXtUGGbWhs3/98N4w==
-
 eslint-plugin-react@^7.12.4:
   version "7.12.4"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.12.4.tgz#b1ecf26479d61aee650da612e425c53a99f48c8c"
@@ -13011,7 +13006,7 @@ react-dom@^16.6.3, react-dom@^16.7.0:
     prop-types "^15.6.2"
     scheduler "^0.12.0"
 
-react-dom@next:
+react-dom@^16.8.0-alpha.1:
   version "16.8.0-alpha.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.0-alpha.1.tgz#dab73b8354ba2e498e3127d18e29d4546cea889e"
   integrity sha512-tZCUM8BpnwUHJmLnUWP9c3vVZxnCqYotj7s4tx7umojG6BKv745KIBtuPTzt0EI0q50GMLEpmT/CPQ8iA61TwQ==
@@ -13136,7 +13131,7 @@ react@^16.6.3, react@^16.7.0:
     prop-types "^15.6.2"
     scheduler "^0.12.0"
 
-react@next:
+react@^16.8.0-alpha.1:
   version "16.8.0-alpha.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.0-alpha.1.tgz#c2b32689f3b466d3ce85a634dd9035f789d2cd97"
   integrity sha512-vLwwnhM2dXrCsiQmcSxF2UdZVV5xsiXjK5Yetmy8dVqngJhQ3aw3YJhZN/YmyonxwdimH40wVqFQfsl4gSu2RA==
