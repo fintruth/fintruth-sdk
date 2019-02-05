@@ -2,16 +2,18 @@ import { User as UserEntity } from '@fintruth-sdk/shared'
 import { compareSync } from 'bcrypt'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import Profile from './profile'
 
 @ObjectType()
 @Entity()
-export class User implements UserEntity {
+export default class User implements UserEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -22,6 +24,9 @@ export class User implements UserEntity {
 
   @Column()
   password: string
+
+  @OneToOne(() => Profile, ({ user }) => user, { cascade: true })
+  profile!: Profile
 
   @Field()
   @CreateDateColumn()

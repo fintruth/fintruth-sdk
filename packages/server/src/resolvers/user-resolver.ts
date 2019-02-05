@@ -1,14 +1,31 @@
-import { Arg, Ctx, ID, Query, Resolver } from 'type-graphql'
-import { Repository } from 'typeorm'
+import {
+  Arg,
+  Ctx,
+  FieldResolver,
+  ID,
+  Query,
+  Resolver,
+  Root,
+} from 'type-graphql'
+import { Inject } from 'typedi'
 import { InjectRepository } from 'typeorm-typedi-extensions'
-
-import { User } from '../entities'
+import { Repository } from 'typeorm'
+import ProfileService from 'services/profile-service'
+import { Profile, User } from 'entities'
 import { Context } from 'apollo'
 
 @Resolver(() => User)
-export class UserResolver {
+export default class UserResolver {
+  @Inject()
+  private readonly profileService: ProfileService
+
   @InjectRepository(User)
   private readonly userRepository: Repository<User>
+
+  @FieldResolver(() => Profile)
+  profile(@Root() { id }: User) {
+    return this.profileService.findByUserId(id)
+  }
 
   @Query(() => User, { nullable: true })
   currentUser(@Ctx() { user }: Context) {

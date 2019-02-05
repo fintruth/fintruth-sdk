@@ -17,10 +17,10 @@ version: 2.1
 executors:
   node-10:
     docker:
-      - image: circleci/node:10.15.0
+      - image: circleci/node:10.15.1
   node-11:
     docker:
-      - image: circleci/node:11.6.0
+      - image: circleci/node:11.8.0
 jobs:
   static-analysis:
     executor: node-10

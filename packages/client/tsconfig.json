@@ -19,9 +19,7 @@
       "*": ["src/*"]
     },
     "removeComments": true,
-    "rootDirs": [".storybook", "src"],
     "strict": true,
-    "strictPropertyInitialization": false,
     "target": "esnext",
     "types": ["jest"]
   },

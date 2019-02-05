@@ -11,10 +11,10 @@ import {
   RegisterResponse,
   SignInResponse,
 } from 'resolvers/types'
-import { UserService } from 'services/user-service'
+import UserService from 'services/user-service'
 
 @Resolver()
-export class AuthResolver {
+export default class AuthResolver {
   @Inject()
   userService: UserService
 
