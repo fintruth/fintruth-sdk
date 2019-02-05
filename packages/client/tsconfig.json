@@ -1,21 +1,18 @@
 {
-  "extends": "../tsconfig.base",
+  "exclude": ["build", "node_modules", "test"],
+  "include": ["**/*", ".*/**/*"],
+  "extends": "../../tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
     "declaration": false,
     "isolatedModules": true,
     "jsx": "preserve",
     "lib": ["dom", "esnext"],
-    "module": "esnext",
-    "moduleResolution": "node",
     "outDir": "build",
     "paths": {
       "*": ["src/*"]
     },
-    "rootDirs": [".storybook", "src"],
     "types": ["jest"]
   },
-  "exclude": ["build", "node_modules", "test"],
-  "include": ["**/*", ".*/**/*"],
   "references": [{ "path": "../shared" }]
 }
