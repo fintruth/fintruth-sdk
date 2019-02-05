@@ -20,7 +20,7 @@ executors:
       - image: circleci/node:10.15.1
   node-11:
     docker:
-      - image: circleci/node:11.8.0
+      - image: circleci/node:11.9.0
 jobs:
   static-analysis:
     executor: node-10
