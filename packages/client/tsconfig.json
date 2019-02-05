@@ -1,31 +1,18 @@
 {
+  "exclude": ["build", "node_modules", "test"],
+  "include": ["**/*", ".*/**/*"],
+  "extends": "../../tsconfig",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "declaration": false,
     "isolatedModules": true,
     "jsx": "preserve",
     "lib": ["dom", "esnext"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noErrorTruncation": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "outDir": "build",
     "paths": {
       "*": ["src/*"]
     },
-    "removeComments": true,
-    "rootDirs": [".storybook", "src"],
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "target": "esnext",
     "types": ["jest"]
   },
-  "exclude": ["build", "node_modules", "test"],
-  "include": ["**/*", ".*/**/*"],
   "references": [{ "path": "../shared" }]
 }

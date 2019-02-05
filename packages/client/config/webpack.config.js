@@ -158,7 +158,7 @@ const clientConfig = createConfig('web', baseConfig => ({
 
 const serverConfig = createConfig('node', baseConfig => ({
   ...baseConfig,
-  entry: { server: [require.resolve('isomorphic-fetch'), './src/server.tsx'] },
+  entry: { server: './src/server.tsx' },
   externals: [nodeExternals({ whitelist: [/\.(bmp|gif|jp(e)?g|png|webp)$/] })],
   name: 'server',
   node: false,

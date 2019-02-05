@@ -15,13 +15,10 @@ const createConfig = ({ caller, env }) => {
           '@babel/transform-react-inline-elements',
         ],
       },
-      test: {
-        plugins: ['dynamic-import-node'],
-      },
+      test: { plugins: ['dynamic-import-node'] },
     },
     ignore: ['build', 'node_modules'],
     plugins: [
-      '@babel/plugin-proposal-class-properties',
       ['@babel/plugin-proposal-object-rest-spread', { useBuiltIns: true }],
       '@babel/plugin-syntax-dynamic-import',
       ['@babel/plugin-transform-runtime', { helpers: false }],
