@@ -27,7 +27,7 @@
     "@fintruth-sdk/scripts": "^0.1.0"
   },
   "engines": {
-    "node": ">=10.15.0",
+    "node": ">=10.15.1",
     "yarn": ">=1.12.0"
   },
   "lint-staged": {

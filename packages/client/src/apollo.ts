@@ -17,7 +17,11 @@ export const createApolloClient = ({ storeOptions }: Options) => {
   }
 
   links.push(
-    createUploadLink({ credentials: 'include', uri: process.env.API_URI })
+    createUploadLink({
+      credentials: 'include',
+      fetch: process.env.BROWSER ? window.fetch : require('node-fetch').default,
+      uri: process.env.API_URI,
+    })
   )
 
   return new ApolloClient({
