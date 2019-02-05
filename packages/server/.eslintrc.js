@@ -1,5 +1,11 @@
 'use strict'
 
 module.exports = {
-  extends: './node_modules/@fintruth-sdk/scripts/.eslintrc.js',
+  overrides: [
+    {
+      files: ['**/*.ts', '.*/**/*.ts'],
+      // A parsing error occurs when decorators are encountered
+      rules: { '@typescript-eslint/no-unused-vars': 'off' },
+    },
+  ],
 }

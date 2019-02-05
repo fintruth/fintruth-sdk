@@ -2727,7 +2727,7 @@
   resolved "https://registry.yarnpkg.com/@types/zxcvbn/-/zxcvbn-4.4.0.tgz#fbc1d941cc6d9d37d18405c513ba6b294f89b609"
   integrity sha512-GQLOT+SN20a+AI51y3fAimhyTF4Y0RG+YP3gf91OibIZ7CJmPFgoZi+ZR5a+vRbS01LbQosITWum4ATmJ1Z6Pg==
 
-"@typescript-eslint/eslint-plugin@^1.1.0", "@typescript-eslint/eslint-plugin@^1.2.0":
+"@typescript-eslint/eslint-plugin@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-1.2.0.tgz#a73021a0d5bd1116a88689186844ce4421d52ab0"
   integrity sha512-em3q8Gg3euesNohOwaz+SqrQM2Jn1ZWELMM+vgKi4dEk5fC+eVoi05yfubgAi2qPE5ifG4F0SOXM1XTamB0Aig==
@@ -2736,7 +2736,7 @@
     requireindex "^1.2.0"
     tsutils "^3.7.0"
 
-"@typescript-eslint/parser@1.2.0", "@typescript-eslint/parser@^1.1.0", "@typescript-eslint/parser@^1.2.0":
+"@typescript-eslint/parser@1.2.0", "@typescript-eslint/parser@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-1.2.0.tgz#256de163b7cb0d79d0388266a5bfb5585bccb1ff"
   integrity sha512-IXXiXgs6ocKTmtbzJjGyUvRHZFLuk2mYXyk+ayEql1woh1+rYS/Uct8b4jGtfHG8ZRUBZ12zjzsrDKFYC2pbrQ==
@@ -6642,7 +6642,7 @@ eslint-plugin-import@^2.16.0:
     read-pkg-up "^2.0.0"
     resolve "^1.9.0"
 
-eslint-plugin-jest@^22.2.1, eslint-plugin-jest@^22.2.2:
+eslint-plugin-jest@^22.2.2:
   version "22.2.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-22.2.2.tgz#2a80d70a20c27dfb1503a6f32cdcb647fe5476df"
   integrity sha512-hnWgh9o39VJfz6lJEyQJdTW7dN2yynlGkmPOlU/oMHh+d7WVMsJP1GeDTB520VCDljEdKExCwD5IBpQIUl4mJg==
@@ -6757,7 +6757,7 @@ eslint-visitor-keys@^1.0.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
   integrity sha512-qzm/XxIbxm/FHyH341ZrbnMUpe+5Bocte9xkmFMzPMjRaZMcXww+MpBptFvtU+79L362nqiLhekCxCxDPaUMBQ==
 
-eslint@^5.12.1, eslint@^5.13.0:
+eslint@^5.12.1:
   version "5.13.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.13.0.tgz#ce71cc529c450eed9504530939aa97527861ede9"
   integrity sha512-nqD5WQMisciZC5EHZowejLKQjWGuFS5c70fxqSKlnDME+oz9zmE8KTlX+lHSg+/5wsC/kf9Q9eMkC8qS3oM2fg==

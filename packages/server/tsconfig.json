@@ -1,5 +1,6 @@
 {
-  "extends": "../tsconfig.base",
+  "exclude": ["build", "node_modules"],
+  "extends": "../../tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
     "emitDecoratorMetadata": true,
@@ -11,6 +12,5 @@
     },
     "rootDir": "src"
   },
-  "exclude": ["build", "node_modules"],
   "references": [{ "path": "../shared" }, { "path": "../validation" }]
 }

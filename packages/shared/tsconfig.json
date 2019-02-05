@@ -1,5 +1,6 @@
 {
-  "extends": "../tsconfig.base",
+  "exclude": ["build", "node_modules"],
+  "extends": "../../tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
     "composite": true,
@@ -8,6 +9,5 @@
       "*": ["src/*"]
     },
     "rootDir": "src"
-  },
-  "exclude": ["build", "node_modules"]
+  }
 }
