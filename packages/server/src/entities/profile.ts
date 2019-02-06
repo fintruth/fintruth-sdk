@@ -26,7 +26,6 @@ export default class Profile extends ProfileEntity {
   @Column()
   lastName: string
 
-  @Field(() => User)
   @OneToOne(() => User, ({ profile }) => profile, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: User
