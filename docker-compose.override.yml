@@ -3,7 +3,7 @@ services:
   client:
     build:
       context: .
-      dockerfile: Dockerfile.client
+      dockerfile: dockerfile.client
     image: fintruth/client:latest
     links:
       - server
@@ -12,7 +12,7 @@ services:
   server:
     build:
       context: .
-      dockerfile: Dockerfile.server
+      dockerfile: dockerfile.server
     image: fintruth/server:latest
     links:
       - database

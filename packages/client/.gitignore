@@ -10,10 +10,3 @@ test/videos
 
 # Test coverage
 coverage
-
-# Miscellaneous
-.env*
-!.env.defaults
-!.env.example
-.eslintcache
-.stylelintcache

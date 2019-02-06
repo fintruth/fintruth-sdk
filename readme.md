@@ -37,13 +37,13 @@ docker-compose up --build --force-recreate --no-deps <service>
 Build `client` image:
 
 ```bash
-docker build -t fintruth/client:latest -f Dockerfile.client .
+docker build -t fintruth/client:latest -f dockerfile.client .
 ```
 
 Build `server` image:
 
 ```bash
-docker build -t fintruth/server:latest -f Dockerfile.server .
+docker build -t fintruth/server:latest -f dockerfile.server .
 ```
 
 ### Important
