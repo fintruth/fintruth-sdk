@@ -23,6 +23,12 @@ export class User implements UserEntity {
   @Column()
   password: string
 
+  @Column({ nullable: true })
+  secret?: string
+
+  @Column({ nullable: true })
+  secretTemp?: string
+
   @Field()
   @CreateDateColumn()
   createdAt: Date

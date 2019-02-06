@@ -3,24 +3,40 @@ import jwt from 'jsonwebtoken'
 import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 
-import { User } from '../entities'
 import { Context } from 'apollo'
 import { secret } from 'config'
 import {
   RegisterInput,
   RegisterResponse,
   SignInResponse,
+  InitiateTwoFactorResponse,
 } from 'resolvers/types'
-import { UserService } from 'services/user-service'
+import { AuthService } from 'services'
+import { User } from '../entities'
 
 @Resolver()
 export class AuthResolver {
   @Inject()
-  userService: UserService
+  authService: AuthService
 
   @Mutation(() => User)
   async confirmRegistration(@Arg('token') token: string) {
-    return this.userService.confirmRegistration(token)
+    return this.authService.confirmRegistration(token)
+  }
+
+  @Mutation(() => InitiateTwoFactorResponse)
+  async initiateTwoFactor(@Ctx() { user }: Context) {
+    if (!user) {
+      return {
+        error: {
+          id: 'a21c3867-9894-4f62-a3b1-6362468ea8b6',
+          message: 'Not authenticated',
+        },
+        data: null,
+      }
+    }
+
+    return this.authService.initiateTwoFactor(user.id)
   }
 
   @Mutation(() => SignInResponse)
@@ -29,7 +45,7 @@ export class AuthResolver {
     @Arg('password') password: string,
     @Ctx() { res }: Context
   ): Promise<SignInResponse> {
-    const user = await this.userService.authenticate(email, password)
+    const user = await this.authService.authenticate(email, password)
 
     if (!user) {
       return {
@@ -64,6 +80,6 @@ export class AuthResolver {
   async register(@Arg('input') { email, password }: RegisterInput): Promise<
     RegisterResponse
   > {
-    return this.userService.register(email, password)
+    return this.authService.register(email, password)
   }
 }
