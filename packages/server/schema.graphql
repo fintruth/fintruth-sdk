@@ -13,6 +13,14 @@ type Mutation {
   register(input: RegisterInput!): RegisterResponse!
 }
 
+type Profile {
+  userId: ID!
+  firstName: String!
+  lastName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   currentUser: User
   user(id: ID!): User
@@ -46,4 +54,5 @@ type User {
   email: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  profile: Profile!
 }

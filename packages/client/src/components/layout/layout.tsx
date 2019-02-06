@@ -5,9 +5,18 @@ import { MutationFn } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
 import { darken, rem } from 'polished'
 
+import BaseExpandMore from 'assets/expand-more.svg'
+import BaseUserCircle from 'assets/user-circle.svg'
 import logoUrl from 'assets/logo.png'
-import { content, medium, untilMedium } from 'styles/mixins'
+import {
+  Submenu,
+  SubmenuButton,
+  SubmenuItem,
+  SubmenuLink,
+  SubmenuList,
+} from 'components/submenu'
 import { raven } from 'styles/variables'
+import { content, medium, untilMedium } from 'styles/mixins'
 
 export interface Data {
   user?: User
@@ -20,7 +29,11 @@ interface Props {
 }
 
 interface State {
-  isTogglerActive: boolean
+  isMenuOpen: boolean
+}
+
+interface MenuState {
+  isOpen: boolean
 }
 
 const Root = styled.div`
@@ -53,11 +66,6 @@ const LogoLink = styled(BaseLink)`
   align-items: center;
   display: flex;
   padding: ${rem(8)} ${rem(12)};
-
-  ${untilMedium(css`
-    align-items: center;
-    display: flex;
-  `)};
 `
 
 const Logo = styled.img`
@@ -78,7 +86,7 @@ const Toggler = styled.button`
   `)};
 `
 
-const Icon = styled.span`
+const TogglerIcon = styled.span`
   background-color: ${raven};
   height: ${rem(1)};
   left: calc(50% - ${rem(8)});
@@ -87,8 +95,8 @@ const Icon = styled.span`
   transition: opacity, transform 150ms ease-out;
   width: ${rem(16)};
 
-  ${({ isTogglerActive }: State) =>
-    isTogglerActive &&
+  ${({ isMenuOpen }: State) =>
+    isMenuOpen &&
     css`
       &:nth-child(1) {
         transform: translateY(${rem(6)}) rotate(45deg);
@@ -127,9 +135,9 @@ const Icon = styled.span`
 const Menu = styled.div`
   display: none;
 
-  ${({ isTogglerActive }: State) =>
+  ${({ isOpen }: MenuState) =>
     untilMedium(
-      isTogglerActive
+      isOpen
         ? css`
             display: block;
           `
@@ -144,9 +152,21 @@ const Menu = styled.div`
   `)};
 `
 
-const item = css`
+const ExpandMore = styled(BaseExpandMore)`
+  fill: ${raven};
+  height: ${rem(5)};
+  margin: 0 ${rem(12)} 0 ${rem(6)};
+`
+
+const UserCircle = styled(BaseUserCircle)`
+  fill: ${raven};
+  height: ${rem(40)};
+`
+
+const MenuLink = styled(BaseLink)`
   color: ${raven};
   display: block;
+  font-size: ${rem(14)};
   padding: ${rem(8)} ${rem(12)};
 
   ${medium(css`
@@ -163,24 +183,13 @@ const item = css`
   }
 `
 
-const ItemLink = styled(BaseLink)`
-  ${item};
-`
-
-const ItemButton = styled.button`
-  ${item};
-  background-color: unset;
-  border: unset;
-  cursor: pointer;
-`
-
 const Layout: React.FunctionComponent<Props> = ({
   children,
   onSignOut,
   user,
   ...rest
 }: Props) => {
-  const [isTogglerActive, setTogglerActive] = React.useState(false)
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   return (
     <Root {...rest}>
@@ -191,21 +200,36 @@ const Layout: React.FunctionComponent<Props> = ({
               <Logo alt="Logo" src={logoUrl} />
             </LogoLink>
             <Toggler
-              aria-expanded={isTogglerActive}
+              aria-expanded={isMenuOpen}
               aria-label="menu"
-              onClick={() => setTogglerActive(!isTogglerActive)}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
               type="button"
             >
-              <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
-              <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
-              <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
+              <TogglerIcon isMenuOpen={isMenuOpen} aria-hidden="true" />
+              <TogglerIcon isMenuOpen={isMenuOpen} aria-hidden="true" />
+              <TogglerIcon isMenuOpen={isMenuOpen} aria-hidden="true" />
             </Toggler>
           </Brand>
-          <Menu isTogglerActive={isTogglerActive}>
+          <Menu isOpen={isMenuOpen}>
             {user ? (
-              <ItemButton onClick={() => onSignOut()}>Sign Out</ItemButton>
+              <Submenu>
+                <SubmenuButton>
+                  {user.profile.firstName} {user.profile.lastName}
+                  <ExpandMore aria-hidden />
+                  <UserCircle aria-hidden />
+                </SubmenuButton>
+                <SubmenuList>
+                  <SubmenuLink to="/settings">Account Settings</SubmenuLink>
+                  <SubmenuItem onSelect={() => onSignOut()}>
+                    Sign Out
+                  </SubmenuItem>
+                </SubmenuList>
+              </Submenu>
             ) : (
-              <ItemLink to="/sign-in">Sign In</ItemLink>
+              <React.Fragment>
+                <MenuLink to="/sign-in">Sign In</MenuLink>
+                <MenuLink to="/register">Register</MenuLink>
+              </React.Fragment>
             )}
           </Menu>
         </Navbar>

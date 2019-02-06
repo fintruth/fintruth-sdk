@@ -17,7 +17,7 @@ interface RegistrationTokenData {
 }
 
 @Service()
-export class UserService {
+export default class UserService {
   @InjectRepository(User)
   private userRepository: Repository<User>
 
@@ -44,6 +44,10 @@ export class UserService {
 
   async emailAvailable(email: string) {
     return isNil(await this.userRepository.findOne({ email }))
+  }
+
+  findById(id: string) {
+    return this.userRepository.findOne(id)
   }
 
   async register(email: string, password: string): Promise<RegisterResponse> {

@@ -43,7 +43,7 @@ const Image = styled.img`
 
 const Label = styled.div`
   font-size: ${rem(12)};
-  font-weight: 700;
+  font-weight: 500;
   margin-top: ${rem(15)};
   opacity: 0.6;
 `
