@@ -1,7 +1,7 @@
 import { Inject } from 'typedi'
 import { FieldResolver, Resolver, Root } from 'type-graphql'
 import UserService from 'services/user-service'
-import { Profile, User } from 'entities'
+import { Profile, User } from '../entities'
 
 @Resolver(() => Profile)
 export default class ProfileResolver {

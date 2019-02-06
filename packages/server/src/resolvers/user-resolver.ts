@@ -11,7 +11,7 @@ import { Inject } from 'typedi'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 import { Repository } from 'typeorm'
 import ProfileService from 'services/profile-service'
-import { Profile, User } from 'entities'
+import { Profile, User } from '../entities'
 import { Context } from 'apollo'
 
 @Resolver(() => User)
