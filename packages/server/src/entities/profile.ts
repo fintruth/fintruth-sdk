@@ -9,6 +9,7 @@ import {
 } from 'typeorm'
 import { Field, ID, ObjectType } from 'type-graphql'
 import { Profile as ProfileEntity } from '@fintruth-sdk/shared'
+
 import User from './user'
 
 @ObjectType()

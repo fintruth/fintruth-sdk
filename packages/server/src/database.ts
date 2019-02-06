@@ -1,5 +1,6 @@
 import { hashSync } from 'bcrypt'
 import { Connection, createConnection } from 'typeorm'
+
 import * as entities from './entities'
 import { database } from './config'
 

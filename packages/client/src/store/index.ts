@@ -1,6 +1,7 @@
 import { ApolloLink } from 'apollo-link'
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory' // eslint-disable-line import/named
 import { withClientState } from 'apollo-link-state'
+
 import { createInMemoryCache } from 'utilities/apollo'
 
 export interface Options {

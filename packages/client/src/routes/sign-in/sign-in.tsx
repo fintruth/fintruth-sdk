@@ -6,6 +6,7 @@ import { MutationFn } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
 import { rem } from 'polished'
+
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
 import BaseSubnavbar from 'components/subnavbar'

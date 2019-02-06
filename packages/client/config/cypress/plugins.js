@@ -1,6 +1,7 @@
 'use strict'
 
 const webpackPreprocessor = require('@cypress/webpack-preprocessor')
+
 const webpackConfig = require('./webpack.config')
 
 const configurePlugins = on => {

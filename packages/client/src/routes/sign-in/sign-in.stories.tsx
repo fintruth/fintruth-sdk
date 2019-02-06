@@ -1,8 +1,9 @@
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import { storiesOf } from '@storybook/react'
-import SignIn from '.'
+
 import { signInMutation } from './graphql'
+import SignIn from '.'
 
 const defaultMocks = new Array(5).fill({
   request: {

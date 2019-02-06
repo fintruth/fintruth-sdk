@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { rem } from 'polished'
+
 import { heather, watermelon } from 'styles/variables'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {

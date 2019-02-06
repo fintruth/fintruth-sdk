@@ -1,5 +1,4 @@
 import { createApolloServer } from 'apollo'
-
 import { port } from 'config'
 import { createDatabaseConnection } from 'database'
 import { logger } from 'logger'

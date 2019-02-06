@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
+
 import { jet } from 'styles/variables'
 
 const Root = styled.div`

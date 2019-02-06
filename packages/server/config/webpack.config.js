@@ -1,6 +1,6 @@
+const path = require('path')
 const DotenvPlugin = require('dotenv-webpack')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const path = require('path')
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 

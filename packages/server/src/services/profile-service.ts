@@ -1,6 +1,7 @@
 import { InjectRepository } from 'typeorm-typedi-extensions'
 import { Repository } from 'typeorm'
 import { Service } from 'typedi'
+
 import { Profile } from '../entities'
 
 @Service()

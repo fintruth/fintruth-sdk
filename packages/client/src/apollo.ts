@@ -1,6 +1,7 @@
 import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { createUploadLink } from 'apollo-upload-client'
+
 import createStore, { Options as StoreOptions } from './store'
 import { createErrorLink } from './utilities/apollo'
 

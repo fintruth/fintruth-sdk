@@ -1,8 +1,9 @@
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import { storiesOf } from '@storybook/react'
-import Register from '.'
+
 import { registerMutation } from './graphql'
+import Register from '.'
 
 const defaultMocks = new Array(5).fill({
   request: {

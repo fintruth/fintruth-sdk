@@ -2,6 +2,7 @@ import React from 'react'
 import { boolean, select, text } from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
+
 import Button from '.'
 
 const options = { Default: 'default', Primary: 'primary' }

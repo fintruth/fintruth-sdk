@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { darken, rem } from 'polished'
+
 import { raven, white } from 'styles/variables'
 
 interface Asset {

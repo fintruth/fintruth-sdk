@@ -1,5 +1,6 @@
 import zxcvbn from 'zxcvbn'
 import { parseNumber } from 'libphonenumber-js'
+
 import StringSchema from './string'
 
 const string = () =>

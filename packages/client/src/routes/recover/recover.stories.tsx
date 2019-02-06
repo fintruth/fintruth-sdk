@@ -1,8 +1,9 @@
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import { storiesOf } from '@storybook/react'
-import Recover from '.'
+
 import { recoverMutation } from './graphql'
+import Recover from '.'
 
 const defaultMocks = new Array(5).fill({
   request: {

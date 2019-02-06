@@ -4,6 +4,7 @@ import { Link as BaseLink } from '@reach/router'
 import { MutationFn } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
 import { darken, rem } from 'polished'
+
 import BaseExpandMore from 'assets/expand-more.svg'
 import BaseUserCircle from 'assets/user-circle.svg'
 import logoUrl from 'assets/logo.png'

@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from 'react-testing-library'
+
 import InputField from '.'
 
 test('should render the provided label correctly', () => {

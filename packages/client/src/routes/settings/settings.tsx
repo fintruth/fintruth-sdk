@@ -7,6 +7,7 @@ import { Profile, User } from '@fintruth-sdk/shared'
 import { object, ref, string } from 'yup'
 import { pathOr } from 'ramda'
 import { rem } from 'polished'
+
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
 import ControlledInputField from 'components/controlled-input-field'

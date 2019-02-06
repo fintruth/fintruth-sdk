@@ -3,6 +3,7 @@ import { Formik } from 'formik'
 import { action } from '@storybook/addon-actions'
 import { boolean, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
+
 import ControlledInputField from '.'
 
 const initialValues = { title: '' }

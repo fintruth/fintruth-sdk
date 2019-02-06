@@ -1,8 +1,9 @@
 import path from 'path'
 import chokidar from 'chokidar'
+
+import { dependencies, engines } from '../package.json'
 import { format } from './run'
 import { writeFile, copyFile, makeDir, copyDir, cleanDir } from './lib/fs'
-import { dependencies, engines } from '../package.json'
 
 const copy = async () => {
   await makeDir('build')
