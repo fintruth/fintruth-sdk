@@ -1,13 +1,19 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import Assets from './assets'
-import CaretDown from './caret-down.svg'
-import CaretUp from './caret-up.svg'
+import ExpandLess from './expand-less.svg'
+import ExpandMore from './expand-more.svg'
+import SortDown from './sort-down.svg'
+import SortUp from './sort-up.svg'
+import UserCircle from './user-circle.svg'
 import logoUrl from './logo.png'
 
 const icons = [
-  { Icon: CaretDown, label: 'Caret Down' },
-  { Icon: CaretUp, label: 'Caret Up' },
+  { Icon: ExpandLess, label: 'Expand Less' },
+  { Icon: ExpandMore, label: 'Expand More' },
+  { Icon: SortDown, label: 'Sort Down' },
+  { Icon: SortUp, label: 'Sort Up' },
+  { Icon: UserCircle, label: 'User Circle' },
 ]
 
 const images = [{ label: 'Logo', src: logoUrl }]

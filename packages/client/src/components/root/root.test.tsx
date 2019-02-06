@@ -55,6 +55,19 @@ test('should render the register route correctly', async () => {
   expect(queryByTitle('Page Not Found')).not.toBeInTheDocument()
 })
 
+test('should render the settings route correctly', async () => {
+  const { getByTestId, queryByTitle } = renderWithRouter(
+    <MockedProvider>
+      <Root data-testid="settings" />
+    </MockedProvider>,
+    { initialPath: '/settings' }
+  )
+  const settingsElement = await waitForElement(() => getByTestId('settings'))
+
+  expect(settingsElement).toBeInTheDocument()
+  expect(queryByTitle('Page Not Found')).not.toBeInTheDocument()
+})
+
 test('should render the sign-in route correctly', async () => {
   const { getByTestId, queryByTitle } = renderWithRouter(
     <MockedProvider>

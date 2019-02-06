@@ -2,7 +2,7 @@ import React from 'react'
 import { Mutation } from 'react-apollo'
 import { RouteComponentProps } from '@reach/router'
 import { renderLoadingIf } from 'utilities/loading'
-import Register, { Data, Variables } from './register' // eslint-disable-line @typescript-eslint/no-unused-vars
+import Register, { Data, Variables } from './register'
 import { registerMutation } from './graphql'
 
 const RegisterContainer: React.FunctionComponent<RouteComponentProps> = ({

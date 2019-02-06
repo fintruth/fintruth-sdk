@@ -10,6 +10,10 @@ export const layoutQuery = gql`
   query LayoutQuery {
     user: currentUser {
       id
+      profile {
+        firstName
+        lastName
+      }
     }
   }
 `
