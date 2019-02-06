@@ -18,7 +18,11 @@
     "prebuild": "yarn clean",
     "test": "echo \\\"No tests specified\\\" && exit 0"
   },
-  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/shared",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fintruth/fintruth-sdk.git",
+    "directory": "packages/shared"
+  },
   "author": "Fintruth LLC",
   "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
