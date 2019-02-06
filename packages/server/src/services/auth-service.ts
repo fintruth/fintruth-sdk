@@ -2,13 +2,17 @@ import { ValidationError, object, string } from '@fintruth-sdk/validation'
 import { hash } from 'bcrypt'
 import { toDataURL } from 'qrcode'
 import { is } from 'ramda'
-import { generateSecret } from 'speakeasy'
+import { generateSecret, totp } from 'speakeasy'
 import { Inject, Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { logger } from 'logger'
-import { InitiateTwoFactorResponse, RegisterResponse } from 'resolvers/types'
+import {
+  ConfirmTwoFactorResponse,
+  InitiateTwoFactorResponse,
+  RegisterResponse,
+} from 'resolvers/types'
 import { createToken, parseToken } from 'security'
 import { User } from '../entities'
 import UserService from './user-service'
@@ -46,6 +50,38 @@ export default class AuthService {
     }
 
     return this.userService.createUser(email, password)
+  }
+
+  async confirmTwoFactor(
+    token: string,
+    userId: string
+  ): Promise<ConfirmTwoFactorResponse> {
+    const user = await this.userRepository.findOne(userId)
+
+    if (!user) {
+      return {
+        error: {
+          id: 'f8df988e-edb9-4704-9156-d815b98d8eb4',
+          message: 'User not found',
+        },
+        verified: null,
+      }
+    }
+
+    const verified = totp.verify({
+      encoding: 'base32',
+      secret: user.secretTemp || '',
+      token,
+    })
+
+    if (verified) {
+      await this.userRepository.update(userId, {
+        secret: user.secretTemp,
+        secretTemp: undefined,
+      })
+    }
+
+    return { error: null, verified }
   }
 
   async initiateTwoFactor(userId: string): Promise<InitiateTwoFactorResponse> {

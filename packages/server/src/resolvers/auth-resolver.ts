@@ -6,10 +6,11 @@ import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 import { Context } from 'apollo'
 import { secret } from 'config'
 import {
+  ConfirmTwoFactorResponse,
+  InitiateTwoFactorResponse,
   RegisterInput,
   RegisterResponse,
   SignInResponse,
-  InitiateTwoFactorResponse,
 } from 'resolvers/types'
 import { AuthService } from 'services'
 import { User } from '../entities'
@@ -22,6 +23,24 @@ export class AuthResolver {
   @Mutation(() => User)
   async confirmRegistration(@Arg('token') token: string) {
     return this.authService.confirmRegistration(token)
+  }
+
+  @Mutation(() => ConfirmTwoFactorResponse)
+  async confirmTwoFactor(
+    @Arg('token') token: string,
+    @Ctx() { user }: Context
+  ) {
+    if (!user) {
+      return {
+        error: {
+          id: '5e5e2d7e-b21f-450e-b1f0-9997f4898f6a',
+          message: 'Not authenticated',
+        },
+        verified: null,
+      }
+    }
+
+    return this.authService.confirmTwoFactor(token, user.id)
   }
 
   @Mutation(() => InitiateTwoFactorResponse)
