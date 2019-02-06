@@ -10,6 +10,7 @@ import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 import { ServerLocation, isRedirect } from '@reach/router'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
+
 import Fault from './routes/fault'
 import Html from './components/html'
 import Root from './components/root'

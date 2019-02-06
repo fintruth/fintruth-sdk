@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link as BaseLink } from '@reach/router'
 import { darken, rem } from 'polished'
+
 import { azure, heather, lilia } from 'styles/variables'
 
 interface Item {

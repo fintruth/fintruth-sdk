@@ -1,6 +1,7 @@
 import React from 'react'
 import { Mutation } from 'react-apollo'
 import { RouteComponentProps } from '@reach/router'
+
 import Register, { Data, Variables } from './register'
 import { registerMutation } from './graphql'
 import { renderLoadingIf } from 'utilities/loading'

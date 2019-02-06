@@ -12,6 +12,7 @@ import { checkA11y } from '@storybook/addon-a11y'
 import { withKnobs } from '@storybook/addon-knobs'
 import { withOptions } from '@storybook/addon-options'
 import { withViewport } from '@storybook/addon-viewport'
+
 import GlobalStyle from 'styles/global'
 
 const req = require.context('../src', true, /\.stories\.tsx$/)

@@ -2,6 +2,7 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { boolean, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
+
 import InputField from '.'
 
 const options = { Default: 'default', Failure: 'failure' }

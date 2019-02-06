@@ -5,6 +5,7 @@ import express from 'express'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
+
 import webpackConfig from '../config/webpack.config'
 import clean from './clean'
 import run, { format } from './run'

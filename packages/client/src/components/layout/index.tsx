@@ -1,5 +1,6 @@
 import React from 'react'
 import { Mutation, Query } from 'react-apollo'
+
 import Layout, { Data } from './layout'
 import { layoutQuery, signOutMutation } from './graphql'
 import { renderLoadingIf } from 'utilities/loading'

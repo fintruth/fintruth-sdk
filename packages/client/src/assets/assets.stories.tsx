@@ -1,5 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+
 import Assets from './assets'
 import CaretDown from './caret-down.svg'
 import CaretUp from './caret-up.svg'

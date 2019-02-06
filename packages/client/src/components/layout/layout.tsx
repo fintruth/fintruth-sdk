@@ -4,6 +4,7 @@ import { Link as BaseLink } from '@reach/router'
 import { MutationFn } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
 import { darken, rem } from 'polished'
+
 import logoUrl from 'assets/logo.png'
 import { content, medium, untilMedium } from 'styles/mixins'
 import { raven } from 'styles/variables'

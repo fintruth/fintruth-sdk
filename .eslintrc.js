@@ -59,7 +59,7 @@ module.exports = {
   rules: {
     'no-console': ['error', { allow: ['error', 'info', 'warn'] }],
     'no-param-reassign': ['error', { props: true }],
-    'import/order': ['error', { 'newlines-between': 'never' }],
+    'import/order': ['error', { 'groups': [['builtin', 'external']], 'newlines-between': 'always' }],
     'react-hooks/rules-of-hooks': 'error',
     'prettier/prettier': 'error',
   },

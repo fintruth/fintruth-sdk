@@ -1,6 +1,7 @@
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import { fireEvent, waitForElement } from 'react-testing-library'
+
 import Layout from '.'
 import { renderWithRouter } from 'utilities/specification'
 

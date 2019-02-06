@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from 'react-testing-library'
+
 import Assets from './assets'
 import Fixture from './fixture.svg'
 import fixtureUrl from './fixture.png'

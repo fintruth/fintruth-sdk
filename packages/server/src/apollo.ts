@@ -6,6 +6,7 @@ import {
   buildSchema,
   useContainer as typeGraphQLUseContainer,
 } from 'type-graphql'
+
 import { User } from './entities'
 import { ServerRequest, ServerResponse } from './server'
 import { isProd } from 'config'

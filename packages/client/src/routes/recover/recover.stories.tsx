@@ -1,6 +1,7 @@
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import { storiesOf } from '@storybook/react'
+
 import { recoverMutation } from './graphql'
 import Recover from '.'
 

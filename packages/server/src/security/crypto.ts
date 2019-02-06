@@ -5,6 +5,7 @@ import {
   pbkdf2Sync,
 } from 'crypto'
 import base64url from 'base64url'
+
 import { secret } from 'config'
 
 interface AESWithAuth {

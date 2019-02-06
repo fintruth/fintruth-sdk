@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from 'react-testing-library'
+
 import Input from '.'
 
 test('should render the default style correctly', () => {

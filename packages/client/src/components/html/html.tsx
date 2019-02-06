@@ -1,6 +1,7 @@
 import React from 'react'
 import serialize from 'serialize-javascript'
 import { NormalizedCacheObject } from 'apollo-cache-inmemory' // eslint-disable-line import/named
+
 import { black } from 'styles/variables'
 
 interface Props {

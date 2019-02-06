@@ -5,6 +5,7 @@ import { ApolloProvider } from 'react-apollo'
 import { Location } from 'history'
 import { hydrate } from 'react-dom'
 import { loadableReady } from '@loadable/component'
+
 import Root from './components/root'
 import { createApolloClient } from './apollo'
 import { resolvers, typeDefs } from './store/partitions'

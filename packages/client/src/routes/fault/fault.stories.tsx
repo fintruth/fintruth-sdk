@@ -1,5 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+
 import Fault from '.'
 
 storiesOf('Routes|Fault', module)

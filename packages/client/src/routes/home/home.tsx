@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
+
 import Layout from 'components/layout'
 import { centered, content, fill, title } from 'styles/mixins'
 

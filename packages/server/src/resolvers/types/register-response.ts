@@ -1,4 +1,5 @@
 import { Field, ObjectType } from 'type-graphql'
+
 import { ResponseError } from './response-error'
 
 @ObjectType()
