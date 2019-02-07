@@ -12,6 +12,7 @@ import {
   ConfirmTwoFactorResponse,
   InitiateTwoFactorResponse,
   RegisterResponse,
+  ResponseError,
 } from 'resolvers/types'
 import { createToken, parseToken } from 'security'
 import { User } from '../entities'
@@ -121,23 +122,19 @@ export default class AuthService {
       .catch((error: ValidationError) => error)
 
     if (is(ValidationError, validated)) {
-      return {
-        error: {
-          id: '8cf575e7-e073-481b-8be1-e7a3b7f8baf4',
-          message: 'There is an issue with the provided form values',
-        },
-      }
+      const error = new ResponseError(
+        'There is an issue with the provided form values'
+      )
+
+      return new RegisterResponse({ error })
     }
 
     const isAvailable = await this.userService.emailAvailable(email)
 
     if (!isAvailable) {
-      return {
-        error: {
-          id: 'b4b61626-17d8-402b-b001-ad030d4b3589',
-          message: 'The user already exists',
-        },
-      }
+      const error = new ResponseError('The user already exists')
+
+      return new RegisterResponse({ error })
     }
 
     const expiresAt = Date.now() + 60 * 60 * 1000
@@ -150,6 +147,6 @@ export default class AuthService {
 
     logger.info('Registration token: ', token)
 
-    return { error: null }
+    return new RegisterResponse()
   }
 }
