@@ -8,9 +8,10 @@ scalar DateTime
 
 type Mutation {
   confirmRegistration(token: String!): User!
-  signIn(password: String!, email: String!): SignInResponse!
+  signIn(password: String!, email: String!): UserResponse!
   signOut: Boolean!
-  register(input: RegisterInput!): RegisterResponse!
+  register(input: RegisterInput!): Response!
+  updateProfile(input: UpdateProfileInput!): ProfileResponse!
 }
 
 type Profile {
@@ -19,6 +20,11 @@ type Profile {
   lastName: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+type ProfileResponse {
+  error: ResponseError
+  profile: Profile
 }
 
 type Query {
@@ -35,7 +41,7 @@ input RegisterInput {
   password: String!
 }
 
-type RegisterResponse {
+type Response {
   error: ResponseError
 }
 
@@ -44,9 +50,9 @@ type ResponseError {
   message: String!
 }
 
-type SignInResponse {
-  error: ResponseError
-  user: User
+input UpdateProfileInput {
+  firstName: String!
+  lastName: String!
 }
 
 type User {
@@ -55,4 +61,9 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   profile: Profile!
+}
+
+type UserResponse {
+  error: ResponseError
+  user: User
 }

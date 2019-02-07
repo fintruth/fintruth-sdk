@@ -1,17 +1,13 @@
-import { GraphQLBoolean } from 'graphql'
 import jwt from 'jsonwebtoken'
-import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
+import { GraphQLBoolean } from 'graphql'
+import { Inject } from 'typedi'
 
-import { User } from '../entities'
-import { Context } from 'apollo'
-import { secret } from 'config'
-import {
-  RegisterInput,
-  RegisterResponse,
-  SignInResponse,
-} from 'resolvers/types'
 import UserService from 'services/user-service'
+import { Context } from 'apollo'
+import { RegisterInput, Response, UserResponse } from 'resolvers/types'
+import { secret } from 'config'
+import { User } from '../entities'
 
 @Resolver()
 export default class AuthResolver {
@@ -23,12 +19,12 @@ export default class AuthResolver {
     return this.userService.confirmRegistration(token)
   }
 
-  @Mutation(() => SignInResponse)
+  @Mutation(() => UserResponse)
   async signIn(
     @Arg('email') email: string,
     @Arg('password') password: string,
     @Ctx() { res }: Context
-  ): Promise<SignInResponse> {
+  ): Promise<UserResponse> {
     const user = await this.userService.authenticate(email, password)
 
     if (!user) {
@@ -37,7 +33,6 @@ export default class AuthResolver {
           id: 'b49e7dec-b1ad-495c-a853-d089816ed6bc',
           message: 'Incorrect email or password',
         },
-        user: null,
       }
     }
 
@@ -50,7 +45,7 @@ export default class AuthResolver {
       signed: false,
     })
 
-    return { error: null, user }
+    return { user }
   }
 
   @Mutation(() => GraphQLBoolean)
@@ -60,10 +55,8 @@ export default class AuthResolver {
     return true
   }
 
-  @Mutation(() => RegisterResponse)
-  async register(@Arg('input') { email, password }: RegisterInput): Promise<
-    RegisterResponse
-  > {
+  @Mutation(() => Response)
+  async register(@Arg('input') { email, password }: RegisterInput) {
     return this.userService.register(email, password)
   }
 }

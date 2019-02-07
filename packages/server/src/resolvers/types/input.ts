@@ -17,3 +17,12 @@ export class RegisterInput {
   @Field()
   password: string
 }
+
+@InputType()
+export class UpdateProfileInput {
+  @Field()
+  firstName: string
+
+  @Field()
+  lastName: string
+}

@@ -7,7 +7,7 @@ import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { User } from '../entities'
 import { logger } from 'logger'
-import { RegisterResponse } from 'resolvers/types'
+import { Response } from 'resolvers/types'
 import { createToken, parseToken } from 'security'
 
 interface RegistrationTokenData {
@@ -50,7 +50,7 @@ export default class UserService {
     return this.userRepository.findOne(id)
   }
 
-  async register(email: string, password: string): Promise<RegisterResponse> {
+  async register(email: string, password: string): Promise<Response> {
     const schema = object().shape({
       email: string()
         .required()
@@ -94,7 +94,7 @@ export default class UserService {
 
     logger.info('Registration token: ', token)
 
-    return { error: null }
+    return { error: undefined }
   }
 
   private async createUser(email: string, password: string): Promise<User> {
