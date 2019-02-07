@@ -3,8 +3,10 @@ import styled from 'styled-components'
 import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink, RouteComponentProps } from '@reach/router'
 import { MutationFn } from 'react-apollo'
+import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
 import { rem } from 'polished'
+
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
 import BaseSubnavbar from 'components/subnavbar'
@@ -17,7 +19,7 @@ export interface Data {
 
 interface Response {
   error: any
-  user: any
+  user: User
 }
 
 interface Props extends RouteComponentProps {

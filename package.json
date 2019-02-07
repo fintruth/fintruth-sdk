@@ -38,7 +38,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-ramda": "^2.5.1",
     "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-react-hooks": "^1.0.0",
+    "eslint-plugin-react-hooks": "^1.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-unicorn": "^7.1.0",
     "husky": "^1.3.1",
@@ -74,7 +74,22 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna exec --concurrency 1 --stream lint-staged"
+      "pre-commit": "lint-staged && lerna exec --concurrency 1 --stream lint-staged"
+    }
+  },
+  "lint-staged": {
+    "ignore": [
+      "packages/**"
+    ],
+    "linters": {
+      "*.{js,ts,tsx}": [
+        "eslint --fix",
+        "git add"
+      ],
+      "*.{json,md,yml}": [
+        "prettier --write",
+        "git add"
+      ]
     }
   }
 }

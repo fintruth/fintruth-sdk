@@ -1,6 +1,7 @@
 import React from 'react'
 import loadable from '@loadable/component'
 import { Router } from '@reach/router'
+
 import GlobalStyle from 'styles/global'
 
 const Home = loadable(() =>
@@ -19,6 +20,10 @@ const Register = loadable(() =>
   import(/* webpackChunkName: 'register' */ 'routes/register')
 )
 
+const Settings = loadable(() =>
+  import(/* webpackChunkName: 'settings' */ 'routes/settings')
+)
+
 const SignIn = loadable(() =>
   import(/* webpackChunkName: 'sign-in' */ 'routes/sign-in')
 )
@@ -34,6 +39,7 @@ const Root: React.FunctionComponent = ({ ...rest }) => {
         <Home {...rest} path="/" />
         <Recover {...rest} path="/recover" />
         <Register {...rest} path="/register" />
+        <Settings {...rest} path="/settings" />
         <SignIn {...rest} path="/sign-in" />
         <NotFound {...rest} default />
       </Router>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Field, FieldProps } from 'formik'
+
 import InputField from 'components/input-field'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {

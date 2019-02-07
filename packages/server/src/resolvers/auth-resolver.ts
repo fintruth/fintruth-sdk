@@ -12,11 +12,11 @@ import {
   RegisterResponse,
   SignInResponse,
 } from 'resolvers/types'
-import { AuthService } from 'services'
+import { AuthService, UserService } from 'services'
 import { User } from '../entities'
 
 @Resolver()
-export class AuthResolver {
+export default class AuthResolver {
   @Inject()
   authService: AuthService
 

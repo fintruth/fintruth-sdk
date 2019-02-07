@@ -1,6 +1,7 @@
 import React from 'react'
 import serialize from 'serialize-javascript'
 import { NormalizedCacheObject } from 'apollo-cache-inmemory' // eslint-disable-line import/named
+
 import { black } from 'styles/variables'
 
 interface Props {
@@ -43,6 +44,10 @@ const Html: React.FunctionComponent<Props> = ({
       {links}
       <link rel="manifest" href="/site.webmanifest" />
       <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/@reach/menu-button@0.1.8/styles.css"
+      />
       {styles}
     </head>
     <body>

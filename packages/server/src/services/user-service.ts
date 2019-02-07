@@ -14,6 +14,10 @@ export default class UserService {
     return isNil(await this.userRepository.findOne({ email }))
   }
 
+  findById(id: string) {
+    return this.userRepository.findOne(id)
+  }
+
   async createUser(email: string, password: string): Promise<User> {
     const isAvailable = await this.emailAvailable(email)
 

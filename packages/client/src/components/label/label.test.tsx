@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from 'react-testing-library'
+
 import Label from '.'
 
 test('should not append the required symbol to the provided children', () => {

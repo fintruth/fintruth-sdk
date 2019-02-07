@@ -1,25 +1,39 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Link as BaseLink } from '@reach/router'
-import { MutationFn } from 'react-apollo'
+import { Mutation, Query } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
 import { darken, rem } from 'polished'
+
+import BaseExpandMore from 'assets/expand-more.svg'
+import BaseUserCircle from 'assets/user-circle.svg'
 import logoUrl from 'assets/logo.png'
+import {
+  Submenu,
+  SubmenuButton,
+  SubmenuItem,
+  SubmenuLink,
+  SubmenuList,
+} from 'components/submenu'
 import { content, medium, untilMedium } from 'styles/mixins'
 import { raven } from 'styles/variables'
+import { renderLoadingIf } from 'utilities/loading'
+import { layoutQuery, signOutMutation } from './graphql'
 
-export interface Data {
+interface Data {
   user?: User
 }
 
 interface Props {
   children?: React.ReactNode
-  onSignOut: MutationFn
-  user?: User
 }
 
 interface State {
-  isTogglerActive: boolean
+  isMenuOpen: boolean
+}
+
+interface MenuState {
+  isOpen: boolean
 }
 
 const Root = styled.div`
@@ -52,11 +66,6 @@ const LogoLink = styled(BaseLink)`
   align-items: center;
   display: flex;
   padding: ${rem(8)} ${rem(12)};
-
-  ${untilMedium(css`
-    align-items: center;
-    display: flex;
-  `)};
 `
 
 const Logo = styled.img`
@@ -77,7 +86,7 @@ const Toggler = styled.button`
   `)};
 `
 
-const Icon = styled.span`
+const TogglerIcon = styled.span`
   background-color: ${raven};
   height: ${rem(1)};
   left: calc(50% - ${rem(8)});
@@ -86,8 +95,8 @@ const Icon = styled.span`
   transition: opacity, transform 150ms ease-out;
   width: ${rem(16)};
 
-  ${({ isTogglerActive }: State) =>
-    isTogglerActive &&
+  ${({ isMenuOpen }: State) =>
+    isMenuOpen &&
     css`
       &:nth-child(1) {
         transform: translateY(${rem(6)}) rotate(45deg);
@@ -126,9 +135,9 @@ const Icon = styled.span`
 const Menu = styled.div`
   display: none;
 
-  ${({ isTogglerActive }: State) =>
+  ${({ isOpen }: MenuState) =>
     untilMedium(
-      isTogglerActive
+      isOpen
         ? css`
             display: block;
           `
@@ -143,9 +152,21 @@ const Menu = styled.div`
   `)};
 `
 
-const item = css`
+const ExpandMore = styled(BaseExpandMore)`
+  fill: ${raven};
+  height: ${rem(5)};
+  margin: 0 ${rem(12)} 0 ${rem(6)};
+`
+
+const UserCircle = styled(BaseUserCircle)`
+  fill: ${raven};
+  height: ${rem(40)};
+`
+
+const MenuLink = styled(BaseLink)`
   color: ${raven};
   display: block;
+  font-size: ${rem(14)};
   padding: ${rem(8)} ${rem(12)};
 
   ${medium(css`
@@ -162,54 +183,83 @@ const item = css`
   }
 `
 
-const ItemLink = styled(BaseLink)`
-  ${item};
-`
-
-const ItemButton = styled.button`
-  ${item};
-  background-color: unset;
-  border: unset;
-  cursor: pointer;
-`
-
 const Layout: React.FunctionComponent<Props> = ({
   children,
-  onSignOut,
-  user,
   ...rest
 }: Props) => {
-  const [isTogglerActive, setTogglerActive] = React.useState(false)
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   return (
     <Root {...rest}>
-      <header>
-        <Navbar aria-label="main navigation">
-          <Brand>
-            <LogoLink aria-label="home" to="/">
-              <Logo alt="Logo" src={logoUrl} />
-            </LogoLink>
-            <Toggler
-              aria-expanded={isTogglerActive}
-              aria-label="menu"
-              onClick={() => setTogglerActive(!isTogglerActive)}
-              type="button"
-            >
-              <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
-              <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
-              <Icon isTogglerActive={isTogglerActive} aria-hidden="true" />
-            </Toggler>
-          </Brand>
-          <Menu isTogglerActive={isTogglerActive}>
-            {user ? (
-              <ItemButton onClick={() => onSignOut()}>Sign Out</ItemButton>
-            ) : (
-              <ItemLink to="/sign-in">Sign In</ItemLink>
-            )}
-          </Menu>
-        </Navbar>
-      </header>
-      {children}
+      <Query<Data> fetchPolicy="network-only" query={layoutQuery} ssr={false}>
+        {({ client, data = {}, loading }) => (
+          <Mutation
+            mutation={signOutMutation}
+            onCompleted={() => client.resetStore()}
+          >
+            {(onSignOut, result) =>
+              renderLoadingIf(loading || result.loading, () => (
+                <React.Fragment>
+                  <header>
+                    <Navbar aria-label="main navigation">
+                      <Brand>
+                        <LogoLink aria-label="home" to="/">
+                          <Logo alt="Logo" src={logoUrl} />
+                        </LogoLink>
+                        <Toggler
+                          aria-expanded={isMenuOpen}
+                          aria-label="menu"
+                          onClick={() => setIsMenuOpen(!isMenuOpen)}
+                          type="button"
+                        >
+                          <TogglerIcon
+                            isMenuOpen={isMenuOpen}
+                            aria-hidden="true"
+                          />
+                          <TogglerIcon
+                            isMenuOpen={isMenuOpen}
+                            aria-hidden="true"
+                          />
+                          <TogglerIcon
+                            isMenuOpen={isMenuOpen}
+                            aria-hidden="true"
+                          />
+                        </Toggler>
+                      </Brand>
+                      <Menu isOpen={isMenuOpen}>
+                        {data.user ? (
+                          <Submenu>
+                            <SubmenuButton>
+                              {data.user.profile.firstName}{' '}
+                              {data.user.profile.lastName}
+                              <ExpandMore aria-hidden />
+                              <UserCircle aria-hidden />
+                            </SubmenuButton>
+                            <SubmenuList>
+                              <SubmenuLink to="/settings">
+                                Account Settings
+                              </SubmenuLink>
+                              <SubmenuItem onSelect={() => onSignOut()}>
+                                Sign Out
+                              </SubmenuItem>
+                            </SubmenuList>
+                          </Submenu>
+                        ) : (
+                          <React.Fragment>
+                            <MenuLink to="/sign-in">Sign In</MenuLink>
+                            <MenuLink to="/register">Register</MenuLink>
+                          </React.Fragment>
+                        )}
+                      </Menu>
+                    </Navbar>
+                  </header>
+                  {children}
+                </React.Fragment>
+              ))
+            }
+          </Mutation>
+        )}
+      </Query>
     </Root>
   )
 }

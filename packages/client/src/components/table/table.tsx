@@ -10,6 +10,7 @@ import {
 } from 'reactabular-table'
 import { mergeDeepRight } from 'ramda'
 import { rem } from 'polished'
+
 import { formatEmpty, mergeColumnDefaults } from 'utilities/table'
 import { heather, lilia, steel } from 'styles/variables'
 

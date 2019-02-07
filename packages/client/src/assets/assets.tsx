@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { darken, rem } from 'polished'
+
 import { raven, white } from 'styles/variables'
 
 interface Asset {
@@ -42,7 +43,7 @@ const Image = styled.img`
 
 const Label = styled.div`
   font-size: ${rem(12)};
-  font-weight: 700;
+  font-weight: 500;
   margin-top: ${rem(15)};
   opacity: 0.6;
 `

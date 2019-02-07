@@ -35,7 +35,10 @@ module.exports = {
       },
     },
     {
-      files: ['packages/*/config/jest/**/*.?(js|ts)', 'packages/*/src/**/?(*.)test.ts?(x)'],
+      files: [
+        'packages/*/config/jest/**/*.?(js|ts)',
+        'packages/*/src/**/?(*.)test.ts?(x)',
+      ],
       globals: jestPlugin.environments.globals.globals,
       plugins: jestPlugin.configs.recommended.plugins,
       rules: jestPlugin.configs.recommended.rules,
@@ -56,6 +59,10 @@ module.exports = {
   rules: {
     'no-console': ['error', { allow: ['error', 'info', 'warn'] }],
     'no-param-reassign': ['error', { props: true }],
+    'import/order': [
+      'error',
+      { groups: [['builtin', 'external']], 'newlines-between': 'always' },
+    ],
     'react-hooks/rules-of-hooks': 'error',
     'prettier/prettier': 'error',
   },

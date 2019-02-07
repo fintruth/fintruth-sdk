@@ -1,5 +1,6 @@
 import React from 'react'
 import { act, render } from 'react-testing-library'
+
 import Loading from '.'
 
 jest.useFakeTimers()

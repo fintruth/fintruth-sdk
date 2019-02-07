@@ -1,8 +1,9 @@
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import { waitForElement } from 'react-testing-library'
-import { renderWithRouter } from 'utilities/specification'
+
 import Root from '.'
+import { renderWithRouter } from 'utilities/specification'
 
 test('should render the home route correctly', async () => {
   const { getByTestId, queryByTitle } = renderWithRouter(
@@ -52,6 +53,19 @@ test('should render the register route correctly', async () => {
   const registerElement = await waitForElement(() => getByTestId('register'))
 
   expect(registerElement).toBeInTheDocument()
+  expect(queryByTitle('Page Not Found')).not.toBeInTheDocument()
+})
+
+test('should render the settings route correctly', async () => {
+  const { getByTestId, queryByTitle } = renderWithRouter(
+    <MockedProvider>
+      <Root data-testid="settings" />
+    </MockedProvider>,
+    { initialPath: '/settings' }
+  )
+  const settingsElement = await waitForElement(() => getByTestId('settings'))
+
+  expect(settingsElement).toBeInTheDocument()
   expect(queryByTitle('Page Not Found')).not.toBeInTheDocument()
 })
 

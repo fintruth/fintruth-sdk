@@ -15,7 +15,11 @@
     "prebuild": "yarn clean",
     "test": "echo \\\"No tests specified\\\" && exit 0"
   },
-  "repository": "https://github.com/fintruth/fintruth-sdk/tree/master/packages/validation",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fintruth/fintruth-sdk.git",
+    "directory": "packages/validation"
+  },
   "author": "Fintruth LLC",
   "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
@@ -27,7 +31,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@types/yup": "^0.26.7",
+    "@types/yup": "^0.26.8",
     "@types/zxcvbn": "^4.4.0"
   },
   "engines": {

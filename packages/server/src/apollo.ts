@@ -11,8 +11,7 @@ import { User } from './entities'
 import { ServerRequest, ServerResponse } from './server'
 import { isProd } from 'config'
 import { logger } from 'logger'
-import { AuthResolver } from 'resolvers/auth-resolver'
-import { UserResolver } from 'resolvers/user-resolver'
+import * as resolvers from 'resolvers'
 
 interface RequestParams {
   req: ServerRequest
@@ -32,7 +31,7 @@ const logError = (e: ApolloError) => logger.error('[apollo]', e)
 export const createApolloServer = async (): Promise<ApolloServer> => {
   const schema = await buildSchema({
     emitSchemaFile: !isProd && './schema.graphql',
-    resolvers: [AuthResolver, UserResolver],
+    resolvers: Object.values(resolvers),
     validate: false, // see https://github.com/typestack/class-validator/issues/261
   })
 

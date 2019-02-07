@@ -1,6 +1,7 @@
 import React from 'react'
 import { select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
+
 import Notice from '.'
 
 const options = { Default: 'default', Failure: 'failure', Success: 'success' }
