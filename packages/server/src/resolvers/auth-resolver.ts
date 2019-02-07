@@ -12,7 +12,7 @@ import {
   RegisterResponse,
   SignInResponse,
 } from 'resolvers/types'
-import { AuthService, UserService } from 'services'
+import { AuthService } from 'services'
 import { User } from '../entities'
 
 @Resolver()
