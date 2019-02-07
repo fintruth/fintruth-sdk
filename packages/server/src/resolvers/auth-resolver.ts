@@ -62,10 +62,9 @@ export default class AuthResolver {
     const user = await this.authService.authenticate(email, password)
 
     if (!user) {
-      const response = new SignInResponse()
-      response.error = new ResponseError('Incorrect email or password')
+      const error = new ResponseError('Incorrect email or password')
 
-      return response
+      return new SignInResponse({ error })
     }
 
     const expiresIn = 60 * 60 * 24 * 180
@@ -77,7 +76,7 @@ export default class AuthResolver {
       signed: false,
     })
 
-    return { error: null, user }
+    return new SignInResponse({ user })
   }
 
   @Mutation(() => GraphQLBoolean)

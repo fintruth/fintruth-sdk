@@ -2,7 +2,7 @@ import { Field, ObjectType } from 'type-graphql'
 
 import ResponseError from './response-error'
 
-interface ResponseParameters {
+export interface ResponseParameters {
   error?: ResponseError
 }
 
