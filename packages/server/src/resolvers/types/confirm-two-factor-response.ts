@@ -1,7 +1,7 @@
 import { GraphQLBoolean } from 'graphql'
 import { Field, ObjectType } from 'type-graphql'
 
-import { ResponseError } from './response-error'
+import ResponseError from './response-error'
 
 @ObjectType()
 export default class ConfirmTwoFactorResponse {

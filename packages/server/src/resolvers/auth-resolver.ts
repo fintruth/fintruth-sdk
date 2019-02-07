@@ -10,6 +10,7 @@ import {
   InitiateTwoFactorResponse,
   RegisterInput,
   RegisterResponse,
+  ResponseError,
   SignInResponse,
 } from 'resolvers/types'
 import { AuthService } from 'services'
@@ -32,10 +33,7 @@ export default class AuthResolver {
   ) {
     if (!user) {
       return {
-        error: {
-          id: '5e5e2d7e-b21f-450e-b1f0-9997f4898f6a',
-          message: 'Not authenticated',
-        },
+        error: new ResponseError('Not authenticated'),
         verified: null,
       }
     }
@@ -46,13 +44,10 @@ export default class AuthResolver {
   @Mutation(() => InitiateTwoFactorResponse)
   async initiateTwoFactor(@Ctx() { user }: Context) {
     if (!user) {
-      return {
-        error: {
-          id: 'a21c3867-9894-4f62-a3b1-6362468ea8b6',
-          message: 'Not authenticated',
-        },
-        data: null,
-      }
+      const response = new InitiateTwoFactorResponse()
+      response.error = new ResponseError('Not authenticated')
+
+      return response
     }
 
     return this.authService.initiateTwoFactor(user.id)
@@ -67,13 +62,10 @@ export default class AuthResolver {
     const user = await this.authService.authenticate(email, password)
 
     if (!user) {
-      return {
-        error: {
-          id: 'b49e7dec-b1ad-495c-a853-d089816ed6bc',
-          message: 'Incorrect email or password',
-        },
-        user: null,
-      }
+      const response = new SignInResponse()
+      response.error = new ResponseError('Incorrect email or password')
+
+      return response
     }
 
     const expiresIn = 60 * 60 * 24 * 180

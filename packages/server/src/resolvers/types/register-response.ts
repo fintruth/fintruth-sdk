@@ -1,9 +1,6 @@
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
-import { ResponseError } from './response-error'
+import Response from './response'
 
 @ObjectType()
-export class RegisterResponse {
-  @Field(() => ResponseError, { nullable: true })
-  error: ResponseError | null
-}
+export default class RegisterResponse extends Response {}

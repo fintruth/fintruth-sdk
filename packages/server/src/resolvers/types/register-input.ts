@@ -1,7 +1,7 @@
 import { Field, InputType } from 'type-graphql'
 
 @InputType()
-export class RegisterInput {
+export default class RegisterInput {
   @Field()
   email: string
 
