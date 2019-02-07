@@ -2,7 +2,7 @@ import { Field, ObjectType } from 'type-graphql'
 
 import ResponseError from './response-error'
 
-export interface ResponseParameters {
+export interface ResponseProps {
   error?: ResponseError
 }
 
@@ -11,7 +11,7 @@ export default class Response {
   @Field(() => ResponseError, { nullable: true })
   error?: ResponseError
 
-  constructor(params: ResponseParameters = {}) {
-    this.error = params.error
+  constructor(props: ResponseProps = {}) {
+    this.error = props.error
   }
 }

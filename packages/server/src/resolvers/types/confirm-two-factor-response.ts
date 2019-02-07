@@ -1,13 +1,19 @@
 import { GraphQLBoolean } from 'graphql'
 import { Field, ObjectType } from 'type-graphql'
 
-import ResponseError from './response-error'
+import Response, { ResponseProps } from './response'
+
+export interface ConfirmTwoFactorResponseProps extends ResponseProps {
+  verified: boolean
+}
 
 @ObjectType()
-export default class ConfirmTwoFactorResponse {
-  @Field(() => ResponseError, { nullable: true })
-  error: ResponseError | null
+export default class ConfirmTwoFactorResponse extends Response {
+  @Field(() => GraphQLBoolean)
+  verified: boolean
 
-  @Field(() => GraphQLBoolean, { nullable: true })
-  verified: boolean | null
+  constructor(props: ConfirmTwoFactorResponseProps) {
+    super(props)
+    this.verified = props.verified
+  }
 }

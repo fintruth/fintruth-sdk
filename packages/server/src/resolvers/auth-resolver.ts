@@ -44,10 +44,9 @@ export default class AuthResolver {
   @Mutation(() => InitiateTwoFactorResponse)
   async initiateTwoFactor(@Ctx() { user }: Context) {
     if (!user) {
-      const response = new InitiateTwoFactorResponse()
-      response.error = new ResponseError('Not authenticated')
+      const error = new ResponseError('Not authenticated')
 
-      return response
+      return new InitiateTwoFactorResponse({ error })
     }
 
     return this.authService.initiateTwoFactor(user.id)
@@ -58,7 +57,7 @@ export default class AuthResolver {
     @Arg('email') email: string,
     @Arg('password') password: string,
     @Ctx() { res }: Context
-  ): Promise<SignInResponse> {
+  ) {
     const user = await this.authService.authenticate(email, password)
 
     if (!user) {
@@ -87,9 +86,7 @@ export default class AuthResolver {
   }
 
   @Mutation(() => RegisterResponse)
-  async register(@Arg('input') { email, password }: RegisterInput): Promise<
-    RegisterResponse
-  > {
+  async register(@Arg('input') { email, password }: RegisterInput) {
     return this.authService.register(email, password)
   }
 }

@@ -1,16 +1,24 @@
 import { GraphQLString } from 'graphql'
 import { Field, ObjectType } from 'type-graphql'
 
-import ResponseError from './response-error'
+import Response, { ResponseProps } from './response'
+
+export interface InitiateTwoFactorResponseProps extends ResponseProps {
+  dataUrl?: string
+  secret?: string
+}
 
 @ObjectType()
-export default class InitiateTwoFactorResponse {
-  @Field(() => ResponseError, { nullable: true })
-  error: ResponseError | null
+export default class InitiateTwoFactorResponse extends Response {
+  @Field(() => GraphQLString, { nullable: true })
+  dataUrl?: string
 
   @Field(() => GraphQLString, { nullable: true })
-  dataUrl: string | null
+  secret?: string
 
-  @Field(() => GraphQLString, { nullable: true })
-  secret: string | null
+  constructor(props: InitiateTwoFactorResponseProps) {
+    super(props)
+    this.dataUrl = props.dataUrl
+    this.secret = props.secret
+  }
 }

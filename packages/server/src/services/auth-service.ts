@@ -53,20 +53,13 @@ export default class AuthService {
     return this.userService.createUser(email, password)
   }
 
-  async confirmTwoFactor(
-    token: string,
-    userId: string
-  ): Promise<ConfirmTwoFactorResponse> {
+  async confirmTwoFactor(token: string, userId: string) {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
-      return {
-        error: {
-          id: 'f8df988e-edb9-4704-9156-d815b98d8eb4',
-          message: 'User not found',
-        },
-        verified: null,
-      }
+      const error = new ResponseError('User not found')
+
+      return new ConfirmTwoFactorResponse({ error, verified: false })
     }
 
     const verified = totp.verify({
@@ -82,21 +75,16 @@ export default class AuthService {
       })
     }
 
-    return { error: null, verified }
+    return new ConfirmTwoFactorResponse({ verified })
   }
 
-  async initiateTwoFactor(userId: string): Promise<InitiateTwoFactorResponse> {
+  async initiateTwoFactor(userId: string) {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
-      return {
-        error: {
-          id: 'cf22b845-256e-4a2c-ae68-512fd810535a',
-          message: 'User not found',
-        },
-        dataUrl: null,
-        secret: null,
-      }
+      const error = new ResponseError('User not found')
+
+      return new InitiateTwoFactorResponse({ error })
     }
 
     const { base32, otpauth_url } = generateSecret({ otpauth_url: true }) // eslint-disable-line @typescript-eslint/camelcase
@@ -104,10 +92,10 @@ export default class AuthService {
 
     await this.userRepository.update(userId, { secretTemp: base32 })
 
-    return { error: null, dataUrl, secret: base32 }
+    return new InitiateTwoFactorResponse({ dataUrl, secret: base32 })
   }
 
-  async register(email: string, password: string): Promise<RegisterResponse> {
+  async register(email: string, password: string) {
     const schema = object().shape({
       email: string()
         .required()
