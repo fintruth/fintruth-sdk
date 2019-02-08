@@ -17,5 +17,6 @@ export default class Response {
 
   constructor(props: Props) {
     this.error = props.error
+    this.success = props.success
   }
 }
