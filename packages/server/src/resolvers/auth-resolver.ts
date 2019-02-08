@@ -39,6 +39,17 @@ export default class AuthResolver {
     return this.authService.confirmTwoFactor(token, user.id)
   }
 
+  @Mutation(() => Response)
+  disableTwoFactor(@Arg('token') token: string, @Ctx() { user }: Context) {
+    if (!user) {
+      const error = new ResponseError('Not authenticated')
+
+      return new Response({ error, success: false })
+    }
+
+    return this.authService.disableTwoFactor(token, user.id)
+  }
+
   @Mutation(() => InitiateTwoFactorResponse)
   async initiateTwoFactor(@Ctx() { user }: Context) {
     if (!user) {
