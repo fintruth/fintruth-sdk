@@ -32,10 +32,9 @@ export default class AuthResolver {
     @Ctx() { user }: Context
   ) {
     if (!user) {
-      return {
-        error: new ResponseError('Not authenticated'),
-        verified: null,
-      }
+      const error = new ResponseError('Not authenticated')
+
+      return new ConfirmTwoFactorResponse({ error, verified: false })
     }
 
     return this.authService.confirmTwoFactor(token, user.id)
