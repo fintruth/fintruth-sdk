@@ -61,20 +61,20 @@ export default class AuthService {
       return new Response({ error, success: false })
     }
 
-    const verified = totp.verify({
+    const isValid = totp.verify({
       encoding: 'base32',
       secret: user.secretTemp || '',
       token,
     })
 
-    if (verified) {
+    if (isValid) {
       await this.userRepository.update(userId, {
         secret: user.secretTemp,
         secretTemp: undefined,
       })
     }
 
-    return new Response({ success: true })
+    return new Response({ success: isValid })
   }
 
   async disableTwoFactor(token: string, userId: string) {
