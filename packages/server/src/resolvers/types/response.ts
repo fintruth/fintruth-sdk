@@ -4,6 +4,7 @@ import ResponseError from './response-error'
 
 export interface Props {
   error?: ResponseError
+  success: boolean
 }
 
 @ObjectType()
@@ -11,7 +12,10 @@ export default class Response {
   @Field(() => ResponseError, { nullable: true })
   error?: ResponseError
 
-  constructor(props: Props = {}) {
+  @Field()
+  success: boolean
+
+  constructor(props: Props) {
     this.error = props.error
   }
 }

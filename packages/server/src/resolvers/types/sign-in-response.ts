@@ -12,7 +12,7 @@ export default class SignInResponse extends Response {
   @Field(() => User, { nullable: true })
   user?: User
 
-  constructor(props: Props = {}) {
+  constructor(props: Props) {
     super(props)
     this.user = props.user
   }

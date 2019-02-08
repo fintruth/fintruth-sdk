@@ -9,9 +9,8 @@ import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { logger } from 'logger'
 import {
-  ConfirmTwoFactorResponse,
   InitiateTwoFactorResponse,
-  RegisterResponse,
+  Response,
   ResponseError,
 } from 'resolvers/types'
 import { createToken, parseToken } from 'security'
@@ -59,7 +58,7 @@ export default class AuthService {
     if (!user) {
       const error = new ResponseError('User not found')
 
-      return new ConfirmTwoFactorResponse({ error, verified: false })
+      return new Response({ error, success: false })
     }
 
     const verified = totp.verify({
@@ -75,7 +74,7 @@ export default class AuthService {
       })
     }
 
-    return new ConfirmTwoFactorResponse({ verified })
+    return new Response({ success: true })
   }
 
   async initiateTwoFactor(userId: string) {
@@ -84,7 +83,7 @@ export default class AuthService {
     if (!user) {
       const error = new ResponseError('User not found')
 
-      return new InitiateTwoFactorResponse({ error })
+      return new InitiateTwoFactorResponse({ error, success: false })
     }
 
     const { base32, otpauth_url } = generateSecret({ otpauth_url: true }) // eslint-disable-line @typescript-eslint/camelcase
@@ -92,7 +91,11 @@ export default class AuthService {
 
     await this.userRepository.update(userId, { secretTemp: base32 })
 
-    return new InitiateTwoFactorResponse({ dataUrl, secret: base32 })
+    return new InitiateTwoFactorResponse({
+      dataUrl,
+      secret: base32,
+      success: true,
+    })
   }
 
   async register(email: string, password: string) {
@@ -114,7 +117,7 @@ export default class AuthService {
         'There is an issue with the provided form values'
       )
 
-      return new RegisterResponse({ error })
+      return new Response({ error, success: false })
     }
 
     const isAvailable = await this.userService.emailAvailable(email)
@@ -122,7 +125,7 @@ export default class AuthService {
     if (!isAvailable) {
       const error = new ResponseError('The user already exists')
 
-      return new RegisterResponse({ error })
+      return new Response({ error, success: false })
     }
 
     const expiresAt = Date.now() + 60 * 60 * 1000
@@ -135,6 +138,6 @@ export default class AuthService {
 
     logger.info('Registration token: ', token)
 
-    return new RegisterResponse()
+    return new Response({ success: true })
   }
 }

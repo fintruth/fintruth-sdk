@@ -3,27 +3,23 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type ConfirmTwoFactorResponse {
-  error: ResponseError
-  verified: Boolean!
-}
-
 # The javascript `Date` as string. Type represents date and time as the ISO Date string.
 scalar DateTime
 
 type InitiateTwoFactorResponse {
   error: ResponseError
+  success: Boolean!
   dataUrl: String
   secret: String
 }
 
 type Mutation {
   confirmRegistration(token: String!): User!
-  confirmTwoFactor(token: String!): ConfirmTwoFactorResponse!
+  confirmTwoFactor(token: String!): Response!
   initiateTwoFactor: InitiateTwoFactorResponse!
   signIn(password: String!, email: String!): SignInResponse!
   signOut: Boolean!
-  register(input: RegisterInput!): RegisterResponse!
+  register(input: RegisterInput!): Response!
 }
 
 type Profile {
@@ -48,12 +44,9 @@ input RegisterInput {
   password: String!
 }
 
-type RegisterResponse {
-  error: ResponseError
-}
-
 type Response {
   error: ResponseError
+  success: Boolean!
 }
 
 type ResponseError {
@@ -63,6 +56,7 @@ type ResponseError {
 
 type SignInResponse {
   error: ResponseError
+  success: Boolean!
   user: User
 }
 

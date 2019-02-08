@@ -6,10 +6,9 @@ import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 import { Context } from 'apollo'
 import { secret } from 'config'
 import {
-  ConfirmTwoFactorResponse,
   InitiateTwoFactorResponse,
   RegisterInput,
-  RegisterResponse,
+  Response,
   ResponseError,
   SignInResponse,
 } from 'resolvers/types'
@@ -26,7 +25,7 @@ export default class AuthResolver {
     return this.authService.confirmRegistration(token)
   }
 
-  @Mutation(() => ConfirmTwoFactorResponse)
+  @Mutation(() => Response)
   async confirmTwoFactor(
     @Arg('token') token: string,
     @Ctx() { user }: Context
@@ -34,7 +33,7 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Not authenticated')
 
-      return new ConfirmTwoFactorResponse({ error, verified: false })
+      return new Response({ error, success: false })
     }
 
     return this.authService.confirmTwoFactor(token, user.id)
@@ -45,7 +44,7 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Not authenticated')
 
-      return new InitiateTwoFactorResponse({ error })
+      return new InitiateTwoFactorResponse({ error, success: false })
     }
 
     return this.authService.initiateTwoFactor(user.id)
@@ -62,7 +61,7 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Incorrect email or password')
 
-      return new SignInResponse({ error })
+      return new SignInResponse({ error, success: false })
     }
 
     const expiresIn = 60 * 60 * 24 * 180
@@ -74,7 +73,7 @@ export default class AuthResolver {
       signed: false,
     })
 
-    return new SignInResponse({ user })
+    return new SignInResponse({ user, success: true })
   }
 
   @Mutation(() => GraphQLBoolean)
@@ -84,7 +83,7 @@ export default class AuthResolver {
     return true
   }
 
-  @Mutation(() => RegisterResponse)
+  @Mutation(() => Response)
   async register(@Arg('input') { email, password }: RegisterInput) {
     return this.authService.register(email, password)
   }
