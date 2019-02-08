@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
-import { Link as BaseLink, RouteComponentProps } from '@reach/router'
-import { MutationFn } from 'react-apollo'
+import { Link as BaseLink, RouteComponentProps, navigate } from '@reach/router'
 import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
 import { rem } from 'polished'
@@ -12,8 +12,10 @@ import BaseNotice from 'components/notice'
 import BaseSubnavbar from 'components/subnavbar'
 import ControlledInputField from 'components/controlled-input-field'
 import { centered, link } from 'styles/mixins'
+import { renderLoadingIf } from 'utilities/loading'
+import { signInMutation, signInQuery } from './graphql'
 
-export interface Data {
+interface Data {
   response: Response
 }
 
@@ -22,18 +24,12 @@ interface Response {
   user: User
 }
 
-interface Props extends RouteComponentProps {
-  notice: null | string
-  onSubmit: MutationFn<Data, Variables>
-  status: string
-}
-
 interface Values {
   email: string
   password: string
 }
 
-export interface Variables {
+interface Variables {
   email: string
   password: string
 }
@@ -86,46 +82,75 @@ const validationSchema = object().shape({
 
 const formId = 'sign-in__Form'
 
-const SignIn: React.FunctionComponent<Props> = ({
-  notice,
-  onSubmit,
-  status,
+const SignIn: React.FunctionComponent<RouteComponentProps> = ({
   ...rest
-}: Props) => (
-  <Root {...rest}>
-    <Subnavbar items={items} />
-    {notice && <Notice status={status}>{notice}</Notice>}
-    <Formik<Values>
-      initialValues={initialValues}
-      onSubmit={variables => onSubmit({ variables })}
-      validationSchema={validationSchema}
-    >
-      {() => (
-        <Form id={formId} noValidate>
-          <ControlledInputField
-            id={`${formId}-email`}
-            autoComplete="off"
-            form={formId}
-            label="EMAIL"
-            name="email"
-            type="email"
-          />
-          <ControlledInputField
-            id={`${formId}-password`}
-            autoComplete="off"
-            form={formId}
-            label="PASSWORD"
-            name="password"
-            type="password"
-          />
-          <Link to="/recover">Forgot your password?</Link>
-          <Button form={formId} status="primary" type="submit">
-            SIGN IN
-          </Button>
-        </Form>
-      )}
-    </Formik>
-  </Root>
-)
+}: RouteComponentProps) => {
+  const [notice, setNotice] = React.useState<null | string>(null)
+  const [status, setStatus] = React.useState('success')
+
+  return (
+    <Root {...rest}>
+      <ApolloConsumer>
+        {client => (
+          <Mutation<Data, Variables>
+            mutation={signInMutation}
+            onCompleted={({ response }) => {
+              client.resetStore()
+
+              if (response.error) {
+                setNotice(response.error.message)
+                setStatus('failure')
+              } else {
+                navigate('/')
+              }
+            }}
+            update={(cache, { data = { response: { user: null } } }) =>
+              cache.writeQuery({ data: data.response, query: signInQuery })
+            }
+          >
+            {(onSubmit, { loading }) =>
+              renderLoadingIf(loading, () => (
+                <React.Fragment>
+                  <Subnavbar items={items} />
+                  {notice && <Notice status={status}>{notice}</Notice>}
+                  <Formik<Values>
+                    initialValues={initialValues}
+                    onSubmit={variables => onSubmit({ variables })}
+                    validationSchema={validationSchema}
+                  >
+                    {() => (
+                      <Form id={formId} noValidate>
+                        <ControlledInputField
+                          id={`${formId}-email`}
+                          autoComplete="off"
+                          form={formId}
+                          label="EMAIL"
+                          name="email"
+                          type="email"
+                        />
+                        <ControlledInputField
+                          id={`${formId}-password`}
+                          autoComplete="off"
+                          form={formId}
+                          label="PASSWORD"
+                          name="password"
+                          type="password"
+                        />
+                        <Link to="/recover">Forgot your password?</Link>
+                        <Button form={formId} status="primary" type="submit">
+                          SIGN IN
+                        </Button>
+                      </Form>
+                    )}
+                  </Formik>
+                </React.Fragment>
+              ))
+            }
+          </Mutation>
+        )}
+      </ApolloConsumer>
+    </Root>
+  )
+}
 
 export default SignIn
