@@ -46,7 +46,7 @@ export const updatePasswordMutation = gql`
 `
 
 export const updateProfileMutation = gql`
-  mutation UpdateProfileMutation($input: UpdateProfileInput!) {
+  mutation UpdateProfileMutation($input: ProfileInput!) {
     response: updateProfile(input: $input) {
       error {
         id

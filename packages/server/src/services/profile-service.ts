@@ -4,7 +4,7 @@ import { Service } from 'typedi'
 import { ValidationError, object, string } from '@fintruth-sdk/validation'
 import { is } from 'ramda'
 
-import { UpdateProfileInput } from 'resolvers/types'
+import { ProfileInput } from 'resolvers/types'
 import { Profile } from '../entities'
 
 @Service()
@@ -16,7 +16,7 @@ export default class ProfileService {
     return this.profileRepository.findOne({ where: { userId } })
   }
 
-  async update(userId: string, input: UpdateProfileInput) {
+  async update(userId: string, input: ProfileInput) {
     const schema = object().shape({
       firstName: string().required(),
       lastName: string().required(),

@@ -1,6 +1,15 @@
 import { Field, InputType } from 'type-graphql'
 
 @InputType()
+export class ProfileInput {
+  @Field()
+  firstName: string
+
+  @Field()
+  lastName: string
+}
+
+@InputType()
 export class RegisterInput {
   @Field()
   email: string
@@ -16,13 +25,4 @@ export class RegisterInput {
 
   @Field()
   password: string
-}
-
-@InputType()
-export class UpdateProfileInput {
-  @Field()
-  firstName: string
-
-  @Field()
-  lastName: string
 }
