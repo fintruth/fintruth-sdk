@@ -3,6 +3,7 @@ import {
   Ctx,
   FieldResolver,
   ID,
+  Mutation,
   Query,
   Resolver,
   Root,
@@ -12,13 +13,18 @@ import { InjectRepository } from 'typeorm-typedi-extensions'
 import { Repository } from 'typeorm'
 
 import ProfileService from 'services/profile-service'
-import { Profile, User } from '../entities'
+import UserService from 'services/user-service'
 import { Context } from 'apollo'
+import { Response, UserResponse } from 'resolvers/types'
+import { Profile, User } from '../entities'
 
 @Resolver(() => User)
 export default class UserResolver {
   @Inject()
   private readonly profileService: ProfileService
+
+  @Inject()
+  private readonly userService: UserService
 
   @InjectRepository(User)
   private readonly userRepository: Repository<User>
@@ -26,6 +32,42 @@ export default class UserResolver {
   @FieldResolver(() => Profile)
   profile(@Root() { id }: User) {
     return this.profileService.findByUserId(id)
+  }
+
+  @Mutation(() => UserResponse)
+  async updateEmail(
+    @Arg('newEmail') newEmail: string,
+    @Arg('password') password: string,
+    @Ctx() { user }: Context
+  ) {
+    if (!user) {
+      return {
+        error: {
+          id: '5e5e2d7e-b21f-450e-b1f0-9997f4898f6a',
+          message: 'Not authenticated',
+        },
+      }
+    }
+
+    return this.userService.updateEmail(user.id, password, newEmail)
+  }
+
+  @Mutation(() => Response)
+  async updatePassword(
+    @Arg('newPassword') newPassword: string,
+    @Arg('password') password: string,
+    @Ctx() { user }: Context
+  ) {
+    if (!user) {
+      return {
+        error: {
+          id: '5e5e2d7e-b21f-450e-b1f0-9997f4898f6a',
+          message: 'Not authenticated',
+        },
+      }
+    }
+
+    return this.userService.updatePassword(user.id, password, newPassword)
   }
 
   @Query(() => User, { nullable: true })

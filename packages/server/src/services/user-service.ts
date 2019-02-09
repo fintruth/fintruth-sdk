@@ -97,6 +97,80 @@ export default class UserService {
     return { error: undefined }
   }
 
+  async updateEmail(id: string, password: string, newEmail: string) {
+    const schemaOrError = await object()
+      .shape({
+        newEmail: string()
+          .required()
+          .email(),
+      })
+      .validate({ newEmail })
+      .catch((error: ValidationError) => error)
+
+    if (is(ValidationError, schemaOrError)) {
+      return {
+        error: {
+          id: '8cf575e7-e073-481b-8be1-e7a3b7f8baf4',
+          message: 'There is an issue with the provided form values',
+        },
+      }
+    }
+
+    const user = await this.findById(id)
+
+    if (!user || !user.validatePassword(password)) {
+      return {
+        error: {
+          id: '8cf575e7-e073-481b-8be1-e7a3b7f8baf4',
+          message: 'There is an issue with the provided form values',
+        },
+      }
+    }
+
+    await this.userRepository.save({ ...user, email: newEmail })
+
+    return { user: await this.findById(id) }
+  }
+
+  async updatePassword(id: string, password: string, newPassword: string) {
+    const schemaOrError = await object()
+      .shape({
+        newPassword: string()
+          .required()
+          .notOneOf([password])
+          .password(2),
+      })
+      .validate({ newPassword })
+      .catch((error: ValidationError) => error)
+
+    if (is(ValidationError, schemaOrError)) {
+      return {
+        error: {
+          id: '8cf575e7-e073-481b-8be1-e7a3b7f8baf4',
+          message: 'There is an issue with the provided form values',
+        },
+      }
+    }
+
+    const user = await this.findById(id)
+
+    if (!user || !user.validatePassword(password)) {
+      return {
+        error: {
+          id: '8cf575e7-e073-481b-8be1-e7a3b7f8baf4',
+          message: 'There is an issue with the provided form values',
+        },
+      }
+    }
+
+    await this.userRepository.save({
+      ...user,
+      password: await hash(newPassword, 10),
+    })
+
+    return {}
+  }
+
   private async createUser(email: string, password: string): Promise<User> {
     const isAvailable = await this.emailAvailable(email)
 

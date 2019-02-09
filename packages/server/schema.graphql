@@ -12,6 +12,8 @@ type Mutation {
   signOut: Boolean!
   register(input: RegisterInput!): Response!
   updateProfile(input: UpdateProfileInput!): ProfileResponse!
+  updateEmail(password: String!, newEmail: String!): UserResponse!
+  updatePassword(password: String!, newPassword: String!): Response!
 }
 
 type Profile {
