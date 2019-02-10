@@ -1,16 +1,7 @@
 import { Field, InputType } from 'type-graphql'
 
 @InputType()
-export class ProfileInput {
-  @Field()
-  firstName: string
-
-  @Field()
-  lastName: string
-}
-
-@InputType()
-export class RegisterInput {
+export default class RegisterInput {
   @Field()
   email: string
 
