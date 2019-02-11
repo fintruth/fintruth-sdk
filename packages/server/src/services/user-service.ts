@@ -63,7 +63,7 @@ export default class UserService {
       })
     }
 
-    await this.userRepository.save({ ...user, email: newEmail })
+    await this.userRepository.update(user.id, { email: newEmail })
 
     return new UserResponse({ user: await this.findById(id) })
   }
@@ -97,8 +97,7 @@ export default class UserService {
       })
     }
 
-    await this.userRepository.save({
-      ...user,
+    await this.userRepository.update(user.id, {
       password: await hash(newPassword, 10),
     })
 

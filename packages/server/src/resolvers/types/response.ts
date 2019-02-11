@@ -8,7 +8,7 @@ export interface Props {
 
 @ObjectType()
 export default class Response {
-  @Field(() => ResponseError, { nullable: true })
+  @Field({ nullable: true })
   error?: ResponseError
 
   constructor(props: Props = {}) {

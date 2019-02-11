@@ -4,7 +4,12 @@ import { Service } from 'typedi'
 import { ValidationError, object, string } from '@fintruth-sdk/validation'
 import { is } from 'ramda'
 
-import { ProfileInput } from 'resolvers/types'
+import {
+  ProfileInput,
+  ProfileResponse,
+  ResponseError,
+  UserResponse,
+} from 'resolvers/types'
 import { Profile } from '../entities'
 
 @Service()
@@ -17,28 +22,24 @@ export default class ProfileService {
   }
 
   async update(userId: string, input: ProfileInput) {
-    const schema = object().shape({
-      firstName: string().required(),
-      lastName: string().required(),
-    })
-
-    const schemaOrError = await schema
+    const schemaOrError = await object()
+      .shape({
+        firstName: string().required(),
+        lastName: string().required(),
+      })
       .validate(input)
       .catch((error: ValidationError) => error)
 
     if (is(ValidationError, schemaOrError)) {
-      return {
-        error: {
-          id: '8cf575e7-e073-481b-8be1-e7a3b7f8baf4',
-          message: 'There is an issue with the provided form values',
-        },
-      }
+      return new UserResponse({
+        error: new ResponseError(
+          'There is an issue with the provided form values'
+        ),
+      })
     }
 
-    await this.profileRepository.save({ userId, ...input })
+    await this.profileRepository.update(userId, input)
 
-    return {
-      profile: await this.profileRepository.findOne({ where: { userId } }),
-    }
+    return new ProfileResponse({ profile: await this.findByUserId(userId) })
   }
 }
