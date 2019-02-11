@@ -70,12 +70,16 @@ export default class AuthService {
       token,
     })
 
-    if (isValid) {
-      await this.userRepository.update(userId, {
-        secret: user.secretTemp,
-        secretTemp: undefined,
+    if (!isValid) {
+      return new Response({
+        error: new ResponseError('Token is invalid or expired'),
       })
     }
+
+    await this.userRepository.update(userId, {
+      secret: user.secretTemp,
+      secretTemp: undefined,
+    })
 
     return new Response()
   }
