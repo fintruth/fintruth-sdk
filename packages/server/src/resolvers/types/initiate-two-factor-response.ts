@@ -1,4 +1,3 @@
-import { GraphQLString } from 'graphql'
 import { Field, ObjectType } from 'type-graphql'
 
 import Response, { Props as ResponseProps } from './response'
@@ -10,10 +9,10 @@ export interface Props extends ResponseProps {
 
 @ObjectType()
 export default class InitiateTwoFactorResponse extends Response {
-  @Field(() => GraphQLString, { nullable: true })
+  @Field({ nullable: true })
   dataUrl?: string
 
-  @Field(() => GraphQLString, { nullable: true })
+  @Field({ nullable: true })
   secret?: string
 
   constructor(props: Props) {

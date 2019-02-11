@@ -12,6 +12,7 @@ import {
   InitiateTwoFactorResponse,
   Response,
   ResponseError,
+  UserResponse,
 } from 'resolvers/types'
 import { createToken, parseToken } from 'security'
 import { User } from '../entities'
@@ -41,12 +42,14 @@ export default class AuthService {
     return user
   }
 
-  confirmRegistration(token: string) {
+  async confirmRegistration(token: string) {
     const { email, expiresAt, password } = parseToken(token)
     const isExpired = expiresAt < Date.now()
 
     if (isExpired) {
-      throw new Error('The provided token is expired')
+      return new UserResponse({
+        error: new ResponseError('The provided token is expired'),
+      })
     }
 
     return this.userService.createUser(email, password)
