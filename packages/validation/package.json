@@ -26,7 +26,7 @@
   "dependencies": {
     "libphonenumber-js": "^1.7.8",
     "ramda": "^0.26.1",
-    "ramda-adjunct": "^2.14.0",
+    "ramda-adjunct": "^2.15.0",
     "yup": "^0.26.10",
     "zxcvbn": "^4.4.2"
   },

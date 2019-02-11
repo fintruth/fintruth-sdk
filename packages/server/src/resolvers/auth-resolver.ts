@@ -1,7 +1,7 @@
-import { GraphQLBoolean } from 'graphql'
 import jwt from 'jsonwebtoken'
-import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
+import { GraphQLBoolean } from 'graphql'
+import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
 import { secret } from 'config'
