@@ -6,12 +6,19 @@
 # The javascript `Date` as string. Type represents date and time as the ISO Date string.
 scalar DateTime
 
+type InitiateTwoFactorResponse {
+  error: ResponseError
+  dataUrl: String
+  secret: String
+}
+
 type Mutation {
-  confirmRegistration(token: String!): User!
+  confirmRegistration(token: String!): UserResponse!
+  confirmTwoFactor(token: String!): Response!
+  initiateTwoFactor: InitiateTwoFactorResponse!
   signIn(password: String!, email: String!): UserResponse!
   signOut: Boolean!
   register(input: RegisterInput!): Response!
-  updateProfile(input: ProfileInput!): ProfileResponse!
 }
 
 type Profile {
@@ -20,16 +27,6 @@ type Profile {
   lastName: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-}
-
-input ProfileInput {
-  firstName: String!
-  lastName: String!
-}
-
-type ProfileResponse {
-  error: ResponseError
-  profile: Profile
 }
 
 type Query {
