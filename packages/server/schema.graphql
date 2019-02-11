@@ -11,7 +11,7 @@ type Mutation {
   signIn(password: String!, email: String!): UserResponse!
   signOut: Boolean!
   register(input: RegisterInput!): Response!
-  updateProfile(input: UpdateProfileInput!): ProfileResponse!
+  updateProfile(input: ProfileInput!): ProfileResponse!
   updateEmail(password: String!, newEmail: String!): UserResponse!
   updatePassword(password: String!, newPassword: String!): Response!
 }
@@ -22,6 +22,11 @@ type Profile {
   lastName: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+input ProfileInput {
+  firstName: String!
+  lastName: String!
 }
 
 type ProfileResponse {
@@ -50,11 +55,6 @@ type Response {
 type ResponseError {
   id: ID!
   message: String!
-}
-
-input UpdateProfileInput {
-  firstName: String!
-  lastName: String!
 }
 
 type User {

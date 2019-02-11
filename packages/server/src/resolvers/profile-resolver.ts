@@ -3,7 +3,7 @@ import { Inject } from 'typedi'
 
 import ProfileService from 'services/profile-service'
 import { Context } from 'apollo'
-import { ProfileResponse, UpdateProfileInput } from 'resolvers/types'
+import { ProfileInput, ProfileResponse } from 'resolvers/types'
 import { Profile } from '../entities'
 
 @Resolver(() => Profile)
@@ -13,7 +13,7 @@ export default class ProfileResolver {
 
   @Mutation(() => ProfileResponse)
   async updateProfile(
-    @Arg('input') input: UpdateProfileInput,
+    @Arg('input') input: ProfileInput,
     @Ctx() { user }: Context
   ) {
     if (!user) {
