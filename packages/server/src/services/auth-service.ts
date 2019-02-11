@@ -90,7 +90,7 @@ export default class AuthService {
     if (!user) {
       const error = new ResponseError('User not found')
 
-      return new Response({ error, success: false })
+      return new Response({ error })
     }
 
     const isValid = totp.verify({
@@ -99,13 +99,17 @@ export default class AuthService {
       token,
     })
 
-    if (isValid) {
-      await this.userRepository.update(userId, {
-        secret: undefined,
+    if (!isValid) {
+      return new Response({
+        error: new ResponseError('Token is invalid or expired'),
       })
     }
 
-    return new Response({ success: isValid })
+    await this.userRepository.update(userId, {
+      secret: undefined,
+    })
+
+    return new Response()
   }
 
   async initiateTwoFactor(userId: string) {
