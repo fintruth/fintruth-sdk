@@ -33,7 +33,7 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Not authenticated')
 
-      return new Response({ error, success: false })
+      return new Response({ error })
     }
 
     return this.authService.confirmTwoFactor(token, user.id)
@@ -44,7 +44,7 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Not authenticated')
 
-      return new InitiateTwoFactorResponse({ error, success: false })
+      return new InitiateTwoFactorResponse({ error })
     }
 
     return this.authService.initiateTwoFactor(user.id)
@@ -61,7 +61,7 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Incorrect email or password')
 
-      return new SignInResponse({ error, success: false })
+      return new SignInResponse({ error })
     }
 
     const expiresIn = 60 * 60 * 24 * 180
@@ -73,7 +73,7 @@ export default class AuthResolver {
       signed: false,
     })
 
-    return new SignInResponse({ user, success: true })
+    return new SignInResponse({ user })
   }
 
   @Mutation(() => GraphQLBoolean)

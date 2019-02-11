@@ -8,7 +8,6 @@ scalar DateTime
 
 type InitiateTwoFactorResponse {
   error: ResponseError
-  success: Boolean!
   dataUrl: String
   secret: String
 }
@@ -46,7 +45,6 @@ input RegisterInput {
 
 type Response {
   error: ResponseError
-  success: Boolean!
 }
 
 type ResponseError {
@@ -56,7 +54,6 @@ type ResponseError {
 
 type SignInResponse {
   error: ResponseError
-  success: Boolean!
   user: User
 }
 

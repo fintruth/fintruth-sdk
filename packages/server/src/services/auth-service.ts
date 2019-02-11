@@ -58,7 +58,7 @@ export default class AuthService {
     if (!user) {
       const error = new ResponseError('User not found')
 
-      return new Response({ error, success: false })
+      return new Response({ error })
     }
 
     const isValid = totp.verify({
@@ -74,7 +74,7 @@ export default class AuthService {
       })
     }
 
-    return new Response({ success: isValid })
+    return new Response()
   }
 
   async initiateTwoFactor(userId: string) {
@@ -83,7 +83,7 @@ export default class AuthService {
     if (!user) {
       const error = new ResponseError('User not found')
 
-      return new InitiateTwoFactorResponse({ error, success: false })
+      return new InitiateTwoFactorResponse({ error })
     }
 
     const { base32, otpauth_url } = generateSecret({ otpauth_url: true }) // eslint-disable-line @typescript-eslint/camelcase
@@ -94,7 +94,6 @@ export default class AuthService {
     return new InitiateTwoFactorResponse({
       dataUrl,
       secret: base32,
-      success: true,
     })
   }
 
@@ -117,7 +116,7 @@ export default class AuthService {
         'There is an issue with the provided form values'
       )
 
-      return new Response({ error, success: false })
+      return new Response({ error })
     }
 
     const isAvailable = await this.userService.emailAvailable(email)
@@ -125,7 +124,7 @@ export default class AuthService {
     if (!isAvailable) {
       const error = new ResponseError('The user already exists')
 
-      return new Response({ error, success: false })
+      return new Response({ error })
     }
 
     const expiresAt = Date.now() + 60 * 60 * 1000
@@ -138,6 +137,6 @@ export default class AuthService {
 
     logger.info('Registration token: ', token)
 
-    return new Response({ success: true })
+    return new Response()
   }
 }
