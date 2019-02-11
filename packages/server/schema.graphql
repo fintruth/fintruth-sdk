@@ -15,6 +15,7 @@ type InitiateTwoFactorResponse {
 type Mutation {
   confirmRegistration(token: String!): UserResponse!
   confirmTwoFactor(token: String!): Response!
+  disableTwoFactor(token: String!): Response!
   initiateTwoFactor: InitiateTwoFactorResponse!
   signIn(password: String!, email: String!): UserResponse!
   signOut: Boolean!

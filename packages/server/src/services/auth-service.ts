@@ -84,6 +84,34 @@ export default class AuthService {
     return new Response()
   }
 
+  async disableTwoFactor(token: string, userId: string) {
+    const user = await this.userRepository.findOne(userId)
+
+    if (!user) {
+      const error = new ResponseError('User not found')
+
+      return new Response({ error })
+    }
+
+    const isValid = totp.verify({
+      encoding: 'base32',
+      secret: user.secretTemp || '',
+      token,
+    })
+
+    if (!isValid) {
+      return new Response({
+        error: new ResponseError('Token is invalid or expired'),
+      })
+    }
+
+    await this.userRepository.update(userId, {
+      secret: undefined,
+    })
+
+    return new Response()
+  }
+
   async initiateTwoFactor(userId: string) {
     const user = await this.userRepository.findOne(userId)
 
