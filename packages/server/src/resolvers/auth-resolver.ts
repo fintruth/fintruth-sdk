@@ -43,7 +43,7 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Not authenticated')
 
-      return new Response({ error, success: false })
+      return new Response({ error })
     }
 
     return this.authService.disableTwoFactor(token, user.id)
