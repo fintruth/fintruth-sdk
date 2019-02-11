@@ -42,7 +42,7 @@ export default class AuthService {
     return user
   }
 
-  async confirmRegistration(token: string) {
+  confirmRegistration(token: string) {
     const { email, expiresAt, password } = parseToken(token)
     const isExpired = expiresAt < Date.now()
 
