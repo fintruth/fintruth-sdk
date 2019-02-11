@@ -4,7 +4,6 @@ export const signInMutation = gql`
   mutation SignInMutation($email: String!, $password: String!) {
     response: signIn(email: $email, password: $password) {
       error {
-        id
         message
       }
       user {

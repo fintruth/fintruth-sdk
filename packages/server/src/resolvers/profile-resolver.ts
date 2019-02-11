@@ -3,7 +3,7 @@ import { Inject } from 'typedi'
 
 import ProfileService from 'services/profile-service'
 import { Context } from 'apollo'
-import { ProfileInput, ProfileResponse } from 'resolvers/types'
+import { ProfileInput, ProfileResponse, ResponseError } from 'resolvers/types'
 import { Profile } from '../entities'
 
 @Resolver(() => Profile)
@@ -17,12 +17,9 @@ export default class ProfileResolver {
     @Ctx() { user }: Context
   ) {
     if (!user) {
-      return {
-        error: {
-          id: '5e5e2d7e-b21f-450e-b1f0-9997f4898f6a',
-          message: 'Not authenticated',
-        },
-      }
+      return new ProfileResponse({
+        error: new ResponseError('Not authenticated'),
+      })
     }
 
     return this.profileService.update(user.id, input)

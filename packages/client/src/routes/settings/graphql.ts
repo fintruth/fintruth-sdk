@@ -14,10 +14,9 @@ export const accountQuery = gql`
 `
 
 export const updateEmailMutation = gql`
-  mutation UpdateEmailMutation($email: String!, $password: String!) {
-    response: updateEmail(email: $email, password: $password) {
+  mutation UpdateEmailMutation($newEmail: String!, $password: String!) {
+    response: updateEmail(newEmail: $newEmail, password: $password) {
       error {
-        id
         message
       }
       user {
@@ -29,16 +28,9 @@ export const updateEmailMutation = gql`
 `
 
 export const updatePasswordMutation = gql`
-  mutation UpdatePasswordMutation(
-    $currentPassword: String!
-    $newPassword: String!
-  ) {
-    response: updatePassword(
-      currentPassword: $currentPassword
-      newPassword: $newPassword
-    ) {
+  mutation UpdatePasswordMutation($newPassword: String!, $password: String!) {
+    response: updatePassword(newPassword: $newPassword, password: $password) {
       error {
-        id
         message
       }
     }
@@ -49,7 +41,6 @@ export const updateProfileMutation = gql`
   mutation UpdateProfileMutation($input: ProfileInput!) {
     response: updateProfile(input: $input) {
       error {
-        id
         message
       }
       profile {

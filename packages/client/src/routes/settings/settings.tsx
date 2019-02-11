@@ -30,7 +30,7 @@ interface FormProps {
 }
 
 interface UpdateEmailFormValues {
-  email: string
+  newEmail: string
   password: string
 }
 
@@ -44,14 +44,14 @@ interface UpdateEmailMutationResponse {
 }
 
 interface UpdateEmailMutationVariables {
-  email: string
+  newEmail: string
   password: string
 }
 
 interface UpdatePasswordFormValues {
-  currentPassword: string
   newPassword: string
   newPasswordConfirm: string
+  password: string
 }
 
 interface UpdatePasswordMutationData {
@@ -63,8 +63,8 @@ interface UpdatePasswordMutationResponse {
 }
 
 interface UpdatePasswordMutationVariables {
-  currentPassword: string
   newPassword: string
+  password: string
 }
 
 interface UpdateProfileFormValues {
@@ -130,22 +130,26 @@ const Button = styled(BaseButton)`
 `
 
 const initialUpdatePasswordFormValues = {
-  currentPassword: '',
   newPassword: '',
   newPasswordConfirm: '',
+  password: '',
 }
 
 const updateEmailFormValidationSchema = object().shape({
-  email: string()
+  newEmail: string()
     .required('This is a required field')
     .email('Please provide a valid email address'),
   password: string().required('This is a required field'),
 })
 
 const updatePasswordFormValidationSchema = object().shape({
-  currentPassword: string().required('This is a required field'),
+  password: string().required('This is a required field'),
   newPassword: string()
     .required('This is a required field')
+    .notOneOf(
+      [ref('password')],
+      'Please enter a password different than the current password'
+    )
     .min(10, 'Minimum length is ${min} characters'), // eslint-disable-line no-template-curly-in-string
   newPasswordConfirm: string()
     .required('This is a required field')
@@ -180,13 +184,19 @@ const UpdateEmailForm: React.FunctionComponent<FormProps> = ({
         }
       }}
       update={(cache, { data = { response: { user: null } } }) =>
-        cache.writeQuery({ data: data.response, query: accountQuery })
+        cache.writeQuery({
+          data: { user: data.response.user },
+          query: accountQuery,
+        })
       }
     >
       {(onSubmit, { loading }) =>
         renderLoadingIf(loading, () => (
           <Formik<UpdateEmailFormValues>
-            initialValues={{ email: pathOr('', ['email'], user), password: '' }}
+            initialValues={{
+              newEmail: pathOr('', ['email'], user),
+              password: '',
+            }}
             onSubmit={variables => onSubmit({ variables })}
             validationSchema={updateEmailFormValidationSchema}
           >
@@ -196,10 +206,10 @@ const UpdateEmailForm: React.FunctionComponent<FormProps> = ({
                 <Form id={updateEmailFormId} noValidate>
                   <FieldContainer>
                     <ControlledInputField
-                      id={`${updateEmailFormId}-email`}
+                      id={`${updateEmailFormId}-newEmail`}
                       autoComplete="off"
                       form={updateEmailFormId}
-                      name="email"
+                      name="newEmail"
                       placeholder="Email"
                       type="email"
                     />
@@ -259,10 +269,10 @@ const UpdatePasswordForm: React.FunctionComponent = () => {
                 <Form id={updatePasswordFormId} noValidate>
                   <FieldContainer>
                     <ControlledInputField
-                      id={`${updatePasswordFormId}-currentPassword`}
+                      id={`${updatePasswordFormId}-password`}
                       autoComplete="off"
                       form={updatePasswordFormId}
-                      name="currentPassword"
+                      name="password"
                       placeholder="Current Password"
                       type="password"
                     />

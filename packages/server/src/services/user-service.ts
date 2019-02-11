@@ -1,9 +1,11 @@
-import { isNil } from 'ramda'
-import { Service } from 'typedi'
-import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
+import { Repository } from 'typeorm'
+import { Service } from 'typedi'
+import { ValidationError, object, string } from '@fintruth-sdk/validation'
+import { hash } from 'bcrypt'
+import { is, isNil } from 'ramda'
 
-import { ResponseError, UserResponse } from 'resolvers/types'
+import { Response, ResponseError, UserResponse } from 'resolvers/types'
 import { User } from '../entities'
 
 @Service()
@@ -31,5 +33,74 @@ export default class UserService {
     const user = await this.userRepository.save({ email, password })
 
     return new UserResponse({ user })
+  }
+
+  async updateEmail(id: string, password: string, newEmail: string) {
+    const schemaOrError = await object()
+      .shape({
+        newEmail: string()
+          .required()
+          .email(),
+      })
+      .validate({ newEmail })
+      .catch((error: ValidationError) => error)
+
+    if (is(ValidationError, schemaOrError)) {
+      return new UserResponse({
+        error: new ResponseError(
+          'There is an issue with the provided form values'
+        ),
+      })
+    }
+
+    const user = await this.findById(id)
+
+    if (!user || !user.validatePassword(password)) {
+      return new UserResponse({
+        error: new ResponseError(
+          'There is an issue with the provided form values'
+        ),
+      })
+    }
+
+    await this.userRepository.update(user.id, { email: newEmail })
+
+    return new UserResponse({ user: await this.findById(id) })
+  }
+
+  async updatePassword(id: string, password: string, newPassword: string) {
+    const schemaOrError = await object()
+      .shape({
+        newPassword: string()
+          .required()
+          .notOneOf([password])
+          .password(2),
+      })
+      .validate({ newPassword })
+      .catch((error: ValidationError) => error)
+
+    if (is(ValidationError, schemaOrError)) {
+      return new UserResponse({
+        error: new ResponseError(
+          'There is an issue with the provided form values'
+        ),
+      })
+    }
+
+    const user = await this.findById(id)
+
+    if (!user || !user.validatePassword(password)) {
+      return new UserResponse({
+        error: new ResponseError(
+          'There is an issue with the provided form values'
+        ),
+      })
+    }
+
+    await this.userRepository.update(user.id, {
+      password: await hash(newPassword, 10),
+    })
+
+    return new Response()
   }
 }
