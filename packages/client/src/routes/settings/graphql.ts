@@ -53,7 +53,6 @@ export const updateProfileMutation = gql`
         message
       }
       profile {
-        id
         firstName
         lastName
       }
