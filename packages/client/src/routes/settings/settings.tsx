@@ -321,7 +321,9 @@ const UpdateProfileForm: React.FunctionComponent<FormProps> = ({
       }}
       update={(cache, { data = { response: { profile: null } } }) =>
         cache.writeQuery({
-          data: { user: user ? { ...user, ...data.response } : null },
+          data: {
+            user: user ? { ...user, profile: data.response.profile } : null,
+          },
           query: accountQuery,
         })
       }

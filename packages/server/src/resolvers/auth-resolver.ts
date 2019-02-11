@@ -1,7 +1,7 @@
-import { GraphQLBoolean } from 'graphql'
 import jwt from 'jsonwebtoken'
-import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
+import { GraphQLBoolean } from 'graphql'
+import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
 import { secret } from 'config'
@@ -10,17 +10,16 @@ import {
   RegisterInput,
   Response,
   ResponseError,
-  SignInResponse,
+  UserResponse,
 } from 'resolvers/types'
 import { AuthService } from 'services'
-import { User } from '../entities'
 
 @Resolver()
 export default class AuthResolver {
   @Inject()
   authService: AuthService
 
-  @Mutation(() => User)
+  @Mutation(() => UserResponse)
   async confirmRegistration(@Arg('token') token: string) {
     return this.authService.confirmRegistration(token)
   }
@@ -33,7 +32,7 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Not authenticated')
 
-      return new Response({ error, success: false })
+      return new Response({ error })
     }
 
     return this.authService.confirmTwoFactor(token, user.id)
@@ -55,13 +54,13 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Not authenticated')
 
-      return new InitiateTwoFactorResponse({ error, success: false })
+      return new InitiateTwoFactorResponse({ error })
     }
 
     return this.authService.initiateTwoFactor(user.id)
   }
 
-  @Mutation(() => SignInResponse)
+  @Mutation(() => UserResponse)
   async signIn(
     @Arg('email') email: string,
     @Arg('password') password: string,
@@ -72,7 +71,7 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Incorrect email or password')
 
-      return new SignInResponse({ error, success: false })
+      return new UserResponse({ error })
     }
 
     const expiresIn = 60 * 60 * 24 * 180
@@ -84,7 +83,7 @@ export default class AuthResolver {
       signed: false,
     })
 
-    return new SignInResponse({ user, success: true })
+    return new UserResponse({ user })
   }
 
   @Mutation(() => GraphQLBoolean)

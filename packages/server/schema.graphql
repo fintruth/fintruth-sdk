@@ -8,17 +8,16 @@ scalar DateTime
 
 type InitiateTwoFactorResponse {
   error: ResponseError
-  success: Boolean!
   dataUrl: String
   secret: String
 }
 
 type Mutation {
-  confirmRegistration(token: String!): User!
+  confirmRegistration(token: String!): UserResponse!
   confirmTwoFactor(token: String!): Response!
   disableTwoFactor(token: String!): Response!
   initiateTwoFactor: InitiateTwoFactorResponse!
-  signIn(password: String!, email: String!): SignInResponse!
+  signIn(password: String!, email: String!): UserResponse!
   signOut: Boolean!
   register(input: RegisterInput!): Response!
 }
@@ -47,18 +46,11 @@ input RegisterInput {
 
 type Response {
   error: ResponseError
-  success: Boolean!
 }
 
 type ResponseError {
   id: ID!
   message: String!
-}
-
-type SignInResponse {
-  error: ResponseError
-  success: Boolean!
-  user: User
 }
 
 type User {
@@ -67,4 +59,9 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   profile: Profile!
+}
+
+type UserResponse {
+  error: ResponseError
+  user: User
 }

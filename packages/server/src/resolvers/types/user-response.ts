@@ -8,7 +8,7 @@ export interface Props extends ResponseProps {
 }
 
 @ObjectType()
-export default class SignInResponse extends Response {
+export default class UserResponse extends Response {
   @Field(() => User, { nullable: true })
   user?: User
 

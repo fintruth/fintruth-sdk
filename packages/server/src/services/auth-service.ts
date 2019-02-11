@@ -12,6 +12,7 @@ import {
   InitiateTwoFactorResponse,
   Response,
   ResponseError,
+  UserResponse,
 } from 'resolvers/types'
 import { createToken, parseToken } from 'security'
 import { User } from '../entities'
@@ -46,7 +47,9 @@ export default class AuthService {
     const isExpired = expiresAt < Date.now()
 
     if (isExpired) {
-      throw new Error('The provided token is expired')
+      return new UserResponse({
+        error: new ResponseError('The provided token is expired'),
+      })
     }
 
     return this.userService.createUser(email, password)
@@ -58,7 +61,7 @@ export default class AuthService {
     if (!user) {
       const error = new ResponseError('User not found')
 
-      return new Response({ error, success: false })
+      return new Response({ error })
     }
 
     const isValid = totp.verify({
@@ -67,14 +70,18 @@ export default class AuthService {
       token,
     })
 
-    if (isValid) {
-      await this.userRepository.update(userId, {
-        secret: user.secretTemp,
-        secretTemp: undefined,
+    if (!isValid) {
+      return new Response({
+        error: new ResponseError('Token is invalid or expired'),
       })
     }
 
-    return new Response({ success: isValid })
+    await this.userRepository.update(userId, {
+      secret: user.secretTemp,
+      secretTemp: undefined,
+    })
+
+    return new Response()
   }
 
   async disableTwoFactor(token: string, userId: string) {
@@ -107,7 +114,7 @@ export default class AuthService {
     if (!user) {
       const error = new ResponseError('User not found')
 
-      return new InitiateTwoFactorResponse({ error, success: false })
+      return new InitiateTwoFactorResponse({ error })
     }
 
     const { base32, otpauth_url } = generateSecret({ otpauth_url: true }) // eslint-disable-line @typescript-eslint/camelcase
@@ -118,7 +125,6 @@ export default class AuthService {
     return new InitiateTwoFactorResponse({
       dataUrl,
       secret: base32,
-      success: true,
     })
   }
 
@@ -141,7 +147,7 @@ export default class AuthService {
         'There is an issue with the provided form values'
       )
 
-      return new Response({ error, success: false })
+      return new Response({ error })
     }
 
     const isAvailable = await this.userService.emailAvailable(email)
@@ -149,7 +155,7 @@ export default class AuthService {
     if (!isAvailable) {
       const error = new ResponseError('The user already exists')
 
-      return new Response({ error, success: false })
+      return new Response({ error })
     }
 
     const expiresAt = Date.now() + 60 * 60 * 1000
@@ -162,6 +168,6 @@ export default class AuthService {
 
     logger.info('Registration token: ', token)
 
-    return new Response({ success: true })
+    return new Response()
   }
 }
