@@ -1,13 +1,19 @@
 import { Field, ObjectType } from 'type-graphql'
 
 import { User } from '../../entities'
-import ResponseError from './response-error'
+import Response, { Props as ResponseProps } from './response'
+
+export interface Props extends ResponseProps {
+  user?: User
+}
 
 @ObjectType()
-export default class UserResponse {
-  @Field({ nullable: true })
-  error?: ResponseError
-
-  @Field({ nullable: true })
+export default class UserResponse extends Response {
+  @Field(() => User, { nullable: true })
   user?: User
+
+  constructor(props: Props) {
+    super(props)
+    this.user = props.user
+  }
 }

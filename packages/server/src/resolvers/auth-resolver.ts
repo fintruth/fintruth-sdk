@@ -3,20 +3,61 @@ import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 import { GraphQLBoolean } from 'graphql'
 import { Inject } from 'typedi'
 
-import UserService from 'services/user-service'
 import { Context } from 'apollo'
-import { RegisterInput, Response, UserResponse } from 'resolvers/types'
 import { secret } from 'config'
-import { User } from '../entities'
+import {
+  InitiateTwoFactorResponse,
+  RegisterInput,
+  Response,
+  ResponseError,
+  UserResponse,
+} from 'resolvers/types'
+import { AuthService } from 'services'
 
 @Resolver()
 export default class AuthResolver {
   @Inject()
-  userService: UserService
+  authService: AuthService
 
-  @Mutation(() => User)
+  @Mutation(() => UserResponse)
   async confirmRegistration(@Arg('token') token: string) {
-    return this.userService.confirmRegistration(token)
+    return this.authService.confirmRegistration(token)
+  }
+
+  @Mutation(() => Response)
+  async confirmTwoFactor(
+    @Arg('token') token: string,
+    @Ctx() { user }: Context
+  ) {
+    if (!user) {
+      const error = new ResponseError('Not authenticated')
+
+      return new Response({ error })
+    }
+
+    return this.authService.confirmTwoFactor(token, user.id)
+  }
+
+  @Mutation(() => Response)
+  disableTwoFactor(@Arg('token') token: string, @Ctx() { user }: Context) {
+    if (!user) {
+      const error = new ResponseError('Not authenticated')
+
+      return new Response({ error })
+    }
+
+    return this.authService.disableTwoFactor(token, user.id)
+  }
+
+  @Mutation(() => InitiateTwoFactorResponse)
+  async initiateTwoFactor(@Ctx() { user }: Context) {
+    if (!user) {
+      const error = new ResponseError('Not authenticated')
+
+      return new InitiateTwoFactorResponse({ error })
+    }
+
+    return this.authService.initiateTwoFactor(user.id)
   }
 
   @Mutation(() => UserResponse)
@@ -24,16 +65,13 @@ export default class AuthResolver {
     @Arg('email') email: string,
     @Arg('password') password: string,
     @Ctx() { res }: Context
-  ): Promise<UserResponse> {
-    const user = await this.userService.authenticate(email, password)
+  ) {
+    const user = await this.authService.authenticate(email, password)
 
     if (!user) {
-      return {
-        error: {
-          id: 'b49e7dec-b1ad-495c-a853-d089816ed6bc',
-          message: 'Incorrect email or password',
-        },
-      }
+      const error = new ResponseError('Incorrect email or password')
+
+      return new UserResponse({ error })
     }
 
     const expiresIn = 60 * 60 * 24 * 180
@@ -45,7 +83,7 @@ export default class AuthResolver {
       signed: false,
     })
 
-    return { user }
+    return new UserResponse({ user })
   }
 
   @Mutation(() => GraphQLBoolean)
@@ -57,6 +95,6 @@ export default class AuthResolver {
 
   @Mutation(() => Response)
   async register(@Arg('input') { email, password }: RegisterInput) {
-    return this.userService.register(email, password)
+    return this.authService.register(email, password)
   }
 }
