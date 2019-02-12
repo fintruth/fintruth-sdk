@@ -66,7 +66,7 @@ export default class UserResolver {
 
   @Query(() => User, { nullable: true })
   currentUser(@Ctx() { user }: Context) {
-    return user ? this.userRepository.findOne(user.id) : null
+    return user
   }
 
   @Query(() => User, { nullable: true })
