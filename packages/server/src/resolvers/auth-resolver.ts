@@ -1,6 +1,6 @@
+import jwt from 'jsonwebtoken'
 import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
-import jwt from 'jsonwebtoken'
 
 import { Context } from 'apollo'
 import {
