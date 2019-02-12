@@ -51,19 +51,15 @@ export default class RegisterService {
       .catch((error: ValidationError) => error)
 
     if (is(ValidationError, validated)) {
-      const error = new ResponseError(
-        'There is an issue with the provided form values'
-      )
-
-      return new Response({ error })
+      return new Response({ error: new ResponseError('Invalid data provided') })
     }
 
     const isAvailable = await this.userService.emailAvailable(email)
 
     if (!isAvailable) {
-      const error = new ResponseError('The user already exists')
-
-      return new Response({ error })
+      return new Response({
+        error: new ResponseError('The user already exists'),
+      })
     }
 
     const expiresAt = Date.now() + 60 * 60 * 1000

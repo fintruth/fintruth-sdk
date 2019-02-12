@@ -24,9 +24,7 @@ export default class AuthResolver {
     @Ctx() { user }: Context
   ) {
     if (!user) {
-      const error = new ResponseError('Not authenticated')
-
-      return new Response({ error })
+      return new Response({ error: new ResponseError('Not authenticated') })
     }
 
     return this.authService.confirmTwoFactor(token, user.id)
@@ -35,9 +33,7 @@ export default class AuthResolver {
   @Mutation(() => Response)
   disableTwoFactor(@Arg('token') token: string, @Ctx() { user }: Context) {
     if (!user) {
-      const error = new ResponseError('Not authenticated')
-
-      return new Response({ error })
+      return new Response({ error: new ResponseError('Not authenticated') })
     }
 
     return this.authService.disableTwoFactor(token, user.id)
@@ -46,9 +42,9 @@ export default class AuthResolver {
   @Mutation(() => InitiateTwoFactorResponse)
   async initiateTwoFactor(@Ctx() { user }: Context) {
     if (!user) {
-      const error = new ResponseError('Not authenticated')
-
-      return new InitiateTwoFactorResponse({ error })
+      return new InitiateTwoFactorResponse({
+        error: new ResponseError('Not authenticated'),
+      })
     }
 
     return this.authService.initiateTwoFactor(user.id)
@@ -63,9 +59,9 @@ export default class AuthResolver {
     const user = await this.authService.authenticate(email, password)
 
     if (!user) {
-      const error = new ResponseError('Incorrect email or password')
-
-      return new SignInResponse({ error })
+      return new SignInResponse({
+        error: new ResponseError('Incorrect email or password'),
+      })
     }
 
     this.authService.withNewAuthentication(res, user, false)
@@ -82,9 +78,9 @@ export default class AuthResolver {
     @Ctx() { res, signInUser }: Context
   ) {
     if (!signInUser) {
-      const error = new ResponseError('Not authenticated')
-
-      return new SignInResponse({ error })
+      return new SignInResponse({
+        error: new ResponseError('Not authenticated'),
+      })
     }
 
     const isValid = this.authService.verifyTwoFactorToken(
@@ -93,9 +89,9 @@ export default class AuthResolver {
     )
 
     if (!isValid) {
-      const error = new ResponseError('Token is invalid or expired')
-
-      return new SignInResponse({ error })
+      return new SignInResponse({
+        error: new ResponseError('Token is invalid or expired'),
+      })
     }
 
     this.authService.withNewAuthentication(res, signInUser, true)

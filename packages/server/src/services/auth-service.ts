@@ -37,9 +37,7 @@ export default class AuthService {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
-      const error = new ResponseError('User not found')
-
-      return new Response({ error })
+      return new Response({ error: new ResponseError('User not found') })
     }
 
     const isValid = this.verifyTwoFactorToken(token, user.secretTemp)
@@ -62,9 +60,7 @@ export default class AuthService {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
-      const error = new ResponseError('User not found')
-
-      return new Response({ error })
+      return new Response({ error: new ResponseError('User not found') })
     }
 
     const isValid = this.verifyTwoFactorToken(token, user.secret)
@@ -86,9 +82,9 @@ export default class AuthService {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
-      const error = new ResponseError('User not found')
-
-      return new InitiateTwoFactorResponse({ error })
+      return new InitiateTwoFactorResponse({
+        error: new ResponseError('User not found'),
+      })
     }
 
     const { base32, otpauth_url } = generateSecret({ otpauth_url: true }) // eslint-disable-line @typescript-eslint/camelcase
