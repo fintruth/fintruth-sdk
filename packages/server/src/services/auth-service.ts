@@ -42,11 +42,7 @@ export default class AuthService {
       return new Response({ error })
     }
 
-    const isValid = totp.verify({
-      encoding: 'base32',
-      secret: user.secretTemp || '',
-      token,
-    })
+    const isValid = this.verifyTwoFactorToken(token, user.secretTemp)
 
     if (!isValid) {
       return new Response({
@@ -71,11 +67,7 @@ export default class AuthService {
       return new Response({ error })
     }
 
-    const isValid = totp.verify({
-      encoding: 'base32',
-      secret: user.secretTemp || '',
-      token,
-    })
+    const isValid = this.verifyTwoFactorToken(token, user.secret)
 
     if (!isValid) {
       return new Response({
@@ -110,14 +102,26 @@ export default class AuthService {
     })
   }
 
-  withNewAuthentication(res: ServerResponse, user: User) {
+  withNewAuthentication(
+    res: ServerResponse,
+    { id }: User,
+    isTwoFactor: boolean
+  ) {
     const expiresIn = 60 * 60 * 24 * 180
-    const token = jwt.sign({ id: user.id }, secret, { expiresIn })
+    const token = jwt.sign({ id, isTwoFactor }, secret, { expiresIn })
 
     res.cookies.set('token-id', token, {
       httpOnly: true,
       maxAge: expiresIn * 1000,
       signed: false,
+    })
+  }
+
+  verifyTwoFactorToken(token: string, secret?: string) {
+    return totp.verify({
+      encoding: 'base32',
+      secret: secret || '',
+      token,
     })
   }
 }

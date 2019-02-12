@@ -6,14 +6,17 @@ import {
   InitiateTwoFactorResponse,
   Response,
   ResponseError,
-  UserResponse,
+  SignInResponse,
 } from 'resolvers/types'
-import { AuthService } from 'services'
+import { AuthService, UserService } from 'services'
 
 @Resolver()
 export default class AuthResolver {
   @Inject()
   authService: AuthService
+
+  @Inject()
+  userService: UserService
 
   @Mutation(() => Response)
   async confirmTwoFactor(
@@ -51,7 +54,7 @@ export default class AuthResolver {
     return this.authService.initiateTwoFactor(user.id)
   }
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => SignInResponse)
   async signIn(
     @Arg('email') email: string,
     @Arg('password') password: string,
@@ -62,12 +65,42 @@ export default class AuthResolver {
     if (!user) {
       const error = new ResponseError('Incorrect email or password')
 
-      return new UserResponse({ error })
+      return new SignInResponse({ error })
     }
 
-    this.authService.withNewAuthentication(res, user)
+    this.authService.withNewAuthentication(res, user, false)
 
-    return new UserResponse({ user })
+    return new SignInResponse({
+      isTwoFactorEnabled: user.isTwoFactorEnabled,
+      ...(user.isTwoFactorEnabled ? {} : { user }),
+    })
+  }
+
+  @Mutation(() => SignInResponse)
+  async signInOtp(
+    @Arg('token') token: string,
+    @Ctx() { res, signInUser }: Context
+  ) {
+    if (!signInUser) {
+      const error = new ResponseError('Not authenticated')
+
+      return new SignInResponse({ error })
+    }
+
+    const isValid = this.authService.verifyTwoFactorToken(
+      token,
+      signInUser.secret
+    )
+
+    if (!isValid) {
+      const error = new ResponseError('Token is invalid or expired')
+
+      return new SignInResponse({ error })
+    }
+
+    this.authService.withNewAuthentication(res, signInUser, true)
+
+    return new SignInResponse({ user: signInUser })
   }
 
   @Mutation(() => Response)
