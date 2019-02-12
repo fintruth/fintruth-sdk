@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken'
 import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 
@@ -10,7 +9,6 @@ import {
   UserResponse,
 } from 'resolvers/types'
 import { AuthService } from 'services'
-import { secret } from '../config'
 
 @Resolver()
 export default class AuthResolver {
@@ -67,14 +65,7 @@ export default class AuthResolver {
       return new UserResponse({ error })
     }
 
-    const expiresIn = 60 * 60 * 24 * 180
-    const token = jwt.sign({ id: user.id }, secret, { expiresIn })
-
-    res.cookies.set('token-id', token, {
-      httpOnly: true,
-      maxAge: expiresIn * 1000,
-      signed: false,
-    })
+    this.authService.withNewAuthentication(res, user)
 
     return new UserResponse({ user })
   }

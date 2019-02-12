@@ -1,14 +1,17 @@
+import jwt from 'jsonwebtoken'
 import { toDataURL } from 'qrcode'
 import { generateSecret, totp } from 'speakeasy'
 import { Inject, Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
+import { secret } from 'config'
 import {
   InitiateTwoFactorResponse,
   Response,
   ResponseError,
 } from 'resolvers/types'
+import { ServerResponse } from 'server'
 import { User } from '../entities'
 import UserService from './user-service'
 
@@ -104,6 +107,17 @@ export default class AuthService {
     return new InitiateTwoFactorResponse({
       dataUrl,
       secret: base32,
+    })
+  }
+
+  withNewAuthentication(res: ServerResponse, user: User) {
+    const expiresIn = 60 * 60 * 24 * 180
+    const token = jwt.sign({ id: user.id }, secret, { expiresIn })
+
+    res.cookies.set('token-id', token, {
+      httpOnly: true,
+      maxAge: expiresIn * 1000,
+      signed: false,
     })
   }
 }
