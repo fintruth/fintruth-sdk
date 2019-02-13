@@ -6,7 +6,7 @@ import {
   InitiateTwoFactorResponse,
   Response,
   ResponseError,
-  SignInResponse,
+  UserResponse,
 } from 'resolvers/types'
 import { AuthService, UserService } from 'services'
 
@@ -50,7 +50,7 @@ export default class AuthResolver {
     return this.authService.initiateTwoFactor(user.id)
   }
 
-  @Mutation(() => SignInResponse)
+  @Mutation(() => UserResponse)
   async signIn(
     @Arg('email') email: string,
     @Arg('password') password: string,
@@ -59,44 +59,45 @@ export default class AuthResolver {
     const user = await this.authService.authenticate(email, password)
 
     if (!user) {
-      return new SignInResponse({
+      return new UserResponse({
         error: new ResponseError('Incorrect email or password'),
       })
     }
 
-    this.authService.withNewAuthentication(res, user, false)
+    if (!user.isTwoFactorEnabled) {
+      this.authService.withNewAuthentication(res, user)
+    }
 
-    return new SignInResponse({
-      isTwoFactorEnabled: user.isTwoFactorEnabled,
-      ...(user.isTwoFactorEnabled ? {} : { user }),
-    })
+    return new UserResponse({ user })
   }
 
-  @Mutation(() => SignInResponse)
-  async signInOtp(
+  @Mutation(() => UserResponse)
+  async signInTwoFactor(
+    @Arg('email') email: string,
+    @Arg('password') password: string,
     @Arg('token') token: string,
-    @Ctx() { res, signInUser }: Context
+    @Ctx() { res }: Context
   ) {
-    if (!signInUser) {
-      return new SignInResponse({
-        error: new ResponseError('Not authenticated'),
+    const user = await this.authService.authenticate(email, password)
+
+    if (!user) {
+      return new UserResponse({
+        error: new ResponseError('Incorrect email or password'),
       })
     }
 
-    const isValid = this.authService.verifyTwoFactorToken(
-      token,
-      signInUser.secret
-    )
+    const isValid =
+      user.secret && this.authService.verifyTwoFactorToken(token, user.secret)
 
     if (!isValid) {
-      return new SignInResponse({
+      return new UserResponse({
         error: new ResponseError('Token is invalid or expired'),
       })
     }
 
-    this.authService.withNewAuthentication(res, signInUser, true)
+    this.authService.withNewAuthentication(res, user)
 
-    return new SignInResponse({ user: signInUser })
+    return new UserResponse({ user })
   }
 
   @Mutation(() => Response)

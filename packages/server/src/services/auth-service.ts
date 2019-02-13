@@ -40,7 +40,8 @@ export default class AuthService {
       return new Response({ error: new ResponseError('User not found') })
     }
 
-    const isValid = this.verifyTwoFactorToken(token, user.secretTemp)
+    const isValid =
+      user.secretTemp && this.verifyTwoFactorToken(token, user.secretTemp)
 
     if (!isValid) {
       return new Response({
@@ -63,7 +64,7 @@ export default class AuthService {
       return new Response({ error: new ResponseError('User not found') })
     }
 
-    const isValid = this.verifyTwoFactorToken(token, user.secret)
+    const isValid = user.secret && this.verifyTwoFactorToken(token, user.secret)
 
     if (!isValid) {
       return new Response({
@@ -98,13 +99,9 @@ export default class AuthService {
     })
   }
 
-  withNewAuthentication(
-    res: ServerResponse,
-    { id }: User,
-    isTwoFactor: boolean
-  ) {
+  withNewAuthentication(res: ServerResponse, { id }: User) {
     const expiresIn = 60 * 60 * 24 * 180
-    const token = jwt.sign({ id, isTwoFactor }, secret, { expiresIn })
+    const token = jwt.sign({ id }, secret, { expiresIn })
 
     res.cookies.set('token-id', token, {
       httpOnly: true,
@@ -113,10 +110,10 @@ export default class AuthService {
     })
   }
 
-  verifyTwoFactorToken(token: string, secret?: string) {
+  verifyTwoFactorToken(token: string, secret: string) {
     return totp.verify({
       encoding: 'base32',
-      secret: secret || '',
+      secret,
       token,
     })
   }

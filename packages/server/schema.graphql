@@ -16,8 +16,8 @@ type Mutation {
   confirmTwoFactor(token: String!): Response!
   disableTwoFactor(token: String!): Response!
   initiateTwoFactor: InitiateTwoFactorResponse!
-  signIn(password: String!, email: String!): SignInResponse!
-  signInOtp(token: String!): SignInResponse!
+  signIn(password: String!, email: String!): UserResponse!
+  signInTwoFactor(token: String!, password: String!, email: String!): UserResponse!
   signOut: Response!
   updateProfile(input: ProfileInput!): ProfileResponse!
   confirmRegistration(token: String!): UserResponse!
@@ -65,12 +65,6 @@ type Response {
 type ResponseError {
   id: ID!
   message: String!
-}
-
-type SignInResponse {
-  error: ResponseError
-  user: User
-  isTwoFactorEnabled: Boolean
 }
 
 type User {
