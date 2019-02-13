@@ -1,28 +1,21 @@
-import jwt from 'jsonwebtoken'
-import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
-import { GraphQLBoolean } from 'graphql'
 import { Inject } from 'typedi'
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
+import jwt from 'jsonwebtoken'
 
 import { Context } from 'apollo'
-import { secret } from 'config'
 import {
   InitiateTwoFactorResponse,
-  RegisterInput,
   Response,
   ResponseError,
   UserResponse,
 } from 'resolvers/types'
 import { AuthService } from 'services'
+import { secret } from '../config'
 
 @Resolver()
 export default class AuthResolver {
   @Inject()
   authService: AuthService
-
-  @Mutation(() => UserResponse)
-  async confirmRegistration(@Arg('token') token: string) {
-    return this.authService.confirmRegistration(token)
-  }
 
   @Mutation(() => Response)
   async confirmTwoFactor(
@@ -86,15 +79,10 @@ export default class AuthResolver {
     return new UserResponse({ user })
   }
 
-  @Mutation(() => GraphQLBoolean)
+  @Mutation(() => Response)
   signOut(@Ctx() { res }: Context) {
     res.clearCookie('token-id')
 
-    return true
-  }
-
-  @Mutation(() => Response)
-  async register(@Arg('input') { email, password }: RegisterInput) {
-    return this.authService.register(email, password)
+    return new Response()
   }
 }
