@@ -2,7 +2,12 @@ import gql from 'graphql-tag'
 
 export const signOutMutation = gql`
   mutation SignOutMutation {
-    response: signOut
+    response: signOut {
+      error {
+        id
+        message
+      }
+    }
   }
 `
 

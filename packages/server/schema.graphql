@@ -13,14 +13,15 @@ type InitiateTwoFactorResponse {
 }
 
 type Mutation {
-  confirmRegistration(token: String!): UserResponse!
   confirmTwoFactor(token: String!): Response!
   disableTwoFactor(token: String!): Response!
   initiateTwoFactor: InitiateTwoFactorResponse!
   signIn(password: String!, email: String!): UserResponse!
-  signOut: Boolean!
-  register(input: RegisterInput!): Response!
+  signInTwoFactor(token: String!, password: String!, email: String!): UserResponse!
+  signOut: Response!
   updateProfile(input: ProfileInput!): ProfileResponse!
+  confirmRegistration(token: String!): UserResponse!
+  register(input: RegisterInput!): Response!
   updateEmail(password: String!, newEmail: String!): UserResponse!
   updatePassword(password: String!, newPassword: String!): Response!
 }
@@ -71,6 +72,7 @@ type User {
   email: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  isTwoFactorEnabled: Boolean!
   profile: Profile!
 }
 

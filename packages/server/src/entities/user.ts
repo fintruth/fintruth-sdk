@@ -1,5 +1,6 @@
 import { User as UserEntity } from '@fintruth-sdk/shared'
 import { compareSync } from 'bcrypt'
+import { isNil } from 'ramda'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
   Column,
@@ -42,6 +43,11 @@ export default class User implements UserEntity {
   @Field()
   @UpdateDateColumn()
   updatedAt: Date
+
+  @Field()
+  get isTwoFactorEnabled(): boolean {
+    return !isNil(this.secret)
+  }
 
   validatePassword(password: string) {
     return compareSync(password, this.password)

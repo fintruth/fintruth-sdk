@@ -1,6 +1,5 @@
 import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
-import jwt from 'jsonwebtoken'
 
 import { Context } from 'apollo'
 import {
@@ -9,13 +8,15 @@ import {
   ResponseError,
   UserResponse,
 } from 'resolvers/types'
-import { AuthService } from 'services'
-import { secret } from '../config'
+import { AuthService, UserService } from 'services'
 
 @Resolver()
 export default class AuthResolver {
   @Inject()
   authService: AuthService
+
+  @Inject()
+  userService: UserService
 
   @Mutation(() => Response)
   async confirmTwoFactor(
@@ -23,9 +24,7 @@ export default class AuthResolver {
     @Ctx() { user }: Context
   ) {
     if (!user) {
-      const error = new ResponseError('Not authenticated')
-
-      return new Response({ error })
+      return new Response({ error: new ResponseError('Not authenticated') })
     }
 
     return this.authService.confirmTwoFactor(token, user.id)
@@ -34,9 +33,7 @@ export default class AuthResolver {
   @Mutation(() => Response)
   disableTwoFactor(@Arg('token') token: string, @Ctx() { user }: Context) {
     if (!user) {
-      const error = new ResponseError('Not authenticated')
-
-      return new Response({ error })
+      return new Response({ error: new ResponseError('Not authenticated') })
     }
 
     return this.authService.disableTwoFactor(token, user.id)
@@ -45,9 +42,9 @@ export default class AuthResolver {
   @Mutation(() => InitiateTwoFactorResponse)
   async initiateTwoFactor(@Ctx() { user }: Context) {
     if (!user) {
-      const error = new ResponseError('Not authenticated')
-
-      return new InitiateTwoFactorResponse({ error })
+      return new InitiateTwoFactorResponse({
+        error: new ResponseError('Not authenticated'),
+      })
     }
 
     return this.authService.initiateTwoFactor(user.id)
@@ -62,19 +59,43 @@ export default class AuthResolver {
     const user = await this.authService.authenticate(email, password)
 
     if (!user) {
-      const error = new ResponseError('Incorrect email or password')
-
-      return new UserResponse({ error })
+      return new UserResponse({
+        error: new ResponseError('Incorrect email or password'),
+      })
     }
 
-    const expiresIn = 60 * 60 * 24 * 180
-    const token = jwt.sign({ id: user.id }, secret, { expiresIn })
+    if (!user.isTwoFactorEnabled) {
+      this.authService.signAuthToken(res, user)
+    }
 
-    res.cookies.set('token-id', token, {
-      httpOnly: true,
-      maxAge: expiresIn * 1000,
-      signed: false,
-    })
+    return new UserResponse({ user })
+  }
+
+  @Mutation(() => UserResponse)
+  async signInTwoFactor(
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Arg('token') token: string,
+    @Ctx() { res }: Context
+  ) {
+    const user = await this.authService.authenticate(email, password)
+
+    if (!user) {
+      return new UserResponse({
+        error: new ResponseError('Incorrect email or password'),
+      })
+    }
+
+    const isValid =
+      user.secret && this.authService.verifyTwoFactorToken(token, user.secret)
+
+    if (!isValid) {
+      return new UserResponse({
+        error: new ResponseError('Token is invalid or expired'),
+      })
+    }
+
+    this.authService.signAuthToken(res, user)
 
     return new UserResponse({ user })
   }
