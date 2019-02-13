@@ -65,7 +65,7 @@ export default class AuthResolver {
     }
 
     if (!user.isTwoFactorEnabled) {
-      this.authService.withNewAuthentication(res, user)
+      this.authService.signAuthToken(res, user)
     }
 
     return new UserResponse({ user })
@@ -95,7 +95,7 @@ export default class AuthResolver {
       })
     }
 
-    this.authService.withNewAuthentication(res, user)
+    this.authService.signAuthToken(res, user)
 
     return new UserResponse({ user })
   }

@@ -99,7 +99,7 @@ export default class AuthService {
     })
   }
 
-  withNewAuthentication(res: ServerResponse, { id }: User) {
+  signAuthToken(res: ServerResponse, { id }: User) {
     const expiresIn = 60 * 60 * 24 * 180
     const token = jwt.sign({ id }, secret, { expiresIn })
 
