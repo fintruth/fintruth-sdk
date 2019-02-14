@@ -1,5 +1,4 @@
 import React from 'react'
-import gql from 'graphql-tag'
 import styled from 'styled-components'
 import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
@@ -14,27 +13,21 @@ import BaseSubnavbar from 'components/subnavbar'
 import ControlledInputField from 'components/controlled-input-field'
 import { centered, link } from 'styles/mixins'
 import { renderLoadingIf } from 'utilities/loading'
+import {
+  SignInViewMutationData,
+  SignInViewMutationVariables,
+  TwoFactorAuthViewMutationData,
+  TwoFactorAuthViewMutationVariables,
+  signInViewMutation,
+  twoFactorAuthViewMutation,
+} from './graphql'
 
 interface Credentials {
   email: string
   password: string
 }
 
-interface Data {
-  response: UserResponse
-}
-
-interface UserResponse {
-  error: any
-  user?: User
-}
-
 interface SignInFormValues {
-  email: string
-  password: string
-}
-
-interface SignInViewMutationVariables {
   email: string
   password: string
 }
@@ -45,12 +38,6 @@ interface SignInViewProps {
 }
 
 interface TwoFactorAuthFormValues {
-  token: string
-}
-
-interface TwoFactorAuthViewMutationVariables {
-  email: string
-  password: string
   token: string
 }
 
@@ -123,44 +110,6 @@ const twoFactorAuthFormValidationSchema = object().shape({
   token: string().required('This is a required field'),
 })
 
-export const signInViewMutation = gql`
-  mutation SignInViewMutation($email: String!, $password: String!) {
-    response: signIn(email: $email, password: $password) {
-      error {
-        message
-      }
-      user {
-        id
-        email
-        isTwoFactorAuthEnabled
-      }
-    }
-  }
-`
-
-export const twoFactorAuthViewMutation = gql`
-  mutation TwoFactorAuthViewMutation(
-    $email: String!
-    $password: String!
-    $token: String!
-  ) {
-    response: signInTwoFactorAuth(
-      email: $email
-      password: $password
-      token: $token
-    ) {
-      error {
-        message
-      }
-      user {
-        id
-        email
-        isTwoFactorAuthEnabled
-      }
-    }
-  }
-`
-
 const signInFormId = 'sign-in__Form'
 const twoFactorAuthFormId = 'two-factor-auth__Form'
 
@@ -176,7 +125,7 @@ const SignInView: React.FunctionComponent<SignInViewProps> = ({
     <Root {...rest}>
       <ApolloConsumer>
         {client => (
-          <Mutation<Data, SignInViewMutationVariables>
+          <Mutation<SignInViewMutationData, SignInViewMutationVariables>
             mutation={signInViewMutation}
             onCompleted={({ response }) => {
               client.resetStore()
@@ -254,7 +203,10 @@ const TwoFactorAuthView: React.FunctionComponent<TwoFactorAuthViewProps> = ({
     <Root {...rest}>
       <ApolloConsumer>
         {client => (
-          <Mutation<Data, TwoFactorAuthViewMutationVariables>
+          <Mutation<
+            TwoFactorAuthViewMutationData,
+            TwoFactorAuthViewMutationVariables
+          >
             mutation={twoFactorAuthViewMutation}
             onCompleted={({ response }) => {
               client.resetStore()
