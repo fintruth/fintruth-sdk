@@ -45,7 +45,7 @@ export default class User implements UserEntity {
   updatedAt: Date
 
   @Field()
-  get isTwoFactorEnabled(): boolean {
+  get isTwoFactorAuthEnabled(): boolean {
     return !isNil(this.secret)
   }
 

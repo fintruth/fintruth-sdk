@@ -15,7 +15,7 @@ import { withViewport } from '@storybook/addon-viewport'
 
 import GlobalStyle from 'styles/global'
 
-const req = require.context('../src', true, /\.stories\.tsx$/)
+const req = require.context('../src', true, /(.*\.)?stories\.tsx$/)
 
 setAddon({
   addCentered(storyName: string, callback: RenderFunction) {

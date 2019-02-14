@@ -4,7 +4,6 @@ export const signOutMutation = gql`
   mutation SignOutMutation {
     response: signOut {
       error {
-        id
         message
       }
     }

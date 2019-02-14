@@ -64,7 +64,7 @@ export default class AuthResolver {
       })
     }
 
-    if (!user.isTwoFactorEnabled) {
+    if (!user.isTwoFactorAuthEnabled) {
       this.authService.signAuthToken(res, user)
     }
 
