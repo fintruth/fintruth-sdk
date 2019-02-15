@@ -25,7 +25,7 @@
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "@fintruth-sdk/shared": "^0.1.0",
-    "apollo-server-express": "^2.4.0",
+    "apollo-server-express": "^2.4.2",
     "base64url": "^3.0.1",
     "bcrypt": "^3.0.4",
     "compression": "^1.7.3",
