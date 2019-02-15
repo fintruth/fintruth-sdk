@@ -3,8 +3,8 @@ import Profile from './profile'
 export default class User {
   id: string
   email: string
+  isTwoFactorAuthEnabled: boolean
   profile: Profile
-  isTwoFactorEnabled: boolean
   createdAt: Date
   updatedAt: Date
 }

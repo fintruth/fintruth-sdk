@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink, RouteComponentProps, navigate } from '@reach/router'
-import { User } from '@fintruth-sdk/shared'
+import { UserResponse } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
 import { rem } from 'polished'
 
@@ -16,12 +16,7 @@ import { renderLoadingIf } from 'utilities/loading'
 import { signInMutation, signInQuery } from './graphql'
 
 interface Data {
-  response: Response
-}
-
-interface Response {
-  error: any
-  user: User
+  response: UserResponse
 }
 
 interface Values {

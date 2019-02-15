@@ -1,8 +1,9 @@
-import { Field, ID, ObjectType } from 'type-graphql'
 import uuid from 'uuid/v4'
+import { Field, ID, ObjectType } from 'type-graphql'
+import { ResponseError as BaseResponseError } from '@fintruth-sdk/shared'
 
 @ObjectType()
-export default class ResponseError {
+export default class ResponseError implements BaseResponseError {
   @Field(() => ID)
   id: string
 

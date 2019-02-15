@@ -3,7 +3,7 @@ import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 
 import { Context } from 'apollo'
 import {
-  InitiateTwoFactorResponse,
+  EnableTwoFactorAuthResponse,
   Response,
   ResponseError,
   UserResponse,
@@ -19,35 +19,32 @@ export default class AuthResolver {
   userService: UserService
 
   @Mutation(() => Response)
-  async confirmTwoFactor(
-    @Arg('token') token: string,
-    @Ctx() { user }: Context
-  ) {
+  confirmTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {
     if (!user) {
       return new Response({ error: new ResponseError('Not authenticated') })
     }
 
-    return this.authService.confirmTwoFactor(token, user.id)
+    return this.authService.confirmTwoFactorAuth(token, user.id)
   }
 
   @Mutation(() => Response)
-  disableTwoFactor(@Arg('token') token: string, @Ctx() { user }: Context) {
+  disableTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {
     if (!user) {
       return new Response({ error: new ResponseError('Not authenticated') })
     }
 
-    return this.authService.disableTwoFactor(token, user.id)
+    return this.authService.disableTwoFactorAuth(token, user.id)
   }
 
-  @Mutation(() => InitiateTwoFactorResponse)
-  async initiateTwoFactor(@Ctx() { user }: Context) {
+  @Mutation(() => EnableTwoFactorAuthResponse)
+  enableTwoFactorAuth(@Ctx() { user }: Context) {
     if (!user) {
-      return new InitiateTwoFactorResponse({
+      return new EnableTwoFactorAuthResponse({
         error: new ResponseError('Not authenticated'),
       })
     }
 
-    return this.authService.initiateTwoFactor(user.id)
+    return this.authService.enableTwoFactorAuth(user.id)
   }
 
   @Mutation(() => UserResponse)
@@ -64,7 +61,7 @@ export default class AuthResolver {
       })
     }
 
-    if (!user.isTwoFactorEnabled) {
+    if (!user.isTwoFactorAuthEnabled) {
       this.authService.signAuthToken(res, user)
     }
 
@@ -72,7 +69,7 @@ export default class AuthResolver {
   }
 
   @Mutation(() => UserResponse)
-  async signInTwoFactor(
+  async signInTwoFactorAuth(
     @Arg('email') email: string,
     @Arg('password') password: string,
     @Arg('token') token: string,
@@ -87,7 +84,8 @@ export default class AuthResolver {
     }
 
     const isValid =
-      user.secret && this.authService.verifyTwoFactorToken(token, user.secret)
+      user.secret &&
+      this.authService.verifyTwoFactorAuthToken(token, user.secret)
 
     if (!isValid) {
       return new UserResponse({

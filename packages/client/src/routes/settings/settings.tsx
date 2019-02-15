@@ -3,7 +3,13 @@ import styled, { css } from 'styled-components'
 import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink, RouteComponentProps } from '@reach/router'
 import { Mutation, Query } from 'react-apollo'
-import { Profile, User } from '@fintruth-sdk/shared'
+import {
+  ProfileInput,
+  ProfileResponse,
+  Response,
+  User,
+  UserResponse,
+} from '@fintruth-sdk/shared'
 import { object, ref, string } from 'yup'
 import { pathOr } from 'ramda'
 import { rem } from 'polished'
@@ -35,12 +41,7 @@ interface UpdateEmailFormValues {
 }
 
 interface UpdateEmailMutationData {
-  response: UpdateEmailMutationResponse
-}
-
-interface UpdateEmailMutationResponse {
-  error?: any
-  user?: User
+  response: UserResponse
 }
 
 interface UpdateEmailMutationVariables {
@@ -55,11 +56,7 @@ interface UpdatePasswordFormValues {
 }
 
 interface UpdatePasswordMutationData {
-  response: UpdatePasswordMutationResponse
-}
-
-interface UpdatePasswordMutationResponse {
-  error?: any
+  response: Response
 }
 
 interface UpdatePasswordMutationVariables {
@@ -73,16 +70,11 @@ interface UpdateProfileFormValues {
 }
 
 interface UpdateProfileMutationData {
-  response: UpdateProfileMutationResponse
-}
-
-interface UpdateProfileMutationResponse {
-  error?: any
-  profile?: Profile
+  response: ProfileResponse
 }
 
 interface UpdateProfileMutationVariables {
-  input: UpdateProfileFormValues
+  input: ProfileInput
 }
 
 const Root = styled.div`
