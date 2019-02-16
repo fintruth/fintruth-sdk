@@ -1,4 +1,5 @@
 import { Field, ObjectType } from 'type-graphql'
+import { Response as BaseResponse } from '@fintruth-sdk/shared'
 
 import ResponseError from './response-error'
 
@@ -7,7 +8,7 @@ export interface Props {
 }
 
 @ObjectType()
-export default class Response {
+export default class Response implements BaseResponse {
   @Field({ nullable: true })
   error?: ResponseError
 
