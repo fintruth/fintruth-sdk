@@ -1,6 +1,6 @@
 export {
-  default as InitiateTwoFactorResponse,
-} from './initiate-two-factor-response'
+  default as EnableTwoFactorAuthResponse,
+} from './enable-two-factor-auth-response'
 export { default as ProfileInput } from './profile-input'
 export { default as ProfileResponse } from './profile-response'
 export { default as RegisterInput } from './register-input'

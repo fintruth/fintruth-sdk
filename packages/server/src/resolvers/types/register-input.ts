@@ -1,7 +1,8 @@
 import { Field, InputType } from 'type-graphql'
+import { RegisterInput as BaseRegisterInput } from '@fintruth-sdk/shared'
 
 @InputType()
-export default class RegisterInput {
+export default class RegisterInput implements BaseRegisterInput {
   @Field()
   email: string
 

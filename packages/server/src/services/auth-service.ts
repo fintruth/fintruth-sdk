@@ -7,7 +7,7 @@ import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { secret } from 'config'
 import {
-  InitiateTwoFactorResponse,
+  EnableTwoFactorAuthResponse,
   Response,
   ResponseError,
 } from 'resolvers/types'
@@ -33,7 +33,7 @@ export default class AuthService {
     return user
   }
 
-  async confirmTwoFactor(token: string, userId: string) {
+  async confirmTwoFactorAuth(token: string, userId: string) {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
@@ -41,7 +41,7 @@ export default class AuthService {
     }
 
     const isValid =
-      user.secretTemp && this.verifyTwoFactorToken(token, user.secretTemp)
+      user.secretTemp && this.verifyTwoFactorAuthToken(token, user.secretTemp)
 
     if (!isValid) {
       return new Response({
@@ -57,14 +57,15 @@ export default class AuthService {
     return new Response()
   }
 
-  async disableTwoFactor(token: string, userId: string) {
+  async disableTwoFactorAuth(token: string, userId: string) {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
       return new Response({ error: new ResponseError('User not found') })
     }
 
-    const isValid = user.secret && this.verifyTwoFactorToken(token, user.secret)
+    const isValid =
+      user.secret && this.verifyTwoFactorAuthToken(token, user.secret)
 
     if (!isValid) {
       return new Response({
@@ -79,11 +80,11 @@ export default class AuthService {
     return new Response()
   }
 
-  async initiateTwoFactor(userId: string) {
+  async enableTwoFactorAuth(userId: string) {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
-      return new InitiateTwoFactorResponse({
+      return new EnableTwoFactorAuthResponse({
         error: new ResponseError('User not found'),
       })
     }
@@ -93,7 +94,7 @@ export default class AuthService {
 
     await this.userRepository.update(userId, { secretTemp: base32 })
 
-    return new InitiateTwoFactorResponse({
+    return new EnableTwoFactorAuthResponse({
       dataUrl,
       secret: base32,
     })
@@ -110,7 +111,7 @@ export default class AuthService {
     })
   }
 
-  verifyTwoFactorToken(token: string, secret: string) {
+  verifyTwoFactorAuthToken(token: string, secret: string) {
     return totp.verify({
       encoding: 'base32',
       secret,

@@ -15,6 +15,7 @@
     "lint": "run-p lint:*",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
     "lint:types": "tsc --noEmit",
+    "postbuild": "ef-tspm",
     "prebuild": "yarn clean",
     "test": "echo \\\"No tests specified\\\" && exit 0"
   },
@@ -27,7 +28,9 @@
   "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "@ef-carbon/tspm": "^2.2.5"
+  },
   "engines": {
     "node": ">=10.15",
     "yarn": ">=1.12"
