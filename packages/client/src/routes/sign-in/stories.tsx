@@ -2,13 +2,13 @@ import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import { storiesOf } from '@storybook/react'
 
-import { signInViewMutation, twoFactorAuthViewMutation } from './graphql'
+import { signInFormMutation, twoFactorAuthFormMutation } from './graphql'
 import SignIn from '.'
 
 const defaultMocks = [
   {
     request: {
-      query: signInViewMutation,
+      query: signInFormMutation,
       variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
     },
     result: {
@@ -29,7 +29,7 @@ const defaultMocks = [
 const defaultTwoFactorAuthEnabledMocks = [
   {
     request: {
-      query: signInViewMutation,
+      query: signInFormMutation,
       variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
     },
     result: {
@@ -47,7 +47,7 @@ const defaultTwoFactorAuthEnabledMocks = [
   },
   {
     request: {
-      query: twoFactorAuthViewMutation,
+      query: twoFactorAuthFormMutation,
       variables: {
         email: 'demo@fintruth.com',
         password: 'Asdfg!2345',
@@ -73,7 +73,7 @@ const delayMocks = [
   {
     delay: 5000,
     request: {
-      query: signInViewMutation,
+      query: signInFormMutation,
       variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
     },
     result: {
@@ -95,7 +95,7 @@ const delayTwoFactorAuthEnabledMocks = [
   {
     delay: 5000,
     request: {
-      query: signInViewMutation,
+      query: signInFormMutation,
       variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
     },
     result: {
@@ -114,7 +114,7 @@ const delayTwoFactorAuthEnabledMocks = [
   {
     delay: 5000,
     request: {
-      query: twoFactorAuthViewMutation,
+      query: twoFactorAuthFormMutation,
       variables: {
         email: 'demo@fintruth.com',
         password: 'Asdfg!2345',
@@ -138,7 +138,7 @@ const delayTwoFactorAuthEnabledMocks = [
 
 const errorMocks = new Array(5).fill({
   request: {
-    query: signInViewMutation,
+    query: signInFormMutation,
     variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
   },
   result: {
@@ -154,7 +154,7 @@ const errorMocks = new Array(5).fill({
 const errorTwoFactorAuthEnabledMocks = [
   {
     request: {
-      query: signInViewMutation,
+      query: signInFormMutation,
       variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
     },
     result: {
@@ -172,7 +172,7 @@ const errorTwoFactorAuthEnabledMocks = [
   },
   ...new Array(5).fill({
     request: {
-      query: twoFactorAuthViewMutation,
+      query: twoFactorAuthFormMutation,
       variables: {
         email: 'demo@fintruth.com',
         password: 'Asdfg!2345',
