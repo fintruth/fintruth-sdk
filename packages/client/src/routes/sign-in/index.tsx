@@ -5,7 +5,9 @@ import { User } from '@fintruth-sdk/shared'
 
 import { centered } from 'styles/mixins'
 import SignInForm from './sign-in-form'
-import TwoFactorAuthForm, { SignInCredentials } from './two-factor-auth-form'
+import SignInTwoFactorAuthForm, {
+  SignInCredentials,
+} from './sign-in-two-factor-auth-form'
 
 const FINAL_VIEW = 'FINAL_VIEW'
 const SIGN_IN_VIEW = 'SIGN_IN_VIEW'
@@ -36,7 +38,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = ({
   if (currentView === TWO_FACTOR_AUTH_VIEW) {
     return (
       <Root {...rest}>
-        <TwoFactorAuthForm
+        <SignInTwoFactorAuthForm
           resolveNextView={(user: User) =>
             setCurrentView(getNextView(currentView, user))
           }

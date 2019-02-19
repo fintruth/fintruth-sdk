@@ -1,27 +1,27 @@
 import gql from 'graphql-tag'
 import { UserResponse } from '@fintruth-sdk/shared'
 
-export interface SignInFormMutationData {
+export interface SignInMutationData {
   response: UserResponse
 }
 
-export interface SignInFormMutationVariables {
+export interface SignInMutationVariables {
   email: string
   password: string
 }
 
-export interface TwoFactorAuthFormMutationData {
+export interface SignInTwoFactorAuthMutationData {
   response: UserResponse
 }
 
-export interface TwoFactorAuthFormMutationVariables {
+export interface SignInTwoFactorAuthMutationVariables {
   email: string
   password: string
   token: string
 }
 
-export const signInFormMutation = gql`
-  mutation SignInFormMutation($email: String!, $password: String!) {
+export const signInMutation = gql`
+  mutation SignInMutation($email: String!, $password: String!) {
     response: signIn(email: $email, password: $password) {
       error {
         message
@@ -35,8 +35,8 @@ export const signInFormMutation = gql`
   }
 `
 
-export const twoFactorAuthFormMutation = gql`
-  mutation TwoFactorAuthFormMutation(
+export const signInTwoFactorAuthMutation = gql`
+  mutation SignInTwoFactorAuthMutation(
     $email: String!
     $password: String!
     $token: String!

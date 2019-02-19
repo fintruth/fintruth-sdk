@@ -10,9 +10,9 @@ import BaseNotice from 'components/notice'
 import ControlledInputField from 'components/controlled-input-field'
 import { renderLoadingIf } from 'utilities/loading'
 import {
-  TwoFactorAuthFormMutationData,
-  TwoFactorAuthFormMutationVariables,
-  twoFactorAuthFormMutation,
+  SignInTwoFactorAuthMutationData,
+  SignInTwoFactorAuthMutationVariables,
+  signInTwoFactorAuthMutation,
 } from './graphql'
 import { button, form, notice } from './mixins'
 
@@ -50,7 +50,7 @@ const validationSchema = object().shape({
 
 const formId = 'two-factor-auth__Form'
 
-const TwoFactorAuthForm: React.FunctionComponent<Props> = ({
+const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   resolveNextView,
   signInCredentials,
   ...rest
@@ -62,10 +62,10 @@ const TwoFactorAuthForm: React.FunctionComponent<Props> = ({
     <ApolloConsumer>
       {client => (
         <Mutation<
-          TwoFactorAuthFormMutationData,
-          TwoFactorAuthFormMutationVariables
+          SignInTwoFactorAuthMutationData,
+          SignInTwoFactorAuthMutationVariables
         >
-          mutation={twoFactorAuthFormMutation}
+          mutation={signInTwoFactorAuthMutation}
           onCompleted={({ response }) => {
             client.resetStore()
 
@@ -115,4 +115,4 @@ const TwoFactorAuthForm: React.FunctionComponent<Props> = ({
   )
 }
 
-export default TwoFactorAuthForm
+export default SignInTwoFactorAuthForm

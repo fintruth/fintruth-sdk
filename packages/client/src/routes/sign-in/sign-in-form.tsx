@@ -13,11 +13,11 @@ import BaseSubnavbar from 'components/subnavbar'
 import ControlledInputField from 'components/controlled-input-field'
 import { link } from 'styles/mixins'
 import { renderLoadingIf } from 'utilities/loading'
-import { SignInCredentials } from './two-factor-auth-form'
+import { SignInCredentials } from './sign-in-two-factor-auth-form'
 import {
-  SignInFormMutationData,
-  SignInFormMutationVariables,
-  signInFormMutation,
+  SignInMutationData,
+  SignInMutationVariables,
+  signInMutation,
 } from './graphql'
 import { button, form, notice } from './mixins'
 
@@ -80,8 +80,8 @@ const SignInForm: React.FunctionComponent<Props> = ({
   return (
     <ApolloConsumer>
       {client => (
-        <Mutation<SignInFormMutationData, SignInFormMutationVariables>
-          mutation={signInFormMutation}
+        <Mutation<SignInMutationData, SignInMutationVariables>
+          mutation={signInMutation}
           onCompleted={({ response }) => {
             client.resetStore()
 
