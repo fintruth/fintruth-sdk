@@ -1752,9 +1752,9 @@
     universal-user-agent "^2.0.1"
 
 "@octokit/rest@^16.15.0":
-  version "16.15.0"
-  resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-16.15.0.tgz#648a88d5de055bcf38976709c5b2bdf1227b926f"
-  integrity sha512-Un+e7rgh38RtPOTe453pT/KPM/p2KZICimBmuZCd2wEo8PacDa4h6RqTPZs+f2DPazTTqdM7QU4LKlUjgiBwWw==
+  version "16.16.0"
+  resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-16.16.0.tgz#b686407d34c756c3463f8a7b1e42aa035a504306"
+  integrity sha512-Q6L5OwQJrdJ188gLVmUHLKNXBoeCU0DynKPYW8iZQQoGNGws2hkP/CePVNlzzDgmjuv7o8dCrJgecvDcIHccTA==
   dependencies:
     "@octokit/request" "2.3.0"
     before-after-hook "^1.2.0"
@@ -2761,6 +2761,19 @@
   integrity sha512-4BAIplyTmGyRcL7DuRQv0Bc/iJyJjO/tbZR3ZA1plIO4HGurvaXAeGRPNns9bgo+xCkZUzASh8Vpc68lyrYfLA==
   dependencies:
     "@types/storybook__react" "*"
+
+"@types/storybook__addons@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@types/storybook__addons/-/storybook__addons-4.1.0.tgz#610c13ebef1cea3b25780f13bd0bbe1b0404160e"
+  integrity sha512-UvOhc8/zXyxNcTt705oo06RfJsE1PrY1CY8GXT5H40uTN1s6fLEGFlenQK/hZrt4mEVs1TJiubVeYHrLakYQhg==
+  dependencies:
+    "@types/storybook__channels" "*"
+    "@types/storybook__react" "*"
+
+"@types/storybook__channels@*":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@types/storybook__channels/-/storybook__channels-4.1.0.tgz#dddb0a741a66a761c6a14b6fcbaf2047cfea3777"
+  integrity sha512-bUKqjQ1DSusfYdidz26EkaMCY5zgdPrmEUNTKkXNzZJUvN99TmFe4IkcxfragAs6pUftpJ3xO1mOOuWNdnDYhA==
 
 "@types/storybook__react@*", "@types/storybook__react@^4.0.1":
   version "4.0.1"
@@ -13815,10 +13828,10 @@ react-syntax-highlighter@^8.0.1:
     prismjs "^1.8.4"
     refractor "^2.4.1"
 
-react-testing-library@^5.8.0:
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-5.8.0.tgz#b5163758b1ddfd2e15c3cd2790562a527a1bb0a5"
-  integrity sha512-cYOX8aUKea5ojFVXkhLbNEAq86nYqBlhKulJI/0v8JfwWyQm+kbyNKFfyci6b2qI4KUEvBYZKWx+zZWeYrYOOA==
+react-testing-library@^5.9.0:
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-5.9.0.tgz#e1c8a586d2f2cbd5f0035474ca90258eef1fece6"
+  integrity sha512-T303PJZvrLKeeiPpjmMD1wxVpzEg9yI0qteH/cUvpFqNHOzPe3yN+Pu+jo9JlxuTMvVGPAmCAcgZ3sEtEDpJUQ==
   dependencies:
     "@babel/runtime" "^7.3.1"
     dom-testing-library "^3.13.1"
