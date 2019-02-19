@@ -5,9 +5,9 @@ const { DefinePlugin } = require('webpack')
 
 const ROOT_DIR = path.resolve(__dirname, '..')
 
-module.exports = (_, env, config) => {
-  const isEnvDev = /dev(elopment)?/i.test(env)
-  const isEnvProd = /prod(uction)?/i.test(env)
+module.exports = ({ config, mode }) => {
+  const isEnvDev = /dev(elopment)?/i.test(mode)
+  const isEnvProd = /prod(uction)?/i.test(mode)
 
   return {
     ...config,
@@ -46,10 +46,7 @@ module.exports = (_, env, config) => {
     },
     plugins: [
       ...config.plugins,
-      new DefinePlugin({
-        'process.env.BROWSER': true,
-        __DEV__: isEnvDev,
-      }),
+      new DefinePlugin({ 'process.env.BROWSER': true, __DEV__: isEnvDev }),
     ],
     resolve: {
       ...config.resolve,

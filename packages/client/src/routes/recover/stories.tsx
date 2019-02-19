@@ -8,7 +8,7 @@ import Recover from '.'
 const defaultMocks = new Array(5).fill({
   request: {
     query: recoverMutation,
-    variables: { input: { email: 'logan.smith@gmail.com' } },
+    variables: { input: { email: 'demo@fintruth.com' } },
   },
   result: { data: { response: { error: null } } },
 })
@@ -17,7 +17,7 @@ const delayMocks = new Array(5).fill({
   delay: 5000,
   request: {
     query: recoverMutation,
-    variables: { input: { email: 'logan.smith@gmail.com' } },
+    variables: { input: { email: 'demo@fintruth.com' } },
   },
   result: { data: { response: { error: null } } },
 })
@@ -25,17 +25,10 @@ const delayMocks = new Array(5).fill({
 const errorMocks = new Array(5).fill({
   request: {
     query: recoverMutation,
-    variables: { input: { email: 'logan.smith@gmail.com' } },
+    variables: { input: { email: 'demo@fintruth.com' } },
   },
   result: {
-    data: {
-      response: {
-        error: {
-          id: 'b49e7dec-b1ad-495c-a853-d089816ed6bc',
-          message: 'The user does not exist',
-        },
-      },
-    },
+    data: { response: { error: { message: 'The user does not exist' } } },
   },
 })
 

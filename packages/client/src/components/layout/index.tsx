@@ -2,7 +2,6 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { Link as BaseLink } from '@reach/router'
 import { Mutation, Query } from 'react-apollo'
-import { User } from '@fintruth-sdk/shared'
 import { darken, rem } from 'polished'
 
 import BaseExpandMore from 'assets/expand-more.svg'
@@ -18,10 +17,10 @@ import {
 import { content, medium, untilMedium } from 'styles/mixins'
 import { raven } from 'styles/variables'
 import { renderLoadingIf } from 'utilities/loading'
-import { layoutQuery, signOutMutation } from './graphql'
+import { LayoutQueryData, layoutQuery, signOutMutation } from './graphql'
 
-interface Data {
-  user?: User
+interface MenuState {
+  isOpen: boolean
 }
 
 interface Props {
@@ -30,10 +29,6 @@ interface Props {
 
 interface State {
   isMenuOpen: boolean
-}
-
-interface MenuState {
-  isOpen: boolean
 }
 
 const Root = styled.div`
@@ -191,7 +186,11 @@ const Layout: React.FunctionComponent<Props> = ({
 
   return (
     <Root {...rest}>
-      <Query<Data> fetchPolicy="network-only" query={layoutQuery} ssr={false}>
+      <Query<LayoutQueryData>
+        fetchPolicy="network-only"
+        query={layoutQuery}
+        ssr={false}
+      >
         {({ client, data = {}, loading }) => (
           <Mutation
             mutation={signOutMutation}

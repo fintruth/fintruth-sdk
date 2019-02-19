@@ -2,8 +2,8 @@ import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import { waitForElement } from 'react-testing-library'
 
-import Root from '.'
 import { renderWithRouter } from 'utilities/specification'
+import Root from '.'
 
 test('should render the home route correctly', async () => {
   const { getByTestId, queryByTitle } = renderWithRouter(
