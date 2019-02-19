@@ -19,6 +19,7 @@ const statusColors: StatusColors = {
 }
 
 const Input = styled.input`
+  background-color: transparent;
   border-bottom-color: ${({ status = 'default' }: Props) =>
     statusColors[status] || statusColors['default']};
   border-width: 0 0 ${rem(1)} 0;

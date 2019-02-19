@@ -1,5 +1,5 @@
 import { FlattenInterpolation, ThemedStyledProps, css } from 'styled-components' // eslint-disable-line import/named
-import { rem } from 'polished'
+import { darken, rem } from 'polished'
 
 import {
   azure,
@@ -8,6 +8,7 @@ import {
   viewportMd,
   viewportSm,
   viewportXl,
+  white,
 } from './variables'
 
 const media = (queries: string) => (
@@ -40,6 +41,11 @@ export const isHiddenTablet = css`
   ${small(css`
     display: none !important;
   `)};
+`
+
+export const card = css`
+  padding: ${rem(40)};
+  background-color: ${darken(0.026, white)};
 `
 
 export const centered = css`
