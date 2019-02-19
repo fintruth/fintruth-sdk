@@ -10,10 +10,10 @@ const defaultMocks = new Array(5).fill({
     query: registerMutation,
     variables: {
       input: {
-        email: 'logan.smith@gmail.com',
-        emailConfirm: 'logan.smith@gmail.com',
-        firstName: 'Logan',
-        lastName: 'Smith',
+        email: 'demo@fintruth.com',
+        emailConfirm: 'demo@fintruth.com',
+        firstName: 'Demo',
+        lastName: 'User',
         password: 'Asdfg!2345',
       },
     },
@@ -27,10 +27,10 @@ const delayMocks = new Array(5).fill({
     query: registerMutation,
     variables: {
       input: {
-        email: 'logan.smith@gmail.com',
-        emailConfirm: 'logan.smith@gmail.com',
-        firstName: 'Logan',
-        lastName: 'Smith',
+        email: 'demo@fintruth.com',
+        emailConfirm: 'demo@fintruth.com',
+        firstName: 'Demo',
+        lastName: 'User',
         password: 'Asdfg!2345',
       },
     },
@@ -43,23 +43,16 @@ const errorMocks = new Array(5).fill({
     query: registerMutation,
     variables: {
       input: {
-        email: 'logan.smith@gmail.com',
-        emailConfirm: 'logan.smith@gmail.com',
-        firstName: 'Logan',
-        lastName: 'Smith',
+        email: 'demo@fintruth.com',
+        emailConfirm: 'demo@fintruth.com',
+        firstName: 'Demo',
+        lastName: 'User',
         password: 'Asdfg!2345',
       },
     },
   },
   result: {
-    data: {
-      response: {
-        error: {
-          id: 'b4b61626-17d8-402b-b001-ad030d4b3589',
-          message: 'The user already exists',
-        },
-      },
-    },
+    data: { response: { error: { message: 'The user already exists' } } },
   },
 })
 
