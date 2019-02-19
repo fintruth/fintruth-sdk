@@ -1,13 +1,13 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import Assets from './assets'
 import ExpandLess from './expand-less.svg'
 import ExpandMore from './expand-more.svg'
 import SortDown from './sort-down.svg'
 import SortUp from './sort-up.svg'
 import UserCircle from './user-circle.svg'
 import logoUrl from './logo.png'
+import Assets from '.'
 
 const icons = [
   { Icon: ExpandLess, label: 'Expand Less' },

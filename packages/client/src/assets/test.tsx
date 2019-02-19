@@ -1,9 +1,9 @@
 import React from 'react'
 import { render } from 'react-testing-library'
 
-import Assets from './assets'
 import Fixture from './fixture.svg'
 import fixtureUrl from './fixture.png'
+import Assets from '.'
 
 test('should render icons correctly', () => {
   const icons = [{ Icon: Fixture, label: 'Fixture' }]
