@@ -1,5 +1,5 @@
 import React from 'react'
-import centered from '@storybook/addon-centered/react'
+import centered from '@storybook/addon-centered'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import {
   RenderFunction, // eslint-disable-line import/named
