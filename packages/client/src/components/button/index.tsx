@@ -24,7 +24,7 @@ interface StatusColors {
 
 const statusColors: StatusColors = {
   danger: watermelon,
-  default: white,
+  default: raven,
   primary: azure,
 }
 
