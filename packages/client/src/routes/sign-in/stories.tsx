@@ -136,20 +136,22 @@ const delayTwoFactorAuthEnabledMocks = [
   },
 ]
 
-const errorMocks = new Array(5).fill({
-  request: {
-    query: signInMutation,
-    variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
-  },
-  result: {
-    data: {
-      response: {
-        error: { message: 'Incorrect email or password' },
-        user: null,
+const errorMocks = [
+  {
+    request: {
+      query: signInMutation,
+      variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
+    },
+    result: {
+      data: {
+        response: {
+          error: { message: 'Incorrect email or password' },
+          user: null,
+        },
       },
     },
   },
-})
+]
 
 const errorTwoFactorAuthEnabledMocks = [
   {
@@ -170,7 +172,7 @@ const errorTwoFactorAuthEnabledMocks = [
       },
     },
   },
-  ...new Array(5).fill({
+  {
     request: {
       query: signInTwoFactorAuthMutation,
       variables: {
@@ -187,7 +189,7 @@ const errorTwoFactorAuthEnabledMocks = [
         },
       },
     },
-  }),
+  },
 ]
 
 storiesOf('Routes|Sign In', module)
