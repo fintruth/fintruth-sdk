@@ -76,7 +76,7 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
           : undefined
       }
     >
-      {onSubmit => (
+      {(onSubmit, { loading }) => (
         <Formik<Values>
           initialValues={{
             firstName: user && user.profile ? user.profile.firstName : '',
@@ -105,7 +105,12 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
                   placeholder="Last Name"
                   type="text"
                 />
-                <Button form={formId} status="primary" type="submit">
+                <Button
+                  form={formId}
+                  isLoading={loading}
+                  status="primary"
+                  type="submit"
+                >
                   SAVE
                 </Button>
               </Form>

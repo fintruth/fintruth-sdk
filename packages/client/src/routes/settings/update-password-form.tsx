@@ -92,7 +92,7 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
             }
           }}
         >
-          {onSubmit => (
+          {(onSubmit, { loading }) => (
             <Formik<Values>
               initialValues={initialValues}
               onSubmit={variables => onSubmit({ variables })}
@@ -127,7 +127,12 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
                       type="password"
                     />
                     <Link to="/recover">Forgot your password?</Link>
-                    <Button form={formId} status="primary" type="submit">
+                    <Button
+                      form={formId}
+                      isLoading={loading}
+                      status="primary"
+                      type="submit"
+                    >
                       UPDATE
                     </Button>
                   </Form>
