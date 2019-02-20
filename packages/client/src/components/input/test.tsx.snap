@@ -2,6 +2,7 @@
 
 exports[`should render the default style correctly 1`] = `
 .c0 {
+  background-color: transparent;
   border-bottom-color: #c3c7ca;
   border-width: 0 0 0.0625rem 0;
   font-size: 0.875rem;
@@ -44,6 +45,7 @@ exports[`should render the default style correctly 1`] = `
 
 exports[`should render the default style if an invalid status is provided 1`] = `
 .c0 {
+  background-color: transparent;
   border-bottom-color: #c3c7ca;
   border-width: 0 0 0.0625rem 0;
   font-size: 0.875rem;
@@ -86,6 +88,7 @@ exports[`should render the default style if an invalid status is provided 1`] = 
 
 exports[`should render the failure style correctly 1`] = `
 .c0 {
+  background-color: transparent;
   border-bottom-color: #ed5357;
   border-width: 0 0 0.0625rem 0;
   font-size: 0.875rem;

@@ -1,4 +1,41 @@
 import gql from 'graphql-tag'
+import {
+  ProfileInput,
+  ProfileResponse,
+  Response,
+  User,
+  UserResponse,
+} from '@fintruth-sdk/shared'
+
+export interface AccountQueryData {
+  user?: User
+}
+
+export interface UpdateEmailMutationData {
+  response: UserResponse
+}
+
+export interface UpdateEmailMutationVariables {
+  newEmail: string
+  password: string
+}
+
+export interface UpdatePasswordMutationData {
+  response: Response
+}
+
+export interface UpdatePasswordMutationVariables {
+  newPassword: string
+  password: string
+}
+
+export interface UpdateProfileMutationData {
+  response: ProfileResponse
+}
+
+export interface UpdateProfileMutationVariables {
+  input: ProfileInput
+}
 
 export const accountQuery = gql`
   query AccountQuery {
