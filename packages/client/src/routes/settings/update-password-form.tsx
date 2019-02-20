@@ -8,17 +8,16 @@ import { object, ref, string } from 'yup'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
+import BaseControlledInputField from 'components/controlled-input-field'
 import BaseNotice from 'components/notice'
-import ControlledInputField from 'components/controlled-input-field'
 import { link } from 'styles/mixins'
-import { renderLoadingIf } from 'utilities/loading'
 import {
   AccountQueryData,
   UpdatePasswordMutationData,
   UpdatePasswordMutationVariables,
   updatePasswordMutation,
 } from './graphql'
-import { button, fieldContainer, form, notice } from './mixins'
+import { button, field, form, notice } from './mixins'
 
 interface Props {
   refetchAccountQuery: () => Promise<ApolloQueryResult<AccountQueryData>>
@@ -38,8 +37,8 @@ const Form = styled(BaseForm)`
   ${form}
 `
 
-const FieldContainer = styled.div`
-  ${fieldContainer}
+const ControlledInputField = styled(BaseControlledInputField)`
+  ${field}
 `
 
 const Link = styled(BaseLink)`
@@ -93,53 +92,49 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
             }
           }}
         >
-          {(onSubmit, { loading }) =>
-            renderLoadingIf(loading, () => (
-              <Formik<Values>
-                initialValues={initialValues}
-                onSubmit={variables => onSubmit({ variables })}
-                validationSchema={validationSchema}
-              >
-                {() => (
-                  <React.Fragment>
-                    {notice && <Notice status={status}>{notice}</Notice>}
-                    <Form {...rest} id={formId} noValidate>
-                      <FieldContainer>
-                        <ControlledInputField
-                          id={`${formId}-password`}
-                          autoComplete="off"
-                          form={formId}
-                          name="password"
-                          placeholder="Current Password"
-                          type="password"
-                        />
-                        <ControlledInputField
-                          id={`${formId}-newPassword`}
-                          autoComplete="off"
-                          form={formId}
-                          name="newPassword"
-                          placeholder="New Password"
-                          type="password"
-                        />
-                        <ControlledInputField
-                          id={`${formId}-newPasswordConfirm`}
-                          autoComplete="off"
-                          form={formId}
-                          name="newPasswordConfirm"
-                          placeholder="Confirm New Password"
-                          type="password"
-                        />
-                        <Link to="/recover">Forgot your password?</Link>
-                      </FieldContainer>
-                      <Button form={formId} status="primary" type="submit">
-                        UPDATE
-                      </Button>
-                    </Form>
-                  </React.Fragment>
-                )}
-              </Formik>
-            ))
-          }
+          {onSubmit => (
+            <Formik<Values>
+              initialValues={initialValues}
+              onSubmit={variables => onSubmit({ variables })}
+              validationSchema={validationSchema}
+            >
+              {() => (
+                <React.Fragment>
+                  {notice && <Notice status={status}>{notice}</Notice>}
+                  <Form {...rest} id={formId} noValidate>
+                    <ControlledInputField
+                      id={`${formId}-password`}
+                      autoComplete="off"
+                      form={formId}
+                      name="password"
+                      placeholder="Current Password"
+                      type="password"
+                    />
+                    <ControlledInputField
+                      id={`${formId}-newPassword`}
+                      autoComplete="off"
+                      form={formId}
+                      name="newPassword"
+                      placeholder="New Password"
+                      type="password"
+                    />
+                    <ControlledInputField
+                      id={`${formId}-newPasswordConfirm`}
+                      autoComplete="off"
+                      form={formId}
+                      name="newPasswordConfirm"
+                      placeholder="Confirm New Password"
+                      type="password"
+                    />
+                    <Link to="/recover">Forgot your password?</Link>
+                    <Button form={formId} status="primary" type="submit">
+                      UPDATE
+                    </Button>
+                  </Form>
+                </React.Fragment>
+              )}
+            </Formik>
+          )}
         </Mutation>
       )}
     </ApolloConsumer>

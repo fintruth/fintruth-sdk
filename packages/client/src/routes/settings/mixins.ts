@@ -6,9 +6,7 @@ export const button = css`
   margin-top: ${rem(40)};
 `
 
-export const fieldContainer = css`
-  display: flex;
-  flex-direction: column;
+export const field = css`
   width: ${rem(280)};
 `
 

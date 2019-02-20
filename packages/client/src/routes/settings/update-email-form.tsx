@@ -7,16 +7,15 @@ import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
+import BaseControlledInputField from 'components/controlled-input-field'
 import BaseNotice from 'components/notice'
-import ControlledInputField from 'components/controlled-input-field'
-import { renderLoadingIf } from 'utilities/loading'
 import {
   AccountQueryData,
   UpdateEmailMutationData,
   UpdateEmailMutationVariables,
   updateEmailMutation,
 } from './graphql'
-import { button, fieldContainer, form, notice } from './mixins'
+import { button, field, form, notice } from './mixins'
 
 interface Props {
   refetchAccountQuery: () => Promise<ApolloQueryResult<AccountQueryData>>
@@ -36,8 +35,8 @@ const Form = styled(BaseForm)`
   ${form}
 `
 
-const FieldContainer = styled.div`
-  ${fieldContainer}
+const ControlledInputField = styled(BaseControlledInputField)`
+  ${field}
 `
 
 const Button = styled(BaseButton)`
@@ -78,47 +77,43 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
             }
           }}
         >
-          {(onSubmit, { loading }) =>
-            renderLoadingIf(loading, () => (
-              <Formik<Values>
-                initialValues={{
-                  newEmail: user ? user.email : '',
-                  password: '',
-                }}
-                onSubmit={variables => onSubmit({ variables })}
-                validationSchema={validationSchema}
-              >
-                {() => (
-                  <React.Fragment>
-                    {notice && <Notice status={status}>{notice}</Notice>}
-                    <Form {...rest} id={formId} noValidate>
-                      <FieldContainer>
-                        <ControlledInputField
-                          id={`${formId}-newEmail`}
-                          autoComplete="off"
-                          form={formId}
-                          name="newEmail"
-                          placeholder="Email"
-                          type="email"
-                        />
-                        <ControlledInputField
-                          id={`${formId}-password`}
-                          autoComplete="off"
-                          form={formId}
-                          name="password"
-                          placeholder="Password"
-                          type="password"
-                        />
-                      </FieldContainer>
-                      <Button form={formId} status="primary" type="submit">
-                        UPDATE
-                      </Button>
-                    </Form>
-                  </React.Fragment>
-                )}
-              </Formik>
-            ))
-          }
+          {onSubmit => (
+            <Formik<Values>
+              initialValues={{
+                newEmail: user ? user.email : '',
+                password: '',
+              }}
+              onSubmit={variables => onSubmit({ variables })}
+              validationSchema={validationSchema}
+            >
+              {() => (
+                <React.Fragment>
+                  {notice && <Notice status={status}>{notice}</Notice>}
+                  <Form {...rest} id={formId} noValidate>
+                    <ControlledInputField
+                      id={`${formId}-newEmail`}
+                      autoComplete="off"
+                      form={formId}
+                      name="newEmail"
+                      placeholder="Email"
+                      type="email"
+                    />
+                    <ControlledInputField
+                      id={`${formId}-password`}
+                      autoComplete="off"
+                      form={formId}
+                      name="password"
+                      placeholder="Password"
+                      type="password"
+                    />
+                    <Button form={formId} status="primary" type="submit">
+                      UPDATE
+                    </Button>
+                  </Form>
+                </React.Fragment>
+              )}
+            </Formik>
+          )}
         </Mutation>
       )}
     </ApolloConsumer>

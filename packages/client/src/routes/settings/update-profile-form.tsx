@@ -6,16 +6,15 @@ import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
+import BaseControlledInputField from 'components/controlled-input-field'
 import BaseNotice from 'components/notice'
-import ControlledInputField from 'components/controlled-input-field'
-import { renderLoadingIf } from 'utilities/loading'
 import {
   UpdateProfileMutationData,
   UpdateProfileMutationVariables,
   accountQuery,
   updateProfileMutation,
 } from './graphql'
-import { button, fieldContainer, form, notice } from './mixins'
+import { button, field, form, notice } from './mixins'
 
 interface Props {
   user?: User
@@ -34,8 +33,8 @@ const Form = styled(BaseForm)`
   ${form}
 `
 
-const FieldContainer = styled.div`
-  ${fieldContainer}
+const ControlledInputField = styled(BaseControlledInputField)`
+  ${field}
 `
 
 const Button = styled(BaseButton)`
@@ -77,47 +76,43 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
           : undefined
       }
     >
-      {(onSubmit, { loading }) =>
-        renderLoadingIf(loading, () => (
-          <Formik<Values>
-            initialValues={{
-              firstName: user && user.profile ? user.profile.firstName : '',
-              lastName: user && user.profile ? user.profile.lastName : '',
-            }}
-            onSubmit={input => onSubmit({ variables: { input } })}
-            validationSchema={validationSchema}
-          >
-            {() => (
-              <React.Fragment>
-                {notice && <Notice status={status}>{notice}</Notice>}
-                <Form {...rest} id={formId} noValidate>
-                  <FieldContainer>
-                    <ControlledInputField
-                      id={`${formId}-firstName`}
-                      autoComplete="given-name"
-                      form={formId}
-                      name="firstName"
-                      placeholder="First Name"
-                      type="text"
-                    />
-                    <ControlledInputField
-                      id={`${formId}-lastName`}
-                      autoComplete="family-name"
-                      form={formId}
-                      name="lastName"
-                      placeholder="Last Name"
-                      type="text"
-                    />
-                  </FieldContainer>
-                  <Button form={formId} status="primary" type="submit">
-                    SAVE
-                  </Button>
-                </Form>
-              </React.Fragment>
-            )}
-          </Formik>
-        ))
-      }
+      {onSubmit => (
+        <Formik<Values>
+          initialValues={{
+            firstName: user && user.profile ? user.profile.firstName : '',
+            lastName: user && user.profile ? user.profile.lastName : '',
+          }}
+          onSubmit={input => onSubmit({ variables: { input } })}
+          validationSchema={validationSchema}
+        >
+          {() => (
+            <React.Fragment>
+              {notice && <Notice status={status}>{notice}</Notice>}
+              <Form {...rest} id={formId} noValidate>
+                <ControlledInputField
+                  id={`${formId}-firstName`}
+                  autoComplete="given-name"
+                  form={formId}
+                  name="firstName"
+                  placeholder="First Name"
+                  type="text"
+                />
+                <ControlledInputField
+                  id={`${formId}-lastName`}
+                  autoComplete="family-name"
+                  form={formId}
+                  name="lastName"
+                  placeholder="Last Name"
+                  type="text"
+                />
+                <Button form={formId} status="primary" type="submit">
+                  SAVE
+                </Button>
+              </Form>
+            </React.Fragment>
+          )}
+        </Formik>
+      )}
     </Mutation>
   )
 }
