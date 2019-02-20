@@ -5,56 +5,62 @@ import { storiesOf } from '@storybook/react'
 import { registerMutation } from './graphql'
 import Register from '.'
 
-const defaultMocks = new Array(5).fill({
-  request: {
-    query: registerMutation,
-    variables: {
-      input: {
-        email: 'demo@fintruth.com',
-        emailConfirm: 'demo@fintruth.com',
-        firstName: 'Demo',
-        lastName: 'User',
-        password: 'Asdfg!2345',
+const defaultMocks = [
+  {
+    request: {
+      query: registerMutation,
+      variables: {
+        input: {
+          email: 'demo@fintruth.com',
+          emailConfirm: 'demo@fintruth.com',
+          firstName: 'Demo',
+          lastName: 'User',
+          password: 'Asdfg!2345',
+        },
       },
     },
+    result: { data: { response: { error: null } } },
   },
-  result: { data: { response: { error: null } } },
-})
+]
 
-const delayMocks = new Array(5).fill({
-  delay: 5000,
-  request: {
-    query: registerMutation,
-    variables: {
-      input: {
-        email: 'demo@fintruth.com',
-        emailConfirm: 'demo@fintruth.com',
-        firstName: 'Demo',
-        lastName: 'User',
-        password: 'Asdfg!2345',
+const delayMocks = [
+  {
+    delay: 5000,
+    request: {
+      query: registerMutation,
+      variables: {
+        input: {
+          email: 'demo@fintruth.com',
+          emailConfirm: 'demo@fintruth.com',
+          firstName: 'Demo',
+          lastName: 'User',
+          password: 'Asdfg!2345',
+        },
       },
     },
+    result: { data: { response: { error: null } } },
   },
-  result: { data: { response: { error: null } } },
-})
+]
 
-const errorMocks = new Array(5).fill({
-  request: {
-    query: registerMutation,
-    variables: {
-      input: {
-        email: 'demo@fintruth.com',
-        emailConfirm: 'demo@fintruth.com',
-        firstName: 'Demo',
-        lastName: 'User',
-        password: 'Asdfg!2345',
+const errorMocks = [
+  {
+    request: {
+      query: registerMutation,
+      variables: {
+        input: {
+          email: 'demo@fintruth.com',
+          emailConfirm: 'demo@fintruth.com',
+          firstName: 'Demo',
+          lastName: 'User',
+          password: 'Asdfg!2345',
+        },
       },
     },
+    result: {
+      data: { response: { error: { message: 'The user already exists' } } },
+    },
   },
-  result: {
-    data: { response: { error: { message: 'The user already exists' } } },
-  },
-})
+]
 
 storiesOf('Routes|Register', module)
   .add('Default', () => (

@@ -8,7 +8,6 @@ import { object, string } from 'yup'
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
 import ControlledInputField from 'components/controlled-input-field'
-import { renderLoadingIf } from 'utilities/loading'
 import {
   SignInTwoFactorAuthMutationData,
   SignInTwoFactorAuthMutationVariables,
@@ -77,38 +76,41 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
             }
           }}
         >
-          {(onSubmit, { loading }) =>
-            renderLoadingIf(loading, () => (
-              <React.Fragment>
-                {notice && <Notice status={status}>{notice}</Notice>}
-                <Formik<Values>
-                  initialValues={initialValues}
-                  onSubmit={variables =>
-                    onSubmit({
-                      variables: { ...signInCredentials, ...variables },
-                    })
-                  }
-                  validationSchema={validationSchema}
-                >
-                  {() => (
-                    <Form {...rest} id={formId} noValidate>
-                      <ControlledInputField
-                        id={`${formId}-token`}
-                        autoComplete="off"
-                        form={formId}
-                        label="VERIFICATION CODE"
-                        name="token"
-                        type="text"
-                      />
-                      <Button form={formId} status="primary" type="submit">
-                        CONTINUE
-                      </Button>
-                    </Form>
-                  )}
-                </Formik>
-              </React.Fragment>
-            ))
-          }
+          {(onSubmit, { loading }) => (
+            <React.Fragment>
+              {notice && <Notice status={status}>{notice}</Notice>}
+              <Formik<Values>
+                initialValues={initialValues}
+                onSubmit={variables =>
+                  onSubmit({
+                    variables: { ...signInCredentials, ...variables },
+                  })
+                }
+                validationSchema={validationSchema}
+              >
+                {() => (
+                  <Form {...rest} id={formId} noValidate>
+                    <ControlledInputField
+                      id={`${formId}-token`}
+                      autoComplete="off"
+                      form={formId}
+                      label="VERIFICATION CODE"
+                      name="token"
+                      type="text"
+                    />
+                    <Button
+                      form={formId}
+                      isLoading={loading}
+                      status="primary"
+                      type="submit"
+                    >
+                      CONTINUE
+                    </Button>
+                  </Form>
+                )}
+              </Formik>
+            </React.Fragment>
+          )}
         </Mutation>
       )}
     </ApolloConsumer>

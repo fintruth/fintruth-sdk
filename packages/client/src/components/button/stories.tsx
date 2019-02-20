@@ -5,10 +5,11 @@ import { storiesOf } from '@storybook/react'
 
 import Button from '.'
 
-const options = { Default: 'default', Primary: 'primary' }
+const options = { Danger: 'danger', Default: 'default', Primary: 'primary' }
 
 storiesOf('Components|Button', module).addCentered('Default', () => (
   <Button
+    isLoading={boolean('Is Loading', false)}
     isOutlined={boolean('Is Outlined', false)}
     onClick={action('On Click')}
     status={select('Status', options, 'default')}

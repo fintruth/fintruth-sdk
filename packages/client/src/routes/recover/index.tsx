@@ -10,7 +10,6 @@ import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
 import ControlledInputField from 'components/controlled-input-field'
 import { centered, link } from 'styles/mixins'
-import { renderLoadingIf } from 'utilities/loading'
 import {
   RecoverMutationData,
   RecoverMutationVariables,
@@ -82,38 +81,40 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
           }
         }}
       >
-        {(onSubmit, { loading }) =>
-          renderLoadingIf(loading, () => (
-            <React.Fragment>
-              {notice && <Notice status={status}>{notice}</Notice>}
-              <Formik<Values>
-                initialValues={initialValues}
-                onSubmit={variables => onSubmit({ variables })}
-                validationSchema={validationSchema}
-              >
-                {() => (
-                  <Form id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-email`}
-                      autoComplete="off"
-                      form={formId}
-                      label="EMAIL"
-                      name="email"
-                      type="email"
-                    />
-                    <Disclaimer>
-                      Already have an account?{' '}
-                      <Link to="/sign-in">Sign in</Link>
-                    </Disclaimer>
-                    <Button form={formId} status="primary" type="submit">
-                      RECOVER
-                    </Button>
-                  </Form>
-                )}
-              </Formik>
-            </React.Fragment>
-          ))
-        }
+        {(onSubmit, { loading }) => (
+          <React.Fragment>
+            {notice && <Notice status={status}>{notice}</Notice>}
+            <Formik<Values>
+              initialValues={initialValues}
+              onSubmit={variables => onSubmit({ variables })}
+              validationSchema={validationSchema}
+            >
+              {() => (
+                <Form id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-email`}
+                    autoComplete="off"
+                    form={formId}
+                    label="EMAIL"
+                    name="email"
+                    type="email"
+                  />
+                  <Disclaimer>
+                    Already have an account? <Link to="/sign-in">Sign in</Link>
+                  </Disclaimer>
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    RECOVER
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          </React.Fragment>
+        )}
       </Mutation>
     </Root>
   )

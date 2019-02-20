@@ -5,32 +5,38 @@ import { storiesOf } from '@storybook/react'
 import { recoverMutation } from './graphql'
 import Recover from '.'
 
-const defaultMocks = new Array(5).fill({
-  request: {
-    query: recoverMutation,
-    variables: { input: { email: 'demo@fintruth.com' } },
+const defaultMocks = [
+  {
+    request: {
+      query: recoverMutation,
+      variables: { email: 'demo@fintruth.com' },
+    },
+    result: { data: { response: { error: null } } },
   },
-  result: { data: { response: { error: null } } },
-})
+]
 
-const delayMocks = new Array(5).fill({
-  delay: 5000,
-  request: {
-    query: recoverMutation,
-    variables: { input: { email: 'demo@fintruth.com' } },
+const delayMocks = [
+  {
+    delay: 5000,
+    request: {
+      query: recoverMutation,
+      variables: { email: 'demo@fintruth.com' },
+    },
+    result: { data: { response: { error: null } } },
   },
-  result: { data: { response: { error: null } } },
-})
+]
 
-const errorMocks = new Array(5).fill({
-  request: {
-    query: recoverMutation,
-    variables: { input: { email: 'demo@fintruth.com' } },
+const errorMocks = [
+  {
+    request: {
+      query: recoverMutation,
+      variables: { email: 'demo@fintruth.com' },
+    },
+    result: {
+      data: { response: { error: { message: 'The user does not exist' } } },
+    },
   },
-  result: {
-    data: { response: { error: { message: 'The user does not exist' } } },
-  },
-})
+]
 
 storiesOf('Routes|Recover', module)
   .add('Default', () => (

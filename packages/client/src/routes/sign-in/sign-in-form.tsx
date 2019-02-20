@@ -12,7 +12,6 @@ import BaseNotice from 'components/notice'
 import BaseSubnavbar from 'components/subnavbar'
 import ControlledInputField from 'components/controlled-input-field'
 import { link } from 'styles/mixins'
-import { renderLoadingIf } from 'utilities/loading'
 import { SignInCredentials } from './sign-in-two-factor-auth-form'
 import {
   SignInMutationData,
@@ -93,48 +92,51 @@ const SignInForm: React.FunctionComponent<Props> = ({
             }
           }}
         >
-          {(onSubmit, { loading }) =>
-            renderLoadingIf(loading, () => (
-              <React.Fragment>
-                <Subnavbar items={items} />
-                {notice && <Notice status={status}>{notice}</Notice>}
-                <Formik<Values>
-                  initialValues={initialValues}
-                  onSubmit={variables => {
-                    setSignInCredentials(variables)
+          {(onSubmit, { loading }) => (
+            <React.Fragment>
+              <Subnavbar items={items} />
+              {notice && <Notice status={status}>{notice}</Notice>}
+              <Formik<Values>
+                initialValues={initialValues}
+                onSubmit={variables => {
+                  setSignInCredentials(variables)
 
-                    return onSubmit({ variables })
-                  }}
-                  validationSchema={validationSchema}
-                >
-                  {() => (
-                    <Form {...rest} id={formId} noValidate>
-                      <ControlledInputField
-                        id={`${formId}-email`}
-                        autoComplete="off"
-                        form={formId}
-                        label="EMAIL"
-                        name="email"
-                        type="email"
-                      />
-                      <ControlledInputField
-                        id={`${formId}-password`}
-                        autoComplete="off"
-                        form={formId}
-                        label="PASSWORD"
-                        name="password"
-                        type="password"
-                      />
-                      <Link to="/recover">Forgot your password?</Link>
-                      <Button form={formId} status="primary" type="submit">
-                        SIGN IN
-                      </Button>
-                    </Form>
-                  )}
-                </Formik>
-              </React.Fragment>
-            ))
-          }
+                  return onSubmit({ variables })
+                }}
+                validationSchema={validationSchema}
+              >
+                {() => (
+                  <Form {...rest} id={formId} noValidate>
+                    <ControlledInputField
+                      id={`${formId}-email`}
+                      autoComplete="off"
+                      form={formId}
+                      label="EMAIL"
+                      name="email"
+                      type="email"
+                    />
+                    <ControlledInputField
+                      id={`${formId}-password`}
+                      autoComplete="off"
+                      form={formId}
+                      label="PASSWORD"
+                      name="password"
+                      type="password"
+                    />
+                    <Link to="/recover">Forgot your password?</Link>
+                    <Button
+                      form={formId}
+                      isLoading={loading}
+                      status="primary"
+                      type="submit"
+                    >
+                      SIGN IN
+                    </Button>
+                  </Form>
+                )}
+              </Formik>
+            </React.Fragment>
+          )}
         </Mutation>
       )}
     </ApolloConsumer>

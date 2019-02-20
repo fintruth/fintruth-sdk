@@ -1,13 +1,97 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should render the danger style correctly 1`] = `
+.c0 {
+  border-radius: 0.125rem;
+  border-style: solid;
+  border-width: 0.0625rem;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0.75rem;
+  font-weight: 700;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 0.625rem 1.25rem;
+  background-color: #ed5357;
+  border-color: transparent;
+  color: #fff;
+}
+
+.c0:hover {
+  background-color: #eb3c40;
+}
+
+.c0:active {
+  background-color: #e8252a;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render the danger style correctly when outlined 1`] = `
+.c0 {
+  border-radius: 0.125rem;
+  border-style: solid;
+  border-width: 0.0625rem;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0.75rem;
+  font-weight: 700;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 0.625rem 1.25rem;
+  background-color: transparent;
+  border-color: #ed5357;
+  color: #ed5357;
+}
+
+.c0:hover {
+  border-color: #eb3c40;
+  color: #eb3c40;
+}
+
+.c0:active {
+  border-color: #e8252a;
+  color: #e8252a;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
 exports[`should render the default style correctly 1`] = `
 .c0 {
   border-radius: 0.125rem;
   border-style: solid;
   border-width: 0.0625rem;
   cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   font-size: 0.75rem;
   font-weight: 700;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   padding: 0.625rem 1.25rem;
   background-color: #fff;
   border-color: transparent;
@@ -35,8 +119,16 @@ exports[`should render the default style correctly when outlined 1`] = `
   border-style: solid;
   border-width: 0.0625rem;
   cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   font-size: 0.75rem;
   font-weight: 700;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   padding: 0.625rem 1.25rem;
   background-color: transparent;
   border-color: #fff;
@@ -66,8 +158,16 @@ exports[`should render the default style if an invalid status is provided 1`] = 
   border-style: solid;
   border-width: 0.0625rem;
   cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   font-size: 0.75rem;
   font-weight: 700;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   padding: 0.625rem 1.25rem;
   background-color: #fff;
   border-color: transparent;
@@ -95,8 +195,16 @@ exports[`should render the primary style correctly 1`] = `
   border-style: solid;
   border-width: 0.0625rem;
   cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   font-size: 0.75rem;
   font-weight: 700;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   padding: 0.625rem 1.25rem;
   background-color: #004cff;
   border-color: transparent;
@@ -124,8 +232,16 @@ exports[`should render the primary style correctly when outlined 1`] = `
   border-style: solid;
   border-width: 0.0625rem;
   cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   font-size: 0.75rem;
   font-weight: 700;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   padding: 0.625rem 1.25rem;
   background-color: transparent;
   border-color: #004cff;
