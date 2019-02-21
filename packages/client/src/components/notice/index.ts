@@ -3,28 +3,20 @@ import { rem } from 'polished'
 
 import { aquaMarine, raven, watermelon } from 'styles/variables'
 
+type Status = 'default' | 'failure' | 'success'
+
 interface Props {
-  status?: string
+  status?: Status
 }
 
-interface StatusColors {
-  [key: string]: string
-  default: string
-  failure: string
-  success: string
-}
-
-const statusColors: StatusColors = {
+const statusColors: Record<Status, string> = {
   default: raven,
   failure: watermelon,
   success: aquaMarine,
 }
 
-const statusToColor = (status: string) =>
-  statusColors[status] || statusColors['default']
-
 const Notice = styled.div`
-  color: ${({ status = 'default' }: Props) => statusToColor(status)};
+  color: ${({ status = 'default' }: Props) => statusColors[status]};
   font-size: ${rem(12)};
   font-weight: 500;
 `

@@ -14,9 +14,3 @@ test('should render the failure style correctly', () => {
 
   expect(container.firstChild).toMatchSnapshot()
 })
-
-test('should render the default style if an invalid status is provided', () => {
-  const { container } = render(<Input status="defaut" />)
-
-  expect(container.firstChild).toMatchSnapshot()
-})

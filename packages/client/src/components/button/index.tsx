@@ -4,20 +4,15 @@ import { darken, readableColor, rem } from 'polished'
 
 import { azure, raven, watermelon, white } from 'styles/variables'
 
+type Status = 'danger' | 'default' | 'primary'
+
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean
   isOutlined?: boolean
-  status?: string
+  status?: Status
 }
 
-interface StatusColors {
-  [key: string]: string
-  danger: string
-  default: string
-  primary: string
-}
-
-const statusColors: StatusColors = {
+const statusColors: Record<Status, string> = {
   danger: watermelon,
   default: raven,
   primary: azure,
@@ -60,9 +55,6 @@ const getSolidStyles = (isLoading: boolean, statusColor: string) => css`
   }
 `
 
-const statusToColor = (status: string) =>
-  statusColors[status] || statusColors['default']
-
 const rotate = keyframes`
   0% {
     transform: rotate(0);
@@ -85,7 +77,7 @@ const Root = styled.button`
   padding: ${rem(10)} ${rem(20)};
 
   ${({ isLoading = false, isOutlined, status = 'default' }: Props) => {
-    const statusColor = statusToColor(status)
+    const statusColor = statusColors[status]
 
     return isOutlined
       ? getOutlinedStyles(isLoading, statusColor)
@@ -102,7 +94,7 @@ const Loading = styled.div`
 
   &::after {
     background-color: ${({ isOutlined, status = 'default' }: Props) => {
-      const statusColor = statusToColor(status)
+      const statusColor = statusColors[status]
 
       return isOutlined ? statusColor : readableColor(statusColor, raven, white)
     }};

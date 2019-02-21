@@ -46,9 +46,3 @@ test('should render the primary style correctly when outlined', () => {
 
   expect(container.firstChild).toMatchSnapshot()
 })
-
-test('should render the default style if an invalid status is provided', () => {
-  const { container } = render(<Button status="defaut">child</Button>)
-
-  expect(container.firstChild).toMatchSnapshot()
-})
