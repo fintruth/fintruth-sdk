@@ -18,10 +18,13 @@ const statusColors: StatusColors = {
   failure: watermelon,
 }
 
+const statusToColor = (status: string) =>
+  statusColors[status] || statusColors['default']
+
 const Input = styled.input`
   background-color: transparent;
   border-bottom-color: ${({ status = 'default' }: Props) =>
-    statusColors[status] || statusColors['default']};
+    statusToColor(status)};
   border-width: 0 0 ${rem(1)} 0;
   font-size: ${rem(14)};
   font-weight: 500;

@@ -1,18 +1,13 @@
 import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
-import { darken, getLuminance, rem } from 'polished'
+import { darken, readableColor, rem } from 'polished'
 
 import { azure, raven, watermelon, white } from 'styles/variables'
 
-interface LoadingProps {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  isLoading?: boolean
   isOutlined?: boolean
   status?: string
-}
-
-interface Props
-  extends LoadingProps,
-    React.ButtonHTMLAttributes<HTMLButtonElement> {
-  isLoading?: boolean
 }
 
 interface StatusColors {
@@ -27,6 +22,46 @@ const statusColors: StatusColors = {
   default: raven,
   primary: azure,
 }
+
+const resolveColor = (isLoading: boolean, color: string) =>
+  isLoading ? 'transparent' : color
+
+const getOutlinedStyles = (isLoading: boolean, statusColor: string) => {
+  const color = resolveColor(isLoading, statusColor)
+
+  return css`
+    background-color: transparent;
+    border-color: ${statusColor};
+    color: ${color};
+
+    &:hover {
+      border-color: ${darken(0.05, statusColor)};
+      color: ${darken(0.05, color)};
+    }
+
+    &:active {
+      border-color: ${darken(0.1, statusColor)};
+      color: ${darken(0.1, color)};
+    }
+  `
+}
+
+const getSolidStyles = (isLoading: boolean, statusColor: string) => css`
+  background-color: ${statusColor};
+  border-color: transparent;
+  color: ${resolveColor(isLoading, readableColor(statusColor, raven, white))};
+
+  &:hover {
+    background-color: ${darken(0.05, statusColor)};
+  }
+
+  &:active {
+    background-color: ${darken(0.1, statusColor)};
+  }
+`
+
+const statusToColor = (status: string) =>
+  statusColors[status] || statusColors['default']
 
 const rotate = keyframes`
   0% {
@@ -49,55 +84,13 @@ const Root = styled.button`
   justify-content: center;
   padding: ${rem(10)} ${rem(20)};
 
-  ${({ isOutlined, status = 'default' }: Props) => {
-    const statusColor = statusColors[status] || statusColors['default']
+  ${({ isLoading = false, isOutlined, status = 'default' }: Props) => {
+    const statusColor = statusToColor(status)
 
     return isOutlined
-      ? css`
-          background-color: transparent;
-          border-color: ${statusColor};
-          color: ${statusColor};
-
-          &:hover {
-            border-color: ${darken(0.05, statusColor)};
-            color: ${darken(0.05, statusColor)};
-          }
-
-          &:active {
-            border-color: ${darken(0.1, statusColor)};
-            color: ${darken(0.1, statusColor)};
-          }
-        `
-      : css`
-          background-color: ${statusColor};
-          border-color: transparent;
-          color: ${getLuminance(statusColor) >= getLuminance(white)
-            ? raven
-            : white};
-
-          &:hover {
-            background-color: ${darken(0.05, statusColor)};
-          }
-
-          &:active {
-            background-color: ${darken(0.1, statusColor)};
-          }
-        `
+      ? getOutlinedStyles(isLoading, statusColor)
+      : getSolidStyles(isLoading, statusColor)
   }};
-
-  ${({ isLoading }: Props) =>
-    isLoading &&
-    css`
-      color: transparent;
-
-      &:hover {
-        color: transparent;
-      }
-
-      &:active {
-        color: transparent;
-      }
-    `};
 `
 
 const Loading = styled.div`
@@ -108,14 +101,10 @@ const Loading = styled.div`
   width: ${rem(12)};
 
   &::after {
-    background-color: ${({ isOutlined, status = 'default' }: LoadingProps) => {
-      const statusColor = statusColors[status] || statusColors['default']
+    background-color: ${({ isOutlined, status = 'default' }: Props) => {
+      const statusColor = statusToColor(status)
 
-      if (isOutlined) {
-        return statusColor
-      }
-
-      return getLuminance(statusColor) >= getLuminance(white) ? raven : white
+      return isOutlined ? statusColor : readableColor(statusColor, raven, white)
     }};
     border-radius: 50%;
     content: '';

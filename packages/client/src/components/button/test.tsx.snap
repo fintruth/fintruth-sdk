@@ -19,7 +19,7 @@ exports[`should render the danger style correctly 1`] = `
   padding: 0.625rem 1.25rem;
   background-color: #ed5357;
   border-color: transparent;
-  color: #fff;
+  color: #333;
 }
 
 .c0:hover {

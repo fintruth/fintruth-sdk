@@ -20,9 +20,11 @@ const statusColors: StatusColors = {
   success: aquaMarine,
 }
 
+const statusToColor = (status: string) =>
+  statusColors[status] || statusColors['default']
+
 const Notice = styled.div`
-  color: ${({ status = 'default' }: Props) =>
-    statusColors[status] || statusColors['default']};
+  color: ${({ status = 'default' }: Props) => statusToColor(status)};
   font-size: ${rem(12)};
   font-weight: 500;
 `
