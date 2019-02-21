@@ -7,7 +7,7 @@ import { object, string } from 'yup'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
-import BaseNotice from 'components/notice'
+import BaseNotice, { Status } from 'components/notice'
 import ControlledInputField from 'components/controlled-input-field'
 import { centered, link } from 'styles/mixins'
 import {
@@ -65,7 +65,7 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
   ...rest
 }: RouteComponentProps) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState('success')
+  const [status, setStatus] = React.useState<Status>('success')
 
   return (
     <Root {...rest}>

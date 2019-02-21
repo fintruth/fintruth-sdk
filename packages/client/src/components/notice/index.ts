@@ -3,7 +3,7 @@ import { rem } from 'polished'
 
 import { aquaMarine, raven, watermelon } from 'styles/variables'
 
-type Status = 'default' | 'failure' | 'success'
+export type Status = 'default' | 'failure' | 'success'
 
 interface Props {
   status?: Status

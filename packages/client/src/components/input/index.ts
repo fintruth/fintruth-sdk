@@ -3,7 +3,7 @@ import { rem } from 'polished'
 
 import { heather, watermelon } from 'styles/variables'
 
-type Status = 'default' | 'failure'
+export type Status = 'default' | 'failure'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   status?: Status

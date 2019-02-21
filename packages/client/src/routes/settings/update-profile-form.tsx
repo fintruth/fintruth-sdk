@@ -7,7 +7,7 @@ import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseControlledInputField from 'components/controlled-input-field'
-import BaseNotice from 'components/notice'
+import BaseNotice, { Status } from 'components/notice'
 import {
   UpdateProfileMutationData,
   UpdateProfileMutationVariables,
@@ -53,7 +53,7 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
   ...rest
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState('success')
+  const [status, setStatus] = React.useState<Status>('success')
 
   return (
     <Mutation<UpdateProfileMutationData, UpdateProfileMutationVariables>

@@ -3,9 +3,13 @@ import { boolean, select, text } from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 
-import Button from '.'
+import Button, { Status } from '.'
 
-const options = { Danger: 'danger', Default: 'default', Primary: 'primary' }
+const options: Record<string, Status> = {
+  Danger: 'danger',
+  Default: 'default',
+  Primary: 'primary',
+}
 
 storiesOf('Components|Button', module).addCentered('Default', () => (
   <Button

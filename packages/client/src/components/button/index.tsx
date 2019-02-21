@@ -4,7 +4,7 @@ import { darken, readableColor, rem } from 'polished'
 
 import { azure, raven, watermelon, white } from 'styles/variables'
 
-type Status = 'danger' | 'default' | 'primary'
+export type Status = 'danger' | 'default' | 'primary'
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean

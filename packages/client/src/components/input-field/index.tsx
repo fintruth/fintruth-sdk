@@ -6,12 +6,14 @@ import BaseNotice from 'components/notice'
 import Input from 'components/input'
 import Label from 'components/label'
 
+export type Status = 'default' | 'failure'
+
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string
   isRequired?: boolean
   label?: string
   notice?: string
-  status?: string
+  status?: Status
 }
 
 const Root = styled.div`
