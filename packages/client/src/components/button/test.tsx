@@ -15,6 +15,22 @@ test('should render the default style correctly when outlined', () => {
   expect(container.firstChild).toMatchSnapshot()
 })
 
+test('should render the danger style correctly', () => {
+  const { container } = render(<Button status="danger">child</Button>)
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render the danger style correctly when outlined', () => {
+  const { container } = render(
+    <Button isOutlined status="danger">
+      child
+    </Button>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
 test('should render the primary style correctly', () => {
   const { container } = render(<Button status="primary">child</Button>)
 
@@ -27,12 +43,6 @@ test('should render the primary style correctly when outlined', () => {
       child
     </Button>
   )
-
-  expect(container.firstChild).toMatchSnapshot()
-})
-
-test('should render the default style if an invalid status is provided', () => {
-  const { container } = render(<Button status="defaut">child</Button>)
 
   expect(container.firstChild).toMatchSnapshot()
 })

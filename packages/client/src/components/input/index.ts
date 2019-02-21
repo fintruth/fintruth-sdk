@@ -3,17 +3,13 @@ import { rem } from 'polished'
 
 import { heather, watermelon } from 'styles/variables'
 
+export type Status = 'default' | 'failure'
+
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  status?: string
+  status?: Status
 }
 
-interface StatusColors {
-  [key: string]: string
-  default: string
-  failure: string
-}
-
-const statusColors: StatusColors = {
+const statusColors: Record<Status, string> = {
   default: heather,
   failure: watermelon,
 }
@@ -21,7 +17,7 @@ const statusColors: StatusColors = {
 const Input = styled.input`
   background-color: transparent;
   border-bottom-color: ${({ status = 'default' }: Props) =>
-    statusColors[status] || statusColors['default']};
+    statusColors[status]};
   border-width: 0 0 ${rem(1)} 0;
   font-size: ${rem(14)};
   font-weight: 500;

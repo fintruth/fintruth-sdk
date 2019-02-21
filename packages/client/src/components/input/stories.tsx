@@ -3,9 +3,12 @@ import { action } from '@storybook/addon-actions'
 import { select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 
-import Input from '.'
+import Input, { Status } from '.'
 
-const options = { Default: 'default', Failure: 'failure' }
+const options: Record<string, Status> = {
+  Default: 'default',
+  Failure: 'failure',
+}
 
 storiesOf('Components|Input', module).addCentered('Default', () => (
   <Input

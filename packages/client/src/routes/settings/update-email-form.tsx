@@ -8,7 +8,7 @@ import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseControlledInputField from 'components/controlled-input-field'
-import BaseNotice from 'components/notice'
+import BaseNotice, { Status } from 'components/notice'
 import {
   AccountQueryData,
   UpdateEmailMutationData,
@@ -58,7 +58,7 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
   ...rest
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState('success')
+  const [status, setStatus] = React.useState<Status>('success')
 
   return (
     <ApolloConsumer>
@@ -77,7 +77,7 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
             }
           }}
         >
-          {onSubmit => (
+          {(onSubmit, { loading }) => (
             <Formik<Values>
               initialValues={{
                 newEmail: user ? user.email : '',
@@ -106,7 +106,12 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
                       placeholder="Password"
                       type="password"
                     />
-                    <Button form={formId} status="primary" type="submit">
+                    <Button
+                      form={formId}
+                      isLoading={loading}
+                      status="primary"
+                      type="submit"
+                    >
                       UPDATE
                     </Button>
                   </Form>
