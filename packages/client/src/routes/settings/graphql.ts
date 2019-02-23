@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 import {
+  EnableTwoFactorAuthAppResponse,
   ProfileInput,
   ProfileResponse,
   Response,
@@ -9,6 +10,26 @@ import {
 
 export interface AccountQueryData {
   user?: User
+}
+
+export interface ConfirmTwoFactorAuthAppMutationData {
+  response: Response
+}
+
+export interface ConfirmTwoFactorAuthAppMutationVariables {
+  token: string
+}
+
+export interface DisableTwoFactorAuthAppMutationData {
+  response: Response
+}
+
+export interface DisableTwoFactorAuthAppMutationVariables {
+  token: string
+}
+
+export interface EnableTwoFactorAuthAppMutationData {
+  response: EnableTwoFactorAuthAppResponse
 }
 
 export interface UpdateEmailMutationData {
@@ -42,10 +63,43 @@ export const accountQuery = gql`
     user: currentUser {
       id
       email
+      isTwoFactorAuthEnabled
       profile {
         firstName
         lastName
       }
+    }
+  }
+`
+
+export const confirmTwoFactorAuthAppMutation = gql`
+  mutation ConfirmTwoFactorAuthAppMutation($token: String!) {
+    response: confirmTwoFactorAuthApp(token: $token) {
+      error {
+        message
+      }
+    }
+  }
+`
+
+export const disableTwoFactorAuthAppMutation = gql`
+  mutation DisableTwoFactorAuthAppMutation($token: String!) {
+    response: disableTwoFactorAuthApp(token: $token) {
+      error {
+        message
+      }
+    }
+  }
+`
+
+export const enableTwoFactorAuthAppMutation = gql`
+  mutation EnableTwoFactorAuthAppMutation {
+    response: enableTwoFactorAuthApp {
+      dataUrl
+      error {
+        message
+      }
+      secret
     }
   }
 `

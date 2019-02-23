@@ -4,51 +4,57 @@ import { Form as BaseForm, Formik } from 'formik'
 import { Mutation } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
+import { rem } from 'polished'
 
 import BaseButton from 'components/button'
 import BaseControlledInputField from 'components/controlled-input-field'
 import BaseNotice, { Status } from 'components/notice'
 import {
-  UpdateProfileMutationData,
-  UpdateProfileMutationVariables,
+  DisableTwoFactorAuthAppMutationData,
+  DisableTwoFactorAuthAppMutationVariables,
   accountQuery,
-  updateProfileMutation,
+  disableTwoFactorAuthAppMutation,
 } from './graphql'
 import { button, field, form, notice } from './mixins'
 
 interface Props {
+  onCompleted?: () => void
   user: User
 }
 
 interface Values {
-  firstName: string
-  lastName: string
+  token: string
 }
 
 const Notice = styled(BaseNotice)`
   ${notice}
+  margin: 0 0 ${rem(30)};
 `
 
 const Form = styled(BaseForm)`
-  ${form}
+  ${form};
+  align-items: center;
 `
 
 const ControlledInputField = styled(BaseControlledInputField)`
-  ${field}
+  ${field};
 `
 
 const Button = styled(BaseButton)`
-  ${button}
+  ${button};
+  align-self: unset;
 `
 
+const initialValues = { token: '' }
+
 const validationSchema = object().shape({
-  firstName: string().required('This is a required field'),
-  lastName: string().required('This is a required field'),
+  token: string().required('This is a required field'),
 })
 
-const formId = 'update-profile__Form'
+const formId = 'disable-two-factor-auth-app__Form'
 
-const UpdateProfileForm: React.FunctionComponent<Props> = ({
+const DisableTwoFactorAuthAppForm: React.FunctionComponent<Props> = ({
+  onCompleted,
   user,
   ...rest
 }: Props) => {
@@ -56,33 +62,32 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
   const [status, setStatus] = React.useState<Status>('success')
 
   return (
-    <Mutation<UpdateProfileMutationData, UpdateProfileMutationVariables>
-      mutation={updateProfileMutation}
+    <Mutation<
+      DisableTwoFactorAuthAppMutationData,
+      DisableTwoFactorAuthAppMutationVariables
+    >
+      mutation={disableTwoFactorAuthAppMutation}
       onCompleted={({ response }) => {
         if (response.error) {
           setNotice(response.error.message)
           setStatus('failure')
-        } else if (response.profile) {
-          setNotice('Your profile information was successfully updated')
-          setStatus('success')
+        } else if (onCompleted) {
+          onCompleted()
         }
       }}
-      update={(cache, { data = { response: { profile: null } } }) =>
-        data.response.profile
-          ? cache.writeQuery({
-              data: { user: { ...user, profile: data.response.profile } },
+      update={(cache, { data = { response: { error: null } } }) =>
+        data.response.error
+          ? undefined
+          : cache.writeQuery({
+              data: { user: { ...user, isTwoFactorAuthEnabled: false } },
               query: accountQuery,
             })
-          : undefined
       }
     >
       {(onSubmit, { loading }) => (
         <Formik<Values>
-          initialValues={{
-            firstName: user.profile.firstName,
-            lastName: user.profile.lastName,
-          }}
-          onSubmit={input => onSubmit({ variables: { input } })}
+          initialValues={initialValues}
+          onSubmit={variables => onSubmit({ variables })}
           validationSchema={validationSchema}
         >
           {() => (
@@ -90,28 +95,21 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
               {notice && <Notice status={status}>{notice}</Notice>}
               <Form {...rest} id={formId} noValidate>
                 <ControlledInputField
-                  id={`${formId}-firstName`}
-                  autoComplete="given-name"
+                  id={`${formId}-token`}
+                  autoComplete="off"
                   form={formId}
-                  label="FIRST NAME"
-                  name="firstName"
-                  type="text"
-                />
-                <ControlledInputField
-                  id={`${formId}-lastName`}
-                  autoComplete="family-name"
-                  form={formId}
-                  label="LAST NAME"
-                  name="lastName"
+                  label="VERIFICATION CODE"
+                  name="token"
                   type="text"
                 />
                 <Button
                   form={formId}
                   isLoading={loading}
-                  status="primary"
+                  isOutlined
+                  status="danger"
                   type="submit"
                 >
-                  SAVE
+                  DISABLE
                 </Button>
               </Form>
             </React.Fragment>
@@ -122,4 +120,4 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
   )
 }
 
-export default UpdateProfileForm
+export default DisableTwoFactorAuthAppForm

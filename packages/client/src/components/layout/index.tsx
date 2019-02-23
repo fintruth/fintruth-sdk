@@ -19,7 +19,7 @@ import { raven } from 'styles/variables'
 import { renderLoadingIf } from 'utilities/loading'
 import { LayoutQueryData, layoutQuery, signOutMutation } from './graphql'
 
-interface MenuState {
+interface MenuProps {
   isOpen: boolean
 }
 
@@ -27,7 +27,7 @@ interface Props {
   children?: React.ReactNode
 }
 
-interface State {
+interface TogglerIconProps {
   isMenuOpen: boolean
 }
 
@@ -90,7 +90,7 @@ const TogglerIcon = styled.span`
   transition: opacity, transform 150ms ease-out;
   width: ${rem(16)};
 
-  ${({ isMenuOpen }: State) =>
+  ${({ isMenuOpen }: TogglerIconProps) =>
     isMenuOpen &&
     css`
       &:nth-child(1) {
@@ -130,7 +130,7 @@ const TogglerIcon = styled.span`
 const Menu = styled.div`
   display: none;
 
-  ${({ isOpen }: MenuState) =>
+  ${({ isOpen }: MenuProps) =>
     untilMedium(
       isOpen
         ? css`

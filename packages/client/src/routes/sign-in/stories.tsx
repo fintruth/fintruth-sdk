@@ -69,72 +69,17 @@ const defaultTwoFactorAuthEnabledMocks = [
   },
 ]
 
-const delayMocks = [
-  {
-    delay: 5000,
-    request: {
-      query: signInMutation,
-      variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
-    },
-    result: {
-      data: {
-        response: {
-          error: null,
-          user: {
-            id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            email: 'demo@fintruth.com',
-            isTwoFactorAuthEnabled: false,
-          },
-        },
-      },
-    },
-  },
-]
+const delayMocks = defaultMocks.map(defaultMock => ({
+  ...defaultMock,
+  delay: 5000,
+}))
 
-const delayTwoFactorAuthEnabledMocks = [
-  {
+const delayTwoFactorAuthEnabledMocks = defaultTwoFactorAuthEnabledMocks.map(
+  defaultTwoFactorAuthEnabledMock => ({
+    ...defaultTwoFactorAuthEnabledMock,
     delay: 5000,
-    request: {
-      query: signInMutation,
-      variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
-    },
-    result: {
-      data: {
-        response: {
-          error: null,
-          user: {
-            id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            email: 'demo@fintruth.com',
-            isTwoFactorAuthEnabled: true,
-          },
-        },
-      },
-    },
-  },
-  {
-    delay: 5000,
-    request: {
-      query: signInTwoFactorAuthMutation,
-      variables: {
-        email: 'demo@fintruth.com',
-        password: 'Asdfg!2345',
-        token: '123456',
-      },
-    },
-    result: {
-      data: {
-        response: {
-          error: null,
-          user: {
-            id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            email: 'demo@fintruth.com',
-            isTwoFactorAuthEnabled: true,
-          },
-        },
-      },
-    },
-  },
-]
+  })
+)
 
 const errorMocks = [
   {

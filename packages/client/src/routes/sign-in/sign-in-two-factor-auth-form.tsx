@@ -47,7 +47,7 @@ const validationSchema = object().shape({
   token: string().required('This is a required field'),
 })
 
-const formId = 'two-factor-auth__Form'
+const formId = 'sign-in-two-factor-auth__Form'
 
 const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   resolveNextView,
