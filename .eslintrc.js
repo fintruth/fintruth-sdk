@@ -63,6 +63,7 @@ module.exports = {
       'error',
       { groups: [['builtin', 'external']], 'newlines-between': 'always' },
     ],
+    'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'prettier/prettier': 'error',
   },
