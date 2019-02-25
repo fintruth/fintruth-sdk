@@ -51,7 +51,7 @@ const validationSchema = object().shape({
   token: string().required('This is a required field'),
 })
 
-const formId = 'disable-two-factor-auth-app__Form'
+const formId = 'disable-two-factor-auth__Form'
 
 const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   onCompleted,
