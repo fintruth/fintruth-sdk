@@ -5,7 +5,7 @@ import { darken, rem } from 'polished'
 
 import { link } from 'styles/mixins'
 import { white, azure } from 'styles/variables'
-import ConfirmTwoFactorAuthAppForm from './confirm-two-factor-auth-app-form'
+import ConfirmTwoFactorAuthForm from './confirm-two-factor-auth-form'
 
 interface Props extends DialogProps {
   dataUrl?: string
@@ -113,7 +113,7 @@ const OnePasswordLink: React.FunctionComponent = ({ ...rest }) => (
   </Link>
 )
 
-const EnableTwoFactorAuthAppDialog: React.FunctionComponent<Props> = ({
+const EnableTwoFactorAuthDialog: React.FunctionComponent<Props> = ({
   dataUrl,
   onDismiss,
   secret,
@@ -148,11 +148,11 @@ const EnableTwoFactorAuthAppDialog: React.FunctionComponent<Props> = ({
           </QRCodeContainer>
         </Column>
         <Column>
-          <ConfirmTwoFactorAuthAppForm onCompleted={onDismiss} />
+          <ConfirmTwoFactorAuthForm onCompleted={onDismiss} />
         </Column>
       </ColumnContainer>
     </Dialog>
   )
 }
 
-export default EnableTwoFactorAuthAppDialog
+export default EnableTwoFactorAuthDialog

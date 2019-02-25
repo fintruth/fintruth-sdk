@@ -9,10 +9,10 @@ import BaseButton from 'components/button'
 import BaseControlledInputField from 'components/controlled-input-field'
 import BaseNotice, { Status } from 'components/notice'
 import {
-  ConfirmTwoFactorAuthAppMutationData,
-  ConfirmTwoFactorAuthAppMutationVariables,
+  ConfirmTwoFactorAuthMutationData,
+  ConfirmTwoFactorAuthMutationVariables,
   accountQuery,
-  confirmTwoFactorAuthAppMutation,
+  confirmTwoFactorAuthMutation,
 } from './graphql'
 import { button, field, form, notice } from './mixins'
 
@@ -51,7 +51,7 @@ const validationSchema = object().shape({
 
 const formId = 'confirm-two-factor-auth-app__Form'
 
-const ConfirmTwoFactorAuthAppForm: React.FunctionComponent<Props> = ({
+const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   onCompleted,
   ...rest
 }: Props) => {
@@ -62,10 +62,10 @@ const ConfirmTwoFactorAuthAppForm: React.FunctionComponent<Props> = ({
     <ApolloConsumer>
       {client => (
         <Mutation<
-          ConfirmTwoFactorAuthAppMutationData,
-          ConfirmTwoFactorAuthAppMutationVariables
+          ConfirmTwoFactorAuthMutationData,
+          ConfirmTwoFactorAuthMutationVariables
         >
-          mutation={confirmTwoFactorAuthAppMutation}
+          mutation={confirmTwoFactorAuthMutation}
           onCompleted={({ response }) => {
             client // eslint-disable-line promise/catch-or-return
               .resetStore()
@@ -116,4 +116,4 @@ const ConfirmTwoFactorAuthAppForm: React.FunctionComponent<Props> = ({
   )
 }
 
-export default ConfirmTwoFactorAuthAppForm
+export default ConfirmTwoFactorAuthForm

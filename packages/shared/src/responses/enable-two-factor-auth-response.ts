@@ -1,6 +1,6 @@
 import Response from './response'
 
-export default class EnableTwoFactorAuthAppResponse extends Response {
+export default class EnableTwoFactorAuthResponse extends Response {
   dataUrl?: string
   secret?: string
 }

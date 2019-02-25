@@ -7,7 +7,7 @@ import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { secret } from 'config'
 import {
-  EnableTwoFactorAuthAppResponse,
+  EnableTwoFactorAuthResponse,
   Response,
   ResponseError,
 } from 'resolvers/types'
@@ -29,7 +29,7 @@ export default class AuthService {
     return user && user.validatePassword(password) ? user : null
   }
 
-  async confirmTwoFactorAuthApp(token: string, userId: string) {
+  async confirmTwoFactorAuth(token: string, userId: string) {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
@@ -53,7 +53,7 @@ export default class AuthService {
     return new Response()
   }
 
-  async disableTwoFactorAuthApp(token: string, userId: string) {
+  async disableTwoFactorAuth(token: string, userId: string) {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
@@ -74,11 +74,11 @@ export default class AuthService {
     return new Response()
   }
 
-  async enableTwoFactorAuthApp(userId: string) {
+  async enableTwoFactorAuth(userId: string) {
     const user = await this.userRepository.findOne(userId)
 
     if (!user) {
-      return new EnableTwoFactorAuthAppResponse({
+      return new EnableTwoFactorAuthResponse({
         error: new ResponseError('User not found'),
       })
     }
@@ -95,7 +95,7 @@ export default class AuthService {
 
     await this.userRepository.update(userId, { secretTemp: base32 })
 
-    return new EnableTwoFactorAuthAppResponse({ dataUrl, secret: base32 })
+    return new EnableTwoFactorAuthResponse({ dataUrl, secret: base32 })
   }
 
   signAuthToken(res: ServerResponse, { id }: User) {

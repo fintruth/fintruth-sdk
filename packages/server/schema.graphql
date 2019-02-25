@@ -6,16 +6,16 @@
 # The javascript `Date` as string. Type represents date and time as the ISO Date string.
 scalar DateTime
 
-type EnableTwoFactorAuthAppResponse {
+type EnableTwoFactorAuthResponse {
   error: ResponseError
   dataUrl: String
   secret: String
 }
 
 type Mutation {
-  confirmTwoFactorAuthApp(token: String!): Response!
-  disableTwoFactorAuthApp(token: String!): Response!
-  enableTwoFactorAuthApp: EnableTwoFactorAuthAppResponse!
+  confirmTwoFactorAuth(token: String!): Response!
+  disableTwoFactorAuth(token: String!): Response!
+  enableTwoFactorAuth: EnableTwoFactorAuthResponse!
   signIn(password: String!, email: String!): UserResponse!
   signInTwoFactorAuth(token: String!, password: String!, email: String!): UserResponse!
   signOut: Response!

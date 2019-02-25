@@ -4,9 +4,9 @@ import { storiesOf } from '@storybook/react'
 
 import {
   accountQuery,
-  confirmTwoFactorAuthAppMutation,
-  disableTwoFactorAuthAppMutation,
-  enableTwoFactorAuthAppMutation,
+  confirmTwoFactorAuthMutation,
+  disableTwoFactorAuthMutation,
+  enableTwoFactorAuthMutation,
   updateEmailMutation,
   updatePasswordMutation,
   updateProfileMutation,
@@ -70,7 +70,7 @@ const defaultMocks = [
     },
   },
   {
-    request: { query: enableTwoFactorAuthAppMutation },
+    request: { query: enableTwoFactorAuthMutation },
     result: {
       data: {
         response: {
@@ -84,7 +84,7 @@ const defaultMocks = [
   },
   {
     request: {
-      query: confirmTwoFactorAuthAppMutation,
+      query: confirmTwoFactorAuthMutation,
       variables: { token: '123456' },
     },
     result: { data: { response: { error: null } } },
@@ -149,7 +149,7 @@ const defaultTwoFactorAuthEnabledMocks = [
   },
   {
     request: {
-      query: disableTwoFactorAuthAppMutation,
+      query: disableTwoFactorAuthMutation,
       variables: { token: '123456' },
     },
     result: { data: { response: { error: null } } },
@@ -234,7 +234,7 @@ const errorMocks = [
     },
   },
   {
-    request: { query: enableTwoFactorAuthAppMutation },
+    request: { query: enableTwoFactorAuthMutation },
     result: {
       data: {
         response: {
@@ -249,7 +249,7 @@ const errorMocks = [
     },
   },
   {
-    request: { query: enableTwoFactorAuthAppMutation },
+    request: { query: enableTwoFactorAuthMutation },
     result: {
       data: {
         response: {
@@ -263,7 +263,7 @@ const errorMocks = [
   },
   {
     request: {
-      query: confirmTwoFactorAuthAppMutation,
+      query: confirmTwoFactorAuthMutation,
       variables: { token: '123456' },
     },
     result: {
@@ -343,7 +343,7 @@ const errorTwoFactorAuthEnabledMocks = [
   },
   {
     request: {
-      query: disableTwoFactorAuthAppMutation,
+      query: disableTwoFactorAuthMutation,
       variables: { token: '123456' },
     },
     result: {

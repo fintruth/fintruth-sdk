@@ -4,7 +4,7 @@ import { Dialog, DialogProps } from '@reach/dialog'
 import { User } from '@fintruth-sdk/shared'
 import { rem } from 'polished'
 
-import DisableTwoFactorAuthAppForm from './disable-two-factor-auth-app-form'
+import DisableTwoFactorAuthForm from './disable-two-factor-auth-form'
 
 interface Props extends DialogProps {
   user: User
@@ -29,7 +29,7 @@ const Column = styled.div`
   justify-content: center;
 `
 
-const DisableTwoFactorAuthAppDialog: React.FunctionComponent<Props> = ({
+const DisableTwoFactorAuthDialog: React.FunctionComponent<Props> = ({
   onDismiss,
   user,
   ...rest
@@ -43,10 +43,10 @@ const DisableTwoFactorAuthAppDialog: React.FunctionComponent<Props> = ({
     <ColumnContainer>
       <Column />
       <Column>
-        <DisableTwoFactorAuthAppForm onCompleted={onDismiss} user={user} />
+        <DisableTwoFactorAuthForm onCompleted={onDismiss} user={user} />
       </Column>
     </ColumnContainer>
   </Dialog>
 )
 
-export default DisableTwoFactorAuthAppDialog
+export default DisableTwoFactorAuthDialog

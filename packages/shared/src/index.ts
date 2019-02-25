@@ -1,6 +1,6 @@
 export {
-  default as EnableTwoFactorAuthAppResponse,
-} from './responses/enable-two-factor-auth-app-response'
+  default as EnableTwoFactorAuthResponse,
+} from './responses/enable-two-factor-auth-response'
 export { default as Profile } from './entities/profile'
 export { default as ProfileInput } from './inputs/profile-input'
 export { default as ProfileResponse } from './responses/profile-response'

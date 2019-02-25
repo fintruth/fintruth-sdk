@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 import {
-  EnableTwoFactorAuthAppResponse,
+  EnableTwoFactorAuthResponse,
   ProfileInput,
   ProfileResponse,
   Response,
@@ -12,24 +12,24 @@ export interface AccountQueryData {
   user?: User
 }
 
-export interface ConfirmTwoFactorAuthAppMutationData {
+export interface ConfirmTwoFactorAuthMutationData {
   response: Response
 }
 
-export interface ConfirmTwoFactorAuthAppMutationVariables {
+export interface ConfirmTwoFactorAuthMutationVariables {
   token: string
 }
 
-export interface DisableTwoFactorAuthAppMutationData {
+export interface DisableTwoFactorAuthMutationData {
   response: Response
 }
 
-export interface DisableTwoFactorAuthAppMutationVariables {
+export interface DisableTwoFactorAuthMutationVariables {
   token: string
 }
 
-export interface EnableTwoFactorAuthAppMutationData {
-  response: EnableTwoFactorAuthAppResponse
+export interface EnableTwoFactorAuthMutationData {
+  response: EnableTwoFactorAuthResponse
 }
 
 export interface UpdateEmailMutationData {
@@ -72,9 +72,9 @@ export const accountQuery = gql`
   }
 `
 
-export const confirmTwoFactorAuthAppMutation = gql`
-  mutation ConfirmTwoFactorAuthAppMutation($token: String!) {
-    response: confirmTwoFactorAuthApp(token: $token) {
+export const confirmTwoFactorAuthMutation = gql`
+  mutation ConfirmTwoFactorAuthMutation($token: String!) {
+    response: confirmTwoFactorAuth(token: $token) {
       error {
         message
       }
@@ -82,9 +82,9 @@ export const confirmTwoFactorAuthAppMutation = gql`
   }
 `
 
-export const disableTwoFactorAuthAppMutation = gql`
-  mutation DisableTwoFactorAuthAppMutation($token: String!) {
-    response: disableTwoFactorAuthApp(token: $token) {
+export const disableTwoFactorAuthMutation = gql`
+  mutation DisableTwoFactorAuthMutation($token: String!) {
+    response: disableTwoFactorAuth(token: $token) {
       error {
         message
       }
@@ -92,9 +92,9 @@ export const disableTwoFactorAuthAppMutation = gql`
   }
 `
 
-export const enableTwoFactorAuthAppMutation = gql`
-  mutation EnableTwoFactorAuthAppMutation {
-    response: enableTwoFactorAuthApp {
+export const enableTwoFactorAuthMutation = gql`
+  mutation EnableTwoFactorAuthMutation {
+    response: enableTwoFactorAuth {
       dataUrl
       error {
         message

@@ -10,10 +10,10 @@ import BaseButton from 'components/button'
 import BaseControlledInputField from 'components/controlled-input-field'
 import BaseNotice, { Status } from 'components/notice'
 import {
-  DisableTwoFactorAuthAppMutationData,
-  DisableTwoFactorAuthAppMutationVariables,
+  DisableTwoFactorAuthMutationData,
+  DisableTwoFactorAuthMutationVariables,
   accountQuery,
-  disableTwoFactorAuthAppMutation,
+  disableTwoFactorAuthMutation,
 } from './graphql'
 import { button, field, form, notice } from './mixins'
 
@@ -53,7 +53,7 @@ const validationSchema = object().shape({
 
 const formId = 'disable-two-factor-auth-app__Form'
 
-const DisableTwoFactorAuthAppForm: React.FunctionComponent<Props> = ({
+const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   onCompleted,
   user,
   ...rest
@@ -63,10 +63,10 @@ const DisableTwoFactorAuthAppForm: React.FunctionComponent<Props> = ({
 
   return (
     <Mutation<
-      DisableTwoFactorAuthAppMutationData,
-      DisableTwoFactorAuthAppMutationVariables
+      DisableTwoFactorAuthMutationData,
+      DisableTwoFactorAuthMutationVariables
     >
-      mutation={disableTwoFactorAuthAppMutation}
+      mutation={disableTwoFactorAuthMutation}
       onCompleted={({ response }) => {
         if (response.error) {
           setNotice(response.error.message)
@@ -120,4 +120,4 @@ const DisableTwoFactorAuthAppForm: React.FunctionComponent<Props> = ({
   )
 }
 
-export default DisableTwoFactorAuthAppForm
+export default DisableTwoFactorAuthForm
