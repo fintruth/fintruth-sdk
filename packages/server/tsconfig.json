@@ -10,7 +10,8 @@
       "*": ["src/*"],
       "express": ["node_modules/express"]
     },
-    "rootDir": "src"
+    "rootDir": "src",
+    "types": ["jest"]
   },
   "references": [{ "path": "../shared" }, { "path": "../validation" }]
 }
