@@ -21,7 +21,7 @@ const Title = styled.h1`
 const Home: React.FunctionComponent<RouteComponentProps> = ({
   ...rest
 }: RouteComponentProps) => (
-  <Layout {...rest}>
+  <Layout data-testid="home" {...rest}>
     <Root>
       <Title>Welcome Home!</Title>
     </Root>

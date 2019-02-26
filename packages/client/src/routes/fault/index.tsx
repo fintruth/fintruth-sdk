@@ -31,12 +31,12 @@ const Content = styled.pre`
 
 const Fault: React.FunctionComponent<Props> = ({ error, ...rest }: Props) =>
   __DEV__ && error ? (
-    <Root {...rest}>
+    <Root data-testid="error" {...rest}>
       <Title>{error.name}</Title>
       <Content>{error.stack}</Content>
     </Root>
   ) : (
-    <Root {...rest}>
+    <Root data-testid="error" {...rest}>
       <Title>Error</Title>
       <p>Sorry, a critical error occurred on this page.</p>
     </Root>

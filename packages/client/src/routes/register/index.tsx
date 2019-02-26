@@ -88,85 +88,83 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
   const [status, setStatus] = React.useState<Status>('success')
 
   return (
-    <Root {...rest}>
-      <Mutation<RegisterMutationData, RegisterMutationVariables>
-        mutation={registerMutation}
-        onCompleted={({ response }) => {
-          if (response.error) {
-            setNotice(response.error.message)
-            setStatus('failure')
-          } else {
-            setNotice('A verification email has been sent')
-            setStatus('success')
-          }
-        }}
-      >
-        {(onSubmit, { loading }) => (
-          <React.Fragment>
-            <Subnavbar items={items} />
-            {notice && <Notice status={status}>{notice}</Notice>}
-            <Formik<Values>
-              initialValues={initialValues}
-              onSubmit={input => onSubmit({ variables: { input } })}
-              validationSchema={validationSchema}
-            >
-              {() => (
-                <Form id={formId} noValidate>
-                  <ControlledInputField
-                    id={`${formId}-firstName`}
-                    autoComplete="given-name"
-                    form={formId}
-                    label="FIRST NAME"
-                    name="firstName"
-                    type="text"
-                  />
-                  <ControlledInputField
-                    id={`${formId}-lastName`}
-                    autoComplete="family-name"
-                    form={formId}
-                    label="LAST NAME"
-                    name="lastName"
-                    type="text"
-                  />
-                  <ControlledInputField
-                    id={`${formId}-email`}
-                    autoComplete="off"
-                    form={formId}
-                    label="EMAIL"
-                    name="email"
-                    type="email"
-                  />
-                  <ControlledInputField
-                    id={`${formId}-emailConfirm`}
-                    autoComplete="off"
-                    form={formId}
-                    label="CONFIRM EMAIL"
-                    name="emailConfirm"
-                    type="email"
-                  />
-                  <ControlledInputField
-                    id={`${formId}-password`}
-                    autoComplete="off"
-                    form={formId}
-                    label="PASSWORD"
-                    name="password"
-                    type="password"
-                  />
-                  <Button
-                    form={formId}
-                    isLoading={loading}
-                    status="primary"
-                    type="submit"
-                  >
-                    REGISTER
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          </React.Fragment>
-        )}
-      </Mutation>
-    </Root>
+    <Mutation<RegisterMutationData, RegisterMutationVariables>
+      mutation={registerMutation}
+      onCompleted={({ response }) => {
+        if (response.error) {
+          setNotice(response.error.message)
+          setStatus('failure')
+        } else {
+          setNotice('A verification email has been sent')
+          setStatus('success')
+        }
+      }}
+    >
+      {(onSubmit, { loading }) => (
+        <Root data-testid="register" {...rest}>
+          <Subnavbar items={items} />
+          {notice && <Notice status={status}>{notice}</Notice>}
+          <Formik<Values>
+            initialValues={initialValues}
+            onSubmit={input => onSubmit({ variables: { input } })}
+            validationSchema={validationSchema}
+          >
+            {() => (
+              <Form id={formId} noValidate>
+                <ControlledInputField
+                  id={`${formId}-firstName`}
+                  autoComplete="given-name"
+                  form={formId}
+                  label="FIRST NAME"
+                  name="firstName"
+                  type="text"
+                />
+                <ControlledInputField
+                  id={`${formId}-lastName`}
+                  autoComplete="family-name"
+                  form={formId}
+                  label="LAST NAME"
+                  name="lastName"
+                  type="text"
+                />
+                <ControlledInputField
+                  id={`${formId}-email`}
+                  autoComplete="off"
+                  form={formId}
+                  label="EMAIL"
+                  name="email"
+                  type="email"
+                />
+                <ControlledInputField
+                  id={`${formId}-emailConfirm`}
+                  autoComplete="off"
+                  form={formId}
+                  label="CONFIRM EMAIL"
+                  name="emailConfirm"
+                  type="email"
+                />
+                <ControlledInputField
+                  id={`${formId}-password`}
+                  autoComplete="off"
+                  form={formId}
+                  label="PASSWORD"
+                  name="password"
+                  type="password"
+                />
+                <Button
+                  form={formId}
+                  isLoading={loading}
+                  status="primary"
+                  type="submit"
+                >
+                  REGISTER
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Root>
+      )}
+    </Mutation>
   )
 }
 export default Register

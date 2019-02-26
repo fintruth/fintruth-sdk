@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink, RouteComponentProps } from '@reach/router'
-import { Mutation } from 'react-apollo'
+import { Mutation, Query } from 'react-apollo'
 import { object, string } from 'yup'
 import { rem } from 'polished'
 
@@ -10,10 +10,13 @@ import BaseButton from 'components/button'
 import BaseNotice, { Status } from 'components/notice'
 import ControlledInputField from 'components/controlled-input-field'
 import { centered, link } from 'styles/mixins'
+import { renderLoadingIf } from 'utilities/loading'
 import {
   RecoverMutationData,
   RecoverMutationVariables,
+  RecoverQueryData,
   recoverMutation,
+  recoverQuery,
 } from './graphql'
 
 interface Values {
@@ -51,8 +54,6 @@ const Link = styled(BaseLink)`
   ${link};
 `
 
-const initialValues = { email: '' }
-
 const validationSchema = object().shape({
   email: string()
     .required('This is a required field')
@@ -68,54 +69,65 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
   const [status, setStatus] = React.useState<Status>('success')
 
   return (
-    <Root {...rest}>
-      <Mutation<RecoverMutationData, RecoverMutationVariables>
-        mutation={recoverMutation}
-        onCompleted={({ response }) => {
-          if (response.error) {
-            setNotice(response.error.message)
-            setStatus('failure')
-          } else {
-            setNotice('A verification email has been sent')
-            setStatus('success')
-          }
-        }}
-      >
-        {(onSubmit, { loading }) => (
-          <React.Fragment>
-            {notice && <Notice status={status}>{notice}</Notice>}
-            <Formik<Values>
-              initialValues={initialValues}
-              onSubmit={variables => onSubmit({ variables })}
-              validationSchema={validationSchema}
-            >
-              {() => (
-                <Form id={formId} noValidate>
-                  <ControlledInputField
-                    id={`${formId}-email`}
-                    autoComplete="off"
-                    form={formId}
-                    label="EMAIL"
-                    name="email"
-                    type="email"
-                  />
-                  <Disclaimer>
-                    Already have an account? <Link to="/sign-in">Sign in</Link>
-                  </Disclaimer>
-                  <Button
-                    form={formId}
-                    isLoading={loading}
-                    status="primary"
-                    type="submit"
+    <Root data-testid="recover" {...rest}>
+      <Query<RecoverQueryData> query={recoverQuery}>
+        {({ data = {}, loading }) => (
+          <Mutation<RecoverMutationData, RecoverMutationVariables>
+            mutation={recoverMutation}
+            onCompleted={({ response }) => {
+              if (response.error) {
+                setNotice(response.error.message)
+                setStatus('failure')
+              } else {
+                setNotice('A verification email has been sent')
+                setStatus('success')
+              }
+            }}
+          >
+            {(onSubmit, result) =>
+              renderLoadingIf(loading, () => (
+                <React.Fragment>
+                  {notice && <Notice status={status}>{notice}</Notice>}
+                  <Formik<Values>
+                    initialValues={{ email: data.user ? data.user.email : '' }}
+                    onSubmit={variables => onSubmit({ variables })}
+                    validationSchema={validationSchema}
                   >
-                    RECOVER
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          </React.Fragment>
+                    {() => (
+                      <Form id={formId} noValidate>
+                        <ControlledInputField
+                          id={`${formId}-email`}
+                          autoComplete="off"
+                          form={formId}
+                          label="EMAIL"
+                          name="email"
+                          type="email"
+                        />
+                        <Disclaimer>
+                          Already have email and password?{' '}
+                          {data.user ? (
+                            <Link to="/settings">Settings</Link>
+                          ) : (
+                            <Link to="/sign-in">Sign in</Link>
+                          )}
+                        </Disclaimer>
+                        <Button
+                          form={formId}
+                          isLoading={result.loading}
+                          status="primary"
+                          type="submit"
+                        >
+                          RECOVER
+                        </Button>
+                      </Form>
+                    )}
+                  </Formik>
+                </React.Fragment>
+              ))
+            }
+          </Mutation>
         )}
-      </Mutation>
+      </Query>
     </Root>
   )
 }
