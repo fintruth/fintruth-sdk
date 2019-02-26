@@ -20,12 +20,10 @@ interface ScrollPositionsHistory {
 }
 
 const client = createApolloClient({
-  storeOptions: {
-    defaults: window.__APOLLO_STATE__,
-    preloadedCache: window.__APOLLO_CACHE__,
-    resolvers,
-    typeDefs,
-  },
+  defaults: window.__APOLLO_STATE__,
+  preloadedCache: window.__APOLLO_CACHE__,
+  resolvers,
+  typeDefs,
 })
 const container = document.querySelector('#root')
 const history = createBrowserHistory()

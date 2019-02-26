@@ -35,9 +35,7 @@ app
 
 app.get('*', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const client = createApolloClient({
-      storeOptions: { defaults, resolvers: {} },
-    })
+    const client = createApolloClient({ defaults, resolvers: {} })
     const extractor = new ChunkExtractor({
       entrypoints: 'client',
       statsFile: path.resolve(__dirname, 'stats.json'),
