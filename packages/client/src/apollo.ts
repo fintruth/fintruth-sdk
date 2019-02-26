@@ -1,17 +1,33 @@
 import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
+import { NormalizedCacheObject } from 'apollo-cache-inmemory' // eslint-disable-line import/named
 import { createUploadLink } from 'apollo-upload-client'
 
-import createStore, { Options as StoreOptions } from './store'
-import { createErrorLink } from './utilities/apollo'
+import { createErrorLink, createInMemoryCache } from './utilities/apollo'
 
 interface Options {
-  storeOptions: StoreOptions
+  defaults: {}
+  preloadedCache?: NormalizedCacheObject
+  resolvers: {}
+  typeDefs?: string
 }
 
-export const createApolloClient = ({ storeOptions }: Options) => {
-  const { cache, stateLink } = createStore(storeOptions)
-  const links = [stateLink, createErrorLink()]
+export const createApolloClient = ({
+  defaults,
+  preloadedCache,
+  resolvers,
+  typeDefs,
+}: Options) => {
+  const links: ApolloLink[] = [createErrorLink()]
+  let cache = createInMemoryCache()
+
+  if (preloadedCache) {
+    cache = cache.restore(preloadedCache)
+  }
+
+  if (defaults) {
+    cache.writeData({ data: defaults })
+  }
 
   if (__DEV__ && process.env.BROWSER) {
     links.push(require('apollo-link-logger').default)
@@ -28,7 +44,9 @@ export const createApolloClient = ({ storeOptions }: Options) => {
   return new ApolloClient({
     cache,
     link: ApolloLink.from(links),
+    resolvers,
     ssrForceFetchDelay: process.env.BROWSER ? 100 : undefined,
     ssrMode: !process.env.BROWSER,
+    typeDefs,
   })
 }
