@@ -8,14 +8,14 @@ exports[`should render the default style correctly 1`] = `
   font-size: 0.875rem;
   font-weight: 500;
   outline: none;
-  padding: 0.5625rem 0 0.625rem;
+  padding: 0.5rem 0 0.5625rem;
   width: 100%;
 }
 
 .c0:active,
 .c0:focus {
   border-bottom-width: 0.125rem;
-  padding-bottom: 0.5625rem;
+  padding-bottom: 0.5rem;
 }
 
 .c0::-webkit-input-placeholder {
@@ -51,14 +51,14 @@ exports[`should render the failure style correctly 1`] = `
   font-size: 0.875rem;
   font-weight: 500;
   outline: none;
-  padding: 0.5625rem 0 0.625rem;
+  padding: 0.5rem 0 0.5625rem;
   width: 100%;
 }
 
 .c0:active,
 .c0:focus {
   border-bottom-width: 0.125rem;
-  padding-bottom: 0.5625rem;
+  padding-bottom: 0.5rem;
 }
 
 .c0::-webkit-input-placeholder {

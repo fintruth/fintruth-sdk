@@ -15,16 +15,10 @@ const defaultMocks = [
   },
 ]
 
-const delayMocks = [
-  {
-    delay: 5000,
-    request: {
-      query: recoverMutation,
-      variables: { email: 'demo@fintruth.com' },
-    },
-    result: { data: { response: { error: null } } },
-  },
-]
+const delayMocks = defaultMocks.map(defaultMock => ({
+  ...defaultMock,
+  delay: 5000,
+}))
 
 const errorMocks = [
   {

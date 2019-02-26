@@ -2,56 +2,57 @@ import React from 'react'
 import styled from 'styled-components'
 import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
-import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
+import { rem } from 'polished'
 
 import BaseButton from 'components/button'
 import BaseControlledInputField from 'components/controlled-input-field'
 import BaseNotice, { Status } from 'components/notice'
 import {
-  UpdateEmailMutationData,
-  UpdateEmailMutationVariables,
+  ConfirmTwoFactorAuthMutationData,
+  ConfirmTwoFactorAuthMutationVariables,
   accountQuery,
-  updateEmailMutation,
+  confirmTwoFactorAuthMutation,
 } from './graphql'
 import { button, field, form, notice } from './mixins'
 
 interface Props {
-  user: User
+  onCompleted?: () => void
 }
 
 interface Values {
-  newEmail: string
-  password: string
+  token: string
 }
 
 const Notice = styled(BaseNotice)`
   ${notice}
+  margin: 0 0 ${rem(30)};
 `
 
 const Form = styled(BaseForm)`
-  ${form}
+  ${form};
+  align-items: center;
 `
 
 const ControlledInputField = styled(BaseControlledInputField)`
-  ${field}
+  ${field};
 `
 
 const Button = styled(BaseButton)`
-  ${button}
+  ${button};
+  align-self: unset;
 `
 
+const initialValues = { token: '' }
+
 const validationSchema = object().shape({
-  newEmail: string()
-    .required('This is a required field')
-    .email('Please provide a valid email address'),
-  password: string().required('This is a required field'),
+  token: string().required('This is a required field'),
 })
 
-const formId = 'update-email__Form'
+const formId = 'confirm-two-factor-auth__Form'
 
-const UpdateEmailForm: React.FunctionComponent<Props> = ({
-  user,
+const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
+  onCompleted,
   ...rest
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
@@ -60,8 +61,11 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
   return (
     <ApolloConsumer>
       {client => (
-        <Mutation<UpdateEmailMutationData, UpdateEmailMutationVariables>
-          mutation={updateEmailMutation}
+        <Mutation<
+          ConfirmTwoFactorAuthMutationData,
+          ConfirmTwoFactorAuthMutationVariables
+        >
+          mutation={confirmTwoFactorAuthMutation}
           onCompleted={({ response }) => {
             client // eslint-disable-line promise/catch-or-return
               .resetStore()
@@ -70,15 +74,14 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
             if (response.error) {
               setNotice(response.error.message)
               setStatus('failure')
-            } else if (response.user) {
-              setNotice('Your email address was successfully updated')
-              setStatus('success')
+            } else if (onCompleted) {
+              onCompleted()
             }
           }}
         >
           {(onSubmit, { loading }) => (
             <Formik<Values>
-              initialValues={{ newEmail: user.email, password: '' }}
+              initialValues={initialValues}
               onSubmit={variables => onSubmit({ variables })}
               validationSchema={validationSchema}
             >
@@ -87,20 +90,12 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
                   {notice && <Notice status={status}>{notice}</Notice>}
                   <Form {...rest} id={formId} noValidate>
                     <ControlledInputField
-                      id={`${formId}-newEmail`}
+                      id={`${formId}-token`}
                       autoComplete="off"
                       form={formId}
-                      name="newEmail"
-                      placeholder="Email"
-                      type="email"
-                    />
-                    <ControlledInputField
-                      id={`${formId}-password`}
-                      autoComplete="off"
-                      form={formId}
-                      name="password"
-                      placeholder="Password"
-                      type="password"
+                      label="VERIFICATION CODE"
+                      name="token"
+                      type="text"
                     />
                     <Button
                       form={formId}
@@ -108,7 +103,7 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
                       status="primary"
                       type="submit"
                     >
-                      UPDATE
+                      ENABLE
                     </Button>
                   </Form>
                 </React.Fragment>
@@ -121,4 +116,4 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
   )
 }
 
-export default UpdateEmailForm
+export default ConfirmTwoFactorAuthForm

@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ApolloConsumer, Mutation } from 'react-apollo'
-import { ApolloQueryResult } from 'apollo-client' // eslint-disable-line import/named
 import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink } from '@reach/router'
 import { object, ref, string } from 'yup'
@@ -12,16 +11,12 @@ import BaseControlledInputField from 'components/controlled-input-field'
 import BaseNotice, { Status } from 'components/notice'
 import { link } from 'styles/mixins'
 import {
-  AccountQueryData,
   UpdatePasswordMutationData,
   UpdatePasswordMutationVariables,
+  accountQuery,
   updatePasswordMutation,
 } from './graphql'
 import { button, field, form, notice } from './mixins'
-
-interface Props {
-  refetchAccountQuery: () => Promise<ApolloQueryResult<AccountQueryData>>
-}
 
 interface Values {
   newPassword: string
@@ -68,10 +63,7 @@ const validationSchema = object().shape({
 
 const formId = 'update-password__Form'
 
-const UpdatePasswordForm: React.FunctionComponent<Props> = ({
-  refetchAccountQuery,
-  ...rest
-}: Props) => {
+const UpdatePasswordForm: React.FunctionComponent = ({ ...rest }) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [status, setStatus] = React.useState<Status>('success')
 
@@ -81,7 +73,9 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
         <Mutation<UpdatePasswordMutationData, UpdatePasswordMutationVariables>
           mutation={updatePasswordMutation}
           onCompleted={({ response }) => {
-            client.resetStore().then(() => refetchAccountQuery()) // eslint-disable-line promise/catch-or-return
+            client // eslint-disable-line promise/catch-or-return
+              .resetStore()
+              .then(() => client.query({ query: accountQuery }))
 
             if (response.error) {
               setNotice(response.error.message)

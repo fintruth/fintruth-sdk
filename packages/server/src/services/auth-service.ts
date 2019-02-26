@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { toDataURL } from 'qrcode'
-import { generateSecret, totp } from 'speakeasy'
+import { generateSecret, otpauthURL, totp } from 'speakeasy'
 import { Inject, Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
@@ -26,11 +26,7 @@ export default class AuthService {
   async authenticate(email: string, password: string) {
     const user = await this.userRepository.findOne({ email })
 
-    if (!user || !user.validatePassword(password)) {
-      return null
-    }
-
-    return user
+    return user && user.validatePassword(password) ? user : null
   }
 
   async confirmTwoFactorAuth(token: string, userId: string) {
@@ -73,9 +69,7 @@ export default class AuthService {
       })
     }
 
-    await this.userRepository.update(userId, {
-      secret: undefined,
-    })
+    await this.userRepository.update(userId, { secret: undefined })
 
     return new Response()
   }
@@ -89,15 +83,19 @@ export default class AuthService {
       })
     }
 
-    const { base32, otpauth_url } = generateSecret({ otpauth_url: true }) // eslint-disable-line @typescript-eslint/camelcase
-    const dataUrl: string = await toDataURL(otpauth_url)
+    const { ascii, base32 } = generateSecret()
+    const dataUrl: string = await toDataURL(
+      otpauthURL({
+        issuer: encodeURIComponent('Fintruth'),
+        label: encodeURIComponent(user.email),
+        secret: ascii,
+      }),
+      { margin: 0 }
+    )
 
     await this.userRepository.update(userId, { secretTemp: base32 })
 
-    return new EnableTwoFactorAuthResponse({
-      dataUrl,
-      secret: base32,
-    })
+    return new EnableTwoFactorAuthResponse({ dataUrl, secret: base32 })
   }
 
   signAuthToken(res: ServerResponse, { id }: User) {
@@ -112,10 +110,6 @@ export default class AuthService {
   }
 
   verifyTwoFactorAuthToken(token: string, secret: string) {
-    return totp.verify({
-      encoding: 'base32',
-      secret,
-      token,
-    })
+    return totp.verify({ encoding: 'base32', secret, token })
   }
 }

@@ -22,13 +22,13 @@ const Input = styled.input`
   font-size: ${rem(14)};
   font-weight: 500;
   outline: none;
-  padding: ${rem(9)} 0 ${rem(10)};
+  padding: ${rem(8)} 0 ${rem(9)};
   width: 100%;
 
   &:active,
   &:focus {
     border-bottom-width: ${rem(2)};
-    padding-bottom: ${rem(9)};
+    padding-bottom: ${rem(8)};
   }
 
   &::placeholder {
