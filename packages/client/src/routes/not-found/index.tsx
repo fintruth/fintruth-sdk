@@ -28,7 +28,7 @@ const Content = styled.p`
 const NotFound: React.FunctionComponent<RouteComponentProps> = ({
   ...rest
 }: RouteComponentProps) => (
-  <Root {...rest}>
+  <Root data-testid="not-found" {...rest}>
     <Title>Page Not Found</Title>
     <Content>
       Sorry, but the page you were trying to view does not exist.

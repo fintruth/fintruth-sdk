@@ -37,7 +37,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = ({
 
   if (currentView === TWO_FACTOR_AUTH_VIEW) {
     return (
-      <Root {...rest}>
+      <Root data-testid="sign-in" {...rest}>
         <SignInTwoFactorAuthForm
           resolveNextView={(user: User) =>
             setCurrentView(getNextView(currentView, user))
@@ -51,7 +51,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = ({
   }
 
   return (
-    <Root {...rest}>
+    <Root data-testid="sign-in" {...rest}>
       <SignInForm
         resolveNextView={(user: User) =>
           setCurrentView(getNextView(currentView, user))
