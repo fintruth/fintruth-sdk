@@ -1,7 +1,19 @@
 import React from 'react'
-import { render } from 'react-testing-library'
+import { act, render } from 'react-testing-library'
 
 import Button from '.'
+
+jest.useFakeTimers()
+
+test('should initialize the loading state once the provided delay (ms) has passed', () => {
+  const { queryByTestId } = render(<Button isLoading>child</Button>)
+
+  expect(queryByTestId('spinner')).not.toBeInTheDocument()
+
+  act(() => jest.runOnlyPendingTimers())
+
+  expect(queryByTestId('spinner')).toBeInTheDocument()
+})
 
 test('should render the default style correctly', () => {
   const { container } = render(<Button>child</Button>)

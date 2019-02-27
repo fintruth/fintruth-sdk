@@ -7,6 +7,7 @@ import { azure, raven, watermelon, white } from 'styles/variables'
 export type Status = 'danger' | 'default' | 'primary'
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  delay?: number
   isLoading?: boolean
   isOutlined?: boolean
   status?: Status
@@ -85,7 +86,7 @@ const Root = styled.button`
   }};
 `
 
-const Loading = styled.div`
+const Spinner = styled.div`
   animation: ${rotate} 1s ease-in-out infinite;
   height: ${rem(12)};
   margin: 0 auto;
@@ -111,15 +112,43 @@ const Loading = styled.div`
 
 const Button: React.FunctionComponent<Props> = ({
   children,
+  delay = 200,
   isLoading,
   isOutlined,
   status,
   ...rest
-}: Props) => (
-  <Root isLoading={isLoading} isOutlined={isOutlined} status={status} {...rest}>
-    {isLoading && <Loading isOutlined={isOutlined} status={status} />}
-    {children}
-  </Root>
-)
+}: Props) => {
+  const [isSpinnerVisible, setIsSpinnerVisible] = React.useState(false)
+
+  React.useEffect(() => {
+    if (isLoading) {
+      const timeout = setTimeout(() => setIsSpinnerVisible(true), delay)
+
+      return () => clearTimeout(timeout)
+    }
+
+    setIsSpinnerVisible(false)
+
+    return undefined
+  }, [delay, isLoading])
+
+  return (
+    <Root
+      isLoading={isSpinnerVisible}
+      isOutlined={isOutlined}
+      status={status}
+      {...rest}
+    >
+      {isSpinnerVisible && (
+        <Spinner
+          data-testid="spinner"
+          isOutlined={isOutlined}
+          status={status}
+        />
+      )}
+      {children}
+    </Root>
+  )
+}
 
 export default Button
