@@ -32,7 +32,7 @@ const createConfig = ({ caller, env }) => {
       [
         '@babel/preset-env',
         caller(({ target } = { target: 'node' }) => target === 'web')
-          ? { modules: false, useBuiltIns: 'entry' }
+          ? { corejs: 3, modules: false, useBuiltIns: 'entry' }
           : { targets: { node: node.match(/(\d+\.?)+/)[0] } },
       ],
       [
