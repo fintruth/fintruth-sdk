@@ -1,18 +1,15 @@
 import { ApolloServer } from 'apollo-server-express'
 import { Container } from 'typedi'
 import { GraphQLError } from 'graphql'
-import {
-  buildSchema,
-  useContainer as typeGraphQLUseContainer,
-} from 'type-graphql'
+import { buildSchema } from 'type-graphql'
 import { tap } from 'ramda'
-import { useContainer as typeORMUseContainer } from 'typeorm'
+import { useContainer } from 'typeorm'
 
+import * as resolvers from 'resolvers'
 import { isProd } from 'config'
 import { logger } from 'logger'
-import * as resolvers from 'resolvers'
-import { User } from './entities'
 import { ServerRequest, ServerResponse } from './server'
+import { User } from './entities'
 
 export interface Context {
   res: ServerResponse
@@ -24,13 +21,13 @@ interface RequestParams {
   res: ServerResponse
 }
 
-typeORMUseContainer(Container)
-typeGraphQLUseContainer(Container)
+useContainer(Container)
 
 const logError = (e: GraphQLError) => logger.error('[apollo]', e)
 
 export const createApolloServer = async (): Promise<ApolloServer> => {
   const schema = await buildSchema({
+    container: Container,
     emitSchemaFile: !isProd && './schema.graphql',
     resolvers: Object.values(resolvers),
     validate: false, // see https://github.com/typestack/class-validator/issues/261
