@@ -9,7 +9,7 @@ import {
   configure,
   setAddon,
 } from '@storybook/react'
-import { withA11Y } from '@storybook/addon-a11y'
+import { withA11y } from '@storybook/addon-a11y'
 import { withKnobs } from '@storybook/addon-knobs'
 
 import GlobalStyle from 'styles/global'
@@ -24,7 +24,7 @@ setAddon({
   },
 })
 
-addDecorator(withA11Y)
+addDecorator(withA11y)
 addDecorator(withKnobs)
 addDecorator(story => (
   <React.Fragment>
@@ -35,10 +35,10 @@ addDecorator(story => (
 
 addParameters({
   options: {
-    name: '@fintruth-sdk/client',
-    selectedAddonPanel: 'storybooks/knobs',
-    url:
+    brandTitle: '@fintruth-sdk/client',
+    brandUrl:
       'https://github.com/fintruth/fintruth-sdk/tree/master/packages/client#readme',
+    selectedAddonPanel: 'storybooks/knobs/panel',
   },
   viewports: { ...INITIAL_VIEWPORTS },
 })
