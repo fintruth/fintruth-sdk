@@ -1,8 +1,7 @@
 import React from 'react'
-import createBrowserHistory from 'history/createBrowserHistory'
 import deepForceUpdate from 'react-deep-force-update'
 import { ApolloProvider } from 'react-apollo'
-import { Location } from 'history'
+import { Location, createBrowserHistory } from 'history'
 import { hydrate } from 'react-dom'
 import { loadableReady } from '@loadable/component'
 
