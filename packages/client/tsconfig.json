@@ -1,0 +1,18 @@
+{
+  "exclude": ["build", "node_modules", "test"],
+  "include": ["**/*", ".*/**/*"],
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": false,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "lib": ["dom", "esnext"],
+    "outDir": "build",
+    "paths": {
+      "*": ["src/*"]
+    },
+    "types": ["jest"]
+  },
+  "references": [{ "path": "../shared" }]
+}

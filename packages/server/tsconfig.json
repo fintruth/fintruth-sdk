@@ -1,9 +1,17 @@
 {
-  "extends": "../../tsconfig.json",
+  "exclude": ["build", "node_modules"],
+  "extends": "../../tsconfig",
   "compilerOptions": {
-    "outDir": "./lib"
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "build",
+    "paths": {
+      "*": ["src/*"],
+      "express": ["node_modules/express"]
+    },
+    "rootDir": "src",
+    "types": ["jest"]
   },
-  "include": [
-    "./src"
-  ]
+  "references": [{ "path": "../shared" }, { "path": "../validation" }]
 }

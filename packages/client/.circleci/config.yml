@@ -1,0 +1,79 @@
+aliases:
+  - &restore_cache
+    keys:
+      - dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - dependency-cache-{{ .Branch }}-
+  - &save_cache
+    key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+    paths:
+      - node_modules
+  - &store_report_artifacts
+    destination: reports
+    path: reports
+  - &store_test_results
+    path: reports/junit
+
+version: 2.1
+executors:
+  node-10:
+    docker:
+      - image: circleci/node:10.15.1
+  node-11:
+    docker:
+      - image: circleci/node:11.9.0
+jobs:
+  static-analysis:
+    executor: node-10
+    working_directory: ~/@fintruth-sdk/client
+    steps:
+      - checkout
+      - restore_cache: *restore_cache
+      - run: yarn --no-progress
+      - save_cache: *save_cache
+      - run: mkdir --parents reports/junit
+      - run: yarn --silent lint:scripts --format junit --output-file reports/junit/lint-scripts-results.xml
+      - run: yarn --silent lint:styles --custom-formatter node_modules/stylelint-junit-formatter > reports/junit/lint-styles-results.xml
+      - run: yarn --silent lint:types
+      - store_artifacts: *store_report_artifacts
+      - store_test_results: *store_test_results
+  test-node-10:
+    executor: node-10
+    working_directory: ~/@fintruth-sdk/client
+    steps:
+      - checkout
+      - restore_cache: *restore_cache
+      - run: yarn --no-progress
+      - save_cache: *save_cache
+      - run: mkdir --parents reports/junit
+      - run:
+          command: yarn --silent test:units --coverage --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/junit/test-units-results.xml
+      - run: yarn --silent codecov
+      - store_artifacts: *store_report_artifacts
+      - store_artifacts:
+          destination: coverage
+          path: coverage
+      - store_test_results: *store_test_results
+  test-node-11:
+    executor: node-11
+    working_directory: ~/@fintruth-sdk/client
+    steps:
+      - checkout
+      - restore_cache: *restore_cache
+      - run: yarn --no-progress
+      - save_cache: *save_cache
+      - run: mkdir --parents reports/junit
+      - run:
+          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/junit/test-units-results.xml
+      - store_artifacts: *store_report_artifacts
+      - store_test_results: *store_test_results
+workflows:
+  version: 2.1
+  test:
+    jobs:
+      - static-analysis
+      - test-node-10
+      - test-node-11

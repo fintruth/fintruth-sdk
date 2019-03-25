@@ -1,0 +1,12 @@
+# Read about how to use .gitignore: https://git-scm.com/docs/gitignore
+
+# Compiled output
+build
+storybook-static
+
+# Compiled test output
+test/screenshots
+test/videos
+
+# Test coverage
+coverage

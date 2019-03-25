@@ -1,11 +1,14 @@
-node_modules/
+# Read about how to use .gitignore: https://git-scm.com/docs/gitignore
 
-# Build files
-packages/*/lib
+# Dependencies
+node_modules
 
-# Log files
-lerna-debug.log
-npm-debug.log
+# Logs
+*.log*
 
-# Idea project files
-.idea
+# Miscellaneous
+.env*
+!.env.defaults
+!.env.example
+.eslintcache
+.stylelintcache

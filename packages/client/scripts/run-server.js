@@ -1,0 +1,67 @@
+import childProcess from 'child_process'
+import path from 'path'
+
+import webpackConfig from '../config/webpack.config'
+
+// Should match the text string used in `src/server.js/server.listen(...)`
+const RUNNING_REGEXP = /The server is running at http:\/\/(.*?)\//
+
+const [, serverConfig] = webpackConfig
+const serverPath = path.join(
+  serverConfig.output.path,
+  serverConfig.output.filename.replace('[name]', 'server')
+)
+let server
+let pending = true
+
+const runServer = () =>
+  new Promise(resolve => {
+    const onStdOut = data => {
+      const time = new Date().toTimeString()
+      const match = data.toString('utf8').match(RUNNING_REGEXP)
+
+      process.stdout.write(time.replace(/.*(\d{2}:\d{2}:\d{2}).*/, '[$1] '))
+      process.stdout.write(data)
+
+      if (match) {
+        server.host = match[1]
+        server.stdout.removeListener('data', onStdOut)
+        server.stdout.on('data', process.stdout.write)
+        pending = false
+
+        resolve(server)
+      }
+    }
+
+    if (server) {
+      server.kill('SIGTERM')
+    }
+
+    server = childProcess.spawn('node', [serverPath], {
+      env: Object.assign({ NODE_ENV: 'development' }, process.env),
+      silent: false,
+    })
+
+    if (pending) {
+      server.once('exit', (code, signal) => {
+        if (pending) {
+          throw new Error(
+            `Server terminated unexpectedly with code: ${code} signal: ${signal}`
+          )
+        }
+      })
+    }
+
+    server.stdout.on('data', onStdOut)
+    server.stderr.on('data', process.stderr.write)
+
+    return server
+  })
+
+process.on('exit', () => {
+  if (server) {
+    server.kill('SIGTERM')
+  }
+})
+
+export default runServer
