@@ -9,7 +9,7 @@
       "*": ["src/*"]
     },
     "rootDir": "src",
-    "types": [],
-    "references": [{ "path": "../shared" }]
-  }
+    "types": []
+  },
+  "references": [{ "path": "../shared" }]
 }
