@@ -42,9 +42,11 @@ jobs:
       - run:
           name: Setup
           command: |
-            mkdir --parents ${REPORTS_DIR}
+            mkdir --parents $(REPORTS_DIR)
             pwd
             ls -ahl
+            ls -ahl reports
+          working_directory: packages/client
       - run:
           name: Run static analysis
           command: |
