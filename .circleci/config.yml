@@ -17,12 +17,12 @@ version: 2.1
 commands:
   install_dependencies:
     description: Install dependencies
-    paramters:
+    parameters:
       options:
         type: string
         default:
     steps:
-      - run: yarn install << paramters.options >>
+      - run: yarn install << parameters.options >>
 executors:
   node-10:
     docker:
