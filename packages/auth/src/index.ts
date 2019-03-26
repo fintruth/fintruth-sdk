@@ -1,0 +1,1 @@
+export { defineAbilitiesFor } from './ability'

@@ -1,0 +1,15 @@
+{
+  "exclude": ["build", "node_modules"],
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "composite": true,
+    "outDir": "build",
+    "paths": {
+      "*": ["src/*"]
+    },
+    "rootDir": "src",
+    "types": [],
+    "references": [{ "path": "../shared" }]
+  }
+}
