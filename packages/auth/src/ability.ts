@@ -6,6 +6,13 @@ export const defineAbilitiesFor = (user?: User) => {
 
   can('create', 'User')
 
+  if (user) {
+    const { id } = user
+
+    can(['read', 'update'], 'User', { id })
+    can(['read', 'update'], 'Profile', { userId: id })
+  }
+
   if (user && user.isAdmin) {
     can('manage', 'all')
   }
