@@ -7,11 +7,6 @@ aliases:
     key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
     paths:
       - node_modules
-  - &store_report_artifacts
-    destination: reports
-    path: reports
-  - &store_test_results
-    path: reports/client
 
 version: 2.1
 commands:
@@ -32,6 +27,7 @@ jobs:
   client:
     environment:
       REPORTS_DIR: reports/client
+      WORKING_DIR: packages/client
     executor: node-10
     working_directory: ~/fintruth-sdk
     steps:
@@ -41,25 +37,26 @@ jobs:
       - save_cache: *save_cache
       - run:
           name: Setup
-          command: |
-            mkdir --parents ${REPORTS_DIR}
-            pwd
-            ls -ahl
-            ls -ahl reports
-          working_directory: packages/client
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: ${WORKING_DIR}
       - run:
           name: Run static analysis
           command: |
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:styles --custom-formatter node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
             yarn --silent lint:types
+          working_directory: ${WORKING_DIR}
       - run:
           name: Run tests
           command: yarn --silent test:units --runInBand --reporters default jest-junit
           environment:
             JEST_JUNIT_OUTPUT: ${REPORTS_DIR}/test-units-results.xml
-      - store_artifacts: *store_report_artifacts
-      - store_test_results: *store_test_results
+          working_directory: ${WORKING_DIR}
+      - store_artifacts:
+          path: ${WORKING_DIR}/reports
+          destination: reports
+      - store_test_results:
+          path: ${WORKING_DIR}/reports
 workflows:
   version: 2.1
   test:
