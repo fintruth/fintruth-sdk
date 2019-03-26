@@ -42,7 +42,7 @@ jobs:
       - run:
           name: Setup
           command: |
-            mkdir --parents $(REPORTS_DIR)
+            mkdir --parents ${REPORTS_DIR}
             pwd
             ls -ahl
             ls -ahl reports
