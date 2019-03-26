@@ -26,6 +26,7 @@ executors:
 jobs:
   client:
     environment:
+      PACKAGE: '@fintruth-sdk/client'
       REPORTS_DIR: reports/client
       WORKING_DIR: packages/client
     executor: node-10
@@ -37,21 +38,23 @@ jobs:
       - save_cache: *save_cache
       - run:
           name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
+          command: |
+            mkdir --parents ${REPORTS_DIR}
+            pwd
+            echo ${WORKING_DIR}
+            ls -ahl
           working_directory: ${WORKING_DIR}
       - run:
           name: Run static analysis
           command: |
-            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
-            yarn --silent lint:styles --custom-formatter node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
-            yarn --silent lint:types
-          working_directory: ${WORKING_DIR}
+            yarn --silent lerna --loglevel silent run --scope ${PACKAGE} lint:scripts -- --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lerna --loglevel silent run --scope ${PACKAGE} lint:styles -- --custom-formatter node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
+            yarn --silent lerna --loglevel silent run --scope ${PACKAGE} lint:types
       - run:
           name: Run tests
-          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          command: yarn --silent lerna --loglevel silent run --scope ${PACKAGE} test:units -- --runInBand --reporters default jest-junit
           environment:
             JEST_JUNIT_OUTPUT: ${REPORTS_DIR}/test-units-results.xml
-          working_directory: ${WORKING_DIR}
       - store_artifacts:
           path: ${WORKING_DIR}/reports
           destination: reports
