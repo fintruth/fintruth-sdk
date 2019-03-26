@@ -1,3 +1,4 @@
+import { Ability, defineAbilitiesFor } from '@fintruth-sdk/auth'
 import { ApolloServer } from 'apollo-server-express'
 import { Container } from 'typedi'
 import { GraphQLError } from 'graphql'
@@ -14,6 +15,7 @@ import { User } from './entities'
 export interface Context {
   res: ServerResponse
   user?: User
+  ability: Ability
 }
 
 interface RequestParams {
@@ -34,10 +36,13 @@ export const createApolloServer = async (): Promise<ApolloServer> => {
   })
 
   return new ApolloServer({
-    context: ({ req, res }: RequestParams): Context => ({
-      res,
-      user: req.user,
-    }),
+    context: ({ req: { user }, res }: RequestParams): Context => {
+      return {
+        res,
+        user,
+        ability: defineAbilitiesFor(user),
+      }
+    },
     debug: !isProd,
     formatError: tap(logError),
     playground: !isProd,

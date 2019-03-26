@@ -1,4 +1,3 @@
-import { defineAbilitiesFor, packRules } from '@fintruth-sdk/auth'
 import jwt from 'jsonwebtoken'
 import { toDataURL } from 'qrcode'
 import { generateSecret, otpauthURL, totp } from 'speakeasy'
@@ -99,11 +98,9 @@ export default class AuthService {
     return new EnableTwoFactorAuthResponse({ dataUrl, secret: base32 })
   }
 
-  signAuthToken(res: ServerResponse, user: User) {
-    const ability = defineAbilitiesFor(user)
-    const rules = packRules(ability.rules)
+  signAuthToken(res: ServerResponse, { id, isAdmin }: User) {
     const expiresIn = 60 * 60 * 24 * 180
-    const token = jwt.sign({ id: user.id, rules }, secret, { expiresIn })
+    const token = jwt.sign({ id, isAdmin }, secret, { expiresIn })
 
     res.cookies.set('token-id', token, {
       httpOnly: true,
