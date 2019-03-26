@@ -35,7 +35,7 @@ const Root: React.FunctionComponent = () => {
   const Fault = __DEV__ ? require('routes/fault').default : null
 
   return (
-    <React.Fragment>
+    <React.StrictMode>
       <GlobalStyle />
       <Query<RootQueryData>
         fetchPolicy="network-only"
@@ -56,7 +56,7 @@ const Root: React.FunctionComponent = () => {
           ))
         }
       </Query>
-    </React.Fragment>
+    </React.StrictMode>
   )
 }
 
