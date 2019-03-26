@@ -16,21 +16,24 @@ aliases:
 version: 2.1
 commands:
   install_dependencies:
-    description: Install dependencies
     parameters:
       options:
         type: string
         default: ''
     steps:
-      - run: yarn install << parameters.options >>
+      - run:
+          name: Install dependencies
+          command: yarn install << parameters.options >>
 executors:
   node-10:
     docker:
       - image: circleci/node:10.15.3
 jobs:
   client:
+    environment:
+      REPORTS_DIR: reports/client
     executor: node-10
-    working_directory: ~/fintruth-sdk/packages/client
+    working_directory: ~/fintruth-sdk
     steps:
       - checkout
       - restore_cache: *restore_cache
@@ -38,18 +41,21 @@ jobs:
       - save_cache: *save_cache
       - run:
           name: Setup
-          command: mkdir --parents reports/client
+          command: |
+            mkdir --parents ${REPORTS_DIR}
+            pwd
+            ls -ahl
       - run:
           name: Run static analysis
           command: |
-            yarn --silent lint:scripts --format junit --output-file reports/client/lint-scripts-results.xml
-            yarn --silent lint:styles --custom-formatter node_modules/stylelint-junit-formatter > reports/client/lint-styles-results.xml
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:styles --custom-formatter node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
             yarn --silent lint:types
       - run:
           name: Run tests
           command: yarn --silent test:units --runInBand --reporters default jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: reports/client/test-units-results.xml
+            JEST_JUNIT_OUTPUT: ${REPORTS_DIR}/test-units-results.xml
       - store_artifacts: *store_report_artifacts
       - store_test_results: *store_test_results
 workflows:
