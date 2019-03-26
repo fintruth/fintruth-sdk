@@ -29,19 +29,16 @@ jobs:
       - save_cache: *save_cache
       - run:
           name: Setup
-          command: |
-            mkdir --parents ${REPORTS_DIR}
-            pwd
-            ls -ahl
+          command: mkdir --parents ${REPORTS_DIR}
           working_directory: packages/client
       - run:
           name: Run static analysis
           command: |
-            pwd
-            ls -ahl
-            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
-            yarn --silent lint:styles --custom-formatter node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
-            yarn --silent lint:types
+            yarn lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            cat ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn lint:styles --custom-formatter node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
+            cat ${REPORTS_DIR}/lint-styles-results.xml
+            yarn lint:types
           working_directory: packages/client
       - run:
           name: Run tests
