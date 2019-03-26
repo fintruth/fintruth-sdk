@@ -20,7 +20,7 @@ commands:
     parameters:
       options:
         type: string
-        default:
+        default: ''
     steps:
       - run: yarn install << parameters.options >>
 executors:
