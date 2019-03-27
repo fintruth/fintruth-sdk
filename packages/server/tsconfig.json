@@ -13,5 +13,9 @@
     "rootDir": "src",
     "types": ["jest"]
   },
-  "references": [{ "path": "../shared" }, { "path": "../validation" }]
+  "references": [
+    { "path": "../auth" },
+    { "path": "../shared" },
+    { "path": "../validation" }
+  ]
 }

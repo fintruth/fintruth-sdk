@@ -98,9 +98,9 @@ export default class AuthService {
     return new EnableTwoFactorAuthResponse({ dataUrl, secret: base32 })
   }
 
-  signAuthToken(res: ServerResponse, { id }: User) {
+  signAuthToken(res: ServerResponse, { id, isAdmin }: User) {
     const expiresIn = 60 * 60 * 24 * 180
-    const token = jwt.sign({ id }, secret, { expiresIn })
+    const token = jwt.sign({ id, isAdmin }, secret, { expiresIn })
 
     res.cookies.set('token-id', token, {
       httpOnly: true,
