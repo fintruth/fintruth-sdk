@@ -14,6 +14,17 @@ executors:
     docker:
       - image: circleci/node:10.15.3
 jobs:
+  bootstrap:
+    executor: node-10
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Setup
+          command: yarn --silent lerna bootstrap
   client:
     environment:
       REPORTS_DIR: reports/client
@@ -53,4 +64,7 @@ workflows:
   version: 2.1
   test:
     jobs:
-      - client
+      - bootstrap
+      - client:
+          requires:
+            - bootstrap
