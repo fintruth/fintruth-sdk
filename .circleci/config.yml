@@ -1,16 +1,16 @@
 version: 2.1
 commands:
-  install-dependencies:
+  build-package:
     description: ''
-    parameters:
-      options:
-        type: string
-        description: ''
-        default: ''
     steps:
       - run:
-          name: Install dependencies
-          command: yarn install << parameters.options >>
+          name: Build
+          command: yarn --silent build
+          working_directory: packages/shared
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages/shared/build
   with-cache:
     description: |
       Run a set of steps with Node dependencies cached.
@@ -73,7 +73,9 @@ jobs:
           at: .
       - with-cache:
           steps:
-            - install-dependencies
+            - run:
+                name: Install dependencies
+                command: yarn install
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -107,7 +109,9 @@ jobs:
           at: .
       - with-cache:
           steps:
-            - run: install-dependencies
+            - run:
+                name: Install dependencies
+                command: yarn install
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -141,7 +145,9 @@ jobs:
           at: .
       - with-cache:
           steps:
-            - run: install-dependencies
+            - run:
+                name: Install dependencies
+                command: yarn install
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -172,7 +178,9 @@ jobs:
       - checkout
       - with-cache:
           steps:
-            - run: install-dependencies
+            - run:
+                name: Install dependencies
+                command: yarn install
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -183,13 +191,7 @@ jobs:
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/shared
-      - run:
-          name: Build
-          command: yarn --silent build
-          working_directory: packages/shared
-      - persist_to_workspace:
-          root: .
-          paths: packages/shared/build
+      - build-package
       - store_artifacts:
           path: packages/shared/reports
           destination: reports
@@ -204,7 +206,9 @@ jobs:
       - checkout
       - with-cache:
           steps:
-            - run: install-dependencies
+            - run:
+                name: Install dependencies
+                command: yarn install
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
