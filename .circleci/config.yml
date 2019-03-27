@@ -40,7 +40,7 @@ jobs:
       #     working_directory: packages/client
       - run:
           name: Run static analysis
-          command: yarn lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+          command: yarn lint:scripts --format junit --output-file reports/client/lint-scripts-results.xml
           working_directory: packages/client
       - run:
           name: Run static analysis
