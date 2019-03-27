@@ -21,8 +21,8 @@ jobs:
       - run:
           name: Run static analysis
           command: |
-            yarn lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
-            yarn lint:types
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:types
           working_directory: packages/shared
       - run:
           name: Build
@@ -55,9 +55,9 @@ jobs:
       - run:
           name: Run static analysis
           command: |
-            yarn lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
-            yarn lint:styles --custom-formatter ${CIRCLE_WORKING_DIRECTORY}/node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
-            yarn lint:types
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:styles --custom-formatter ../../node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
+            yarn --silent lint:types
           working_directory: packages/client
       - run:
           name: Run tests
