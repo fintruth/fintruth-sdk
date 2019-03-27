@@ -11,7 +11,7 @@ commands:
           - client
           - server
           - shared
-          - validaition
+          - validation
       root:
         type: string
         description: Either an absolute path or a path relative to working_directory.
