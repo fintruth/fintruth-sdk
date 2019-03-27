@@ -1,3 +1,11 @@
+aliases:
+  - &packages
+    - auth
+    - client
+    - server
+    - shared
+    - validation
+
 version: 2.1
 commands:
   persist_package_build:
@@ -6,12 +14,7 @@ commands:
       package:
         type: enum
         description: ''
-        enum:
-          - auth
-          - client
-          - server
-          - shared
-          - validation
+        enum: *packages
       root:
         type: string
         description: Either an absolute path or a path relative to working_directory.
@@ -36,29 +39,29 @@ commands:
       The contents of the root and packages node_modules directories are
       cached, which will substantially improve build times.
 
-      The cache-key is generated from `yarn.lock`. This file path can be
-      changed with the `cache-key` parameter.
+      The cache_key is generated from `yarn.lock`. This file path can be
+      changed with the `cache_key` parameter.
     parameters:
       steps:
         type: steps
         description: Input any custom steps to run with your Node cache.
-      cache-key:
+      cache_key:
         type: string
         description: File to use as a Node cache checksum.
         default: yarn.lock
-      cache-version:
+      cache_version:
         type: string
         description: Cache version; increment this for a fresh cache.
         default: v1
     steps:
       - restore_cache:
           keys:
-            - node-dependencies-<< parameters.cache-version >>-{{ .Branch }}-{{ checksum "<< parameters.cache-key >>" }}
-            - node-dependencies-<< parameters.cache-version >>-{{ .Branch }}-
-            - node-dependencies-<< parameters.cache-version >>
+            - node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-{{ checksum "<< parameters.cache_key >>" }}
+            - node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-
+            - node-dependencies-<< parameters.cache_version >>
       - steps: << parameters.steps >>
       - save_cache:
-          key: node-dependencies-<< parameters.cache-version >>-{{ .Branch }}-{{ checksum "<< parameters.cache-key >>" }}
+          key: node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-{{ checksum "<< parameters.cache_key >>" }}
           paths:
             - ~/fintruth-sdk/node_modules
             - ~/fintruth-sdk/packages/client/node_modules
@@ -74,7 +77,6 @@ executors:
         default: 10.15.3
     docker:
       - image: circleci/node:<< parameters.tag >>
-
 jobs:
   auth:
     environment:
