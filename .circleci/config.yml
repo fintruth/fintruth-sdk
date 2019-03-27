@@ -4,13 +4,12 @@ commands:
     description: |
       Run a set of steps with Node dependencies cached.
 
-      This command will first restore a cache of Node dependencies, if one was
+      This command will first restore a cache of Node dependencies if one was
       saved by a previous build. The provided `steps` will then be executed,
       and if successful, a fresh cache will be saved, if required.
 
-      The contents of the `~/fintruth-sdk/node_modules` directory is cached,
-      which will substantially improve build times for projects with many
-      dependencies. This directory can be changed with the `dir` parameter.
+      The contents of the root and packages node_modules directories are
+      cached, which will substantially improve build times.
 
       The cache-key is generated from `yarn.lock`. This file path can be
       changed with the `cache-key` parameter.
@@ -25,11 +24,7 @@ commands:
       cache-version:
         type: string
         description: Cache version; increment this for a fresh cache.
-        default: v3
-      dir:
-        type: string
-        description: Filepath to your Node modules.
-        default: ~/fintruth-sdk/node_modules
+        default: v4
     steps:
       - restore_cache:
           keys:
@@ -40,9 +35,11 @@ commands:
       - save_cache:
           key: node-dependencies-<< parameters.cache-version >>-{{ .Branch }}-{{ checksum "<< parameters.cache-key >>" }}
           paths:
-            - << parameters.dir >>
+            - ~/fintruth-sdk/node_modules
             - ~/fintruth-sdk/packages/client/node_modules
             - ~/fintruth-sdk/packages/server/node_modules
+            - ~/fintruth-sdk/packages/shared/node_modules
+            - ~/fintruth-sdk/packages/validation/node_modules
 executors:
   node:
     parameters:
