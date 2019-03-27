@@ -1,4 +1,46 @@
 version: 2.1
+commands:
+  with-cache:
+    description: |
+      Run a set of steps with Node dependencies cached.
+
+      This command will first restore a cache of Node dependencies, if one was
+      saved by a previous build. The provided `steps` will then be executed,
+      and if successful, a fresh cache will be saved, if required.
+
+      The contents of the `~/fintruth-sdk/node_modules` directory is cached,
+      which will substantially improve build times for projects with many
+      dependencies. This directory can be changed with the `dir` parameter.
+
+      The cache-key is generated from `yarn.lock`. This file path can be
+      changed with the `cache-key` parameter.
+    parameters:
+      cache-key:
+        type: string
+        description: File to use as a Node cache checksum.
+        default: yarn.lock
+      cache-version:
+        type: string
+        description: Cache version; increment this for a fresh cache.
+        default: v1
+      dir:
+        type: string
+        description: Filepath to your Node modules.
+        default: ~/fintruth-sdk/node_modules
+      steps:
+        type: steps
+        description: Input any custom steps to run with your Node cache.
+    steps:
+      - restore_cache:
+          keys:
+            - node-dependencies-<< parameters.cache-version >>-{{ .Branch }}-{{ checksum "<< parameters.cache-key >>" }}
+            - node-dependencies-<< parameters.cache-version >>-{{ .Branch }}-
+            - node-dependencies-<< parameters.cache-version >>
+      - steps: << parameters.steps >>
+      - save_cache:
+          key: node-dependencies-<< parameters.cache-version >>-{{ .Branch }}-{{ checksum "<< parameters.cache-key >>" }}
+          paths:
+            - << parameters.dir >>
 executors:
   node:
     parameters:
@@ -18,9 +60,12 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          name: Install dependencies
-          command: yarn install --frozen-lockfile
+      - with-cache:
+          paramters:
+            steps:
+              - run:
+                  name: Install dependencies
+                  command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -52,9 +97,12 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          name: Install dependencies
-          command: yarn install --frozen-lockfile
+      - with-cache:
+          paramters:
+            steps:
+              - run:
+                  name: Install dependencies
+                  command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -86,9 +134,12 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          name: Install dependencies
-          command: yarn install --frozen-lockfile
+      - with-cache:
+          paramters:
+            steps:
+              - run:
+                  name: Install dependencies
+                  command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -117,9 +168,12 @@ jobs:
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: yarn install --frozen-lockfile
+      - with-cache:
+          paramters:
+            steps:
+              - run:
+                  name: Install dependencies
+                  command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -149,9 +203,12 @@ jobs:
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: yarn install --frozen-lockfile
+      - with-cache:
+          paramters:
+            steps:
+              - run:
+                  name: Install dependencies
+                  command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
