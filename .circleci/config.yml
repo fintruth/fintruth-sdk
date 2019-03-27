@@ -117,7 +117,7 @@ jobs:
           name: Run tests
           command: yarn --silent test:units --runInBand --reporters default jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: ${REPORTS_DIR}/test-units-results.xml
+            JEST_JUNIT_OUTPUT: reports/client/test-units-results.xml
           working_directory: packages/client
       - store_artifacts:
           path: packages/client/reports
@@ -152,7 +152,7 @@ jobs:
           name: Run tests
           command: yarn --silent test:units --runInBand --reporters default jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: ${REPORTS_DIR}/test-units-results.xml
+            JEST_JUNIT_OUTPUT: reports/server/test-units-results.xml
           working_directory: packages/server
       - store_artifacts:
           path: packages/server/reports
