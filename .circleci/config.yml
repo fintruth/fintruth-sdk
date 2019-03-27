@@ -1,13 +1,18 @@
 version: 2.1
 executors:
-  node-10:
+  node:
+    parameters:
+      tag:
+        type: string
+        description: Pick a specific circleci/node image variant.
+        default: 10.15.3
     docker:
-      - image: circleci/node:10.15.3
+      - image: circleci/node:<< parameters.tag >>
 jobs:
   auth:
     environment:
       REPORTS_DIR: reports/auth
-    executor: node-10
+    executor: node
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -41,7 +46,7 @@ jobs:
   client:
     environment:
       REPORTS_DIR: reports/client
-    executor: node-10
+    executor: node
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -75,7 +80,7 @@ jobs:
   server:
     environment:
       REPORTS_DIR: reports/server
-    executor: node-10
+    executor: node
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -108,7 +113,7 @@ jobs:
   shared:
     environment:
       REPORTS_DIR: reports/shared
-    executor: node-10
+    executor: node
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -140,7 +145,7 @@ jobs:
   validation:
     environment:
       REPORTS_DIR: reports/validation
-    executor: node-10
+    executor: node
     working_directory: ~/fintruth-sdk
     steps:
       - checkout

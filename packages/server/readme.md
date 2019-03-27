@@ -2,7 +2,7 @@
 
 > An opinionated boilerplate for server development
 
-[![Code Style](https://flat.badgen.net/badge/code%20style/prettier/ff69b4)](https://github.com/prettier/prettier)
+[![Code Style](https://badgen.net/badge/code%20style/prettier/ff69b4)](https://github.com/prettier/prettier)
 
 ## Features
 
