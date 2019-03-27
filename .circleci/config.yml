@@ -68,7 +68,10 @@ jobs:
                 command: yarn install --frozen-lockfile
       - run:
           name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
+          command: |
+            mkdir --parents ${REPORTS_DIR}
+            yarn cache dir
+            ls -ahl $(yarn cache dir)
           working_directory: packages/auth
       - run:
           name: Run static analysis
