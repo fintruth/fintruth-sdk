@@ -31,14 +31,26 @@ jobs:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
           working_directory: packages/client
+      # - run:
+      #     name: Run static analysis
+      #     command: |
+      #       yarn lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+      #       yarn lint:styles --custom-formatter ../../node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
+      #       yarn lint:types
+      #     working_directory: packages/client
+      - run:
+          name: Run static analysis
+          command: yarn lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+          working_directory: packages/client
       - run:
           name: Run static analysis
           command: |
-            yarn lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
-            cat ${REPORTS_DIR}/lint-scripts-results.xml
-            yarn lint:styles --custom-formatter node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
-            cat ${REPORTS_DIR}/lint-styles-results.xml
-            yarn lint:types
+            echo ${CIRCLE_WORKING_DIRECTORY}
+            yarn lint:styles --custom-formatter ../../node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
+          working_directory: packages/client
+      - run:
+          name: Run static analysis
+          command: yarn lint:types
           working_directory: packages/client
       - run:
           name: Run tests
