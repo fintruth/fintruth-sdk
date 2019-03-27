@@ -4,6 +4,38 @@ executors:
     docker:
       - image: circleci/node:10.15.3
 jobs:
+  auth:
+    environment:
+      REPORTS_DIR: reports/auth
+    executor: node-10
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Setup
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: packages/auth
+      - run:
+          name: Run static analysis
+          command: |
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:types
+          working_directory: packages/auth
+      - run:
+          name: Build
+          command: yarn --silent build
+          working_directory: packages/auth
+      - persist_to_workspace:
+          root: .
+          paths: packages/auth/build
+      - store_artifacts:
+          path: packages/auth/reports
+          destination: reports
+      - store_test_results:
+          path: packages/auth/reports
   shared:
     environment:
       REPORTS_DIR: reports/shared
@@ -26,7 +58,7 @@ jobs:
           working_directory: packages/shared
       - run:
           name: Build
-          command: yarn build
+          command: yarn --silent build
           working_directory: packages/shared
       - persist_to_workspace:
           root: .
@@ -36,6 +68,38 @@ jobs:
           destination: reports
       - store_test_results:
           path: packages/shared/reports
+  validation:
+    environment:
+      REPORTS_DIR: reports/validation
+    executor: node-10
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Setup
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: packages/validation
+      - run:
+          name: Run static analysis
+          command: |
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:types
+          working_directory: packages/validation
+      - run:
+          name: Build
+          command: yarn --silent build
+          working_directory: packages/validation
+      - persist_to_workspace:
+          root: .
+          paths: packages/validation/build
+      - store_artifacts:
+          path: packages/validation/reports
+          destination: reports
+      - store_test_results:
+          path: packages/validation/reports
   client:
     environment:
       REPORTS_DIR: reports/client
@@ -70,11 +134,51 @@ jobs:
           destination: reports
       - store_test_results:
           path: packages/client/reports
+  server:
+    environment:
+      REPORTS_DIR: reports/server
+    executor: node-10
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Setup
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: packages/server
+      - run:
+          name: Run static analysis
+          command: |
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:types
+          working_directory: packages/server
+      - run:
+          name: Run tests
+          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: ${REPORTS_DIR}/test-units-results.xml
+          working_directory: packages/server
+      - store_artifacts:
+          path: packages/server/reports
+          destination: reports
+      - store_test_results:
+          path: packages/server/reports
 workflows:
   version: 2.1
   test:
     jobs:
+      - auth
       - shared
+      - validation
       - client:
           requires:
             - shared
+      - server:
+          requires:
+            - auth
+            - shared
+            - validation
