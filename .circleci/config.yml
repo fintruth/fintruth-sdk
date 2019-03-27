@@ -4,26 +4,47 @@ executors:
     docker:
       - image: circleci/node:10.15.3
 jobs:
-  bootstrap:
+  shared:
+    environment:
+      REPORTS_DIR: reports/shared
     executor: node-10
     working_directory: ~/fintruth-sdk
     steps:
-      - checkout:
-          path: ~/fintruth-sdk
+      - checkout
       - run:
           name: Install dependencies
           command: yarn install --frozen-lockfile
       - run:
           name: Setup
-          command: yarn --silent lerna bootstrap
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: packages/shared
+      - run:
+          name: Run static analysis
+          command: |
+            yarn lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn lint:types
+          working_directory: packages/shared
+      - run:
+          name: Build
+          command: yarn build
+          working_directory: packages/shared
+      - persist_to_workspace:
+          root: .
+          paths: packages/shared/build
+      - store_artifacts:
+          path: packages/shared/reports
+          destination: reports
+      - store_test_results:
+          path: packages/shared/reports
   client:
     environment:
       REPORTS_DIR: reports/client
     executor: node-10
     working_directory: ~/fintruth-sdk
     steps:
-      - checkout:
-          path: ~/fintruth-sdk
+      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Install dependencies
           command: yarn install --frozen-lockfile
@@ -53,7 +74,4 @@ workflows:
   version: 2.1
   test:
     jobs:
-      - bootstrap
-      - client:
-          requires:
-            - bootstrap
+      - client
