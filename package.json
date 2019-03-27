@@ -4,13 +4,13 @@
   "version": "0.0.0",
   "description": "Software development kit for Fintruth projects",
   "scripts": {
-    "build": "lerna run build",
-    "build:release": "lerna run build:release",
-    "clean": "lerna run clean",
-    "lint": "lerna run lint",
+    "build": "lerna run --stream build",
+    "build:release": "lerna run --stream build:release",
+    "clean": "lerna run --stream clean",
+    "lint": "lerna run --stream lint",
     "prebuild": "yarn clean",
-    "start": "lerna run --parallel --stream --scope @fintruth-sdk/server --scope @fintruth-sdk/client start",
-    "test": "lerna run test"
+    "start": "lerna run --parallel --scope @fintruth-sdk/server --scope @fintruth-sdk/client --stream start",
+    "test": "lerna run --stream test"
   },
   "repository": {
     "type": "git",
@@ -40,7 +40,7 @@
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.0",
     "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-unicorn": "^7.1.0",
+    "eslint-plugin-unicorn": "^8.0.0",
     "husky": "^1.3.1",
     "jest": "^24.5.0",
     "jest-circus": "^24.5.0",

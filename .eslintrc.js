@@ -65,6 +65,7 @@ module.exports = {
     ],
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
+    'unicorn/prevent-abbreviations': 'off',
     'prettier/prettier': 'error',
   },
   settings: { 'import/resolver': { typescript: true } },
