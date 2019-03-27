@@ -41,7 +41,7 @@ commands:
           key: node-dependencies-<< parameters.cache-version >>-{{ .Branch }}-{{ checksum "<< parameters.cache-key >>" }}
           paths:
             - << parameters.dir >>
-            - ~/.cache/yarn/v4
+            - ~/.cache/yarn
 executors:
   node:
     parameters:
