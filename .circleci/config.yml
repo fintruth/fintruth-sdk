@@ -1,17 +1,31 @@
 version: 2.1
 commands:
-  build-package:
+  persist_package_build:
     description: ''
+    parameters:
+      package:
+        type: enum
+        description: ''
+        enum:
+          - auth
+          - client
+          - server
+          - shared
+          - validaition
+      root:
+        type: string
+        description: Either an absolute path or a path relative to working_directory.
+        default: .
     steps:
       - run:
           name: Build
           command: yarn --silent build
-          working_directory: packages/shared
+          working_directory: packages/<< parameters.package >>
       - persist_to_workspace:
-          root: .
+          root: << parameters.root >>
           paths:
-            - packages/shared/build
-  with-cache:
+            - packages/<< parameters.package >>/build
+  with_cache:
     description: |
       Run a set of steps with Node dependencies cached.
 
@@ -71,7 +85,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - with-cache:
+      - with_cache:
           steps:
             - run:
                 name: Install dependencies
@@ -86,13 +100,8 @@ jobs:
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/auth
-      - run:
-          name: Build
-          command: yarn --silent build
-          working_directory: packages/auth
-      - persist_to_workspace:
-          root: .
-          paths: packages/auth/build
+      - persist_package_build:
+          package: auth
       - store_artifacts:
           path: packages/auth/reports
           destination: reports
@@ -107,7 +116,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - with-cache:
+      - with_cache:
           steps:
             - run:
                 name: Install dependencies
@@ -143,7 +152,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - with-cache:
+      - with_cache:
           steps:
             - run:
                 name: Install dependencies
@@ -176,7 +185,7 @@ jobs:
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
-      - with-cache:
+      - with_cache:
           steps:
             - run:
                 name: Install dependencies
@@ -191,7 +200,8 @@ jobs:
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/shared
-      - build-package
+      - persist_package_build:
+          package: shared
       - store_artifacts:
           path: packages/shared/reports
           destination: reports
@@ -204,7 +214,7 @@ jobs:
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
-      - with-cache:
+      - with_cache:
           steps:
             - run:
                 name: Install dependencies
@@ -219,13 +229,8 @@ jobs:
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/validation
-      - run:
-          name: Build
-          command: yarn --silent build
-          working_directory: packages/validation
-      - persist_to_workspace:
-          root: .
-          paths: packages/validation/build
+      - persist_package_build:
+          package: validation
       - store_artifacts:
           path: packages/validation/reports
           destination: reports
