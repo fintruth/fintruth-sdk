@@ -15,6 +15,9 @@ commands:
       The cache-key is generated from `yarn.lock`. This file path can be
       changed with the `cache-key` parameter.
     parameters:
+      steps:
+        type: steps
+        description: Input any custom steps to run with your Node cache.
       cache-key:
         type: string
         description: File to use as a Node cache checksum.
@@ -27,9 +30,6 @@ commands:
         type: string
         description: Filepath to your Node modules.
         default: ~/fintruth-sdk/node_modules
-      steps:
-        type: steps
-        description: Input any custom steps to run with your Node cache.
     steps:
       - restore_cache:
           keys:
@@ -50,6 +50,7 @@ executors:
         default: 10.15.3
     docker:
       - image: circleci/node:<< parameters.tag >>
+
 jobs:
   auth:
     environment:
@@ -61,11 +62,10 @@ jobs:
       - attach_workspace:
           at: .
       - with-cache:
-          parameters:
-            steps:
-              - run:
-                  name: Install dependencies
-                  command: yarn install --frozen-lockfile
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -98,11 +98,10 @@ jobs:
       - attach_workspace:
           at: .
       - with-cache:
-          parameters:
-            steps:
-              - run:
-                  name: Install dependencies
-                  command: yarn install --frozen-lockfile
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -135,11 +134,10 @@ jobs:
       - attach_workspace:
           at: .
       - with-cache:
-          parameters:
-            steps:
-              - run:
-                  name: Install dependencies
-                  command: yarn install --frozen-lockfile
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -169,11 +167,10 @@ jobs:
     steps:
       - checkout
       - with-cache:
-          parameters:
-            steps:
-              - run:
-                  name: Install dependencies
-                  command: yarn install --frozen-lockfile
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -204,11 +201,10 @@ jobs:
     steps:
       - checkout
       - with-cache:
-          parameters:
-            steps:
-              - run:
-                  name: Install dependencies
-                  command: yarn install --frozen-lockfile
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
