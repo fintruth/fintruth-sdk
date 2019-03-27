@@ -72,6 +72,7 @@ type ResponseError {
 type User {
   id: ID!
   email: String!
+  isAdmin: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
   isTwoFactorAuthEnabled: Boolean!

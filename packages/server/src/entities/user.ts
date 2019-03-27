@@ -24,6 +24,10 @@ export default class User implements UserEntity {
   @Column({ unique: true })
   email: string
 
+  @Field()
+  @Column()
+  isAdmin: boolean
+
   @Column()
   password: string
 
