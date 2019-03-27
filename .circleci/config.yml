@@ -32,7 +32,7 @@ jobs:
           command: mkdir --parents ${REPORTS_DIR}
           working_directory: packages/client
       - run:
-          command: yarn lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+          command: yarn lint:scripts
           working_directory: packages/client
       - run:
           command: |
