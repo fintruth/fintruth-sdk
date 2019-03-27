@@ -171,9 +171,11 @@ workflows:
   version: 2.1
   test:
     jobs:
-      - auth
       - shared
       - validation
+      - auth:
+          requires:
+            - shared
       - client:
           requires:
             - shared
