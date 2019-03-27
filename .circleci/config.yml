@@ -17,7 +17,6 @@ jobs:
   client:
     environment:
       REPORTS_DIR: reports/client
-      WORKING_DIR: packages/client
     executor: node-10
     working_directory: ~/fintruth-sdk
     steps:
@@ -32,15 +31,12 @@ jobs:
           command: mkdir --parents ${REPORTS_DIR}
           working_directory: packages/client
       - run:
-          command: yarn lint:scripts
-          working_directory: packages/client
-      - run:
+          name: Run static analysis
           command: |
             echo ${CIRCLE_WORKING_DIRECTORY}
+            yarn lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn lint:styles --custom-formatter ../../node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
-          working_directory: packages/client
-      - run:
-          command: yarn lint:types
+            yarn lint:types
           working_directory: packages/client
       - run:
           name: Run tests
@@ -49,10 +45,10 @@ jobs:
             JEST_JUNIT_OUTPUT: ${REPORTS_DIR}/test-units-results.xml
           working_directory: packages/client
       - store_artifacts:
-          path: ${WORKING_DIR}/reports
+          path: packages/client/reports
           destination: reports
       - store_test_results:
-          path: ${WORKING_DIR}/reports
+          path: packages/client/reports
 workflows:
   version: 2.1
   test:
