@@ -1,5 +1,16 @@
 version: 2.1
 commands:
+  install-dependencies:
+    description: ''
+    parameters:
+      options:
+        type: string
+        description: ''
+        default: ''
+    steps:
+      - run:
+          name: Install dependencies
+          command: yarn install << parameters.options >>
   with-cache:
     description: |
       Run a set of steps with Node dependencies cached.
@@ -24,7 +35,7 @@ commands:
       cache-version:
         type: string
         description: Cache version; increment this for a fresh cache.
-        default: v4
+        default: v1
     steps:
       - restore_cache:
           keys:
@@ -62,9 +73,7 @@ jobs:
           at: .
       - with-cache:
           steps:
-            - run:
-                name: Install dependencies
-                command: yarn install --frozen-lockfile
+            - install-dependencies
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -98,9 +107,7 @@ jobs:
           at: .
       - with-cache:
           steps:
-            - run:
-                name: Install dependencies
-                command: yarn install --frozen-lockfile
+            - run: install-dependencies
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -134,9 +141,7 @@ jobs:
           at: .
       - with-cache:
           steps:
-            - run:
-                name: Install dependencies
-                command: yarn install --frozen-lockfile
+            - run: install-dependencies
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -167,9 +172,7 @@ jobs:
       - checkout
       - with-cache:
           steps:
-            - run:
-                name: Install dependencies
-                command: yarn install --frozen-lockfile
+            - run: install-dependencies
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -201,9 +204,7 @@ jobs:
       - checkout
       - with-cache:
           steps:
-            - run:
-                name: Install dependencies
-                command: yarn install --frozen-lockfile
+            - run: install-dependencies
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
