@@ -81,6 +81,7 @@ const defaultProfile = {
 const defaultUser = {
   id: '',
   email: '',
+  isAdmin: false,
   isTwoFactorAuthEnabled: false,
   profile: defaultProfile,
   createdAt: new Date(),
