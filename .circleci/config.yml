@@ -25,7 +25,7 @@ commands:
       cache-version:
         type: string
         description: Cache version; increment this for a fresh cache.
-        default: v2
+        default: v3
       dir:
         type: string
         description: Filepath to your Node modules.
@@ -41,7 +41,8 @@ commands:
           key: node-dependencies-<< parameters.cache-version >>-{{ .Branch }}-{{ checksum "<< parameters.cache-key >>" }}
           paths:
             - << parameters.dir >>
-            - ~/.cache/yarn
+            - ~/fintruth-sdk/packages/client/node_modules
+            - ~/fintruth-sdk/packages/server/node_modules
 executors:
   node:
     parameters:
@@ -69,10 +70,7 @@ jobs:
                 command: yarn install --frozen-lockfile
       - run:
           name: Setup
-          command: |
-            mkdir --parents ${REPORTS_DIR}
-            yarn cache dir
-            ls -ahl $(yarn cache dir)
+          command: mkdir --parents ${REPORTS_DIR}
           working_directory: packages/auth
       - run:
           name: Run static analysis
