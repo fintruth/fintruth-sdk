@@ -17,7 +17,7 @@ commands:
           command: yarn --silent build
           working_directory: << parameters.working_directory >>
       - persist_to_workspace:
-          root: ./<< parameters.working_directory >>
+          root: .
           paths:
             - << parameters.path >>
   with_cache:
@@ -95,6 +95,7 @@ jobs:
             yarn --silent lint:types
           working_directory: packages/auth
       - persist_package_build:
+          path: packages/auth/build
           working_directory: packages/auth
       - store_artifacts:
           path: packages/auth/reports
@@ -195,6 +196,7 @@ jobs:
             yarn --silent lint:types
           working_directory: packages/shared
       - persist_package_build:
+          path: packages/shared/build
           working_directory: packages/shared
       - store_artifacts:
           path: packages/shared/reports
@@ -224,6 +226,7 @@ jobs:
             yarn --silent lint:types
           working_directory: packages/validation
       - persist_package_build:
+          path: packages/validation/build
           working_directory: packages/validation
       - store_artifacts:
           path: packages/validation/reports
