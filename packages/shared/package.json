@@ -18,7 +18,8 @@
     "lint:types": "tsc --noEmit",
     "postbuild": "ef-tspm",
     "prebuild": "yarn clean",
-    "test": "echo \\\"No tests specified\\\" && exit 0"
+    "test": "run-p test:*",
+    "test:units": "jest --passWithNoTests"
   },
   "repository": {
     "type": "git",

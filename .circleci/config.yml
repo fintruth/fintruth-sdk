@@ -103,6 +103,12 @@ jobs:
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/auth
+      - run:
+          name: Run tests
+          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/auth/test-units-results.xml
+          working_directory: packages/auth
       - persist_package_build:
           path: packages/auth/build
           working_directory: packages/auth
@@ -207,6 +213,12 @@ jobs:
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/shared
+      - run:
+          name: Run tests
+          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/shared/test-units-results.xml
+          working_directory: packages/shared
       - persist_package_build:
           path: packages/shared/build
           working_directory: packages/shared
@@ -237,6 +249,12 @@ jobs:
             yarn --silent lint:misc
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
+          working_directory: packages/validation
+      - run:
+          name: Run tests
+          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/validation/test-units-results.xml
           working_directory: packages/validation
       - persist_package_build:
           path: packages/validation/build
