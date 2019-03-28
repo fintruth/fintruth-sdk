@@ -112,7 +112,7 @@ jobs:
           working_directory: packages/auth
       - run:
           name: Publish code coverage results
-          command: yarn --silent codecov -F auth
+          command: ./../../node_modules/.bin/codecov -F auth
           working_directory: packages/auth
       - persist_package_build:
           path: packages/auth/build
@@ -200,7 +200,7 @@ jobs:
           working_directory: packages/server
       - run:
           name: Publish code coverage results
-          command: yarn --silent codecov -F server
+          command: ./../../node_modules/.bin/codecov -F server
           working_directory: packages/server
       - store_artifacts:
           path: packages/server/coverage
@@ -242,7 +242,7 @@ jobs:
           working_directory: packages/shared
       - run:
           name: Publish code coverage results
-          command: yarn --silent codecov -F shared
+          command: ./../../node_modules/.bin/codecov -F shared
           working_directory: packages/shared
       - persist_package_build:
           path: packages/shared/build
@@ -287,7 +287,7 @@ jobs:
           working_directory: packages/validation
       - run:
           name: Publish code coverage results
-          command: yarn --silent codecov -F validation
+          command: ./../../node_modules/.bin/codecov -F validation
           working_directory: packages/validation
       - persist_package_build:
           path: packages/validation/build

@@ -1,0 +1,30 @@
+coverage:
+  status:
+    project:
+      default: off
+      auth:
+        flags: auth
+      client:
+        flags: client
+      server:
+        flags: server
+      shared:
+        flags: shared
+      validation:
+        flags: validation
+flags:
+  auth:
+    paths:
+      - packages/auth
+  client:
+    paths:
+      - packages/client
+  server:
+    paths:
+      - packages/server
+  shared:
+    paths:
+      - packages/shared
+  validation:
+    paths:
+      - packages/validation
