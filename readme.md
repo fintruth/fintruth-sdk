@@ -1,6 +1,7 @@
 # Fintruth SDK
 
 [![CircleCI](https://circleci.com/gh/fintruth/fintruth-sdk/tree/master.svg?circle-token=d07baf4e14fad3d758ba15f77e9549170f28a801&style=shield&label=test)](https://circleci.com/gh/fintruth/fintruth-sdk/tree/master)
+[![Codecov](https://codecov.io/gh/fintruth/fintruth-sdk/branch/master/graph/badge.svg?token=q9ceds0dCX)](https://codecov.io/gh/fintruth/fintruth-sdk)
 [![Lerna](https://badgen.net/badge/maintained%20with/lerna/cc00ff)](https://github.com/lerna/lerna/)
 
 ## Get Started
