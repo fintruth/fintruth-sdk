@@ -1,7 +1,14 @@
 version: 2.1
 commands:
   persist_package_build:
-    description: ''
+    description: |
+      Persist a package's compiled build output to be used by another job in
+      the workflow.
+
+      The working directory of the job is taken to be the root directory of the
+      workspace. The `path` value is relative to the root.
+
+      The `path` uses `Glob` from Go, and the pattern matches `filepath.Match`.
     parameters:
       path:
         type: string
