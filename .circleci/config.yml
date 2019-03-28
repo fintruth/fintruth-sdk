@@ -100,7 +100,7 @@ jobs:
       - run:
           name: Run static analysis
           command: |
-            yarn --silent lint:misc
+            yarn --silent lint:files
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/auth
@@ -147,7 +147,7 @@ jobs:
       - run:
           name: Run static analysis
           command: |
-            yarn --silent lint:misc
+            yarn --silent lint:files
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:styles --custom-formatter ../../node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
             yarn --silent lint:types
@@ -188,7 +188,7 @@ jobs:
       - run:
           name: Run static analysis
           command: |
-            yarn --silent lint:misc
+            yarn --silent lint:files
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/server
@@ -230,7 +230,7 @@ jobs:
       - run:
           name: Run static analysis
           command: |
-            yarn --silent lint:misc
+            yarn --silent lint:files
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/shared
@@ -275,7 +275,7 @@ jobs:
       - run:
           name: Run static analysis
           command: |
-            yarn --silent lint:misc
+            yarn --silent lint:files
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/validation
