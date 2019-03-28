@@ -1,7 +1,16 @@
 # Read about how to use .gitignore: https://git-scm.com/docs/gitignore
 
-# Compiled output
+# Compiled Output
 build
 
-# Test coverage
+# Dependencies
+node_modules
+
+# Test and Code Coverage
 coverage
+
+# Logs
+*.log*
+
+# Miscellaneous
+.eslintcache
