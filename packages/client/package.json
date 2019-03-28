@@ -13,7 +13,7 @@
     "copy": "node --require @babel/register scripts/run copy",
     "deploy": "node --require @babel/register scripts/run deploy",
     "lint": "run-p lint:*",
-    "lint:misc": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
+    "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts,tsx}'",
     "lint:styles": "stylelint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{ts,tsx}'",
     "lint:types": "tsc --noEmit",
