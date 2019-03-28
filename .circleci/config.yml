@@ -1,33 +1,25 @@
-aliases:
-  - &packages
-    - auth
-    - client
-    - server
-    - shared
-    - validation
-
 version: 2.1
 commands:
   persist_package_build:
     description: ''
     parameters:
-      package:
-        type: enum
-        description: ''
-        enum: *packages
-      root:
+      path:
         type: string
-        description: Either an absolute path or a path relative to working_directory.
+        description: Path to the compiled build output.
+        default: build
+      working_directory:
+        type: string
+        description: In which directory to run the steps.
         default: .
     steps:
       - run:
           name: Build
           command: yarn --silent build
-          working_directory: packages/<< parameters.package >>
+          working_directory: << parameters.working_directory >>
       - persist_to_workspace:
-          root: << parameters.root >>
+          root: << parameters.working_directory >>
           paths:
-            - packages/<< parameters.package >>/build
+            - << parameters.path >>
   with_cache:
     description: |
       Run a set of steps with Node dependencies cached.
@@ -103,7 +95,7 @@ jobs:
             yarn --silent lint:types
           working_directory: packages/auth
       - persist_package_build:
-          package: auth
+          working_directory: packages/auth
       - store_artifacts:
           path: packages/auth/reports
           destination: reports
@@ -203,7 +195,7 @@ jobs:
             yarn --silent lint:types
           working_directory: packages/shared
       - persist_package_build:
-          package: shared
+          working_directory: packages/shared
       - store_artifacts:
           path: packages/shared/reports
           destination: reports
@@ -232,7 +224,7 @@ jobs:
             yarn --silent lint:types
           working_directory: packages/validation
       - persist_package_build:
-          package: validation
+          working_directory: packages/validation
       - store_artifacts:
           path: packages/validation/reports
           destination: reports
