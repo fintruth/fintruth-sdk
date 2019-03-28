@@ -1,0 +1,260 @@
+version: 2.1
+commands:
+  persist_package_build:
+    description: |
+      Persist a package's compiled build output to be used by another job in
+      the workflow.
+
+      The working directory of the job is taken to be the root directory of the
+      workspace. The `path` value is relative to the root.
+
+      The `path` uses `Glob` from Go, and the pattern matches `filepath.Match`.
+    parameters:
+      path:
+        type: string
+        description: Path to the compiled build output.
+        default: build
+      working_directory:
+        type: string
+        description: In which directory to run the steps.
+        default: .
+    steps:
+      - run:
+          name: Build
+          command: yarn --silent build
+          working_directory: << parameters.working_directory >>
+      - persist_to_workspace:
+          root: .
+          paths:
+            - << parameters.path >>
+  with_cache:
+    description: |
+      Run a set of steps with Node dependencies cached.
+
+      This command will first restore a cache of Node dependencies if one was
+      saved by a previous build. The provided `steps` will then be executed,
+      and if successful, a fresh cache will be saved, if required.
+
+      The contents of the root and packages node_modules directories are
+      cached, which will substantially improve build times.
+
+      The cache_key is generated from `yarn.lock`. This file path can be
+      changed with the `cache_key` parameter.
+    parameters:
+      steps:
+        type: steps
+        description: Input any custom steps to run with your Node cache.
+      cache_key:
+        type: string
+        description: File to use as a Node cache checksum.
+        default: yarn.lock
+      cache_version:
+        type: string
+        description: Cache version; increment this for a fresh cache.
+        default: v1
+    steps:
+      - restore_cache:
+          keys:
+            - node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-{{ checksum "<< parameters.cache_key >>" }}
+            - node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-
+            - node-dependencies-<< parameters.cache_version >>
+      - steps: << parameters.steps >>
+      - save_cache:
+          key: node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-{{ checksum "<< parameters.cache_key >>" }}
+          paths:
+            - ~/fintruth-sdk/node_modules
+            - ~/fintruth-sdk/packages/auth/node_modules
+            - ~/fintruth-sdk/packages/client/node_modules
+            - ~/fintruth-sdk/packages/server/node_modules
+            - ~/fintruth-sdk/packages/shared/node_modules
+            - ~/fintruth-sdk/packages/validation/node_modules
+executors:
+  node:
+    parameters:
+      tag:
+        type: string
+        description: Pick a specific circleci/node image variant.
+        default: 10.15.3
+    docker:
+      - image: circleci/node:<< parameters.tag >>
+jobs:
+  auth:
+    environment:
+      REPORTS_DIR: reports/auth
+    executor: node
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - with_cache:
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install
+      - run:
+          name: Setup
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: packages/auth
+      - run:
+          name: Run static analysis
+          command: |
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:types
+          working_directory: packages/auth
+      - persist_package_build:
+          path: packages/auth/build
+          working_directory: packages/auth
+      - store_artifacts:
+          path: packages/auth/reports
+          destination: reports
+      - store_test_results:
+          path: packages/auth/reports
+  client:
+    environment:
+      REPORTS_DIR: reports/client
+    executor: node
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - with_cache:
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install
+      - run:
+          name: Setup
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: packages/client
+      - run:
+          name: Run static analysis
+          command: |
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:styles --custom-formatter ../../node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles-results.xml
+            yarn --silent lint:types
+          working_directory: packages/client
+      - run:
+          name: Run tests
+          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/client/test-units-results.xml
+          working_directory: packages/client
+      - store_artifacts:
+          path: packages/client/reports
+          destination: reports
+      - store_test_results:
+          path: packages/client/reports
+  server:
+    environment:
+      REPORTS_DIR: reports/server
+    executor: node
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - with_cache:
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install
+      - run:
+          name: Setup
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: packages/server
+      - run:
+          name: Run static analysis
+          command: |
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:types
+          working_directory: packages/server
+      - run:
+          name: Run tests
+          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/server/test-units-results.xml
+          working_directory: packages/server
+      - store_artifacts:
+          path: packages/server/reports
+          destination: reports
+      - store_test_results:
+          path: packages/server/reports
+  shared:
+    environment:
+      REPORTS_DIR: reports/shared
+    executor: node
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - with_cache:
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install
+      - run:
+          name: Setup
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: packages/shared
+      - run:
+          name: Run static analysis
+          command: |
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:types
+          working_directory: packages/shared
+      - persist_package_build:
+          path: packages/shared/build
+          working_directory: packages/shared
+      - store_artifacts:
+          path: packages/shared/reports
+          destination: reports
+      - store_test_results:
+          path: packages/shared/reports
+  validation:
+    environment:
+      REPORTS_DIR: reports/validation
+    executor: node
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - with_cache:
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install
+      - run:
+          name: Setup
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: packages/validation
+      - run:
+          name: Run static analysis
+          command: |
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
+            yarn --silent lint:types
+          working_directory: packages/validation
+      - persist_package_build:
+          path: packages/validation/build
+          working_directory: packages/validation
+      - store_artifacts:
+          path: packages/validation/reports
+          destination: reports
+      - store_test_results:
+          path: packages/validation/reports
+workflows:
+  version: 2.1
+  test:
+    jobs:
+      - shared
+      - validation
+      - auth:
+          requires:
+            - shared
+      - client:
+          requires:
+            - shared
+      - server:
+          requires:
+            - auth
+            - shared
+            - validation
