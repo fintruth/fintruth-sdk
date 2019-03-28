@@ -77,7 +77,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && lerna run --concurrency 1 --stream lint-staged"
+      "pre-commit": "lint-staged && lerna exec --concurrency 1 --stream lint-staged"
     }
   },
   "lint-staged": {
