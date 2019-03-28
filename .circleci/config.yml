@@ -17,7 +17,7 @@ commands:
           command: yarn --silent build
           working_directory: << parameters.working_directory >>
       - persist_to_workspace:
-          root: << parameters.working_directory >>
+          root: ./<< parameters.working_directory >>
           paths:
             - << parameters.path >>
   with_cache:
