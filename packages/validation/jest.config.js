@@ -4,6 +4,7 @@ const { defaults } = require('jest-config')
 
 module.exports = {
   collectCoverageFrom: ['src/**/*.ts'],
+  coverageDirectory: 'coverage',
   errorOnDeprecated: true,
   moduleDirectories: [...defaults.moduleDirectories, '<rootDir>/src'],
   restoreMocks: true,
