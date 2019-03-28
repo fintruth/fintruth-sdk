@@ -10,6 +10,7 @@
     "build:release": "yarn build",
     "clean": "del build",
     "lint": "run-p lint:*",
+    "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
     "lint:types": "tsc --noEmit",
     "prebuild": "yarn clean",
@@ -39,7 +40,7 @@
         "git add"
       ],
       "*.{json,md,yml}": [
-        "prettier --write",
+        "prettylint --fix",
         "git add"
       ]
     }

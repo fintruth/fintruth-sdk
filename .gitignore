@@ -5,10 +5,3 @@ node_modules
 
 # Logs
 *.log*
-
-# Miscellaneous
-.env*
-!.env.defaults
-!.env.example
-.eslintcache
-.stylelintcache

@@ -7,7 +7,8 @@
     "build": "lerna run --stream build",
     "build:release": "lerna run --stream build:release",
     "clean": "lerna run --stream clean",
-    "lint": "lerna run --stream lint",
+    "lint": "yarn lint:files && lerna run --stream lint",
+    "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}' '!packages/**'",
     "prebuild": "yarn clean",
     "start": "lerna run --parallel --scope @fintruth-sdk/server --scope @fintruth-sdk/client --stream start",
     "test": "lerna run --stream test"
@@ -49,6 +50,7 @@
     "lint-staged": "^8.1.5",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.16.4",
+    "prettylint": "^1.0.0",
     "typescript": "~3.3.4000",
     "webpack": "^4.29.6",
     "webpack-node-externals": "^1.7.2"
@@ -74,7 +76,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && lerna exec --concurrency 1 --stream lint-staged"
+      "pre-commit": "lint-staged && lerna run --concurrency 1 --stream lint-staged"
     }
   },
   "lint-staged": {
@@ -87,7 +89,7 @@
         "git add"
       ],
       "*.{json,md,yml}": [
-        "prettier --write",
+        "prettylint --fix",
         "git add"
       ]
     }

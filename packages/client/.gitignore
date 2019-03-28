@@ -1,12 +1,23 @@
 # Read about how to use .gitignore: https://git-scm.com/docs/gitignore
 
-# Compiled output
+# Compiled Output
 build
 storybook-static
 
-# Compiled test output
+# Dependencies
+node_modules
+
+# Test and Code Coverage
+coverage
 test/screenshots
 test/videos
 
-# Test coverage
-coverage
+# Logs
+*.log*
+
+# Miscellaneous
+.env*
+!.env.defaults
+!.env.example
+.eslintcache
+.stylelintcache
