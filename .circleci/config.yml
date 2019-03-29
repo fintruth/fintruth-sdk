@@ -168,6 +168,19 @@ jobs:
           destination: reports
       - store_test_results:
           path: packages/client/reports
+  root:
+    executor: node
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - with_cache:
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install
+      - run:
+          name: Run static analysis
+          command: yarn --silent lint:files
   server:
     environment:
       COVERAGE_DIR: coverage
@@ -303,16 +316,17 @@ workflows:
   version: 2.1
   test:
     jobs:
-      - shared
-      - validation
       - auth:
           requires:
             - shared
       - client:
           requires:
             - shared
+      - root
       - server:
           requires:
             - auth
             - shared
             - validation
+      - shared
+      - validation
