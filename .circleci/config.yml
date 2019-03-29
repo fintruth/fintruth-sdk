@@ -80,7 +80,8 @@ executors:
 jobs:
   auth:
     environment:
-      REPORTS_DIR: reports/auth
+      COVERAGE_DIR: coverage
+      REPORTS_DIR: reports
     executor: node
     working_directory: ~/fintruth-sdk
     steps:
@@ -94,7 +95,7 @@ jobs:
                 command: yarn install
       - run:
           name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
+          command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
           working_directory: packages/auth
       - run:
           name: Run static analysis
@@ -103,9 +104,21 @@ jobs:
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/auth
+      - run:
+          name: Run tests
+          command: yarn --silent test:units --coverage --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/test-units-results.xml
+          working_directory: packages/auth
+      - run:
+          name: Publish code coverage results
+          command: yarn --silent codecov -F auth
       - persist_package_build:
           path: packages/auth/build
           working_directory: packages/auth
+      - store_artifacts:
+          path: packages/auth/coverage
+          destination: coverage
       - store_artifacts:
           path: packages/auth/reports
           destination: reports
@@ -113,7 +126,8 @@ jobs:
           path: packages/auth/reports
   client:
     environment:
-      REPORTS_DIR: reports/client
+      COVERAGE_DIR: coverage
+      REPORTS_DIR: reports
     executor: node
     working_directory: ~/fintruth-sdk
     steps:
@@ -127,7 +141,7 @@ jobs:
                 command: yarn install
       - run:
           name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
+          command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
           working_directory: packages/client
       - run:
           name: Run static analysis
@@ -139,10 +153,16 @@ jobs:
           working_directory: packages/client
       - run:
           name: Run tests
-          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          command: yarn --silent test:units --coverage --runInBand --reporters default jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: reports/client/test-units-results.xml
+            JEST_JUNIT_OUTPUT: reports/test-units-results.xml
           working_directory: packages/client
+      - run:
+          name: Publish code coverage results
+          command: yarn --silent codecov -F client
+      - store_artifacts:
+          path: packages/client/coverage
+          destination: coverage
       - store_artifacts:
           path: packages/client/reports
           destination: reports
@@ -150,7 +170,8 @@ jobs:
           path: packages/client/reports
   server:
     environment:
-      REPORTS_DIR: reports/server
+      COVERAGE_DIR: coverage
+      REPORTS_DIR: reports
     executor: node
     working_directory: ~/fintruth-sdk
     steps:
@@ -164,7 +185,7 @@ jobs:
                 command: yarn install
       - run:
           name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
+          command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
           working_directory: packages/server
       - run:
           name: Run static analysis
@@ -175,10 +196,16 @@ jobs:
           working_directory: packages/server
       - run:
           name: Run tests
-          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          command: yarn --silent test:units --coverage --runInBand --reporters default jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: reports/server/test-units-results.xml
+            JEST_JUNIT_OUTPUT: reports/test-units-results.xml
           working_directory: packages/server
+      - run:
+          name: Publish code coverage results
+          command: yarn --silent codecov -F server
+      - store_artifacts:
+          path: packages/server/coverage
+          destination: coverage
       - store_artifacts:
           path: packages/server/reports
           destination: reports
@@ -186,7 +213,8 @@ jobs:
           path: packages/server/reports
   shared:
     environment:
-      REPORTS_DIR: reports/shared
+      COVERAGE_DIR: coverage
+      REPORTS_DIR: reports
     executor: node
     working_directory: ~/fintruth-sdk
     steps:
@@ -198,7 +226,7 @@ jobs:
                 command: yarn install
       - run:
           name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
+          command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
           working_directory: packages/shared
       - run:
           name: Run static analysis
@@ -207,9 +235,21 @@ jobs:
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/shared
+      - run:
+          name: Run tests
+          command: yarn --silent test:units --coverage --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/test-units-results.xml
+          working_directory: packages/shared
+      - run:
+          name: Publish code coverage results
+          command: yarn --silent codecov -F shared
       - persist_package_build:
           path: packages/shared/build
           working_directory: packages/shared
+      - store_artifacts:
+          path: packages/shared/coverage
+          destination: coverage
       - store_artifacts:
           path: packages/shared/reports
           destination: reports
@@ -217,7 +257,8 @@ jobs:
           path: packages/shared/reports
   validation:
     environment:
-      REPORTS_DIR: reports/validation
+      COVERAGE_DIR: coverage
+      REPORTS_DIR: reports
     executor: node
     working_directory: ~/fintruth-sdk
     steps:
@@ -229,7 +270,7 @@ jobs:
                 command: yarn install
       - run:
           name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
+          command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
           working_directory: packages/validation
       - run:
           name: Run static analysis
@@ -238,9 +279,21 @@ jobs:
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts-results.xml
             yarn --silent lint:types
           working_directory: packages/validation
+      - run:
+          name: Run tests
+          command: yarn --silent test:units --coverage --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/test-units-results.xml
+          working_directory: packages/validation
+      - run:
+          name: Publish code coverage results
+          command: yarn --silent codecov -F validation
       - persist_package_build:
           path: packages/validation/build
           working_directory: packages/validation
+      - store_artifacts:
+          path: packages/validation/coverage
+          destination: coverage
       - store_artifacts:
           path: packages/validation/reports
           destination: reports

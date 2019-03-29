@@ -14,7 +14,7 @@
     "prebuild": "yarn clean",
     "start": "nodemon",
     "test": "run-p test:*",
-    "test:units": "jest --passWithNoTests"
+    "test:units": "jest"
   },
   "repository": {
     "type": "git",

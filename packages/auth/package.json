@@ -14,7 +14,8 @@
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
     "lint:types": "tsc --noEmit",
     "prebuild": "yarn clean",
-    "test": "echo \\\"No tests specified\\\" && exit 0"
+    "test": "run-p test:*",
+    "test:units": "jest --passWithNoTests"
   },
   "repository": {
     "type": "git",
