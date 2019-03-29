@@ -37,7 +37,7 @@ addParameters({
   options: {
     brandTitle: '@fintruth-sdk/client',
     brandUrl:
-      'https://github.com/fintruth/fintruth-sdk/tree/master/packages/client#readme',
+      'https://github.com/fintruth/fintruth-sdk/tree/develop/packages/client#readme',
     selectedAddonPanel: 'storybooks/knobs/panel',
   },
   viewports: { ...INITIAL_VIEWPORTS },
