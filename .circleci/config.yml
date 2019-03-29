@@ -153,10 +153,13 @@ jobs:
           working_directory: packages/client
       - run:
           name: Run tests
-          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          command: yarn --silent test:units --coverage --runInBand --reporters default jest-junit
           environment:
             JEST_JUNIT_OUTPUT: reports/test-units-results.xml
           working_directory: packages/client
+      - run:
+          name: Publish code coverage results
+          command: yarn --silent codecov -F client
       - store_artifacts:
           path: packages/client/coverage
           destination: coverage

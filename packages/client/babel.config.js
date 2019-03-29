@@ -9,10 +9,12 @@ const createConfig = ({ caller, env }) => {
 
   return {
     env: {
+      development: { plugins: ['polished'] },
       production: {
         plugins: [
           '@babel/transform-react-constant-elements',
           '@babel/transform-react-inline-elements',
+          'polished',
         ],
       },
       test: { plugins: ['dynamic-import-node'] },
@@ -24,7 +26,6 @@ const createConfig = ({ caller, env }) => {
       ['@babel/plugin-transform-runtime', { helpers: false }],
       '@loadable/babel-plugin',
       'graphql-tag',
-      'polished',
       ['ramda', { useEs: true }],
       ['styled-components', { displayName: isEnvDev, pure: isEnvProd }],
     ],
