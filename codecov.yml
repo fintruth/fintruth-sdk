@@ -1,7 +1,6 @@
 coverage:
   notify:
     slack:
-      default: off
       fintruth-sdk:
         url: https://hooks.slack.com/services/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
         threshold: 0.01%
