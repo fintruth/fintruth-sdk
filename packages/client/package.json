@@ -112,7 +112,7 @@
     "@types/styled-components": "^4.1.12",
     "@types/yup": "^0.26.12",
     "apollo-link-logger": "^1.2.3",
-    "babel-jest": "^24.5.0",
+    "babel-jest": "^24.6.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-plugin-graphql-tag": "^2.1.0",
