@@ -5,13 +5,13 @@ import {
 } from '@storybook/react'
 
 declare module '@storybook/react' {
-  interface Context {
+  export interface Context {
     kind: string
     parameters: DecoratorParameters
     story: string
   }
 
-  interface Story {
+  export interface Story {
     add(
       storyName: string,
       callback: (context: Context) => Renderable | Renderable[] | null,

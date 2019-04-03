@@ -1,28 +1,14 @@
 import { createGlobalStyle } from 'styled-components'
-import { darken, em, normalize, rem } from 'polished'
-
-import {
-  aBlue,
-  black,
-  codeRed,
-  preGray,
-  raven,
-  selectionBlue,
-  white,
-} from './variables'
+import { em, rem } from 'polished'
 
 const GlobalStyle = createGlobalStyle`
-  ${normalize()};
-
-  @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,500i,700');
-
   @media print {
     *,
     *::before,
     *::after {
       background-color: transparent !important;
       box-shadow: none !important;
-      color: ${black} !important;
+      color: #000 !important;
       text-shadow: none !important;
     }
 
@@ -35,13 +21,19 @@ const GlobalStyle = createGlobalStyle`
       content: ' (' attr(href) ')';
     }
 
+    a[href^='#']::after,
+    a[href^='javascript:']::after {
+      content: '';
+    }
+
     abbr[title]::after {
       content: ' (' attr(title) ')';
     }
 
-    a[href^='#']::after,
-    a[href^='javascript:']::after {
-      content: '';
+    blockquote,
+    pre {
+      border: 1px solid #999;
+      page-break-inside: avoid;
     }
 
     h2,
@@ -56,23 +48,17 @@ const GlobalStyle = createGlobalStyle`
       page-break-after: avoid;
     }
 
+    img,
+    tr {
+      page-break-inside: avoid;
+    }
+
     pre {
       white-space: pre-wrap !important;
     }
 
-    pre,
-    blockquote {
-      border: ${rem(1)} solid ${preGray};
-      page-break-inside: avoid;
-    }
-
     thead {
       display: table-header-group;
-    }
-
-    tr,
-    img {
-      page-break-inside: avoid;
     }
   }
 
@@ -85,30 +71,31 @@ const GlobalStyle = createGlobalStyle`
   html {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    background-color: ${white};
+    background-color: ${({ theme }) => theme.html.backgroundColor};
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.html.fontSize};
     min-width: 300px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    text-rendering: optimizeLegibility;
+    overflow-x: ${({ theme }) => theme.html.overflowX};
+    overflow-y: ${({ theme }) => theme.html.overflowY};
+    text-rendering: ${({ theme }) => theme.html.textRendering};
     text-size-adjust: 100%;
   }
 
   body {
-    color: ${raven};
-    font-family: 'Raleway', sans-serif;
-    font-weight: 400;
-    line-height: 1.4;
+    color: ${({ theme }) => theme.body.color};
+    font-family: ${({ theme }) => theme.body.fontFamily};
+    font-size: ${rem(16)};
+    font-weight: ${({ theme }) => theme.body.fontWeight};
+    line-height: ${({ theme }) => theme.body.lineHeight};
   }
 
   a {
-    color: ${aBlue};
+    color: ${({ theme }) => theme.linkColor};
     cursor: pointer;
     text-decoration: none;
 
     &:hover {
-      color: ${darken(0.08, raven)};
+      color: ${({ theme }) => theme.linkHoverColor};
     }
   }
 
@@ -122,6 +109,10 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
 
+  audio {
+    max-width: 100%;
+  }
+
   audio,
   canvas,
   iframe,
@@ -131,38 +122,54 @@ const GlobalStyle = createGlobalStyle`
     vertical-align: middle;
   }
 
-  audio,
-  img,
-  video {
-    height: auto;
-    max-width: 100%;
+  blockquote,
+  body,
+  dd,
+  dl,
+  dt,
+  fieldset,
+  figure,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  hr,
+  html,
+  iframe,
+  legend,
+  li,
+  ol,
+  p,
+  pre,
+  textarea,
+  ul {
+    margin: 0;
+    padding: 0;
   }
 
   button,
   input,
-  optgroup,
   select,
   textarea {
-    font-family: 'Raleway', sans-serif;
-    font-size: 100%;
-    line-height: 1;
+    font-family: ${({ theme }) => theme.body.fontFamily};
     margin: 0;
-    padding: 0;
   }
 
   code,
   pre {
     -moz-osx-font-smoothing: auto;
     -webkit-font-smoothing: auto;
-    font-family: monospace;
+    font-family: ${({ theme }) => theme.code.fontFamily};
   }
 
   code {
-    background-color: ${darken(0.04, white)};
-    color: ${codeRed};
-    font-size: ${em(14)};
-    font-weight: 400;
-    padding: ${em(4)} ${em(8)};
+    background-color: ${({ theme }) => theme.code.backgroundColor};
+    color: ${({ theme }) => theme.code.color};
+    font-size: ${({ theme }) => theme.code.fontSize};
+    font-weight: ${({ theme }) => theme.code.fontWeight};
+    padding: ${({ theme }) => theme.code.padding};
 
     pre & {
       background-color: transparent;
@@ -172,22 +179,44 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  embed,
+  iframe,
+  img,
+  object,
+  video {
+    height: auto;
+    max-width: 100%;
+  }
+
   fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
+    border: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 100%;
+    font-weight: normal;
   }
 
   hr {
-    background-color: ${darken(0.04, white)};
-    border: 0;
+    background-color: ${({ theme }) => theme.hr.backgroundColor};
+    border: none;
     display: block;
-    height: ${rem(2)};
-    margin: ${rem(24)} 0;
+    height: ${({ theme }) => theme.hr.height};
+    margin: ${({ theme }) => theme.hr.margin};
   }
 
   iframe {
     border: 0;
+  }
+
+  img {
+    height: auto;
+    max-width: 100%;
   }
 
   input[type='checkbox'],
@@ -197,8 +226,8 @@ const GlobalStyle = createGlobalStyle`
 
   pre {
     -webkit-overflow-scrolling: touch;
-    background-color: ${darken(0.04, white)};
-    color: ${raven};
+    background-color: ${({ theme }) => theme.pre.backgroundColor};
+    color: ${({ theme }) => theme.pre.color};
     font-size: ${em(14)};
     overflow-x: auto;
     padding: ${rem(20)} ${rem(24)};
@@ -216,8 +245,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   strong {
-    color: ${darken(0.08, raven)};
-    font-weight: 700;
+    color: ${({ theme }) => theme.strong.color};
+    font-weight: ${({ theme }) => theme.strong.fontWeight};
 
     a & {
       color: currentColor;
@@ -234,7 +263,6 @@ const GlobalStyle = createGlobalStyle`
     text-align: left;
 
     table & {
-      text-align: left;
       vertical-align: top;
     }
   }
@@ -244,8 +272,7 @@ const GlobalStyle = createGlobalStyle`
     text-align: left;
 
     table & {
-      color: ${darken(0.08, raven)};
-      text-align: left;
+      color: ${({ theme }) => theme.textStrongColor};
       vertical-align: top;
     }
   }
@@ -259,14 +286,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::selection {
-    background-color: ${selectionBlue};
+    background-color: ${({ theme }) => theme.textSelectionColor};
     text-shadow: none;
-  }
-
-  #root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
   }
 `
 

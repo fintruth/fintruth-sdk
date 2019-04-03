@@ -2,10 +2,12 @@ import React from 'react'
 import loadable from '@loadable/component'
 import { Query } from 'react-apollo'
 import { Router } from '@reach/router'
+import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from 'styles/global'
-import { RootQueryData, rootQuery } from './graphql'
+import { createTheme } from 'utilities/style'
 import { renderLoadingIf } from 'utilities/loading'
+import { RootQueryData, rootQuery } from './graphql'
 
 const Home = loadable(() =>
   import(/* webpackChunkName: 'home' */ 'routes/home')
@@ -36,7 +38,6 @@ const Root: React.FunctionComponent = () => {
 
   return (
     <React.StrictMode>
-      <GlobalStyle />
       <Query<RootQueryData>
         fetchPolicy="network-only"
         query={rootQuery}
@@ -44,15 +45,20 @@ const Root: React.FunctionComponent = () => {
       >
         {({ data = {}, loading }) =>
           renderLoadingIf(loading, () => (
-            <Router>
-              {Fault && <Fault path="/error" />}
-              <Home path="/" />
-              <Recover path="/recover" />
-              {data.user && <Settings path="/settings" />}
-              {!data.user && <Register path="/register" />}
-              {!data.user && <SignIn path="/sign-in" />}
-              <NotFound default />
-            </Router>
+            <ThemeProvider theme={createTheme()}>
+              <React.Fragment>
+                <GlobalStyle />
+                <Router>
+                  {Fault && <Fault path="/error" />}
+                  <Home path="/" />
+                  <Recover path="/recover" />
+                  {data.user && <Settings path="/settings" />}
+                  {!data.user && <Register path="/register" />}
+                  {!data.user && <SignIn path="/sign-in" />}
+                  <NotFound default />
+                </Router>
+              </React.Fragment>
+            </ThemeProvider>
           ))
         }
       </Query>
