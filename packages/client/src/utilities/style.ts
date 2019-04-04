@@ -62,11 +62,6 @@ export const createTheme = ({
   fontFamilyPrimary = fontFamilySansSerif,
   fontFamilyCode = fontFamilyMonospace,
 
-  fontSize4 = rem(24),
-  fontSize5 = rem(20),
-  fontSize6 = rem(16),
-  fontSize7 = rem(12),
-
   textRendering = 'optimizeLegibility',
 
   body = {},
@@ -169,19 +164,6 @@ export const createTheme = ({
   fontFamilyPrimary,
   fontFamilySecondary: fontFamilySansSerif,
   fontFamilyCode,
-
-  fontSize1: rem(48),
-  fontSize2: rem(40),
-  fontSize3: rem(32),
-  fontSize4,
-  fontSize5,
-  fontSize6,
-  fontSize7,
-
-  fontSizeSmall: fontSize7,
-  fontSizeNormal: fontSize6,
-  fontSizeMedium: fontSize5,
-  fontSizeLarge: fontSize4,
 
   textRendering,
 

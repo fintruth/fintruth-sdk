@@ -69,17 +69,6 @@ declare module 'styled-components' {
     fontFamilyPrimary: string
     fontFamilySansSerif: string
     fontFamilySecondary: string
-    fontSize1: string
-    fontSize2: string
-    fontSize3: string
-    fontSize4: string
-    fontSize5: string
-    fontSize6: string
-    fontSize7: string
-    fontSizeLarge: string
-    fontSizeMedium: string
-    fontSizeNormal: string
-    fontSizeSmall: string
     gap: number
     gray: string
     grayDark: string
