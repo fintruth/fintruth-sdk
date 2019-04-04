@@ -3,39 +3,31 @@ coverage:
     slack:
       fintruth-sdk:
         url: https://hooks.slack.com/services/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
-        threshold: 0.01%
+        threshold: 2.0
         flags:
-          - auth
           - client
           - server
-          - shared
-          - validation
   status:
     project:
-      default: off
-      auth:
-        flags: auth
+      default: false
       client:
-        flags: client
+        threshold: 2.0
+        flags:
+          - client
+        paths:
+          - ^packages/client/.*
       server:
-        flags: server
-      shared:
-        flags: shared
-      validation:
-        flags: validation
+        threshold: 2.0
+        flags:
+          - server
+        paths:
+          - ^packages/server/.*
+comment:
+  require_changes: yes
 flags:
-  auth:
-    paths:
-      - packages/auth
   client:
     paths:
-      - packages/client
+      - ^packages/client/.*
   server:
     paths:
-      - packages/server
-  shared:
-    paths:
-      - packages/shared
-  validation:
-    paths:
-      - packages/validation
+      - ^packages/server/.*
