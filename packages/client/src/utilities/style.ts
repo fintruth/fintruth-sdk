@@ -67,9 +67,6 @@ export const createTheme = ({
   fontSize6 = rem(16),
   fontSize7 = rem(12),
 
-  fontWeightNormal = 400,
-  fontWeightBold = 700,
-
   textRendering = 'optimizeLegibility',
 
   body = {},
@@ -186,12 +183,6 @@ export const createTheme = ({
   fontSizeMedium: fontSize5,
   fontSizeLarge: fontSize4,
 
-  fontWeightLight: 300,
-  fontWeightNormal,
-  fontWeightMedium: 500,
-  fontWeightSemibold: 600,
-  fontWeightBold,
-
   textRendering,
 
   body: {
@@ -200,7 +191,7 @@ export const createTheme = ({
 
     // Typography
     fontFamily: fontFamilyPrimary,
-    fontWeight: fontWeightNormal,
+    fontWeight: 400,
     lineHeight: 1.4,
 
     ...body,
@@ -217,7 +208,7 @@ export const createTheme = ({
     // Typography
     fontFamily: fontFamilyCode,
     fontSize: `${em(14)}`,
-    fontWeight: fontWeightNormal,
+    fontWeight: 400,
 
     ...code,
   },
@@ -261,7 +252,7 @@ export const createTheme = ({
     color: textStrongColor,
 
     // Typography
-    fontWeight: fontWeightBold,
+    fontWeight: 700,
 
     ...strong,
   },

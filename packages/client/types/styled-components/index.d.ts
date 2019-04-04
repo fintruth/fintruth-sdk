@@ -80,11 +80,6 @@ declare module 'styled-components' {
     fontSizeMedium: string
     fontSizeNormal: string
     fontSizeSmall: string
-    fontWeightBold: number
-    fontWeightLight: number
-    fontWeightMedium: number
-    fontWeightNormal: number
-    fontWeightSemibold: number
     gap: number
     gray: string
     grayDark: string
