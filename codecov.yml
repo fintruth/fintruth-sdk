@@ -15,6 +15,7 @@ coverage:
       default: false
       auth:
         threshold: 2.0
+        if_no_uploads: success
         flags:
           - auth
         paths:
@@ -33,12 +34,14 @@ coverage:
           - ^packages/server/.*
       shared:
         threshold: 2.0
+        if_no_uploads: success
         flags:
           - shared
         paths:
           - ^packages/shared/.*
       validation:
         threshold: 2.0
+        if_no_uploads: success
         flags:
           - validation
         paths:
