@@ -5,21 +5,11 @@ coverage:
         url: https://hooks.slack.com/services/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
         threshold: 2.0
         flags:
-          - auth
           - client
           - server
-          - shared
-          - validation
   status:
     project:
       default: false
-      auth:
-        threshold: 2.0
-        if_no_uploads: success
-        flags:
-          - auth
-        paths:
-          - ^packages/auth/.*
       client:
         threshold: 2.0
         flags:
@@ -32,35 +22,12 @@ coverage:
           - server
         paths:
           - ^packages/server/.*
-      shared:
-        threshold: 2.0
-        if_no_uploads: success
-        flags:
-          - shared
-        paths:
-          - ^packages/shared/.*
-      validation:
-        threshold: 2.0
-        if_no_uploads: success
-        flags:
-          - validation
-        paths:
-          - ^packages/validation/.*
 comment:
   require_changes: yes
 flags:
-  auth:
-    paths:
-      - ^packages/auth/.*
   client:
     paths:
       - ^packages/client/.*
   server:
     paths:
       - ^packages/server/.*
-  shared:
-    paths:
-      - ^packages/shared/.*
-  validation:
-    paths:
-      - ^packages/validation/.*
