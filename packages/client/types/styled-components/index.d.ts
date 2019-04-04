@@ -40,15 +40,6 @@ declare module 'styled-components' {
     textRendering: string
   }
 
-  export interface PartialDefaultTheme extends Partial<Variables> {
-    body?: Partial<Body>
-    code?: Partial<Code>
-    hr?: Partial<Hr>
-    html?: Partial<Html>
-    pre?: Partial<Pre>
-    strong?: Partial<Strong>
-  }
-
   export interface Pre {
     backgroundColor: string
     color: string
@@ -65,13 +56,14 @@ declare module 'styled-components' {
     blackBis: string
     blackTer: string
     blue: string
-    blueInvert: string
+    blueContrast: string
     borderColor: string
     borderHoverColor: string
     cyan: string
-    cyanInvert: string
-    dangerColor: string
-    dangerInvertColor: string
+    cyanContrast: string
+    danger: string
+    dangerContrast: string
+    darkContrast: string
     fontFamilyCode: string
     fontFamilyMonospace: string
     fontFamilyPrimary: string
@@ -100,48 +92,47 @@ declare module 'styled-components' {
     grayLight: string
     grayLighter: string
     green: string
-    greenInvert: string
-    infoColor: string
-    infoInvertColor: string
+    greenContrast: string
+    info: string
+    infoContrast: string
+    lightContrast: string
     linkActiveBorderColor: string
     linkActiveColor: string
     linkColor: string
+    linkColorContrast: string
     linkFocusBorderColor: string
     linkFocusColor: string
     linkHoverBorderColor: string
     linkHoverColor: string
-    linkInvertColor: string
     linkVisitedColor: string
     orange: string
-    orangeInvert: string
-    primaryColor: string
-    primaryInvertColor: string
+    orangeContrast: string
+    primary: string
+    primaryContrast: string
     purple: string
-    purpleInvert: string
-    readableDark: string
-    readableLight: string
+    purpleContrast: string
     red: string
-    redInvert: string
-    successColor: string
-    successInvertColor: string
+    redContrast: string
+    success: string
+    successContrast: string
     textColor: string
-    textInvertColor: string
+    textColorContrast: string
     textLightColor: string
     textRendering: string
     textSelectionColor: string
     textStrongColor: string
     turquoise: string
-    turquoiseInvert: string
+    turquoiseContrast: string
     viewportExtraLarge: number
     viewportLarge: number
     viewportMedium: number
     viewportSmall: number
-    warningColor: string
-    warningInvertColor: string
+    warning: string
+    warningContrast: string
     white: string
     whiteBis: string
     whiteTer: string
     yellow: string
-    yellowInvert: string
+    yellowContrast: string
   }
 }

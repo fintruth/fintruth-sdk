@@ -1,5 +1,23 @@
-import { DefaultTheme, PartialDefaultTheme } from 'styled-components' // eslint-disable-line import/named
+import {
+  Body, // eslint-disable-line import/named
+  Code, // eslint-disable-line import/named
+  DefaultTheme, // eslint-disable-line import/named
+  Hr, // eslint-disable-line import/named
+  Pre, // eslint-disable-line import/named
+  Html, // eslint-disable-line import/named
+  Strong, // eslint-disable-line import/named
+  Variables, // eslint-disable-line import/named
+} from 'styled-components'
 import { em, hsl, hsla, readableColor, rem } from 'polished'
+
+export interface PartialDefaultTheme extends Partial<Variables> {
+  body?: Partial<Body>
+  code?: Partial<Code>
+  hr?: Partial<Hr>
+  html?: Partial<Html>
+  pre?: Partial<Pre>
+  strong?: Partial<Strong>
+}
 
 export const createTheme = ({
   grayDarker = hsl(0, 0, 0.21),
@@ -22,16 +40,16 @@ export const createTheme = ({
 
   backgroundColor = whiteTer,
 
-  primaryColor = turquoise,
-  infoColor = cyan,
-  successColor = green,
-  warningColor = yellow,
-  dangerColor = red,
+  primary = turquoise,
+  info = cyan,
+  success = green,
+  warning = yellow,
+  danger = red,
 
-  readableDark = hsla(0, 0, 0, 0.7),
-  readableLight = white,
+  darkContrast = white,
+  lightContrast = hsla(0, 0, 0, 0.7),
 
-  blueInvert = readableColor(blue, readableDark, readableLight),
+  blueContrast = readableColor(blue, lightContrast, darkContrast),
 
   textColor = grayDark,
   textStrongColor = grayDarker,
@@ -93,35 +111,34 @@ export const createTheme = ({
   borderHoverColor: grayLight,
 
   // Main Colors
-  primaryColor,
-  infoColor,
-  successColor,
-  warningColor,
-  dangerColor,
+  primary,
+  info,
+  success,
+  warning,
+  danger,
 
-  // Readability Colors
-  readableDark,
-  readableLight,
+  // Contrast Colors
+  darkContrast,
+  lightContrast,
 
-  // Invert Colors
-  orangeInvert: readableColor(orange, readableDark, readableLight),
-  yellowInvert: readableColor(yellow, readableDark, readableLight),
-  greenInvert: readableColor(green, readableDark, readableLight),
-  turquoiseInvert: readableColor(turquoise, readableDark, readableLight),
-  cyanInvert: readableColor(cyan, readableDark, readableLight),
-  blueInvert,
-  purpleInvert: readableColor(purple, readableDark, readableLight),
-  redInvert: readableColor(red, readableDark, readableLight),
+  orangeContrast: readableColor(orange, lightContrast, darkContrast),
+  yellowContrast: readableColor(yellow, lightContrast, darkContrast),
+  greenContrast: readableColor(green, lightContrast, darkContrast),
+  turquoiseContrast: readableColor(turquoise, lightContrast, darkContrast),
+  cyanContrast: readableColor(cyan, lightContrast, darkContrast),
+  blueContrast,
+  purpleContrast: readableColor(purple, lightContrast, darkContrast),
+  redContrast: readableColor(red, lightContrast, darkContrast),
 
-  primaryInvertColor: readableColor(primaryColor, readableDark, readableLight),
-  infoInvertColor: readableColor(infoColor, readableDark, readableLight),
-  successInvertColor: readableColor(successColor, readableDark, readableLight),
-  warningInvertColor: readableColor(warningColor, readableDark, readableLight),
-  dangerInvertColor: readableColor(dangerColor, readableDark, readableLight),
+  primaryContrast: readableColor(primary, lightContrast, darkContrast),
+  infoContrast: readableColor(info, lightContrast, darkContrast),
+  successContrast: readableColor(success, lightContrast, darkContrast),
+  warningContrast: readableColor(warning, lightContrast, darkContrast),
+  dangerContrast: readableColor(danger, lightContrast, darkContrast),
 
   // Link Colors
   linkColor: blue,
-  linkInvertColor: blueInvert,
+  linkColorContrast: blueContrast,
   linkVisitedColor: purple,
 
   linkHoverColor: grayDarker,
@@ -135,7 +152,7 @@ export const createTheme = ({
 
   // Text Colors
   textColor,
-  textInvertColor: readableColor(textColor, readableDark, readableLight),
+  textColorContrast: readableColor(textColor, lightContrast, darkContrast),
   textLightColor: gray,
   textStrongColor,
   textSelectionColor: hsl(213, 0.92, 0.85),
@@ -190,6 +207,9 @@ export const createTheme = ({
   },
 
   code: {
+    // Box
+    padding: `${em(4)} ${em(8)}`,
+
     // Colors
     backgroundColor,
     color: red,
@@ -199,19 +219,16 @@ export const createTheme = ({
     fontSize: `${em(14)}`,
     fontWeight: fontWeightNormal,
 
-    // Miscellaneous
-    padding: `${em(4)} ${em(8)}`,
-
     ...code,
   },
 
   hr: {
-    // Colors
-    backgroundColor,
-
-    // Miscellaneous
+    // Box
     height: '2px',
     margin: `${rem(24)} 0`,
+
+    // Colors
+    backgroundColor,
 
     ...hr,
   },
