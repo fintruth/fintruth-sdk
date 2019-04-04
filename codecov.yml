@@ -46,6 +46,8 @@ coverage:
           - validation
         paths:
           - ^packages/validation/.*
+comment:
+  require_changes: yes
 flags:
   auth:
     paths:
