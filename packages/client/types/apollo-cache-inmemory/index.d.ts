@@ -1,7 +1,7 @@
-import { NormalizedCacheObject } from 'apollo-cache-inmemory' // eslint-disable-line import/named
+import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 
 declare global {
-  interface Window {
+  export interface Window {
     __APOLLO_CACHE__: NormalizedCacheObject
   }
 }

@@ -23,7 +23,7 @@ coverage:
         paths:
           - ^packages/server/.*
 comment:
-  require_changes: yes
+  require_changes: true
 flags:
   client:
     paths:

@@ -1,7 +1,7 @@
 declare const __DEV__: boolean
 
 declare namespace NodeJS {
-  interface Global {
+  export interface Global {
     navigator?: Navigator | { userAgent: string }
   }
 }

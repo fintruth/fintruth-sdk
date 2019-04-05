@@ -9,10 +9,12 @@ import {
   configure,
   setAddon,
 } from '@storybook/react'
+import { ThemeProvider } from 'styled-components'
 import { withA11y } from '@storybook/addon-a11y'
 import { withKnobs } from '@storybook/addon-knobs'
 
 import GlobalStyle from 'styles/global'
+import { createTheme } from 'utilities/style'
 
 const req = require.context('../src', true, /(.*\.)?stories\.tsx$/)
 
@@ -27,10 +29,12 @@ setAddon({
 addDecorator(withA11y)
 addDecorator(withKnobs)
 addDecorator(story => (
-  <React.Fragment>
-    <GlobalStyle />
-    {story()}
-  </React.Fragment>
+  <ThemeProvider theme={createTheme()}>
+    <React.Fragment>
+      <GlobalStyle />
+      {story()}
+    </React.Fragment>
+  </ThemeProvider>
 ))
 
 addParameters({

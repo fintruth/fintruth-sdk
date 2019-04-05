@@ -1,6 +1,6 @@
 import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
-import { NormalizedCacheObject } from 'apollo-cache-inmemory' // eslint-disable-line import/named
+import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 import { createUploadLink } from 'apollo-upload-client'
 
 import { createErrorLink, createInMemoryCache } from './utilities/apollo'

@@ -1,6 +1,6 @@
 import React from 'react'
 import serialize from 'serialize-javascript'
-import { NormalizedCacheObject } from 'apollo-cache-inmemory' // eslint-disable-line import/named
+import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 
 import { black } from 'styles/variables'
 

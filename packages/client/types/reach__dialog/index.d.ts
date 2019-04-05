@@ -1,10 +1,10 @@
 declare module '@reach/dialog' {
   import * as React from 'react'
 
-  interface DialogProps {
+  export interface DialogProps {
     isOpen?: boolean
     onDismiss?: () => void
   }
 
-  const Dialog: React.ComponentType<DialogProps>
+  export const Dialog: React.ComponentType<DialogProps>
 }
