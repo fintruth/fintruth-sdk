@@ -10,8 +10,8 @@ export default class ResponseError implements BaseResponseError {
   @Field()
   message: string
 
-  constructor(message: string) {
-    this.id = uuid()
+  constructor(message: string, id: string = uuid()) {
+    this.id = id
     this.message = message
   }
 }

@@ -2,17 +2,30 @@ import { equals, F, T } from 'ramda'
 import { Container } from 'typedi'
 
 import { User } from '../entities'
-import { Response, ResponseError } from '../resolvers/types'
+import {
+  Response,
+  ResponseError,
+  EnableTwoFactorAuthResponse,
+} from '../resolvers/types'
 import AuthService from './auth-service'
 
-jest.mock('typeorm-typedi-extensions', () => ({
-  InjectRepository: () => () => {},
+jest.mock('qrcode', () => ({
+  toDataURL: () => 'dataUrl',
+}))
+
+jest.mock('speakeasy', () => ({
+  generateSecret: jest.fn(() => ({ ascii: '', base32: 'secretTemp' })),
+  otpauthURL: () => '',
 }))
 
 jest.mock('type-graphql', () => ({
   Field: () => () => {},
   InputType: () => () => {},
   ObjectType: () => () => {},
+}))
+
+jest.mock('typeorm-typedi-extensions', () => ({
+  InjectRepository: () => () => {},
 }))
 
 const getUserRepositoryMock: any = (userMock?: Partial<User>) => ({
@@ -92,12 +105,12 @@ describe('AuthService', () => {
 
       const result = await service.confirmTwoFactorAuth('token', 'test')
 
-      const error = new ResponseError('Token is invalid or expired')
-      error.id = expect.any(String)
-
       expect(result).toStrictEqual(
         new Response({
-          error,
+          error: new ResponseError(
+            'Token is invalid or expired',
+            expect.any(String)
+          ),
         })
       )
     })
@@ -130,12 +143,41 @@ describe('AuthService', () => {
 
       const result = await service.disableTwoFactorAuth('secret', 'test')
 
-      const error = new ResponseError('Token is invalid or expired')
-      error.id = expect.any(String)
-
       expect(result).toStrictEqual(
         new Response({
-          error,
+          error: new ResponseError(
+            'Token is invalid or expired',
+            expect.any(String)
+          ),
+        })
+      )
+    })
+  })
+
+  describe('enableTwoFactorAuth', () => {
+    it('should update user secret temp', async () => {
+      const user = {}
+
+      service.userRepository = getUserRepositoryMock(user)
+
+      const result = await service.enableTwoFactorAuth('test')
+
+      expect(result).toStrictEqual(
+        new EnableTwoFactorAuthResponse({
+          dataUrl: 'dataUrl',
+          secret: 'secretTemp',
+        })
+      )
+    })
+
+    it('should return a failure response when a user is not found', async () => {
+      const result = await service.enableTwoFactorAuth('test')
+
+      expect(result).toStrictEqual(
+        new EnableTwoFactorAuthResponse({
+          dataUrl: undefined,
+          error: new ResponseError('User not found', expect.any(String)),
+          secret: undefined,
         })
       )
     })
