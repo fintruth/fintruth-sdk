@@ -14,7 +14,7 @@ jest.mock('qrcode', () => ({
 }))
 
 jest.mock('speakeasy', () => ({
-  generateSecret: jest.fn(() => ({ ascii: '', base32: 'secretTemp' })),
+  generateSecret: jest.fn(() => ({ ascii: '', base32: 'base32' })),
   otpauthURL: () => '',
 }))
 
@@ -50,134 +50,184 @@ describe('AuthService', () => {
   })
 
   describe('authenticate', () => {
-    it('should return a user using a correct password', async () => {
-      const user = {
-        validatePassword: jest.fn(equals('good')),
-      }
-
-      service.userRepository = getUserRepositoryMock(user)
-
+    it('should return null when a user does not exist', async () => {
       const result = await service.authenticate('test@test.com', 'good')
 
-      expect(user.validatePassword).toHaveBeenCalledWith('good')
-      expect(result).toStrictEqual(user)
+      expect(result).toBeNull()
     })
 
-    it('should return null using an incorrect password', async () => {
-      const user = {
-        validatePassword: jest.fn(equals('good')),
-      }
+    describe('user exists with password', () => {
+      let user: Partial<User>
 
-      service.userRepository = getUserRepositoryMock(user)
+      beforeAll(() => {
+        const userWithPassword = {
+          validatePassword: jest.fn(equals('good')),
+        }
 
-      const result = await service.authenticate('test@test.com', 'bad')
+        user = userWithPassword
+      })
 
-      expect(user.validatePassword).toHaveBeenCalledWith('bad')
-      expect(result).toBeNull()
+      beforeEach(() => {
+        service.userRepository = getUserRepositoryMock(user)
+      })
+
+      it('should return a user using a correct password', async () => {
+        const result = await service.authenticate('test@test.com', 'good')
+
+        expect(user.validatePassword).toHaveBeenCalledWith('good')
+        expect(result).toStrictEqual(user)
+      })
+
+      it('should return null using an incorrect password', async () => {
+        const result = await service.authenticate('test@test.com', 'bad')
+
+        expect(user.validatePassword).toHaveBeenCalledWith('bad')
+        expect(result).toBeNull()
+      })
     })
   })
 
   describe('confirmTwoFactorAuth', () => {
-    it('should update user secret using a valid token', async () => {
-      const user = {
-        secretTemp: 'secret',
-      }
+    it('should return a failure response when a user has not initiated two factor', async () => {
+      service.userRepository = getUserRepositoryMock({})
 
-      service.userRepository = getUserRepositoryMock(user)
-      service.verifyTwoFactorAuthToken = T
-
-      const result = await service.confirmTwoFactorAuth('token', 'test')
-
-      expect(service.userRepository.update).toHaveBeenCalledWith('test', {
-        secret: 'secret',
-        secretTemp: undefined,
-      })
-      expect(result).toStrictEqual(new Response())
-    })
-
-    it('should return a failure response using an invalid token', async () => {
-      const user = {
-        secretTemp: 'secret',
-      }
-
-      service.userRepository = getUserRepositoryMock(user)
-      service.verifyTwoFactorAuthToken = F
-
-      const result = await service.confirmTwoFactorAuth('token', 'test')
+      const result = await service.confirmTwoFactorAuth('token', 'userId')
 
       expect(result).toStrictEqual(
         new Response({
           error: new ResponseError(
-            'Token is invalid or expired',
+            'Two factor not initiated',
             expect.any(String)
           ),
         })
       )
+    })
+
+    describe('user exists with two factor pending', () => {
+      let user: Partial<User>
+
+      beforeAll(() => {
+        const userWithSecretTemp = {
+          secretTemp: 'secret',
+        }
+
+        user = userWithSecretTemp
+      })
+
+      beforeEach(() => {
+        service.userRepository = getUserRepositoryMock(user)
+      })
+
+      it('should update user secret using a valid token', async () => {
+        service.verifyTwoFactorAuthToken = T
+
+        const result = await service.confirmTwoFactorAuth('token', 'userId')
+
+        expect(service.userRepository.update).toHaveBeenCalledWith('userId', {
+          secret: 'secret',
+          secretTemp: undefined,
+        })
+        expect(result).toStrictEqual(new Response())
+      })
+
+      it('should return a failure response using an invalid token', async () => {
+        service.verifyTwoFactorAuthToken = F
+
+        const result = await service.confirmTwoFactorAuth('token', 'userId')
+
+        expect(result).toStrictEqual(
+          new Response({
+            error: new ResponseError(
+              'Token is invalid or expired',
+              expect.any(String)
+            ),
+          })
+        )
+      })
     })
   })
 
   describe('disableTwoFactorAuth', () => {
-    it('should remove user secret using a valid token', async () => {
-      const user = {
-        secret: 'secret',
-      }
+    it('should return a failure response when a user has not enabled two factor', async () => {
+      service.userRepository = getUserRepositoryMock({})
 
-      service.userRepository = getUserRepositoryMock(user)
-      service.verifyTwoFactorAuthToken = T
-
-      const result = await service.disableTwoFactorAuth('secret', 'test')
-
-      expect(service.userRepository.update).toHaveBeenCalledWith('test', {
-        secret: undefined,
-      })
-      expect(result).toStrictEqual(new Response())
-    })
-
-    it('should return a failure response using an invalid token', async () => {
-      const user = {
-        secret: 'secret',
-      }
-
-      service.userRepository = getUserRepositoryMock(user)
-      service.verifyTwoFactorAuthToken = F
-
-      const result = await service.disableTwoFactorAuth('secret', 'test')
+      const result = await service.disableTwoFactorAuth('token', 'userId')
 
       expect(result).toStrictEqual(
         new Response({
           error: new ResponseError(
-            'Token is invalid or expired',
+            'Two factor not enabled',
             expect.any(String)
           ),
         })
       )
     })
+
+    describe('user exists with two factor enabled', () => {
+      let user: Partial<User>
+
+      beforeAll(() => {
+        const userWithSecret = {
+          secret: 'secret',
+        }
+
+        user = userWithSecret
+      })
+
+      beforeEach(() => {
+        service.userRepository = getUserRepositoryMock(user)
+      })
+
+      it('should remove user secret using a valid token', async () => {
+        service.verifyTwoFactorAuthToken = T
+
+        const result = await service.disableTwoFactorAuth('secret', 'userId')
+
+        expect(service.userRepository.update).toHaveBeenCalledWith('userId', {
+          secret: undefined,
+        })
+        expect(result).toStrictEqual(new Response())
+      })
+
+      it('should return a failure response using an invalid token', async () => {
+        service.verifyTwoFactorAuthToken = F
+
+        const result = await service.disableTwoFactorAuth('secret', 'userId')
+
+        expect(result).toStrictEqual(
+          new Response({
+            error: new ResponseError(
+              'Token is invalid or expired',
+              expect.any(String)
+            ),
+          })
+        )
+      })
+    })
   })
 
   describe('enableTwoFactorAuth', () => {
-    it('should update user secret temp', async () => {
-      const user = {}
-
-      service.userRepository = getUserRepositoryMock(user)
-
-      const result = await service.enableTwoFactorAuth('test')
-
-      expect(result).toStrictEqual(
-        new EnableTwoFactorAuthResponse({
-          dataUrl: 'dataUrl',
-          secret: 'secretTemp',
-        })
-      )
-    })
-
-    it('should return a failure response when a user is not found', async () => {
-      const result = await service.enableTwoFactorAuth('test')
+    it('should return a failure response when a user does not exist', async () => {
+      const result = await service.enableTwoFactorAuth('userId')
 
       expect(result).toStrictEqual(
         new EnableTwoFactorAuthResponse({
           dataUrl: undefined,
           error: new ResponseError('User not found', expect.any(String)),
           secret: undefined,
+        })
+      )
+    })
+
+    it('should initiate two factor', async () => {
+      service.userRepository = getUserRepositoryMock({})
+
+      const result = await service.enableTwoFactorAuth('userId')
+
+      expect(result).toStrictEqual(
+        new EnableTwoFactorAuthResponse({
+          dataUrl: 'dataUrl',
+          secret: 'base32',
         })
       )
     })

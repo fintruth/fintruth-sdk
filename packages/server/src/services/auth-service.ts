@@ -32,8 +32,13 @@ export default class AuthService {
       return new Response({ error: new ResponseError('User not found') })
     }
 
-    const isValid =
-      user.secretTemp && this.verifyTwoFactorAuthToken(token, user.secretTemp)
+    if (!user.secretTemp) {
+      return new Response({
+        error: new ResponseError('Two factor not initiated'),
+      })
+    }
+
+    const isValid = this.verifyTwoFactorAuthToken(token, user.secretTemp)
 
     if (!isValid) {
       return new Response({
@@ -56,8 +61,13 @@ export default class AuthService {
       return new Response({ error: new ResponseError('User not found') })
     }
 
-    const isValid =
-      user.secret && this.verifyTwoFactorAuthToken(token, user.secret)
+    if (!user.secret) {
+      return new Response({
+        error: new ResponseError('Two factor not enabled'),
+      })
+    }
+
+    const isValid = this.verifyTwoFactorAuthToken(token, user.secret)
 
     if (!isValid) {
       return new Response({
