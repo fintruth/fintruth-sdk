@@ -9,6 +9,8 @@ import {
 } from '../resolvers/types'
 import AuthService from './auth-service'
 
+jest.mock('dotenv-safe')
+
 jest.mock('qrcode', () => ({
   toDataURL: () => 'dataUrl',
 }))
