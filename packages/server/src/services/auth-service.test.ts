@@ -102,4 +102,42 @@ describe('AuthService', () => {
       )
     })
   })
+
+  describe('disableTwoFactorAuth', () => {
+    it('should remove user secret using a valid token', async () => {
+      const user = {
+        secret: 'secret',
+      }
+
+      service.userRepository = getUserRepositoryMock(user)
+      service.verifyTwoFactorAuthToken = T
+
+      const result = await service.disableTwoFactorAuth('secret', 'test')
+
+      expect(service.userRepository.update).toHaveBeenCalledWith('test', {
+        secret: undefined,
+      })
+      expect(result).toStrictEqual(new Response())
+    })
+
+    it('should return a failure response using an invalid token', async () => {
+      const user = {
+        secret: 'secret',
+      }
+
+      service.userRepository = getUserRepositoryMock(user)
+      service.verifyTwoFactorAuthToken = F
+
+      const result = await service.disableTwoFactorAuth('secret', 'test')
+
+      const error = new ResponseError('Token is invalid or expired')
+      error.id = expect.any(String)
+
+      expect(result).toStrictEqual(
+        new Response({
+          error,
+        })
+      )
+    })
+  })
 })
