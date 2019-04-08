@@ -16,7 +16,7 @@ jest.mock('qrcode', () => ({
 }))
 
 jest.mock('speakeasy', () => ({
-  generateSecret: jest.fn(() => ({ ascii: '', base32: 'base32' })),
+  generateSecret: () => ({ ascii: '', base32: 'base32' }),
   otpauthURL: () => '',
 }))
 
