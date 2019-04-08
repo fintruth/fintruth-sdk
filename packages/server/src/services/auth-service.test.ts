@@ -1,13 +1,13 @@
 import { equals, F, T } from 'ramda'
 import { Container } from 'typedi'
 
-import { User } from '../entities'
 import {
   Response,
   ResponseError,
   EnableTwoFactorAuthResponse,
-} from '../resolvers/types'
+} from 'resolvers/types'
 import AuthService from './auth-service'
+import { User } from '../entities'
 
 jest.mock('dotenv-safe')
 
