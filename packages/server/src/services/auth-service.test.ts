@@ -59,15 +59,9 @@ describe('AuthService', () => {
     })
 
     describe('user exists with password', () => {
-      let user: Partial<User>
-
-      beforeAll(() => {
-        const userWithPassword = {
-          validatePassword: jest.fn(equals('good')),
-        }
-
-        user = userWithPassword
-      })
+      let user: Partial<User> = {
+        validatePassword: jest.fn(equals('good')),
+      }
 
       beforeEach(() => {
         service.userRepository = getUserRepositoryMock(user)
@@ -76,14 +70,12 @@ describe('AuthService', () => {
       it('should return a user using a correct password', async () => {
         const result = await service.authenticate('test@test.com', 'good')
 
-        expect(user.validatePassword).toHaveBeenCalledWith('good')
         expect(result).toStrictEqual(user)
       })
 
       it('should return null using an incorrect password', async () => {
         const result = await service.authenticate('test@test.com', 'bad')
 
-        expect(user.validatePassword).toHaveBeenCalledWith('bad')
         expect(result).toBeNull()
       })
     })
@@ -106,15 +98,9 @@ describe('AuthService', () => {
     })
 
     describe('user exists with two factor pending', () => {
-      let user: Partial<User>
-
-      beforeAll(() => {
-        const userWithSecretTemp = {
-          secretTemp: 'secret',
-        }
-
-        user = userWithSecretTemp
-      })
+      let user: Partial<User> = {
+        secretTemp: 'secret',
+      }
 
       beforeEach(() => {
         service.userRepository = getUserRepositoryMock(user)
@@ -125,10 +111,6 @@ describe('AuthService', () => {
 
         const result = await service.confirmTwoFactorAuth('token', 'userId')
 
-        expect(service.userRepository.update).toHaveBeenCalledWith('userId', {
-          secret: 'secret',
-          secretTemp: undefined,
-        })
         expect(result).toStrictEqual(new Response())
       })
 
@@ -166,15 +148,9 @@ describe('AuthService', () => {
     })
 
     describe('user exists with two factor enabled', () => {
-      let user: Partial<User>
-
-      beforeAll(() => {
-        const userWithSecret = {
-          secret: 'secret',
-        }
-
-        user = userWithSecret
-      })
+      let user: Partial<User> = {
+        secret: 'secret',
+      }
 
       beforeEach(() => {
         service.userRepository = getUserRepositoryMock(user)
@@ -185,9 +161,6 @@ describe('AuthService', () => {
 
         const result = await service.disableTwoFactorAuth('secret', 'userId')
 
-        expect(service.userRepository.update).toHaveBeenCalledWith('userId', {
-          secret: undefined,
-        })
         expect(result).toStrictEqual(new Response())
       })
 
