@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc",
     "build:release": "yarn build",
-    "clean": "del build",
+    "clean": "del build tsconfig.tsbuildinfo",
     "lint": "run-p lint:*",
     "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
