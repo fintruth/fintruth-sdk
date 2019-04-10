@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { toDataURL } from 'qrcode'
 import { generateSecret, otpauthURL, totp } from 'speakeasy'
-import { Inject, Service } from 'typedi'
+import { Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
@@ -13,15 +13,11 @@ import {
 } from 'resolvers/types'
 import { ServerResponse } from 'server'
 import { User } from '../entities'
-import UserService from './user-service'
 
 @Service()
 export default class AuthService {
-  @Inject()
-  userService: UserService
-
   @InjectRepository(User)
-  private userRepository: Repository<User>
+  userRepository: Repository<User>
 
   async authenticate(email: string, password: string) {
     const user = await this.userRepository.findOne({ email })
@@ -36,8 +32,13 @@ export default class AuthService {
       return new Response({ error: new ResponseError('User not found') })
     }
 
-    const isValid =
-      user.secretTemp && this.verifyTwoFactorAuthToken(token, user.secretTemp)
+    if (!user.secretTemp) {
+      return new Response({
+        error: new ResponseError('Two factor not initiated'),
+      })
+    }
+
+    const isValid = this.verifyTwoFactorAuthToken(token, user.secretTemp)
 
     if (!isValid) {
       return new Response({
@@ -60,8 +61,13 @@ export default class AuthService {
       return new Response({ error: new ResponseError('User not found') })
     }
 
-    const isValid =
-      user.secret && this.verifyTwoFactorAuthToken(token, user.secret)
+    if (!user.secret) {
+      return new Response({
+        error: new ResponseError('Two factor not enabled'),
+      })
+    }
+
+    const isValid = this.verifyTwoFactorAuthToken(token, user.secret)
 
     if (!isValid) {
       return new Response({
