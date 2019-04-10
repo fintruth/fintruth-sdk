@@ -17,7 +17,12 @@ import {
 import { content, medium, untilMedium } from 'styles/mixins'
 import { raven } from 'styles/variables'
 import { renderLoadingIf } from 'utilities/loading'
-import { LayoutQueryData, layoutQuery, signOutMutation } from './graphql'
+import {
+  LayoutQueryData,
+  SignOutMutationData,
+  layoutQuery,
+  signOutMutation,
+} from './graphql'
 
 interface MenuProps {
   isOpen: boolean
@@ -216,7 +221,7 @@ const Layout: React.FunctionComponent<Props> = ({
                           <ExpandMore aria-hidden />
                           <UserCircle aria-hidden />
                         </SubmenuButton>
-                        <Mutation
+                        <Mutation<SignOutMutationData>
                           mutation={signOutMutation}
                           onCompleted={() => {
                             client.resetStore()
