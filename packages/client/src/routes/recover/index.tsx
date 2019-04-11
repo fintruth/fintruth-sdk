@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
 import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink, RouteComponentProps } from '@reach/router'
 import { Mutation, Query } from 'react-apollo'
@@ -7,7 +7,7 @@ import { object, string } from 'yup'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
-import BaseNotice, { Status } from 'components/notice'
+import BaseNotice from 'components/notice'
 import ControlledInputField from 'components/controlled-input-field'
 import { centered, link } from 'styles/mixins'
 import { renderLoadingIf } from 'utilities/loading'
@@ -66,7 +66,7 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
   ...rest
 }: RouteComponentProps) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState<Status>('success')
+  const [variant, setVariant] = React.useState<NoticeVariant>('success')
 
   return (
     <Root data-testid="recover" {...rest}>
@@ -77,17 +77,17 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
             onCompleted={({ response }) => {
               if (response.error) {
                 setNotice(response.error.message)
-                setStatus('failure')
+                setVariant('danger')
               } else {
                 setNotice('A verification email has been sent')
-                setStatus('success')
+                setVariant('success')
               }
             }}
           >
             {(onSubmit, result) =>
               renderLoadingIf(loading, () => (
                 <React.Fragment>
-                  {notice && <Notice status={status}>{notice}</Notice>}
+                  {notice && <Notice variant={variant}>{notice}</Notice>}
                   <Formik<Values>
                     initialValues={{ email: data.user ? data.user.email : '' }}
                     onSubmit={variables => onSubmit({ variables })}

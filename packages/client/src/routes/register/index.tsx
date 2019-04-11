@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
 import { Form as BaseForm, Formik } from 'formik'
 import { Mutation } from 'react-apollo'
 import { RouteComponentProps } from '@reach/router'
@@ -7,7 +7,7 @@ import { object, ref, string } from 'yup'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
-import BaseNotice, { Status } from 'components/notice'
+import BaseNotice from 'components/notice'
 import BaseSubnavbar from 'components/subnavbar'
 import ControlledInputField from 'components/controlled-input-field'
 import { centered } from 'styles/mixins'
@@ -85,7 +85,7 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
   ...rest
 }: RouteComponentProps) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState<Status>('success')
+  const [variant, setVariant] = React.useState<NoticeVariant>('success')
 
   return (
     <Mutation<RegisterMutationData, RegisterMutationVariables>
@@ -93,17 +93,17 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
       onCompleted={({ response }) => {
         if (response.error) {
           setNotice(response.error.message)
-          setStatus('failure')
+          setVariant('danger')
         } else {
           setNotice('A verification email has been sent')
-          setStatus('success')
+          setVariant('success')
         }
       }}
     >
       {(onSubmit, { loading }) => (
         <Root data-testid="register" {...rest}>
           <Subnavbar items={items} />
-          {notice && <Notice status={status}>{notice}</Notice>}
+          {notice && <Notice variant={variant}>{notice}</Notice>}
           <Formik<Values>
             initialValues={initialValues}
             onSubmit={input => onSubmit({ variables: { input } })}

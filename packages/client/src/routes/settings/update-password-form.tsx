@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
 import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink } from '@reach/router'
@@ -8,7 +8,7 @@ import { rem } from 'polished'
 
 import BaseButton from 'components/button'
 import BaseControlledInputField from 'components/controlled-input-field'
-import BaseNotice, { Status } from 'components/notice'
+import BaseNotice from 'components/notice'
 import { link } from 'styles/mixins'
 import {
   UpdatePasswordMutationData,
@@ -65,7 +65,7 @@ const formId = 'update-password__Form'
 
 const UpdatePasswordForm: React.FunctionComponent = ({ ...rest }) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState<Status>('success')
+  const [variant, setVariant] = React.useState<NoticeVariant>('success')
 
   return (
     <ApolloConsumer>
@@ -79,10 +79,10 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...rest }) => {
 
             if (response.error) {
               setNotice(response.error.message)
-              setStatus('failure')
+              setVariant('danger')
             } else {
               setNotice('Your password was successfully updated')
-              setStatus('success')
+              setVariant('success')
             }
           }}
         >
@@ -94,7 +94,7 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...rest }) => {
             >
               {() => (
                 <React.Fragment>
-                  {notice && <Notice status={status}>{notice}</Notice>}
+                  {notice && <Notice variant={variant}>{notice}</Notice>}
                   <Form {...rest} id={formId} noValidate>
                     <ControlledInputField
                       id={`${formId}-password`}

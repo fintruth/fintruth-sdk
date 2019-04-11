@@ -1,43 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render the default style correctly 1`] = `
+exports[`should render the danger variant correctly 1`] = `
 .c0 {
-  color: #333;
+  color: #ff3860;
+  display: block;
   font-size: 0.75rem;
-  font-weight: 500;
+  margin-top: 0.25rem;
 }
 
-<div
+<p
   class="c0"
 >
   child
-</div>
+</p>
 `;
 
-exports[`should render the failure style correctly 1`] = `
+exports[`should render the default variant correctly 1`] = `
 .c0 {
-  color: #ed5357;
+  color: #4a4a4a;
+  display: block;
   font-size: 0.75rem;
-  font-weight: 500;
+  margin-top: 0.25rem;
 }
 
-<div
+<p
   class="c0"
 >
   child
-</div>
+</p>
 `;
 
-exports[`should render the success style correctly 1`] = `
+exports[`should render the success variant correctly 1`] = `
 .c0 {
-  color: #54dec3;
+  color: #23d160;
+  display: block;
   font-size: 0.75rem;
-  font-weight: 500;
+  margin-top: 0.25rem;
 }
 
-<div
+<p
   class="c0"
 >
   child
-</div>
+</p>
 `;

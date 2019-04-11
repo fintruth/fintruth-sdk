@@ -1,23 +1,8 @@
-import {
-  Body, // eslint-disable-line import/named
-  Code, // eslint-disable-line import/named
-  DefaultTheme, // eslint-disable-line import/named
-  Hr, // eslint-disable-line import/named
-  Pre, // eslint-disable-line import/named
-  Html, // eslint-disable-line import/named
-  Strong, // eslint-disable-line import/named
-  Variables, // eslint-disable-line import/named
-} from 'styled-components'
-import { em, hsl, hsla, readableColor, rem } from 'polished'
+import { DefaultTheme } from 'styled-components' // eslint-disable-line import/named
+import { em, hsl, hsla, readableColor, rem, transparentize } from 'polished'
 
-export interface PartialDefaultTheme extends Partial<Variables> {
-  body?: Partial<Body>
-  code?: Partial<Code>
-  hr?: Partial<Hr>
-  html?: Partial<Html>
-  pre?: Partial<Pre>
-  strong?: Partial<Strong>
-}
+type PartialDefaultTheme = RecursivePartial<DefaultTheme>
+type RecursivePartial<T> = { [P in keyof T]?: RecursivePartial<T[P]> }
 
 export const createTheme = ({
   grayDarker = hsl(0, 0, 0.21),
@@ -52,7 +37,12 @@ export const createTheme = ({
   blueContrast = readableColor(blue, lightContrast, darkContrast),
 
   textColor = grayDark,
+  textLightColor = gray,
   textStrongColor = grayDarker,
+
+  inputHoverColor = grayDarker,
+
+  inputDisabledColor = textLightColor,
 
   gap = 64,
 
@@ -68,7 +58,10 @@ export const createTheme = ({
   code = {},
   hr = {},
   html = {},
+  label = {},
+  notice = {},
   pre = {},
+  radio = {},
   strong = {},
 
   ...rest
@@ -145,9 +138,18 @@ export const createTheme = ({
   // Text Colors
   textColor,
   textColorContrast: readableColor(textColor, lightContrast, darkContrast),
-  textLightColor: gray,
+  textLightColor,
   textStrongColor,
   textSelectionColor: hsl(213, 0.92, 0.85),
+
+  // Input Colors
+  inputHoverColor,
+  inputHoverBorderColor: grayLight,
+
+  inputDisabledColor,
+  inputDisabledBackgroundColor: backgroundColor,
+  inputDisabledBorderColor: backgroundColor,
+  inputDisabledPlaceholderColor: transparentize(0.7, inputDisabledColor),
 
   // Responsiveness
   gap,
@@ -189,7 +191,7 @@ export const createTheme = ({
 
     // Typography
     fontFamily: fontFamilyCode,
-    fontSize: `${em(14)}`,
+    fontSize: em(14),
     fontWeight: 400,
 
     ...code,
@@ -211,7 +213,7 @@ export const createTheme = ({
     backgroundColor: white,
 
     // Typography
-    fontSize: `${em(16)}`,
+    fontSize: em(16),
     textRendering,
 
     // Miscellaneous
@@ -221,12 +223,47 @@ export const createTheme = ({
     ...html,
   },
 
+  label: {
+    // Colors
+    color: grayDarker,
+
+    // Typography
+    fontSize: rem(16),
+    fontWeight: 700,
+
+    ...label,
+  },
+
+  notice: {
+    // Colors
+    danger,
+    default: textColor,
+    success,
+
+    // Typography
+    fontSize: rem(12),
+
+    ...notice,
+  },
+
   pre: {
     // Colors
     backgroundColor,
     color: textColor,
 
     ...pre,
+  },
+
+  radio: {
+    // Colors
+    disabledColor: inputDisabledColor,
+    hoverColor: inputHoverColor,
+
+    toggleCheckedColor: blue,
+    toggleColor: textColor,
+    toggleDisabledColor: inputDisabledColor,
+
+    ...radio,
   },
 
   strong: {

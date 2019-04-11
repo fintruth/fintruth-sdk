@@ -1,12 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
 import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
 import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseNotice, { Status } from 'components/notice'
+import BaseNotice from 'components/notice'
 import ControlledInputField from 'components/controlled-input-field'
 import {
   SignInTwoFactorAuthMutationData,
@@ -55,7 +55,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   ...rest
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState<Status>('success')
+  const [variant, setVariant] = React.useState<NoticeVariant>('success')
 
   return (
     <ApolloConsumer>
@@ -70,7 +70,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
 
             if (response.error) {
               setNotice(response.error.message)
-              setStatus('failure')
+              setVariant('danger')
             } else if (response.user) {
               resolveNextView(response.user)
             }
@@ -78,7 +78,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         >
           {(onSubmit, { loading }) => (
             <React.Fragment>
-              {notice && <Notice status={status}>{notice}</Notice>}
+              {notice && <Notice variant={variant}>{notice}</Notice>}
               <Formik<Values>
                 initialValues={initialValues}
                 onSubmit={variables =>
