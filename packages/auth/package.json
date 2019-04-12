@@ -13,7 +13,6 @@
     "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
     "lint:types": "tsc --noEmit",
-    "prebuild": "yarn clean",
     "test": "run-p test:*",
     "test:units": "jest --passWithNoTests"
   },

@@ -9,7 +9,6 @@
     "clean": "lerna run --stream clean",
     "lint": "yarn lint:files && lerna run --stream lint",
     "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}' '!packages/**'",
-    "prebuild": "yarn clean",
     "start": "lerna run --parallel --scope @fintruth-sdk/server --scope @fintruth-sdk/client --stream start",
     "test": "lerna run --stream test"
   },
