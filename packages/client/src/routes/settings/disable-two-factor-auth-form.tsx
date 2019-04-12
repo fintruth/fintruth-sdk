@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
 import { Form as BaseForm, Formik } from 'formik'
 import { Mutation } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
@@ -8,7 +8,7 @@ import { rem } from 'polished'
 
 import BaseButton from 'components/button'
 import BaseControlledInputField from 'components/controlled-input-field'
-import BaseNotice, { Status } from 'components/notice'
+import BaseNotice from 'components/notice'
 import {
   DisableTwoFactorAuthMutationData,
   DisableTwoFactorAuthMutationVariables,
@@ -59,7 +59,7 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   ...rest
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState<Status>('success')
+  const [variant, setVariant] = React.useState<NoticeVariant>('success')
 
   return (
     <Mutation<
@@ -70,7 +70,7 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
       onCompleted={({ response }) => {
         if (response.error) {
           setNotice(response.error.message)
-          setStatus('failure')
+          setVariant('danger')
         } else if (onCompleted) {
           onCompleted()
         }
@@ -92,7 +92,7 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         >
           {() => (
             <React.Fragment>
-              {notice && <Notice status={status}>{notice}</Notice>}
+              {notice && <Notice variant={variant}>{notice}</Notice>}
               <Form {...rest} id={formId} noValidate>
                 <ControlledInputField
                   id={`${formId}-token`}

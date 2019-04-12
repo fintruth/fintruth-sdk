@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { rem } from 'polished'
-
-import { heather } from 'styles/variables'
+import { em } from 'polished'
 
 interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
   children: React.ReactNode
@@ -10,10 +8,14 @@ interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
 }
 
 const Root = styled.label`
-  color: ${heather};
+  color: ${({ theme }) => theme.label.color};
   display: block;
-  font-size: ${rem(12)};
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.label.fontSize};
+  font-weight: ${({ theme }) => theme.label.fontWeight};
+
+  :not(:last-child) {
+    margin-bottom: ${em(8)};
+  }
 `
 
 const Label: React.FunctionComponent<Props> = ({

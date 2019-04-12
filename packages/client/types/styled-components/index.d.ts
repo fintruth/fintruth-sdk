@@ -1,14 +1,16 @@
 import 'styled-components'
 
 declare module 'styled-components' {
-  export interface Body {
+  export type NoticeVariant = 'danger' | 'default' | 'success'
+
+  interface Body {
     color: string
     fontFamily: string
     fontWeight: number
     lineHeight: number
   }
 
-  export interface Code {
+  interface Code {
     backgroundColor: string
     color: string
     fontFamily: string
@@ -22,17 +24,20 @@ declare module 'styled-components' {
     code: Code
     hr: Hr
     html: Html
+    label: Label
+    notice: Notice
     pre: Pre
+    radio: Radio
     strong: Strong
   }
 
-  export interface Hr {
+  interface Hr {
     backgroundColor: string
     height: string
     margin: string
   }
 
-  export interface Html {
+  interface Html {
     backgroundColor: string
     fontSize: string
     overflowX: string
@@ -40,17 +45,35 @@ declare module 'styled-components' {
     textRendering: string
   }
 
-  export interface Pre {
+  interface Label {
+    color: string
+    fontSize: string
+    fontWeight: number
+  }
+
+  interface Notice extends Record<NoticeVariant, string> {
+    fontSize: string
+  }
+
+  interface Pre {
     backgroundColor: string
     color: string
   }
 
-  export interface Strong {
+  interface Radio {
+    disabledColor: string
+    hoverColor: string
+    toggleCheckedColor: string
+    toggleColor: string
+    toggleDisabledColor: string
+  }
+
+  interface Strong {
     color: string
     fontWeight: number
   }
 
-  export interface Variables {
+  interface Variables {
     backgroundColor: string
     black: string
     blackBis: string
@@ -79,6 +102,12 @@ declare module 'styled-components' {
     greenContrast: string
     info: string
     infoContrast: string
+    inputDisabledBackgroundColor: string
+    inputDisabledBorderColor: string
+    inputDisabledColor: string
+    inputDisabledPlaceholderColor: string
+    inputHoverBorderColor: string
+    inputHoverColor: string
     lightContrast: string
     linkActiveBorderColor: string
     linkActiveColor: string

@@ -1,24 +1,15 @@
-import styled from 'styled-components'
+import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
 import { rem } from 'polished'
 
-import { aquaMarine, raven, watermelon } from 'styles/variables'
-
-export type Status = 'default' | 'failure' | 'success'
-
 interface Props {
-  status?: Status
+  variant?: NoticeVariant
 }
 
-const statusColors: Record<Status, string> = {
-  default: raven,
-  failure: watermelon,
-  success: aquaMarine,
-}
-
-const Notice = styled.div`
-  color: ${({ status = 'default' }: Props) => statusColors[status]};
-  font-size: ${rem(12)};
-  font-weight: 500;
+const Notice = styled.p<Props>`
+  color: ${({ theme, variant = 'default' }) => theme.notice[variant]};
+  display: block;
+  font-size: ${({ theme }) => theme.notice.fontSize};
+  margin-top: ${rem(4)};
 `
 
 export default Notice

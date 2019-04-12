@@ -42,7 +42,7 @@ const InputField: React.FunctionComponent<Props> = ({
       </Label>
     )}
     <Input id={id} status={status} {...rest} />
-    {notice && <Notice status="failure">{notice}</Notice>}
+    {notice && <Notice variant="danger">{notice}</Notice>}
   </Root>
 )
 

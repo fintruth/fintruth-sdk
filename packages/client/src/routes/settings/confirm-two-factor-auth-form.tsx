@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
 import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
 import { object, string } from 'yup'
@@ -7,7 +7,7 @@ import { rem } from 'polished'
 
 import BaseButton from 'components/button'
 import BaseControlledInputField from 'components/controlled-input-field'
-import BaseNotice, { Status } from 'components/notice'
+import BaseNotice from 'components/notice'
 import {
   ConfirmTwoFactorAuthMutationData,
   ConfirmTwoFactorAuthMutationVariables,
@@ -56,7 +56,7 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   ...rest
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
-  const [status, setStatus] = React.useState<Status>('success')
+  const [variant, setVariant] = React.useState<NoticeVariant>('success')
 
   return (
     <ApolloConsumer>
@@ -73,7 +73,7 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
 
             if (response.error) {
               setNotice(response.error.message)
-              setStatus('failure')
+              setVariant('danger')
             } else if (onCompleted) {
               onCompleted()
             }
@@ -87,7 +87,7 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
             >
               {() => (
                 <React.Fragment>
-                  {notice && <Notice status={status}>{notice}</Notice>}
+                  {notice && <Notice variant={variant}>{notice}</Notice>}
                   <Form {...rest} id={formId} noValidate>
                     <ControlledInputField
                       id={`${formId}-token`}
