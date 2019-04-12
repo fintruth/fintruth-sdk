@@ -5,13 +5,14 @@ import { ValidationError, object, string } from '@fintruth-sdk/validation'
 import { hash } from 'bcrypt'
 import { is, isNil } from 'ramda'
 
+import { logError } from 'logger'
 import { Response, ResponseError, UserResponse } from 'resolvers/types'
 import { User } from '../entities'
 
 @Service()
 export default class UserService {
   @InjectRepository(User)
-  private userRepository: Repository<User>
+  userRepository: Repository<User>
 
   async emailAvailable(email: string) {
     return isNil(await this.userRepository.findOne({ email }))
@@ -21,7 +22,7 @@ export default class UserService {
     return this.userRepository.findOne(id)
   }
 
-  async createUser(email: string, password: string) {
+  async create(email: string, password: string) {
     const isAvailable = await this.emailAvailable(email)
 
     if (!isAvailable) {
@@ -30,7 +31,15 @@ export default class UserService {
       })
     }
 
-    const user = await this.userRepository.save({ email, password })
+    const user = await this.userRepository
+      .save({ email, password })
+      .catch(logError)
+
+    if (!user) {
+      return new UserResponse({
+        error: new ResponseError('Failed to save user'),
+      })
+    }
 
     return new UserResponse({ user })
   }

@@ -33,7 +33,7 @@ export default class RegisterService {
       })
     }
 
-    return this.userService.createUser(email, password)
+    return this.userService.create(email, password)
   }
 
   async register(email: string, password: string) {
