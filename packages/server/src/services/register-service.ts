@@ -1,5 +1,4 @@
 import { ValidationError, object, string } from '@fintruth-sdk/validation'
-import { hash } from 'bcrypt'
 import { is } from 'ramda'
 import { Inject, Service } from 'typedi'
 
@@ -66,11 +65,11 @@ export default class RegisterService {
     const data: RegistrationTokenData = {
       email,
       expiresAt,
-      password: await hash(password, 10),
+      password,
     }
     const token = createToken(data)
 
-    logger.info('Registration token: ', token)
+    logger.info(`Registration token: ${token}`)
 
     return new Response()
   }
