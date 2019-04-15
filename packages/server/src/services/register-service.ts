@@ -3,14 +3,22 @@ import { is } from 'ramda'
 import { Inject, Service } from 'typedi'
 
 import { logger } from 'logger'
-import { Response, ResponseError, UserResponse } from 'resolvers/types'
+import {
+  RegisterInput,
+  Response,
+  ResponseError,
+  UserResponse,
+} from 'resolvers/types'
 import { createToken, parseToken } from 'security'
 import AuthService from './auth-service'
 import UserService from './user-service'
+import { Profile } from '../entities'
 
 interface RegistrationTokenData {
   email: string
   expiresAt: number
+  firstName: string
+  lastName: string
   password: string
 }
 
@@ -23,7 +31,9 @@ export default class RegisterService {
   userService: UserService
 
   confirmRegistration(token: string) {
-    const { email, expiresAt, password } = parseToken(token)
+    const { email, expiresAt, firstName, lastName, password } = parseToken(
+      token
+    )
     const isExpired = expiresAt < Date.now()
 
     if (isExpired) {
@@ -32,10 +42,17 @@ export default class RegisterService {
       })
     }
 
-    return this.userService.create(email, password)
+    return this.userService.create(
+      email,
+      password,
+      new Profile({
+        firstName,
+        lastName,
+      })
+    )
   }
 
-  async register(email: string, password: string) {
+  async register({ email, firstName, lastName, password }: RegisterInput) {
     const schema = object().shape({
       email: string()
         .required()
@@ -65,6 +82,8 @@ export default class RegisterService {
     const data: RegistrationTokenData = {
       email,
       expiresAt,
+      firstName,
+      lastName,
       password,
     }
     const token = createToken(data)

@@ -3,7 +3,7 @@ import { Container } from 'typedi'
 
 import { ResponseError } from 'resolvers/types'
 import UserService from './user-service'
-import { User } from '../entities'
+import { Profile, User } from '../entities'
 
 jest.mock('@fintruth-sdk/validation', () => ({
   object: () => ({
@@ -60,12 +60,23 @@ describe('UserService', () => {
 
   describe('create', () => {
     it('should save a new user', async () => {
-      const result = await service.create('test@test.com', 'password')
+      const result = await service.create(
+        'test@test.com',
+        'password',
+        new Profile({
+          firstName: '',
+          lastName: '',
+        })
+      )
 
       expect(result.user).toStrictEqual({
         id: 'test',
         email: 'test@test.com',
         password: 'hash',
+        profile: new Profile({
+          firstName: '',
+          lastName: '',
+        }),
       })
     })
 
@@ -81,7 +92,14 @@ describe('UserService', () => {
       })
 
       it('should fail using an existing email', async () => {
-        const result = await service.create('test@test.com', 'password')
+        const result = await service.create(
+          'test@test.com',
+          'password',
+          new Profile({
+            firstName: '',
+            lastName: '',
+          })
+        )
 
         expect(result.user).toBeUndefined()
         expect(result.error).toStrictEqual(

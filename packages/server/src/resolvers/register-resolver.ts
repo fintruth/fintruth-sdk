@@ -15,7 +15,7 @@ export default class RegisterResolver {
   }
 
   @Mutation(() => Response)
-  async register(@Arg('input') { email, password }: RegisterInput) {
-    return this.registerService.register(email, password)
+  async register(@Arg('input') input: RegisterInput) {
+    return this.registerService.register(input)
   }
 }

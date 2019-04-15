@@ -25,7 +25,7 @@ export default class User implements UserEntity {
   email: string
 
   @Field()
-  @Column()
+  @Column({ default: false })
   isAdmin: boolean
 
   @Column()

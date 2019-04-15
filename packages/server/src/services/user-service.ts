@@ -1,13 +1,13 @@
+import { object, string } from '@fintruth-sdk/validation'
 import { hash } from 'bcrypt'
 import { isNil, mergeLeft } from 'ramda'
-import { InjectRepository } from 'typeorm-typedi-extensions'
-import { Repository } from 'typeorm'
 import { Service } from 'typedi'
-import { object, string } from '@fintruth-sdk/validation'
+import { Repository } from 'typeorm'
+import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { logError } from 'logger'
 import { Response, ResponseError, UserResponse } from 'resolvers/types'
-import { User } from '../entities'
+import { Profile, User } from '../entities'
 
 @Service()
 export default class UserService {
@@ -22,7 +22,7 @@ export default class UserService {
     return this.userRepository.findOne(id)
   }
 
-  async create(email: string, password: string) {
+  async create(email: string, password: string, profile: Profile) {
     const valid = await object()
       .shape({
         email: string()
@@ -48,7 +48,11 @@ export default class UserService {
     }
 
     const user = await this.userRepository
-      .save({ email, password: await hash(password, 10) })
+      .save({
+        email,
+        password: await hash(password, 10),
+        profile,
+      })
       .catch(logError)
 
     if (!user) {
