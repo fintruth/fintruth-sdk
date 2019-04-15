@@ -38,4 +38,9 @@ export default class Profile extends ProfileEntity {
   @Field()
   @UpdateDateColumn()
   updatedAt: Date
+
+  constructor(partial: Partial<Profile>) {
+    super()
+    Object.assign(this, partial)
+  }
 }

@@ -28,4 +28,8 @@ export const logger = winston.createLogger({
   transports,
 })
 
+export const logError = (error: Error) => {
+  logger.error(error.message)
+}
+
 logger.stream = split().on('data', logger.info) as any
