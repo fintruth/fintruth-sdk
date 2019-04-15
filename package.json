@@ -52,7 +52,7 @@
     "prettier": "^1.16.4",
     "prettylint": "^1.0.0",
     "typescript": "~3.4.3",
-    "webpack": "^4.29.6",
+    "webpack": "^4.30.0",
     "webpack-node-externals": "^1.7.2"
   },
   "engines": {
