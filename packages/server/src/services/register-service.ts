@@ -1,8 +1,7 @@
-import { ValidationError, object, string } from '@fintruth-sdk/validation'
-import { is } from 'ramda'
+import { object, string } from '@fintruth-sdk/validation'
 import { Inject, Service } from 'typedi'
 
-import { logger } from 'logger'
+import { logAs, Loggable } from 'logger'
 import {
   RegisterInput,
   Response,
@@ -30,6 +29,9 @@ export default class RegisterService {
   @Inject()
   userService: UserService
 
+  private log = logAs('RegisterService')
+  private logDebug = (message: Loggable) => this.log(message, 'debug')
+
   confirmRegistration(token: string) {
     const { email, expiresAt, firstName, lastName, password } = parseToken(
       token
@@ -53,20 +55,19 @@ export default class RegisterService {
   }
 
   async register({ email, firstName, lastName, password }: RegisterInput) {
-    const schema = object().shape({
-      email: string()
-        .required()
-        .email(),
-      password: string()
-        .required()
-        .password(2),
-    })
-
-    const validated = await schema
+    const valid = await object()
+      .shape({
+        email: string()
+          .required()
+          .email(),
+        password: string()
+          .required()
+          .password(2),
+      })
       .validate({ email, password })
-      .catch((error: ValidationError) => error)
+      .catch(this.logDebug)
 
-    if (is(ValidationError, validated)) {
+    if (!valid) {
       return new Response({ error: new ResponseError('Invalid data provided') })
     }
 
@@ -88,7 +89,7 @@ export default class RegisterService {
     }
     const token = createToken(data)
 
-    logger.info(`Registration token: ${token}`)
+    this.log(`Registration token: ${token}`)
 
     return new Response()
   }

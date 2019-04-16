@@ -1,9 +1,9 @@
-import { InjectRepository } from 'typeorm-typedi-extensions'
-import { Repository } from 'typeorm'
+import { object, string } from '@fintruth-sdk/validation'
 import { Service } from 'typedi'
-import { ValidationError, object, string } from '@fintruth-sdk/validation'
-import { is } from 'ramda'
+import { Repository } from 'typeorm'
+import { InjectRepository } from 'typeorm-typedi-extensions'
 
+import { logAs, Loggable } from 'logger'
 import {
   ProfileInput,
   ProfileResponse,
@@ -17,20 +17,23 @@ export default class ProfileService {
   @InjectRepository(Profile)
   private readonly profileRepository: Repository<Profile>
 
+  private log = logAs('ProfileService')
+  private logDebug = (message: Loggable) => this.log(message, 'debug')
+
   findByUserId(userId: string) {
     return this.profileRepository.findOne({ where: { userId } })
   }
 
   async update(userId: string, input: ProfileInput) {
-    const schemaOrError = await object()
+    const valid = await object()
       .shape({
         firstName: string().required(),
         lastName: string().required(),
       })
       .validate(input)
-      .catch((error: ValidationError) => error)
+      .catch(this.logDebug)
 
-    if (is(ValidationError, schemaOrError)) {
+    if (!valid) {
       return new UserResponse({
         error: new ResponseError(
           'There is an issue with the provided form values'
