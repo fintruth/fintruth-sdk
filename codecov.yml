@@ -8,6 +8,8 @@ coverage:
           - client
           - server
   status:
+    patch:
+      default: false
     project:
       default: false
       client:
