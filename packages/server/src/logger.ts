@@ -10,13 +10,10 @@ const alignedWithColorsAndTime = winston.format.combine(
   winston.format.align(),
   winston.format.printf(({ timestamp, level, message, ...args }) => {
     const ts = timestamp.slice(0, 19).replace('T', ' ')
-    const formatted = is(String, args)
-      ? args
-      : Object.keys(args).length > 0
-      ? JSON.stringify(args, null, 2)
-      : ''
 
-    return `${ts} [${level}]: ${message} ${formatted}`
+    return `${ts} [${level}]: ${message} ${
+      Object.keys(args).length > 0 ? JSON.stringify(args, null, 2) : ''
+    }`
   })
 )
 
@@ -38,7 +35,11 @@ export const logAs = (name: string) => (
   message: Loggable,
   level: string = 'info'
 ) => {
-  logger.log(level, `[${name}]`, message)
+  if (is(Object, message)) {
+    logger.log(level, `[${name}]`, message)
+  } else {
+    logger.log(level, `[${name}] ${message}`)
+  }
 }
 
 logger.stream = split().on('data', logger.info) as any
