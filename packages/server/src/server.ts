@@ -7,7 +7,7 @@ import morgan from 'morgan'
 
 import { User } from './entities'
 import { secret, trustProxy } from 'config'
-import { logger } from 'logger'
+import { logAs, logger } from 'logger'
 
 export interface ServerRequest extends Request {
   user?: User
@@ -24,7 +24,7 @@ const logUnauthorizedError = (
   next: NextFunction
 ) => {
   if (err instanceof UnauthorizedError) {
-    logger.error('[express-jwt-error]', req.cookies.get('token-id'))
+    logAs('express-jwt')(req.cookies.get('token-id'), 'debug')
     res.clearCookie('token-id')
   }
 

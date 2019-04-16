@@ -1,5 +1,8 @@
+import { is } from 'ramda'
 import split from 'split'
 import winston from 'winston'
+
+export type Loggable = string | number | object
 
 const alignedWithColorsAndTime = winston.format.combine(
   winston.format.colorize(),
@@ -28,8 +31,15 @@ export const logger = winston.createLogger({
   transports,
 })
 
-export const logError = (error: Error) => {
-  logger.error(error.message)
+export const logAs = (name: string) => (
+  message: Loggable,
+  level: string = 'info'
+) => {
+  if (is(Object, message)) {
+    logger.log(level, `[${name}]`, message)
+  } else {
+    logger.log(level, `[${name}] ${message}`)
+  }
 }
 
 logger.stream = split().on('data', logger.info) as any

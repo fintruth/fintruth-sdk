@@ -1,7 +1,7 @@
 import { createApolloServer } from 'apollo'
 import { port } from 'config'
 import { createDatabaseConnection } from 'database'
-import { logger } from 'logger'
+import { logAs } from 'logger'
 import { createServer } from 'server'
 
 const bootstrap = async (): Promise<void> => {
@@ -17,7 +17,7 @@ const bootstrap = async (): Promise<void> => {
   })
 
   app.listen(port, () =>
-    logger.info(
+    logAs('express')(
       `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
     )
   )

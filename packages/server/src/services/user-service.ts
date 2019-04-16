@@ -5,7 +5,7 @@ import { Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { logError } from 'logger'
+import { logAs, Loggable } from 'logger'
 import { Response, ResponseError, UserResponse } from 'resolvers/types'
 import { Profile, User } from '../entities'
 
@@ -13,6 +13,9 @@ import { Profile, User } from '../entities'
 export default class UserService {
   @InjectRepository(User)
   userRepository: Repository<User>
+
+  private log = logAs('UserService')
+  private logDebug = (message: Loggable) => this.log(message, 'debug')
 
   async emailAvailable(email: string) {
     return isNil(await this.userRepository.findOne({ email }))
@@ -33,7 +36,7 @@ export default class UserService {
           .password(2),
       })
       .validate({ email, password })
-      .catch(logError)
+      .catch(this.logDebug)
 
     if (!valid) {
       return new UserResponse({
@@ -53,7 +56,7 @@ export default class UserService {
         password: await hash(password, 10),
         profile,
       })
-      .catch(logError)
+      .catch(this.logDebug)
 
     if (!user) {
       return new UserResponse({
@@ -81,7 +84,7 @@ export default class UserService {
 
     const updated = await this.userRepository
       .update(user.id, partial)
-      .catch(logError)
+      .catch(this.logDebug)
 
     if (!updated) {
       return new UserResponse({
@@ -102,7 +105,7 @@ export default class UserService {
           .email(),
       })
       .validate({ email })
-      .catch(logError)
+      .catch(this.logDebug)
 
     if (!valid) {
       return new UserResponse({
@@ -124,7 +127,7 @@ export default class UserService {
           .password(2),
       })
       .validate({ newPassword })
-      .catch(logError)
+      .catch(this.logDebug)
 
     if (!valid) {
       return new Response({
@@ -134,8 +137,8 @@ export default class UserService {
       })
     }
 
-    await this.update(id, password, { password: await hash(newPassword, 10) })
-
-    return new Response()
+    return this.update(id, password, {
+      password: await hash(newPassword, 10),
+    })
   }
 }
