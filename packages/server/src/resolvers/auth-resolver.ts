@@ -8,15 +8,12 @@ import {
   ResponseError,
   UserResponse,
 } from 'resolvers/types'
-import { AuthService, UserService } from 'services'
+import { AuthService } from 'services'
 
 @Resolver()
 export default class AuthResolver {
   @Inject()
-  authService: AuthService
-
-  @Inject()
-  userService: UserService
+  private readonly authService: AuthService
 
   @Mutation(() => Response)
   confirmTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {

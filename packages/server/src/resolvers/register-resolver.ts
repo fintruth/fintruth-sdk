@@ -7,7 +7,7 @@ import { RegisterService } from 'services'
 @Resolver()
 export default class RegisterResolver {
   @Inject()
-  registerService: RegisterService
+  private readonly registerService: RegisterService
 
   @Mutation(() => UserResponse)
   async confirmRegistration(@Arg('token') token: string) {

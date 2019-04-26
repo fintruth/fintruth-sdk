@@ -22,11 +22,11 @@ export default class UserResolver {
   @InjectRepository(Profile)
   private readonly profileDao: ProfileDao
 
-  @Inject()
-  private readonly userService: UserService
-
   @InjectRepository(User)
   private readonly userDao: UserDao
+
+  @Inject()
+  private readonly userService: UserService
 
   @FieldResolver(() => Profile)
   profile(@Root() { id }: User) {

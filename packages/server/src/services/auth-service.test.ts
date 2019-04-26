@@ -30,7 +30,7 @@ jest.mock('typeorm-typedi-extensions', () => ({
   InjectRepository: () => () => {},
 }))
 
-const getUserRepositoryMock: any = (userMock?: Partial<User>) => ({
+const getUserDaoMock: any = (userMock?: Partial<User>) => ({
   findOne: jest.fn(() => Promise.resolve(userMock)),
   update: jest.fn(() => Promise.resolve(true)),
 })
@@ -40,7 +40,7 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     service = Container.get(AuthService)
-    service.userRepository = getUserRepositoryMock()
+    service.userDao = getUserDaoMock()
   })
 
   afterEach(() => {
@@ -64,7 +64,7 @@ describe('AuthService', () => {
       }
 
       beforeEach(() => {
-        service.userRepository = getUserRepositoryMock(user)
+        service.userDao = getUserDaoMock(user)
       })
 
       it('should return a user using a correct password', async () => {
@@ -83,7 +83,7 @@ describe('AuthService', () => {
 
   describe('confirmTwoFactorAuth', () => {
     it('should return a failure response when a user has not initiated two factor', async () => {
-      service.userRepository = getUserRepositoryMock({})
+      service.userDao = getUserDaoMock({})
 
       const result = await service.confirmTwoFactorAuth('token', 'userId')
 
@@ -103,7 +103,7 @@ describe('AuthService', () => {
       }
 
       beforeEach(() => {
-        service.userRepository = getUserRepositoryMock(user)
+        service.userDao = getUserDaoMock(user)
       })
 
       it('should update user secret using a valid token', async () => {
@@ -133,7 +133,7 @@ describe('AuthService', () => {
 
   describe('disableTwoFactorAuth', () => {
     it('should return a failure response when a user has not enabled two factor', async () => {
-      service.userRepository = getUserRepositoryMock({})
+      service.userDao = getUserDaoMock({})
 
       const result = await service.disableTwoFactorAuth('token', 'userId')
 
@@ -153,7 +153,7 @@ describe('AuthService', () => {
       }
 
       beforeEach(() => {
-        service.userRepository = getUserRepositoryMock(user)
+        service.userDao = getUserDaoMock(user)
       })
 
       it('should remove user secret using a valid token', async () => {
@@ -195,7 +195,7 @@ describe('AuthService', () => {
     })
 
     it('should initiate two factor', async () => {
-      service.userRepository = getUserRepositoryMock({})
+      service.userDao = getUserDaoMock({})
 
       const result = await service.enableTwoFactorAuth('userId')
 
