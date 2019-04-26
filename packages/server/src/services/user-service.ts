@@ -1,7 +1,8 @@
 import { object, string } from '@fintruth-sdk/validation'
 import { hash } from 'bcrypt'
 import { isNil, mergeLeft } from 'ramda'
-import { Inject, Service } from 'typedi'
+import { Service } from 'typedi'
+import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { logAs, Loggable } from 'logger'
 import { UserDao } from 'models'
@@ -10,7 +11,7 @@ import { Profile, User } from '../entities'
 
 @Service()
 export default class UserService {
-  @Inject()
+  @InjectRepository(User)
   userDao: UserDao
 
   private log = logAs('UserService')

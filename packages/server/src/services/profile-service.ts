@@ -1,9 +1,9 @@
 import { object, string } from '@fintruth-sdk/validation'
 import { Service } from 'typedi'
-import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { logAs, Loggable } from 'logger'
+import { ProfileDao } from 'models'
 import {
   ProfileInput,
   ProfileResponse,
@@ -15,14 +15,10 @@ import { Profile } from '../entities'
 @Service()
 export default class ProfileService {
   @InjectRepository(Profile)
-  private readonly profileRepository: Repository<Profile>
+  profileDao: ProfileDao
 
   private log = logAs('ProfileService')
   private logDebug = (message: Loggable) => this.log(message, 'debug')
-
-  findByUserId(userId: string) {
-    return this.profileRepository.findOne({ where: { userId } })
-  }
 
   async update(userId: string, input: ProfileInput) {
     const valid = await object()
@@ -41,8 +37,10 @@ export default class ProfileService {
       })
     }
 
-    await this.profileRepository.update(userId, input)
+    await this.profileDao.update(userId, input)
 
-    return new ProfileResponse({ profile: await this.findByUserId(userId) })
+    return new ProfileResponse({
+      profile: await this.profileDao.findByUserId(userId),
+    })
   }
 }
