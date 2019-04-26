@@ -2,10 +2,10 @@ import jwt from 'jsonwebtoken'
 import { toDataURL } from 'qrcode'
 import { generateSecret, otpauthURL, totp } from 'speakeasy'
 import { Service } from 'typedi'
-import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { secret } from 'config'
+import { UserDao } from 'models'
 import {
   EnableTwoFactorAuthResponse,
   Response,
@@ -17,16 +17,16 @@ import { User } from '../entities'
 @Service()
 export default class AuthService {
   @InjectRepository(User)
-  userRepository: Repository<User>
+  userDao: UserDao
 
   async authenticate(email: string, password: string) {
-    const user = await this.userRepository.findOne({ email })
+    const user = await this.userDao.findOne({ email })
 
     return user && user.validatePassword(password) ? user : null
   }
 
   async confirmTwoFactorAuth(token: string, userId: string) {
-    const user = await this.userRepository.findOne(userId)
+    const user = await this.userDao.findOne(userId)
 
     if (!user) {
       return new Response({ error: new ResponseError('User not found') })
@@ -46,7 +46,7 @@ export default class AuthService {
       })
     }
 
-    await this.userRepository.update(userId, {
+    await this.userDao.update(userId, {
       secret: user.secretTemp,
       secretTemp: undefined,
     })
@@ -55,7 +55,7 @@ export default class AuthService {
   }
 
   async disableTwoFactorAuth(token: string, userId: string) {
-    const user = await this.userRepository.findOne(userId)
+    const user = await this.userDao.findOne(userId)
 
     if (!user) {
       return new Response({ error: new ResponseError('User not found') })
@@ -75,13 +75,13 @@ export default class AuthService {
       })
     }
 
-    await this.userRepository.update(userId, { secret: undefined })
+    await this.userDao.update(userId, { secret: undefined })
 
     return new Response()
   }
 
   async enableTwoFactorAuth(userId: string) {
-    const user = await this.userRepository.findOne(userId)
+    const user = await this.userDao.findOne(userId)
 
     if (!user) {
       return new EnableTwoFactorAuthResponse({
@@ -99,7 +99,7 @@ export default class AuthService {
       { margin: 0 }
     )
 
-    await this.userRepository.update(userId, { secretTemp: base32 })
+    await this.userDao.update(userId, { secretTemp: base32 })
 
     return new EnableTwoFactorAuthResponse({ dataUrl, secret: base32 })
   }

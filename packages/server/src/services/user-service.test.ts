@@ -32,7 +32,8 @@ jest.mock('typeorm-typedi-extensions', () => ({
   InjectRepository: () => () => {},
 }))
 
-const getUserRepositoryMock: any = (userMock?: Partial<User>) => ({
+const getUserDaoMock: any = (userMock?: Partial<User>) => ({
+  findByEmail: () => Promise.resolve(null),
   findById: () => Promise.resolve(userMock),
   findOne: () => Promise.resolve(userMock),
   save: async (partial: Partial<User>) => ({
@@ -47,7 +48,7 @@ describe('UserService', () => {
 
   beforeEach(() => {
     service = Container.get(UserService)
-    service.userRepository = getUserRepositoryMock()
+    service.userDao = getUserDaoMock()
   })
 
   afterEach(() => {
@@ -88,10 +89,12 @@ describe('UserService', () => {
       }
 
       beforeEach(() => {
-        service.userRepository = getUserRepositoryMock(user)
+        service.userDao = getUserDaoMock(user)
       })
 
       it('should fail using an existing email', async () => {
+        service.userDao.findByEmail = () => Promise.resolve(new User())
+
         const result = await service.create(
           'test@test.com',
           'password',
@@ -101,7 +104,6 @@ describe('UserService', () => {
           })
         )
 
-        expect(result.user).toBeUndefined()
         expect(result.error).toStrictEqual(
           new ResponseError('email is not available', expect.any(String))
         )
@@ -118,7 +120,7 @@ describe('UserService', () => {
       }
 
       beforeEach(() => {
-        service.userRepository = getUserRepositoryMock(user)
+        service.userDao = getUserDaoMock(user)
       })
 
       it('should update an existing user', async () => {

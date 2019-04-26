@@ -10,28 +10,27 @@ import {
 } from 'type-graphql'
 import { Inject } from 'typedi'
 import { InjectRepository } from 'typeorm-typedi-extensions'
-import { Repository } from 'typeorm'
 
-import ProfileService from 'services/profile-service'
-import UserService from 'services/user-service'
 import { Context } from 'apollo'
+import { ProfileDao, UserDao } from 'models'
 import { Response, ResponseError, UserResponse } from 'resolvers/types'
+import { UserService } from 'services'
 import { Profile, User } from '../entities'
 
 @Resolver(() => User)
 export default class UserResolver {
-  @Inject()
-  private readonly profileService: ProfileService
+  @InjectRepository(Profile)
+  private readonly profileDao: ProfileDao
+
+  @InjectRepository(User)
+  private readonly userDao: UserDao
 
   @Inject()
   private readonly userService: UserService
 
-  @InjectRepository(User)
-  private readonly userRepository: Repository<User>
-
   @FieldResolver(() => Profile)
   profile(@Root() { id }: User) {
-    return this.profileService.findByUserId(id)
+    return this.profileDao.findByUserId(id)
   }
 
   @Mutation(() => UserResponse)
@@ -66,16 +65,16 @@ export default class UserResolver {
 
   @Query(() => User, { nullable: true })
   currentUser(@Ctx() { user }: Context) {
-    return user ? this.userRepository.findOne(user.id) : null
+    return user ? this.userDao.findOne(user.id) : null
   }
 
   @Query(() => User, { nullable: true })
   user(@Arg('id', () => ID) id: string) {
-    return this.userRepository.findOne(id)
+    return this.userDao.findOne(id)
   }
 
   @Query(() => [User])
   users() {
-    return this.userRepository.find()
+    return this.userDao.find()
   }
 }

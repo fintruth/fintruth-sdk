@@ -9,7 +9,7 @@ import { Profile } from '../entities'
 @Resolver(() => Profile)
 export default class ProfileResolver {
   @Inject()
-  profileService: ProfileService
+  private readonly profileService: ProfileService
 
   @Mutation(() => ProfileResponse)
   async updateProfile(
