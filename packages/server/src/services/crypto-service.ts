@@ -5,9 +5,9 @@ import {
   randomBytes,
   pbkdf2Sync,
 } from 'crypto'
-import { Service } from 'typedi'
+import { Inject, Service } from 'typedi'
 
-import { secret } from 'config'
+import ConfigService from './config-service'
 
 interface AESWithAuth {
   encrypted: Buffer
@@ -16,6 +16,9 @@ interface AESWithAuth {
 
 @Service()
 export default class CryptoService {
+  @Inject()
+  config: ConfigService
+
   splitBuffer = (buffer: Buffer, idx: number): Buffer[] => [
     buffer.slice(0, idx),
     buffer.slice(idx, buffer.length),
@@ -25,7 +28,13 @@ export default class CryptoService {
     const text: string = JSON.stringify(value)
     const iv: Buffer = randomBytes(12)
     const salt: Buffer = randomBytes(16)
-    const key: Buffer = pbkdf2Sync(secret, salt, 10000, 32, 'sha512')
+    const key: Buffer = pbkdf2Sync(
+      this.config.app.secret,
+      salt,
+      10000,
+      32,
+      'sha512'
+    )
 
     const { encrypted, tag } = this.encryptAES(text, key, iv)
 
@@ -38,7 +47,13 @@ export default class CryptoService {
     const [prefix, rest]: Buffer[] = this.splitBuffer(decodeBytes, 28)
     const [iv, tag]: Buffer[] = this.splitBuffer(prefix, 12)
     const [salt, encrypted]: Buffer[] = this.splitBuffer(rest, 16)
-    const key: Buffer = pbkdf2Sync(secret, salt, 10000, 32, 'sha512')
+    const key: Buffer = pbkdf2Sync(
+      this.config.app.secret,
+      salt,
+      10000,
+      32,
+      'sha512'
+    )
 
     if (iv.length !== 12 || tag.length !== 16 || salt.length !== 16) {
       throw new Error('invalid token')

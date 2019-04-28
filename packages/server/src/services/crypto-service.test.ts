@@ -2,13 +2,18 @@ import { Container } from 'typedi'
 
 import CryptoService from './crypto-service'
 
-jest.mock('config', () => ({ secret: 'KEYKEYKEYKEYKEYKEYKEYKEYKEYKEYKEY' }))
+const configMock: any = {
+  app: {
+    secret: 'KEYKEYKEYKEYKEYKEYKEYKEYKEYKEYKEY',
+  },
+}
 
 describe('CryptoService', () => {
   let service: CryptoService
 
   beforeEach(() => {
     service = Container.get(CryptoService)
+    service.config = configMock
   })
 
   afterEach(() => {
