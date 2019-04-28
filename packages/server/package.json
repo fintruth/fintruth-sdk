@@ -11,11 +11,14 @@
     "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
     "lint:types": "tsc --noEmit",
+    "migration:generate": "yarn typeorm migration:generate",
+    "migration:revert": "yarn typeorm migration:revert",
+    "migration:run": "yarn typeorm migration:run",
     "prebuild": "yarn clean",
     "start": "nodemon",
     "test": "run-p test:*",
     "test:units": "jest",
-    "typeorm": "node -r ts-node/register -r tsconfig-paths/register ./node_modules/.bin/typeorm"
+    "typeorm": "node -r ts-node/register -r tsconfig-paths/register ./node_modules/.bin/typeorm -f ./src/ormconfig.ts"
   },
   "repository": {
     "type": "git",
