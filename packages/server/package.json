@@ -11,7 +11,7 @@
     "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
     "lint:types": "tsc --noEmit",
-    "migration:generate": "yarn typeorm migration:generate",
+    "migration:generate": "yarn typeorm migration:generate -n",
     "migration:revert": "yarn typeorm migration:revert",
     "migration:run": "yarn typeorm migration:run",
     "prebuild": "yarn clean",
