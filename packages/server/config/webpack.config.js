@@ -87,4 +87,21 @@ const migrationsConfig = {
   },
 }
 
-module.exports = [serverConfig, migrationsConfig]
+const seedsConfig = {
+  ...baseConfig,
+  entry: glob
+    .sync(path.resolve('src/seeds/*.ts'))
+    .reduce((entries, filename) => {
+      const seedsName = path.basename(filename, '.ts')
+      return Object.assign({}, entries, {
+        [seedsName]: filename,
+      })
+    }, {}),
+  output: {
+    filename: '[name].js',
+    libraryTarget: 'umd',
+    path: path.join(buildDir, 'seeds'),
+  },
+}
+
+module.exports = [serverConfig, migrationsConfig, seedsConfig]
