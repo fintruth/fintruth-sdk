@@ -5,31 +5,8 @@ import { ResponseError } from 'resolvers/types'
 import UserService from './user-service'
 import { Profile, User } from '../entities'
 
-jest.mock('@fintruth-sdk/validation', () => ({
-  object: () => ({
-    shape: () => ({
-      validate: () => Promise.resolve(true),
-    }),
-  }),
-  string: () => ({
-    email: jest.fn().mockReturnThis(),
-    password: jest.fn().mockReturnThis(),
-    required: jest.fn().mockReturnThis(),
-  }),
-}))
-
 jest.mock('bcrypt', () => ({
   hash: () => 'hash',
-}))
-
-jest.mock('type-graphql', () => ({
-  Field: () => () => {},
-  InputType: () => () => {},
-  ObjectType: () => () => {},
-}))
-
-jest.mock('typeorm-typedi-extensions', () => ({
-  InjectRepository: () => () => {},
 }))
 
 const getUserDaoMock: any = (userMock?: Partial<User>) => ({
@@ -63,7 +40,7 @@ describe('UserService', () => {
     it('should save a new user', async () => {
       const result = await service.create(
         'test@test.com',
-        'password',
+        'Asdfg2345!',
         new Profile({
           firstName: '',
           lastName: '',
@@ -97,7 +74,7 @@ describe('UserService', () => {
 
         const result = await service.create(
           'test@test.com',
-          'password',
+          'Asdfg2345!',
           new Profile({
             firstName: '',
             lastName: '',

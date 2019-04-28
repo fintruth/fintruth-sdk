@@ -9,8 +9,6 @@ import {
 import AuthService from './auth-service'
 import { User } from '../entities'
 
-jest.mock('dotenv-safe')
-
 jest.mock('qrcode', () => ({
   toDataURL: () => 'dataUrl',
 }))
@@ -18,16 +16,6 @@ jest.mock('qrcode', () => ({
 jest.mock('speakeasy', () => ({
   generateSecret: () => ({ ascii: '', base32: 'base32' }),
   otpauthURL: () => '',
-}))
-
-jest.mock('type-graphql', () => ({
-  Field: () => () => {},
-  InputType: () => () => {},
-  ObjectType: () => () => {},
-}))
-
-jest.mock('typeorm-typedi-extensions', () => ({
-  InjectRepository: () => () => {},
 }))
 
 const getUserDaoMock: any = (userMock?: Partial<User>) => ({
