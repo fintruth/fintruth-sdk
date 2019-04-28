@@ -35,6 +35,7 @@ module.exports = {
           'warn',
           { argsIgnorePattern: "^_" },
         ],
+        'unicorn/filename-case': 'off',
         ...prettierTypescriptConfig.rules,
       },
     },

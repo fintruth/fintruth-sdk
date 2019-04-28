@@ -1,3 +1,4 @@
+const glob = require('glob')
 const path = require('path')
 const DotenvPlugin = require('dotenv-webpack')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
@@ -8,13 +9,11 @@ const isRelease = process.argv.includes('--release')
 const mode = isRelease ? 'production' : 'development'
 
 const rootDir = path.resolve(__dirname, '..')
+const buildDir = path.resolve(rootDir, 'build')
 
-module.exports = {
+const baseConfig = {
   bail: isRelease,
   context: rootDir,
-  devtool: isRelease ? 'source-map' : 'cheap-module-source-map',
-  entry: './src/main.ts',
-  target: 'node',
   externals: [
     nodeExternals(),
     nodeExternals({
@@ -22,9 +21,6 @@ module.exports = {
     }),
   ],
   mode,
-  optimization: {
-    minimize: false,
-  },
   module: {
     rules: [
       {
@@ -37,14 +33,24 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    minimize: false,
+  },
   resolve: {
     modules: [path.resolve(rootDir, 'src'), 'node_modules'],
     symlinks: false,
     extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.js', '.json'],
   },
+  target: 'node',
+}
+
+const serverConfig = {
+  ...baseConfig,
+  devtool: isRelease ? 'source-map' : 'cheap-module-source-map',
+  entry: './src/main.ts',
   output: {
     filename: '[name].js',
-    path: path.resolve(rootDir, 'build'),
+    path: buildDir,
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
@@ -63,3 +69,22 @@ module.exports = {
     }),
   ],
 }
+
+const migrationsConfig = {
+  ...baseConfig,
+  entry: glob
+    .sync(path.resolve('src/migrations/*.ts'))
+    .reduce((entries, filename) => {
+      const migrationName = path.basename(filename, '.ts')
+      return Object.assign({}, entries, {
+        [migrationName]: filename,
+      })
+    }, {}),
+  output: {
+    filename: '[name].js',
+    libraryTarget: 'umd',
+    path: path.join(buildDir, 'migrations'),
+  },
+}
+
+module.exports = [serverConfig, migrationsConfig]
