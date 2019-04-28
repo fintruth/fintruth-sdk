@@ -31,6 +31,13 @@ export class User1556447639123 implements MigrationInterface {
     await queryRunner.manager
       .createQueryBuilder()
       .delete()
+      .from('profile')
+      .where('userId = :id', { id: '496ca0bf-470b-479a-b56d-f17c063003b1' })
+      .execute()
+
+    await queryRunner.manager
+      .createQueryBuilder()
+      .delete()
       .from('user')
       .where('id = :id', { id: '496ca0bf-470b-479a-b56d-f17c063003b1' })
       .execute()
