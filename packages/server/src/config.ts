@@ -1,6 +1,8 @@
 import dotenv from 'dotenv-safe'
 
-dotenv.config()
+dotenv.config({
+  example: process.env.CI ? '.env.ci.example' : '.env.example',
+})
 
 export const env = process.env.NODE_ENV || 'development'
 export const isProd = env === 'production'
