@@ -8,8 +8,8 @@ import {
   ResponseError,
   UserResponse,
 } from 'resolvers/types'
-import { createToken, parseToken } from 'security'
 import AuthService from './auth-service'
+import CryptoService from './crypto-service'
 import UserService from './user-service'
 import { Profile } from '../entities'
 
@@ -27,15 +27,22 @@ export default class RegisterService {
   authService: AuthService
 
   @Inject()
+  cryptoService: CryptoService
+
+  @Inject()
   userService: UserService
 
   private log = logAs('RegisterService')
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
   confirmRegistration(token: string) {
-    const { email, expiresAt, firstName, lastName, password } = parseToken(
-      token
-    )
+    const {
+      email,
+      expiresAt,
+      firstName,
+      lastName,
+      password,
+    } = this.cryptoService.parseToken(token)
     const isExpired = expiresAt < Date.now()
 
     if (isExpired) {
@@ -87,7 +94,7 @@ export default class RegisterService {
       lastName,
       password,
     }
-    const token = createToken(data)
+    const token = this.cryptoService.createToken(data)
 
     this.log(`Registration token: ${token}`)
 
