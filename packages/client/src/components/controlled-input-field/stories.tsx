@@ -1,4 +1,5 @@
 import React from 'react'
+import centered from '@storybook/addon-centered/react'
 import { Formik } from 'formik'
 import { action } from '@storybook/addon-actions'
 import { boolean, text } from '@storybook/addon-knobs'
@@ -8,9 +9,9 @@ import ControlledInputField from '.'
 
 const initialValues = { title: '' }
 
-storiesOf('Components|Controlled Input Field', module).addCentered(
-  'Default',
-  () => (
+storiesOf('Components|Controlled Input Field', module)
+  .addDecorator(centered)
+  .add('Default', () => (
     <Formik initialValues={initialValues} onSubmit={action('On Submit')}>
       {() => (
         <ControlledInputField
@@ -22,5 +23,4 @@ storiesOf('Components|Controlled Input Field', module).addCentered(
         />
       )}
     </Formik>
-  )
-)
+  ))
