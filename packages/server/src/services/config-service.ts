@@ -1,9 +1,7 @@
 import dotenv from 'dotenv-safe'
 import { Service } from 'typedi'
 
-dotenv.config({
-  example: process.env.CI ? '.env.ci.example' : '.env.example',
-})
+dotenv.config()
 
 @Service()
 export default class ConfigService {

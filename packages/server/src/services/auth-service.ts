@@ -11,7 +11,7 @@ import {
   ResponseError,
 } from 'resolvers/types'
 import { ServerResponse } from 'server'
-import { ConfigService } from 'services'
+import ConfigService from './config-service'
 import { User } from '../entities'
 
 @Service()
