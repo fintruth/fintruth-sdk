@@ -1,19 +1,21 @@
 import { Container } from 'typedi'
 
+import ConfigService from './config-service'
 import CryptoService from './crypto-service'
-
-const configMock: any = {
-  app: {
-    secret: 'KEYKEYKEYKEYKEYKEYKEYKEYKEYKEYKEY',
-  },
-}
 
 describe('CryptoService', () => {
   let service: CryptoService
 
+  beforeAll(() => {
+    Container.set(ConfigService, {
+      app: {
+        secret: 'KEYKEYKEYKEYKEYKEYKEYKEYKEYKEYKEY',
+      },
+    })
+  })
+
   beforeEach(() => {
     service = Container.get(CryptoService)
-    service.config = configMock
   })
 
   afterEach(() => {
