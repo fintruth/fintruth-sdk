@@ -1,4 +1,5 @@
 import React from 'react'
+import centered from '@storybook/addon-centered/react'
 import { storiesOf } from '@storybook/react'
 
 import Table from '.'
@@ -44,6 +45,6 @@ const rows = [
   },
 ]
 
-storiesOf('Components|Table', module).addCentered('Default', () => (
-  <Table columns={columns} rows={rows} />
-))
+storiesOf('Components|Table', module)
+  .addDecorator(centered)
+  .add('Default', () => <Table columns={columns} rows={rows} />)
