@@ -2,7 +2,7 @@ import { Container } from 'typedi'
 
 import CryptoService from './crypto-service'
 
-jest.mock('config', () => ({ secret: 'KEYKEYKEYKEYKEYKEYKEYKEYKEYKEYKEY' }))
+jest.mock('./config-service')
 
 describe('CryptoService', () => {
   let service: CryptoService

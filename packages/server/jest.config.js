@@ -8,6 +8,7 @@ module.exports = {
   errorOnDeprecated: true,
   moduleDirectories: [...defaults.moduleDirectories, '<rootDir>/src'],
   restoreMocks: true,
+  setupFiles: ['<rootDir>/config/jest-setup.js'],
   testMatch: ['<rootDir>/src/**/?(*.)test.ts'],
   testRunner: 'jest-circus/runner',
   transform: { '^.+\\.ts$': require.resolve('ts-jest') },

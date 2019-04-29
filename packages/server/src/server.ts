@@ -4,10 +4,11 @@ import compression from 'compression'
 import express, { Application, NextFunction, Request, Response } from 'express'
 import expressJwt, { UnauthorizedError } from 'express-jwt'
 import morgan from 'morgan'
+import { Container } from 'typedi'
 
-import { User } from './entities'
-import { secret, trustProxy } from 'config'
+import { ConfigService } from 'services'
 import { logAs, logger } from 'logger'
+import { User } from './entities'
 
 export interface ServerRequest extends Request {
   user?: User
@@ -30,6 +31,8 @@ const logUnauthorizedError = (
 
   return next(err)
 }
+
+const { secret, trustProxy } = Container.get(ConfigService).app
 
 export const createServer = (): Application =>
   express()

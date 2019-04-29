@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken'
 import { toDataURL } from 'qrcode'
 import { generateSecret, otpauthURL, totp } from 'speakeasy'
-import { Service } from 'typedi'
+import { Inject, Service } from 'typedi'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { secret } from 'config'
 import { UserDao } from 'models'
 import {
   EnableTwoFactorAuthResponse,
@@ -12,10 +11,14 @@ import {
   ResponseError,
 } from 'resolvers/types'
 import { ServerResponse } from 'server'
+import ConfigService from './config-service'
 import { User } from '../entities'
 
 @Service()
 export default class AuthService {
+  @Inject()
+  config: ConfigService
+
   @InjectRepository(User)
   userDao: UserDao
 
@@ -106,7 +109,9 @@ export default class AuthService {
 
   signAuthToken(res: ServerResponse, { id, isAdmin }: User) {
     const expiresIn = 60 * 60 * 24 * 180
-    const token = jwt.sign({ id, isAdmin }, secret, { expiresIn })
+    const token = jwt.sign({ id, isAdmin }, this.config.app.secret, {
+      expiresIn,
+    })
 
     res.cookies.set('token-id', token, {
       httpOnly: true,

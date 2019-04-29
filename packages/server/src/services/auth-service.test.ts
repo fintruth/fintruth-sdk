@@ -18,6 +18,8 @@ jest.mock('speakeasy', () => ({
   otpauthURL: () => '',
 }))
 
+jest.mock('./config-service')
+
 const getUserDaoMock: any = (userMock?: Partial<User>) => ({
   findOne: jest.fn(() => Promise.resolve(userMock)),
   update: jest.fn(() => Promise.resolve(true)),

@@ -1,15 +1,15 @@
 import { Ability, defineAbilitiesFor } from '@fintruth-sdk/auth'
 import { ApolloServer } from 'apollo-server-express'
 import { GraphQLError } from 'graphql'
+import { tap } from 'ramda'
 import { Container } from 'typedi'
 import { buildSchema } from 'type-graphql'
-import { tap } from 'ramda'
 import { useContainer } from 'typeorm'
 
-import * as resolvers from 'resolvers'
-import { isProd } from 'config'
 import { logAs } from 'logger'
-import { ServerRequest, ServerResponse } from './server'
+import * as resolvers from 'resolvers'
+import { ConfigService } from 'services'
+import { ServerRequest, ServerResponse } from 'server'
 import { User } from './entities'
 
 export interface Context {
@@ -29,6 +29,7 @@ const log = logAs('apollo')
 const logError = (error: GraphQLError) => log(error, 'error')
 
 export const createApolloServer = async (): Promise<ApolloServer> => {
+  const { isProd } = Container.get(ConfigService)
   const schema = await buildSchema({
     container: Container,
     emitSchemaFile: !isProd && './schema.graphql',
