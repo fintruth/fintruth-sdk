@@ -25,6 +25,8 @@ export const createTheme = ({
 
   backgroundColor = whiteTer,
 
+  borderColor = grayLighter,
+
   primary = turquoise,
   info = cyan,
   success = green,
@@ -56,6 +58,8 @@ export const createTheme = ({
 
   body = {},
   code = {},
+  control: { borderWidth: controlBorderWidth = '1px', ...control } = {},
+  file = {},
   hr = {},
   html = {},
   label = {},
@@ -92,7 +96,7 @@ export const createTheme = ({
 
   backgroundColor,
 
-  borderColor: grayLighter,
+  borderColor,
   borderHoverColor: grayLight,
 
   // Main Colors
@@ -195,6 +199,44 @@ export const createTheme = ({
     fontWeight: 400,
 
     ...code,
+  },
+
+  control: {
+    // Box
+    borderWidth: controlBorderWidth,
+    height: em(36),
+    paddingHorizontal: `calc(${em(10)} - ${controlBorderWidth})`,
+    paddingVertical: `calc(${em(6)} - ${controlBorderWidth})`,
+
+    // Typography
+    lineHeight: 1.5,
+    fontSize: rem(16),
+
+    // Miscellaneous
+    radius: '4px',
+
+    ...control,
+  },
+
+  file: {
+    // Box
+    nameBorderStyle: 'solid',
+    nameBorderWidth: '1px 1px 1px 0',
+
+    // Colors
+    borderColor,
+
+    ctaActiveColor: grayDarker,
+    ctaBackgroundColor: whiteTer,
+    ctaColor: grayDark,
+    ctaHoverColor: grayDarker,
+
+    nameBorderColor: borderColor,
+
+    // Miscellaneous
+    radius: '4px',
+
+    ...file,
   },
 
   hr: {
