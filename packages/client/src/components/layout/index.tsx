@@ -231,7 +231,7 @@ const Layout: React.FunctionComponent<Props> = ({
                         >
                           {onSignOut => (
                             <SubmenuList>
-                              <SubmenuLink to="/settings">
+                              <SubmenuLink as={BaseLink} to="/settings">
                                 Account Settings
                               </SubmenuLink>
                               <SubmenuItem onSelect={() => onSignOut()}>
