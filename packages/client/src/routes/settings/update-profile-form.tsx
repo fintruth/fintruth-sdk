@@ -50,7 +50,7 @@ const formId = 'update-profile__Form'
 
 const UpdateProfileForm: React.FunctionComponent<Props> = ({
   user,
-  ...rest
+  ...props
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -82,13 +82,15 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
             firstName: user.profile.firstName,
             lastName: user.profile.lastName,
           }}
-          onSubmit={input => onSubmit({ variables: { input } })}
+          onSubmit={(input, { setSubmitting }) =>
+            onSubmit({ variables: { input } }).then(() => setSubmitting(false))
+          }
           validationSchema={validationSchema}
         >
           {() => (
             <React.Fragment>
               {notice && <Notice variant={variant}>{notice}</Notice>}
-              <Form {...rest} id={formId} noValidate>
+              <Form {...props} id={formId} noValidate>
                 <ControlledInputField
                   id={`${formId}-firstName`}
                   autoComplete="given-name"

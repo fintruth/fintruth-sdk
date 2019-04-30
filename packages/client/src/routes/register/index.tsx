@@ -4,6 +4,7 @@ import { Form as BaseForm, Formik } from 'formik'
 import { Mutation } from 'react-apollo'
 import { RouteComponentProps } from '@reach/router'
 import { object, ref, string } from 'yup'
+import { path } from 'ramda'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
@@ -82,7 +83,7 @@ const validationSchema = object().shape({
 const formId = 'register__Form'
 
 const Register: React.FunctionComponent<RouteComponentProps> = ({
-  ...rest
+  ...props
 }: RouteComponentProps) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -101,12 +102,20 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
       }}
     >
       {(onSubmit, { loading }) => (
-        <Root data-testid="register" {...rest}>
+        <Root data-testid="register" {...props}>
           <Subnavbar items={items} />
           {notice && <Notice variant={variant}>{notice}</Notice>}
           <Formik<Values>
             initialValues={initialValues}
-            onSubmit={input => onSubmit({ variables: { input } })}
+            onSubmit={(input, { resetForm, setSubmitting }) =>
+              onSubmit({ variables: { input } }).then(value => {
+                setSubmitting(false)
+
+                return path(['data', 'response', 'error'], value)
+                  ? undefined
+                  : resetForm(initialValues)
+              })
+            }
             validationSchema={validationSchema}
           >
             {() => (

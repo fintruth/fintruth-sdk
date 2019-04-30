@@ -4,6 +4,7 @@ import { Form as BaseForm, Formik } from 'formik'
 import { Mutation } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
+import { path } from 'ramda'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
@@ -56,7 +57,7 @@ const formId = 'disable-two-factor-auth__Form'
 const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   onCompleted,
   user,
-  ...rest
+  ...props
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -87,13 +88,19 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
       {(onSubmit, { loading }) => (
         <Formik<Values>
           initialValues={initialValues}
-          onSubmit={variables => onSubmit({ variables })}
+          onSubmit={(variables, { setSubmitting }) =>
+            onSubmit({ variables }).then(value =>
+              path(['data', 'response', 'error'], value)
+                ? setSubmitting(false)
+                : undefined
+            )
+          }
           validationSchema={validationSchema}
         >
           {() => (
             <React.Fragment>
               {notice && <Notice variant={variant}>{notice}</Notice>}
-              <Form {...rest} id={formId} noValidate>
+              <Form {...props} id={formId} noValidate>
                 <ControlledInputField
                   id={`${formId}-token`}
                   autoComplete="off"

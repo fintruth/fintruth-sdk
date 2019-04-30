@@ -4,6 +4,7 @@ import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
 import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
+import { path } from 'ramda'
 
 import BaseButton from 'components/button'
 import BaseControlledInputField from 'components/controlled-input-field'
@@ -11,7 +12,6 @@ import BaseNotice from 'components/notice'
 import {
   UpdateEmailMutationData,
   UpdateEmailMutationVariables,
-  accountQuery,
   updateEmailMutation,
 } from './graphql'
 import { button, field, form, notice } from './mixins'
@@ -52,7 +52,7 @@ const formId = 'update-email__Form'
 
 const UpdateEmailForm: React.FunctionComponent<Props> = ({
   user,
-  ...rest
+  ...props
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -63,9 +63,10 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
         <Mutation<UpdateEmailMutationData, UpdateEmailMutationVariables>
           mutation={updateEmailMutation}
           onCompleted={({ response }) => {
-            client // eslint-disable-line promise/catch-or-return
-              .resetStore()
-              .then(() => client.query({ query: accountQuery }))
+            // NOTE: Due to the inability to invalidate Apollo's cache the
+            // entire store needs to be reset in order to prevent storing
+            // private data
+            client.resetStore()
 
             if (response.error) {
               setNotice(response.error.message)
@@ -79,13 +80,21 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
           {(onSubmit, { loading }) => (
             <Formik<Values>
               initialValues={{ newEmail: user.email, password: '' }}
-              onSubmit={variables => onSubmit({ variables })}
+              onSubmit={(variables, { resetForm, setSubmitting }) =>
+                onSubmit({ variables }).then(value => {
+                  setSubmitting(false)
+
+                  return path(['data', 'response', 'error'], value)
+                    ? undefined
+                    : resetForm({ ...variables, password: '' })
+                })
+              }
               validationSchema={validationSchema}
             >
               {() => (
                 <React.Fragment>
                   {notice && <Notice variant={variant}>{notice}</Notice>}
-                  <Form {...rest} id={formId} noValidate>
+                  <Form {...props} id={formId} noValidate>
                     <ControlledInputField
                       id={`${formId}-newEmail`}
                       autoComplete="off"

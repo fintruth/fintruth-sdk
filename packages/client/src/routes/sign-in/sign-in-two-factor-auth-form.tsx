@@ -4,6 +4,7 @@ import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
 import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
+import { path } from 'ramda'
 
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
@@ -52,7 +53,7 @@ const formId = 'sign-in-two-factor-auth__Form'
 const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   resolveNextView,
   signInCredentials,
-  ...rest
+  ...props
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -66,6 +67,9 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         >
           mutation={signInTwoFactorAuthMutation}
           onCompleted={({ response }) => {
+            // NOTE: Due to the inability to invalidate Apollo's cache the
+            // entire store needs to be reset in order to prevent storing
+            // private data
             client.resetStore()
 
             if (response.error) {
@@ -81,15 +85,19 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
               {notice && <Notice variant={variant}>{notice}</Notice>}
               <Formik<Values>
                 initialValues={initialValues}
-                onSubmit={variables =>
+                onSubmit={(variables, { setSubmitting }) =>
                   onSubmit({
                     variables: { ...signInCredentials, ...variables },
-                  })
+                  }).then(value =>
+                    path(['data', 'response', 'error'], value)
+                      ? setSubmitting(false)
+                      : undefined
+                  )
                 }
                 validationSchema={validationSchema}
               >
                 {() => (
-                  <Form {...rest} id={formId} noValidate>
+                  <Form {...props} id={formId} noValidate>
                     <ControlledInputField
                       id={`${formId}-token`}
                       autoComplete="off"

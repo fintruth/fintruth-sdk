@@ -4,6 +4,7 @@ import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink, RouteComponentProps } from '@reach/router'
 import { Mutation, Query } from 'react-apollo'
 import { object, string } from 'yup'
+import { path } from 'ramda'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
@@ -63,13 +64,13 @@ const validationSchema = object().shape({
 const formId = 'recover__Form'
 
 const Recover: React.FunctionComponent<RouteComponentProps> = ({
-  ...rest
+  ...props
 }: RouteComponentProps) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
 
   return (
-    <Root data-testid="recover" {...rest}>
+    <Root data-testid="recover" {...props}>
       <Query<RecoverQueryData> query={recoverQuery}>
         {({ data = {}, loading }) => (
           <Mutation<RecoverMutationData, RecoverMutationVariables>
@@ -90,7 +91,15 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
                   {notice && <Notice variant={variant}>{notice}</Notice>}
                   <Formik<Values>
                     initialValues={{ email: data.user ? data.user.email : '' }}
-                    onSubmit={variables => onSubmit({ variables })}
+                    onSubmit={(variables, { resetForm, setSubmitting }) =>
+                      onSubmit({ variables }).then(value => {
+                        setSubmitting(false)
+
+                        return path(['data', 'response', 'error'], value)
+                          ? undefined
+                          : resetForm({ email: '' })
+                      })
+                    }
                     validationSchema={validationSchema}
                   >
                     {() => (

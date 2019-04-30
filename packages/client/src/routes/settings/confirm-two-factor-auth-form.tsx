@@ -3,6 +3,7 @@ import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line
 import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
 import { object, string } from 'yup'
+import { path } from 'ramda'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
@@ -53,7 +54,7 @@ const formId = 'confirm-two-factor-auth__Form'
 
 const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   onCompleted,
-  ...rest
+  ...props
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -67,9 +68,10 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         >
           mutation={confirmTwoFactorAuthMutation}
           onCompleted={({ response }) => {
-            client // eslint-disable-line promise/catch-or-return
-              .resetStore()
-              .then(() => client.query({ query: accountQuery }))
+            // NOTE: Due to the inability to invalidate Apollo's cache the
+            // entire store needs to be reset in order to prevent storing
+            // private data
+            client.resetStore()
 
             if (response.error) {
               setNotice(response.error.message)
@@ -82,13 +84,19 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
           {(onSubmit, { loading }) => (
             <Formik<Values>
               initialValues={initialValues}
-              onSubmit={variables => onSubmit({ variables })}
+              onSubmit={(variables, { setSubmitting }) =>
+                onSubmit({ variables }).then(value =>
+                  path(['data', 'response', 'error'], value)
+                    ? setSubmitting(false)
+                    : undefined
+                )
+              }
               validationSchema={validationSchema}
             >
               {() => (
                 <React.Fragment>
                   {notice && <Notice variant={variant}>{notice}</Notice>}
-                  <Form {...rest} id={formId} noValidate>
+                  <Form {...props} id={formId} noValidate>
                     <ControlledInputField
                       id={`${formId}-token`}
                       autoComplete="off"
