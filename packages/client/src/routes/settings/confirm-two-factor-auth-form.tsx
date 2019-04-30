@@ -12,7 +12,6 @@ import BaseNotice from 'components/notice'
 import {
   ConfirmTwoFactorAuthMutationData,
   ConfirmTwoFactorAuthMutationVariables,
-  accountQuery,
   confirmTwoFactorAuthMutation,
 } from './graphql'
 import { button, field, form, notice } from './mixins'
