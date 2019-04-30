@@ -46,11 +46,11 @@ const Html: React.FunctionComponent<Props> = ({
       <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       <link
         rel="stylesheet"
-        href="https://unpkg.com/@reach/dialog@0.2.7/styles.css"
+        href="https://unpkg.com/@reach/dialog@0.2.8/styles.css"
       />
       <link
         rel="stylesheet"
-        href="https://unpkg.com/@reach/menu-button@0.1.16/styles.css"
+        href="https://unpkg.com/@reach/menu-button@0.1.17/styles.css"
       />
       {styles}
     </head>
