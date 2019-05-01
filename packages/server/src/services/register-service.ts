@@ -1,6 +1,8 @@
 import { object, string } from '@fintruth-sdk/validation'
+import { ActorRef, dispatch } from 'nact'
 import { Inject, Service } from 'typedi'
 
+import { Registration } from 'actors'
 import { logAs, Loggable } from 'logger'
 import {
   RegisterInput,
@@ -23,6 +25,9 @@ interface RegistrationTokenData {
 
 @Service()
 export default class RegisterService {
+  @Inject('emailer.actor')
+  emailer: ActorRef
+
   @Inject()
   authService: AuthService
 
@@ -96,7 +101,7 @@ export default class RegisterService {
     }
     const token = this.cryptoService.createToken(data)
 
-    this.log(`Registration token: ${token}`)
+    dispatch(this.emailer, new Registration(email, firstName, token))
 
     return new Response()
   }

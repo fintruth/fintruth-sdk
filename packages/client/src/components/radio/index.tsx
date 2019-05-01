@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { em } from 'polished'
 import { useField } from 'formik'
 
@@ -24,13 +24,17 @@ const Root = styled.div`
   }
 `
 
-const Input = styled.input`
+const shared = css`
   border-radius: 100%;
-  cursor: pointer;
   height: 20px;
+  width: 20px;
+`
+
+const Input = styled.input`
+  ${shared};
+  cursor: pointer;
   opacity: 0;
   position: absolute;
-  width: 20px;
 
   &:disabled,
   fieldset:disabled & {
@@ -39,13 +43,11 @@ const Input = styled.input`
 `
 
 const Toggle = styled.div`
+  ${shared};
   align-items: center;
-  border-radius: 100%;
   border: 2px solid ${({ theme }) => theme.radio.toggleColor};
   display: flex;
-  height: 20px;
   justify-content: center;
-  width: 20px;
 
   ::before {
     border-radius: 100%;

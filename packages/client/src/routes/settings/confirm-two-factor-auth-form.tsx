@@ -3,7 +3,6 @@ import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line
 import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
 import { object, string } from 'yup'
-import { path } from 'ramda'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
@@ -83,38 +82,30 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
           {(onSubmit, { loading }) => (
             <Formik<Values>
               initialValues={initialValues}
-              onSubmit={(variables, { setSubmitting }) =>
-                onSubmit({ variables }).then(value =>
-                  path(['data', 'response', 'error'], value)
-                    ? setSubmitting(false)
-                    : undefined
-                )
-              }
+              onSubmit={variables => onSubmit({ variables })}
               validationSchema={validationSchema}
             >
-              {() => (
-                <React.Fragment>
-                  {notice && <Notice variant={variant}>{notice}</Notice>}
-                  <Form {...props} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-token`}
-                      autoComplete="off"
-                      form={formId}
-                      label="VERIFICATION CODE"
-                      name="token"
-                      type="text"
-                    />
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      ENABLE
-                    </Button>
-                  </Form>
-                </React.Fragment>
-              )}
+              <React.Fragment>
+                {notice && <Notice variant={variant}>{notice}</Notice>}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-token`}
+                    autoComplete="off"
+                    form={formId}
+                    label="VERIFICATION CODE"
+                    name="token"
+                    type="text"
+                  />
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    ENABLE
+                  </Button>
+                </Form>
+              </React.Fragment>
             </Formik>
           )}
         </Mutation>

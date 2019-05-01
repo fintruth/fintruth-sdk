@@ -73,6 +73,35 @@ export const content = css`
   `)};
 `
 
+export const control = css`
+  align-items: center;
+  appearance: none;
+  border-radius: ${({ theme }) => theme.control.radius};
+  border: ${({ theme }) => theme.control.borderWidth} solid transparent;
+  box-shadow: none;
+  display: inline-flex;
+  font-size: ${({ theme }) => theme.control.fontSize};
+  height: ${({ theme }) => theme.control.height};
+  justify-content: flex-start;
+  line-height: ${({ theme }) => theme.control.lineHeight};
+  padding-bottom: ${({ theme }) => theme.control.paddingVertical};
+  padding-left: ${({ theme }) => theme.control.paddingHorizontal};
+  padding-right: ${({ theme }) => theme.control.paddingHorizontal};
+  padding-top: ${({ theme }) => theme.control.paddingVertical};
+  position: relative;
+  vertical-align: top;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+
+  &:disabled,
+  fieldset:disabled & {
+    cursor: not-allowed;
+  }
+`
+
 export const fill = css`
   display: flex;
   flex-grow: 1;

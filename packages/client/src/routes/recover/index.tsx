@@ -91,45 +91,41 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
                   {notice && <Notice variant={variant}>{notice}</Notice>}
                   <Formik<Values>
                     initialValues={{ email: data.user ? data.user.email : '' }}
-                    onSubmit={(variables, { resetForm, setSubmitting }) =>
-                      onSubmit({ variables }).then(value => {
-                        setSubmitting(false)
-
-                        return path(['data', 'response', 'error'], value)
+                    onSubmit={(variables, { resetForm }) =>
+                      onSubmit({ variables }).then(value =>
+                        path(['data', 'response', 'error'], value)
                           ? undefined
                           : resetForm({ email: '' })
-                      })
+                      )
                     }
                     validationSchema={validationSchema}
                   >
-                    {() => (
-                      <Form id={formId} noValidate>
-                        <ControlledInputField
-                          id={`${formId}-email`}
-                          autoComplete="off"
-                          form={formId}
-                          label="EMAIL"
-                          name="email"
-                          type="email"
-                        />
-                        <Disclaimer>
-                          Already have email and password?{' '}
-                          {data.user ? (
-                            <Link to="/settings">Settings</Link>
-                          ) : (
-                            <Link to="/sign-in">Sign in</Link>
-                          )}
-                        </Disclaimer>
-                        <Button
-                          form={formId}
-                          isLoading={result.loading}
-                          status="primary"
-                          type="submit"
-                        >
-                          RECOVER
-                        </Button>
-                      </Form>
-                    )}
+                    <Form id={formId} noValidate>
+                      <ControlledInputField
+                        id={`${formId}-email`}
+                        autoComplete="off"
+                        form={formId}
+                        label="EMAIL"
+                        name="email"
+                        type="email"
+                      />
+                      <Disclaimer>
+                        Already have email and password?{' '}
+                        {data.user ? (
+                          <Link to="/settings">Settings</Link>
+                        ) : (
+                          <Link to="/sign-in">Sign in</Link>
+                        )}
+                      </Disclaimer>
+                      <Button
+                        form={formId}
+                        isLoading={result.loading}
+                        status="primary"
+                        type="submit"
+                      >
+                        RECOVER
+                      </Button>
+                    </Form>
                   </Formik>
                 </React.Fragment>
               ))

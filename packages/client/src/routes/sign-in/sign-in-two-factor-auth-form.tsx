@@ -4,7 +4,6 @@ import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
 import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
-import { path } from 'ramda'
 
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
@@ -85,37 +84,31 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
               {notice && <Notice variant={variant}>{notice}</Notice>}
               <Formik<Values>
                 initialValues={initialValues}
-                onSubmit={(variables, { setSubmitting }) =>
+                onSubmit={variables =>
                   onSubmit({
                     variables: { ...signInCredentials, ...variables },
-                  }).then(value =>
-                    path(['data', 'response', 'error'], value)
-                      ? setSubmitting(false)
-                      : undefined
-                  )
+                  })
                 }
                 validationSchema={validationSchema}
               >
-                {() => (
-                  <Form {...props} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-token`}
-                      autoComplete="off"
-                      form={formId}
-                      label="VERIFICATION CODE"
-                      name="token"
-                      type="text"
-                    />
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      CONTINUE
-                    </Button>
-                  </Form>
-                )}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-token`}
+                    autoComplete="off"
+                    form={formId}
+                    label="VERIFICATION CODE"
+                    name="token"
+                    type="text"
+                  />
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    CONTINUE
+                  </Button>
+                </Form>
               </Formik>
             </React.Fragment>
           )}
