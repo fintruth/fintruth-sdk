@@ -22,7 +22,7 @@ const initializeActors = () => {
   const ses = new SES({ apiVersion, credentials, region })
 
   Container.set('actorSystem', system)
-  Container.set('actor.emailer', spawnEmailer(system, ses, sender, serverUrl))
+  Container.set('emailer.actor', spawnEmailer(system, ses, sender, serverUrl))
 }
 
 const bootstrap = async (): Promise<void> => {

@@ -25,7 +25,7 @@ interface RegistrationTokenData {
 
 @Service()
 export default class RegisterService {
-  @Inject('actor.emailer')
+  @Inject('emailer.actor')
   emailer: ActorRef
 
   @Inject()
