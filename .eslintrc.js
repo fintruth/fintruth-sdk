@@ -28,12 +28,17 @@ module.exports = {
       rules: {
         ...typescriptPlugin.configs.recommended.rules,
         'no-use-before-define': 'off',
+        'no-useless-constructor': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-member-accessibility': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-parameter-properties': [
+          'error',
+          { allows: ['readonly'] },
+        ],
         '@typescript-eslint/no-unused-vars': [
           'warn',
-          { argsIgnorePattern: "^_" },
+          { argsIgnorePattern: '^_' },
         ],
         'unicorn/filename-case': 'off',
         ...prettierTypescriptConfig.rules,
