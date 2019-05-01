@@ -5,6 +5,8 @@ type PartialDefaultTheme = RecursivePartial<DefaultTheme>
 type RecursivePartial<T> = { [P in keyof T]?: RecursivePartial<T[P]> }
 
 export const createTheme = ({
+  black = hsl(0, 0, 0.04),
+
   grayDarker = hsl(0, 0, 0.21),
   grayDark = hsl(0, 0, 0.29),
   gray = hsl(0, 0, 0.48),
@@ -38,13 +40,11 @@ export const createTheme = ({
 
   blueContrast = readableColor(blue, lightContrast, darkContrast),
 
+  linkColor = blue,
+
   textColor = grayDark,
   textLightColor = gray,
   textStrongColor = grayDarker,
-
-  inputHoverColor = grayDarker,
-
-  inputDisabledColor = textLightColor,
 
   gap = 64,
 
@@ -62,16 +62,22 @@ export const createTheme = ({
   file = {},
   hr = {},
   html = {},
+  input: {
+    color: inputColor = grayDarker,
+    disabledColor: inputDisabledColor = textLightColor,
+    hoverColor: inputHoverColor = grayDarker,
+    ...input
+  } = {},
   label = {},
   notice = {},
   pre = {},
   radio = {},
   strong = {},
 
-  ...rest
+  ...defaultTheme
 }: PartialDefaultTheme = {}): DefaultTheme => ({
   // General Colors
-  black: hsl(0, 0, 0.04),
+  black,
   blackBis: hsl(0, 0, 0.07),
   blackTer: hsl(0, 0, 0.14),
 
@@ -126,7 +132,7 @@ export const createTheme = ({
   dangerContrast: readableColor(danger, lightContrast, darkContrast),
 
   // Link Colors
-  linkColor: blue,
+  linkColor,
   linkColorContrast: blueContrast,
   linkVisitedColor: purple,
 
@@ -145,15 +151,6 @@ export const createTheme = ({
   textLightColor,
   textStrongColor,
   textSelectionColor: hsl(213, 0.92, 0.85),
-
-  // Input Colors
-  inputHoverColor,
-  inputHoverBorderColor: grayLight,
-
-  inputDisabledColor,
-  inputDisabledBackgroundColor: backgroundColor,
-  inputDisabledBorderColor: backgroundColor,
-  inputDisabledPlaceholderColor: transparentize(0.7, inputDisabledColor),
 
   // Responsiveness
   gap,
@@ -265,6 +262,50 @@ export const createTheme = ({
     ...html,
   },
 
+  input: {
+    // Colors
+    backgroundColor: white,
+    boxShadow: `inset 0 1px 2px ${transparentize(0.9, black)}`,
+    color: inputColor,
+
+    placeholderColor: transparentize(0.7, inputColor),
+
+    disabledBackgroundColor: backgroundColor,
+    disabledBorderColor: backgroundColor,
+    disabledColor: inputDisabledColor,
+
+    disabledPlaceholderColor: transparentize(0.7, inputDisabledColor),
+
+    focusBorderColor: linkColor,
+    focusBoxShadowSize: `0 0 0 ${em(2)}`,
+
+    hoverBorderColor: grayLight,
+    hoverColor: inputHoverColor,
+
+    // Miscellaneous
+    radius: '4px',
+
+    ...input,
+
+    default: {
+      // Colors
+      borderColor: grayLighter,
+
+      focusBoxShadowColor: transparentize(0.75, linkColor),
+
+      ...(input.default || {}),
+    },
+
+    danger: {
+      // Colors
+      borderColor: danger,
+
+      focusBoxShadowColor: transparentize(0.75, danger),
+
+      ...(input.danger || {}),
+    },
+  },
+
   label: {
     // Colors
     color: grayDarker,
@@ -277,15 +318,31 @@ export const createTheme = ({
   },
 
   notice: {
-    // Colors
-    danger,
-    default: textColor,
-    success,
-
     // Typography
     fontSize: rem(12),
 
     ...notice,
+
+    default: {
+      // Colors
+      color: textColor,
+
+      ...(notice.default || {}),
+    },
+
+    danger: {
+      // Colors
+      color: danger,
+
+      ...(notice.danger || {}),
+    },
+
+    success: {
+      // Colors
+      color: success,
+
+      ...(notice.success || {}),
+    },
   },
 
   pre: {
@@ -318,5 +375,5 @@ export const createTheme = ({
     ...strong,
   },
 
-  ...rest,
+  ...defaultTheme,
 })

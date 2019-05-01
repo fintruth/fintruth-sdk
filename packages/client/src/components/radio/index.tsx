@@ -36,8 +36,8 @@ const Input = styled.input`
   opacity: 0;
   position: absolute;
 
-  &:disabled,
-  fieldset:disabled & {
+  &[disabled],
+  fieldset[disabled] & {
     cursor: not-allowed;
   }
 `
@@ -55,20 +55,20 @@ const Toggle = styled.div`
     height: 10px;
     width: 10px;
 
-    input:checked ~ & {
+    input[checked] ~ & {
       background-color: ${({ theme }) => theme.radio.toggleCheckedColor};
     }
 
-    input:checked:disabled ~ & {
+    input[checked][disabled] ~ & {
       background-color: ${({ theme }) => theme.radio.toggleDisabledColor};
     }
   }
 
-  input:checked ~ & {
+  input[checked] ~ & {
     border-color: ${({ theme }) => theme.radio.toggleCheckedColor};
   }
 
-  input:disabled ~ & {
+  input[disabled] ~ & {
     border-color: ${({ theme }) => theme.radio.toggleDisabledColor};
   }
 `
@@ -83,8 +83,8 @@ const Label = styled.label`
     color: ${({ theme }) => theme.radio.hoverColor};
   }
 
-  input:disabled ~ &,
-  fieldset:disabled & {
+  input[disabled] ~ &,
+  fieldset[disabled] & {
     color: ${({ theme }) => theme.radio.disabledColor};
     cursor: not-allowed;
   }

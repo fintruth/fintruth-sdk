@@ -7,7 +7,7 @@ import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
-import ControlledInputField from 'components/controlled-input-field'
+import Input from 'components/input'
 import {
   SignInTwoFactorAuthMutationData,
   SignInTwoFactorAuthMutationVariables,
@@ -92,7 +92,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
                 validationSchema={validationSchema}
               >
                 <Form {...props} id={formId} noValidate>
-                  <ControlledInputField
+                  <Input
                     id={`${formId}-token`}
                     autoComplete="off"
                     form={formId}

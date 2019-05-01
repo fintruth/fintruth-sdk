@@ -11,7 +11,7 @@ import { rem } from 'polished'
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
 import BaseSubnavbar from 'components/subnavbar'
-import ControlledInputField from 'components/controlled-input-field'
+import Input from 'components/input'
 import { link } from 'styles/mixins'
 import { SignInCredentials } from './sign-in-two-factor-auth-form'
 import {
@@ -112,7 +112,7 @@ const SignInForm: React.FunctionComponent<Props> = ({
                 validationSchema={validationSchema}
               >
                 <Form {...props} id={formId} noValidate>
-                  <ControlledInputField
+                  <Input
                     id={`${formId}-email`}
                     autoComplete="off"
                     form={formId}
@@ -120,7 +120,7 @@ const SignInForm: React.FunctionComponent<Props> = ({
                     name="email"
                     type="email"
                   />
-                  <ControlledInputField
+                  <Input
                     id={`${formId}-password`}
                     autoComplete="off"
                     form={formId}

@@ -6,7 +6,7 @@ import { object, string } from 'yup'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
-import BaseControlledInputField from 'components/controlled-input-field'
+import BaseInput from 'components/input'
 import BaseNotice from 'components/notice'
 import {
   ConfirmTwoFactorAuthMutationData,
@@ -33,7 +33,7 @@ const Form = styled(BaseForm)`
   align-items: center;
 `
 
-const ControlledInputField = styled(BaseControlledInputField)`
+const Input = styled(BaseInput)`
   ${field};
 `
 
@@ -88,7 +88,7 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
               <React.Fragment>
                 {notice && <Notice variant={variant}>{notice}</Notice>}
                 <Form {...props} id={formId} noValidate>
-                  <ControlledInputField
+                  <Input
                     id={`${formId}-token`}
                     autoComplete="off"
                     form={formId}

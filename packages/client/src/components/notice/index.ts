@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Notice = styled.p<Props>`
-  color: ${({ theme, variant = 'default' }) => theme.notice[variant]};
+  color: ${({ theme, variant = 'default' }) => theme.notice[variant].color};
   display: block;
   font-size: ${({ theme }) => theme.notice.fontSize};
   margin-top: ${rem(4)};

@@ -96,8 +96,8 @@ export const control = css`
     outline: none;
   }
 
-  &:disabled,
-  fieldset:disabled & {
+  &[disabled],
+  fieldset[disabled] & {
     cursor: not-allowed;
   }
 `
