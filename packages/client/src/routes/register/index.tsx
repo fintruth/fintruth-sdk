@@ -116,58 +116,56 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
             }
             validationSchema={validationSchema}
           >
-            {() => (
-              <Form id={formId} noValidate>
-                <ControlledInputField
-                  id={`${formId}-firstName`}
-                  autoComplete="given-name"
-                  form={formId}
-                  label="FIRST NAME"
-                  name="firstName"
-                  type="text"
-                />
-                <ControlledInputField
-                  id={`${formId}-lastName`}
-                  autoComplete="family-name"
-                  form={formId}
-                  label="LAST NAME"
-                  name="lastName"
-                  type="text"
-                />
-                <ControlledInputField
-                  id={`${formId}-email`}
-                  autoComplete="off"
-                  form={formId}
-                  label="EMAIL"
-                  name="email"
-                  type="email"
-                />
-                <ControlledInputField
-                  id={`${formId}-emailConfirm`}
-                  autoComplete="off"
-                  form={formId}
-                  label="CONFIRM EMAIL"
-                  name="emailConfirm"
-                  type="email"
-                />
-                <ControlledInputField
-                  id={`${formId}-password`}
-                  autoComplete="off"
-                  form={formId}
-                  label="PASSWORD"
-                  name="password"
-                  type="password"
-                />
-                <Button
-                  form={formId}
-                  isLoading={loading}
-                  status="primary"
-                  type="submit"
-                >
-                  REGISTER
-                </Button>
-              </Form>
-            )}
+            <Form id={formId} noValidate>
+              <ControlledInputField
+                id={`${formId}-firstName`}
+                autoComplete="given-name"
+                form={formId}
+                label="FIRST NAME"
+                name="firstName"
+                type="text"
+              />
+              <ControlledInputField
+                id={`${formId}-lastName`}
+                autoComplete="family-name"
+                form={formId}
+                label="LAST NAME"
+                name="lastName"
+                type="text"
+              />
+              <ControlledInputField
+                id={`${formId}-email`}
+                autoComplete="off"
+                form={formId}
+                label="EMAIL"
+                name="email"
+                type="email"
+              />
+              <ControlledInputField
+                id={`${formId}-emailConfirm`}
+                autoComplete="off"
+                form={formId}
+                label="CONFIRM EMAIL"
+                name="emailConfirm"
+                type="email"
+              />
+              <ControlledInputField
+                id={`${formId}-password`}
+                autoComplete="off"
+                form={formId}
+                label="PASSWORD"
+                name="password"
+                type="password"
+              />
+              <Button
+                form={formId}
+                isLoading={loading}
+                status="primary"
+                type="submit"
+              >
+                REGISTER
+              </Button>
+            </Form>
           </Formik>
         </Root>
       )}

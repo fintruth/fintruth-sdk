@@ -91,26 +91,24 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
                 }
                 validationSchema={validationSchema}
               >
-                {() => (
-                  <Form {...props} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-token`}
-                      autoComplete="off"
-                      form={formId}
-                      label="VERIFICATION CODE"
-                      name="token"
-                      type="text"
-                    />
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      CONTINUE
-                    </Button>
-                  </Form>
-                )}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-token`}
+                    autoComplete="off"
+                    form={formId}
+                    label="VERIFICATION CODE"
+                    name="token"
+                    type="text"
+                  />
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    CONTINUE
+                  </Button>
+                </Form>
               </Formik>
             </React.Fragment>
           )}

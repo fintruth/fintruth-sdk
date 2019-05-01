@@ -100,34 +100,32 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
                     }
                     validationSchema={validationSchema}
                   >
-                    {() => (
-                      <Form id={formId} noValidate>
-                        <ControlledInputField
-                          id={`${formId}-email`}
-                          autoComplete="off"
-                          form={formId}
-                          label="EMAIL"
-                          name="email"
-                          type="email"
-                        />
-                        <Disclaimer>
-                          Already have email and password?{' '}
-                          {data.user ? (
-                            <Link to="/settings">Settings</Link>
-                          ) : (
-                            <Link to="/sign-in">Sign in</Link>
-                          )}
-                        </Disclaimer>
-                        <Button
-                          form={formId}
-                          isLoading={result.loading}
-                          status="primary"
-                          type="submit"
-                        >
-                          RECOVER
-                        </Button>
-                      </Form>
-                    )}
+                    <Form id={formId} noValidate>
+                      <ControlledInputField
+                        id={`${formId}-email`}
+                        autoComplete="off"
+                        form={formId}
+                        label="EMAIL"
+                        name="email"
+                        type="email"
+                      />
+                      <Disclaimer>
+                        Already have email and password?{' '}
+                        {data.user ? (
+                          <Link to="/settings">Settings</Link>
+                        ) : (
+                          <Link to="/sign-in">Sign in</Link>
+                        )}
+                      </Disclaimer>
+                      <Button
+                        form={formId}
+                        isLoading={result.loading}
+                        status="primary"
+                        type="submit"
+                      >
+                        RECOVER
+                      </Button>
+                    </Form>
                   </Formik>
                 </React.Fragment>
               ))

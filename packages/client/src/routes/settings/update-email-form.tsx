@@ -89,37 +89,35 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
               }
               validationSchema={validationSchema}
             >
-              {() => (
-                <React.Fragment>
-                  {notice && <Notice variant={variant}>{notice}</Notice>}
-                  <Form {...props} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-newEmail`}
-                      autoComplete="off"
-                      form={formId}
-                      name="newEmail"
-                      placeholder="Email"
-                      type="email"
-                    />
-                    <ControlledInputField
-                      id={`${formId}-password`}
-                      autoComplete="off"
-                      form={formId}
-                      name="password"
-                      placeholder="Password"
-                      type="password"
-                    />
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      UPDATE
-                    </Button>
-                  </Form>
-                </React.Fragment>
-              )}
+              <React.Fragment>
+                {notice && <Notice variant={variant}>{notice}</Notice>}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-newEmail`}
+                    autoComplete="off"
+                    form={formId}
+                    name="newEmail"
+                    placeholder="Email"
+                    type="email"
+                  />
+                  <ControlledInputField
+                    id={`${formId}-password`}
+                    autoComplete="off"
+                    form={formId}
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                  />
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    UPDATE
+                  </Button>
+                </Form>
+              </React.Fragment>
             </Formik>
           )}
         </Mutation>

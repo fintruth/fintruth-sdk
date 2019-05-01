@@ -111,35 +111,33 @@ const SignInForm: React.FunctionComponent<Props> = ({
                 }
                 validationSchema={validationSchema}
               >
-                {() => (
-                  <Form {...props} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-email`}
-                      autoComplete="off"
-                      form={formId}
-                      label="EMAIL"
-                      name="email"
-                      type="email"
-                    />
-                    <ControlledInputField
-                      id={`${formId}-password`}
-                      autoComplete="off"
-                      form={formId}
-                      label="PASSWORD"
-                      name="password"
-                      type="password"
-                    />
-                    <Link to="/recover">Forgot your password?</Link>
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      SIGN IN
-                    </Button>
-                  </Form>
-                )}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-email`}
+                    autoComplete="off"
+                    form={formId}
+                    label="EMAIL"
+                    name="email"
+                    type="email"
+                  />
+                  <ControlledInputField
+                    id={`${formId}-password`}
+                    autoComplete="off"
+                    form={formId}
+                    label="PASSWORD"
+                    name="password"
+                    type="password"
+                  />
+                  <Link to="/recover">Forgot your password?</Link>
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    SIGN IN
+                  </Button>
+                </Form>
               </Formik>
             </React.Fragment>
           )}

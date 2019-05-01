@@ -85,29 +85,27 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
               onSubmit={variables => onSubmit({ variables })}
               validationSchema={validationSchema}
             >
-              {() => (
-                <React.Fragment>
-                  {notice && <Notice variant={variant}>{notice}</Notice>}
-                  <Form {...props} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-token`}
-                      autoComplete="off"
-                      form={formId}
-                      label="VERIFICATION CODE"
-                      name="token"
-                      type="text"
-                    />
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      ENABLE
-                    </Button>
-                  </Form>
-                </React.Fragment>
-              )}
+              <React.Fragment>
+                {notice && <Notice variant={variant}>{notice}</Notice>}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-token`}
+                    autoComplete="off"
+                    form={formId}
+                    label="VERIFICATION CODE"
+                    name="token"
+                    type="text"
+                  />
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    ENABLE
+                  </Button>
+                </Form>
+              </React.Fragment>
             </Formik>
           )}
         </Mutation>
