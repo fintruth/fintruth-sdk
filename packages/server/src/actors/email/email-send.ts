@@ -26,27 +26,20 @@ export const spawnEmailSend = (
   sender: Address,
   serverUrl: string
 ) =>
-  spawnStateless<Message>(
-    parent,
-    (msg, ctx) => {
-      dispatch(ctx.self, new PoisonPill())
+  spawnStateless<Message>(parent, (msg, ctx) => {
+    dispatch(ctx.self, new PoisonPill())
 
-      switch (msg.type) {
-        case 'Registration':
-          const { name, token, recipient } = msg as Registration
-          const { body, subject } = registrationTemplate(name, token, serverUrl)
+    switch (msg.type) {
+      case 'Registration':
+        const { name, token, recipient } = msg as Registration
+        const { body, subject } = registrationTemplate(name, token, serverUrl)
 
-          return ses
-            .sendEmail(getParams(subject, body, recipient, sender))
-            .promise()
-        case 'PoisonPill':
-          return stop(ctx.self)
-        default:
-          return logAs('EmailSend')(
-            `Unknown message type: ${msg.type}`,
-            'error'
-          )
-      }
-    },
-    'emailSend'
-  )
+        return ses
+          .sendEmail(getParams(subject, body, recipient, sender))
+          .promise()
+      case 'PoisonPill':
+        return stop(ctx.self)
+      default:
+        return logAs('EmailSend')(`Unknown message type: ${msg.type}`, 'error')
+    }
+  })
