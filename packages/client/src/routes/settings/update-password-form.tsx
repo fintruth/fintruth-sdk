@@ -4,6 +4,7 @@ import { ApolloConsumer, Mutation } from 'react-apollo'
 import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink } from '@reach/router'
 import { object, ref, string } from 'yup'
+import { path } from 'ramda'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
@@ -13,7 +14,6 @@ import { link } from 'styles/mixins'
 import {
   UpdatePasswordMutationData,
   UpdatePasswordMutationVariables,
-  accountQuery,
   updatePasswordMutation,
 } from './graphql'
 import { button, field, form, notice } from './mixins'
@@ -63,7 +63,7 @@ const validationSchema = object().shape({
 
 const formId = 'update-password__Form'
 
-const UpdatePasswordForm: React.FunctionComponent = ({ ...rest }) => {
+const UpdatePasswordForm: React.FunctionComponent = ({ ...props }) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
 
@@ -73,9 +73,10 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...rest }) => {
         <Mutation<UpdatePasswordMutationData, UpdatePasswordMutationVariables>
           mutation={updatePasswordMutation}
           onCompleted={({ response }) => {
-            client // eslint-disable-line promise/catch-or-return
-              .resetStore()
-              .then(() => client.query({ query: accountQuery }))
+            // NOTE: Due to the inability to invalidate Apollo's cache the
+            // entire store needs to be reset in order to prevent storing
+            // private data
+            client.resetStore()
 
             if (response.error) {
               setNotice(response.error.message)
@@ -89,49 +90,53 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...rest }) => {
           {(onSubmit, { loading }) => (
             <Formik<Values>
               initialValues={initialValues}
-              onSubmit={variables => onSubmit({ variables })}
+              onSubmit={(variables, { resetForm }) =>
+                onSubmit({ variables }).then(value =>
+                  path(['data', 'response', 'error'], value)
+                    ? undefined
+                    : resetForm(initialValues)
+                )
+              }
               validationSchema={validationSchema}
             >
-              {() => (
-                <React.Fragment>
-                  {notice && <Notice variant={variant}>{notice}</Notice>}
-                  <Form {...rest} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-password`}
-                      autoComplete="off"
-                      form={formId}
-                      name="password"
-                      placeholder="Current Password"
-                      type="password"
-                    />
-                    <ControlledInputField
-                      id={`${formId}-newPassword`}
-                      autoComplete="off"
-                      form={formId}
-                      name="newPassword"
-                      placeholder="New Password"
-                      type="password"
-                    />
-                    <ControlledInputField
-                      id={`${formId}-newPasswordConfirm`}
-                      autoComplete="off"
-                      form={formId}
-                      name="newPasswordConfirm"
-                      placeholder="Confirm New Password"
-                      type="password"
-                    />
-                    <Link to="/recover">Forgot your password?</Link>
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      UPDATE
-                    </Button>
-                  </Form>
-                </React.Fragment>
-              )}
+              <React.Fragment>
+                {notice && <Notice variant={variant}>{notice}</Notice>}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-password`}
+                    autoComplete="off"
+                    form={formId}
+                    name="password"
+                    placeholder="Current Password"
+                    type="password"
+                  />
+                  <ControlledInputField
+                    id={`${formId}-newPassword`}
+                    autoComplete="off"
+                    form={formId}
+                    name="newPassword"
+                    placeholder="New Password"
+                    type="password"
+                  />
+                  <ControlledInputField
+                    id={`${formId}-newPasswordConfirm`}
+                    autoComplete="off"
+                    form={formId}
+                    name="newPasswordConfirm"
+                    placeholder="Confirm New Password"
+                    type="password"
+                  />
+                  <Link to="/recover">Forgot your password?</Link>
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    UPDATE
+                  </Button>
+                </Form>
+              </React.Fragment>
             </Formik>
           )}
         </Mutation>

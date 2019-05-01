@@ -50,7 +50,7 @@ const formId = 'update-profile__Form'
 
 const UpdateProfileForm: React.FunctionComponent<Props> = ({
   user,
-  ...rest
+  ...props
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -85,37 +85,35 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
           onSubmit={input => onSubmit({ variables: { input } })}
           validationSchema={validationSchema}
         >
-          {() => (
-            <React.Fragment>
-              {notice && <Notice variant={variant}>{notice}</Notice>}
-              <Form {...rest} id={formId} noValidate>
-                <ControlledInputField
-                  id={`${formId}-firstName`}
-                  autoComplete="given-name"
-                  form={formId}
-                  label="FIRST NAME"
-                  name="firstName"
-                  type="text"
-                />
-                <ControlledInputField
-                  id={`${formId}-lastName`}
-                  autoComplete="family-name"
-                  form={formId}
-                  label="LAST NAME"
-                  name="lastName"
-                  type="text"
-                />
-                <Button
-                  form={formId}
-                  isLoading={loading}
-                  status="primary"
-                  type="submit"
-                >
-                  SAVE
-                </Button>
-              </Form>
-            </React.Fragment>
-          )}
+          <React.Fragment>
+            {notice && <Notice variant={variant}>{notice}</Notice>}
+            <Form {...props} id={formId} noValidate>
+              <ControlledInputField
+                id={`${formId}-firstName`}
+                autoComplete="given-name"
+                form={formId}
+                label="FIRST NAME"
+                name="firstName"
+                type="text"
+              />
+              <ControlledInputField
+                id={`${formId}-lastName`}
+                autoComplete="family-name"
+                form={formId}
+                label="LAST NAME"
+                name="lastName"
+                type="text"
+              />
+              <Button
+                form={formId}
+                isLoading={loading}
+                status="primary"
+                type="submit"
+              >
+                SAVE
+              </Button>
+            </Form>
+          </React.Fragment>
         </Formik>
       )}
     </Mutation>

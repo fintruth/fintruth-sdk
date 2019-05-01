@@ -5,6 +5,7 @@ import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink } from '@reach/router'
 import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
+import { path } from 'ramda'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
@@ -71,7 +72,7 @@ const formId = 'sign-in__Form'
 const SignInForm: React.FunctionComponent<Props> = ({
   resolveNextView,
   setSignInCredentials,
-  ...rest
+  ...props
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -82,6 +83,9 @@ const SignInForm: React.FunctionComponent<Props> = ({
         <Mutation<SignInMutationData, SignInMutationVariables>
           mutation={signInMutation}
           onCompleted={({ response }) => {
+            // NOTE: Due to the inability to invalidate Apollo's cache the
+            // entire store needs to be reset in order to prevent storing
+            // private data
             client.resetStore()
 
             if (response.error) {
@@ -98,42 +102,42 @@ const SignInForm: React.FunctionComponent<Props> = ({
               {notice && <Notice variant={variant}>{notice}</Notice>}
               <Formik<Values>
                 initialValues={initialValues}
-                onSubmit={variables => {
-                  setSignInCredentials(variables)
-
-                  return onSubmit({ variables })
-                }}
+                onSubmit={variables =>
+                  onSubmit({ variables }).then(value =>
+                    path(['data', 'response', 'error'], value)
+                      ? undefined
+                      : setSignInCredentials(variables)
+                  )
+                }
                 validationSchema={validationSchema}
               >
-                {() => (
-                  <Form {...rest} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-email`}
-                      autoComplete="off"
-                      form={formId}
-                      label="EMAIL"
-                      name="email"
-                      type="email"
-                    />
-                    <ControlledInputField
-                      id={`${formId}-password`}
-                      autoComplete="off"
-                      form={formId}
-                      label="PASSWORD"
-                      name="password"
-                      type="password"
-                    />
-                    <Link to="/recover">Forgot your password?</Link>
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      SIGN IN
-                    </Button>
-                  </Form>
-                )}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-email`}
+                    autoComplete="off"
+                    form={formId}
+                    label="EMAIL"
+                    name="email"
+                    type="email"
+                  />
+                  <ControlledInputField
+                    id={`${formId}-password`}
+                    autoComplete="off"
+                    form={formId}
+                    label="PASSWORD"
+                    name="password"
+                    type="password"
+                  />
+                  <Link to="/recover">Forgot your password?</Link>
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    SIGN IN
+                  </Button>
+                </Form>
               </Formik>
             </React.Fragment>
           )}

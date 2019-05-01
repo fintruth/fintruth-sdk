@@ -1,15 +1,20 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { darken, em } from 'polished'
+import { path } from 'ramda'
+import { useFormikContext } from 'formik'
 
 import BaseFileUpload from 'assets/file-upload.svg'
 import { control } from 'styles/mixins'
 
 interface Props
-  extends Exclude<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  extends Exclude<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'type' | 'value'
+  > {
   id: string
   label?: string
-  value?: string
+  name: string
 }
 
 const Root = styled.div`
@@ -92,21 +97,39 @@ const Name = styled.span`
 `
 
 const File: React.FunctionComponent<Props> = ({
-  accept = 'image/jpeg, image/png',
   className,
   id,
   label = 'Choose File',
-  value,
-  ...rest
-}: Props) => (
-  <Root className={className}>
-    <CallToAction>
-      <Input id={id} accept={accept} {...rest} type="file" />
-      <FileUpload />
-      <Label htmlFor={id}>{label}</Label>
-    </CallToAction>
-    {value && <Name>{value}</Name>}
-  </Root>
-)
+  name,
+  ...props
+}: Props) => {
+  const [value, setValue] = React.useState<File | null>(null)
+  const { setFieldValue } = useFormikContext()
+
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const file = path<File>(['files', 0], target)
+
+    setFieldValue(name as never, file || '')
+
+    return file ? setValue(file) : undefined
+  }
+
+  return (
+    <Root className={className}>
+      <CallToAction>
+        <Input
+          id={id}
+          name={name}
+          onChange={handleChange}
+          {...props}
+          type="file"
+        />
+        <FileUpload />
+        <Label htmlFor={id}>{label}</Label>
+      </CallToAction>
+      {value && <Name>{value.name}</Name>}
+    </Root>
+  )
+}
 
 export default File

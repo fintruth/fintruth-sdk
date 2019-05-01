@@ -4,6 +4,7 @@ import { Form as BaseForm, Formik } from 'formik'
 import { Mutation } from 'react-apollo'
 import { RouteComponentProps } from '@reach/router'
 import { object, ref, string } from 'yup'
+import { path } from 'ramda'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
@@ -82,7 +83,7 @@ const validationSchema = object().shape({
 const formId = 'register__Form'
 
 const Register: React.FunctionComponent<RouteComponentProps> = ({
-  ...rest
+  ...props
 }: RouteComponentProps) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -101,66 +102,70 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
       }}
     >
       {(onSubmit, { loading }) => (
-        <Root data-testid="register" {...rest}>
+        <Root data-testid="register" {...props}>
           <Subnavbar items={items} />
           {notice && <Notice variant={variant}>{notice}</Notice>}
           <Formik<Values>
             initialValues={initialValues}
-            onSubmit={input => onSubmit({ variables: { input } })}
+            onSubmit={(input, { resetForm }) =>
+              onSubmit({ variables: { input } }).then(value =>
+                path(['data', 'response', 'error'], value)
+                  ? undefined
+                  : resetForm(initialValues)
+              )
+            }
             validationSchema={validationSchema}
           >
-            {() => (
-              <Form id={formId} noValidate>
-                <ControlledInputField
-                  id={`${formId}-firstName`}
-                  autoComplete="given-name"
-                  form={formId}
-                  label="FIRST NAME"
-                  name="firstName"
-                  type="text"
-                />
-                <ControlledInputField
-                  id={`${formId}-lastName`}
-                  autoComplete="family-name"
-                  form={formId}
-                  label="LAST NAME"
-                  name="lastName"
-                  type="text"
-                />
-                <ControlledInputField
-                  id={`${formId}-email`}
-                  autoComplete="off"
-                  form={formId}
-                  label="EMAIL"
-                  name="email"
-                  type="email"
-                />
-                <ControlledInputField
-                  id={`${formId}-emailConfirm`}
-                  autoComplete="off"
-                  form={formId}
-                  label="CONFIRM EMAIL"
-                  name="emailConfirm"
-                  type="email"
-                />
-                <ControlledInputField
-                  id={`${formId}-password`}
-                  autoComplete="off"
-                  form={formId}
-                  label="PASSWORD"
-                  name="password"
-                  type="password"
-                />
-                <Button
-                  form={formId}
-                  isLoading={loading}
-                  status="primary"
-                  type="submit"
-                >
-                  REGISTER
-                </Button>
-              </Form>
-            )}
+            <Form id={formId} noValidate>
+              <ControlledInputField
+                id={`${formId}-firstName`}
+                autoComplete="given-name"
+                form={formId}
+                label="FIRST NAME"
+                name="firstName"
+                type="text"
+              />
+              <ControlledInputField
+                id={`${formId}-lastName`}
+                autoComplete="family-name"
+                form={formId}
+                label="LAST NAME"
+                name="lastName"
+                type="text"
+              />
+              <ControlledInputField
+                id={`${formId}-email`}
+                autoComplete="off"
+                form={formId}
+                label="EMAIL"
+                name="email"
+                type="email"
+              />
+              <ControlledInputField
+                id={`${formId}-emailConfirm`}
+                autoComplete="off"
+                form={formId}
+                label="CONFIRM EMAIL"
+                name="emailConfirm"
+                type="email"
+              />
+              <ControlledInputField
+                id={`${formId}-password`}
+                autoComplete="off"
+                form={formId}
+                label="PASSWORD"
+                name="password"
+                type="password"
+              />
+              <Button
+                form={formId}
+                isLoading={loading}
+                status="primary"
+                type="submit"
+              >
+                REGISTER
+              </Button>
+            </Form>
           </Formik>
         </Root>
       )}

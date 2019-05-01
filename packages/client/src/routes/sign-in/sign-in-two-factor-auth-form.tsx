@@ -52,7 +52,7 @@ const formId = 'sign-in-two-factor-auth__Form'
 const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   resolveNextView,
   signInCredentials,
-  ...rest
+  ...props
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -66,6 +66,9 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         >
           mutation={signInTwoFactorAuthMutation}
           onCompleted={({ response }) => {
+            // NOTE: Due to the inability to invalidate Apollo's cache the
+            // entire store needs to be reset in order to prevent storing
+            // private data
             client.resetStore()
 
             if (response.error) {
@@ -88,26 +91,24 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
                 }
                 validationSchema={validationSchema}
               >
-                {() => (
-                  <Form {...rest} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-token`}
-                      autoComplete="off"
-                      form={formId}
-                      label="VERIFICATION CODE"
-                      name="token"
-                      type="text"
-                    />
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      CONTINUE
-                    </Button>
-                  </Form>
-                )}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-token`}
+                    autoComplete="off"
+                    form={formId}
+                    label="VERIFICATION CODE"
+                    name="token"
+                    type="text"
+                  />
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    CONTINUE
+                  </Button>
+                </Form>
               </Formik>
             </React.Fragment>
           )}

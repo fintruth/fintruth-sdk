@@ -11,7 +11,6 @@ import BaseNotice from 'components/notice'
 import {
   ConfirmTwoFactorAuthMutationData,
   ConfirmTwoFactorAuthMutationVariables,
-  accountQuery,
   confirmTwoFactorAuthMutation,
 } from './graphql'
 import { button, field, form, notice } from './mixins'
@@ -53,7 +52,7 @@ const formId = 'confirm-two-factor-auth__Form'
 
 const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   onCompleted,
-  ...rest
+  ...props
 }: Props) => {
   const [notice, setNotice] = React.useState<null | string>(null)
   const [variant, setVariant] = React.useState<NoticeVariant>('success')
@@ -67,9 +66,10 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         >
           mutation={confirmTwoFactorAuthMutation}
           onCompleted={({ response }) => {
-            client // eslint-disable-line promise/catch-or-return
-              .resetStore()
-              .then(() => client.query({ query: accountQuery }))
+            // NOTE: Due to the inability to invalidate Apollo's cache the
+            // entire store needs to be reset in order to prevent storing
+            // private data
+            client.resetStore()
 
             if (response.error) {
               setNotice(response.error.message)
@@ -85,29 +85,27 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
               onSubmit={variables => onSubmit({ variables })}
               validationSchema={validationSchema}
             >
-              {() => (
-                <React.Fragment>
-                  {notice && <Notice variant={variant}>{notice}</Notice>}
-                  <Form {...rest} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-token`}
-                      autoComplete="off"
-                      form={formId}
-                      label="VERIFICATION CODE"
-                      name="token"
-                      type="text"
-                    />
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      ENABLE
-                    </Button>
-                  </Form>
-                </React.Fragment>
-              )}
+              <React.Fragment>
+                {notice && <Notice variant={variant}>{notice}</Notice>}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-token`}
+                    autoComplete="off"
+                    form={formId}
+                    label="VERIFICATION CODE"
+                    name="token"
+                    type="text"
+                  />
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    ENABLE
+                  </Button>
+                </Form>
+              </React.Fragment>
             </Formik>
           )}
         </Mutation>
