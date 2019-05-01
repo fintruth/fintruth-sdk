@@ -13,12 +13,10 @@ storiesOf('Components|File ', module)
   .addDecorator(centered)
   .add('Default', () => (
     <Formik initialValues={initialValues} onSubmit={action('On Submit')}>
-      {() => (
-        <File
-          id="eee831ee-f009-4816-b8b2-9c953a7790b3"
-          label={text('Label', 'Choose File')}
-          name="file"
-        />
-      )}
+      <File
+        id="eee831ee-f009-4816-b8b2-9c953a7790b3"
+        label={text('Label', 'Choose File')}
+        name="file"
+      />
     </Formik>
   ))

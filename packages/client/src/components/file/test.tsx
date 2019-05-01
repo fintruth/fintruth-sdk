@@ -25,13 +25,11 @@ test('should render the uploaded file name correctly after a file is uploaded', 
   const { getByLabelText, getByText, queryByText } = render(
     <ThemeProvider theme={createTheme()}>
       <Formik initialValues={{ file: '' }} onSubmit={() => {}}>
-        {() => (
-          <BaseFile
-            id="cc166607-b4cf-4a53-b9f8-75b828535f6b"
-            label="label"
-            name="file"
-          />
-        )}
+        <BaseFile
+          id="cc166607-b4cf-4a53-b9f8-75b828535f6b"
+          label="label"
+          name="file"
+        />
       </Formik>
     </ThemeProvider>
   )
