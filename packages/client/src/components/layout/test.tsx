@@ -1,6 +1,7 @@
 import React from 'react'
+import userEvent from 'user-event'
 import { MockedProvider } from 'react-apollo/test-utils'
-import { fireEvent, waitForElement } from 'react-testing-library'
+import { waitForElement } from 'react-testing-library'
 
 import { renderWithRouter } from 'utilities/specification'
 import Layout from '.'
@@ -17,7 +18,7 @@ test('clicking the logo should navigate to the home route', async () => {
   expect(logoElement).toBeInTheDocument()
   expect(history.location.pathname).toStrictEqual('/not-found')
 
-  fireEvent.click(logoElement)
+  userEvent.click(logoElement)
 
   expect(history.location.pathname).toStrictEqual('/')
 })
