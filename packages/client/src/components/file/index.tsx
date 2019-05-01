@@ -107,9 +107,9 @@ const File: React.FunctionComponent<Props> = ({
   const { setFieldValue } = useFormikContext()
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    const file = path<File | undefined>(['files', 0], target)
+    const file = path<File>(['files', 0], target)
 
-    setFieldValue(name as never, file)
+    setFieldValue(name as never, file || '')
 
     return file ? setValue(file) : undefined
   }
