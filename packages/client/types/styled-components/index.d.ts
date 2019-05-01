@@ -19,9 +19,21 @@ declare module 'styled-components' {
     padding: string
   }
 
+  interface Control {
+    borderWidth: string
+    fontSize: string
+    height: string
+    lineHeight: number
+    paddingHorizontal: string
+    paddingVertical: string
+    radius: string
+  }
+
   export interface DefaultTheme extends Variables {
     body: Body
     code: Code
+    control: Control
+    file: File
     hr: Hr
     html: Html
     label: Label
@@ -29,6 +41,18 @@ declare module 'styled-components' {
     pre: Pre
     radio: Radio
     strong: Strong
+  }
+
+  interface File {
+    borderColor: string
+    ctaActiveColor: string
+    ctaBackgroundColor: string
+    ctaColor: string
+    ctaHoverColor: string
+    nameBorderColor: string
+    nameBorderStyle: string
+    nameBorderWidth: string
+    radius: string
   }
 
   interface Hr {
