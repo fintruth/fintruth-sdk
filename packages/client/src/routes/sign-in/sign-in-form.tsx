@@ -102,44 +102,42 @@ const SignInForm: React.FunctionComponent<Props> = ({
               {notice && <Notice variant={variant}>{notice}</Notice>}
               <Formik<Values>
                 initialValues={initialValues}
-                onSubmit={(variables, { setSubmitting }) =>
+                onSubmit={variables =>
                   onSubmit({ variables }).then(value =>
                     path(['data', 'response', 'error'], value)
-                      ? setSubmitting(false)
+                      ? undefined
                       : setSignInCredentials(variables)
                   )
                 }
                 validationSchema={validationSchema}
               >
-                {() => (
-                  <Form {...props} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-email`}
-                      autoComplete="off"
-                      form={formId}
-                      label="EMAIL"
-                      name="email"
-                      type="email"
-                    />
-                    <ControlledInputField
-                      id={`${formId}-password`}
-                      autoComplete="off"
-                      form={formId}
-                      label="PASSWORD"
-                      name="password"
-                      type="password"
-                    />
-                    <Link to="/recover">Forgot your password?</Link>
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      SIGN IN
-                    </Button>
-                  </Form>
-                )}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-email`}
+                    autoComplete="off"
+                    form={formId}
+                    label="EMAIL"
+                    name="email"
+                    type="email"
+                  />
+                  <ControlledInputField
+                    id={`${formId}-password`}
+                    autoComplete="off"
+                    form={formId}
+                    label="PASSWORD"
+                    name="password"
+                    type="password"
+                  />
+                  <Link to="/recover">Forgot your password?</Link>
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    SIGN IN
+                  </Button>
+                </Form>
               </Formik>
             </React.Fragment>
           )}

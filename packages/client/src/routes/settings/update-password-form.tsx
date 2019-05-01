@@ -90,57 +90,53 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...props }) => {
           {(onSubmit, { loading }) => (
             <Formik<Values>
               initialValues={initialValues}
-              onSubmit={(variables, { resetForm, setSubmitting }) =>
-                onSubmit({ variables }).then(value => {
-                  setSubmitting(false)
-
-                  return path(['data', 'response', 'error'], value)
+              onSubmit={(variables, { resetForm }) =>
+                onSubmit({ variables }).then(value =>
+                  path(['data', 'response', 'error'], value)
                     ? undefined
                     : resetForm(initialValues)
-                })
+                )
               }
               validationSchema={validationSchema}
             >
-              {() => (
-                <React.Fragment>
-                  {notice && <Notice variant={variant}>{notice}</Notice>}
-                  <Form {...props} id={formId} noValidate>
-                    <ControlledInputField
-                      id={`${formId}-password`}
-                      autoComplete="off"
-                      form={formId}
-                      name="password"
-                      placeholder="Current Password"
-                      type="password"
-                    />
-                    <ControlledInputField
-                      id={`${formId}-newPassword`}
-                      autoComplete="off"
-                      form={formId}
-                      name="newPassword"
-                      placeholder="New Password"
-                      type="password"
-                    />
-                    <ControlledInputField
-                      id={`${formId}-newPasswordConfirm`}
-                      autoComplete="off"
-                      form={formId}
-                      name="newPasswordConfirm"
-                      placeholder="Confirm New Password"
-                      type="password"
-                    />
-                    <Link to="/recover">Forgot your password?</Link>
-                    <Button
-                      form={formId}
-                      isLoading={loading}
-                      status="primary"
-                      type="submit"
-                    >
-                      UPDATE
-                    </Button>
-                  </Form>
-                </React.Fragment>
-              )}
+              <React.Fragment>
+                {notice && <Notice variant={variant}>{notice}</Notice>}
+                <Form {...props} id={formId} noValidate>
+                  <ControlledInputField
+                    id={`${formId}-password`}
+                    autoComplete="off"
+                    form={formId}
+                    name="password"
+                    placeholder="Current Password"
+                    type="password"
+                  />
+                  <ControlledInputField
+                    id={`${formId}-newPassword`}
+                    autoComplete="off"
+                    form={formId}
+                    name="newPassword"
+                    placeholder="New Password"
+                    type="password"
+                  />
+                  <ControlledInputField
+                    id={`${formId}-newPasswordConfirm`}
+                    autoComplete="off"
+                    form={formId}
+                    name="newPasswordConfirm"
+                    placeholder="Confirm New Password"
+                    type="password"
+                  />
+                  <Link to="/recover">Forgot your password?</Link>
+                  <Button
+                    form={formId}
+                    isLoading={loading}
+                    status="primary"
+                    type="submit"
+                  >
+                    UPDATE
+                  </Button>
+                </Form>
+              </React.Fragment>
             </Formik>
           )}
         </Mutation>
