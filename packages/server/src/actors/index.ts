@@ -1,2 +1,2 @@
-export * from './emailer'
+export * from './emails/emailer'
 export * from './types'

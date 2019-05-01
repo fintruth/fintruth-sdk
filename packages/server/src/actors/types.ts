@@ -2,6 +2,6 @@ export interface Message {
   type: string
 }
 
-export interface EmailType extends Message {
-  recipient: string
+export class PoisonPill implements Message {
+  readonly type = 'PoisonPill'
 }

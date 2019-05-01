@@ -1,15 +1,34 @@
-import { dispatch, start } from 'nact'
+import SES from 'aws-sdk/clients/ses'
+import { start } from 'nact'
 import { Container } from 'typedi'
 
-import { Registration, spawnEmailer } from 'actors'
+import { spawnEmailer } from 'actors'
 import { createApolloServer } from 'apollo'
 import { createDatabaseConnection } from 'database'
 import { logAs } from 'logger'
 import { createServer } from 'server'
 import { ConfigService } from 'services'
 
+const initializeActors = () => {
+  const system = start()
+  const {
+    app: { serverUrl },
+    aws: {
+      credentials,
+      region,
+      ses: { apiVersion, sender },
+    },
+  } = Container.get(ConfigService)
+  const ses = new SES({ apiVersion, credentials, region })
+
+  Container.set('actorSystem', system)
+  Container.set('actor.emailer', spawnEmailer(system, ses, sender, serverUrl))
+}
+
 const bootstrap = async (): Promise<void> => {
   await createDatabaseConnection()
+
+  initializeActors()
 
   const app = createServer()
   const server = await createApolloServer()
@@ -21,14 +40,6 @@ const bootstrap = async (): Promise<void> => {
   })
 
   const { port } = Container.get(ConfigService).app
-
-  const system = start()
-  const emailer = spawnEmailer(system)
-
-  dispatch(
-    emailer,
-    new Registration('erlich@aviato.com', 'Erlich Bachman', 'token')
-  )
 
   app.listen(port, () =>
     logAs('express')(
