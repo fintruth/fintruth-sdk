@@ -6,8 +6,9 @@ dotenv.config()
 @Service()
 export default class ConfigService {
   app = {
-    secret: process.env.APP_SECRET || '',
     port: Number(process.env.APP_PORT || '4000'),
+    secret: process.env.APP_SECRET || '',
+    serverUrl: process.env.APP_SERVER_URL || '',
     trustProxy: process.env.TRUST_PROXY || 'loopback',
   }
   aws = {
@@ -15,7 +16,7 @@ export default class ConfigService {
       accessKeyId: process.env.AWS_ACCESS_KEY || '',
       secretAccessKey: process.env.AWS_ACCESS_SECRET || '',
     },
-    region: process.env.AWS_REGION,
+    region: process.env.AWS_REGION || '',
     ses: {
       apiVersion: '2010-12-01',
       sender: 'noreply@fintruth.com',
