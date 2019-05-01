@@ -102,10 +102,10 @@ const SignInForm: React.FunctionComponent<Props> = ({
               {notice && <Notice variant={variant}>{notice}</Notice>}
               <Formik<Values>
                 initialValues={initialValues}
-                onSubmit={(variables, { setSubmitting }) =>
+                onSubmit={variables =>
                   onSubmit({ variables }).then(value =>
                     path(['data', 'response', 'error'], value)
-                      ? setSubmitting(false)
+                      ? undefined
                       : setSignInCredentials(variables)
                   )
                 }

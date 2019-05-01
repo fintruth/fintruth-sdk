@@ -82,9 +82,7 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
             firstName: user.profile.firstName,
             lastName: user.profile.lastName,
           }}
-          onSubmit={(input, { setSubmitting }) =>
-            onSubmit({ variables: { input } }).then(() => setSubmitting(false))
-          }
+          onSubmit={input => onSubmit({ variables: { input } })}
           validationSchema={validationSchema}
         >
           {() => (

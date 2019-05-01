@@ -91,14 +91,12 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
                   {notice && <Notice variant={variant}>{notice}</Notice>}
                   <Formik<Values>
                     initialValues={{ email: data.user ? data.user.email : '' }}
-                    onSubmit={(variables, { resetForm, setSubmitting }) =>
-                      onSubmit({ variables }).then(value => {
-                        setSubmitting(false)
-
-                        return path(['data', 'response', 'error'], value)
+                    onSubmit={(variables, { resetForm }) =>
+                      onSubmit({ variables }).then(value =>
+                        path(['data', 'response', 'error'], value)
                           ? undefined
                           : resetForm({ email: '' })
-                      })
+                      )
                     }
                     validationSchema={validationSchema}
                   >

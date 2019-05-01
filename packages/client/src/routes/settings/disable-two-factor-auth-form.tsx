@@ -4,7 +4,6 @@ import { Form as BaseForm, Formik } from 'formik'
 import { Mutation } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
-import { path } from 'ramda'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
@@ -88,13 +87,7 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
       {(onSubmit, { loading }) => (
         <Formik<Values>
           initialValues={initialValues}
-          onSubmit={(variables, { setSubmitting }) =>
-            onSubmit({ variables }).then(value =>
-              path(['data', 'response', 'error'], value)
-                ? setSubmitting(false)
-                : undefined
-            )
-          }
+          onSubmit={variables => onSubmit({ variables })}
           validationSchema={validationSchema}
         >
           {() => (

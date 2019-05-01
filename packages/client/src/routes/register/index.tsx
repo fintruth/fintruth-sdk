@@ -107,14 +107,12 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
           {notice && <Notice variant={variant}>{notice}</Notice>}
           <Formik<Values>
             initialValues={initialValues}
-            onSubmit={(input, { resetForm, setSubmitting }) =>
-              onSubmit({ variables: { input } }).then(value => {
-                setSubmitting(false)
-
-                return path(['data', 'response', 'error'], value)
+            onSubmit={(input, { resetForm }) =>
+              onSubmit({ variables: { input } }).then(value =>
+                path(['data', 'response', 'error'], value)
                   ? undefined
                   : resetForm(initialValues)
-              })
+              )
             }
             validationSchema={validationSchema}
           >

@@ -90,14 +90,12 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...props }) => {
           {(onSubmit, { loading }) => (
             <Formik<Values>
               initialValues={initialValues}
-              onSubmit={(variables, { resetForm, setSubmitting }) =>
-                onSubmit({ variables }).then(value => {
-                  setSubmitting(false)
-
-                  return path(['data', 'response', 'error'], value)
+              onSubmit={(variables, { resetForm }) =>
+                onSubmit({ variables }).then(value =>
+                  path(['data', 'response', 'error'], value)
                     ? undefined
                     : resetForm(initialValues)
-                })
+                )
               }
               validationSchema={validationSchema}
             >

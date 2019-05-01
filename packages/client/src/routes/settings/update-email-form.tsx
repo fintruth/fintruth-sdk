@@ -80,14 +80,12 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
           {(onSubmit, { loading }) => (
             <Formik<Values>
               initialValues={{ newEmail: user.email, password: '' }}
-              onSubmit={(variables, { resetForm, setSubmitting }) =>
-                onSubmit({ variables }).then(value => {
-                  setSubmitting(false)
-
-                  return path(['data', 'response', 'error'], value)
+              onSubmit={(variables, { resetForm }) =>
+                onSubmit({ variables }).then(value =>
+                  path(['data', 'response', 'error'], value)
                     ? undefined
                     : resetForm({ ...variables, password: '' })
-                })
+                )
               }
               validationSchema={validationSchema}
             >
