@@ -3,6 +3,7 @@
 const cypressPlugin = require('eslint-plugin-cypress')
 
 module.exports = {
+  env: { browser: true },
   globals: { __DEV__: false },
   overrides: [
     {
