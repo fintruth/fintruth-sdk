@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { em } from 'polished'
+import { useField } from 'formik'
 
 interface Props
   extends Exclude<
@@ -8,9 +9,10 @@ interface Props
     'checked' | 'disabled' | 'type'
   > {
   id: string
-  isChecked?: boolean
   isDisabled?: boolean
   label?: string
+  name: string
+  value: string
 }
 
 const Root = styled.div`
@@ -89,22 +91,29 @@ const Label = styled.label`
 const Radio: React.FunctionComponent<Props> = ({
   className,
   id,
-  isChecked,
   isDisabled,
   label,
-  ...rest
-}: Props) => (
-  <Root className={className}>
-    <Input
-      id={id}
-      {...rest}
-      checked={isChecked}
-      disabled={isDisabled}
-      type="radio"
-    />
-    <Toggle />
-    <Label htmlFor={id}>{label}</Label>
-  </Root>
-)
+  name,
+  value,
+  ...props
+}: Props) => {
+  const [{ value: fieldValue, ...field }] = useField(name)
+
+  return (
+    <Root className={className}>
+      <Input
+        {...field}
+        id={id}
+        value={value}
+        {...props}
+        checked={value === fieldValue}
+        disabled={isDisabled}
+        type="radio"
+      />
+      <Toggle />
+      <Label htmlFor={id}>{label}</Label>
+    </Root>
+  )
+}
 
 export default Radio
