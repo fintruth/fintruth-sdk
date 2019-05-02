@@ -8,7 +8,10 @@ import Notice from 'components/notice'
 import { control } from 'styles/mixins'
 
 interface Props
-  extends Exclude<React.InputHTMLAttributes<HTMLInputElement>, 'disabled'> {
+  extends Exclude<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'disabled' | 'required'
+  > {
   id: string
   isDisabled?: boolean
   isRequired?: boolean
