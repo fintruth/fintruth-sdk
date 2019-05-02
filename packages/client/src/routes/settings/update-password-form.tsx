@@ -8,7 +8,7 @@ import { path } from 'ramda'
 import { rem } from 'polished'
 
 import BaseButton from 'components/button'
-import BaseControlledInputField from 'components/controlled-input-field'
+import BaseInput from 'components/input'
 import BaseNotice from 'components/notice'
 import { link } from 'styles/mixins'
 import {
@@ -32,7 +32,7 @@ const Form = styled(BaseForm)`
   ${form}
 `
 
-const ControlledInputField = styled(BaseControlledInputField)`
+const Input = styled(BaseInput)`
   ${field}
 `
 
@@ -102,7 +102,7 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...props }) => {
               <React.Fragment>
                 {notice && <Notice variant={variant}>{notice}</Notice>}
                 <Form {...props} id={formId} noValidate>
-                  <ControlledInputField
+                  <Input
                     id={`${formId}-password`}
                     autoComplete="off"
                     form={formId}
@@ -110,7 +110,7 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...props }) => {
                     placeholder="Current Password"
                     type="password"
                   />
-                  <ControlledInputField
+                  <Input
                     id={`${formId}-newPassword`}
                     autoComplete="off"
                     form={formId}
@@ -118,7 +118,7 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...props }) => {
                     placeholder="New Password"
                     type="password"
                   />
-                  <ControlledInputField
+                  <Input
                     id={`${formId}-newPasswordConfirm`}
                     autoComplete="off"
                     form={formId}

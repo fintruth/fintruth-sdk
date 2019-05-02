@@ -10,7 +10,7 @@ import { rem } from 'polished'
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
 import BaseSubnavbar from 'components/subnavbar'
-import ControlledInputField from 'components/controlled-input-field'
+import Input from 'components/input'
 import { centered } from 'styles/mixins'
 import {
   RegisterMutationData,
@@ -117,7 +117,7 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
             validationSchema={validationSchema}
           >
             <Form id={formId} noValidate>
-              <ControlledInputField
+              <Input
                 id={`${formId}-firstName`}
                 autoComplete="given-name"
                 form={formId}
@@ -125,7 +125,7 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
                 name="firstName"
                 type="text"
               />
-              <ControlledInputField
+              <Input
                 id={`${formId}-lastName`}
                 autoComplete="family-name"
                 form={formId}
@@ -133,7 +133,7 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
                 name="lastName"
                 type="text"
               />
-              <ControlledInputField
+              <Input
                 id={`${formId}-email`}
                 autoComplete="off"
                 form={formId}
@@ -141,7 +141,7 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
                 name="email"
                 type="email"
               />
-              <ControlledInputField
+              <Input
                 id={`${formId}-emailConfirm`}
                 autoComplete="off"
                 form={formId}
@@ -149,7 +149,7 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
                 name="emailConfirm"
                 type="email"
               />
-              <ControlledInputField
+              <Input
                 id={`${formId}-password`}
                 autoComplete="off"
                 form={formId}
@@ -172,4 +172,5 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
     </Mutation>
   )
 }
+
 export default Register

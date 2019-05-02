@@ -6,7 +6,7 @@ import { User } from '@fintruth-sdk/shared'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseControlledInputField from 'components/controlled-input-field'
+import BaseInput from 'components/input'
 import BaseNotice from 'components/notice'
 import {
   UpdateProfileMutationData,
@@ -33,7 +33,7 @@ const Form = styled(BaseForm)`
   ${form}
 `
 
-const ControlledInputField = styled(BaseControlledInputField)`
+const Input = styled(BaseInput)`
   ${field}
 `
 
@@ -88,7 +88,7 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
           <React.Fragment>
             {notice && <Notice variant={variant}>{notice}</Notice>}
             <Form {...props} id={formId} noValidate>
-              <ControlledInputField
+              <Input
                 id={`${formId}-firstName`}
                 autoComplete="given-name"
                 form={formId}
@@ -96,7 +96,7 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
                 name="firstName"
                 type="text"
               />
-              <ControlledInputField
+              <Input
                 id={`${formId}-lastName`}
                 autoComplete="family-name"
                 form={formId}

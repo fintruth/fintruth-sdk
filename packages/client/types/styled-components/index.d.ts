@@ -2,6 +2,7 @@ import 'styled-components'
 
 declare module 'styled-components' {
   export type NoticeVariant = 'danger' | 'default' | 'success'
+  export type InputStatus = 'danger' | 'default'
 
   interface Body {
     color: string
@@ -36,6 +37,7 @@ declare module 'styled-components' {
     file: File
     hr: Hr
     html: Html
+    input: Input
     label: Label
     notice: Notice
     pre: Pre
@@ -69,14 +71,39 @@ declare module 'styled-components' {
     textRendering: string
   }
 
+  interface Input extends Record<InputStatus, InputStatusData> {
+    backgroundColor: string
+    boxShadow: string
+    color: string
+    disabledBackgroundColor: string
+    disabledBorderColor: string
+    disabledColor: string
+    disabledPlaceholderColor: string
+    focusBorderColor: string
+    focusBoxShadowSize: string
+    hoverBorderColor: string
+    hoverColor: string
+    placeholderColor: string
+    radius: string
+  }
+
+  interface InputStatusData {
+    borderColor: string
+    focusBoxShadowColor: string
+  }
+
   interface Label {
     color: string
     fontSize: string
     fontWeight: number
   }
 
-  interface Notice extends Record<NoticeVariant, string> {
+  interface Notice extends Record<NoticeVariant, NoticeVariantData> {
     fontSize: string
+  }
+
+  interface NoticeVariantData {
+    color: string
   }
 
   interface Pre {
@@ -126,12 +153,6 @@ declare module 'styled-components' {
     greenContrast: string
     info: string
     infoContrast: string
-    inputDisabledBackgroundColor: string
-    inputDisabledBorderColor: string
-    inputDisabledColor: string
-    inputDisabledPlaceholderColor: string
-    inputHoverBorderColor: string
-    inputHoverColor: string
     lightContrast: string
     linkActiveBorderColor: string
     linkActiveColor: string

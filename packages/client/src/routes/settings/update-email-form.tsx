@@ -7,7 +7,7 @@ import { object, string } from 'yup'
 import { path } from 'ramda'
 
 import BaseButton from 'components/button'
-import BaseControlledInputField from 'components/controlled-input-field'
+import BaseInput from 'components/input'
 import BaseNotice from 'components/notice'
 import {
   UpdateEmailMutationData,
@@ -33,7 +33,7 @@ const Form = styled(BaseForm)`
   ${form}
 `
 
-const ControlledInputField = styled(BaseControlledInputField)`
+const Input = styled(BaseInput)`
   ${field}
 `
 
@@ -92,7 +92,7 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
               <React.Fragment>
                 {notice && <Notice variant={variant}>{notice}</Notice>}
                 <Form {...props} id={formId} noValidate>
-                  <ControlledInputField
+                  <Input
                     id={`${formId}-newEmail`}
                     autoComplete="off"
                     form={formId}
@@ -100,7 +100,7 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
                     placeholder="Email"
                     type="email"
                   />
-                  <ControlledInputField
+                  <Input
                     id={`${formId}-password`}
                     autoComplete="off"
                     form={formId}

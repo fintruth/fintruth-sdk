@@ -9,7 +9,7 @@ import { rem } from 'polished'
 
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
-import ControlledInputField from 'components/controlled-input-field'
+import Input from 'components/input'
 import { centered, link } from 'styles/mixins'
 import { renderLoadingIf } from 'utilities/loading'
 import {
@@ -101,7 +101,7 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
                     validationSchema={validationSchema}
                   >
                     <Form id={formId} noValidate>
-                      <ControlledInputField
+                      <Input
                         id={`${formId}-email`}
                         autoComplete="off"
                         form={formId}
