@@ -172,4 +172,5 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
     </Mutation>
   )
 }
+
 export default Register
