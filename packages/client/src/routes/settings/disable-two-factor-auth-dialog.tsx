@@ -32,9 +32,9 @@ const Column = styled.div`
 const DisableTwoFactorAuthDialog: React.FunctionComponent<Props> = ({
   onDismiss,
   user,
-  ...rest
+  ...props
 }: Props) => (
-  <Dialog onDismiss={onDismiss} {...rest}>
+  <Dialog onDismiss={onDismiss} {...props}>
     <Header>Disable 2-Factor Authentication</Header>
     Your account is more secure when you need a password and a verification code
     to sign in. If you remove this extra layer of security, you will only be

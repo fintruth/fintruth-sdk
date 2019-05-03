@@ -80,9 +80,9 @@ const Secret = styled.span`
   padding: ${rem(5)} ${rem(8)};
 `
 
-const AuthyLink: React.FunctionComponent = ({ ...rest }) => (
+const AuthyLink: React.FunctionComponent = ({ ...props }) => (
   <Link
-    {...rest}
+    {...props}
     href="https://support.authy.com/hc/en-us/articles/360006303934-Add-a-New-Two-Factor-Authentication-2FA-Account-Token-in-the-Authy-App"
     rel="noopener noreferrer"
     target="_blank"
@@ -91,9 +91,9 @@ const AuthyLink: React.FunctionComponent = ({ ...rest }) => (
   </Link>
 )
 
-const LastPassLink: React.FunctionComponent = ({ ...rest }) => (
+const LastPassLink: React.FunctionComponent = ({ ...props }) => (
   <Link
-    {...rest}
+    {...props}
     href="https://support.logmeininc.com/lastpass/help/lastpass-authenticator-lp030014"
     rel="noopener noreferrer"
     target="_blank"
@@ -102,9 +102,9 @@ const LastPassLink: React.FunctionComponent = ({ ...rest }) => (
   </Link>
 )
 
-const OnePasswordLink: React.FunctionComponent = ({ ...rest }) => (
+const OnePasswordLink: React.FunctionComponent = ({ ...props }) => (
   <Link
-    {...rest}
+    {...props}
     href="https://support.1password.com/one-time-passwords"
     rel="noopener noreferrer"
     target="_blank"
@@ -117,13 +117,13 @@ const EnableTwoFactorAuthDialog: React.FunctionComponent<Props> = ({
   dataUrl,
   onDismiss,
   secret,
-  ...rest
+  ...props
 }: Props) => {
   const [isQRCodeVisible, setIsQRCodeVisible] = React.useState(false)
   const [isSecretVisible, setIsSecretVisible] = React.useState(false)
 
   return (
-    <Dialog onDismiss={onDismiss} {...rest}>
+    <Dialog onDismiss={onDismiss} {...props}>
       <Header>Enable 2-Factor Authentication</Header>
       We recommend using an application such as <AuthyLink />,{' '}
       <OnePasswordLink />

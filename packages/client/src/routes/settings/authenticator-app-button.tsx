@@ -23,7 +23,7 @@ const Button = styled(BaseButton)`
 
 const AuthenticatorAppButton: React.FunctionComponent<Props> = ({
   user,
-  ...rest
+  ...props
 }: Props) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
 
@@ -37,7 +37,7 @@ const AuthenticatorAppButton: React.FunctionComponent<Props> = ({
       {(onClick, { data, loading }) => (
         <React.Fragment>
           <Button
-            {...rest}
+            {...props}
             isLoading={loading}
             isOutlined
             onClick={() =>

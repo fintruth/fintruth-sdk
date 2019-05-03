@@ -21,9 +21,9 @@ const Root = styled.label`
 const Label: React.FunctionComponent<Props> = ({
   children,
   isRequired = false,
-  ...rest
+  ...props
 }: Props) => (
-  <Root {...rest}>
+  <Root {...props}>
     {children}
     {isRequired && '*'}
   </Root>

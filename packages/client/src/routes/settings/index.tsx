@@ -89,9 +89,9 @@ const defaultUser = {
 }
 
 const Settings: React.FunctionComponent<RouteComponentProps> = ({
-  ...rest
+  ...props
 }: RouteComponentProps) => (
-  <Layout data-testid="settings" {...rest}>
+  <Layout data-testid="settings" {...props}>
     <Query<AccountQueryData> query={accountQuery}>
       {({ data = {}, loading }) => {
         const user = data.user || defaultUser

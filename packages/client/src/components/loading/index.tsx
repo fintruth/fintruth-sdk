@@ -49,7 +49,7 @@ const Icon = styled.div`
 
 const Loading: React.FunctionComponent<Props> = ({
   delay = 200,
-  ...rest
+  ...props
 }: Props) => {
   const [isVisible, setVisible] = React.useState(false)
 
@@ -60,7 +60,7 @@ const Loading: React.FunctionComponent<Props> = ({
   })
 
   return isVisible ? (
-    <Root {...rest}>
+    <Root {...props}>
       <Icon />
       <Icon />
       <Icon />
