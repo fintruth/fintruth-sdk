@@ -185,12 +185,12 @@ const MenuLink = styled(BaseLink)`
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
-  ...rest
+  ...props
 }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   return (
-    <Root {...rest}>
+    <Root {...props}>
       <Query<LayoutQueryData> query={layoutQuery}>
         {({ client, data = {}, loading }) =>
           renderLoadingIf(loading, () => (

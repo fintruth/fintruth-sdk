@@ -66,12 +66,12 @@ const Table: React.FunctionComponent<Props> = ({
   rowKey = 'id',
   renderers = {},
   rows,
-  ...rest
+  ...props
 }: Props) => (
   <Root
     columns={mergeColumnDefaults(columnDefaults, columns)}
     renderers={mergeDeepRight(defaultRenderers, renderers)}
-    {...rest}
+    {...props}
   >
     <Header />
     <Body rowKey={rowKey} rows={rows} />

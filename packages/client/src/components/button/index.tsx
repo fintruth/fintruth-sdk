@@ -116,7 +116,7 @@ const Button: React.FunctionComponent<Props> = ({
   isLoading,
   isOutlined,
   status,
-  ...rest
+  ...props
 }: Props) => {
   const [isSpinnerVisible, setIsSpinnerVisible] = React.useState(false)
 
@@ -137,7 +137,7 @@ const Button: React.FunctionComponent<Props> = ({
       isLoading={isSpinnerVisible}
       isOutlined={isOutlined}
       status={status}
-      {...rest}
+      {...props}
     >
       {isSpinnerVisible && (
         <Spinner

@@ -51,9 +51,9 @@ const Label = styled.div`
 const Assets: React.FunctionComponent<Props> = ({
   assets,
   type,
-  ...rest
+  ...props
 }: Props) => (
-  <Root {...rest}>
+  <Root {...props}>
     {assets.map(({ Icon: BaseIcon, label, src }: Asset) => {
       let asset
 

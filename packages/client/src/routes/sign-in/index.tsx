@@ -28,7 +28,7 @@ const getNextView = (currentView: string, { isTwoFactorAuthEnabled }: User) => {
 }
 
 const SignIn: React.FunctionComponent<RouteComponentProps> = ({
-  ...rest
+  ...props
 }: RouteComponentProps) => {
   const [currentView, setCurrentView] = React.useState(SIGN_IN_VIEW)
   const [signInCredentials, setSignInCredentials] = React.useState<
@@ -37,7 +37,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = ({
 
   if (currentView === TWO_FACTOR_AUTH_VIEW) {
     return (
-      <Root data-testid="sign-in" {...rest}>
+      <Root data-testid="sign-in" {...props}>
         <SignInTwoFactorAuthForm
           resolveNextView={(user: User) =>
             setCurrentView(getNextView(currentView, user))
@@ -51,7 +51,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = ({
   }
 
   return (
-    <Root data-testid="sign-in" {...rest}>
+    <Root data-testid="sign-in" {...props}>
       <SignInForm
         resolveNextView={(user: User) =>
           setCurrentView(getNextView(currentView, user))

@@ -51,9 +51,9 @@ const Link = styled(BaseLink)`
 const Subnavbar: React.FunctionComponent<Props> = ({
   items,
   onItemClick,
-  ...rest
+  ...props
 }: Props) => (
-  <Root aria-label="navigation" role="navigation" {...rest}>
+  <Root aria-label="navigation" role="navigation" {...props}>
     {items.map(({ content, id, to }) => (
       <Link
         id={id}

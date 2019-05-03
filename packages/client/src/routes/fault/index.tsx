@@ -29,14 +29,14 @@ const Content = styled.pre`
   white-space: pre-wrap;
 `
 
-const Fault: React.FunctionComponent<Props> = ({ error, ...rest }: Props) =>
+const Fault: React.FunctionComponent<Props> = ({ error, ...props }: Props) =>
   __DEV__ && error ? (
-    <Root data-testid="error" {...rest}>
+    <Root data-testid="error" {...props}>
       <Title>{error.name}</Title>
       <Content>{error.stack}</Content>
     </Root>
   ) : (
-    <Root data-testid="error" {...rest}>
+    <Root data-testid="error" {...props}>
       <Title>Error</Title>
       <p>Sorry, a critical error occurred on this page.</p>
     </Root>
