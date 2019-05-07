@@ -10,7 +10,6 @@ import {
 } from 'react-error-overlay'
 
 setEditorHandler(errorLocation =>
-  // eslint-disable-next-line no-undef
   fetch(
     `${launchEditorEndpoint}?fileName=${encodeURIComponent(
       errorLocation.fileName
