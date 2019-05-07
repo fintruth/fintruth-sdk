@@ -1,10 +1,11 @@
+import { Omit } from '@fintruth-sdk/shared'
+import { useField } from 'formik'
+import { em } from 'polished'
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { em } from 'polished'
-import { useField } from 'formik'
 
 interface Props
-  extends Exclude<
+  extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
     'checked' | 'disabled' | 'type'
   > {
