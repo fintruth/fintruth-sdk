@@ -1,14 +1,15 @@
+import { Omit } from '@fintruth-sdk/shared'
+import { useField } from 'formik'
+import { rem } from 'polished'
 import React from 'react'
 import styled, { InputStatus } from 'styled-components' // eslint-disable-line import/named
-import { rem } from 'polished'
-import { useField } from 'formik'
 
 import Label from 'components/label'
 import Notice from 'components/notice'
 import { control } from 'styles/mixins'
 
 interface Props
-  extends Exclude<
+  extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
     'disabled' | 'required'
   > {

@@ -1,17 +1,15 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
+import { Omit } from '@fintruth-sdk/shared'
+import { useFormikContext } from 'formik'
 import { darken, em } from 'polished'
 import { path } from 'ramda'
-import { useFormikContext } from 'formik'
+import React from 'react'
+import styled, { css } from 'styled-components'
 
 import BaseFileUpload from 'assets/file-upload.svg'
 import { control } from 'styles/mixins'
 
 interface Props
-  extends Exclude<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'type' | 'value'
-  > {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value'> {
   id: string
   label?: string
   name: string
