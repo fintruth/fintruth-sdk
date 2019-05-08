@@ -7,7 +7,7 @@ const getUrl = (token: string, baseUrl: string) => {
   return url
 }
 
-const registrationTemplate = (name: string, token: string, baseUrl: string) => {
+const registration = (name: string, token: string, baseUrl: string) => {
   const subject = 'Complete Sign Up'
   const url = getUrl(token, baseUrl)
 
@@ -21,4 +21,4 @@ const registrationTemplate = (name: string, token: string, baseUrl: string) => {
   }
 }
 
-export default registrationTemplate
+export default registration

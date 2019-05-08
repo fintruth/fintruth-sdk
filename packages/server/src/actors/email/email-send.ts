@@ -4,7 +4,7 @@ import { ActorRef, dispatch, spawnStateless, stop } from 'nact'
 import { Message, PoisonPill } from 'actors'
 import { logAs } from 'logger'
 import { Registration } from './emailer'
-import registrationTemplate from './templates/registration'
+import * as templates from './templates'
 
 const getParams = (
   subject: string,
@@ -20,26 +20,25 @@ const getParams = (
   Source: sender,
 })
 
+const log = logAs('EmailSend')
+
 export const spawnEmailSend = (
   parent: ActorRef,
   ses: SES,
   sender: Address,
   serverUrl: string
 ) =>
-  spawnStateless<Message>(parent, (msg, ctx) => {
+  spawnStateless<Message>(parent, async (msg, ctx) => {
     dispatch(ctx.self, new PoisonPill())
 
-    switch (msg.type) {
-      case 'Registration':
-        const { name, token, recipient } = msg as Registration
-        const { body, subject } = registrationTemplate(name, token, serverUrl)
+    if (msg instanceof Registration) {
+      const { name, token, recipient } = msg
+      const { body, subject } = templates.registration(name, token, serverUrl)
 
-        return ses
-          .sendEmail(getParams(subject, body, recipient, sender))
-          .promise()
-      case 'PoisonPill':
-        return stop(ctx.self)
-      default:
-        return logAs('EmailSend')(`Unknown message type: ${msg.type}`, 'error')
+      await ses.sendEmail(getParams(subject, body, recipient, sender)).promise()
+    } else if (msg instanceof PoisonPill) {
+      stop(ctx.self)
+    } else {
+      log(`Unknown message type: ${msg.type}`, 'error')
     }
   })
