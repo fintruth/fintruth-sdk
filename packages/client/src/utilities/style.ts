@@ -1,6 +1,12 @@
 import { DeepPartial } from '@fintruth-sdk/shared'
-import { em, hsl, hsla, readableColor, rem, transparentize } from 'polished'
+import { em, getLuminance, hsl, hsla, rem, transparentize } from 'polished'
 import { DefaultTheme } from 'styled-components' // eslint-disable-line import/named
+
+export const readableColor = (
+  color: string,
+  lightReturnColor: string = '#000',
+  darkReturnColor: string = '#fff'
+) => (getLuminance(color) > 0.55 ? lightReturnColor : darkReturnColor)
 
 export const createTheme = ({
   black = hsl(0, 0, 0.04),
@@ -55,27 +61,37 @@ export const createTheme = ({
   textRendering = 'optimizeLegibility',
 
   body = {},
+
   code = {},
+
   control: { borderWidth: controlBorderWidth = '1px', ...control } = {},
+
   file = {},
+
   hr = {},
+
   html = {},
+
   input: {
     color: inputColor = grayDarker,
     disabledColor: inputDisabledColor = textLightColor,
     hoverColor: inputHoverColor = grayDarker,
     ...input
   } = {},
+
   label = {},
+
   notice = {},
+
   pre = {},
+
   radio = {},
+
   strong = {},
 
   viewport = {},
   ...defaultTheme
 }: DeepPartial<DefaultTheme> = {}): DefaultTheme => ({
-  // General Colors
   black,
   blackBis: hsl(0, 0, 0.07),
   blackTer: hsl(0, 0, 0.14),
@@ -104,14 +120,12 @@ export const createTheme = ({
   borderColor,
   borderHoverColor: grayLight,
 
-  // Main Colors
   primary,
   info,
   success,
   warning,
   danger,
 
-  // Contrast Colors
   darkContrast,
   lightContrast,
 
@@ -130,7 +144,6 @@ export const createTheme = ({
   warningContrast: readableColor(warning, lightContrast, darkContrast),
   dangerContrast: readableColor(danger, lightContrast, darkContrast),
 
-  // Link Colors
   linkColor,
   linkColorContrast: blueContrast,
   linkVisitedColor: purple,
@@ -144,17 +157,14 @@ export const createTheme = ({
   linkActiveColor: grayDarker,
   linkActiveBorderColor: grayDark,
 
-  // Text Colors
   textColor,
   textColorContrast: readableColor(textColor, lightContrast, darkContrast),
   textLightColor,
   textStrongColor,
   textSelectionColor: hsl(213, 0.92, 0.85),
 
-  // Responsiveness
   gap,
 
-  // Typography
   fontFamilyMonospace,
   fontFamilySansSerif,
 
@@ -165,207 +175,152 @@ export const createTheme = ({
   textRendering,
 
   body: {
-    // Colors
-    color: textColor,
-
-    // Typography
     fontFamily: fontFamilyPrimary,
+    color: textColor,
     fontWeight: 400,
     lineHeight: 1.4,
-
     ...body,
   },
 
   code: {
-    // Box
-    padding: `${em(4)} ${em(8)}`,
-
-    // Colors
-    backgroundColor,
     color: red,
+    backgroundColor,
 
-    // Typography
     fontFamily: fontFamilyCode,
-    fontSize: em(14),
+    padding: `${em(4)} ${em(8)}`,
     fontWeight: 400,
-
+    fontSize: em(14),
     ...code,
   },
 
   control: {
-    // Box
-    borderWidth: controlBorderWidth,
-    height: em(36),
-    paddingHorizontal: `calc(${em(10)} - ${controlBorderWidth})`,
-    paddingVertical: `calc(${em(6)} - ${controlBorderWidth})`,
-
-    // Typography
-    lineHeight: 1.5,
-    fontSize: rem(16),
-
-    // Miscellaneous
     borderRadius: '4px',
 
+    borderWidth: controlBorderWidth,
+
+    fontSize: rem(16),
+    height: em(36),
+    lineHeight: 1.5,
+
+    paddingVertical: `calc(${em(6)} - ${controlBorderWidth})`,
+    paddingHorizontal: `calc(${em(10)} - ${controlBorderWidth})`,
     ...control,
   },
 
   file: {
-    // Box
-    nameBorderStyle: 'solid',
-    nameBorderWidth: '1px 1px 1px 0',
-
-    // Colors
     borderColor,
-
-    ctaActiveColor: grayDarker,
-    ctaBackgroundColor: whiteTer,
-    ctaColor: grayDark,
-    ctaHoverColor: grayDarker,
-
-    nameBorderColor: borderColor,
-
-    // Miscellaneous
     borderRadius: '4px',
 
+    ctaColor: grayDark,
+    ctaBackgroundColor: whiteTer,
+    ctaHoverColor: grayDarker,
+    ctaActiveColor: grayDarker,
+
+    nameBorderColor: borderColor,
+    nameBorderStyle: 'solid',
+    nameBorderWidth: '1px 1px 1px 0',
     ...file,
   },
 
   hr: {
-    // Box
+    backgroundColor,
     height: '2px',
     margin: `${rem(24)} 0`,
-
-    // Colors
-    backgroundColor,
-
     ...hr,
   },
 
   html: {
-    // Colors
     backgroundColor: white,
-
-    // Typography
     fontSize: em(16),
     textRendering,
-
-    // Miscellaneous
     overflowX: 'hidden',
     overflowY: 'scroll',
-
     ...html,
   },
 
   input: {
-    // Colors
+    color: inputColor,
     backgroundColor: white,
     boxShadow: `inset 0 1px 2px ${transparentize(0.9, black)}`,
-    color: inputColor,
-
     placeholderColor: transparentize(0.7, inputColor),
 
-    disabledBackgroundColor: backgroundColor,
-    disabledBorderColor: backgroundColor,
-    disabledColor: inputDisabledColor,
-
-    disabledPlaceholderColor: transparentize(0.7, inputDisabledColor),
+    hoverColor: inputHoverColor,
+    hoverBorderColor: grayLight,
 
     focusBorderColor: linkColor,
     focusBoxShadowSize: `0 0 0 ${em(2)}`,
 
-    hoverBorderColor: grayLight,
-    hoverColor: inputHoverColor,
+    disabledColor: inputDisabledColor,
+    disabledBackgroundColor: backgroundColor,
+    disabledBorderColor: backgroundColor,
+    disabledPlaceholderColor: transparentize(0.7, inputDisabledColor),
 
-    // Miscellaneous
     borderRadius: '4px',
-
     ...input,
 
     default: {
-      // Colors
       borderColor: grayLighter,
 
       focusBoxShadowColor: transparentize(0.75, linkColor),
-
       ...(input.default || {}),
     },
 
     danger: {
-      // Colors
       borderColor: danger,
 
       focusBoxShadowColor: transparentize(0.75, danger),
-
       ...(input.danger || {}),
     },
   },
 
   label: {
-    // Colors
     color: grayDarker,
-
-    // Typography
     fontSize: rem(16),
     fontWeight: 700,
-
     ...label,
   },
 
   notice: {
-    // Typography
     fontSize: rem(12),
-
     ...notice,
 
     default: {
-      // Colors
       color: textColor,
-
       ...(notice.default || {}),
     },
 
-    danger: {
-      // Colors
-      color: danger,
-
-      ...(notice.danger || {}),
+    success: {
+      color: success,
+      ...(notice.success || {}),
     },
 
-    success: {
-      // Colors
-      color: success,
-
-      ...(notice.success || {}),
+    danger: {
+      color: danger,
+      ...(notice.danger || {}),
     },
   },
 
   pre: {
-    // Colors
-    backgroundColor,
     color: textColor,
-
+    backgroundColor,
     ...pre,
   },
 
   radio: {
-    // Colors
-    disabledColor: inputDisabledColor,
     hoverColor: inputHoverColor,
 
-    toggleCheckedColor: blue,
-    toggleColor: textColor,
-    toggleDisabledColor: inputDisabledColor,
+    disabledColor: inputDisabledColor,
 
+    toggleColor: textColor,
+    toggleCheckedColor: blue,
+
+    toggleDisabledColor: inputDisabledColor,
     ...radio,
   },
 
   strong: {
-    // Colors
     color: textStrongColor,
-
-    // Typography
     fontWeight: 700,
-
     ...strong,
   },
 
