@@ -21,13 +21,13 @@ declare module 'styled-components' {
   }
 
   interface Control {
+    borderRadius: string
     borderWidth: string
     fontSize: string
     height: string
     lineHeight: number
     paddingHorizontal: string
     paddingVertical: string
-    radius: string
   }
 
   export interface DefaultTheme extends Variables {
@@ -47,6 +47,7 @@ declare module 'styled-components' {
 
   interface File {
     borderColor: string
+    borderRadius: string
     ctaActiveColor: string
     ctaBackgroundColor: string
     ctaColor: string
@@ -54,7 +55,6 @@ declare module 'styled-components' {
     nameBorderColor: string
     nameBorderStyle: string
     nameBorderWidth: string
-    radius: string
   }
 
   interface Hr {
@@ -73,6 +73,7 @@ declare module 'styled-components' {
 
   interface Input extends Record<InputStatus, InputStatusData> {
     backgroundColor: string
+    borderRadius: string
     boxShadow: string
     color: string
     disabledBackgroundColor: string
@@ -84,7 +85,6 @@ declare module 'styled-components' {
     hoverBorderColor: string
     hoverColor: string
     placeholderColor: string
-    radius: string
   }
 
   interface InputStatusData {
