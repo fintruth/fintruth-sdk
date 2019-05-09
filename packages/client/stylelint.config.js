@@ -11,7 +11,7 @@ module.exports = {
   rules: {
     'declaration-empty-line-before': [
       'never',
-      { ignore: ['after-declaration'] },
+      { ignore: ['after-comment', 'after-declaration'] },
     ],
     'order/order': [
       'custom-properties',

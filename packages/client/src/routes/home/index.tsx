@@ -1,14 +1,15 @@
-import React from 'react'
-import styled from 'styled-components'
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
+import React from 'react'
+import styled from 'styled-components'
 
 import Layout from 'components/layout'
-import { centered, content, fill, title } from 'styles/mixins'
+import { centered, fill, title } from 'styles/deprecated'
+import { container } from 'styles/mixins'
 
 const Root = styled.div`
+  ${container()};
   ${centered};
-  ${content};
   ${fill};
   padding: ${rem(48)} ${rem(24)};
 `

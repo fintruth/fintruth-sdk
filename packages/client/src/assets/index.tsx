@@ -1,8 +1,8 @@
+import { darken, rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
-import { darken, rem } from 'polished'
 
-import { raven, white } from 'styles/variables'
+import { raven, white } from 'styles/deprecated'
 
 interface Asset {
   Icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
