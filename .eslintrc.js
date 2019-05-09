@@ -27,7 +27,6 @@ module.exports = {
       plugins: typescriptPlugin.configs.recommended.plugins,
       rules: {
         ...typescriptPlugin.configs.recommended.rules,
-        'no-use-before-define': 'off',
         'no-useless-constructor': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-member-accessibility': 'off',
@@ -40,7 +39,6 @@ module.exports = {
           'warn',
           { argsIgnorePattern: '^_' },
         ],
-        'unicorn/filename-case': 'off',
         ...prettierTypescriptConfig.rules,
       },
     },
