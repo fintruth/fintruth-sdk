@@ -1,21 +1,21 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
-import { Query } from 'react-apollo'
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
+import React from 'react'
+import { Query } from 'react-apollo'
+import styled, { css } from 'styled-components'
 
 import Layout from 'components/layout'
-import { card, content, fill, untilMedium } from 'styles/mixins'
+import { card, fill, steel } from 'styles/deprecated'
+import { container, untilMedium } from 'styles/mixins'
 import { renderLoadingIf } from 'utilities/loading'
-import { steel } from 'styles/variables'
 import AuthenticatorAppButton from './authenticator-app-button'
+import { AccountQueryData, accountQuery } from './graphql'
 import UpdateEmailForm from './update-email-form'
 import UpdatePasswordForm from './update-password-form'
 import UpdateProfileForm from './update-profile-form'
-import { AccountQueryData, accountQuery } from './graphql'
 
 const Root = styled.div`
-  ${content};
+  ${container()};
   ${fill}
   flex-direction: column;
   padding: ${rem(40)} 0;

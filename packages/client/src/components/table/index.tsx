@@ -1,5 +1,6 @@
+import { rem } from 'polished'
+import { mergeDeepRight } from 'ramda'
 import React from 'react'
-import styled, { css } from 'styled-components'
 import {
   Body,
   Column,
@@ -8,11 +9,10 @@ import {
   Renderers,
   Row,
 } from 'reactabular-table'
-import { mergeDeepRight } from 'ramda'
-import { rem } from 'polished'
+import styled, { css } from 'styled-components'
 
+import { heather, lilia, steel } from 'styles/deprecated'
 import { formatEmpty, mergeColumnDefaults } from 'utilities/table'
-import { heather, lilia, steel } from 'styles/variables'
 
 interface Props {
   columns: Column[]

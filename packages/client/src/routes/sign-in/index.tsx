@@ -1,9 +1,9 @@
+import { User } from '@fintruth-sdk/shared'
+import { Redirect, RouteComponentProps } from '@reach/router'
 import React from 'react'
 import styled from 'styled-components'
-import { Redirect, RouteComponentProps } from '@reach/router'
-import { User } from '@fintruth-sdk/shared'
 
-import { centered } from 'styles/mixins'
+import { centered } from 'styles/deprecated'
 import SignInForm from './sign-in-form'
 import SignInTwoFactorAuthForm, {
   SignInCredentials,

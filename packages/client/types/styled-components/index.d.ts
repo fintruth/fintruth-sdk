@@ -1,8 +1,9 @@
 import 'styled-components'
 
 declare module 'styled-components' {
-  export type NoticeVariant = 'danger' | 'default' | 'success'
   export type InputStatus = 'danger' | 'default'
+  export type NoticeVariant = 'danger' | 'default' | 'success'
+  export type ViewportBreakpoint = 'extraLarge' | 'large' | 'medium' | 'small'
 
   interface Body {
     color: string
@@ -43,6 +44,7 @@ declare module 'styled-components' {
     pre: Pre
     radio: Radio
     strong: Strong
+    viewport: Record<ViewportBreakpoint, number>
   }
 
   interface File {
@@ -181,10 +183,6 @@ declare module 'styled-components' {
     textStrongColor: string
     turquoise: string
     turquoiseContrast: string
-    viewportExtraLarge: number
-    viewportLarge: number
-    viewportMedium: number
-    viewportSmall: number
     warning: string
     warningContrast: string
     white: string

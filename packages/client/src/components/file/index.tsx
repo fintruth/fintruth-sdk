@@ -6,7 +6,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 import BaseFileUpload from 'assets/file-upload.svg'
-import { control } from 'styles/mixins'
+import { control, unselectable } from 'styles/mixins'
 
 interface Props
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value'> {
@@ -16,10 +16,10 @@ interface Props
 }
 
 const Root = styled.div`
+  ${unselectable};
   align-items: stretch;
   display: flex;
   justify-content: flex-start;
-  user-select: none;
 `
 
 const Input = styled.input`
