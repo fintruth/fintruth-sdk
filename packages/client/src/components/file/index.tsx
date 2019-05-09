@@ -50,7 +50,7 @@ const Label = styled.label`
 const shared = css`
   ${control};
   border-color: ${({ theme }) => theme.file.borderColor};
-  border-radius: ${({ theme }) => theme.file.radius};
+  border-radius: ${({ theme }) => theme.file.borderRadius};
   font-size: ${em(16)};
   padding-left: ${em(16)};
   padding-right: ${em(16)};

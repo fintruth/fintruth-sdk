@@ -76,7 +76,7 @@ export const content = css`
 export const control = css`
   align-items: center;
   appearance: none;
-  border-radius: ${({ theme }) => theme.control.radius};
+  border-radius: ${({ theme }) => theme.control.borderRadius};
   border: ${({ theme }) => theme.control.borderWidth} solid transparent;
   box-shadow: none;
   display: inline-flex;

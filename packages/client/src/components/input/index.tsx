@@ -39,7 +39,7 @@ const BaseInput = styled.input<{ status: InputStatus }>`
   ${control};
   background-color: ${({ theme }) => theme.input.backgroundColor};
   border-color: ${({ status, theme }) => theme.input[status].borderColor};
-  border-radius: ${({ theme }) => theme.input.radius};
+  border-radius: ${({ theme }) => theme.input.borderRadius};
   box-shadow: ${({ theme }) => theme.input.boxShadow};
   color: ${({ theme }) => theme.input.color};
   display: block;
