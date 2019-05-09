@@ -208,7 +208,7 @@ export const createTheme = ({
     fontSize: rem(16),
 
     // Miscellaneous
-    radius: '4px',
+    borderRadius: '4px',
 
     ...control,
   },
@@ -229,7 +229,7 @@ export const createTheme = ({
     nameBorderColor: borderColor,
 
     // Miscellaneous
-    radius: '4px',
+    borderRadius: '4px',
 
     ...file,
   },
@@ -281,7 +281,7 @@ export const createTheme = ({
     hoverColor: inputHoverColor,
 
     // Miscellaneous
-    radius: '4px',
+    borderRadius: '4px',
 
     ...input,
 
