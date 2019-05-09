@@ -1,8 +1,6 @@
-import { DefaultTheme } from 'styled-components' // eslint-disable-line import/named
+import { DeepPartial } from '@fintruth-sdk/shared'
 import { em, hsl, hsla, readableColor, rem, transparentize } from 'polished'
-
-type PartialDefaultTheme = RecursivePartial<DefaultTheme>
-type RecursivePartial<T> = { [P in keyof T]?: RecursivePartial<T[P]> }
+import { DefaultTheme } from 'styled-components' // eslint-disable-line import/named
 
 export const createTheme = ({
   black = hsl(0, 0, 0.04),
@@ -75,7 +73,7 @@ export const createTheme = ({
   strong = {},
 
   ...defaultTheme
-}: PartialDefaultTheme = {}): DefaultTheme => ({
+}: DeepPartial<DefaultTheme> = {}): DefaultTheme => ({
   // General Colors
   black,
   blackBis: hsl(0, 0, 0.07),
