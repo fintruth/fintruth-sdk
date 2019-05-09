@@ -1,18 +1,18 @@
-import React from 'react'
-import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
-import { ApolloConsumer, Mutation } from 'react-apollo'
-import { Form as BaseForm, Formik } from 'formik'
-import { Link as BaseLink } from '@reach/router'
 import { User } from '@fintruth-sdk/shared'
-import { object, string } from 'yup'
-import { path } from 'ramda'
+import { Link as BaseLink } from '@reach/router'
+import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
+import { path } from 'ramda'
+import React from 'react'
+import { ApolloConsumer, Mutation } from 'react-apollo'
+import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
+import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseNotice from 'components/notice'
 import BaseSubnavbar from 'components/subnavbar'
 import Input from 'components/input'
-import { link } from 'styles/mixins'
+import { link } from 'styles/deprecated'
 import { SignInCredentials } from './sign-in-two-factor-auth-form'
 import {
   SignInMutationData,

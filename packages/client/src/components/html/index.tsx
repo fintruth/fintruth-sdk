@@ -1,8 +1,8 @@
+import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 import React from 'react'
 import serialize from 'serialize-javascript'
-import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 
-import { black } from 'styles/variables'
+import { black } from 'styles/deprecated'
 
 interface Props {
   children: string

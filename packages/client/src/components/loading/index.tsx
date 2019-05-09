@@ -1,9 +1,8 @@
+import { rem } from 'polished'
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { rem } from 'polished'
 
-import { centered, fill } from 'styles/mixins'
-import { raven } from 'styles/variables'
+import { centered, fill, raven } from 'styles/deprecated'
 
 interface Props {
   delay?: number

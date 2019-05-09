@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components'
 import { MenuButton, MenuList } from '@reach/menu-button'
 import { darken, rem, transparentize } from 'polished'
+import styled, { css } from 'styled-components'
 
-import { azure, black, lilia, raven, white } from 'styles/variables'
-import { fill, medium } from 'styles/mixins'
+import { azure, black, fill, lilia, raven, white } from 'styles/deprecated'
+import { medium } from 'styles/mixins'
 
 export {
   Menu as Submenu,

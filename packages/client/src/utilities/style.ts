@@ -72,6 +72,7 @@ export const createTheme = ({
   radio = {},
   strong = {},
 
+  viewport = {},
   ...defaultTheme
 }: DeepPartial<DefaultTheme> = {}): DefaultTheme => ({
   // General Colors
@@ -152,11 +153,6 @@ export const createTheme = ({
 
   // Responsiveness
   gap,
-
-  viewportSmall: 769,
-  viewportMedium: 960 + 2 * gap,
-  viewportLarge: 1152 + 2 * gap,
-  viewportExtraLarge: 1344 + 2 * gap,
 
   // Typography
   fontFamilyMonospace,
@@ -373,5 +369,12 @@ export const createTheme = ({
     ...strong,
   },
 
+  viewport: {
+    small: 769,
+    medium: 960 + 2 * gap,
+    large: 1152 + 2 * gap,
+    extraLarge: 1344 + 2 * gap,
+    ...viewport,
+  },
   ...defaultTheme,
 })

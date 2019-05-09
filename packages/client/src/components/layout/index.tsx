@@ -1,8 +1,8 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
 import { Link as BaseLink, navigate } from '@reach/router'
-import { Mutation, Query } from 'react-apollo'
 import { darken, rem } from 'polished'
+import React from 'react'
+import { Mutation, Query } from 'react-apollo'
+import styled, { css } from 'styled-components'
 
 import BaseExpandMore from 'assets/expand-more.svg'
 import BaseUserCircle from 'assets/user-circle.svg'
@@ -14,8 +14,8 @@ import {
   SubmenuLink,
   SubmenuList,
 } from 'components/submenu'
-import { content, medium, untilMedium } from 'styles/mixins'
-import { raven } from 'styles/variables'
+import { raven } from 'styles/deprecated'
+import { container, medium, untilMedium } from 'styles/mixins'
 import { renderLoadingIf } from 'utilities/loading'
 import {
   LayoutQueryData,
@@ -43,7 +43,7 @@ const Root = styled.div`
 `
 
 const Navbar = styled.nav`
-  ${content};
+  ${container()};
   display: flex;
   min-height: ${rem(52)};
   width: 100%;

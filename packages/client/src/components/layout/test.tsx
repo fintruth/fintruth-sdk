@@ -1,15 +1,19 @@
 import React from 'react'
-import userEvent from 'user-event'
 import { MockedProvider } from 'react-apollo/test-utils'
 import { waitForElement } from 'react-testing-library'
+import { ThemeProvider } from 'styled-components'
+import userEvent from 'user-event'
 
 import { renderWithRouter } from 'utilities/specification'
+import { createTheme } from 'utilities/style'
 import Layout from '.'
 
 test('clicking the logo should navigate to the home route', async () => {
   const { getByAltText, history } = renderWithRouter(
     <MockedProvider>
-      <Layout>child</Layout>
+      <ThemeProvider theme={createTheme()}>
+        <Layout>child</Layout>
+      </ThemeProvider>
     </MockedProvider>,
     { initialPath: '/not-found' }
   )

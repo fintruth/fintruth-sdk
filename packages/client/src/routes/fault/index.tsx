@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
+import React from 'react'
+import styled from 'styled-components'
 
-import { jet } from 'styles/variables'
+import { jet } from 'styles/deprecated'
 
 interface Props extends RouteComponentProps {
   error?: any

@@ -1,16 +1,16 @@
-import React from 'react'
-import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
-import { ApolloConsumer, Mutation } from 'react-apollo'
-import { Form as BaseForm, Formik } from 'formik'
 import { Link as BaseLink } from '@reach/router'
-import { object, ref, string } from 'yup'
-import { path } from 'ramda'
+import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
+import { path } from 'ramda'
+import React from 'react'
+import { ApolloConsumer, Mutation } from 'react-apollo'
+import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
+import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseInput from 'components/input'
 import BaseNotice from 'components/notice'
-import { link } from 'styles/mixins'
+import { link } from 'styles/deprecated'
 import {
   UpdatePasswordMutationData,
   UpdatePasswordMutationVariables,

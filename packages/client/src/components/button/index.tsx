@@ -1,8 +1,8 @@
+import { darken, readableColor, rem } from 'polished'
 import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
-import { darken, readableColor, rem } from 'polished'
 
-import { azure, raven, watermelon, white } from 'styles/variables'
+import { azure, raven, watermelon, white } from 'styles/deprecated'
 
 export type Status = 'danger' | 'default' | 'primary'
 
