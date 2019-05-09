@@ -79,8 +79,7 @@ export const control = css`
 export const untilSmall = until('small')
 
 export const small = (content: Content) => css`
-  @media screen and (min-width: ${({ theme }) => theme.viewport['small']}),
-    print {
+  @media screen and (min-width: ${({ theme }) => theme.viewport.small}), print {
     ${content};
   }
 `
