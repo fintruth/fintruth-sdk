@@ -186,11 +186,10 @@ const Root = styled.button<Props>`
 
       &::after {
         ${loader(
-          variant
-            ? (isInverted && !isOutlined) || (!isInverted && isOutlined)
+          variant &&
+            ((isInverted && !isOutlined) || (!isInverted && isOutlined)
               ? theme.button[variant].color
-              : theme.button[variant].colorContrast
-            : undefined
+              : theme.button[variant].colorContrast)
         )};
         ${center(em(16))};
         position: absolute !important;
