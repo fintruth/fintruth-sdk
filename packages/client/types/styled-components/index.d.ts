@@ -1,6 +1,7 @@
 import 'styled-components'
 
 declare module 'styled-components' {
+  export type ButtonVariant = 'danger' | 'primary'
   export type InputStatus = 'danger' | 'default'
   export type NoticeVariant = 'danger' | 'default' | 'success'
   export type ViewportBreakpoint = 'extraLarge' | 'large' | 'medium' | 'small'
@@ -10,6 +11,32 @@ declare module 'styled-components' {
     fontFamily: string
     fontWeight: number
     lineHeight: number
+  }
+
+  interface Button extends Record<ButtonVariant, ButtonVariantData> {
+    activeBorderColor: string
+    activeColor: string
+    backgroundColor: string
+    borderColor: string
+    borderWidth: string
+    color: string
+    disabledBackgroundColor: string
+    disabledBorderColor: string
+    disabledBoxShadow: string
+    disabledOpacity: number
+    focusBorderColor: string
+    focusBoxShadowColor: string
+    focusBoxShadowSize: string
+    focusColor: string
+    hoverBorderColor: string
+    hoverColor: string
+    paddingHorizontal: string
+    paddingVertical: string
+  }
+
+  interface ButtonVariantData {
+    color: string
+    colorContrast: string
   }
 
   interface Code {
@@ -33,6 +60,7 @@ declare module 'styled-components' {
 
   export interface DefaultTheme extends Variables {
     body: Body
+    button: Button
     code: Code
     control: Control
     file: File

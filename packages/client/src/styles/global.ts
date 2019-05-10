@@ -2,66 +2,6 @@ import { createGlobalStyle } from 'styled-components'
 import { em, rem } from 'polished'
 
 const GlobalStyle = createGlobalStyle`
-  @media print {
-    *,
-    *::before,
-    *::after {
-      background-color: transparent !important;
-      box-shadow: none !important;
-      color: #000 !important;
-      text-shadow: none !important;
-    }
-
-    a,
-    a:visited {
-      text-decoration: underline;
-    }
-
-    a[href]::after {
-      content: ' (' attr(href) ')';
-    }
-
-    a[href^='#']::after,
-    a[href^='javascript:']::after {
-      content: '';
-    }
-
-    abbr[title]::after {
-      content: ' (' attr(title) ')';
-    }
-
-    blockquote,
-    pre {
-      border: 1px solid #999;
-      page-break-inside: avoid;
-    }
-
-    h2,
-    h3,
-    p {
-      orphans: 3;
-      widows: 3;
-    }
-
-    h2,
-    h3 {
-      page-break-after: avoid;
-    }
-
-    img,
-    tr {
-      page-break-inside: avoid;
-    }
-
-    pre {
-      white-space: pre-wrap !important;
-    }
-
-    thead {
-      display: table-header-group;
-    }
-  }
-
   *,
   *::before,
   *::after {
@@ -288,6 +228,66 @@ const GlobalStyle = createGlobalStyle`
   ::selection {
     background-color: ${({ theme }) => theme.textSelectionColor};
     text-shadow: none;
+  }
+
+  @media print {
+    *,
+    *::before,
+    *::after {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      color: #000 !important;
+      text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+      text-decoration: underline;
+    }
+
+    a[href]::after {
+      content: ' (' attr(href) ')';
+    }
+
+    a[href^='#']::after,
+    a[href^='javascript:']::after {
+      content: '';
+    }
+
+    abbr[title]::after {
+      content: ' (' attr(title) ')';
+    }
+
+    blockquote,
+    pre {
+      border: 1px solid #999;
+      page-break-inside: avoid;
+    }
+
+    h2,
+    h3,
+    p {
+      orphans: 3;
+      widows: 3;
+    }
+
+    h2,
+    h3 {
+      page-break-after: avoid;
+    }
+
+    img,
+    tr {
+      page-break-inside: avoid;
+    }
+
+    pre {
+      white-space: pre-wrap !important;
+    }
+
+    thead {
+      display: table-header-group;
+    }
   }
 `
 

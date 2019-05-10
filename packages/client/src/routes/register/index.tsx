@@ -160,8 +160,8 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
               <Button
                 form={formId}
                 isLoading={loading}
-                status="primary"
                 type="submit"
+                variant="primary"
               >
                 REGISTER
               </Button>

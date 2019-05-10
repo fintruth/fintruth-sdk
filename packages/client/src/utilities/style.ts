@@ -44,7 +44,19 @@ export const createTheme = ({
 
   blueContrast = readableColor(blue, lightContrast, darkContrast),
 
+  primaryContrast = readableColor(primary, lightContrast, darkContrast),
+  dangerContrast = readableColor(danger, lightContrast, darkContrast),
+
   linkColor = blue,
+
+  linkHoverColor = grayDarker,
+  linkHoverBorderColor = grayLight,
+
+  linkFocusColor = grayDarker,
+  linkFocusBorderColor = blue,
+
+  linkActiveColor = grayDarker,
+  linkActiveBorderColor = grayDark,
 
   textColor = grayDark,
   textLightColor = gray,
@@ -61,6 +73,8 @@ export const createTheme = ({
   textRendering = 'optimizeLegibility',
 
   body = {},
+
+  button: { borderWidth: buttonBorderWidth = '1px', ...button } = {},
 
   code = {},
 
@@ -138,24 +152,24 @@ export const createTheme = ({
   purpleContrast: readableColor(purple, lightContrast, darkContrast),
   redContrast: readableColor(red, lightContrast, darkContrast),
 
-  primaryContrast: readableColor(primary, lightContrast, darkContrast),
+  primaryContrast,
   infoContrast: readableColor(info, lightContrast, darkContrast),
   successContrast: readableColor(success, lightContrast, darkContrast),
   warningContrast: readableColor(warning, lightContrast, darkContrast),
-  dangerContrast: readableColor(danger, lightContrast, darkContrast),
+  dangerContrast,
 
   linkColor,
   linkColorContrast: blueContrast,
   linkVisitedColor: purple,
 
-  linkHoverColor: grayDarker,
-  linkHoverBorderColor: grayLight,
+  linkHoverColor,
+  linkHoverBorderColor,
 
-  linkFocusColor: grayDarker,
-  linkFocusBorderColor: blue,
+  linkFocusColor,
+  linkFocusBorderColor,
 
-  linkActiveColor: grayDarker,
-  linkActiveBorderColor: grayDark,
+  linkActiveColor,
+  linkActiveBorderColor,
 
   textColor,
   textColorContrast: readableColor(textColor, lightContrast, darkContrast),
@@ -180,6 +194,46 @@ export const createTheme = ({
     fontWeight: 400,
     lineHeight: 1.4,
     ...body,
+  },
+
+  button: {
+    color: grayDarker,
+    backgroundColor: white,
+
+    borderColor: grayLighter,
+    borderWidth: buttonBorderWidth,
+
+    paddingHorizontal: em(9),
+    paddingVertical: `calc(${em(5)} - ${buttonBorderWidth})`,
+
+    hoverColor: linkHoverColor,
+    hoverBorderColor: linkHoverBorderColor,
+
+    focusColor: linkFocusColor,
+    focusBorderColor: linkFocusBorderColor,
+    focusBoxShadowSize: `0 0 0 ${em(2)}`,
+    focusBoxShadowColor: transparentize(0.75, linkColor),
+
+    activeColor: linkActiveColor,
+    activeBorderColor: linkActiveBorderColor,
+
+    disabledBackgroundColor: white,
+    disabledBorderColor: grayLighter,
+    disabledBoxShadow: 'none',
+    disabledOpacity: 0.5,
+    ...button,
+
+    primary: {
+      color: primary,
+      colorContrast: primaryContrast,
+      ...(button.primary || {}),
+    },
+
+    danger: {
+      color: danger,
+      colorContrast: dangerContrast,
+      ...(button.danger || {}),
+    },
   },
 
   code: {

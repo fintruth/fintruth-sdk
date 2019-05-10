@@ -111,8 +111,8 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
                   <Button
                     form={formId}
                     isLoading={loading}
-                    status="primary"
                     type="submit"
+                    variant="primary"
                   >
                     UPDATE
                   </Button>

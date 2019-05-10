@@ -130,8 +130,8 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...props }) => {
                   <Button
                     form={formId}
                     isLoading={loading}
-                    status="primary"
                     type="submit"
+                    variant="primary"
                   >
                     UPDATE
                   </Button>

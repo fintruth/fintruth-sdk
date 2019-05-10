@@ -107,8 +107,8 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
               <Button
                 form={formId}
                 isLoading={loading}
-                status="primary"
                 type="submit"
+                variant="primary"
               >
                 SAVE
               </Button>

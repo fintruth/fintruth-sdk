@@ -120,8 +120,8 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
                       <Button
                         form={formId}
                         isLoading={result.loading}
-                        status="primary"
                         type="submit"
+                        variant="primary"
                       >
                         RECOVER
                       </Button>

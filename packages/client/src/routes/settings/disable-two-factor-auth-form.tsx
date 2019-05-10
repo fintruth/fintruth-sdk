@@ -105,8 +105,8 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
                 form={formId}
                 isLoading={loading}
                 isOutlined
-                status="danger"
                 type="submit"
+                variant="danger"
               >
                 DISABLE
               </Button>

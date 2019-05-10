@@ -1,154 +1,258 @@
-import { darken, readableColor, rem } from 'polished'
+import { Omit } from '@fintruth-sdk/shared'
+import { darken, em, transparentize } from 'polished'
 import React from 'react'
-import styled, { css, keyframes } from 'styled-components'
+import styled, { ButtonVariant, css } from 'styled-components' // eslint-disable-line import/named
 
-import { azure, raven, watermelon, white } from 'styles/deprecated'
+import { center, control, loader, unselectable } from 'styles/mixins'
 
-export type Status = 'danger' | 'default' | 'primary'
-
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'> {
   delay?: number
+  isDisabled?: boolean
+  isInverted?: boolean
   isLoading?: boolean
   isOutlined?: boolean
-  status?: Status
+  variant?: ButtonVariant
 }
 
-const statusColors: Record<Status, string> = {
-  danger: watermelon,
-  default: raven,
-  primary: azure,
-}
+const Root = styled.button<Props>`
+  ${control};
+  ${unselectable};
+  background-color: ${({ theme }) => theme.button.backgroundColor};
+  border-color: ${({ theme }) => theme.button.borderColor};
+  border-width: ${({ theme }) => theme.button.borderWidth};
+  color: ${({ theme }) => theme.button.color};
+  cursor: pointer;
+  justify-content: center;
+  padding-bottom: ${({ theme }) => theme.button.paddingVertical};
+  padding-left: ${({ theme }) => theme.button.paddingHorizontal};
+  padding-right: ${({ theme }) => theme.button.paddingHorizontal};
+  padding-top: ${({ theme }) => theme.button.paddingVertical};
+  text-align: center;
+  white-space: nowrap;
 
-const resolveColor = (isLoading: boolean, color: string) =>
-  isLoading ? 'transparent' : color
-
-const getOutlinedStyles = (isLoading: boolean, statusColor: string) => {
-  const color = resolveColor(isLoading, statusColor)
-
-  return css`
-    background-color: transparent;
-    border-color: ${statusColor};
-    color: ${color};
-
-    &:hover {
-      border-color: ${darken(0.05, statusColor)};
-      color: ${darken(0.05, color)};
-    }
-
-    &:active {
-      border-color: ${darken(0.1, statusColor)};
-      color: ${darken(0.1, color)};
-    }
-  `
-}
-
-const getSolidStyles = (isLoading: boolean, statusColor: string) => css`
-  background-color: ${statusColor};
-  border-color: transparent;
-  color: ${resolveColor(isLoading, readableColor(statusColor, raven, white))};
+  strong {
+    color: inherit;
+  }
 
   &:hover {
-    background-color: ${darken(0.05, statusColor)};
+    border-color: ${({ theme }) => theme.button.hoverBorderColor};
+    color: ${({ theme }) => theme.button.hoverColor};
+  }
+
+  &:focus {
+    border-color: ${({ theme }) => theme.button.focusBorderColor};
+    color: ${({ theme }) => theme.button.focusColor};
   }
 
   &:active {
-    background-color: ${darken(0.1, statusColor)};
-  }
-`
-
-const rotate = keyframes`
-  0% {
-    transform: rotate(0);
+    background-color: ${({ theme }) => theme.button.backgroundColor};
+    border-color: ${({ theme }) => theme.button.activeBorderColor};
+    color: ${({ theme }) => theme.button.activeColor};
   }
 
-  100% {
-    transform: rotate(360deg);
+  &:focus:enabled:not(:active) {
+    box-shadow: ${({ theme }) =>
+      `${theme.button.focusBoxShadowSize} ${theme.button.focusBoxShadowColor}`};
   }
-`
 
-const Root = styled.button`
-  border-radius: ${rem(2)};
-  border-style: solid;
-  border-width: ${rem(1)};
-  cursor: pointer;
-  display: flex;
-  font-size: ${rem(12)};
-  font-weight: 700;
-  justify-content: center;
-  padding: ${rem(10)} ${rem(20)};
-
-  ${({ isLoading = false, isOutlined, status = 'default' }: Props) => {
-    const statusColor = statusColors[status]
-
-    return isOutlined
-      ? getOutlinedStyles(isLoading, statusColor)
-      : getSolidStyles(isLoading, statusColor)
-  }};
-`
-
-const Spinner = styled.div`
-  animation: ${rotate} 1s ease-in-out infinite;
-  height: ${rem(12)};
-  margin: 0 auto;
-  position: absolute;
-  width: ${rem(12)};
-
-  &::after {
-    background-color: ${({ isOutlined, status = 'default' }: Props) => {
-      const statusColor = statusColors[status]
-
-      return isOutlined ? statusColor : readableColor(statusColor, raven, white)
-    }};
-    border-radius: 50%;
-    content: '';
-    height: ${rem(6)};
-    left: 50%;
-    margin-left: ${rem(-3)};
-    position: absolute;
-    top: ${rem(-3)};
-    width: ${rem(6)};
+  &[disabled] {
+    background-color: ${({ theme }) => theme.button.disabledBackgroundColor};
+    border-color: ${({ theme }) => theme.button.disabledBorderColor};
+    box-shadow: ${({ theme }) => theme.button.disabledBoxShadow};
+    opacity: ${({ theme }) => theme.button.disabledOpacity};
   }
+
+  /* stylelint-disable-next-line declaration-empty-line-before, order/order */
+  ${({ isInverted, isLoading, isOutlined, theme, variant }) =>
+    variant &&
+    css`
+      background-color: ${theme.button[variant].color};
+      border-color: transparent;
+      color: ${theme.button[variant].colorContrast};
+
+      &:hover {
+        background-color: ${darken(0.025, theme.button[variant].color)};
+        border-color: transparent;
+        color: ${theme.button[variant].colorContrast};
+      }
+
+      &:focus {
+        border-color: transparent;
+        color: ${theme.button[variant].colorContrast};
+      }
+
+      &:active {
+        background-color: ${darken(0.05, theme.button[variant].color)};
+        border-color: transparent;
+        color: ${theme.button[variant].colorContrast};
+      }
+
+      &:focus:enabled:not(:active) {
+        box-shadow: ${`${theme.button.focusBoxShadowSize} ${transparentize(
+          0.75,
+          theme.button[variant].color
+        )}`};
+      }
+
+      &[disabled] {
+        background-color: ${theme.button[variant].color};
+        border-color: transparent;
+        box-shadow: none;
+      }
+
+      ${isLoading &&
+        css`
+          &::after {
+            border-color: transparent transparent
+              ${`${theme.button[variant].colorContrast} ${
+                theme.button[variant].colorContrast
+              }`} !important;
+          }
+        `}
+
+      ${isInverted &&
+        !isOutlined &&
+        css`
+          background-color: ${theme.button[variant].colorContrast};
+          color: ${theme.button[variant].color};
+
+          &:hover {
+            background-color: ${darken(
+              0.025,
+              theme.button[variant].colorContrast
+            )};
+            color: ${theme.button[variant].color};
+          }
+
+          &:focus {
+            color: ${theme.button[variant].color};
+          }
+
+          &:active {
+            background-color: ${darken(
+              0.05,
+              theme.button[variant].colorContrast
+            )};
+            color: ${theme.button[variant].color};
+          }
+
+          &[disabled] {
+            background-color: ${theme.button[variant].colorContrast};
+            color: ${theme.button[variant].color};
+          }
+
+          ${isLoading &&
+            css`
+              &::after {
+                border-color: transparent transparent
+                  ${`${theme.button[variant].color} ${
+                    theme.button[variant].color
+                  }`} !important;
+              }
+            `}
+        `};
+
+      ${!isInverted &&
+        isOutlined &&
+        css`
+          background-color: transparent;
+          border-color: ${theme.button[variant].color};
+          color: ${theme.button[variant].color};
+
+          &:hover,
+          &:focus {
+            background-color: ${theme.button[variant].color};
+            border-color: ${theme.button[variant].color};
+            color: ${theme.button[variant].colorContrast};
+          }
+
+          &:active {
+            background-color: ${darken(0.025, theme.button[variant].color)};
+            border-color: ${darken(0.025, theme.button[variant].color)};
+            color: ${theme.button[variant].colorContrast};
+          }
+
+          &[disabled] {
+            background-color: transparent;
+            border-color: ${theme.button[variant].color};
+            color: ${theme.button[variant].color};
+          }
+
+          ${isLoading &&
+            css`
+              &::after {
+                border-color: transparent transparent
+                  ${`${theme.button[variant].color} ${
+                    theme.button[variant].color
+                  }`} !important;
+              }
+            `}
+        `}
+
+      ${isInverted &&
+        isOutlined &&
+        css`
+          background-color: transparent;
+          border-color: ${theme.button[variant].colorContrast};
+          color: ${theme.button[variant].colorContrast};
+
+          &:hover,
+          &:focus {
+            background-color: ${theme.button[variant].colorContrast};
+            color: ${theme.button[variant].color};
+          }
+
+          &:active {
+            background-color: ${theme.button[variant].colorContrast};
+            border-color: ${theme.button[variant].colorContrast};
+            color: ${darken(0.025, theme.button[variant].color)};
+          }
+
+          &[disabled] {
+            background-color: transparent;
+            border-color: ${theme.button[variant].colorContrast};
+            color: ${theme.button[variant].colorContrast};
+          }
+        `}
+    `};
+
+  /* stylelint-disable-next-line declaration-empty-line-before, order/order */
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      color: transparent !important;
+      pointer-events: none;
+
+      &::after {
+        ${loader};
+        ${center(em(16))};
+        position: absolute !important;
+      }
+    `};
 `
 
 const Button: React.FunctionComponent<Props> = ({
-  children,
   delay = 200,
+  isDisabled,
   isLoading,
-  isOutlined,
-  status,
   ...props
 }: Props) => {
-  const [isSpinnerVisible, setIsSpinnerVisible] = React.useState(false)
+  const [isLoaderVisible, setIsLoaderVisible] = React.useState(false)
 
   React.useEffect(() => {
     if (isLoading) {
-      const timeout = setTimeout(() => setIsSpinnerVisible(true), delay)
+      const timeout = setTimeout(() => setIsLoaderVisible(true), delay)
 
       return () => clearTimeout(timeout)
     }
 
-    setIsSpinnerVisible(false)
+    setIsLoaderVisible(false)
 
     return undefined
   }, [delay, isLoading])
 
-  return (
-    <Root
-      isLoading={isSpinnerVisible}
-      isOutlined={isOutlined}
-      status={status}
-      {...props}
-    >
-      {isSpinnerVisible && (
-        <Spinner
-          data-testid="spinner"
-          isOutlined={isOutlined}
-          status={status}
-        />
-      )}
-      {children}
-    </Root>
-  )
+  return <Root {...props} isLoading={isLoaderVisible} disabled={isDisabled} />
 }
 
 export default Button
