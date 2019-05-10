@@ -217,6 +217,7 @@ export const createTheme = ({
     activeColor: linkActiveColor,
     activeBorderColor: linkActiveBorderColor,
 
+    disabledColor: grayDarker,
     disabledBackgroundColor: white,
     disabledBorderColor: grayLighter,
     disabledBoxShadow: 'none',

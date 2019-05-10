@@ -18,10 +18,7 @@ interface Props
 const Root = styled.button<Props>`
   ${control};
   ${unselectable};
-  background-color: ${({ theme }) => theme.button.backgroundColor};
-  border-color: ${({ theme }) => theme.button.borderColor};
   border-width: ${({ theme }) => theme.button.borderWidth};
-  color: ${({ theme }) => theme.button.color};
   cursor: pointer;
   justify-content: center;
   padding-bottom: ${({ theme }) => theme.button.paddingVertical};
@@ -31,205 +28,178 @@ const Root = styled.button<Props>`
   text-align: center;
   white-space: nowrap;
 
-  strong {
-    color: inherit;
-  }
+  ${({ isInverted, isLoading, isOutlined, theme, variant }) => {
+    if (variant) {
+      const { color, colorContrast } = theme.button[variant]
 
-  &:hover {
-    border-color: ${({ theme }) => theme.button.hoverBorderColor};
-    color: ${({ theme }) => theme.button.hoverColor};
-  }
+      if (isInverted && isOutlined) {
+        return css`
+          background-color: transparent ${isLoading && '!important'};
+          border-color: ${colorContrast} ${isLoading && '!important'};
+          color: ${colorContrast};
 
-  &:focus {
-    border-color: ${({ theme }) => theme.button.focusBorderColor};
-    color: ${({ theme }) => theme.button.focusColor};
-  }
+          &:hover {
+            background-color: ${colorContrast};
+            color: ${color};
+          }
 
-  &:active {
-    background-color: ${({ theme }) => theme.button.backgroundColor};
-    border-color: ${({ theme }) => theme.button.activeBorderColor};
-    color: ${({ theme }) => theme.button.activeColor};
-  }
+          &:focus:not(:active):enabled {
+            box-shadow: ${theme.button.focusBoxShadowSize}
+              ${transparentize(0.75, colorContrast)};
+          }
 
-  &:focus:enabled:not(:active) {
-    box-shadow: ${({ theme }) =>
-      `${theme.button.focusBoxShadowSize} ${theme.button.focusBoxShadowColor}`};
-  }
+          &:active {
+            background-color: ${darken(0.025, colorContrast)};
+            border-color: transparent;
+            color: ${color};
+          }
 
-  &[disabled] {
-    background-color: ${({ theme }) => theme.button.disabledBackgroundColor};
-    border-color: ${({ theme }) => theme.button.disabledBorderColor};
-    box-shadow: ${({ theme }) => theme.button.disabledBoxShadow};
-    opacity: ${({ theme }) => theme.button.disabledOpacity};
-  }
+          &[disabled] {
+            background-color: transparent;
+            border-color: ${colorContrast};
+            color: ${colorContrast};
+          }
+        `
+      } else if (isInverted) {
+        return css`
+          background-color: ${colorContrast} ${isLoading && '!important'};
+          border-color: transparent;
+          color: ${color};
 
-  /* stylelint-disable-next-line declaration-empty-line-before, order/order */
-  ${({ isInverted, isLoading, isOutlined, theme, variant }) =>
-    variant &&
-    css`
-      background-color: ${theme.button[variant].color};
-      border-color: transparent;
-      color: ${theme.button[variant].colorContrast};
+          &:hover {
+            background-color: ${darken(0.025, colorContrast)};
+          }
+
+          &:focus:not(:active):enabled {
+            box-shadow: ${theme.button.focusBoxShadowSize}
+              ${transparentize(0.75, color)};
+          }
+
+          &:active {
+            background-color: ${darken(0.05, colorContrast)};
+          }
+
+          &[disabled] {
+            background-color: ${colorContrast};
+            opacity: ${theme.button.disabledOpacity};
+          }
+        `
+      } else if (isOutlined) {
+        return css`
+          background-color: transparent ${isLoading && '!important'};
+          border-color: ${color} ${isLoading && '!important'};
+          color: ${color};
+
+          &:hover {
+            background-color: ${color};
+            border-color: transparent;
+            color: ${colorContrast};
+          }
+
+          &:focus:not(:active):enabled {
+            box-shadow: ${theme.button.focusBoxShadowSize}
+              ${transparentize(0.75, color)};
+          }
+
+          &:active {
+            background-color: ${darken(0.025, color)};
+            border-color: transparent;
+            color: ${colorContrast};
+          }
+
+          &[disabled] {
+            background-color: transparent;
+            border-color: ${color};
+            color: ${color};
+            opacity: ${theme.button.disabledOpacity};
+          }
+        `
+      }
+
+      return css`
+        background-color: ${color} ${isLoading && '!important'};
+        border-color: transparent;
+        color: ${colorContrast};
+
+        &:hover {
+          background-color: ${darken(0.025, color)};
+        }
+
+        &:focus:not(:active):enabled {
+          box-shadow: ${theme.button.focusBoxShadowSize}
+            ${transparentize(0.75, color)};
+        }
+
+        &:active {
+          background-color: ${darken(0.05, color)};
+        }
+
+        &[disabled] {
+          background-color: ${color};
+          opacity: ${theme.button.disabledOpacity};
+        }
+      `
+    }
+
+    return css`
+      background-color: ${theme.button.backgroundColor}
+        ${isLoading && '!important'};
+      border-color: ${theme.button.borderColor} ${isLoading && '!important'};
+      color: ${theme.button.color};
 
       &:hover {
-        background-color: ${darken(0.025, theme.button[variant].color)};
-        border-color: transparent;
-        color: ${theme.button[variant].colorContrast};
+        border-color: ${theme.button.hoverBorderColor};
+        color: ${theme.button.hoverColor};
       }
 
       &:focus {
-        border-color: transparent;
-        color: ${theme.button[variant].colorContrast};
+        border-color: ${theme.button.focusBorderColor};
+        color: ${theme.button.focusColor};
+
+        &:not(:active):enabled {
+          box-shadow: ${theme.button.focusBoxShadowSize}
+            ${theme.button.focusBoxShadowColor};
+        }
       }
 
       &:active {
-        background-color: ${darken(0.05, theme.button[variant].color)};
-        border-color: transparent;
-        color: ${theme.button[variant].colorContrast};
-      }
-
-      &:focus:enabled:not(:active) {
-        box-shadow: ${`${theme.button.focusBoxShadowSize} ${transparentize(
-          0.75,
-          theme.button[variant].color
-        )}`};
+        border-color: ${theme.button.activeBorderColor};
+        color: ${theme.button.activeColor};
       }
 
       &[disabled] {
-        background-color: ${theme.button[variant].color};
-        border-color: transparent;
-        box-shadow: none;
+        background-color: ${theme.button.disabledBackgroundColor};
+        border-color: ${theme.button.disabledBorderColor};
+        box-shadow: ${theme.button.disabledBoxShadow};
+        color: ${theme.button.disabledColor};
+        opacity: ${theme.button.disabledOpacity};
       }
+    `
+  }};
 
-      ${isLoading &&
-        css`
-          &::after {
-            border-color: transparent transparent
-              ${`${theme.button[variant].colorContrast} ${
-                theme.button[variant].colorContrast
-              }`} !important;
-          }
-        `}
-
-      ${isInverted &&
-        !isOutlined &&
-        css`
-          background-color: ${theme.button[variant].colorContrast};
-          color: ${theme.button[variant].color};
-
-          &:hover {
-            background-color: ${darken(
-              0.025,
-              theme.button[variant].colorContrast
-            )};
-            color: ${theme.button[variant].color};
-          }
-
-          &:focus {
-            color: ${theme.button[variant].color};
-          }
-
-          &:active {
-            background-color: ${darken(
-              0.05,
-              theme.button[variant].colorContrast
-            )};
-            color: ${theme.button[variant].color};
-          }
-
-          &[disabled] {
-            background-color: ${theme.button[variant].colorContrast};
-            color: ${theme.button[variant].color};
-          }
-
-          ${isLoading &&
-            css`
-              &::after {
-                border-color: transparent transparent
-                  ${`${theme.button[variant].color} ${
-                    theme.button[variant].color
-                  }`} !important;
-              }
-            `}
-        `};
-
-      ${!isInverted &&
-        isOutlined &&
-        css`
-          background-color: transparent;
-          border-color: ${theme.button[variant].color};
-          color: ${theme.button[variant].color};
-
-          &:hover,
-          &:focus {
-            background-color: ${theme.button[variant].color};
-            border-color: ${theme.button[variant].color};
-            color: ${theme.button[variant].colorContrast};
-          }
-
-          &:active {
-            background-color: ${darken(0.025, theme.button[variant].color)};
-            border-color: ${darken(0.025, theme.button[variant].color)};
-            color: ${theme.button[variant].colorContrast};
-          }
-
-          &[disabled] {
-            background-color: transparent;
-            border-color: ${theme.button[variant].color};
-            color: ${theme.button[variant].color};
-          }
-
-          ${isLoading &&
-            css`
-              &::after {
-                border-color: transparent transparent
-                  ${`${theme.button[variant].color} ${
-                    theme.button[variant].color
-                  }`} !important;
-              }
-            `}
-        `}
-
-      ${isInverted &&
-        isOutlined &&
-        css`
-          background-color: transparent;
-          border-color: ${theme.button[variant].colorContrast};
-          color: ${theme.button[variant].colorContrast};
-
-          &:hover,
-          &:focus {
-            background-color: ${theme.button[variant].colorContrast};
-            color: ${theme.button[variant].color};
-          }
-
-          &:active {
-            background-color: ${theme.button[variant].colorContrast};
-            border-color: ${theme.button[variant].colorContrast};
-            color: ${darken(0.025, theme.button[variant].color)};
-          }
-
-          &[disabled] {
-            background-color: transparent;
-            border-color: ${theme.button[variant].colorContrast};
-            color: ${theme.button[variant].colorContrast};
-          }
-        `}
-    `};
-
-  /* stylelint-disable-next-line declaration-empty-line-before, order/order */
-  ${({ isLoading }) =>
+  ${({ isInverted, isLoading, isOutlined, theme, variant }) =>
     isLoading &&
     css`
+      box-shadow: none !important;
       color: transparent !important;
       pointer-events: none;
 
       &::after {
-        ${loader};
+        ${loader(
+          variant
+            ? (isInverted && !isOutlined) || (!isInverted && isOutlined)
+              ? theme.button[variant].color
+              : theme.button[variant].colorContrast
+            : undefined
+        )};
         ${center(em(16))};
         position: absolute !important;
       }
-    `};
+    `}
+
+  strong {
+    color: inherit;
+  }
 `
 
 const Button: React.FunctionComponent<Props> = ({

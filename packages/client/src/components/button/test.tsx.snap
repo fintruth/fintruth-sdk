@@ -34,10 +34,7 @@ exports[`should render correctly 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -49,6 +46,9 @@ exports[`should render correctly 1`] = `
   padding-top: calc(0.3125em - 1px);
   text-align: center;
   white-space: nowrap;
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
 }
 
 .c0:focus,
@@ -58,10 +58,6 @@ exports[`should render correctly 1`] = `
 
 .c0[disabled] {
   cursor: not-allowed;
-}
-
-.c0 strong {
-  color: inherit;
 }
 
 .c0:hover {
@@ -74,21 +70,25 @@ exports[`should render correctly 1`] = `
   color: #363636;
 }
 
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
 }
 
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
+.c0:active {
+  border-color: #4a4a4a;
+  color: #363636;
 }
 
 .c0[disabled] {
   background-color: #fff;
   border-color: #dbdbdb;
   box-shadow: none;
+  color: #363636;
   opacity: 0.5;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -132,10 +132,7 @@ exports[`should render correctly when inverted 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -147,6 +144,9 @@ exports[`should render correctly when inverted 1`] = `
   padding-top: calc(0.3125em - 1px);
   text-align: center;
   white-space: nowrap;
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
 }
 
 .c0:focus,
@@ -156,10 +156,6 @@ exports[`should render correctly when inverted 1`] = `
 
 .c0[disabled] {
   cursor: not-allowed;
-}
-
-.c0 strong {
-  color: inherit;
 }
 
 .c0:hover {
@@ -172,21 +168,25 @@ exports[`should render correctly when inverted 1`] = `
   color: #363636;
 }
 
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
 }
 
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
+.c0:active {
+  border-color: #4a4a4a;
+  color: #363636;
 }
 
 .c0[disabled] {
   background-color: #fff;
   border-color: #dbdbdb;
   box-shadow: none;
+  color: #363636;
   opacity: 0.5;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -230,10 +230,7 @@ exports[`should render correctly when inverted and outlined 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -245,6 +242,9 @@ exports[`should render correctly when inverted and outlined 1`] = `
   padding-top: calc(0.3125em - 1px);
   text-align: center;
   white-space: nowrap;
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
 }
 
 .c0:focus,
@@ -254,10 +254,6 @@ exports[`should render correctly when inverted and outlined 1`] = `
 
 .c0[disabled] {
   cursor: not-allowed;
-}
-
-.c0 strong {
-  color: inherit;
 }
 
 .c0:hover {
@@ -270,21 +266,25 @@ exports[`should render correctly when inverted and outlined 1`] = `
   color: #363636;
 }
 
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
 }
 
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
+.c0:active {
+  border-color: #4a4a4a;
+  color: #363636;
 }
 
 .c0[disabled] {
   background-color: #fff;
   border-color: #dbdbdb;
   box-shadow: none;
+  color: #363636;
   opacity: 0.5;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -328,10 +328,7 @@ exports[`should render correctly when outlined 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -343,6 +340,9 @@ exports[`should render correctly when outlined 1`] = `
   padding-top: calc(0.3125em - 1px);
   text-align: center;
   white-space: nowrap;
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
 }
 
 .c0:focus,
@@ -352,10 +352,6 @@ exports[`should render correctly when outlined 1`] = `
 
 .c0[disabled] {
   cursor: not-allowed;
-}
-
-.c0 strong {
-  color: inherit;
 }
 
 .c0:hover {
@@ -368,21 +364,25 @@ exports[`should render correctly when outlined 1`] = `
   color: #363636;
 }
 
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
 }
 
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
+.c0:active {
+  border-color: #4a4a4a;
+  color: #363636;
 }
 
 .c0[disabled] {
   background-color: #fff;
   border-color: #dbdbdb;
   box-shadow: none;
+  color: #363636;
   opacity: 0.5;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -426,10 +426,7 @@ exports[`should render the danger variant correctly 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -455,62 +452,25 @@ exports[`should render the danger variant correctly 1`] = `
   cursor: not-allowed;
 }
 
-.c0 strong {
-  color: inherit;
-}
-
-.c0:hover {
-  border-color: #b5b5b5;
-  color: #363636;
-}
-
-.c0:focus {
-  border-color: #3273dc;
-  color: #363636;
-}
-
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
-}
-
-.c0[disabled] {
-  background-color: #fff;
-  border-color: #dbdbdb;
-  box-shadow: none;
-  opacity: 0.5;
-}
-
 .c0:hover {
   background-color: #ff2b56;
-  border-color: transparent;
-  color: #fff;
 }
 
-.c0:focus {
-  border-color: transparent;
-  color: #fff;
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
 }
 
 .c0:active {
   background-color: #ff1f4c;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
 }
 
 .c0[disabled] {
   background-color: #ff3860;
-  border-color: transparent;
-  box-shadow: none;
+  opacity: 0.5;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -554,10 +514,7 @@ exports[`should render the danger variant correctly when inverted 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -569,10 +526,8 @@ exports[`should render the danger variant correctly when inverted 1`] = `
   padding-top: calc(0.3125em - 1px);
   text-align: center;
   white-space: nowrap;
-  background-color: #ff3860;
-  border-color: transparent;
-  color: #fff;
   background-color: #fff;
+  border-color: transparent;
   color: #ff3860;
 }
 
@@ -585,81 +540,25 @@ exports[`should render the danger variant correctly when inverted 1`] = `
   cursor: not-allowed;
 }
 
-.c0 strong {
-  color: inherit;
-}
-
-.c0:hover {
-  border-color: #b5b5b5;
-  color: #363636;
-}
-
-.c0:focus {
-  border-color: #3273dc;
-  color: #363636;
-}
-
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
-}
-
-.c0[disabled] {
-  background-color: #fff;
-  border-color: #dbdbdb;
-  box-shadow: none;
-  opacity: 0.5;
-}
-
-.c0:hover {
-  background-color: #ff2b56;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus {
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:active {
-  background-color: #ff1f4c;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
-}
-
-.c0[disabled] {
-  background-color: #ff3860;
-  border-color: transparent;
-  box-shadow: none;
-}
-
 .c0:hover {
   background-color: #f9f9f9;
-  color: #ff3860;
 }
 
-.c0:focus {
-  color: #ff3860;
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
 }
 
 .c0:active {
   background-color: #f2f2f2;
-  color: #ff3860;
 }
 
 .c0[disabled] {
   background-color: #fff;
-  color: #ff3860;
+  opacity: 0.5;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -703,10 +602,7 @@ exports[`should render the danger variant correctly when inverted and outlined 1
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -718,9 +614,6 @@ exports[`should render the danger variant correctly when inverted and outlined 1
   padding-top: calc(0.3125em - 1px);
   text-align: center;
   white-space: nowrap;
-  background-color: #ff3860;
-  border-color: transparent;
-  color: #fff;
   background-color: transparent;
   border-color: #fff;
   color: #fff;
@@ -735,80 +628,29 @@ exports[`should render the danger variant correctly when inverted and outlined 1
   cursor: not-allowed;
 }
 
-.c0 strong {
-  color: inherit;
-}
-
 .c0:hover {
-  border-color: #b5b5b5;
-  color: #363636;
-}
-
-.c0:focus {
-  border-color: #3273dc;
-  color: #363636;
-}
-
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
-}
-
-.c0[disabled] {
-  background-color: #fff;
-  border-color: #dbdbdb;
-  box-shadow: none;
-  opacity: 0.5;
-}
-
-.c0:hover {
-  background-color: #ff2b56;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus {
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:active {
-  background-color: #ff1f4c;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
-}
-
-.c0[disabled] {
-  background-color: #ff3860;
-  border-color: transparent;
-  box-shadow: none;
-}
-
-.c0:hover,
-.c0:focus {
   background-color: #fff;
   color: #ff3860;
 }
 
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(255,255,255,0.25);
+}
+
 .c0:active {
-  background-color: #fff;
-  border-color: #fff;
-  color: #ff2b56;
+  background-color: #f9f9f9;
+  border-color: transparent;
+  color: #ff3860;
 }
 
 .c0[disabled] {
   background-color: transparent;
   border-color: #fff;
   color: #fff;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -852,10 +694,7 @@ exports[`should render the danger variant correctly when outlined 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -867,9 +706,6 @@ exports[`should render the danger variant correctly when outlined 1`] = `
   padding-top: calc(0.3125em - 1px);
   text-align: center;
   white-space: nowrap;
-  background-color: #ff3860;
-  border-color: transparent;
-  color: #fff;
   background-color: transparent;
   border-color: #ff3860;
   color: #ff3860;
@@ -884,74 +720,19 @@ exports[`should render the danger variant correctly when outlined 1`] = `
   cursor: not-allowed;
 }
 
-.c0 strong {
-  color: inherit;
-}
-
 .c0:hover {
-  border-color: #b5b5b5;
-  color: #363636;
-}
-
-.c0:focus {
-  border-color: #3273dc;
-  color: #363636;
-}
-
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
-}
-
-.c0[disabled] {
-  background-color: #fff;
-  border-color: #dbdbdb;
-  box-shadow: none;
-  opacity: 0.5;
-}
-
-.c0:hover {
-  background-color: #ff2b56;
+  background-color: #ff3860;
   border-color: transparent;
   color: #fff;
 }
 
-.c0:focus {
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:active {
-  background-color: #ff1f4c;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus:enabled:not(:active) {
+.c0:focus:not(:active):enabled {
   box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
 }
 
-.c0[disabled] {
-  background-color: #ff3860;
-  border-color: transparent;
-  box-shadow: none;
-}
-
-.c0:hover,
-.c0:focus {
-  background-color: #ff3860;
-  border-color: #ff3860;
-  color: #fff;
-}
-
 .c0:active {
   background-color: #ff2b56;
-  border-color: #ff2b56;
+  border-color: transparent;
   color: #fff;
 }
 
@@ -959,6 +740,11 @@ exports[`should render the danger variant correctly when outlined 1`] = `
   background-color: transparent;
   border-color: #ff3860;
   color: #ff3860;
+  opacity: 0.5;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -1002,10 +788,7 @@ exports[`should render the primary variant correctly 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -1031,62 +814,25 @@ exports[`should render the primary variant correctly 1`] = `
   cursor: not-allowed;
 }
 
-.c0 strong {
-  color: inherit;
-}
-
-.c0:hover {
-  border-color: #b5b5b5;
-  color: #363636;
-}
-
-.c0:focus {
-  border-color: #3273dc;
-  color: #363636;
-}
-
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
-}
-
-.c0[disabled] {
-  background-color: #fff;
-  border-color: #dbdbdb;
-  box-shadow: none;
-  opacity: 0.5;
-}
-
 .c0:hover {
   background-color: #00c4a7;
-  border-color: transparent;
-  color: #fff;
 }
 
-.c0:focus {
-  border-color: transparent;
-  color: #fff;
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(0,209,178,0.25);
 }
 
 .c0:active {
   background-color: #00b89c;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(0,209,178,0.25);
 }
 
 .c0[disabled] {
   background-color: #00d1b2;
-  border-color: transparent;
-  box-shadow: none;
+  opacity: 0.5;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -1130,10 +876,7 @@ exports[`should render the primary variant correctly when inverted 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -1145,10 +888,8 @@ exports[`should render the primary variant correctly when inverted 1`] = `
   padding-top: calc(0.3125em - 1px);
   text-align: center;
   white-space: nowrap;
-  background-color: #00d1b2;
-  border-color: transparent;
-  color: #fff;
   background-color: #fff;
+  border-color: transparent;
   color: #00d1b2;
 }
 
@@ -1161,81 +902,25 @@ exports[`should render the primary variant correctly when inverted 1`] = `
   cursor: not-allowed;
 }
 
-.c0 strong {
-  color: inherit;
-}
-
-.c0:hover {
-  border-color: #b5b5b5;
-  color: #363636;
-}
-
-.c0:focus {
-  border-color: #3273dc;
-  color: #363636;
-}
-
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
-}
-
-.c0[disabled] {
-  background-color: #fff;
-  border-color: #dbdbdb;
-  box-shadow: none;
-  opacity: 0.5;
-}
-
-.c0:hover {
-  background-color: #00c4a7;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus {
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:active {
-  background-color: #00b89c;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(0,209,178,0.25);
-}
-
-.c0[disabled] {
-  background-color: #00d1b2;
-  border-color: transparent;
-  box-shadow: none;
-}
-
 .c0:hover {
   background-color: #f9f9f9;
-  color: #00d1b2;
 }
 
-.c0:focus {
-  color: #00d1b2;
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(0,209,178,0.25);
 }
 
 .c0:active {
   background-color: #f2f2f2;
-  color: #00d1b2;
 }
 
 .c0[disabled] {
   background-color: #fff;
-  color: #00d1b2;
+  opacity: 0.5;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -1279,10 +964,7 @@ exports[`should render the primary variant correctly when inverted and outlined 
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -1294,9 +976,6 @@ exports[`should render the primary variant correctly when inverted and outlined 
   padding-top: calc(0.3125em - 1px);
   text-align: center;
   white-space: nowrap;
-  background-color: #00d1b2;
-  border-color: transparent;
-  color: #fff;
   background-color: transparent;
   border-color: #fff;
   color: #fff;
@@ -1311,80 +990,29 @@ exports[`should render the primary variant correctly when inverted and outlined 
   cursor: not-allowed;
 }
 
-.c0 strong {
-  color: inherit;
-}
-
 .c0:hover {
-  border-color: #b5b5b5;
-  color: #363636;
-}
-
-.c0:focus {
-  border-color: #3273dc;
-  color: #363636;
-}
-
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
-}
-
-.c0[disabled] {
-  background-color: #fff;
-  border-color: #dbdbdb;
-  box-shadow: none;
-  opacity: 0.5;
-}
-
-.c0:hover {
-  background-color: #00c4a7;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus {
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:active {
-  background-color: #00b89c;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(0,209,178,0.25);
-}
-
-.c0[disabled] {
-  background-color: #00d1b2;
-  border-color: transparent;
-  box-shadow: none;
-}
-
-.c0:hover,
-.c0:focus {
   background-color: #fff;
   color: #00d1b2;
 }
 
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(255,255,255,0.25);
+}
+
 .c0:active {
-  background-color: #fff;
-  border-color: #fff;
-  color: #00c4a7;
+  background-color: #f9f9f9;
+  border-color: transparent;
+  color: #00d1b2;
 }
 
 .c0[disabled] {
   background-color: transparent;
   border-color: #fff;
   color: #fff;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -1428,10 +1056,7 @@ exports[`should render the primary variant correctly when outlined 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #fff;
-  border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
   cursor: pointer;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -1443,9 +1068,6 @@ exports[`should render the primary variant correctly when outlined 1`] = `
   padding-top: calc(0.3125em - 1px);
   text-align: center;
   white-space: nowrap;
-  background-color: #00d1b2;
-  border-color: transparent;
-  color: #fff;
   background-color: transparent;
   border-color: #00d1b2;
   color: #00d1b2;
@@ -1460,74 +1082,19 @@ exports[`should render the primary variant correctly when outlined 1`] = `
   cursor: not-allowed;
 }
 
-.c0 strong {
-  color: inherit;
-}
-
 .c0:hover {
-  border-color: #b5b5b5;
-  color: #363636;
-}
-
-.c0:focus {
-  border-color: #3273dc;
-  color: #363636;
-}
-
-.c0:active {
-  background-color: #fff;
-  border-color: #4a4a4a;
-  color: #363636;
-}
-
-.c0:focus:enabled:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
-}
-
-.c0[disabled] {
-  background-color: #fff;
-  border-color: #dbdbdb;
-  box-shadow: none;
-  opacity: 0.5;
-}
-
-.c0:hover {
-  background-color: #00c4a7;
+  background-color: #00d1b2;
   border-color: transparent;
   color: #fff;
 }
 
-.c0:focus {
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:active {
-  background-color: #00b89c;
-  border-color: transparent;
-  color: #fff;
-}
-
-.c0:focus:enabled:not(:active) {
+.c0:focus:not(:active):enabled {
   box-shadow: 0 0 0 0.125em rgba(0,209,178,0.25);
 }
 
-.c0[disabled] {
-  background-color: #00d1b2;
-  border-color: transparent;
-  box-shadow: none;
-}
-
-.c0:hover,
-.c0:focus {
-  background-color: #00d1b2;
-  border-color: #00d1b2;
-  color: #fff;
-}
-
 .c0:active {
   background-color: #00c4a7;
-  border-color: #00c4a7;
+  border-color: transparent;
   color: #fff;
 }
 
@@ -1535,6 +1102,11 @@ exports[`should render the primary variant correctly when outlined 1`] = `
   background-color: transparent;
   border-color: #00d1b2;
   color: #00d1b2;
+  opacity: 0.5;
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button

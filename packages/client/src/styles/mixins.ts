@@ -107,10 +107,10 @@ export const unselectable = css`
   user-select: none;
 `
 
-export const loader = css`
+export const loader = (color?: string) => css`
   animation: ${spin()} 500ms infinite linear;
   border-radius: 999999px;
-  border: 2px solid ${({ theme }) => theme.grayLighter};
+  border: 2px solid ${({ theme }) => color || theme.grayLighter};
   border-right-color: transparent;
   border-top-color: transparent;
   content: '';

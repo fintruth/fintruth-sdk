@@ -17,14 +17,14 @@ storiesOf('Components|Button', module)
   .addDecorator(centered)
   .add('Default', () => (
     <Button
-      delay={number('Delay', 200)}
-      isDisabled={boolean('Is Disabled', false)}
-      isInverted={boolean('Is Inverted', false)}
-      isLoading={boolean('Is Loading', false)}
-      isOutlined={boolean('Is Outlined', false)}
-      onClick={action('On Click')}
-      variant={select('Variant', options, '') || undefined}
+      delay={number('delay', 200)}
+      isDisabled={boolean('isDisabled', false)}
+      isInverted={boolean('isInverted', false)}
+      isLoading={boolean('isLoading', false)}
+      isOutlined={boolean('isOutlined', false)}
+      onClick={action('onClick')}
+      variant={select('variant', options, '') || undefined}
     >
-      {text('Content', 'Button')}
+      {text('children', 'Button')}
     </Button>
   ))

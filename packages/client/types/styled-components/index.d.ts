@@ -23,6 +23,7 @@ declare module 'styled-components' {
     disabledBackgroundColor: string
     disabledBorderColor: string
     disabledBoxShadow: string
+    disabledColor: string
     disabledOpacity: number
     focusBorderColor: string
     focusBoxShadowColor: string
