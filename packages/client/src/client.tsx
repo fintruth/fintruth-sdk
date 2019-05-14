@@ -1,21 +1,17 @@
-import React from 'react'
-import deepForceUpdate from 'react-deep-force-update'
-import { ApolloProvider } from 'react-apollo'
-import { Location, createBrowserHistory } from 'history'
-import { hydrate } from 'react-dom'
 import { loadableReady } from '@loadable/component'
+import { Location, createBrowserHistory } from 'history'
+import React from 'react'
+import { ApolloProvider } from 'react-apollo'
+import deepForceUpdate from 'react-deep-force-update'
+import { hydrate } from 'react-dom'
 
-import Root from './components/root'
 import { createApolloClient } from './apollo'
+import Root from './components/root'
 import { resolvers, typeDefs } from './store/partitions'
 
 interface Position {
   scrollX: number
   scrollY: number
-}
-
-interface ScrollPositionsHistory {
-  [key: string]: Position
 }
 
 const client = createApolloClient({
@@ -26,7 +22,7 @@ const client = createApolloClient({
 })
 const container = document.querySelector('#root')
 const history = createBrowserHistory()
-const scrollPositionsHistory: ScrollPositionsHistory = {}
+const scrollPositionsHistory: Record<string, Position> = {}
 let currentLocation = history.location
 let appInstance: any
 

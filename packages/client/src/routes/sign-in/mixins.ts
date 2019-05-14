@@ -11,8 +11,3 @@ export const form = css`
   flex-direction: column;
   width: ${rem(280)};
 `
-
-export const notice = css`
-  margin: ${rem(-10)} 0 ${rem(30)};
-  width: ${rem(280)};
-`

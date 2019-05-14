@@ -1,33 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render the danger style correctly 1`] = `
+exports[`should render correctly 1`] = `
 .c0 {
-  border-radius: 0.125rem;
-  border-style: solid;
-  border-width: 0.0625rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
   cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 0.75rem;
-  font-weight: 700;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding: 0.625rem 1.25rem;
-  background-color: #ed5357;
-  border-color: transparent;
-  color: #333;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
 }
 
 .c0:hover {
-  background-color: #eb3c40;
+  border-color: #b5b5b5;
+  color: #363636;
+}
+
+.c0:focus {
+  border-color: #3273dc;
+  color: #363636;
 }
 
 .c0:active {
-  background-color: #e8252a;
+  border-color: #4a4a4a;
+  color: #363636;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -37,36 +93,90 @@ exports[`should render the danger style correctly 1`] = `
 </button>
 `;
 
-exports[`should render the danger style correctly when outlined 1`] = `
+exports[`should render correctly when inverted 1`] = `
 .c0 {
-  border-radius: 0.125rem;
-  border-style: solid;
-  border-width: 0.0625rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
   cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 0.75rem;
-  font-weight: 700;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding: 0.625rem 1.25rem;
-  background-color: transparent;
-  border-color: #ed5357;
-  color: #ed5357;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
 }
 
 .c0:hover {
-  border-color: #eb3c40;
-  color: #eb3c40;
+  border-color: #b5b5b5;
+  color: #363636;
+}
+
+.c0:focus {
+  border-color: #3273dc;
+  color: #363636;
 }
 
 .c0:active {
-  border-color: #e8252a;
-  color: #e8252a;
+  border-color: #4a4a4a;
+  color: #363636;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -76,34 +186,267 @@ exports[`should render the danger style correctly when outlined 1`] = `
 </button>
 `;
 
-exports[`should render the default style correctly 1`] = `
+exports[`should render correctly when inverted and outlined 1`] = `
 .c0 {
-  border-radius: 0.125rem;
-  border-style: solid;
-  border-width: 0.0625rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
   cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 0.75rem;
-  font-weight: 700;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding: 0.625rem 1.25rem;
-  background-color: #333;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
+}
+
+.c0:hover {
+  border-color: #b5b5b5;
+  color: #363636;
+}
+
+.c0:focus {
+  border-color: #3273dc;
+  color: #363636;
+}
+
+.c0:active {
+  border-color: #4a4a4a;
+  color: #363636;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
+}
+
+.c0 strong {
+  color: inherit;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render correctly when outlined 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
+  cursor: pointer;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
+}
+
+.c0:hover {
+  border-color: #b5b5b5;
+  color: #363636;
+}
+
+.c0:focus {
+  border-color: #3273dc;
+  color: #363636;
+}
+
+.c0:active {
+  border-color: #4a4a4a;
+  color: #363636;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: #fff;
+  border-color: #dbdbdb;
+  color: #363636;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
+}
+
+.c0 strong {
+  color: inherit;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render the danger variant correctly 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
+  cursor: pointer;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #ff3860;
   border-color: transparent;
   color: #fff;
 }
 
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
+}
+
 .c0:hover {
-  background-color: #262626;
+  background-color: #ff2b56;
 }
 
 .c0:active {
-  background-color: #1a1a1a;
+  background-color: #ff1f4c;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: #ff3860;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -113,36 +456,170 @@ exports[`should render the default style correctly 1`] = `
 </button>
 `;
 
-exports[`should render the default style correctly when outlined 1`] = `
+exports[`should render the danger variant correctly when inverted 1`] = `
 .c0 {
-  border-radius: 0.125rem;
-  border-style: solid;
-  border-width: 0.0625rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
   cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 0.75rem;
-  font-weight: 700;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding: 0.625rem 1.25rem;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  border-color: transparent;
+  color: #ff3860;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
+}
+
+.c0:hover {
+  background-color: #f9f9f9;
+}
+
+.c0:active {
+  background-color: #f2f2f2;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: #fff;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
+}
+
+.c0 strong {
+  color: inherit;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render the danger variant correctly when inverted and outlined 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
+  cursor: pointer;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
   background-color: transparent;
-  border-color: #333;
-  color: #333;
+  border-color: #fff;
+  color: #fff;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
 }
 
 .c0:hover {
-  border-color: #262626;
-  color: #262626;
+  background-color: #fff;
+  color: #ff3860;
 }
 
 .c0:active {
-  border-color: #1a1a1a;
-  color: #1a1a1a;
+  background-color: #f9f9f9;
+  border-color: transparent;
+  color: #ff3860;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(255,255,255,0.25);
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -152,34 +629,86 @@ exports[`should render the default style correctly when outlined 1`] = `
 </button>
 `;
 
-exports[`should render the primary style correctly 1`] = `
+exports[`should render the danger variant correctly when outlined 1`] = `
 .c0 {
-  border-radius: 0.125rem;
-  border-style: solid;
-  border-width: 0.0625rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
   cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 0.75rem;
-  font-weight: 700;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding: 0.625rem 1.25rem;
-  background-color: #004cff;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: transparent;
+  border-color: #ff3860;
+  color: #ff3860;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
+}
+
+.c0:hover {
+  background-color: #ff3860;
+  color: #fff;
+}
+
+.c0:active {
+  background-color: #ff2b56;
   border-color: transparent;
   color: #fff;
 }
 
-.c0:hover {
-  background-color: #0044e6;
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: transparent;
+  border-color: #ff3860;
+  color: #ff3860;
+  opacity: 0.5;
 }
 
-.c0:active {
-  background-color: #003dcc;
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button
@@ -189,36 +718,343 @@ exports[`should render the primary style correctly 1`] = `
 </button>
 `;
 
-exports[`should render the primary style correctly when outlined 1`] = `
+exports[`should render the primary variant correctly 1`] = `
 .c0 {
-  border-radius: 0.125rem;
-  border-style: solid;
-  border-width: 0.0625rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
   cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 0.75rem;
-  font-weight: 700;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding: 0.625rem 1.25rem;
-  background-color: transparent;
-  border-color: #004cff;
-  color: #004cff;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #00d1b2;
+  border-color: transparent;
+  color: #fff;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
 }
 
 .c0:hover {
-  border-color: #0044e6;
-  color: #0044e6;
+  background-color: #00c4a7;
 }
 
 .c0:active {
-  border-color: #003dcc;
-  color: #003dcc;
+  background-color: #00b89c;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: #00d1b2;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(0,209,178,0.25);
+}
+
+.c0 strong {
+  color: inherit;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render the primary variant correctly when inverted 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
+  cursor: pointer;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  border-color: transparent;
+  color: #00d1b2;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
+}
+
+.c0:hover {
+  background-color: #f9f9f9;
+}
+
+.c0:active {
+  background-color: #f2f2f2;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: #fff;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(0,209,178,0.25);
+}
+
+.c0 strong {
+  color: inherit;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render the primary variant correctly when inverted and outlined 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
+  cursor: pointer;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
+}
+
+.c0:hover {
+  background-color: #fff;
+  color: #00d1b2;
+}
+
+.c0:active {
+  background-color: #f9f9f9;
+  border-color: transparent;
+  color: #00d1b2;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(255,255,255,0.25);
+}
+
+.c0 strong {
+  color: inherit;
+}
+
+<button
+  class="c0"
+>
+  child
+</button>
+`;
+
+exports[`should render the primary variant correctly when outlined 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-width: 1px;
+  cursor: pointer;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: calc(0.375em - 1px) 0.75em;
+  text-align: center;
+  white-space: nowrap;
+  background-color: transparent;
+  border-color: #00d1b2;
+  color: #00d1b2;
+}
+
+.c0:focus,
+.c0:active {
+  outline: none;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  cursor: not-allowed;
+}
+
+.c0:hover {
+  background-color: #00d1b2;
+  color: #fff;
+}
+
+.c0:active {
+  background-color: #00c4a7;
+  border-color: transparent;
+  color: #fff;
+}
+
+.c0[disabled],
+fieldset[disabled] .c0 {
+  background-color: transparent;
+  border-color: #00d1b2;
+  color: #00d1b2;
+  opacity: 0.5;
+}
+
+.c0:focus:not(:active):enabled {
+  box-shadow: 0 0 0 0.125em rgba(0,209,178,0.25);
+}
+
+.c0 strong {
+  color: inherit;
 }
 
 <button

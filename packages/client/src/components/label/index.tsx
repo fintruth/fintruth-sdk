@@ -1,6 +1,6 @@
+import { em, rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
-import { em } from 'polished'
 
 interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
   children: React.ReactNode
@@ -8,19 +8,19 @@ interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
 }
 
 const Root = styled.label`
-  color: ${({ theme }) => theme.label.color};
+  color: ${({ theme }) => theme.grayDarker};
   display: block;
-  font-size: ${({ theme }) => theme.label.fontSize};
-  font-weight: ${({ theme }) => theme.label.fontWeight};
+  font-size: ${rem(16)};
+  font-weight: 700;
 
-  :not(:last-child) {
+  &:not(:last-child) {
     margin-bottom: ${em(8)};
   }
 `
 
 const Label: React.FunctionComponent<Props> = ({
   children,
-  isRequired = false,
+  isRequired,
   ...props
 }: Props) => (
   <Root {...props}>

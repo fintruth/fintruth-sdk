@@ -2,20 +2,17 @@ import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 import React from 'react'
 import serialize from 'serialize-javascript'
 
-import { black } from 'styles/deprecated'
-
-interface Props {
+interface Props extends React.HtmlHTMLAttributes<HTMLElement> {
   children: string
   description?: string
-  links?: React.ReactElement<{}>[]
-  scripts?: React.ReactElement<{}>[]
+  links?: React.ReactElement[]
+  scripts?: React.ReactElement[]
   state?: State
-  styles: React.ReactElement<{}>[]
+  styles: React.ReactElement[]
   title?: string
 }
 
 interface State {
-  [key: string]: {}
   __APOLLO_CACHE__: NormalizedCacheObject
   __APOLLO_STATE__: {}
 }
@@ -31,15 +28,16 @@ const Html: React.FunctionComponent<Props> = ({
   },
   styles,
   title = 'Fintruth Starter Kit',
+  ...props
 }: Props) => (
-  <html className="no-js" lang="en-US">
+  <html lang="en-US" {...props}>
     <head>
       <meta charSet="utf-8" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
       <title>{title}</title>
       <meta name="author" content="Fintruth LLC" />
       <meta name="description" content={description} />
-      <meta name="theme-color" content={black} />
+      <meta name="theme-color" content="#000" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       {links}
       <link rel="manifest" href="/site.webmanifest" />
@@ -62,7 +60,7 @@ const Html: React.FunctionComponent<Props> = ({
       {Object.keys(state).map(key => (
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.${key} = ${serialize(state[key])};`,
+            __html: `window.${key}=${serialize(state[key as keyof State])};`,
           }}
           key={key}
         />

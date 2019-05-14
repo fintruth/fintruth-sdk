@@ -1,67 +1,7 @@
-import { createGlobalStyle } from 'styled-components'
 import { em, rem } from 'polished'
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
-  @media print {
-    *,
-    *::before,
-    *::after {
-      background-color: transparent !important;
-      box-shadow: none !important;
-      color: #000 !important;
-      text-shadow: none !important;
-    }
-
-    a,
-    a:visited {
-      text-decoration: underline;
-    }
-
-    a[href]::after {
-      content: ' (' attr(href) ')';
-    }
-
-    a[href^='#']::after,
-    a[href^='javascript:']::after {
-      content: '';
-    }
-
-    abbr[title]::after {
-      content: ' (' attr(title) ')';
-    }
-
-    blockquote,
-    pre {
-      border: 1px solid #999;
-      page-break-inside: avoid;
-    }
-
-    h2,
-    h3,
-    p {
-      orphans: 3;
-      widows: 3;
-    }
-
-    h2,
-    h3 {
-      page-break-after: avoid;
-    }
-
-    img,
-    tr {
-      page-break-inside: avoid;
-    }
-
-    pre {
-      white-space: pre-wrap !important;
-    }
-
-    thead {
-      display: table-header-group;
-    }
-  }
-
   *,
   *::before,
   *::after {
@@ -69,30 +9,39 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
+    background-color: ${({ theme }) => theme.white};
+    box-sizing: border-box;
+    font-size: 16px;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    background-color: ${({ theme }) => theme.html.backgroundColor};
-    box-sizing: border-box;
-    font-size: ${({ theme }) => theme.html.fontSize};
     min-width: 300px;
-    overflow-x: ${({ theme }) => theme.html.overflowX};
-    overflow-y: ${({ theme }) => theme.html.overflowY};
-    text-rendering: ${({ theme }) => theme.html.textRendering};
+    overflow-x: hidden;
+    overflow-y: scroll;
+    text-rendering: optimizeLegibility;
     text-size-adjust: 100%;
   }
 
   body {
-    color: ${({ theme }) => theme.body.color};
-    font-family: ${({ theme }) => theme.body.fontFamily};
+    color: ${({ theme }) => theme.textColor};
+    font-family: ${({ theme }) => theme.fontFamilyPrimary};
     font-size: ${rem(16)};
-    font-weight: ${({ theme }) => theme.body.fontWeight};
-    line-height: ${({ theme }) => theme.body.lineHeight};
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  strong {
+    color: ${({ theme }) => theme.textStrongColor};
+    font-weight: 700;
   }
 
   a {
     color: ${({ theme }) => theme.linkColor};
     cursor: pointer;
     text-decoration: none;
+
+    strong {
+      color: currentColor;
+    }
 
     &:hover {
       color: ${({ theme }) => theme.linkHoverColor};
@@ -153,30 +102,23 @@ const GlobalStyle = createGlobalStyle`
   input,
   select,
   textarea {
-    font-family: ${({ theme }) => theme.body.fontFamily};
+    font-family: ${({ theme }) => theme.fontFamilyPrimary};
     margin: 0;
   }
 
   code,
   pre {
+    font-family: ${({ theme }) => theme.fontFamilyCode};
     -moz-osx-font-smoothing: auto;
     -webkit-font-smoothing: auto;
-    font-family: ${({ theme }) => theme.code.fontFamily};
   }
 
   code {
-    background-color: ${({ theme }) => theme.code.backgroundColor};
-    color: ${({ theme }) => theme.code.color};
-    font-size: ${({ theme }) => theme.code.fontSize};
-    font-weight: ${({ theme }) => theme.code.fontWeight};
-    padding: ${({ theme }) => theme.code.padding};
-
-    pre & {
-      background-color: transparent;
-      color: currentColor;
-      font-size: ${em(16)};
-      padding: 0;
-    }
+    background-color: ${({ theme }) => theme.backgroundColor};
+    color: ${({ theme }) => theme.red};
+    font-size: ${em(14)};
+    font-weight: 400;
+    padding: ${em(4)} ${em(8)};
   }
 
   embed,
@@ -203,20 +145,15 @@ const GlobalStyle = createGlobalStyle`
   }
 
   hr {
-    background-color: ${({ theme }) => theme.hr.backgroundColor};
+    background-color: ${({ theme }) => theme.backgroundColor};
     border: none;
     display: block;
-    height: ${({ theme }) => theme.hr.height};
-    margin: ${({ theme }) => theme.hr.margin};
+    height: 2px;
+    margin: ${rem(24)} 0;
   }
 
   iframe {
     border: 0;
-  }
-
-  img {
-    height: auto;
-    max-width: 100%;
   }
 
   input[type='checkbox'],
@@ -225,14 +162,21 @@ const GlobalStyle = createGlobalStyle`
   }
 
   pre {
-    -webkit-overflow-scrolling: touch;
-    background-color: ${({ theme }) => theme.pre.backgroundColor};
-    color: ${({ theme }) => theme.pre.color};
+    background-color: ${({ theme }) => theme.backgroundColor};
+    color: ${({ theme }) => theme.textColor};
     font-size: ${em(14)};
+    -webkit-overflow-scrolling: touch;
     overflow-x: auto;
     padding: ${rem(20)} ${rem(24)};
     white-space: pre;
     word-wrap: normal;
+
+    code {
+      background-color: transparent;
+      color: currentColor;
+      font-size: ${em(16)};
+      padding: 0;
+    }
   }
 
   small {
@@ -244,34 +188,21 @@ const GlobalStyle = createGlobalStyle`
     font-weight: inherit;
   }
 
-  strong {
-    color: ${({ theme }) => theme.strong.color};
-    font-weight: ${({ theme }) => theme.strong.fontWeight};
-
-    a & {
-      color: currentColor;
-    }
+  td,
+  th {
+    padding: 0;
+    text-align: left;
   }
 
   table {
     border-collapse: collapse;
     border-spacing: 0;
-  }
 
-  td {
-    padding: 0;
-    text-align: left;
-
-    table & {
+    td {
       vertical-align: top;
     }
-  }
 
-  th {
-    padding: 0;
-    text-align: left;
-
-    table & {
+    th {
       color: ${({ theme }) => theme.textStrongColor};
       vertical-align: top;
     }
@@ -288,6 +219,66 @@ const GlobalStyle = createGlobalStyle`
   ::selection {
     background-color: ${({ theme }) => theme.textSelectionColor};
     text-shadow: none;
+  }
+
+  @media print {
+    *,
+    *::before,
+    *::after {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      color: #000 !important;
+      text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+      text-decoration: underline;
+    }
+
+    a[href]::after {
+      content: ' (' attr(href) ')';
+    }
+
+    a[href^='#']::after,
+    a[href^='javascript:']::after {
+      content: '';
+    }
+
+    abbr[title]::after {
+      content: ' (' attr(title) ')';
+    }
+
+    blockquote,
+    pre {
+      border: 1px solid #999;
+      page-break-inside: avoid;
+    }
+
+    h2,
+    h3,
+    p {
+      orphans: 3;
+      widows: 3;
+    }
+
+    h2,
+    h3 {
+      page-break-after: avoid;
+    }
+
+    img,
+    tr {
+      page-break-inside: avoid;
+    }
+
+    pre {
+      white-space: pre-wrap !important;
+    }
+
+    thead {
+      display: table-header-group;
+    }
   }
 `
 

@@ -1,14 +1,14 @@
-import React from 'react'
 import { Formik } from 'formik'
-import { ThemeProvider } from 'styled-components'
+import React from 'react'
 import { render } from 'react-testing-library'
+import { ThemeProvider } from 'styled-components'
 
-import { createTheme } from 'utilities/style'
+import theme from 'styles/theme'
 import Input from '.'
 
 test('should render the provided label correctly', () => {
   const { getByLabelText } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Formik initialValues={{ input: '' }} onSubmit={() => {}}>
         <Input
           id="41d1dd52-2e68-487a-bf61-b464c49a67f1"

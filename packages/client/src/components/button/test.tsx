@@ -1,59 +1,139 @@
 import React from 'react'
-import { act, render } from 'react-testing-library'
+import { render } from 'react-testing-library'
+import { ThemeProvider } from 'styled-components'
 
+import theme from 'styles/theme'
 import Button from '.'
 
-jest.useFakeTimers()
-
-test('should initialize the loading state once the provided delay (ms) has passed', () => {
-  const { queryByTestId } = render(<Button isLoading>child</Button>)
-
-  expect(queryByTestId('spinner')).not.toBeInTheDocument()
-
-  act(() => jest.runOnlyPendingTimers())
-
-  expect(queryByTestId('spinner')).toBeInTheDocument()
-})
-
-test('should render the default style correctly', () => {
-  const { container } = render(<Button>child</Button>)
-
-  expect(container.firstChild).toMatchSnapshot()
-})
-
-test('should render the default style correctly when outlined', () => {
-  const { container } = render(<Button isOutlined>child</Button>)
-
-  expect(container.firstChild).toMatchSnapshot()
-})
-
-test('should render the danger style correctly', () => {
-  const { container } = render(<Button status="danger">child</Button>)
-
-  expect(container.firstChild).toMatchSnapshot()
-})
-
-test('should render the danger style correctly when outlined', () => {
+test('should render correctly', () => {
   const { container } = render(
-    <Button isOutlined status="danger">
-      child
-    </Button>
+    <ThemeProvider theme={theme}>
+      <Button>child</Button>
+    </ThemeProvider>
   )
 
   expect(container.firstChild).toMatchSnapshot()
 })
 
-test('should render the primary style correctly', () => {
-  const { container } = render(<Button status="primary">child</Button>)
+test('should render correctly when inverted', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Button isInverted>child</Button>
+    </ThemeProvider>
+  )
 
   expect(container.firstChild).toMatchSnapshot()
 })
 
-test('should render the primary style correctly when outlined', () => {
+test('should render correctly when outlined', () => {
   const { container } = render(
-    <Button isOutlined status="primary">
-      child
-    </Button>
+    <ThemeProvider theme={theme}>
+      <Button isOutlined>child</Button>
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render correctly when inverted and outlined', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Button isInverted isOutlined>
+        child
+      </Button>
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render the primary variant correctly', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Button variant="primary">child</Button>
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render the primary variant correctly when inverted', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Button isInverted variant="primary">
+        child
+      </Button>
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render the primary variant correctly when outlined', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Button isOutlined variant="primary">
+        child
+      </Button>
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render the primary variant correctly when inverted and outlined', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Button isInverted isOutlined variant="primary">
+        child
+      </Button>
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render the danger variant correctly', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Button variant="danger">child</Button>
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render the danger variant correctly when inverted', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Button isInverted variant="danger">
+        child
+      </Button>
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render the danger variant correctly when outlined', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Button isOutlined variant="danger">
+        child
+      </Button>
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render the danger variant correctly when inverted and outlined', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Button isInverted isOutlined variant="danger">
+        child
+      </Button>
+    </ThemeProvider>
   )
 
   expect(container.firstChild).toMatchSnapshot()

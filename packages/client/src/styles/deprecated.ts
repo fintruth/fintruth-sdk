@@ -12,8 +12,8 @@ export const watermelon = '#ed5357'
 export const white = '#fff'
 
 export const card = css`
-  padding: ${rem(40)};
   background-color: ${darken(0.026, white)};
+  padding: ${rem(40)};
 `
 
 export const centered = css`

@@ -1,154 +1,271 @@
-import { darken, readableColor, rem } from 'polished'
+import { Omit } from '@fintruth-sdk/shared'
+import { darken, em, transparentize } from 'polished'
 import React from 'react'
-import styled, { css, keyframes } from 'styled-components'
+import styled, {
+  Color, // eslint-disable-line import/named
+  ColorContrast, // eslint-disable-line import/named
+  DefaultTheme, // eslint-disable-line import/named
+  css,
+} from 'styled-components'
 
-import { azure, raven, watermelon, white } from 'styles/deprecated'
+import { center, control, loader, unselectable } from 'styles/mixins'
 
-export type Status = 'danger' | 'default' | 'primary'
+export type Variant = 'danger' | 'primary'
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'> {
   delay?: number
+  isDisabled?: boolean
+  isInverted?: boolean
   isLoading?: boolean
   isOutlined?: boolean
-  status?: Status
+  variant?: Variant
 }
 
-const statusColors: Record<Status, string> = {
-  danger: watermelon,
-  default: raven,
-  primary: azure,
+const colors: Record<Variant, Color> = {
+  danger: 'danger',
+  primary: 'primary',
 }
 
-const resolveColor = (isLoading: boolean, color: string) =>
-  isLoading ? 'transparent' : color
-
-const getOutlinedStyles = (isLoading: boolean, statusColor: string) => {
-  const color = resolveColor(isLoading, statusColor)
-
-  return css`
-    background-color: transparent;
-    border-color: ${statusColor};
-    color: ${color};
-
-    &:hover {
-      border-color: ${darken(0.05, statusColor)};
-      color: ${darken(0.05, color)};
-    }
-
-    &:active {
-      border-color: ${darken(0.1, statusColor)};
-      color: ${darken(0.1, color)};
-    }
-  `
+const colorContrasts: Record<Variant, ColorContrast> = {
+  danger: 'dangerContrast',
+  primary: 'primaryContrast',
 }
 
-const getSolidStyles = (isLoading: boolean, statusColor: string) => css`
-  background-color: ${statusColor};
+const disabledOpacity = 0.5
+const focusBoxShadowSize = `0 0 0 ${em(2)}`
+
+const inverted = (
+  color: string,
+  colorContrast: string,
+  isLoading?: boolean
+) => css`
+  background-color: ${colorContrast} ${isLoading && '!important'};
   border-color: transparent;
-  color: ${resolveColor(isLoading, readableColor(statusColor, raven, white))};
+  color: ${color};
 
   &:hover {
-    background-color: ${darken(0.05, statusColor)};
+    background-color: ${darken(0.025, colorContrast)};
   }
 
   &:active {
-    background-color: ${darken(0.1, statusColor)};
+    background-color: ${darken(0.05, colorContrast)};
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: ${colorContrast};
+    opacity: ${disabledOpacity};
+  }
+
+  &:focus:not(:active):enabled {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
   }
 `
 
-const rotate = keyframes`
-  0% {
-    transform: rotate(0);
+const invertedOutlined = (
+  color: string,
+  colorContrast: string,
+  isLoading?: boolean
+) => css`
+  background-color: transparent ${isLoading && '!important'};
+  border-color: ${colorContrast} ${isLoading && '!important'};
+  color: ${colorContrast};
+
+  &:hover {
+    background-color: ${colorContrast};
+    color: ${color};
   }
 
-  100% {
-    transform: rotate(360deg);
+  &:active {
+    background-color: ${darken(0.025, colorContrast)};
+    border-color: transparent;
+    color: ${color};
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: transparent;
+    border-color: ${colorContrast};
+    color: ${colorContrast};
+    opacity: ${disabledOpacity};
+  }
+
+  &:focus:not(:active):enabled {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, colorContrast)};
   }
 `
 
-const Root = styled.button`
-  border-radius: ${rem(2)};
-  border-style: solid;
-  border-width: ${rem(1)};
-  cursor: pointer;
-  display: flex;
-  font-size: ${rem(12)};
-  font-weight: 700;
-  justify-content: center;
-  padding: ${rem(10)} ${rem(20)};
-
-  ${({ isLoading = false, isOutlined, status = 'default' }: Props) => {
-    const statusColor = statusColors[status]
-
-    return isOutlined
-      ? getOutlinedStyles(isLoading, statusColor)
-      : getSolidStyles(isLoading, statusColor)
-  }};
-`
-
-const Spinner = styled.div`
-  animation: ${rotate} 1s ease-in-out infinite;
-  height: ${rem(12)};
-  margin: 0 auto;
-  position: absolute;
-  width: ${rem(12)};
+const loading = (color?: string) => css`
+  box-shadow: none !important;
+  color: transparent !important;
+  pointer-events: none;
 
   &::after {
-    background-color: ${({ isOutlined, status = 'default' }: Props) => {
-      const statusColor = statusColors[status]
+    ${loader(color)};
+    ${center(em(16))};
+    position: absolute !important;
+  }
+`
 
-      return isOutlined ? statusColor : readableColor(statusColor, raven, white)
-    }};
-    border-radius: 50%;
-    content: '';
-    height: ${rem(6)};
-    left: 50%;
-    margin-left: ${rem(-3)};
-    position: absolute;
-    top: ${rem(-3)};
-    width: ${rem(6)};
+const outlined = (
+  color: string,
+  colorContrast: string,
+  isLoading?: boolean
+) => css`
+  background-color: transparent ${isLoading && '!important'};
+  border-color: ${color} ${isLoading && '!important'};
+  color: ${color};
+
+  &:hover {
+    background-color: ${color};
+    color: ${colorContrast};
+  }
+
+  &:active {
+    background-color: ${darken(0.025, color)};
+    border-color: transparent;
+    color: ${colorContrast};
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: transparent;
+    border-color: ${color};
+    color: ${color};
+    opacity: ${disabledOpacity};
+  }
+
+  &:focus:not(:active):enabled {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
+  }
+`
+
+const standard = (theme: DefaultTheme, isLoading?: boolean) => css`
+  background-color: ${theme.white} ${isLoading && '!important'};
+  border-color: ${theme.grayLighter} ${isLoading && '!important'};
+  color: ${theme.grayDarker};
+
+  &:hover {
+    border-color: ${theme.linkHoverBorderColor};
+    color: ${theme.linkHoverColor};
+  }
+
+  &:focus {
+    border-color: ${theme.linkFocusBorderColor};
+    color: ${theme.linkFocusColor};
+  }
+
+  &:active {
+    border-color: ${theme.linkActiveBorderColor};
+    color: ${theme.linkActiveColor};
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: ${theme.white};
+    border-color: ${theme.grayLighter};
+    color: ${theme.grayDarker};
+    opacity: ${disabledOpacity};
+  }
+
+  &:focus:not(:active):enabled {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, theme.linkColor)};
+  }
+`
+
+const variation = (
+  color: string,
+  colorContrast: string,
+  isLoading?: boolean
+) => css`
+  background-color: ${color} ${isLoading && '!important'};
+  border-color: transparent;
+  color: ${colorContrast};
+
+  &:hover {
+    background-color: ${darken(0.025, color)};
+  }
+
+  &:active {
+    background-color: ${darken(0.05, color)};
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: ${color};
+    opacity: ${disabledOpacity};
+  }
+
+  &:focus:not(:active):enabled {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
+  }
+`
+
+const Root = styled.button<Props>`
+  ${control};
+  ${unselectable};
+  border-width: 1px;
+  cursor: pointer;
+  justify-content: center;
+  padding: calc(${em(6)} - 1px) ${em(12)};
+  text-align: center;
+  white-space: nowrap;
+
+  ${({ isInverted, isLoading, isOutlined, theme, variant }) => {
+    if (variant) {
+      const color = theme[colors[variant]]
+      const colorContrast = theme[colorContrasts[variant]]
+
+      if (isInverted && isOutlined) {
+        return invertedOutlined(color, colorContrast, isLoading)
+      } else if (isInverted) {
+        return inverted(color, colorContrast, isLoading)
+      } else if (isOutlined) {
+        return outlined(color, colorContrast, isLoading)
+      }
+
+      return variation(color, colorContrast, isLoading)
+    }
+
+    return standard(theme, isLoading)
+  }};
+
+  ${({ isInverted, isLoading, isOutlined, theme, variant }) =>
+    isLoading &&
+    loading(
+      variant &&
+        ((isInverted && !isOutlined) || (!isInverted && isOutlined)
+          ? theme[colors[variant]]
+          : theme[colorContrasts[variant]])
+    )};
+
+  strong {
+    color: inherit;
   }
 `
 
 const Button: React.FunctionComponent<Props> = ({
-  children,
   delay = 200,
+  isDisabled,
   isLoading,
-  isOutlined,
-  status,
   ...props
 }: Props) => {
-  const [isSpinnerVisible, setIsSpinnerVisible] = React.useState(false)
+  const [isLoaderVisible, setIsLoaderVisible] = React.useState(false)
 
   React.useEffect(() => {
     if (isLoading) {
-      const timeout = setTimeout(() => setIsSpinnerVisible(true), delay)
+      const timeout = setTimeout(() => setIsLoaderVisible(true), delay)
 
       return () => clearTimeout(timeout)
     }
 
-    setIsSpinnerVisible(false)
+    setIsLoaderVisible(false)
 
     return undefined
   }, [delay, isLoading])
 
-  return (
-    <Root
-      isLoading={isSpinnerVisible}
-      isOutlined={isOutlined}
-      status={status}
-      {...props}
-    >
-      {isSpinnerVisible && (
-        <Spinner
-          data-testid="spinner"
-          isOutlined={isOutlined}
-          status={status}
-        />
-      )}
-      {children}
-    </Root>
-  )
+  return <Root {...props} isLoading={isLoaderVisible} disabled={isDisabled} />
 }
 
 export default Button

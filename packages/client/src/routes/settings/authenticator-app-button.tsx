@@ -43,7 +43,7 @@ const AuthenticatorAppButton: React.FunctionComponent<Props> = ({
             onClick={() =>
               user.isTwoFactorAuthEnabled ? setIsModalOpen(true) : onClick()
             }
-            status={data && data.response.error ? 'danger' : 'default'}
+            variant={data && data.response.error && 'danger'}
           >
             EDIT
           </Button>
