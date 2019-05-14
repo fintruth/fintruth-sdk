@@ -170,3 +170,49 @@ export const container = (
     width: ${({ theme }) => theme.viewport.extraLarge - 2 * theme.gap}px;
   `)};
 `
+
+const shared = css`
+  word-break: break-word;
+
+  &:not(:last-child) {
+    margin-bottom: ${rem(24)};
+  }
+
+  em,
+  span {
+    font-weight: inherit;
+  }
+
+  sub {
+    font-size: ${em(12)};
+  }
+
+  sup {
+    font-size: ${em(12)};
+  }
+`
+
+export const subtitle = css`
+  ${shared};
+  color: ${({ theme }) => theme.grayDark};
+  font-size: ${rem(20)};
+  font-weight: 400;
+  line-height: 1.25;
+
+  strong {
+    color: ${({ theme }) => theme.grayDarker};
+    font-weight: 600;
+  }
+`
+export const title = css`
+  ${shared};
+  color: ${({ theme }) => theme.grayDarker};
+  font-size: ${rem(32)};
+  font-weight: 600;
+  line-height: 1.125;
+
+  strong {
+    color: inherit;
+    font-weight: inherit;
+  }
+`
