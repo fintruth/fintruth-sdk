@@ -24,7 +24,7 @@ interface Values {
 }
 
 const Help = styled.p`
-  ${help('danger')};
+  ${({ theme }) => help(theme.danger)};
   margin: 0 0 ${rem(30)};
   width: ${rem(280)};
 `

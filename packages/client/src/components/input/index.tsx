@@ -127,7 +127,7 @@ const BaseInput = styled.input<InputProps>`
 `
 
 const Help = styled.p`
-  ${help('danger')}
+  ${({ theme }) => help(theme.danger)}
 `
 
 const Input: React.FunctionComponent<Props> = ({

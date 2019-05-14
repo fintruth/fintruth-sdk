@@ -9,11 +9,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
     background-color: ${({ theme }) => theme.white};
     box-sizing: border-box;
     font-size: 16px;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
     min-width: 300px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -108,9 +108,9 @@ const GlobalStyle = createGlobalStyle`
 
   code,
   pre {
+    font-family: ${({ theme }) => theme.fontFamilyCode};
     -moz-osx-font-smoothing: auto;
     -webkit-font-smoothing: auto;
-    font-family: ${({ theme }) => theme.fontFamilyCode};
   }
 
   code {
@@ -162,10 +162,10 @@ const GlobalStyle = createGlobalStyle`
   }
 
   pre {
-    -webkit-overflow-scrolling: touch;
     background-color: ${({ theme }) => theme.backgroundColor};
     color: ${({ theme }) => theme.textColor};
     font-size: ${em(14)};
+    -webkit-overflow-scrolling: touch;
     overflow-x: auto;
     padding: ${rem(20)} ${rem(24)};
     white-space: pre;
