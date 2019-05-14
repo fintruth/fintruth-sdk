@@ -1,6 +1,6 @@
 import { Omit } from '@fintruth-sdk/shared'
 import { useField } from 'formik'
-import { em } from 'polished'
+import { em, transparentize } from 'polished'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
@@ -17,8 +17,9 @@ interface Props
 }
 
 const Root = styled.div`
-  align-items: center;
-  display: inline-flex;
+  display: inline-block;
+  line-height: 1.25;
+  position: relative;
 
   & + & {
     margin-left: ${em(8)};
@@ -26,14 +27,15 @@ const Root = styled.div`
 `
 
 const shared = css`
-  border-radius: 100%;
-  height: 20px;
-  width: 20px;
+  border-radius: ${({ theme }) => theme.borderRadiusRounded};
+  height: ${em(20)};
+  width: ${em(20)};
 `
 
 const Input = styled.input`
   ${shared};
   cursor: pointer;
+  font-size: ${em(16)};
   opacity: 0;
   position: absolute;
 
@@ -46,47 +48,54 @@ const Input = styled.input`
 const Toggle = styled.div`
   ${shared};
   align-items: center;
-  border: 2px solid ${({ theme }) => theme.radio.toggleColor};
-  display: flex;
+  border: 2px solid ${({ theme }) => theme.textColor};
+  display: inline-flex;
   justify-content: center;
 
-  ::before {
-    border-radius: 100%;
+  &::before {
+    border-radius: ${({ theme }) => theme.borderRadiusRounded};
     content: '';
-    height: 10px;
-    width: 10px;
+    height: ${em(10)};
+    width: ${em(10)};
 
     input[checked] ~ & {
-      background-color: ${({ theme }) => theme.radio.toggleCheckedColor};
+      background-color: ${({ theme }) => theme.linkColor};
     }
 
     input[checked][disabled] ~ & {
-      background-color: ${({ theme }) => theme.radio.toggleDisabledColor};
+      background-color: ${({ theme }) => theme.textLightColor};
     }
   }
 
+  input:focus ~ &,
+  input:active ~ & {
+    border-color: ${({ theme }) => theme.linkColor};
+    box-shadow: 0 0 0 ${em(2)}
+      ${({ theme }) => transparentize(0.75, theme.linkColor)};
+  }
+
   input[checked] ~ & {
-    border-color: ${({ theme }) => theme.radio.toggleCheckedColor};
+    border-color: ${({ theme }) => theme.linkColor};
   }
 
   input[disabled] ~ & {
-    border-color: ${({ theme }) => theme.radio.toggleDisabledColor};
+    border-color: ${({ theme }) => theme.textLightColor};
+    box-shadow: none;
   }
 `
 
 const Label = styled.label`
   cursor: pointer;
-  display: inline-block;
-  line-height: 1.25;
   margin-left: ${em(4)};
 
-  :hover {
-    color: ${({ theme }) => theme.radio.hoverColor};
+  &:hover,
+  input:hover ~ & {
+    color: ${({ theme }) => theme.grayDarker};
   }
 
   input[disabled] ~ &,
   fieldset[disabled] & {
-    color: ${({ theme }) => theme.radio.disabledColor};
+    color: ${({ theme }) => theme.textLightColor};
     cursor: not-allowed;
   }
 `
@@ -100,7 +109,7 @@ const Radio: React.FunctionComponent<Props> = ({
   value,
   ...props
 }: Props) => {
-  const [{ value: fieldValue, ...field }] = useField(name)
+  const [{ value: fieldValue, ...field }] = useField<string>(name)
 
   return (
     <Root className={className}>

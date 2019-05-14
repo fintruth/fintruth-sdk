@@ -1,19 +1,20 @@
-import React from 'react'
-import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
-import { ApolloConsumer, Mutation } from 'react-apollo'
-import { Form as BaseForm, Formik } from 'formik'
 import { User } from '@fintruth-sdk/shared'
+import { Form as BaseForm, Formik } from 'formik'
+import { rem } from 'polished'
+import React from 'react'
+import { ApolloConsumer, Mutation } from 'react-apollo'
+import styled from 'styled-components'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseNotice from 'components/notice'
 import Input from 'components/input'
+import { help } from 'styles/mixins'
 import {
   SignInTwoFactorAuthMutationData,
   SignInTwoFactorAuthMutationVariables,
   signInTwoFactorAuthMutation,
 } from './graphql'
-import { button, form, notice } from './mixins'
+import { button, form } from './mixins'
 
 interface Props {
   resolveNextView: (user: User) => void
@@ -29,16 +30,18 @@ interface Values {
   token: string
 }
 
-const Notice = styled(BaseNotice)`
-  ${notice}
+const Help = styled.p`
+  ${help('danger')};
+  margin: ${rem(-10)} 0 ${rem(30)};
+  width: ${rem(280)};
 `
 
 const Form = styled(BaseForm)`
-  ${form}
+  ${form};
 `
 
 const Button = styled(BaseButton)`
-  ${button}
+  ${button};
 `
 
 const initialValues = { token: '' }
@@ -54,8 +57,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   signInCredentials,
   ...props
 }: Props) => {
-  const [notice, setNotice] = React.useState<null | string>(null)
-  const [variant, setVariant] = React.useState<NoticeVariant>('success')
+  const [helpContent, setHelpContent] = React.useState<string>()
 
   return (
     <ApolloConsumer>
@@ -72,8 +74,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
             client.resetStore()
 
             if (response.error) {
-              setNotice(response.error.message)
-              setVariant('danger')
+              setHelpContent(response.error.message)
             } else if (response.user) {
               resolveNextView(response.user)
             }
@@ -81,7 +82,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         >
           {(onSubmit, { loading }) => (
             <React.Fragment>
-              {notice && <Notice variant={variant}>{notice}</Notice>}
+              {helpContent && <Help>{helpContent}</Help>}
               <Formik<Values>
                 initialValues={initialValues}
                 onSubmit={variables =>

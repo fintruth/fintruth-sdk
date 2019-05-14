@@ -1,20 +1,25 @@
-import React from 'react'
-import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
-import { ApolloConsumer, Mutation } from 'react-apollo'
-import { Form as BaseForm, Formik } from 'formik'
 import { User } from '@fintruth-sdk/shared'
-import { object, string } from 'yup'
+import { Form as BaseForm, Formik } from 'formik'
+import { rem } from 'polished'
 import { path } from 'ramda'
+import React from 'react'
+import { ApolloConsumer, Mutation } from 'react-apollo'
+import styled, { Color } from 'styled-components' // eslint-disable-line import/named
+import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseInput from 'components/input'
-import BaseNotice from 'components/notice'
+import { help } from 'styles/mixins'
 import {
   UpdateEmailMutationData,
   UpdateEmailMutationVariables,
   updateEmailMutation,
 } from './graphql'
-import { button, field, form, notice } from './mixins'
+import { button, field, form } from './mixins'
+
+interface HelpProps {
+  color: Color
+}
 
 interface Props {
   user: User
@@ -25,20 +30,22 @@ interface Values {
   password: string
 }
 
-const Notice = styled(BaseNotice)`
-  ${notice}
+const Help = styled.p<HelpProps>`
+  ${({ color }) => help(color)};
+  margin: ${rem(-10)} 0 ${rem(30)};
+  width: ${rem(280)};
 `
 
 const Form = styled(BaseForm)`
-  ${form}
+  ${form};
 `
 
 const Input = styled(BaseInput)`
-  ${field}
+  ${field};
 `
 
 const Button = styled(BaseButton)`
-  ${button}
+  ${button};
 `
 
 const validationSchema = object().shape({
@@ -54,8 +61,8 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
   user,
   ...props
 }: Props) => {
-  const [notice, setNotice] = React.useState<null | string>(null)
-  const [variant, setVariant] = React.useState<NoticeVariant>('success')
+  const [helpColor, setHelpColor] = React.useState<Color>('success')
+  const [helpContent, setHelpContent] = React.useState<string>()
 
   return (
     <ApolloConsumer>
@@ -69,11 +76,11 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
             client.resetStore()
 
             if (response.error) {
-              setNotice(response.error.message)
-              setVariant('danger')
+              setHelpColor('danger')
+              setHelpContent(response.error.message)
             } else if (response.user) {
-              setNotice('Your email address was successfully updated')
-              setVariant('success')
+              setHelpColor('success')
+              setHelpContent('Your email address was successfully updated')
             }
           }}
         >
@@ -90,7 +97,7 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
               validationSchema={validationSchema}
             >
               <React.Fragment>
-                {notice && <Notice variant={variant}>{notice}</Notice>}
+                {helpContent && <Help color={helpColor}>{helpContent}</Help>}
                 <Form {...props} id={formId} noValidate>
                   <Input
                     id={`${formId}-newEmail`}

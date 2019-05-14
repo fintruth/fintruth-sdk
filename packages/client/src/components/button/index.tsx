@@ -1,9 +1,11 @@
 import { Omit } from '@fintruth-sdk/shared'
 import { darken, em, transparentize } from 'polished'
 import React from 'react'
-import styled, { ButtonVariant, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { Color, ColorContrast, css } from 'styled-components' // eslint-disable-line import/named
 
 import { center, control, loader, unselectable } from 'styles/mixins'
+
+export type Variant = 'danger' | 'primary'
 
 interface Props
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'> {
@@ -12,25 +14,36 @@ interface Props
   isInverted?: boolean
   isLoading?: boolean
   isOutlined?: boolean
-  variant?: ButtonVariant
+  variant?: Variant
+}
+
+const colors: Record<Variant, Color> = {
+  danger: 'danger',
+  primary: 'primary',
+}
+
+const colorContrasts: Record<Variant, ColorContrast> = {
+  danger: 'dangerContrast',
+  primary: 'primaryContrast',
 }
 
 const Root = styled.button<Props>`
   ${control};
   ${unselectable};
-  border-width: ${({ theme }) => theme.button.borderWidth};
+  border-width: 1px;
   cursor: pointer;
   justify-content: center;
-  padding-bottom: ${({ theme }) => theme.button.paddingVertical};
-  padding-left: ${({ theme }) => theme.button.paddingHorizontal};
-  padding-right: ${({ theme }) => theme.button.paddingHorizontal};
-  padding-top: ${({ theme }) => theme.button.paddingVertical};
+  padding: calc(${em(6)} - 1px) ${em(12)};
   text-align: center;
   white-space: nowrap;
 
   ${({ isInverted, isLoading, isOutlined, theme, variant }) => {
+    const disabledOpacity = 0.5
+    const focusBoxShadowSize = `0 0 0 ${em(2)}`
+
     if (variant) {
-      const { color, colorContrast } = theme.button[variant]
+      const color = theme[colors[variant]]
+      const colorContrast = theme[colorContrasts[variant]]
 
       if (isInverted && isOutlined) {
         return css`
@@ -44,7 +57,7 @@ const Root = styled.button<Props>`
           }
 
           &:focus:not(:active):enabled {
-            box-shadow: ${theme.button.focusBoxShadowSize}
+            box-shadow: ${focusBoxShadowSize}
               ${transparentize(0.75, colorContrast)};
           }
 
@@ -54,10 +67,12 @@ const Root = styled.button<Props>`
             color: ${color};
           }
 
-          &[disabled] {
+          &[disabled],
+          fieldset[disabled] & {
             background-color: transparent;
             border-color: ${colorContrast};
             color: ${colorContrast};
+            opacity: ${disabledOpacity};
           }
         `
       } else if (isInverted) {
@@ -71,17 +86,17 @@ const Root = styled.button<Props>`
           }
 
           &:focus:not(:active):enabled {
-            box-shadow: ${theme.button.focusBoxShadowSize}
-              ${transparentize(0.75, color)};
+            box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
           }
 
           &:active {
             background-color: ${darken(0.05, colorContrast)};
           }
 
-          &[disabled] {
+          &[disabled],
+          fieldset[disabled] & {
             background-color: ${colorContrast};
-            opacity: ${theme.button.disabledOpacity};
+            opacity: ${disabledOpacity};
           }
         `
       } else if (isOutlined) {
@@ -92,13 +107,11 @@ const Root = styled.button<Props>`
 
           &:hover {
             background-color: ${color};
-            border-color: transparent;
             color: ${colorContrast};
           }
 
           &:focus:not(:active):enabled {
-            box-shadow: ${theme.button.focusBoxShadowSize}
-              ${transparentize(0.75, color)};
+            box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
           }
 
           &:active {
@@ -107,11 +120,12 @@ const Root = styled.button<Props>`
             color: ${colorContrast};
           }
 
-          &[disabled] {
+          &[disabled],
+          fieldset[disabled] & {
             background-color: transparent;
             border-color: ${color};
             color: ${color};
-            opacity: ${theme.button.disabledOpacity};
+            opacity: ${disabledOpacity};
           }
         `
       }
@@ -126,53 +140,52 @@ const Root = styled.button<Props>`
         }
 
         &:focus:not(:active):enabled {
-          box-shadow: ${theme.button.focusBoxShadowSize}
-            ${transparentize(0.75, color)};
+          box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
         }
 
         &:active {
           background-color: ${darken(0.05, color)};
         }
 
-        &[disabled] {
+        &[disabled],
+        fieldset[disabled] & {
           background-color: ${color};
-          opacity: ${theme.button.disabledOpacity};
+          opacity: ${disabledOpacity};
         }
       `
     }
 
     return css`
-      background-color: ${theme.button.backgroundColor}
-        ${isLoading && '!important'};
-      border-color: ${theme.button.borderColor} ${isLoading && '!important'};
-      color: ${theme.button.color};
+      background-color: ${theme.white} ${isLoading && '!important'};
+      border-color: ${theme.grayLighter} ${isLoading && '!important'};
+      color: ${theme.grayDarker};
 
       &:hover {
-        border-color: ${theme.button.hoverBorderColor};
-        color: ${theme.button.hoverColor};
+        border-color: ${theme.linkHoverBorderColor};
+        color: ${theme.linkHoverColor};
       }
 
       &:focus {
-        border-color: ${theme.button.focusBorderColor};
-        color: ${theme.button.focusColor};
+        border-color: ${theme.linkFocusBorderColor};
+        color: ${theme.linkFocusColor};
 
         &:not(:active):enabled {
-          box-shadow: ${theme.button.focusBoxShadowSize}
-            ${theme.button.focusBoxShadowColor};
+          box-shadow: ${focusBoxShadowSize}
+            ${transparentize(0.75, theme.linkColor)};
         }
       }
 
       &:active {
-        border-color: ${theme.button.activeBorderColor};
-        color: ${theme.button.activeColor};
+        border-color: ${theme.linkActiveBorderColor};
+        color: ${theme.linkActiveColor};
       }
 
-      &[disabled] {
-        background-color: ${theme.button.disabledBackgroundColor};
-        border-color: ${theme.button.disabledBorderColor};
-        box-shadow: ${theme.button.disabledBoxShadow};
-        color: ${theme.button.disabledColor};
-        opacity: ${theme.button.disabledOpacity};
+      &[disabled],
+      fieldset[disabled] & {
+        background-color: ${theme.white};
+        border-color: ${theme.grayLighter};
+        color: ${theme.grayDarker};
+        opacity: ${disabledOpacity};
       }
     `
   }};
@@ -188,8 +201,8 @@ const Root = styled.button<Props>`
         ${loader(
           variant &&
             ((isInverted && !isOutlined) || (!isInverted && isOutlined)
-              ? theme.button[variant].color
-              : theme.button[variant].colorContrast)
+              ? theme[colors[variant]]
+              : theme[colorContrasts[variant]])
         )};
         ${center(em(16))};
         position: absolute !important;

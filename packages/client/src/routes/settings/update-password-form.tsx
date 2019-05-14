@@ -4,19 +4,23 @@ import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
 import { ApolloConsumer, Mutation } from 'react-apollo'
-import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
+import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseInput from 'components/input'
-import BaseNotice from 'components/notice'
 import { link } from 'styles/deprecated'
+import { help } from 'styles/mixins'
 import {
   UpdatePasswordMutationData,
   UpdatePasswordMutationVariables,
   updatePasswordMutation,
 } from './graphql'
-import { button, field, form, notice } from './mixins'
+import { button, field, form } from './mixins'
+
+interface HelpProps {
+  color: Color
+}
 
 interface Values {
   newPassword: string
@@ -24,16 +28,18 @@ interface Values {
   password: string
 }
 
-const Notice = styled(BaseNotice)`
-  ${notice}
+const Help = styled.p<HelpProps>`
+  ${({ color }) => help(color)};
+  margin: ${rem(-10)} 0 ${rem(30)};
+  width: ${rem(280)};
 `
 
 const Form = styled(BaseForm)`
-  ${form}
+  ${form};
 `
 
 const Input = styled(BaseInput)`
-  ${field}
+  ${field};
 `
 
 const Link = styled(BaseLink)`
@@ -42,7 +48,7 @@ const Link = styled(BaseLink)`
 `
 
 const Button = styled(BaseButton)`
-  ${button}
+  ${button};
 `
 
 const initialValues = { newPassword: '', newPasswordConfirm: '', password: '' }
@@ -64,8 +70,8 @@ const validationSchema = object().shape({
 const formId = 'update-password__Form'
 
 const UpdatePasswordForm: React.FunctionComponent = ({ ...props }) => {
-  const [notice, setNotice] = React.useState<null | string>(null)
-  const [variant, setVariant] = React.useState<NoticeVariant>('success')
+  const [helpColor, setHelpColor] = React.useState<Color>('success')
+  const [helpContent, setHelpContent] = React.useState<string>()
 
   return (
     <ApolloConsumer>
@@ -79,11 +85,11 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...props }) => {
             client.resetStore()
 
             if (response.error) {
-              setNotice(response.error.message)
-              setVariant('danger')
+              setHelpColor('danger')
+              setHelpContent(response.error.message)
             } else {
-              setNotice('Your password was successfully updated')
-              setVariant('success')
+              setHelpColor('success')
+              setHelpContent('Your password was successfully updated')
             }
           }}
         >
@@ -100,7 +106,7 @@ const UpdatePasswordForm: React.FunctionComponent = ({ ...props }) => {
               validationSchema={validationSchema}
             >
               <React.Fragment>
-                {notice && <Notice variant={variant}>{notice}</Notice>}
+                {helpContent && <Help color={helpColor}>{helpContent}</Help>}
                 <Form {...props} id={formId} noValidate>
                   <Input
                     id={`${formId}-password`}

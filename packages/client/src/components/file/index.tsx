@@ -49,8 +49,8 @@ const Label = styled.label`
 
 const shared = css`
   ${control};
-  border-color: ${({ theme }) => theme.file.borderColor};
-  border-radius: ${({ theme }) => theme.file.borderRadius};
+  border-color: ${({ theme }) => theme.borderColor};
+  border-radius: ${({ theme }) => theme.borderRadius};
   font-size: ${em(16)};
   padding-left: ${em(16)};
   padding-right: ${em(16)};
@@ -59,8 +59,8 @@ const shared = css`
 
 const CallToAction = styled.span`
   ${shared};
-  background-color: ${({ theme }) => theme.file.ctaBackgroundColor};
-  color: ${({ theme }) => theme.file.ctaColor};
+  background-color: ${({ theme }) => theme.whiteTer};
+  color: ${({ theme }) => theme.grayDark};
 
   &:not(:only-child) {
     border-bottom-right-radius: 0;
@@ -68,25 +68,23 @@ const CallToAction = styled.span`
   }
 
   &:hover {
-    background-color: ${({ theme }) =>
-      darken(0.025, theme.file.ctaBackgroundColor)};
-    color: ${({ theme }) => theme.file.ctaHoverColor};
+    background-color: ${({ theme }) => darken(0.025, theme.whiteTer)};
+    color: ${({ theme }) => theme.grayDarker};
   }
 
   &:active {
-    background-color: ${({ theme }) =>
-      darken(0.05, theme.file.ctaBackgroundColor)};
-    color: ${({ theme }) => theme.file.ctaActiveColor};
+    background-color: ${({ theme }) => darken(0.05, theme.whiteTer)};
+    color: ${({ theme }) => theme.grayDarker};
   }
 `
 
 const Name = styled.span`
   ${shared};
   border-bottom-left-radius: 0;
-  border-color: ${({ theme }) => theme.file.nameBorderColor};
-  border-style: ${({ theme }) => theme.file.nameBorderStyle};
+  border-color: ${({ theme }) => theme.borderColor};
+  border-style: solid;
   border-top-left-radius: 0;
-  border-width: ${({ theme }) => theme.file.nameBorderWidth};
+  border-width: 1px 1px 1px 0;
   display: block;
   flex-grow: 1;
   overflow: hidden;

@@ -4,14 +4,14 @@ import { waitForElement } from 'react-testing-library'
 import { ThemeProvider } from 'styled-components'
 import userEvent from 'user-event'
 
+import theme from 'styles/theme'
 import { renderWithRouter } from 'utilities/specification'
-import { createTheme } from 'utilities/style'
 import Layout from '.'
 
 test('clicking the logo should navigate to the home route', async () => {
   const { getByAltText, history } = renderWithRouter(
     <MockedProvider>
-      <ThemeProvider theme={createTheme()}>
+      <ThemeProvider theme={theme}>
         <Layout>child</Layout>
       </ThemeProvider>
     </MockedProvider>,

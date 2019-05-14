@@ -1,20 +1,25 @@
-import React from 'react'
-import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
-import { Form as BaseForm, Formik } from 'formik'
-import { Mutation } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
+import { Form as BaseForm, Formik } from 'formik'
+import { rem } from 'polished'
+import React from 'react'
+import { Mutation } from 'react-apollo'
+import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseInput from 'components/input'
-import BaseNotice from 'components/notice'
+import { help } from 'styles/mixins'
 import {
   UpdateProfileMutationData,
   UpdateProfileMutationVariables,
   accountQuery,
   updateProfileMutation,
 } from './graphql'
-import { button, field, form, notice } from './mixins'
+import { button, field, form } from './mixins'
+
+interface HelpProps {
+  color: Color
+}
 
 interface Props {
   user: User
@@ -25,20 +30,22 @@ interface Values {
   lastName: string
 }
 
-const Notice = styled(BaseNotice)`
-  ${notice}
+const Help = styled.p<HelpProps>`
+  ${({ color }) => help(color)};
+  margin: ${rem(-10)} 0 ${rem(30)};
+  width: ${rem(280)};
 `
 
 const Form = styled(BaseForm)`
-  ${form}
+  ${form};
 `
 
 const Input = styled(BaseInput)`
-  ${field}
+  ${field};
 `
 
 const Button = styled(BaseButton)`
-  ${button}
+  ${button};
 `
 
 const validationSchema = object().shape({
@@ -52,19 +59,19 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
   user,
   ...props
 }: Props) => {
-  const [notice, setNotice] = React.useState<null | string>(null)
-  const [variant, setVariant] = React.useState<NoticeVariant>('success')
+  const [helpColor, setHelpColor] = React.useState<Color>('success')
+  const [helpContent, setHelpContent] = React.useState<string>()
 
   return (
     <Mutation<UpdateProfileMutationData, UpdateProfileMutationVariables>
       mutation={updateProfileMutation}
       onCompleted={({ response }) => {
         if (response.error) {
-          setNotice(response.error.message)
-          setVariant('danger')
+          setHelpColor('danger')
+          setHelpContent(response.error.message)
         } else if (response.profile) {
-          setNotice('Your profile information was successfully updated')
-          setVariant('success')
+          setHelpColor('success')
+          setHelpContent('Your profile information was successfully updated')
         }
       }}
       update={(cache, { data = { response: { profile: null } } }) =>
@@ -86,7 +93,7 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
           validationSchema={validationSchema}
         >
           <React.Fragment>
-            {notice && <Notice variant={variant}>{notice}</Notice>}
+            {helpContent && <Help color={helpColor}>{helpContent}</Help>}
             <Form {...props} id={formId} noValidate>
               <Input
                 id={`${formId}-firstName`}

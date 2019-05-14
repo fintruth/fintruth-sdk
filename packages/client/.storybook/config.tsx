@@ -6,14 +6,14 @@ import { withA11y } from '@storybook/addon-a11y'
 import { withKnobs } from '@storybook/addon-knobs'
 
 import GlobalStyle from 'styles/global'
-import { createTheme } from 'utilities/style'
+import theme from 'styles/theme'
 
 const req = require.context('../src', true, /(.*\.)?stories\.tsx$/)
 
 addDecorator(withA11y)
 addDecorator(withKnobs)
 addDecorator(story => (
-  <ThemeProvider theme={createTheme()}>
+  <ThemeProvider theme={theme}>
     <React.Fragment>
       <GlobalStyle />
       {story()}

@@ -2,12 +2,11 @@ import { action } from '@storybook/addon-actions'
 import centered from '@storybook/addon-centered/react'
 import { boolean, number, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
-import { ButtonVariant } from 'styled-components' // eslint-disable-line import/named
 import React from 'react'
 
-import Button from '.'
+import Button, { Variant } from '.'
 
-const options: Record<string, ButtonVariant | ''> = {
+const options: Record<string, Variant | ''> = {
   default: '',
   primary: 'primary',
   danger: 'danger',

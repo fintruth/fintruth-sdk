@@ -1,9 +1,9 @@
-import React from 'react'
-import centered from '@storybook/addon-centered/react'
-import { Formik } from 'formik'
 import { action } from '@storybook/addon-actions'
+import centered from '@storybook/addon-centered/react'
 import { boolean, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
+import { Formik } from 'formik'
+import React from 'react'
 
 import Radio from '.'
 
@@ -16,15 +16,15 @@ storiesOf('Components|Radio ', module)
       <React.Fragment>
         <Radio
           id="f524dabc-13b6-4fa2-b633-2a852b28b39a"
-          isDisabled={boolean('Is Disabled (Radio A)', false, 'Radio A')}
-          label={text('Label (Radio A)', 'Radio A', 'Radio A')}
+          isDisabled={boolean('isDisabled (Radio A)', false, 'Radio A')}
+          label={text('label (Radio A)', 'Radio A', 'Radio A')}
           name="radioGroup"
           value="radio-a"
         />
         <Radio
           id="53394530-d091-4a93-be90-351df19d704c"
-          isDisabled={boolean('Is Disabled (Radio B)', false, 'Radio B')}
-          label={text('Label (Radio B)', 'Radio B', 'Radio B')}
+          isDisabled={boolean('isDisabled (Radio B)', false, 'Radio B')}
+          label={text('label (Radio B)', 'Radio B', 'Radio B')}
           name="radioGroup"
           value="radio-b"
         />
