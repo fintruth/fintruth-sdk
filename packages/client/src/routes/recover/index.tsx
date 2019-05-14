@@ -35,7 +35,7 @@ const Root = styled.div`
 `
 
 const Help = styled.p<HelpProps>`
-  ${({ color }) => help(color)};
+  ${({ color, theme }) => help(theme[color])};
   margin: ${rem(-10)} 0 ${rem(30)};
   width: ${rem(280)};
 `

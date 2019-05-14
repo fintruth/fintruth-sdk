@@ -1,7 +1,5 @@
 import { em, rem } from 'polished'
 import {
-  Color, // eslint-disable-line import/named
-  ColorContrast, // eslint-disable-line import/named
   DefaultTheme, // eslint-disable-line import/named
   FlattenInterpolation, // eslint-disable-line import/named
   ThemedStyledProps, // eslint-disable-line import/named
@@ -77,8 +75,8 @@ export const control = css`
   }
 `
 
-export const help = (color?: Color | ColorContrast) => css`
-  color: ${({ theme }) => (color ? theme[color] : theme.textColor)};
+export const help = (color?: string) => css`
+  color: ${({ theme }) => color || theme.textColor};
   display: block;
   font-size: ${rem(12)};
   margin-top: ${rem(4)};
