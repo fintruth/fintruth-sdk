@@ -1,7 +1,12 @@
 import { Omit } from '@fintruth-sdk/shared'
 import { darken, em, transparentize } from 'polished'
 import React from 'react'
-import styled, { Color, ColorContrast, css } from 'styled-components' // eslint-disable-line import/named
+import styled, {
+  Color, // eslint-disable-line import/named
+  ColorContrast, // eslint-disable-line import/named
+  DefaultTheme, // eslint-disable-line import/named
+  css,
+} from 'styled-components'
 
 import { center, control, loader, unselectable } from 'styles/mixins'
 
@@ -27,6 +32,176 @@ const colorContrasts: Record<Variant, ColorContrast> = {
   primary: 'primaryContrast',
 }
 
+const disabledOpacity = 0.5
+const focusBoxShadowSize = `0 0 0 ${em(2)}`
+
+const inverted = (
+  color: string,
+  colorContrast: string,
+  isLoading?: boolean
+) => css`
+  background-color: ${colorContrast} ${isLoading && '!important'};
+  border-color: transparent;
+  color: ${color};
+
+  &:hover {
+    background-color: ${darken(0.025, colorContrast)};
+  }
+
+  &:active {
+    background-color: ${darken(0.05, colorContrast)};
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: ${colorContrast};
+    opacity: ${disabledOpacity};
+  }
+
+  &:focus:not(:active):enabled {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
+  }
+`
+
+const invertedOutlined = (
+  color: string,
+  colorContrast: string,
+  isLoading?: boolean
+) => css`
+  background-color: transparent ${isLoading && '!important'};
+  border-color: ${colorContrast} ${isLoading && '!important'};
+  color: ${colorContrast};
+
+  &:hover {
+    background-color: ${colorContrast};
+    color: ${color};
+  }
+
+  &:active {
+    background-color: ${darken(0.025, colorContrast)};
+    border-color: transparent;
+    color: ${color};
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: transparent;
+    border-color: ${colorContrast};
+    color: ${colorContrast};
+    opacity: ${disabledOpacity};
+  }
+
+  &:focus:not(:active):enabled {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, colorContrast)};
+  }
+`
+
+const loading = (color?: string) => css`
+  box-shadow: none !important;
+  color: transparent !important;
+  pointer-events: none;
+
+  &::after {
+    ${loader(color)};
+    ${center(em(16))};
+    position: absolute !important;
+  }
+`
+
+const outlined = (
+  color: string,
+  colorContrast: string,
+  isLoading?: boolean
+) => css`
+  background-color: transparent ${isLoading && '!important'};
+  border-color: ${color} ${isLoading && '!important'};
+  color: ${color};
+
+  &:hover {
+    background-color: ${color};
+    color: ${colorContrast};
+  }
+
+  &:active {
+    background-color: ${darken(0.025, color)};
+    border-color: transparent;
+    color: ${colorContrast};
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: transparent;
+    border-color: ${color};
+    color: ${color};
+    opacity: ${disabledOpacity};
+  }
+
+  &:focus:not(:active):enabled {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
+  }
+`
+
+const standard = (theme: DefaultTheme, isLoading?: boolean) => css`
+  background-color: ${theme.white} ${isLoading && '!important'};
+  border-color: ${theme.grayLighter} ${isLoading && '!important'};
+  color: ${theme.grayDarker};
+
+  &:hover {
+    border-color: ${theme.linkHoverBorderColor};
+    color: ${theme.linkHoverColor};
+  }
+
+  &:focus {
+    border-color: ${theme.linkFocusBorderColor};
+    color: ${theme.linkFocusColor};
+  }
+
+  &:active {
+    border-color: ${theme.linkActiveBorderColor};
+    color: ${theme.linkActiveColor};
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: ${theme.white};
+    border-color: ${theme.grayLighter};
+    color: ${theme.grayDarker};
+    opacity: ${disabledOpacity};
+  }
+
+  &:focus:not(:active):enabled {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, theme.linkColor)};
+  }
+`
+
+const variation = (
+  color: string,
+  colorContrast: string,
+  isLoading?: boolean
+) => css`
+  background-color: ${color} ${isLoading && '!important'};
+  border-color: transparent;
+  color: ${colorContrast};
+
+  &:hover {
+    background-color: ${darken(0.025, color)};
+  }
+
+  &:active {
+    background-color: ${darken(0.05, color)};
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: ${color};
+    opacity: ${disabledOpacity};
+  }
+
+  &:focus:not(:active):enabled {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
+  }
+`
+
 const Root = styled.button<Props>`
   ${control};
   ${unselectable};
@@ -38,176 +213,32 @@ const Root = styled.button<Props>`
   white-space: nowrap;
 
   ${({ isInverted, isLoading, isOutlined, theme, variant }) => {
-    const disabledOpacity = 0.5
-    const focusBoxShadowSize = `0 0 0 ${em(2)}`
-
     if (variant) {
       const color = theme[colors[variant]]
       const colorContrast = theme[colorContrasts[variant]]
 
       if (isInverted && isOutlined) {
-        return css`
-          background-color: transparent ${isLoading && '!important'};
-          border-color: ${colorContrast} ${isLoading && '!important'};
-          color: ${colorContrast};
-
-          &:hover {
-            background-color: ${colorContrast};
-            color: ${color};
-          }
-
-          &:focus:not(:active):enabled {
-            box-shadow: ${focusBoxShadowSize}
-              ${transparentize(0.75, colorContrast)};
-          }
-
-          &:active {
-            background-color: ${darken(0.025, colorContrast)};
-            border-color: transparent;
-            color: ${color};
-          }
-
-          &[disabled],
-          fieldset[disabled] & {
-            background-color: transparent;
-            border-color: ${colorContrast};
-            color: ${colorContrast};
-            opacity: ${disabledOpacity};
-          }
-        `
+        return invertedOutlined(color, colorContrast, isLoading)
       } else if (isInverted) {
-        return css`
-          background-color: ${colorContrast} ${isLoading && '!important'};
-          border-color: transparent;
-          color: ${color};
-
-          &:hover {
-            background-color: ${darken(0.025, colorContrast)};
-          }
-
-          &:focus:not(:active):enabled {
-            box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
-          }
-
-          &:active {
-            background-color: ${darken(0.05, colorContrast)};
-          }
-
-          &[disabled],
-          fieldset[disabled] & {
-            background-color: ${colorContrast};
-            opacity: ${disabledOpacity};
-          }
-        `
+        return inverted(color, colorContrast, isLoading)
       } else if (isOutlined) {
-        return css`
-          background-color: transparent ${isLoading && '!important'};
-          border-color: ${color} ${isLoading && '!important'};
-          color: ${color};
-
-          &:hover {
-            background-color: ${color};
-            color: ${colorContrast};
-          }
-
-          &:focus:not(:active):enabled {
-            box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
-          }
-
-          &:active {
-            background-color: ${darken(0.025, color)};
-            border-color: transparent;
-            color: ${colorContrast};
-          }
-
-          &[disabled],
-          fieldset[disabled] & {
-            background-color: transparent;
-            border-color: ${color};
-            color: ${color};
-            opacity: ${disabledOpacity};
-          }
-        `
+        return outlined(color, colorContrast, isLoading)
       }
 
-      return css`
-        background-color: ${color} ${isLoading && '!important'};
-        border-color: transparent;
-        color: ${colorContrast};
-
-        &:hover {
-          background-color: ${darken(0.025, color)};
-        }
-
-        &:focus:not(:active):enabled {
-          box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
-        }
-
-        &:active {
-          background-color: ${darken(0.05, color)};
-        }
-
-        &[disabled],
-        fieldset[disabled] & {
-          background-color: ${color};
-          opacity: ${disabledOpacity};
-        }
-      `
+      return variation(color, colorContrast, isLoading)
     }
 
-    return css`
-      background-color: ${theme.white} ${isLoading && '!important'};
-      border-color: ${theme.grayLighter} ${isLoading && '!important'};
-      color: ${theme.grayDarker};
-
-      &:hover {
-        border-color: ${theme.linkHoverBorderColor};
-        color: ${theme.linkHoverColor};
-      }
-
-      &:focus {
-        border-color: ${theme.linkFocusBorderColor};
-        color: ${theme.linkFocusColor};
-
-        &:not(:active):enabled {
-          box-shadow: ${focusBoxShadowSize}
-            ${transparentize(0.75, theme.linkColor)};
-        }
-      }
-
-      &:active {
-        border-color: ${theme.linkActiveBorderColor};
-        color: ${theme.linkActiveColor};
-      }
-
-      &[disabled],
-      fieldset[disabled] & {
-        background-color: ${theme.white};
-        border-color: ${theme.grayLighter};
-        color: ${theme.grayDarker};
-        opacity: ${disabledOpacity};
-      }
-    `
+    return standard(theme, isLoading)
   }};
 
   ${({ isInverted, isLoading, isOutlined, theme, variant }) =>
     isLoading &&
-    css`
-      box-shadow: none !important;
-      color: transparent !important;
-      pointer-events: none;
-
-      &::after {
-        ${loader(
-          variant &&
-            ((isInverted && !isOutlined) || (!isInverted && isOutlined)
-              ? theme[colors[variant]]
-              : theme[colorContrasts[variant]])
-        )};
-        ${center(em(16))};
-        position: absolute !important;
-      }
-    `}
+    loading(
+      variant &&
+        ((isInverted && !isOutlined) || (!isInverted && isOutlined)
+          ? theme[colors[variant]]
+          : theme[colorContrasts[variant]])
+    )};
 
   strong {
     color: inherit;

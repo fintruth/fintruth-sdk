@@ -2,7 +2,7 @@ import { Omit } from '@fintruth-sdk/shared'
 import { useField } from 'formik'
 import { em, rem, transparentize } from 'polished'
 import React from 'react'
-import styled, { Color, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { Color, DefaultTheme, css } from 'styled-components' // eslint-disable-line import/named
 
 import BaseLabel from 'components/label'
 import { control, help, loader } from 'styles/mixins'
@@ -36,6 +36,41 @@ const colors: Record<Variant, Color> = {
   danger: 'danger',
 }
 
+const focusBoxShadowSize = `0 0 0 ${em(2)}`
+
+const loading = css`
+  &::after {
+    ${loader()};
+    position: absolute !important;
+    right: ${em(10)};
+    top: ${em(10)};
+    z-index: 4;
+  }
+`
+
+const standard = (theme: DefaultTheme) => css`
+  border-color: ${theme.grayLighter};
+
+  &:hover {
+    border-color: ${({ theme }) => theme.grayLight};
+  }
+
+  &:focus,
+  &:active {
+    border-color: ${({ theme }) => theme.linkColor};
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, theme.linkColor)};
+  }
+`
+
+const variation = (color: string) => css`
+  border-color: ${color};
+
+  &:focus,
+  &:active {
+    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
+  }
+`
+
 const Root = styled.div`
   &:not(:last-child) {
     margin-bottom: ${rem(12)};
@@ -54,17 +89,7 @@ const Control = styled.div<ControlProps>`
   position: relative;
   text-align: left;
 
-  ${({ isLoading }) =>
-    isLoading &&
-    css`
-      &::after {
-        ${loader()};
-        position: absolute !important;
-        right: ${em(10)};
-        top: ${em(10)};
-        z-index: 4;
-      }
-    `}
+  ${({ isLoading }) => isLoading && loading};
 `
 
 const BaseInput = styled.input<InputProps>`
@@ -77,37 +102,8 @@ const BaseInput = styled.input<InputProps>`
   max-width: 100%;
   width: 100%;
 
-  ${({ theme, variant }) => {
-    const focusBoxShadowSize = `0 0 0 ${em(2)}`
-
-    if (variant) {
-      const color = theme[colors[variant]]
-
-      return css`
-        border-color: ${color};
-
-        &:focus,
-        &:active {
-          box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, color)};
-        }
-      `
-    }
-
-    return css`
-      border-color: ${theme.grayLighter};
-
-      &:hover {
-        border-color: ${({ theme }) => theme.grayLight};
-      }
-
-      &:focus,
-      &:active {
-        border-color: ${({ theme }) => theme.linkColor};
-        box-shadow: ${focusBoxShadowSize}
-          ${transparentize(0.75, theme.linkColor)};
-      }
-    `
-  }}
+  ${({ theme, variant }) =>
+    variant ? variation(theme[colors[variant]]) : standard(theme)};
 
   &::placeholder {
     color: ${({ theme }) => transparentize(0.7, theme.grayDarker)};
@@ -127,7 +123,7 @@ const BaseInput = styled.input<InputProps>`
 `
 
 const Help = styled.p`
-  ${help('danger')}
+  ${help('danger')};
 `
 
 const Input: React.FunctionComponent<Props> = ({
