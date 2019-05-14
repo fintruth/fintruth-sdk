@@ -2,12 +2,12 @@ import React from 'react'
 import { render } from 'react-testing-library'
 import { ThemeProvider } from 'styled-components'
 
-import { createTheme } from 'utilities/style'
+import theme from 'styles/theme'
 import Button from '.'
 
 test('should render correctly', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button>child</Button>
     </ThemeProvider>
   )
@@ -17,7 +17,7 @@ test('should render correctly', () => {
 
 test('should render correctly when inverted', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button isInverted>child</Button>
     </ThemeProvider>
   )
@@ -27,7 +27,7 @@ test('should render correctly when inverted', () => {
 
 test('should render correctly when outlined', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button isOutlined>child</Button>
     </ThemeProvider>
   )
@@ -37,7 +37,7 @@ test('should render correctly when outlined', () => {
 
 test('should render correctly when inverted and outlined', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button isInverted isOutlined>
         child
       </Button>
@@ -49,7 +49,7 @@ test('should render correctly when inverted and outlined', () => {
 
 test('should render the primary variant correctly', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button variant="primary">child</Button>
     </ThemeProvider>
   )
@@ -59,7 +59,7 @@ test('should render the primary variant correctly', () => {
 
 test('should render the primary variant correctly when inverted', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button isInverted variant="primary">
         child
       </Button>
@@ -71,7 +71,7 @@ test('should render the primary variant correctly when inverted', () => {
 
 test('should render the primary variant correctly when outlined', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button isOutlined variant="primary">
         child
       </Button>
@@ -83,7 +83,7 @@ test('should render the primary variant correctly when outlined', () => {
 
 test('should render the primary variant correctly when inverted and outlined', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button isInverted isOutlined variant="primary">
         child
       </Button>
@@ -95,7 +95,7 @@ test('should render the primary variant correctly when inverted and outlined', (
 
 test('should render the danger variant correctly', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button variant="danger">child</Button>
     </ThemeProvider>
   )
@@ -105,7 +105,7 @@ test('should render the danger variant correctly', () => {
 
 test('should render the danger variant correctly when inverted', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button isInverted variant="danger">
         child
       </Button>
@@ -117,7 +117,7 @@ test('should render the danger variant correctly when inverted', () => {
 
 test('should render the danger variant correctly when outlined', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button isOutlined variant="danger">
         child
       </Button>
@@ -129,7 +129,7 @@ test('should render the danger variant correctly when outlined', () => {
 
 test('should render the danger variant correctly when inverted and outlined', () => {
   const { container } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Button isInverted isOutlined variant="danger">
         child
       </Button>

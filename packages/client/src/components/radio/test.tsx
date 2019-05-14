@@ -1,15 +1,15 @@
-import React from 'react'
-import userEvent from 'user-event'
 import { Formik } from 'formik'
-import { ThemeProvider } from 'styled-components'
+import React from 'react'
 import { render } from 'react-testing-library'
+import { ThemeProvider } from 'styled-components'
+import userEvent from 'user-event'
 
-import { createTheme } from 'utilities/style'
+import theme from 'styles/theme'
 import Radio from '.'
 
 test('should render the provided label correctly', () => {
   const { getByLabelText } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Formik initialValues={{ radio: 'radio' }} onSubmit={() => {}}>
         <Radio
           id="d3e57c46-66a7-4e4a-9d15-3e6f4e57ff83"
@@ -27,7 +27,7 @@ test('should render the provided label correctly', () => {
 
 test('should only allow one radio button to be checked at a time', () => {
   const { getByLabelText } = render(
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Formik initialValues={{ radioGroup: 'radio-a' }} onSubmit={() => {}}>
         <React.Fragment>
           <Radio

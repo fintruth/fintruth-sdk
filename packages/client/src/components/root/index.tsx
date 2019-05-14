@@ -1,11 +1,11 @@
-import React from 'react'
 import loadable from '@loadable/component'
-import { Query } from 'react-apollo'
 import { Router } from '@reach/router'
+import React from 'react'
+import { Query } from 'react-apollo'
 import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from 'styles/global'
-import { createTheme } from 'utilities/style'
+import theme from 'styles/theme'
 import { renderLoadingIf } from 'utilities/loading'
 import { RootQueryData, rootQuery } from './graphql'
 
@@ -45,7 +45,7 @@ const Root: React.FunctionComponent = () => {
       >
         {({ data = {}, loading }) =>
           renderLoadingIf(loading, () => (
-            <ThemeProvider theme={createTheme()}>
+            <ThemeProvider theme={theme}>
               <React.Fragment>
                 <GlobalStyle />
                 <Router>

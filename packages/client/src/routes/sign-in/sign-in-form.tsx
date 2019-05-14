@@ -5,21 +5,21 @@ import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
 import { ApolloConsumer, Mutation } from 'react-apollo'
-import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
+import styled from 'styled-components'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseNotice from 'components/notice'
-import BaseSubnavbar from 'components/subnavbar'
 import Input from 'components/input'
+import BaseSubnavbar from 'components/subnavbar'
 import { link } from 'styles/deprecated'
-import { SignInCredentials } from './sign-in-two-factor-auth-form'
+import { help } from 'styles/mixins'
 import {
   SignInMutationData,
   SignInMutationVariables,
   signInMutation,
 } from './graphql'
-import { button, form, notice } from './mixins'
+import { button, form } from './mixins'
+import { SignInCredentials } from './sign-in-two-factor-auth-form'
 
 interface Props {
   resolveNextView: (user: User) => void
@@ -36,12 +36,14 @@ const Subnavbar = styled(BaseSubnavbar)`
   width: ${rem(280)};
 `
 
-const Notice = styled(BaseNotice)`
-  ${notice}
+const Help = styled.p`
+  ${({ theme }) => help(theme.danger)};
+  margin: ${rem(-10)} 0 ${rem(30)};
+  width: ${rem(280)};
 `
 
 const Form = styled(BaseForm)`
-  ${form}
+  ${form};
 `
 
 const Link = styled(BaseLink)`
@@ -50,7 +52,7 @@ const Link = styled(BaseLink)`
 `
 
 const Button = styled(BaseButton)`
-  ${button}
+  ${button};
 `
 
 const initialValues = { email: '', password: '' }
@@ -74,8 +76,7 @@ const SignInForm: React.FunctionComponent<Props> = ({
   setSignInCredentials,
   ...props
 }: Props) => {
-  const [notice, setNotice] = React.useState<null | string>(null)
-  const [variant, setVariant] = React.useState<NoticeVariant>('success')
+  const [helpContent, setHelpContent] = React.useState<string>()
 
   return (
     <ApolloConsumer>
@@ -89,8 +90,7 @@ const SignInForm: React.FunctionComponent<Props> = ({
             client.resetStore()
 
             if (response.error) {
-              setNotice(response.error.message)
-              setVariant('danger')
+              setHelpContent(response.error.message)
             } else if (response.user) {
               resolveNextView(response.user)
             }
@@ -99,7 +99,7 @@ const SignInForm: React.FunctionComponent<Props> = ({
           {(onSubmit, { loading }) => (
             <React.Fragment>
               <Subnavbar items={items} />
-              {notice && <Notice variant={variant}>{notice}</Notice>}
+              {helpContent && <Help>{helpContent}</Help>}
               <Formik<Values>
                 initialValues={initialValues}
                 onSubmit={variables =>

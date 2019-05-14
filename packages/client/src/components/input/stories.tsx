@@ -1,13 +1,15 @@
-import React from 'react'
-import centered from '@storybook/addon-centered/react'
-import { Formik } from 'formik'
 import { action } from '@storybook/addon-actions'
-import { boolean, text } from '@storybook/addon-knobs'
+import centered from '@storybook/addon-centered/react'
+import { boolean, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
+import { Formik } from 'formik'
+import React from 'react'
 
-import Input from '.'
+import Input, { Type } from '.'
 
 const initialValues = { input: '' }
+
+const options: Type[] = ['email', 'password', 'tel', 'text']
 
 storiesOf('Components|Input', module)
   .addDecorator(centered)
@@ -15,11 +17,13 @@ storiesOf('Components|Input', module)
     <Formik initialValues={initialValues} onSubmit={action('On Submit')}>
       <Input
         id="8a3cd8cd-4375-4c2c-b54e-fdbc796a33c5"
-        isDisabled={boolean('Is Disabled', false)}
-        isRequired={boolean('Is Required', true)}
-        label={text('Label', 'Label')}
+        isDisabled={boolean('isDisabled', false)}
+        isLoading={boolean('isLoading', false)}
+        isRequired={boolean('isRequired', true)}
+        label={text('label', 'Label')}
         name="input"
-        placeholder={text('Placeholder', 'Placeholder')}
+        placeholder={text('placeholder', 'Placeholder')}
+        type={select('type', options, 'text')}
       />
     </Formik>
   ))

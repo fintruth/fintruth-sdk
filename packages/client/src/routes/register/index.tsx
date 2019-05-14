@@ -4,19 +4,23 @@ import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
 import { Mutation } from 'react-apollo'
-import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
+import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseNotice from 'components/notice'
-import BaseSubnavbar from 'components/subnavbar'
 import Input from 'components/input'
+import BaseSubnavbar from 'components/subnavbar'
 import { centered } from 'styles/deprecated'
+import { help } from 'styles/mixins'
 import {
   RegisterMutationData,
   RegisterMutationVariables,
   registerMutation,
 } from './graphql'
+
+interface HelpProps {
+  color: Color
+}
 
 interface Values {
   email: string
@@ -37,7 +41,8 @@ const Subnavbar = styled(BaseSubnavbar)`
   width: ${rem(280)};
 `
 
-const Notice = styled(BaseNotice)`
+const Help = styled.p<HelpProps>`
+  ${({ color, theme }) => help(theme[color])};
   margin: ${rem(-10)} 0 ${rem(30)};
   width: ${rem(280)};
 `
@@ -85,26 +90,26 @@ const formId = 'register__Form'
 const Register: React.FunctionComponent<RouteComponentProps> = ({
   ...props
 }: RouteComponentProps) => {
-  const [notice, setNotice] = React.useState<null | string>(null)
-  const [variant, setVariant] = React.useState<NoticeVariant>('success')
+  const [helpColor, setHelpColor] = React.useState<Color>('success')
+  const [helpContent, setHelpContent] = React.useState<string>()
 
   return (
     <Mutation<RegisterMutationData, RegisterMutationVariables>
       mutation={registerMutation}
       onCompleted={({ response }) => {
         if (response.error) {
-          setNotice(response.error.message)
-          setVariant('danger')
+          setHelpColor('danger')
+          setHelpContent(response.error.message)
         } else {
-          setNotice('A verification email has been sent')
-          setVariant('success')
+          setHelpColor('success')
+          setHelpContent('A verification email has been sent')
         }
       }}
     >
       {(onSubmit, { loading }) => (
         <Root data-testid="register" {...props}>
           <Subnavbar items={items} />
-          {notice && <Notice variant={variant}>{notice}</Notice>}
+          {helpContent && <Help color={helpColor}>{helpContent}</Help>}
           <Formik<Values>
             initialValues={initialValues}
             onSubmit={(input, { resetForm }) =>

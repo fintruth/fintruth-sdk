@@ -1,21 +1,21 @@
-import React from 'react'
-import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
-import { Form as BaseForm, Formik } from 'formik'
-import { Mutation } from 'react-apollo'
 import { User } from '@fintruth-sdk/shared'
-import { object, string } from 'yup'
+import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
+import React from 'react'
+import { Mutation } from 'react-apollo'
+import styled from 'styled-components'
+import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseInput from 'components/input'
-import BaseNotice from 'components/notice'
+import { help } from 'styles/mixins'
 import {
   DisableTwoFactorAuthMutationData,
   DisableTwoFactorAuthMutationVariables,
   accountQuery,
   disableTwoFactorAuthMutation,
 } from './graphql'
-import { button, field, form, notice } from './mixins'
+import { button, field, form } from './mixins'
 
 interface Props {
   onCompleted?: () => void
@@ -26,9 +26,10 @@ interface Values {
   token: string
 }
 
-const Notice = styled(BaseNotice)`
-  ${notice}
+const Help = styled.p`
+  ${({ theme }) => help(theme.danger)};
   margin: 0 0 ${rem(30)};
+  width: ${rem(280)};
 `
 
 const Form = styled(BaseForm)`
@@ -58,8 +59,7 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   user,
   ...props
 }: Props) => {
-  const [notice, setNotice] = React.useState<null | string>(null)
-  const [variant, setVariant] = React.useState<NoticeVariant>('success')
+  const [helpContent, setHelpContent] = React.useState<string>()
 
   return (
     <Mutation<
@@ -69,8 +69,7 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
       mutation={disableTwoFactorAuthMutation}
       onCompleted={({ response }) => {
         if (response.error) {
-          setNotice(response.error.message)
-          setVariant('danger')
+          setHelpContent(response.error.message)
         } else if (onCompleted) {
           onCompleted()
         }
@@ -91,7 +90,7 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
           validationSchema={validationSchema}
         >
           <React.Fragment>
-            {notice && <Notice variant={variant}>{notice}</Notice>}
+            {helpContent && <Help>{helpContent}</Help>}
             <Form {...props} id={formId} noValidate>
               <Input
                 id={`${formId}-token`}

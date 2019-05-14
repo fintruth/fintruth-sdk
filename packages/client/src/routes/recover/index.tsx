@@ -4,13 +4,13 @@ import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
 import { Mutation, Query } from 'react-apollo'
-import styled, { NoticeVariant } from 'styled-components' // eslint-disable-line import/named
+import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseNotice from 'components/notice'
 import Input from 'components/input'
 import { centered, link } from 'styles/deprecated'
+import { help } from 'styles/mixins'
 import { renderLoadingIf } from 'utilities/loading'
 import {
   RecoverMutationData,
@@ -19,6 +19,10 @@ import {
   recoverMutation,
   recoverQuery,
 } from './graphql'
+
+interface HelpProps {
+  color: Color
+}
 
 interface Values {
   email: string
@@ -30,7 +34,8 @@ const Root = styled.div`
   min-height: 100vh;
 `
 
-const Notice = styled(BaseNotice)`
+const Help = styled.p<HelpProps>`
+  ${({ color, theme }) => help(theme[color])};
   margin: ${rem(-10)} 0 ${rem(30)};
   width: ${rem(280)};
 `
@@ -66,8 +71,8 @@ const formId = 'recover__Form'
 const Recover: React.FunctionComponent<RouteComponentProps> = ({
   ...props
 }: RouteComponentProps) => {
-  const [notice, setNotice] = React.useState<null | string>(null)
-  const [variant, setVariant] = React.useState<NoticeVariant>('success')
+  const [helpColor, setHelpColor] = React.useState<Color>('success')
+  const [helpContent, setHelpContent] = React.useState<string>()
 
   return (
     <Root data-testid="recover" {...props}>
@@ -77,18 +82,18 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
             mutation={recoverMutation}
             onCompleted={({ response }) => {
               if (response.error) {
-                setNotice(response.error.message)
-                setVariant('danger')
+                setHelpColor('danger')
+                setHelpContent(response.error.message)
               } else {
-                setNotice('A verification email has been sent')
-                setVariant('success')
+                setHelpColor('success')
+                setHelpContent('A verification email has been sent')
               }
             }}
           >
             {(onSubmit, result) =>
               renderLoadingIf(loading, () => (
                 <React.Fragment>
-                  {notice && <Notice variant={variant}>{notice}</Notice>}
+                  {helpContent && <Help color={helpColor}>{helpContent}</Help>}
                   <Formik<Values>
                     initialValues={{ email: data.user ? data.user.email : '' }}
                     onSubmit={(variables, { resetForm }) =>
