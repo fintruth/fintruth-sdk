@@ -9,12 +9,14 @@ import BaseFile from '.'
 test('should render the provided label correctly', () => {
   const { getByLabelText } = render(
     <ThemeProvider theme={theme}>
-      <BaseFile
-        id="c32b07ef-9c08-487d-9b2e-6f475496e050"
-        data-testid="file"
-        label="label"
-        name="file"
-      />
+      <Formik initialValues={{ file: '' }} onSubmit={() => {}}>
+        <BaseFile
+          id="c32b07ef-9c08-487d-9b2e-6f475496e050"
+          data-testid="file"
+          label="label"
+          name="file"
+        />
+      </Formik>
     </ThemeProvider>
   )
 
@@ -24,7 +26,7 @@ test('should render the provided label correctly', () => {
 test('should render the uploaded file name correctly after a file is uploaded', () => {
   const { getByLabelText, getByText, queryByText } = render(
     <ThemeProvider theme={theme}>
-      <Formik initialValues={{ file: '' }} onSubmit={() => {}}>
+      <Formik initialValues={{ file: 'logo.jpg' }} onSubmit={() => {}}>
         <BaseFile
           id="cc166607-b4cf-4a53-b9f8-75b828535f6b"
           label="label"
@@ -39,7 +41,7 @@ test('should render the uploaded file name correctly after a file is uploaded', 
     value: [new File(['logo'], 'logo.png', { type: 'image/png' })],
   })
 
-  expect(queryByText('logo.png')).not.toBeInTheDocument()
+  expect(queryByText('logo.jpg')).toBeInTheDocument()
 
   fireEvent.change(input)
 
