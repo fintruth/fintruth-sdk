@@ -10,6 +10,7 @@ import { control, unselectable } from 'styles/mixins'
 
 interface Props
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value'> {
+  filename?: string
   id: string
   label?: string
   name: string
@@ -94,20 +95,22 @@ const Name = styled.span`
 
 const File: React.FunctionComponent<Props> = ({
   className,
+  filename,
   id,
   label = 'Choose File',
   name,
   ...props
 }: Props) => {
-  const [value, setValue] = React.useState<File | null>(null)
+  const [value, setValue] = React.useState<string | undefined>(filename)
   const { setFieldValue } = useFormikContext()
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const file = path<File>(['files', 0], target)
 
-    setFieldValue(name as never, file || '')
-
-    return file ? setValue(file) : undefined
+    if (file) {
+      setFieldValue(name as never, file)
+      setValue(file.name)
+    }
   }
 
   return (
@@ -123,7 +126,7 @@ const File: React.FunctionComponent<Props> = ({
         <FileUpload />
         <Label htmlFor={id}>{label}</Label>
       </CallToAction>
-      {value && <Name>{value.name}</Name>}
+      {value && <Name>{value}</Name>}
     </Root>
   )
 }
