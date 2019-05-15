@@ -1,12 +1,12 @@
 import { Omit } from '@fintruth-sdk/shared'
-import { useFormikContext } from 'formik'
-import { darken, em } from 'polished'
-import { path } from 'ramda'
+import { useField, useFormikContext } from 'formik'
+import { darken, em, rem } from 'polished'
+import { path, pathOr } from 'ramda'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
 import BaseFileUpload from 'assets/file-upload.svg'
-import { control, unselectable } from 'styles/mixins'
+import { control, help, unselectable } from 'styles/mixins'
 
 interface Props
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value'> {
@@ -16,6 +16,14 @@ interface Props
 }
 
 const Root = styled.div`
+  box-sizing: border-box;
+  clear: both;
+  font-size: ${rem(16)};
+  position: relative;
+  text-align: left;
+`
+
+const Container = styled.div`
   ${unselectable};
   align-items: stretch;
   display: flex;
@@ -92,6 +100,10 @@ const Name = styled.span`
   text-overflow: ellipsis;
 `
 
+const Help = styled.p`
+  ${({ theme }) => help(theme.danger)};
+`
+
 const File: React.FunctionComponent<Props> = ({
   className,
   id,
@@ -99,31 +111,34 @@ const File: React.FunctionComponent<Props> = ({
   name,
   ...props
 }: Props) => {
-  const [value, setValue] = React.useState<File | null>(null)
+  const [{ value, ...field }, { error, touched }] = useField<File | string>(
+    name
+  )
   const { setFieldValue } = useFormikContext()
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const file = path<File>(['files', 0], target)
 
-    setFieldValue(name as never, file || '')
-
-    return file ? setValue(file) : undefined
+    return file && setFieldValue(name as never, file)
   }
 
   return (
     <Root className={className}>
-      <CallToAction>
-        <Input
-          id={id}
-          name={name}
-          onChange={handleChange}
-          {...props}
-          type="file"
-        />
-        <FileUpload />
-        <Label htmlFor={id}>{label}</Label>
-      </CallToAction>
-      {value && <Name>{value.name}</Name>}
+      <Container>
+        <CallToAction>
+          <Input
+            {...field}
+            id={id}
+            onChange={handleChange}
+            {...props}
+            type="file"
+          />
+          <FileUpload />
+          <Label htmlFor={id}>{label}</Label>
+        </CallToAction>
+        {value && <Name>{pathOr(value, ['name'], value)}</Name>}
+      </Container>
+      {error && touched && <Help>{error}</Help>}
     </Root>
   )
 }
