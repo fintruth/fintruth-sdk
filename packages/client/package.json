@@ -50,7 +50,7 @@
     "core-js": "^3.0.1",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "formik": "^2.0.1-alpha.2",
+    "formik": "^2.0.1-alpha.51",
     "graphql": "^14.3.0",
     "history": "^4.9.0",
     "node-fetch": "^2.6.0",
