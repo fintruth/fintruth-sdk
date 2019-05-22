@@ -27,6 +27,7 @@ export const createInMemoryCache = () =>
           return defaultDataIdFromObject(obj)
       }
     },
+    freezeResults: true,
   })
 
 export const createSanitizeLink = () =>

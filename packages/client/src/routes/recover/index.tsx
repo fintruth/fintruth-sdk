@@ -100,7 +100,7 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
                       onSubmit({ variables }).then(value =>
                         path(['data', 'response', 'error'], value)
                           ? undefined
-                          : resetForm({ email: '' })
+                          : resetForm({ values: { email: '' } } as any)
                       )
                     }
                     validationSchema={validationSchema}

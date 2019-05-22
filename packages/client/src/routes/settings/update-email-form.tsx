@@ -3,7 +3,7 @@ import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
-import { ApolloConsumer, Mutation } from 'react-apollo'
+import { ApolloContext, Mutation } from 'react-apollo'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 import { object, string } from 'yup'
 
@@ -63,73 +63,72 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
 }: Props) => {
   const [helpColor, setHelpColor] = React.useState<Color>('success')
   const [helpContent, setHelpContent] = React.useState<string>()
+  const { client } = React.useContext(ApolloContext as any)
 
   return (
-    <ApolloConsumer>
-      {client => (
-        <Mutation<UpdateEmailMutationData, UpdateEmailMutationVariables>
-          mutation={updateEmailMutation}
-          onCompleted={({ response }) => {
-            // NOTE: Due to the inability to invalidate Apollo's cache the
-            // entire store needs to be reset in order to prevent storing
-            // private data
-            client.resetStore()
+    <Mutation<UpdateEmailMutationData, UpdateEmailMutationVariables>
+      mutation={updateEmailMutation}
+      onCompleted={({ response }) => {
+        // NOTE: Due to the inability to invalidate Apollo's cache the
+        // entire store needs to be reset in order to prevent storing
+        // private data
+        client.resetStore()
 
-            if (response.error) {
-              setHelpColor('danger')
-              setHelpContent(response.error.message)
-            } else if (response.user) {
-              setHelpColor('success')
-              setHelpContent('Your email address was successfully updated')
-            }
-          }}
+        if (response.error) {
+          setHelpColor('danger')
+          setHelpContent(response.error.message)
+        } else if (response.user) {
+          setHelpColor('success')
+          setHelpContent('Your email address was successfully updated')
+        }
+      }}
+    >
+      {(onSubmit, { loading }) => (
+        <Formik<Values>
+          initialValues={{ newEmail: user.email, password: '' }}
+          onSubmit={(variables, { resetForm }) =>
+            onSubmit({ variables }).then(value =>
+              path(['data', 'response', 'error'], value)
+                ? undefined
+                : resetForm({
+                    values: { ...variables, password: '' },
+                  } as any)
+            )
+          }
+          validationSchema={validationSchema}
         >
-          {(onSubmit, { loading }) => (
-            <Formik<Values>
-              initialValues={{ newEmail: user.email, password: '' }}
-              onSubmit={(variables, { resetForm }) =>
-                onSubmit({ variables }).then(value =>
-                  path(['data', 'response', 'error'], value)
-                    ? undefined
-                    : resetForm({ ...variables, password: '' })
-                )
-              }
-              validationSchema={validationSchema}
-            >
-              <React.Fragment>
-                {helpContent && <Help color={helpColor}>{helpContent}</Help>}
-                <Form {...props} id={formId} noValidate>
-                  <Input
-                    id={`${formId}-newEmail`}
-                    autoComplete="off"
-                    form={formId}
-                    name="newEmail"
-                    placeholder="Email"
-                    type="email"
-                  />
-                  <Input
-                    id={`${formId}-password`}
-                    autoComplete="off"
-                    form={formId}
-                    name="password"
-                    placeholder="Password"
-                    type="password"
-                  />
-                  <Button
-                    form={formId}
-                    isLoading={loading}
-                    type="submit"
-                    variant="primary"
-                  >
-                    UPDATE
-                  </Button>
-                </Form>
-              </React.Fragment>
-            </Formik>
-          )}
-        </Mutation>
+          <React.Fragment>
+            {helpContent && <Help color={helpColor}>{helpContent}</Help>}
+            <Form {...props} id={formId} noValidate>
+              <Input
+                id={`${formId}-newEmail`}
+                autoComplete="off"
+                form={formId}
+                name="newEmail"
+                placeholder="Email"
+                type="email"
+              />
+              <Input
+                id={`${formId}-password`}
+                autoComplete="off"
+                form={formId}
+                name="password"
+                placeholder="Password"
+                type="password"
+              />
+              <Button
+                form={formId}
+                isLoading={loading}
+                type="submit"
+                variant="primary"
+              >
+                UPDATE
+              </Button>
+            </Form>
+          </React.Fragment>
+        </Formik>
       )}
-    </ApolloConsumer>
+    </Mutation>
   )
 }
 
