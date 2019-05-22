@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseInput from 'components/input'
+import Input from 'components/input'
 import { help } from 'styles/mixins'
 import {
   SignInTwoFactorAuthFormMutationData,
@@ -42,7 +42,7 @@ const Help = styled.p`
   margin: ${rem(-10)} 0 ${rem(30)};
 `
 
-const Input = styled(BaseInput)`
+const LastInput = styled(Input)`
   &:not(:last-child) {
     margin-bottom: ${rem(40)};
   }
@@ -93,7 +93,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
             validationSchema={validationSchema}
           >
             <Form {...props} id={formId} noValidate>
-              <Input
+              <LastInput
                 id={`${formId}-token`}
                 autoComplete="off"
                 form={formId}
