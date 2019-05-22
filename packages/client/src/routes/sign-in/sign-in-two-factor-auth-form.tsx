@@ -1,4 +1,4 @@
-import { User } from '@fintruth-sdk/shared'
+import { Omit, User } from '@fintruth-sdk/shared'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
@@ -15,7 +15,11 @@ import {
   signInTwoFactorAuthFormMutation,
 } from './graphql'
 
-interface Props {
+interface Props
+  extends Omit<
+    React.FormHTMLAttributes<HTMLFormElement>,
+    'onReset' | 'onSubmit'
+  > {
   onCompleted: (user: User) => void
   signInCredentials?: SignInCredentials
 }

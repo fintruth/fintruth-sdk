@@ -1,4 +1,4 @@
-import { User } from '@fintruth-sdk/shared'
+import { Omit, User } from '@fintruth-sdk/shared'
 import { Link as BaseLink } from '@reach/router'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
@@ -18,7 +18,11 @@ import {
 } from './graphql'
 import { SignInCredentials } from './sign-in-two-factor-auth-form'
 
-interface Props {
+interface Props
+  extends Omit<
+    React.FormHTMLAttributes<HTMLFormElement>,
+    'onReset' | 'onSubmit'
+  > {
   onCompleted: (user: User) => void
   setSignInCredentials: (signInCredentials: SignInCredentials) => void
 }
