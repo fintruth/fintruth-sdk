@@ -3,8 +3,6 @@ import { darken, rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
-import { azure, heather, lilia } from 'styles/deprecated'
-
 interface Item {
   id: string
   content: React.ReactNode
@@ -21,10 +19,10 @@ const Root = styled.nav`
 `
 
 const Link = styled(BaseLink)`
-  border-bottom-color: ${lilia};
+  border-bottom-color: ${({ theme }) => theme.grayLighter};
   border-bottom-style: solid;
-  border-bottom-width: ${rem(1)};
-  color: ${heather};
+  border-bottom-width: 1px;
+  color: ${({ theme }) => theme.grayLight};
   flex-grow: 1;
   font-size: ${rem(12)};
   font-weight: 700;
@@ -33,17 +31,17 @@ const Link = styled(BaseLink)`
   white-space: nowrap;
 
   &:hover {
-    color: ${darken(0.05, heather)};
+    color: ${({ theme }) => darken(0.025, theme.grayLight)};
   }
 
   &:active {
-    color: ${darken(0.1, heather)};
+    color: ${({ theme }) => darken(0.05, theme.grayLight)};
   }
 
   &[data-is-current='true'] {
-    border-bottom-color: ${azure};
-    border-bottom-width: ${rem(2)};
-    color: ${azure};
+    border-bottom-color: ${({ theme }) => theme.primary};
+    border-bottom-width: 2px;
+    color: ${({ theme }) => theme.primary};
     padding-bottom: ${rem(11)};
   }
 `
