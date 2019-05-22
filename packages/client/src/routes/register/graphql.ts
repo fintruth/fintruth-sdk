@@ -1,16 +1,16 @@
-import gql from 'graphql-tag'
 import { RegisterInput, Response } from '@fintruth-sdk/shared'
+import gql from 'graphql-tag'
 
-export interface RegisterMutationData {
+export interface RegisterFormMutationData {
   response: Response
 }
 
-export interface RegisterMutationVariables {
+export interface RegisterFormMutationVariables {
   input: RegisterInput
 }
 
-export const registerMutation = gql`
-  mutation RegisterMutation($input: RegisterInput!) {
+export const registerFormMutation = gql`
+  mutation RegisterFormMutation($input: RegisterInput!) {
     response: register(input: $input) {
       error {
         message
