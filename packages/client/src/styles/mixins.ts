@@ -82,6 +82,20 @@ export const help = (color?: string) => css`
   margin-top: ${rem(4)};
 `
 
+export const link = css`
+  color: ${({ theme }) => theme.linkColor};
+  cursor: pointer;
+  text-decoration: none;
+
+  strong {
+    color: currentColor;
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.linkHoverColor};
+  }
+`
+
 export const untilSmall = until('small')
 
 export const small = (content: Content) => css`

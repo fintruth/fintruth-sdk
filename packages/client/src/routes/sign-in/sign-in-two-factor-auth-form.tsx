@@ -1,5 +1,5 @@
 import { User } from '@fintruth-sdk/shared'
-import { Form as BaseForm, Formik } from 'formik'
+import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
 import { ApolloContext, Mutation } from 'react-apollo'
@@ -7,18 +7,17 @@ import styled from 'styled-components'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import Input from 'components/input'
+import BaseInput from 'components/input'
 import { help } from 'styles/mixins'
 import {
-  SignInTwoFactorAuthMutationData,
-  SignInTwoFactorAuthMutationVariables,
-  signInTwoFactorAuthMutation,
+  SignInTwoFactorAuthFormMutationData,
+  SignInTwoFactorAuthFormMutationVariables,
+  signInTwoFactorAuthFormMutation,
 } from './graphql'
-import { button, form } from './mixins'
 
 interface Props {
-  resolveNextView: (user: User) => void
-  signInCredentials: SignInCredentials
+  onCompleted: (user: User) => void
+  signInCredentials?: SignInCredentials
 }
 
 export interface SignInCredentials {
@@ -30,20 +29,6 @@ interface Values {
   token: string
 }
 
-const Help = styled.p`
-  ${({ theme }) => help(theme.danger)};
-  margin: ${rem(-10)} 0 ${rem(30)};
-  width: ${rem(280)};
-`
-
-const Form = styled(BaseForm)`
-  ${form};
-`
-
-const Button = styled(BaseButton)`
-  ${button};
-`
-
 const initialValues = { token: '' }
 
 const validationSchema = object().shape({
@@ -52,9 +37,25 @@ const validationSchema = object().shape({
 
 const formId = 'sign-in-two-factor-auth__Form'
 
+const Help = styled.p`
+  ${({ theme }) => help(theme.danger)};
+  margin: ${rem(-10)} 0 ${rem(30)};
+`
+
+const Input = styled(BaseInput)`
+  &:not(:last-child) {
+    margin-bottom: ${rem(40)};
+  }
+`
+
+const Button = styled(BaseButton)`
+  display: block;
+  margin: 0 auto;
+`
+
 const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
-  resolveNextView,
-  signInCredentials,
+  onCompleted,
+  signInCredentials = { email: '', password: '' },
   ...props
 }: Props) => {
   const [helpContent, setHelpContent] = React.useState<string>()
@@ -62,10 +63,10 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
 
   return (
     <Mutation<
-      SignInTwoFactorAuthMutationData,
-      SignInTwoFactorAuthMutationVariables
+      SignInTwoFactorAuthFormMutationData,
+      SignInTwoFactorAuthFormMutationVariables
     >
-      mutation={signInTwoFactorAuthMutation}
+      mutation={signInTwoFactorAuthFormMutation}
       onCompleted={({ response }) => {
         // NOTE: Due to the inability to invalidate Apollo's cache the
         // entire store needs to be reset in order to prevent storing
@@ -75,7 +76,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         if (response.error) {
           setHelpContent(response.error.message)
         } else if (response.user) {
-          resolveNextView(response.user)
+          onCompleted(response.user)
         }
       }}
     >

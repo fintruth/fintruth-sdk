@@ -1,6 +1,6 @@
 import { User } from '@fintruth-sdk/shared'
 import { Link as BaseLink } from '@reach/router'
-import { Form as BaseForm, Formik } from 'formik'
+import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
@@ -10,19 +10,16 @@ import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import Input from 'components/input'
-import BaseSubnavbar from 'components/subnavbar'
-import { link } from 'styles/deprecated'
-import { help } from 'styles/mixins'
+import { help, link } from 'styles/mixins'
 import {
-  SignInMutationData,
-  SignInMutationVariables,
-  signInMutation,
+  SignInFormMutationData,
+  SignInFormMutationVariables,
+  signInFormMutation,
 } from './graphql'
-import { button, form } from './mixins'
 import { SignInCredentials } from './sign-in-two-factor-auth-form'
 
 interface Props {
-  resolveNextView: (user: User) => void
+  onCompleted: (user: User) => void
   setSignInCredentials: (signInCredentials: SignInCredentials) => void
 }
 
@@ -31,36 +28,7 @@ interface Values {
   password: string
 }
 
-const Subnavbar = styled(BaseSubnavbar)`
-  margin-bottom: ${rem(50)};
-  width: ${rem(280)};
-`
-
-const Help = styled.p`
-  ${({ theme }) => help(theme.danger)};
-  margin: ${rem(-10)} 0 ${rem(30)};
-  width: ${rem(280)};
-`
-
-const Form = styled(BaseForm)`
-  ${form};
-`
-
-const Link = styled(BaseLink)`
-  ${link};
-  margin-top: ${rem(16)};
-`
-
-const Button = styled(BaseButton)`
-  ${button};
-`
-
 const initialValues = { email: '', password: '' }
-
-const items = [
-  { id: 'sign-in', content: 'SIGN IN', to: '/sign-in' },
-  { id: 'register', content: 'REGISTER', to: '/register' },
-]
 
 const validationSchema = object().shape({
   email: string()
@@ -71,8 +39,25 @@ const validationSchema = object().shape({
 
 const formId = 'sign-in__Form'
 
+const Help = styled.p`
+  ${({ theme }) => help(theme.danger)};
+  margin: ${rem(-10)} 0 ${rem(30)};
+`
+
+const Link = styled(BaseLink)`
+  ${link};
+  display: block;
+  font-size: ${rem(12)};
+  margin-bottom: ${rem(40)};
+`
+
+const Button = styled(BaseButton)`
+  display: block;
+  margin: 0 auto;
+`
+
 const SignInForm: React.FunctionComponent<Props> = ({
-  resolveNextView,
+  onCompleted,
   setSignInCredentials,
   ...props
 }: Props) => {
@@ -80,8 +65,8 @@ const SignInForm: React.FunctionComponent<Props> = ({
   const { client } = React.useContext(ApolloContext as any)
 
   return (
-    <Mutation<SignInMutationData, SignInMutationVariables>
-      mutation={signInMutation}
+    <Mutation<SignInFormMutationData, SignInFormMutationVariables>
+      mutation={signInFormMutation}
       onCompleted={({ response }) => {
         // NOTE: Due to the inability to invalidate Apollo's cache the
         // entire store needs to be reset in order to prevent storing
@@ -91,21 +76,20 @@ const SignInForm: React.FunctionComponent<Props> = ({
         if (response.error) {
           setHelpContent(response.error.message)
         } else if (response.user) {
-          resolveNextView(response.user)
+          onCompleted(response.user)
         }
       }}
     >
       {(onSubmit, { loading }) => (
         <React.Fragment>
-          <Subnavbar items={items} />
           {helpContent && <Help>{helpContent}</Help>}
           <Formik<Values>
             initialValues={initialValues}
             onSubmit={variables =>
-              onSubmit({ variables }).then(value =>
-                path(['data', 'response', 'error'], value)
-                  ? undefined
-                  : setSignInCredentials(variables)
+              onSubmit({ variables }).then(
+                value =>
+                  path(['data', 'response', 'error'], value) &&
+                  setSignInCredentials(variables)
               )
             }
             validationSchema={validationSchema}
