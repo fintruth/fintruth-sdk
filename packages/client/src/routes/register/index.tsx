@@ -3,7 +3,7 @@ import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
-import { Mutation } from 'react-apollo'
+import { ApolloContext, Mutation } from 'react-apollo'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 import { object, ref, string } from 'yup'
 
@@ -92,11 +92,17 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
 }: RouteComponentProps) => {
   const [helpColor, setHelpColor] = React.useState<Color>('success')
   const [helpContent, setHelpContent] = React.useState<string>()
+  const { client } = React.useContext(ApolloContext as any)
 
   return (
     <Mutation<RegisterMutationData, RegisterMutationVariables>
       mutation={registerMutation}
       onCompleted={({ response }) => {
+        // NOTE: Due to the inability to invalidate Apollo's cache the
+        // entire store needs to be reset in order to prevent storing
+        // private data
+        client.resetStore()
+
         if (response.error) {
           setHelpColor('danger')
           setHelpContent(response.error.message)
@@ -116,7 +122,7 @@ const Register: React.FunctionComponent<RouteComponentProps> = ({
               onSubmit({ variables: { input } }).then(value =>
                 path(['data', 'response', 'error'], value)
                   ? undefined
-                  : resetForm(initialValues)
+                  : resetForm()
               )
             }
             validationSchema={validationSchema}

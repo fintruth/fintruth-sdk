@@ -46,6 +46,7 @@ export const createApolloClient = ({
   )
 
   return new ApolloClient({
+    assumeImmutableResults: true,
     cache,
     link: ApolloLink.from(links),
     resolvers,

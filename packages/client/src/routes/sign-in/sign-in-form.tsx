@@ -4,7 +4,7 @@ import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
-import { ApolloConsumer, Mutation } from 'react-apollo'
+import { ApolloContext, Mutation } from 'react-apollo'
 import styled from 'styled-components'
 import { object, string } from 'yup'
 
@@ -77,73 +77,70 @@ const SignInForm: React.FunctionComponent<Props> = ({
   ...props
 }: Props) => {
   const [helpContent, setHelpContent] = React.useState<string>()
+  const { client } = React.useContext(ApolloContext as any)
 
   return (
-    <ApolloConsumer>
-      {client => (
-        <Mutation<SignInMutationData, SignInMutationVariables>
-          mutation={signInMutation}
-          onCompleted={({ response }) => {
-            // NOTE: Due to the inability to invalidate Apollo's cache the
-            // entire store needs to be reset in order to prevent storing
-            // private data
-            client.resetStore()
+    <Mutation<SignInMutationData, SignInMutationVariables>
+      mutation={signInMutation}
+      onCompleted={({ response }) => {
+        // NOTE: Due to the inability to invalidate Apollo's cache the
+        // entire store needs to be reset in order to prevent storing
+        // private data
+        client.resetStore()
 
-            if (response.error) {
-              setHelpContent(response.error.message)
-            } else if (response.user) {
-              resolveNextView(response.user)
+        if (response.error) {
+          setHelpContent(response.error.message)
+        } else if (response.user) {
+          resolveNextView(response.user)
+        }
+      }}
+    >
+      {(onSubmit, { loading }) => (
+        <React.Fragment>
+          <Subnavbar items={items} />
+          {helpContent && <Help>{helpContent}</Help>}
+          <Formik<Values>
+            initialValues={initialValues}
+            onSubmit={variables =>
+              onSubmit({ variables }).then(value =>
+                path(['data', 'response', 'error'], value)
+                  ? undefined
+                  : setSignInCredentials(variables)
+              )
             }
-          }}
-        >
-          {(onSubmit, { loading }) => (
-            <React.Fragment>
-              <Subnavbar items={items} />
-              {helpContent && <Help>{helpContent}</Help>}
-              <Formik<Values>
-                initialValues={initialValues}
-                onSubmit={variables =>
-                  onSubmit({ variables }).then(value =>
-                    path(['data', 'response', 'error'], value)
-                      ? undefined
-                      : setSignInCredentials(variables)
-                  )
-                }
-                validationSchema={validationSchema}
+            validationSchema={validationSchema}
+          >
+            <Form {...props} id={formId} noValidate>
+              <Input
+                id={`${formId}-email`}
+                autoComplete="off"
+                form={formId}
+                label="EMAIL"
+                name="email"
+                type="email"
+              />
+              <Input
+                id={`${formId}-password`}
+                autoComplete="off"
+                form={formId}
+                label="PASSWORD"
+                name="password"
+                type="password"
+              />
+              <Link to="/recover">Forgot your password?</Link>
+              <Button
+                form={formId}
+                isLoading={loading}
+                type="submit"
+                variant="primary"
               >
-                <Form {...props} id={formId} noValidate>
-                  <Input
-                    id={`${formId}-email`}
-                    autoComplete="off"
-                    form={formId}
-                    label="EMAIL"
-                    name="email"
-                    type="email"
-                  />
-                  <Input
-                    id={`${formId}-password`}
-                    autoComplete="off"
-                    form={formId}
-                    label="PASSWORD"
-                    name="password"
-                    type="password"
-                  />
-                  <Link to="/recover">Forgot your password?</Link>
-                  <Button
-                    form={formId}
-                    isLoading={loading}
-                    type="submit"
-                    variant="primary"
-                  >
-                    SIGN IN
-                  </Button>
-                </Form>
-              </Formik>
-            </React.Fragment>
-          )}
-        </Mutation>
+                SIGN IN
+              </Button>
+            </Form>
+          </Formik>
+        </React.Fragment>
       )}
-    </ApolloConsumer>
+    </Mutation>
   )
 }
 
