@@ -33,7 +33,7 @@ interface Values {
   token: string
 }
 
-const initialValues = { token: '' }
+const initialValues: Values = { token: '' }
 
 const validationSchema = object().shape({
   token: string().required('This is a required field'),

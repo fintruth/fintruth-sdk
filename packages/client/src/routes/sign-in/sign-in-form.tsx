@@ -32,7 +32,7 @@ interface Values {
   password: string
 }
 
-const initialValues = { email: '', password: '' }
+const initialValues: Values = { email: '', password: '' }
 
 const validationSchema = object().shape({
   email: string()
