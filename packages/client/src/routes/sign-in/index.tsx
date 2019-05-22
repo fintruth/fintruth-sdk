@@ -10,8 +10,6 @@ import SignInTwoFactorAuthForm, {
   SignInCredentials,
 } from './sign-in-two-factor-auth-form'
 
-type NextStep = Exclude<Step, 'signIn'>
-type PreviousStep = Exclude<Step, 'redirect'>
 type Step = 'signIn' | 'signInTwoFactorAuth' | 'redirect'
 
 const items = [
@@ -20,9 +18,9 @@ const items = [
 ]
 
 const getNextStep = (
-  currentStep: PreviousStep,
+  currentStep: Step,
   { isTwoFactorAuthEnabled }: User
-): NextStep => {
+): Step => {
   if (currentStep === 'signIn' && isTwoFactorAuthEnabled) {
     return 'signInTwoFactorAuth'
   }
