@@ -17,10 +17,7 @@ const items = [
   { id: 'register', content: 'REGISTER', to: '/register' },
 ]
 
-const getNextStep = (
-  currentStep: Step,
-  { isTwoFactorAuthEnabled }: User
-): Step => {
+const getNextStep = (currentStep: Step, { isTwoFactorAuthEnabled }: User) => {
   if (currentStep === 'signIn' && isTwoFactorAuthEnabled) {
     return 'signInTwoFactorAuth'
   }
