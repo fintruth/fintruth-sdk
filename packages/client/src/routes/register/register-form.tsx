@@ -11,9 +11,9 @@ import BaseButton from 'components/button'
 import Input from 'components/input'
 import { help } from 'styles/mixins'
 import {
-  RegisterFormMutationData,
-  RegisterFormMutationVariables,
-  registerFormMutation,
+  RegisterMutationData,
+  RegisterMutationVariables,
+  registerMutation,
 } from './graphql'
 
 type Props = Omit<
@@ -79,8 +79,8 @@ const RegisterForm: React.FunctionComponent<Props> = ({ ...props }: Props) => {
   const { client } = React.useContext(ApolloContext as any)
 
   return (
-    <Mutation<RegisterFormMutationData, RegisterFormMutationVariables>
-      mutation={registerFormMutation}
+    <Mutation<RegisterMutationData, RegisterMutationVariables>
+      mutation={registerMutation}
       onCompleted={({ response }) => {
         // NOTE: Due to the inability to invalidate Apollo's cache the
         // entire store needs to be reset in order to prevent storing

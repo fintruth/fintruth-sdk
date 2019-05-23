@@ -2,13 +2,13 @@ import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 
-import { registerFormMutation } from './graphql'
+import { registerMutation } from './graphql'
 import Register from '.'
 
 const defaultMocks = [
   {
     request: {
-      query: registerFormMutation,
+      query: registerMutation,
       variables: {
         input: {
           email: 'demo@fintruth.com',
@@ -31,7 +31,7 @@ const delayMocks = defaultMocks.map(defaultMock => ({
 const errorMocks = [
   {
     request: {
-      query: registerFormMutation,
+      query: registerMutation,
       variables: {
         input: {
           email: 'demo@fintruth.com',
