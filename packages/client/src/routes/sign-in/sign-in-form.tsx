@@ -12,9 +12,9 @@ import BaseButton from 'components/button'
 import Input from 'components/input'
 import { help, link } from 'styles/mixins'
 import {
-  SignInFormMutationData,
-  SignInFormMutationVariables,
-  signInFormMutation,
+  SignInMutationData,
+  SignInMutationVariables,
+  signInMutation,
 } from './graphql'
 import { SignInCredentials } from './sign-in-two-factor-auth-form'
 
@@ -69,8 +69,8 @@ const SignInForm: React.FunctionComponent<Props> = ({
   const { client } = React.useContext(ApolloContext as any)
 
   return (
-    <Mutation<SignInFormMutationData, SignInFormMutationVariables>
-      mutation={signInFormMutation}
+    <Mutation<SignInMutationData, SignInMutationVariables>
+      mutation={signInMutation}
       onCompleted={({ response }) => {
         // NOTE: Due to the inability to invalidate Apollo's cache the
         // entire store needs to be reset in order to prevent storing

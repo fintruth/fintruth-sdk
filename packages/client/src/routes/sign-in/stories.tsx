@@ -2,13 +2,13 @@ import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 
-import { signInFormMutation, signInTwoFactorAuthFormMutation } from './graphql'
+import { signInMutation, signInTwoFactorAuthMutation } from './graphql'
 import SignIn from '.'
 
 const defaultMocks = [
   {
     request: {
-      query: signInFormMutation,
+      query: signInMutation,
       variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
     },
     result: {
@@ -29,7 +29,7 @@ const defaultMocks = [
 const defaultTwoFactorAuthEnabledMocks = [
   {
     request: {
-      query: signInFormMutation,
+      query: signInMutation,
       variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
     },
     result: {
@@ -47,7 +47,7 @@ const defaultTwoFactorAuthEnabledMocks = [
   },
   {
     request: {
-      query: signInTwoFactorAuthFormMutation,
+      query: signInTwoFactorAuthMutation,
       variables: {
         email: 'demo@fintruth.com',
         password: 'Asdfg!2345',
@@ -84,7 +84,7 @@ const delayTwoFactorAuthEnabledMocks = defaultTwoFactorAuthEnabledMocks.map(
 const errorMocks = [
   {
     request: {
-      query: signInFormMutation,
+      query: signInMutation,
       variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
     },
     result: {
@@ -101,7 +101,7 @@ const errorMocks = [
 const errorTwoFactorAuthEnabledMocks = [
   {
     request: {
-      query: signInFormMutation,
+      query: signInMutation,
       variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
     },
     result: {
@@ -119,7 +119,7 @@ const errorTwoFactorAuthEnabledMocks = [
   },
   {
     request: {
-      query: signInTwoFactorAuthFormMutation,
+      query: signInTwoFactorAuthMutation,
       variables: {
         email: 'demo@fintruth.com',
         password: 'Asdfg!2345',

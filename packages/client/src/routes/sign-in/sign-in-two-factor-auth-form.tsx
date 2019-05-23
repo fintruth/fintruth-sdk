@@ -10,9 +10,9 @@ import BaseButton from 'components/button'
 import Input from 'components/input'
 import { help } from 'styles/mixins'
 import {
-  SignInTwoFactorAuthFormMutationData,
-  SignInTwoFactorAuthFormMutationVariables,
-  signInTwoFactorAuthFormMutation,
+  SignInTwoFactorAuthMutationData,
+  SignInTwoFactorAuthMutationVariables,
+  signInTwoFactorAuthMutation,
 } from './graphql'
 
 interface Props
@@ -67,10 +67,10 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
 
   return (
     <Mutation<
-      SignInTwoFactorAuthFormMutationData,
-      SignInTwoFactorAuthFormMutationVariables
+      SignInTwoFactorAuthMutationData,
+      SignInTwoFactorAuthMutationVariables
     >
-      mutation={signInTwoFactorAuthFormMutation}
+      mutation={signInTwoFactorAuthMutation}
       onCompleted={({ response }) => {
         // NOTE: Due to the inability to invalidate Apollo's cache the
         // entire store needs to be reset in order to prevent storing
