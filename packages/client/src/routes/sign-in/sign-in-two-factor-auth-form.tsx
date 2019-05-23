@@ -1,5 +1,5 @@
-import { User } from '@fintruth-sdk/shared'
-import { Form as BaseForm, Formik } from 'formik'
+import { Omit, User } from '@fintruth-sdk/shared'
+import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
 import { ApolloContext, Mutation } from 'react-apollo'
@@ -14,11 +14,14 @@ import {
   SignInTwoFactorAuthMutationVariables,
   signInTwoFactorAuthMutation,
 } from './graphql'
-import { button, form } from './mixins'
 
-interface Props {
-  resolveNextView: (user: User) => void
-  signInCredentials: SignInCredentials
+interface Props
+  extends Omit<
+    React.FormHTMLAttributes<HTMLFormElement>,
+    'onReset' | 'onSubmit'
+  > {
+  onCompleted: (user: User) => void
+  signInCredentials?: SignInCredentials
 }
 
 export interface SignInCredentials {
@@ -30,21 +33,7 @@ interface Values {
   token: string
 }
 
-const Help = styled.p`
-  ${({ theme }) => help(theme.danger)};
-  margin: ${rem(-10)} 0 ${rem(30)};
-  width: ${rem(280)};
-`
-
-const Form = styled(BaseForm)`
-  ${form};
-`
-
-const Button = styled(BaseButton)`
-  ${button};
-`
-
-const initialValues = { token: '' }
+const initialValues: Values = { token: '' }
 
 const validationSchema = object().shape({
   token: string().required('This is a required field'),
@@ -52,9 +41,25 @@ const validationSchema = object().shape({
 
 const formId = 'sign-in-two-factor-auth__Form'
 
+const Help = styled.p`
+  ${({ theme }) => help(theme.danger)};
+  margin: ${rem(-10)} 0 ${rem(30)};
+`
+
+const LastInput = styled(Input)`
+  &:not(:last-child) {
+    margin-bottom: ${rem(40)};
+  }
+`
+
+const Button = styled(BaseButton)`
+  display: block;
+  margin: 0 auto;
+`
+
 const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
-  resolveNextView,
-  signInCredentials,
+  onCompleted,
+  signInCredentials = { email: '', password: '' },
   ...props
 }: Props) => {
   const [helpContent, setHelpContent] = React.useState<string>()
@@ -75,7 +80,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         if (response.error) {
           setHelpContent(response.error.message)
         } else if (response.user) {
-          resolveNextView(response.user)
+          onCompleted(response.user)
         }
       }}
     >
@@ -92,7 +97,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
             validationSchema={validationSchema}
           >
             <Form {...props} id={formId} noValidate>
-              <Input
+              <LastInput
                 id={`${formId}-token`}
                 autoComplete="off"
                 form={formId}

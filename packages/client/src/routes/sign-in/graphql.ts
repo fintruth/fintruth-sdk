@@ -1,5 +1,5 @@
-import gql from 'graphql-tag'
 import { UserResponse } from '@fintruth-sdk/shared'
+import gql from 'graphql-tag'
 
 export interface SignInMutationData {
   response: UserResponse
