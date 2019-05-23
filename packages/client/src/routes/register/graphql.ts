@@ -10,7 +10,7 @@ export interface RegisterMutationVariables {
 }
 
 export const registerMutation = gql`
-  mutation registerMutation($input: RegisterInput!) {
+  mutation RegisterMutation($input: RegisterInput!) {
     response: register(input: $input) {
       error {
         message
