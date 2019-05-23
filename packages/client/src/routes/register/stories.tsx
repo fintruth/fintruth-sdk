@@ -1,6 +1,6 @@
+import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
-import { storiesOf } from '@storybook/react'
 
 import { registerMutation } from './graphql'
 import Register from '.'
