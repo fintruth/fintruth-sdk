@@ -115,6 +115,13 @@ const File: React.FunctionComponent<Props> = ({
     name
   )
   const { setFieldValue } = useFormikContext()
+  const input = React.useRef<HTMLInputElement>(null)
+
+  React.useEffect(() => {
+    if (!value && input && input.current) {
+      input.current.value = ''
+    }
+  }, [value])
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const file = path<File>(['files', 0], target)
@@ -131,6 +138,7 @@ const File: React.FunctionComponent<Props> = ({
             id={id}
             onChange={handleChange}
             {...props}
+            ref={input}
             type="file"
           />
           <FileUpload />
