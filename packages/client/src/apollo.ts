@@ -3,11 +3,7 @@ import { ApolloLink } from 'apollo-link'
 import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 import { createUploadLink } from 'apollo-upload-client'
 
-import {
-  createErrorLink,
-  createInMemoryCache,
-  createSanitizeLink,
-} from './utilities/apollo'
+import { createErrorLink, createInMemoryCache } from './utilities/apollo'
 
 interface Options {
   defaults: {}
@@ -22,7 +18,7 @@ export const createApolloClient = ({
   resolvers,
   typeDefs,
 }: Options) => {
-  const links: ApolloLink[] = [createErrorLink(), createSanitizeLink()]
+  const links: ApolloLink[] = [createErrorLink()]
   let cache = createInMemoryCache()
 
   if (preloadedCache) {

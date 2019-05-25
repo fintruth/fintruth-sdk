@@ -1,8 +1,5 @@
 import { ErrorLink } from 'apollo-link-error'
 import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory'
-import { ApolloLink, NextLink, Operation } from 'apollo-link'
-
-import { omitDeep } from 'utilities/object'
 
 export const createErrorLink = () =>
   new ErrorLink(({ graphQLErrors, networkError }) => {
@@ -28,13 +25,4 @@ export const createInMemoryCache = () =>
       }
     },
     freezeResults: true,
-  })
-
-export const createSanitizeLink = () =>
-  new ApolloLink((operation: Operation, forward?: NextLink) => {
-    const value = omitDeep(['__typename'], operation.variables)
-
-    return forward
-      ? forward(Object.defineProperty(operation, 'variables', { value }))
-      : null
   })
