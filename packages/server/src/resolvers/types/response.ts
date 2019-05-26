@@ -1,5 +1,5 @@
-import { Field, ObjectType } from 'type-graphql'
 import { Response as BaseResponse } from '@fintruth-sdk/shared'
+import { Field, ObjectType } from 'type-graphql'
 
 import ResponseError from './response-error'
 

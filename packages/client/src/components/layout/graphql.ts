@@ -24,8 +24,8 @@ export const layoutQuery = gql`
     user: currentUser {
       id
       profile {
-        firstName
-        lastName
+        familyName
+        givenName
       }
     }
   }

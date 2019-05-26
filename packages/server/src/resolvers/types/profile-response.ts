@@ -1,10 +1,10 @@
-import { Field, ObjectType } from 'type-graphql'
 import { ProfileResponse as BaseProfileResponse } from '@fintruth-sdk/shared'
+import { Field, ObjectType } from 'type-graphql'
 
-import { Profile } from '../../entities'
 import Response, { Props as ResponseProps } from './response'
+import { Profile } from '../../entities'
 
-export interface Props extends ResponseProps {
+interface Props extends ResponseProps {
   profile?: Profile
 }
 
@@ -16,6 +16,7 @@ export default class ProfileResponse extends Response
 
   constructor(props: Props) {
     super(props)
+
     this.profile = props.profile
   }
 }

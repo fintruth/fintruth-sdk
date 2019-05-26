@@ -7,6 +7,7 @@ import {
 } from 'crypto'
 import { Inject, Service } from 'typedi'
 
+import { logAs } from 'logger'
 import ConfigService from './config-service'
 
 interface AESWithAuth {
@@ -18,6 +19,9 @@ interface AESWithAuth {
 export default class CryptoService {
   @Inject()
   config: ConfigService
+
+  private log = logAs('CryptoService')
+  private logError = (error: any) => this.log(error, 'debug')
 
   splitBuffer = (buffer: Buffer, idx: number): Buffer[] => [
     buffer.slice(0, idx),
@@ -41,27 +45,33 @@ export default class CryptoService {
     return base64url(Buffer.concat([iv, tag, salt, encrypted]))
   }
 
-  parseToken(token: string): Record<string, any> {
-    const decodeBytes: Buffer = base64url.toBuffer(token)
+  parseToken<T extends Record<string, any>>(token: string): T | void {
+    try {
+      const decodeBytes: Buffer = base64url.toBuffer(token)
 
-    const [prefix, rest]: Buffer[] = this.splitBuffer(decodeBytes, 28)
-    const [iv, tag]: Buffer[] = this.splitBuffer(prefix, 12)
-    const [salt, encrypted]: Buffer[] = this.splitBuffer(rest, 16)
-    const key: Buffer = pbkdf2Sync(
-      this.config.app.secret,
-      salt,
-      10000,
-      32,
-      'sha512'
-    )
+      const [prefix, rest]: Buffer[] = this.splitBuffer(decodeBytes, 28)
+      const [iv, tag]: Buffer[] = this.splitBuffer(prefix, 12)
+      const [salt, encrypted]: Buffer[] = this.splitBuffer(rest, 16)
+      const key: Buffer = pbkdf2Sync(
+        this.config.app.secret,
+        salt,
+        10000,
+        32,
+        'sha512'
+      )
 
-    if (iv.length !== 12 || tag.length !== 16 || salt.length !== 16) {
-      throw new Error('invalid token')
+      if (iv.length !== 12 || tag.length !== 16 || salt.length !== 16) {
+        throw new Error('invalid token')
+      }
+
+      const decrypted = this.decryptAES(encrypted, key, iv, tag)
+
+      return JSON.parse(decrypted)
+    } catch (error) {
+      this.logError(error)
+
+      return undefined
     }
-
-    const decrypted = this.decryptAES(encrypted, key, iv, tag)
-
-    return JSON.parse(decrypted)
   }
 
   private decryptAES(

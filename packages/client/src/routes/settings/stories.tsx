@@ -22,7 +22,7 @@ const defaultMocks = [
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
           email: 'demo@fintruth.com',
           isTwoFactorAuthEnabled: false,
-          profile: { firstName: 'Demo', lastName: 'User' },
+          profile: { familyName: 'User', givenName: 'Demo' },
         },
       },
     },
@@ -58,13 +58,13 @@ const defaultMocks = [
   {
     request: {
       query: updateProfileMutation,
-      variables: { input: { firstName: 'Test', lastName: 'User' } },
+      variables: { input: { familyName: 'User', givenName: 'Demo' } },
     },
     result: {
       data: {
         response: {
           error: null,
-          profile: { firstName: 'Test', lastName: 'User' },
+          profile: { familyName: 'User', givenName: 'Demo' },
         },
       },
     },
@@ -100,7 +100,7 @@ const defaultTwoFactorAuthEnabledMocks = [
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
           email: 'demo@fintruth.com',
           isTwoFactorAuthEnabled: true,
-          profile: { firstName: 'Demo', lastName: 'User' },
+          profile: { familyName: 'User', givenName: 'Demo' },
         },
       },
     },
@@ -136,13 +136,13 @@ const defaultTwoFactorAuthEnabledMocks = [
   {
     request: {
       query: updateProfileMutation,
-      variables: { input: { firstName: 'Test', lastName: 'User' } },
+      variables: { input: { familyName: 'User', givenName: 'Demo' } },
     },
     result: {
       data: {
         response: {
           error: null,
-          profile: { firstName: 'Test', lastName: 'User' },
+          profile: { familyName: 'User', givenName: 'Demo' },
         },
       },
     },
@@ -177,7 +177,7 @@ const errorMocks = [
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
           email: 'demo@fintruth.com',
           isTwoFactorAuthEnabled: false,
-          profile: { firstName: 'Demo', lastName: 'User' },
+          profile: { familyName: 'User', givenName: 'Demo' },
         },
       },
     },
@@ -220,7 +220,7 @@ const errorMocks = [
   {
     request: {
       query: updateProfileMutation,
-      variables: { input: { firstName: 'Test', lastName: 'User' } },
+      variables: { input: { familyName: 'User', givenName: 'Demo' } },
     },
     result: {
       data: {
@@ -285,7 +285,7 @@ const errorTwoFactorAuthEnabledMocks = [
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
           email: 'demo@fintruth.com',
           isTwoFactorAuthEnabled: true,
-          profile: { firstName: 'Demo', lastName: 'User' },
+          profile: { familyName: 'User', givenName: 'Demo' },
         },
       },
     },
@@ -328,7 +328,7 @@ const errorTwoFactorAuthEnabledMocks = [
   {
     request: {
       query: updateProfileMutation,
-      variables: { input: { firstName: 'Test', lastName: 'User' } },
+      variables: { input: { familyName: 'User', givenName: 'Demo' } },
     },
     result: {
       data: {

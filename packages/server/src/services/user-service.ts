@@ -17,10 +17,6 @@ export default class UserService {
   private log = logAs('UserService')
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
-  async emailAvailable(email: string) {
-    return isNil(await this.userDao.findByEmail(email))
-  }
-
   async create(email: string, password: string, profile: Profile) {
     const valid = await object()
       .shape({
@@ -40,7 +36,7 @@ export default class UserService {
       })
     }
 
-    if (!(await this.emailAvailable(email))) {
+    if (!(await this.isEmailAvailable(email))) {
       return new UserResponse({
         error: new ResponseError('email is not available'),
       })
@@ -61,6 +57,10 @@ export default class UserService {
     }
 
     return new UserResponse({ user })
+  }
+
+  async isEmailAvailable(email: string) {
+    return isNil(await this.userDao.findByEmail(email))
   }
 
   async update(id: string, password: string, partial: Partial<User>) {

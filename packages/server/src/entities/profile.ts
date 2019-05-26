@@ -1,3 +1,5 @@
+import { Profile as ProfileEntity } from '@fintruth-sdk/shared'
+import { Field, ID, ObjectType } from 'type-graphql'
 import {
   Column,
   CreateDateColumn,
@@ -7,13 +9,11 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { Field, ID, ObjectType } from 'type-graphql'
-import { Profile as ProfileEntity } from '@fintruth-sdk/shared'
 
 import User from './user'
 
-@ObjectType()
 @Entity()
+@ObjectType()
 export default class Profile extends ProfileEntity {
   @Field(() => ID)
   @PrimaryColumn('uuid')
@@ -21,11 +21,11 @@ export default class Profile extends ProfileEntity {
 
   @Field()
   @Column()
-  firstName: string
+  familyName: string
 
   @Field()
   @Column()
-  lastName: string
+  givenName: string
 
   @OneToOne(() => User, ({ profile }) => profile, { onDelete: 'CASCADE' })
   @JoinColumn()
@@ -39,7 +39,7 @@ export default class Profile extends ProfileEntity {
   @UpdateDateColumn()
   updatedAt: Date
 
-  constructor(partial: Partial<Profile>) {
+  constructor(partial: Partial<Profile> = {}) {
     super()
     Object.assign(this, partial)
   }

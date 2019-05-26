@@ -20,16 +20,20 @@ export default class ProfileService {
   private log = logAs('ProfileService')
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
-  async update(userId: string, input: ProfileInput) {
-    const valid = await object()
+  toEntity = (input: ProfileInput) => new Profile(input)
+
+  validateInput = (input: ProfileInput) =>
+    object<ProfileInput>()
       .shape({
-        firstName: string().required(),
-        lastName: string().required(),
+        familyName: string().required(),
+        givenName: string().required(),
       })
       .validate(input)
-      .catch(this.logDebug)
 
-    if (!valid) {
+  async update(userId: string, input: ProfileInput) {
+    const isValid = await this.validateInput(input).catch(this.logDebug)
+
+    if (!isValid) {
       return new UserResponse({
         error: new ResponseError(
           'There is an issue with the provided form values'

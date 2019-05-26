@@ -1,4 +1,4 @@
 export default class ProfileInput {
-  firstName: string
-  lastName: string
+  familyName: string
+  givenName: string
 }

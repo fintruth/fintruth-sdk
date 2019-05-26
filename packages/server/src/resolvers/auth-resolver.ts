@@ -1,5 +1,5 @@
-import { Inject } from 'typedi'
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
+import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
 import {

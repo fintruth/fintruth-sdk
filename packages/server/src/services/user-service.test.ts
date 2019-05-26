@@ -42,8 +42,8 @@ describe('UserService', () => {
         'test@test.com',
         'Asdfg2345!',
         new Profile({
-          firstName: '',
-          lastName: '',
+          familyName: '',
+          givenName: '',
         })
       )
 
@@ -52,8 +52,8 @@ describe('UserService', () => {
         email: 'test@test.com',
         password: 'hash',
         profile: new Profile({
-          firstName: '',
-          lastName: '',
+          familyName: '',
+          givenName: '',
         }),
       })
     })
@@ -76,8 +76,8 @@ describe('UserService', () => {
           'test@test.com',
           'Asdfg2345!',
           new Profile({
-            firstName: '',
-            lastName: '',
+            familyName: '',
+            givenName: '',
           })
         )
 

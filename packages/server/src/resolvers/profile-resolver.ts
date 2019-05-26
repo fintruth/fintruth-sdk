@@ -1,9 +1,9 @@
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 import { Inject } from 'typedi'
 
-import ProfileService from 'services/profile-service'
 import { Context } from 'apollo'
 import { ProfileInput, ProfileResponse, ResponseError } from 'resolvers/types'
+import ProfileService from 'services/profile-service'
 import { Profile } from '../entities'
 
 @Resolver(() => Profile)

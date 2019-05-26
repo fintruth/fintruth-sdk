@@ -2,6 +2,7 @@ import { is } from 'ramda'
 import split from 'split'
 import winston from 'winston'
 
+export type LogFn = (message: Loggable, level?: string) => void
 export type Loggable = string | number | object
 
 const alignedWithColorsAndTime = winston.format.combine(

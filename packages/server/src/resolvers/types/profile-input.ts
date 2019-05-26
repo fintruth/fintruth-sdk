@@ -1,11 +1,11 @@
-import { Field, InputType } from 'type-graphql'
 import { ProfileInput as BaseProfileInput } from '@fintruth-sdk/shared'
+import { Field, InputType } from 'type-graphql'
 
 @InputType()
 export default class ProfileInput implements BaseProfileInput {
   @Field()
-  firstName: string
+  familyName: string
 
   @Field()
-  lastName: string
+  givenName: string
 }

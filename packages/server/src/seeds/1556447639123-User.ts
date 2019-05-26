@@ -21,8 +21,8 @@ export class User1556447639123 implements MigrationInterface {
       .into('profile')
       .values({
         userId: '496ca0bf-470b-479a-b56d-f17c063003b1',
-        firstName: 'Demo',
-        lastName: 'User',
+        familyName: 'User',
+        givenName: 'Demo',
       })
       .execute()
   }

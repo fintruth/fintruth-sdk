@@ -46,8 +46,9 @@ describe('CryptoService', () => {
 
       expect(parsed).toStrictEqual({ message: 'a random string' })
     })
-    it('should throw an error with an invalid token', () => {
-      expect(() => service.parseToken('bad')).toThrow(/^invalid token$/)
+
+    it('should be undefined using an invalid token', () => {
+      expect(service.parseToken('bad')).not.toBeDefined()
     })
   })
 })

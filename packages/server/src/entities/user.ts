@@ -13,8 +13,8 @@ import {
 
 import Profile from './profile'
 
-@ObjectType()
 @Entity()
+@ObjectType()
 export default class User implements UserEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
@@ -31,7 +31,10 @@ export default class User implements UserEntity {
   @Column()
   password: string
 
-  @OneToOne(() => Profile, ({ user }) => user, { cascade: true })
+  @OneToOne(() => Profile, ({ user }) => user, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   profile: Profile
 
   @Column({ nullable: true })

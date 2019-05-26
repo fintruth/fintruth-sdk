@@ -1,8 +1,6 @@
 import { object, string } from '@fintruth-sdk/validation'
-import { ActorRef, dispatch } from 'nact'
 import { Inject, Service } from 'typedi'
 
-import { Registration } from 'actors'
 import { logAs, Loggable } from 'logger'
 import {
   RegisterInput,
@@ -12,22 +10,15 @@ import {
 } from 'resolvers/types'
 import AuthService from './auth-service'
 import CryptoService from './crypto-service'
+import ProfileService from './profile-service'
 import UserService from './user-service'
-import { Profile } from '../entities'
 
-interface RegistrationTokenData {
-  email: string
+interface RegistrationTokenData extends RegisterInput {
   expiresAt: number
-  firstName: string
-  lastName: string
-  password: string
 }
 
 @Service()
 export default class RegisterService {
-  @Inject('emailer.actor')
-  emailer: ActorRef
-
   @Inject()
   authService: AuthService
 
@@ -35,39 +26,18 @@ export default class RegisterService {
   cryptoService: CryptoService
 
   @Inject()
+  profileService: ProfileService
+
+  @Inject()
   userService: UserService
 
   private log = logAs('RegisterService')
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
-  confirmRegistration(token: string) {
-    const {
-      email,
-      expiresAt,
-      firstName,
-      lastName,
-      password,
-    } = this.cryptoService.parseToken(token)
-    const isExpired = expiresAt < Date.now()
+  validateInput = async ({ profile, ...input }: RegisterInput) => {
+    await this.profileService.validateInput(profile)
 
-    if (isExpired) {
-      return new UserResponse({
-        error: new ResponseError('The provided token is expired'),
-      })
-    }
-
-    return this.userService.create(
-      email,
-      password,
-      new Profile({
-        firstName,
-        lastName,
-      })
-    )
-  }
-
-  async register({ email, firstName, lastName, password }: RegisterInput) {
-    const valid = await object()
+    return object<RegisterInput>()
       .shape({
         email: string()
           .required()
@@ -76,14 +46,42 @@ export default class RegisterService {
           .required()
           .password(2),
       })
-      .validate({ email, password })
-      .catch(this.logDebug)
+      .validate({ profile, ...input })
+  }
 
-    if (!valid) {
+  confirmRegistration(token: string) {
+    const {
+      email,
+      expiresAt,
+      password,
+      profile,
+    } = this.cryptoService.parseToken(token) as RegistrationTokenData
+
+    if (expiresAt < Date.now()) {
+      return new UserResponse({
+        error: new ResponseError('The provided token is expired'),
+      })
+    }
+
+    return this.userService.create(
+      email,
+      password,
+      this.profileService.toEntity(profile)
+    )
+  }
+
+  async register({ email, profile, ...input }: RegisterInput) {
+    const isValid = await this.validateInput({
+      email,
+      profile,
+      ...input,
+    }).catch(this.logDebug)
+
+    if (!isValid) {
       return new Response({ error: new ResponseError('Invalid data provided') })
     }
 
-    const isAvailable = await this.userService.emailAvailable(email)
+    const isAvailable = await this.userService.isEmailAvailable(email)
 
     if (!isAvailable) {
       return new Response({
@@ -91,17 +89,15 @@ export default class RegisterService {
       })
     }
 
-    const expiresAt = Date.now() + 60 * 60 * 1000
     const data: RegistrationTokenData = {
       email,
-      expiresAt,
-      firstName,
-      lastName,
-      password,
+      expiresAt: Date.now() + 60 * 60 * 1000,
+      profile,
+      ...input,
     }
     const token = this.cryptoService.createToken(data)
 
-    dispatch(this.emailer, new Registration(email, firstName, token))
+    this.log(`Registration token: ${token}`)
 
     return new Response()
   }

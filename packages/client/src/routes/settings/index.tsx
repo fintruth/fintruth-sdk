@@ -72,8 +72,8 @@ const Method = styled.div`
 
 const defaultProfile = {
   userId: '',
-  firstName: '',
-  lastName: '',
+  familyName: '',
+  givenName: '',
   createdAt: new Date(),
   updatedAt: new Date(),
 }

@@ -10,6 +10,7 @@ import { object, ref, string } from 'yup'
 import BaseButton from 'components/button'
 import Input from 'components/input'
 import { help } from 'styles/mixins'
+import { toRegisterInput } from 'utilities/graphql'
 import {
   RegisterMutationData,
   RegisterMutationVariables,
@@ -25,20 +26,26 @@ interface HelpProps {
   color: Color
 }
 
+interface ProfileValues {
+  familyName: string
+  givenName: string
+}
+
 interface Values {
   email: string
   emailConfirm: string
-  firstName: string
-  lastName: string
   password: string
+  profile: ProfileValues
 }
 
 const initialValues: Values = {
   email: '',
   emailConfirm: '',
-  firstName: '',
-  lastName: '',
   password: '',
+  profile: {
+    familyName: '',
+    givenName: '',
+  },
 }
 
 const validationSchema = object().shape({
@@ -48,11 +55,13 @@ const validationSchema = object().shape({
   emailConfirm: string()
     .required('This is a required field')
     .oneOf([ref('email')], 'Please retype the email address'),
-  firstName: string().required('This is a required field'),
-  lastName: string().required('This is a required field'),
   password: string()
     .required('This is a required field')
     .min(10, 'Minimum length is ${min} characters'), // eslint-disable-line no-template-curly-in-string
+  profile: object().shape({
+    familyName: string().required('This is a required field'),
+    givenName: string().required('This is a required field'),
+  }),
 })
 
 const formId = 'register__Form'
@@ -101,8 +110,8 @@ const RegisterForm: React.FunctionComponent<Props> = ({ ...props }: Props) => {
           {helpContent && <Help color={helpColor}>{helpContent}</Help>}
           <Formik<Values>
             initialValues={initialValues}
-            onSubmit={(input, { resetForm }) =>
-              onSubmit({ variables: { input } }).then(
+            onSubmit={(values, { resetForm }) =>
+              onSubmit({ variables: { input: toRegisterInput(values) } }).then(
                 value =>
                   path(['data', 'response', 'error'], value) && resetForm()
               )
@@ -111,19 +120,19 @@ const RegisterForm: React.FunctionComponent<Props> = ({ ...props }: Props) => {
           >
             <Form {...props} id={formId} noValidate>
               <Input
-                id={`${formId}-firstName`}
+                id={`${formId}-givenName`}
                 autoComplete="given-name"
                 form={formId}
                 label="FIRST NAME"
-                name="firstName"
+                name="profile.givenName"
                 type="text"
               />
               <Input
-                id={`${formId}-lastName`}
+                id={`${formId}-familyName`}
                 autoComplete="family-name"
                 form={formId}
                 label="LAST NAME"
-                name="lastName"
+                name="profile.familyName"
                 type="text"
               />
               <Input

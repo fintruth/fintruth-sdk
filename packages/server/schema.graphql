@@ -30,15 +30,15 @@ type Mutation {
 
 type Profile {
   userId: ID!
-  firstName: String!
-  lastName: String!
+  familyName: String!
+  givenName: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
 
 input ProfileInput {
-  firstName: String!
-  lastName: String!
+  familyName: String!
+  givenName: String!
 }
 
 type ProfileResponse {
@@ -54,10 +54,8 @@ type Query {
 
 input RegisterInput {
   email: String!
-  emailConfirm: String!
-  firstName: String!
-  lastName: String!
   password: String!
+  profile: ProfileInput!
 }
 
 type Response {

@@ -12,8 +12,8 @@ export const rootQuery = gql`
       email
       isTwoFactorAuthEnabled
       profile {
-        firstName
-        lastName
+        familyName
+        givenName
       }
     }
   }

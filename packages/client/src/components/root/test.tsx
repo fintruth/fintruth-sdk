@@ -17,7 +17,7 @@ const authenticatedMocks = [
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
           email: 'demo@fintruth.com',
           isTwoFactorAuthEnabled: false,
-          profile: { firstName: 'Demo', lastName: 'User' },
+          profile: { familyName: 'User', givenName: 'Demo' },
         },
       },
     },

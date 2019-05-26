@@ -29,7 +29,10 @@ const log = logAs('apollo')
 const logError = (error: GraphQLError) => log(error, 'error')
 
 export const createApolloServer = async (): Promise<ApolloServer> => {
-  const { isProd } = Container.get(ConfigService)
+  const {
+    isProd,
+    media: { maxFileSize },
+  } = Container.get(ConfigService)
   const schema = await buildSchema({
     container: Container,
     emitSchemaFile: !isProd && './schema.graphql',
@@ -38,16 +41,15 @@ export const createApolloServer = async (): Promise<ApolloServer> => {
   })
 
   return new ApolloServer({
-    context: ({ req: { user }, res }: RequestParams): Context => {
-      return {
-        res,
-        user,
-        ability: defineAbilitiesFor(user),
-      }
-    },
+    context: ({ req: { user }, res }: RequestParams): Context => ({
+      ability: defineAbilitiesFor(user),
+      res,
+      user,
+    }),
     debug: !isProd,
     formatError: tap(logError),
     playground: !isProd,
     schema,
+    uploads: { maxFileSize: maxFileSize * 50, maxFiles: 50 },
   })
 }

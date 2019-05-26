@@ -13,8 +13,8 @@ const defaultMocks = [
         input: {
           email: 'demo@fintruth.com',
           emailConfirm: 'demo@fintruth.com',
-          firstName: 'Demo',
-          lastName: 'User',
+          familyName: 'User',
+          givenName: 'Demo',
           password: 'Asdfg!2345',
         },
       },
@@ -36,8 +36,8 @@ const errorMocks = [
         input: {
           email: 'demo@fintruth.com',
           emailConfirm: 'demo@fintruth.com',
-          firstName: 'Demo',
-          lastName: 'User',
+          familyName: 'User',
+          givenName: 'Demo',
           password: 'Asdfg!2345',
         },
       },

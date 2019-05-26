@@ -216,8 +216,8 @@ const Layout: React.FunctionComponent<Props> = ({
                     {data.user ? (
                       <Submenu>
                         <SubmenuButton>
-                          {data.user.profile.firstName}{' '}
-                          {data.user.profile.lastName}
+                          {data.user.profile.givenName}{' '}
+                          {data.user.profile.familyName}
                           <ExpandMore aria-hidden />
                           <UserCircle aria-hidden />
                         </SubmenuButton>

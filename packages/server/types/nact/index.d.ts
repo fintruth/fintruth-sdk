@@ -40,8 +40,12 @@ declare module 'nact' {
   ) => ActorState<State>
 
   export interface ActorProperties {
-    shutdownAfter: number
-    initialState: any
+    shutdownAfter?: number
+  }
+
+  export interface StatefulActorProperties<State> extends ActorProperties {
+    initialState?: ActorState<State>
+    initialStateFunc?: (ctx: ActorContext) => ActorState<State>
   }
 
   export interface PersistentActorProperties extends ActorProperties {
@@ -105,7 +109,7 @@ declare module 'nact' {
     parent: ActorRef,
     f: StatefulActorMessageHandlerFunction<State, Message>,
     name?: ActorName,
-    properties?: ActorProperties
+    properties?: StatefulActorProperties<State>
   ): ActorRef
 
   /**

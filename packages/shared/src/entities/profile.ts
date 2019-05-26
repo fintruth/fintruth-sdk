@@ -1,7 +1,7 @@
 export default class Profile {
   userId: string
-  firstName: string
-  lastName: string
+  familyName: string
+  givenName: string
   createdAt: Date
   updatedAt: Date
 }

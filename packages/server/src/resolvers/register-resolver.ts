@@ -1,5 +1,5 @@
-import { Inject } from 'typedi'
 import { Arg, Mutation, Resolver } from 'type-graphql'
+import { Inject } from 'typedi'
 
 import { RegisterInput, Response, UserResponse } from 'resolvers/types'
 import { RegisterService } from 'services'

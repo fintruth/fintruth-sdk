@@ -1,5 +1,7 @@
-import { Field, InputType } from 'type-graphql'
 import { RegisterInput as BaseRegisterInput } from '@fintruth-sdk/shared'
+import { Field, InputType } from 'type-graphql'
+
+import ProfileInput from './profile-input'
 
 @InputType()
 export default class RegisterInput implements BaseRegisterInput {
@@ -7,14 +9,8 @@ export default class RegisterInput implements BaseRegisterInput {
   email: string
 
   @Field()
-  emailConfirm: string
-
-  @Field()
-  firstName: string
-
-  @Field()
-  lastName: string
-
-  @Field()
   password: string
+
+  @Field()
+  profile: ProfileInput
 }

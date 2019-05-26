@@ -65,8 +65,8 @@ export const accountQuery = gql`
       email
       isTwoFactorAuthEnabled
       profile {
-        firstName
-        lastName
+        familyName
+        givenName
       }
     }
   }
@@ -135,8 +135,8 @@ export const updateProfileMutation = gql`
         message
       }
       profile {
-        firstName
-        lastName
+        familyName
+        givenName
       }
     }
   }

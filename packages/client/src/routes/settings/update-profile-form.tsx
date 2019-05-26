@@ -26,8 +26,8 @@ interface Props {
 }
 
 interface Values {
-  firstName: string
-  lastName: string
+  familyName: string
+  givenName: string
 }
 
 const Help = styled.p<HelpProps>`
@@ -49,8 +49,8 @@ const Button = styled(BaseButton)`
 `
 
 const validationSchema = object().shape({
-  firstName: string().required('This is a required field'),
-  lastName: string().required('This is a required field'),
+  familyName: string().required('This is a required field'),
+  givenName: string().required('This is a required field'),
 })
 
 const formId = 'update-profile__Form'
@@ -86,8 +86,8 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
       {(onSubmit, { loading }) => (
         <Formik<Values>
           initialValues={{
-            firstName: user.profile.firstName,
-            lastName: user.profile.lastName,
+            familyName: user.profile.familyName,
+            givenName: user.profile.givenName,
           }}
           onSubmit={input => onSubmit({ variables: { input } })}
           validationSchema={validationSchema}
@@ -96,19 +96,19 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
             {helpContent && <Help color={helpColor}>{helpContent}</Help>}
             <Form {...props} id={formId} noValidate>
               <Input
-                id={`${formId}-firstName`}
+                id={`${formId}-givenName`}
                 autoComplete="given-name"
                 form={formId}
                 label="FIRST NAME"
-                name="firstName"
+                name="givenName"
                 type="text"
               />
               <Input
-                id={`${formId}-lastName`}
+                id={`${formId}-familyName`}
                 autoComplete="family-name"
                 form={formId}
                 label="LAST NAME"
-                name="lastName"
+                name="familyName"
                 type="text"
               />
               <Button
