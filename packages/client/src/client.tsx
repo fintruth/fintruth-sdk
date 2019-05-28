@@ -1,7 +1,7 @@
+import { ApolloProvider } from '@apollo/react-hooks'
 import { loadableReady } from '@loadable/component'
 import { Location, createBrowserHistory } from 'history'
 import React from 'react'
-import { ApolloProvider } from 'react-apollo'
 import deepForceUpdate from 'react-deep-force-update'
 import { hydrate } from 'react-dom'
 

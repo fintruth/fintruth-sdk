@@ -1,7 +1,7 @@
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import { Link as BaseLink, navigate } from '@reach/router'
 import { darken, rem } from 'polished'
 import React from 'react'
-import { Mutation, Query } from 'react-apollo'
 import styled, { css } from 'styled-components'
 
 import BaseExpandMore from 'assets/expand-more.svg'
@@ -188,73 +188,67 @@ const Layout: React.FunctionComponent<Props> = ({
   ...props
 }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const { client, data = {}, loading } = useQuery<LayoutQueryData>(layoutQuery)
+
+  const [onSignOut] = useMutation<SignOutMutationData>(signOutMutation, {
+    onCompleted: () => {
+      client.resetStore()
+
+      return navigate('/')
+    },
+  })
 
   return (
     <Root {...props}>
-      <Query<LayoutQueryData> query={layoutQuery}>
-        {({ client, data = {}, loading }) =>
-          renderLoadingIf(loading, () => (
-            <React.Fragment>
-              <header>
-                <Navbar aria-label="main navigation">
-                  <Brand>
-                    <LogoLink aria-label="home" to="/">
-                      <Logo alt="Logo" src={logoUrl} />
-                    </LogoLink>
-                    <Toggler
-                      aria-expanded={isMenuOpen}
-                      aria-label="menu"
-                      onClick={() => setIsMenuOpen(!isMenuOpen)}
-                      type="button"
-                    >
-                      <TogglerIcon isMenuOpen={isMenuOpen} aria-hidden="true" />
-                      <TogglerIcon isMenuOpen={isMenuOpen} aria-hidden="true" />
-                      <TogglerIcon isMenuOpen={isMenuOpen} aria-hidden="true" />
-                    </Toggler>
-                  </Brand>
-                  <Menu isOpen={isMenuOpen}>
-                    {data.user ? (
-                      <Submenu>
-                        <SubmenuButton>
-                          {data.user.profile.givenName}{' '}
-                          {data.user.profile.familyName}
-                          <ExpandMore aria-hidden />
-                          <UserCircle aria-hidden />
-                        </SubmenuButton>
-                        <Mutation<SignOutMutationData>
-                          mutation={signOutMutation}
-                          onCompleted={() => {
-                            client.resetStore()
-
-                            return navigate('/')
-                          }}
-                        >
-                          {onSignOut => (
-                            <SubmenuList>
-                              <SubmenuLink as={BaseLink} to="/settings">
-                                Account Settings
-                              </SubmenuLink>
-                              <SubmenuItem onSelect={() => onSignOut()}>
-                                Sign Out
-                              </SubmenuItem>
-                            </SubmenuList>
-                          )}
-                        </Mutation>
-                      </Submenu>
-                    ) : (
-                      <React.Fragment>
-                        <MenuLink to="/sign-in">Sign In</MenuLink>
-                        <MenuLink to="/register">Register</MenuLink>
-                      </React.Fragment>
-                    )}
-                  </Menu>
-                </Navbar>
-              </header>
-              {children}
-            </React.Fragment>
-          ))
-        }
-      </Query>
+      {renderLoadingIf(loading, () => (
+        <React.Fragment>
+          <header>
+            <Navbar aria-label="main navigation">
+              <Brand>
+                <LogoLink aria-label="home" to="/">
+                  <Logo alt="Logo" src={logoUrl} />
+                </LogoLink>
+                <Toggler
+                  aria-expanded={isMenuOpen}
+                  aria-label="menu"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  type="button"
+                >
+                  <TogglerIcon isMenuOpen={isMenuOpen} aria-hidden="true" />
+                  <TogglerIcon isMenuOpen={isMenuOpen} aria-hidden="true" />
+                  <TogglerIcon isMenuOpen={isMenuOpen} aria-hidden="true" />
+                </Toggler>
+              </Brand>
+              <Menu isOpen={isMenuOpen}>
+                {data.user ? (
+                  <Submenu>
+                    <SubmenuButton>
+                      {data.user.profile.givenName}{' '}
+                      {data.user.profile.familyName}
+                      <ExpandMore aria-hidden />
+                      <UserCircle aria-hidden />
+                    </SubmenuButton>
+                    <SubmenuList>
+                      <SubmenuLink as={BaseLink} to="/settings">
+                        Account Settings
+                      </SubmenuLink>
+                      <SubmenuItem onSelect={() => onSignOut()}>
+                        Sign Out
+                      </SubmenuItem>
+                    </SubmenuList>
+                  </Submenu>
+                ) : (
+                  <React.Fragment>
+                    <MenuLink to="/sign-in">Sign In</MenuLink>
+                    <MenuLink to="/register">Register</MenuLink>
+                  </React.Fragment>
+                )}
+              </Menu>
+            </Navbar>
+          </header>
+          {children}
+        </React.Fragment>
+      ))}
     </Root>
   )
 }

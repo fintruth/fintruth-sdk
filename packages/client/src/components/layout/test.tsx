@@ -1,5 +1,5 @@
+import { MockedProvider } from '@apollo/react-testing'
 import React from 'react'
-import { MockedProvider } from 'react-apollo/test-utils'
 import { waitForElement } from 'react-testing-library'
 import { ThemeProvider } from 'styled-components'
 import userEvent from 'user-event'

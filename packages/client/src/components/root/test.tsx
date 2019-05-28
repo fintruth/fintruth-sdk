@@ -1,5 +1,5 @@
+import { MockedProvider } from '@apollo/react-testing'
 import React from 'react'
-import { MockedProvider } from 'react-apollo/test-utils'
 import { waitForElement } from 'react-testing-library'
 
 import { renderWithRouter } from 'utilities/specification'
@@ -28,21 +28,9 @@ const unauthenticatedMocks = [
   { request: { query: rootQuery }, result: { data: { user: null } } },
 ]
 
-test('should render the home route correctly', async () => {
+test('should render the error route correctly when authenticated', async () => {
   const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider>
-      <Root />
-    </MockedProvider>
-  )
-  const homeElement = await waitForElement(() => getByTestId('home'))
-
-  expect(homeElement).toBeInTheDocument()
-  expect(queryByTestId('not-found')).not.toBeInTheDocument()
-})
-
-test('should render the error route correctly', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider>
+    <MockedProvider addTypename={false} mocks={authenticatedMocks}>
       <Root />
     </MockedProvider>,
     { initialPath: '/error' }
@@ -53,9 +41,59 @@ test('should render the error route correctly', async () => {
   expect(queryByTestId('not-found')).not.toBeInTheDocument()
 })
 
-test('should render the recover route correctly', async () => {
+test('should render the error route correctly when unauthenticated', async () => {
   const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider>
+    <MockedProvider addTypename={false} mocks={unauthenticatedMocks}>
+      <Root />
+    </MockedProvider>,
+    { initialPath: '/error' }
+  )
+  const errorElement = await waitForElement(() => getByTestId('error'))
+
+  expect(errorElement).toBeInTheDocument()
+  expect(queryByTestId('not-found')).not.toBeInTheDocument()
+})
+
+test('should render the home route correctly when authenticated', async () => {
+  const { getByTestId, queryByTestId } = renderWithRouter(
+    <MockedProvider addTypename={false} mocks={authenticatedMocks}>
+      <Root />
+    </MockedProvider>
+  )
+  const homeElement = await waitForElement(() => getByTestId('home'))
+
+  expect(homeElement).toBeInTheDocument()
+  expect(queryByTestId('not-found')).not.toBeInTheDocument()
+})
+
+test('should render the home route correctly when unauthenticated', async () => {
+  const { getByTestId, queryByTestId } = renderWithRouter(
+    <MockedProvider addTypename={false} mocks={unauthenticatedMocks}>
+      <Root />
+    </MockedProvider>
+  )
+  const homeElement = await waitForElement(() => getByTestId('home'))
+
+  expect(homeElement).toBeInTheDocument()
+  expect(queryByTestId('not-found')).not.toBeInTheDocument()
+})
+
+test('should render the recover route correctly when authenticated', async () => {
+  const { getByTestId, queryByTestId } = renderWithRouter(
+    <MockedProvider addTypename={false} mocks={authenticatedMocks}>
+      <Root />
+    </MockedProvider>,
+    { initialPath: '/recover' }
+  )
+  const recoverElement = await waitForElement(() => getByTestId('recover'))
+
+  expect(recoverElement).toBeInTheDocument()
+  expect(queryByTestId('not-found')).not.toBeInTheDocument()
+})
+
+test('should render the recover route correctly when unauthenticated', async () => {
+  const { getByTestId, queryByTestId } = renderWithRouter(
+    <MockedProvider addTypename={false} mocks={unauthenticatedMocks}>
       <Root />
     </MockedProvider>,
     { initialPath: '/recover' }
@@ -144,12 +182,31 @@ test('should render the sign-in route correctly when unauthenticated', async () 
   expect(queryByTestId('not-found')).not.toBeInTheDocument()
 })
 
-test('should render the default route correctly', async () => {
+test('should render the default route correctly when authenticated', async () => {
   // @ts-ignore no-const-assign
   __DEV__ = false
 
   const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider>
+    <MockedProvider addTypename={false} mocks={authenticatedMocks}>
+      <Root />
+    </MockedProvider>,
+    { initialPath: '/error' }
+  )
+  const notFoundElement = await waitForElement(() => getByTestId('not-found'))
+
+  expect(notFoundElement).toBeInTheDocument()
+  expect(queryByTestId('error')).not.toBeInTheDocument()
+
+  // @ts-ignore no-const-assign
+  __DEV__ = true
+})
+
+test('should render the default route correctly when unauthenticated', async () => {
+  // @ts-ignore no-const-assign
+  __DEV__ = false
+
+  const { getByTestId, queryByTestId } = renderWithRouter(
+    <MockedProvider addTypename={false} mocks={unauthenticatedMocks}>
       <Root />
     </MockedProvider>,
     { initialPath: '/error' }

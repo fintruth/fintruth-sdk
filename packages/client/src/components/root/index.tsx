@@ -1,7 +1,7 @@
+import { useQuery } from '@apollo/react-hooks'
 import loadable from '@loadable/component'
 import { Router } from '@reach/router'
 import React from 'react'
-import { Query } from 'react-apollo'
 import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from 'styles/global'
@@ -34,34 +34,40 @@ const SignIn = loadable(() =>
 )
 
 const Root: React.FunctionComponent = () => {
-  const Fault = __DEV__ ? require('routes/fault').default : null
+  const Fault = __DEV__ ? require('routes/fault').default : undefined
+
+  const { data = {}, loading } = useQuery<RootQueryData>(rootQuery, {
+    fetchPolicy: 'network-only',
+    ssr: false,
+  })
 
   return (
     <React.StrictMode>
-      <Query<RootQueryData>
-        fetchPolicy="network-only"
-        query={rootQuery}
-        ssr={false}
-      >
-        {({ data = {}, loading }) =>
-          renderLoadingIf(loading, () => (
-            <ThemeProvider theme={theme}>
-              <React.Fragment>
-                <GlobalStyle />
-                <Router>
-                  {Fault && <Fault path="/error" />}
-                  <Home path="/" />
-                  <Recover path="/recover" />
-                  {data.user && <Settings path="/settings" />}
-                  {!data.user && <Register path="/register" />}
-                  {!data.user && <SignIn path="/sign-in" />}
-                  <NotFound default />
-                </Router>
-              </React.Fragment>
-            </ThemeProvider>
-          ))
-        }
-      </Query>
+      {renderLoadingIf(loading, () => (
+        <ThemeProvider theme={theme}>
+          <React.Fragment>
+            <GlobalStyle />
+            {data.user ? (
+              <Router>
+                {Fault && <Fault path="/error" />}
+                <Home path="/" />
+                <Recover path="/recover" />
+                <Settings path="/settings" />
+                <NotFound default />
+              </Router>
+            ) : (
+              <Router>
+                {Fault && <Fault path="/error" />}
+                <Home path="/" />
+                <Recover path="/recover" />
+                <Register path="/register" />
+                <SignIn path="/sign-in" />
+                <NotFound default />
+              </Router>
+            )}
+          </React.Fragment>
+        </ThemeProvider>
+      ))}
     </React.StrictMode>
   )
 }

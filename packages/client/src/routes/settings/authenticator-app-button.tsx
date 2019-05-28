@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Mutation } from 'react-apollo'
+import { useMutation } from '@apollo/react-hooks'
 import { User } from '@fintruth-sdk/shared'
 import { rem } from 'polished'
+import React from 'react'
+import styled from 'styled-components'
 
 import BaseButton from 'components/button'
 import DisableTwoFactorAuthDialog from './disable-two-factor-auth-dialog'
@@ -27,43 +27,41 @@ const AuthenticatorAppButton: React.FunctionComponent<Props> = ({
 }: Props) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
 
+  const [onClick, { data, loading }] = useMutation<
+    EnableTwoFactorAuthMutationData
+  >(enableTwoFactorAuthMutation, {
+    onCompleted: ({ response }) =>
+      response.error ? undefined : setIsModalOpen(true),
+  })
+
   return (
-    <Mutation<EnableTwoFactorAuthMutationData>
-      mutation={enableTwoFactorAuthMutation}
-      onCompleted={({ response }) =>
-        response.error ? undefined : setIsModalOpen(true)
-      }
-    >
-      {(onClick, { data, loading }) => (
-        <React.Fragment>
-          <Button
-            {...props}
-            isLoading={loading}
-            isOutlined
-            onClick={() =>
-              user.isTwoFactorAuthEnabled ? setIsModalOpen(true) : onClick()
-            }
-            variant={data && data.response.error && 'danger'}
-          >
-            EDIT
-          </Button>
-          {user.isTwoFactorAuthEnabled ? (
-            <DisableTwoFactorAuthDialog
-              isOpen={isModalOpen}
-              onDismiss={() => setIsModalOpen(false)}
-              user={user}
-            />
-          ) : (
-            <EnableTwoFactorAuthDialog
-              dataUrl={data && data.response.dataUrl}
-              isOpen={isModalOpen}
-              onDismiss={() => setIsModalOpen(false)}
-              secret={data && data.response.secret}
-            />
-          )}
-        </React.Fragment>
+    <React.Fragment>
+      <Button
+        {...props}
+        isLoading={loading}
+        isOutlined
+        onClick={() =>
+          user.isTwoFactorAuthEnabled ? setIsModalOpen(true) : onClick()
+        }
+        variant={data && data.response.error && 'danger'}
+      >
+        EDIT
+      </Button>
+      {user.isTwoFactorAuthEnabled ? (
+        <DisableTwoFactorAuthDialog
+          isOpen={isModalOpen}
+          onDismiss={() => setIsModalOpen(false)}
+          user={user}
+        />
+      ) : (
+        <EnableTwoFactorAuthDialog
+          dataUrl={data && data.response.dataUrl}
+          isOpen={isModalOpen}
+          onDismiss={() => setIsModalOpen(false)}
+          secret={data && data.response.secret}
+        />
       )}
-    </Mutation>
+    </React.Fragment>
   )
 }
 

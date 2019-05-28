@@ -1,8 +1,8 @@
+import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { Omit, User } from '@fintruth-sdk/shared'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
-import { ApolloContext, Mutation } from 'react-apollo'
 import styled from 'styled-components'
 import { object, string } from 'yup'
 
@@ -63,61 +63,56 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   ...props
 }: Props) => {
   const [helpContent, setHelpContent] = React.useState<string>()
-  const { client } = React.useContext(ApolloContext as any)
+  const client = useApolloClient()
+
+  const [onSubmit, { loading }] = useMutation<
+    SignInTwoFactorAuthMutationData,
+    SignInTwoFactorAuthMutationVariables
+  >(signInTwoFactorAuthMutation, {
+    onCompleted: ({ response }) => {
+      // NOTE: Due to the inability to invalidate Apollo's cache the
+      // entire store needs to be reset in order to prevent storing
+      // private data
+      client.resetStore()
+
+      if (response.error) {
+        setHelpContent(response.error.message)
+      } else if (response.user) {
+        onCompleted(response.user)
+      }
+    },
+  })
 
   return (
-    <Mutation<
-      SignInTwoFactorAuthMutationData,
-      SignInTwoFactorAuthMutationVariables
-    >
-      mutation={signInTwoFactorAuthMutation}
-      onCompleted={({ response }) => {
-        // NOTE: Due to the inability to invalidate Apollo's cache the
-        // entire store needs to be reset in order to prevent storing
-        // private data
-        client.resetStore()
-
-        if (response.error) {
-          setHelpContent(response.error.message)
-        } else if (response.user) {
-          onCompleted(response.user)
+    <React.Fragment>
+      {helpContent && <Help>{helpContent}</Help>}
+      <Formik<Values>
+        initialValues={initialValues}
+        onSubmit={variables =>
+          onSubmit({ variables: { ...signInCredentials, ...variables } })
         }
-      }}
-    >
-      {(onSubmit, { loading }) => (
-        <React.Fragment>
-          {helpContent && <Help>{helpContent}</Help>}
-          <Formik<Values>
-            initialValues={initialValues}
-            onSubmit={variables =>
-              onSubmit({
-                variables: { ...signInCredentials, ...variables },
-              })
-            }
-            validationSchema={validationSchema}
+        validationSchema={validationSchema}
+      >
+        <Form {...props} id={formId} noValidate>
+          <LastInput
+            id={`${formId}-token`}
+            autoComplete="off"
+            form={formId}
+            label="VERIFICATION CODE"
+            name="token"
+            type="text"
+          />
+          <Button
+            form={formId}
+            isLoading={loading}
+            type="submit"
+            variant="primary"
           >
-            <Form {...props} id={formId} noValidate>
-              <LastInput
-                id={`${formId}-token`}
-                autoComplete="off"
-                form={formId}
-                label="VERIFICATION CODE"
-                name="token"
-                type="text"
-              />
-              <Button
-                form={formId}
-                isLoading={loading}
-                type="submit"
-                variant="primary"
-              >
-                CONTINUE
-              </Button>
-            </Form>
-          </Formik>
-        </React.Fragment>
-      )}
-    </Mutation>
+            CONTINUE
+          </Button>
+        </Form>
+      </Formik>
+    </React.Fragment>
   )
 }
 

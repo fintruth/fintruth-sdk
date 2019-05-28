@@ -1,21 +1,22 @@
 import { useMutation } from '@apollo/react-hooks'
 import { Omit, User } from '@fintruth-sdk/shared'
+import { Link as BaseLink } from '@reach/router'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
+import { path } from 'ramda'
 import React from 'react'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseInput from 'components/input'
+import Input from 'components/input'
+import { link } from 'styles/deprecated'
 import { help } from 'styles/mixins'
 import {
-  UpdateProfileMutationData,
-  UpdateProfileMutationVariables,
-  accountQuery,
-  updateProfileMutation,
+  RecoverMutationData,
+  RecoverMutationVariables,
+  recoverMutation,
 } from './graphql'
-import { button, field, form } from './mixins'
 
 interface HelpProps {
   color: Color
@@ -26,20 +27,20 @@ interface Props
     React.FormHTMLAttributes<HTMLFormElement>,
     'onReset' | 'onSubmit'
   > {
-  user: User
+  user?: User
 }
 
 interface Values {
-  familyName: string
-  givenName: string
+  email: string
 }
 
 const validationSchema = object().shape({
-  familyName: string().required('This is a required field'),
-  givenName: string().required('This is a required field'),
+  email: string()
+    .required('This is a required field')
+    .email('Please provide a valid email address'),
 })
 
-const formId = 'update-profile__Form'
+const formId = 'recover__Form'
 
 const Help = styled.p<HelpProps>`
   ${({ color, theme }) => help(theme[color])};
@@ -48,18 +49,26 @@ const Help = styled.p<HelpProps>`
 `
 
 const Form = styled(BaseForm)`
-  ${form};
-`
-
-const Input = styled(BaseInput)`
-  ${field};
+  display: flex;
+  flex-direction: column;
+  width: ${rem(280)};
 `
 
 const Button = styled(BaseButton)`
-  ${button};
+  align-self: center;
+  margin-top: ${rem(40)};
 `
 
-const UpdateProfileForm: React.FunctionComponent<Props> = ({
+const Description = styled.div`
+  font-size: ${rem(12)};
+  margin-top: ${rem(16)};
+`
+
+const Link = styled(BaseLink)`
+  ${link};
+`
+
+const RecoverForm: React.FunctionComponent<Props> = ({
   user,
   ...props
 }: Props) => {
@@ -67,62 +76,56 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
   const [helpContent, setHelpContent] = React.useState<string>()
 
   const [onSubmit, { loading }] = useMutation<
-    UpdateProfileMutationData,
-    UpdateProfileMutationVariables
-  >(updateProfileMutation, {
+    RecoverMutationData,
+    RecoverMutationVariables
+  >(recoverMutation, {
     onCompleted: ({ response }) => {
       if (response.error) {
         setHelpColor('danger')
         setHelpContent(response.error.message)
-      } else if (response.profile) {
+      } else {
         setHelpColor('success')
-        setHelpContent('Your profile information was successfully updated')
+        setHelpContent('A verification email has been sent')
       }
     },
-    update: (cache, { data }) =>
-      data &&
-      data.response.profile &&
-      cache.writeQuery({
-        data: { user: { ...user, profile: data.response.profile } },
-        query: accountQuery,
-      }),
   })
 
   return (
     <React.Fragment>
       {helpContent && <Help color={helpColor}>{helpContent}</Help>}
       <Formik<Values>
-        initialValues={{
-          familyName: user.profile.familyName,
-          givenName: user.profile.givenName,
-        }}
-        onSubmit={input => onSubmit({ variables: { input } })}
+        initialValues={{ email: user ? user.email : '' }}
+        onSubmit={(variables, { resetForm }) =>
+          onSubmit({ variables }).then(value =>
+            path(['data', 'response', 'error'], value) ? undefined : resetForm()
+          )
+        }
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
           <Input
-            id={`${formId}-givenName`}
-            autoComplete="given-name"
+            id={`${formId}-email`}
+            autoComplete="off"
             form={formId}
-            label="FIRST NAME"
-            name="givenName"
-            type="text"
+            label="EMAIL"
+            name="email"
+            type="email"
           />
-          <Input
-            id={`${formId}-familyName`}
-            autoComplete="family-name"
-            form={formId}
-            label="LAST NAME"
-            name="familyName"
-            type="text"
-          />
+          <Description>
+            Already have email and password?{' '}
+            {user ? (
+              <Link to="/settings">Settings</Link>
+            ) : (
+              <Link to="/sign-in">Sign in</Link>
+            )}
+          </Description>
           <Button
             form={formId}
             isLoading={loading}
             type="submit"
             variant="primary"
           >
-            SAVE
+            RECOVER
           </Button>
         </Form>
       </Formik>
@@ -130,4 +133,4 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
   )
 }
 
-export default UpdateProfileForm
+export default RecoverForm

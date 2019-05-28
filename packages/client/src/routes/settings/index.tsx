@@ -1,7 +1,7 @@
+import { useQuery } from '@apollo/react-hooks'
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
-import { Query } from 'react-apollo'
 import styled, { css } from 'styled-components'
 
 import Layout from 'components/layout'
@@ -90,42 +90,41 @@ const defaultUser = {
 
 const Settings: React.FunctionComponent<RouteComponentProps> = ({
   ...props
-}: RouteComponentProps) => (
-  <Layout data-testid="settings" {...props}>
-    <Query<AccountQueryData> query={accountQuery}>
-      {({ data = {}, loading }) => {
-        const user = data.user || defaultUser
+}: RouteComponentProps) => {
+  const { data = {}, loading } = useQuery<AccountQueryData>(accountQuery)
+  const user = data.user || defaultUser
 
-        return renderLoadingIf(loading, () => (
-          <Root>
-            <Card>
-              <Subheader>EMAIL</Subheader>
-              <UpdateEmailForm user={user} />
-              <Subheader>PASSWORD</Subheader>
-              <UpdatePasswordForm />
-              <Subheader>PROFILE INFORMATION</Subheader>
-              <UpdateProfileForm user={user} />
-            </Card>
-            <Card>
-              <Header>Two-Factor Authentication</Header>
-              Two-factor authentication adds an additional layer of security to
-              your account by requiring more than just a password to sign in.
-              <MethodContainer>
-                <Label>Methods</Label>
-                <Method>
-                  Authenticator App
-                  <div>
-                    {!user.isTwoFactorAuthEnabled && 'Not'} Configured
-                    <AuthenticatorAppButton user={user} />
-                  </div>
-                </Method>
-              </MethodContainer>
-            </Card>
-          </Root>
-        ))
-      }}
-    </Query>
-  </Layout>
-)
+  return (
+    <Layout data-testid="settings" {...props}>
+      {renderLoadingIf(loading, () => (
+        <Root>
+          <Card>
+            <Subheader>EMAIL</Subheader>
+            <UpdateEmailForm user={user} />
+            <Subheader>PASSWORD</Subheader>
+            <UpdatePasswordForm />
+            <Subheader>PROFILE INFORMATION</Subheader>
+            <UpdateProfileForm user={user} />
+          </Card>
+          <Card>
+            <Header>Two-Factor Authentication</Header>
+            Two-factor authentication adds an additional layer of security to
+            your account by requiring more than just a password to sign in.
+            <MethodContainer>
+              <Label>Methods</Label>
+              <Method>
+                Authenticator App
+                <div>
+                  {!user.isTwoFactorAuthEnabled && 'Not'} Configured
+                  <AuthenticatorAppButton user={user} />
+                </div>
+              </Method>
+            </MethodContainer>
+          </Card>
+        </Root>
+      ))}
+    </Layout>
+  )
+}
 
 export default Settings

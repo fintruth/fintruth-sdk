@@ -1,7 +1,8 @@
+import { useApolloClient, useMutation } from '@apollo/react-hooks'
+import { Omit } from '@fintruth-sdk/shared'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
-import { ApolloContext, Mutation } from 'react-apollo'
 import styled from 'styled-components'
 import { object, string } from 'yup'
 
@@ -15,13 +16,25 @@ import {
 } from './graphql'
 import { button, field, form } from './mixins'
 
-interface Props {
+interface Props
+  extends Omit<
+    React.FormHTMLAttributes<HTMLFormElement>,
+    'onReset' | 'onSubmit'
+  > {
   onCompleted?: () => void
 }
 
 interface Values {
   token: string
 }
+
+const initialValues: Values = { token: '' }
+
+const validationSchema = object().shape({
+  token: string().required('This is a required field'),
+})
+
+const formId = 'confirm-two-factor-auth__Form'
 
 const Help = styled.p`
   ${({ theme }) => help(theme.danger)};
@@ -43,70 +56,59 @@ const Button = styled(BaseButton)`
   align-self: unset;
 `
 
-const initialValues = { token: '' }
-
-const validationSchema = object().shape({
-  token: string().required('This is a required field'),
-})
-
-const formId = 'confirm-two-factor-auth__Form'
-
 const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   onCompleted,
   ...props
 }: Props) => {
   const [helpContent, setHelpContent] = React.useState<string>()
-  const { client } = React.useContext(ApolloContext as any)
+  const client = useApolloClient()
+
+  const [onSubmit, { loading }] = useMutation<
+    ConfirmTwoFactorAuthMutationData,
+    ConfirmTwoFactorAuthMutationVariables
+  >(confirmTwoFactorAuthMutation, {
+    onCompleted: ({ response }) => {
+      // NOTE: Due to the inability to invalidate Apollo's cache the
+      // entire store needs to be reset in order to prevent storing
+      // private data
+      client.resetStore()
+
+      if (response.error) {
+        setHelpContent(response.error.message)
+      } else if (onCompleted) {
+        onCompleted()
+      }
+    },
+  })
 
   return (
-    <Mutation<
-      ConfirmTwoFactorAuthMutationData,
-      ConfirmTwoFactorAuthMutationVariables
-    >
-      mutation={confirmTwoFactorAuthMutation}
-      onCompleted={({ response }) => {
-        // NOTE: Due to the inability to invalidate Apollo's cache the
-        // entire store needs to be reset in order to prevent storing
-        // private data
-        client.resetStore()
-
-        if (response.error) {
-          setHelpContent(response.error.message)
-        } else if (onCompleted) {
-          onCompleted()
-        }
-      }}
-    >
-      {(onSubmit, { loading }) => (
-        <Formik<Values>
-          initialValues={initialValues}
-          onSubmit={variables => onSubmit({ variables })}
-          validationSchema={validationSchema}
-        >
-          <React.Fragment>
-            {helpContent && <Help>{helpContent}</Help>}
-            <Form {...props} id={formId} noValidate>
-              <Input
-                id={`${formId}-token`}
-                autoComplete="off"
-                form={formId}
-                label="VERIFICATION CODE"
-                name="token"
-                type="text"
-              />
-              <Button
-                form={formId}
-                isLoading={loading}
-                type="submit"
-                variant="primary"
-              >
-                ENABLE
-              </Button>
-            </Form>
-          </React.Fragment>
-        </Formik>
-      )}
-    </Mutation>
+    <React.Fragment>
+      {helpContent && <Help>{helpContent}</Help>}
+      <Formik<Values>
+        initialValues={initialValues}
+        onSubmit={variables => onSubmit({ variables })}
+        validationSchema={validationSchema}
+      >
+        <Form {...props} id={formId} noValidate>
+          <Input
+            id={`${formId}-token`}
+            autoComplete="off"
+            form={formId}
+            label="VERIFICATION CODE"
+            name="token"
+            type="text"
+          />
+          <Button
+            form={formId}
+            isLoading={loading}
+            type="submit"
+            variant="primary"
+          >
+            ENABLE
+          </Button>
+        </Form>
+      </Formik>
+    </React.Fragment>
   )
 }
 
