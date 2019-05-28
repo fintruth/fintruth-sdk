@@ -10,7 +10,7 @@
     ts-invariant "^0.4.2"
     tslib "^1.9.3"
 
-"@apollo/react-hooks@^0.1.0-beta.7":
+"@apollo/react-hooks@0.1.0-beta.7":
   version "0.1.0-beta.7"
   resolved "https://registry.yarnpkg.com/@apollo/react-hooks/-/react-hooks-0.1.0-beta.7.tgz#431e43054f196363ecfb354e03defe39994598fa"
   integrity sha512-AeFavSE/zoWcdf/Ml4NOtG7v8waK8DirhScGaOCVvQ6u4GaYJOUGVI9Zo3DLqq5RmPwIoe1XMpdfI6uCmuyfFw==
@@ -19,7 +19,7 @@
     ts-invariant "^0.4.2"
     tslib "^1.9.3"
 
-"@apollo/react-testing@^0.1.0-beta.2":
+"@apollo/react-testing@0.1.0-beta.2":
   version "0.1.0-beta.2"
   resolved "https://registry.yarnpkg.com/@apollo/react-testing/-/react-testing-0.1.0-beta.2.tgz#c068acf81f14a0276ddf5170e372b2c405e4f3a1"
   integrity sha512-a5KQ5L3cTPWkvj3JB+lCekEBxPDaeVNIg1iUHrO6aAjB8qYRxfopYrKjW5Ho130cg8dLyWcgM+yurreSrc8ZNQ==
