@@ -1,8 +1,8 @@
-import { User } from '@fintruth-sdk/shared'
+import { useMutation } from '@apollo/react-hooks'
+import { Omit, User } from '@fintruth-sdk/shared'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
-import { Mutation } from 'react-apollo'
 import styled from 'styled-components'
 import { object, string } from 'yup'
 
@@ -17,7 +17,11 @@ import {
 } from './graphql'
 import { button, field, form } from './mixins'
 
-interface Props {
+interface Props
+  extends Omit<
+    React.FormHTMLAttributes<HTMLFormElement>,
+    'onReset' | 'onSubmit'
+  > {
   onCompleted?: () => void
   user: User
 }
@@ -25,6 +29,14 @@ interface Props {
 interface Values {
   token: string
 }
+
+const initialValues: Values = { token: '' }
+
+const validationSchema = object().shape({
+  token: string().required('This is a required field'),
+})
+
+const formId = 'disable-two-factor-auth__Form'
 
 const Help = styled.p`
   ${({ theme }) => help(theme.danger)};
@@ -46,14 +58,6 @@ const Button = styled(BaseButton)`
   align-self: unset;
 `
 
-const initialValues = { token: '' }
-
-const validationSchema = object().shape({
-  token: string().required('This is a required field'),
-})
-
-const formId = 'disable-two-factor-auth__Form'
-
 const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   onCompleted,
   user,
@@ -61,59 +65,55 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
 }: Props) => {
   const [helpContent, setHelpContent] = React.useState<string>()
 
-  return (
-    <Mutation<
-      DisableTwoFactorAuthMutationData,
-      DisableTwoFactorAuthMutationVariables
-    >
-      mutation={disableTwoFactorAuthMutation}
-      onCompleted={({ response }) => {
-        if (response.error) {
-          setHelpContent(response.error.message)
-        } else if (onCompleted) {
-          onCompleted()
-        }
-      }}
-      update={(cache, { data = { response: { error: null } } }) =>
-        data.response.error
-          ? undefined
-          : cache.writeQuery({
-              data: { user: { ...user, isTwoFactorAuthEnabled: false } },
-              query: accountQuery,
-            })
+  const [onSubmit, { loading }] = useMutation<
+    DisableTwoFactorAuthMutationData,
+    DisableTwoFactorAuthMutationVariables
+  >(disableTwoFactorAuthMutation, {
+    onCompleted: ({ response }) => {
+      if (response.error) {
+        setHelpContent(response.error.message)
+      } else if (onCompleted) {
+        onCompleted()
       }
-    >
-      {(onSubmit, { loading }) => (
-        <Formik<Values>
-          initialValues={initialValues}
-          onSubmit={variables => onSubmit({ variables })}
-          validationSchema={validationSchema}
-        >
-          <React.Fragment>
-            {helpContent && <Help>{helpContent}</Help>}
-            <Form {...props} id={formId} noValidate>
-              <Input
-                id={`${formId}-token`}
-                autoComplete="off"
-                form={formId}
-                label="VERIFICATION CODE"
-                name="token"
-                type="text"
-              />
-              <Button
-                form={formId}
-                isLoading={loading}
-                isOutlined
-                type="submit"
-                variant="danger"
-              >
-                DISABLE
-              </Button>
-            </Form>
-          </React.Fragment>
-        </Formik>
-      )}
-    </Mutation>
+    },
+    update: (cache, { data }) =>
+      data && data.response.error
+        ? undefined
+        : cache.writeQuery({
+            data: { user: { ...user, isTwoFactorAuthEnabled: false } },
+            query: accountQuery,
+          }),
+  })
+
+  return (
+    <React.Fragment>
+      {helpContent && <Help>{helpContent}</Help>}
+      <Formik<Values>
+        initialValues={initialValues}
+        onSubmit={variables => onSubmit({ variables })}
+        validationSchema={validationSchema}
+      >
+        <Form {...props} id={formId} noValidate>
+          <Input
+            id={`${formId}-token`}
+            autoComplete="off"
+            form={formId}
+            label="VERIFICATION CODE"
+            name="token"
+            type="text"
+          />
+          <Button
+            form={formId}
+            isLoading={loading}
+            isOutlined
+            type="submit"
+            variant="danger"
+          >
+            DISABLE
+          </Button>
+        </Form>
+      </Formik>
+    </React.Fragment>
   )
 }
 

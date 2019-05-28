@@ -1,3 +1,4 @@
+import { ApolloProvider, renderToStringWithData } from '@apollo/react-hooks'
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 import { ServerLocation, isRedirect } from '@reach/router'
 import bodyParser from 'body-parser'
@@ -7,7 +8,6 @@ import express, { Express, NextFunction, Request, Response } from 'express'
 import path from 'path'
 import PrettyError from 'pretty-error'
 import React from 'react'
-import { ApolloProvider, renderToStringWithData } from 'react-apollo'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 
