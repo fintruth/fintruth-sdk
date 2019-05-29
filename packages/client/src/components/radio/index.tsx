@@ -58,11 +58,11 @@ const Toggle = styled.div`
     height: ${em(10)};
     width: ${em(10)};
 
-    input[checked] ~ & {
+    input:checked ~ & {
       background-color: ${({ theme }) => theme.linkColor};
     }
 
-    input[checked][disabled] ~ & {
+    input[disabled]:checked ~ & {
       background-color: ${({ theme }) => theme.textLightColor};
     }
   }
@@ -74,7 +74,7 @@ const Toggle = styled.div`
       ${({ theme }) => transparentize(0.75, theme.linkColor)};
   }
 
-  input[checked] ~ & {
+  input:checked ~ & {
     border-color: ${({ theme }) => theme.linkColor};
   }
 
