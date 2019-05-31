@@ -126,17 +126,20 @@ const Help = styled.p`
   ${({ theme }) => help(theme.danger)};
 `
 
-const Input: React.FunctionComponent<Props> = ({
-  className,
-  id,
-  isDisabled,
-  isLoading,
-  isRequired = true,
-  label,
-  name,
-  type = 'text',
-  ...props
-}: Props) => {
+const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
+  {
+    className,
+    id,
+    isDisabled,
+    isLoading,
+    isRequired = true,
+    label,
+    name,
+    type = 'text',
+    ...props
+  }: Props,
+  ref: React.Ref<HTMLInputElement>
+) => {
   const [field, { error, touched }] = useField<string>(name)
 
   return (
@@ -153,6 +156,7 @@ const Input: React.FunctionComponent<Props> = ({
           type={type}
           variant={error && touched ? 'danger' : undefined}
           {...props}
+          ref={ref}
           disabled={isDisabled}
         />
       </Control>
@@ -161,4 +165,4 @@ const Input: React.FunctionComponent<Props> = ({
   )
 }
 
-export default Input
+export default React.forwardRef(Input)
