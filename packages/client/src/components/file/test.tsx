@@ -1,6 +1,6 @@
+import { fireEvent, render } from '@testing-library/react'
 import { Formik } from 'formik'
 import React from 'react'
-import { fireEvent, render } from 'react-testing-library'
 import { ThemeProvider } from 'styled-components'
 
 import theme from 'styles/theme'

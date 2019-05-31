@@ -1,6 +1,6 @@
+import { render } from '@testing-library/react'
 import { Formik } from 'formik'
 import React from 'react'
-import { render } from 'react-testing-library'
 import { ThemeProvider } from 'styled-components'
 import userEvent from 'user-event'
 
