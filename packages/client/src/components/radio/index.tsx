@@ -100,15 +100,10 @@ const Label = styled.label`
   }
 `
 
-const Radio: React.FunctionComponent<Props> = ({
-  className,
-  id,
-  isDisabled,
-  label,
-  name,
-  value,
-  ...props
-}: Props) => {
+const Radio: React.RefForwardingComponent<HTMLInputElement, Props> = (
+  { className, id, isDisabled, label, name, value, ...props }: Props,
+  ref: React.Ref<HTMLInputElement>
+) => {
   const [{ value: fieldValue, ...field }] = useField<string>(name)
 
   return (
@@ -120,6 +115,7 @@ const Radio: React.FunctionComponent<Props> = ({
         {...props}
         checked={value === fieldValue}
         disabled={isDisabled}
+        ref={ref}
         type="radio"
       />
       <Toggle />
@@ -128,4 +124,4 @@ const Radio: React.FunctionComponent<Props> = ({
   )
 }
 
-export default Radio
+export default React.forwardRef(Radio)
