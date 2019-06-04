@@ -23,12 +23,14 @@ interface Props
     React.InputHTMLAttributes<HTMLInputElement>,
     'disabled' | 'required'
   > {
+  format?: (value: string) => string
   id: string
   isDisabled?: boolean
   isLoading?: boolean
   isRequired?: boolean
   label?: string
   name: string
+  serialize?: (value: string, prevValue: string) => string
   type?: Type
 }
 
@@ -129,18 +131,22 @@ const Help = styled.p`
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   {
     className,
+    format,
     id,
     isDisabled,
     isLoading,
     isRequired = true,
     label,
     name,
+    serialize,
     type = 'text',
     ...props
   }: Props,
   ref: React.Ref<HTMLInputElement>
 ) => {
-  const [field, { error, touched }] = useField<string>(name)
+  const [{ onChange, value, ...field }, { error, touched }] = useField<string>(
+    name
+  )
 
   return (
     <Root className={className}>
@@ -153,8 +159,14 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
         <BaseInput
           {...field}
           id={id}
+          onChange={
+            serialize
+              ? ({ target }) => onChange(name)(serialize(target.value, value))
+              : onChange
+          }
           type={type}
           variant={error && touched ? 'danger' : undefined}
+          value={format ? format(value) : value}
           {...props}
           ref={ref}
           disabled={isDisabled}
