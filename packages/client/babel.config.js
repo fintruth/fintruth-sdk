@@ -32,9 +32,9 @@ const createConfig = ({ caller, env }) => {
     presets: [
       [
         '@babel/preset-env',
-        caller(({ target } = { target: 'node' }) => target === 'web')
-          ? { corejs: 3, modules: false, useBuiltIns: 'entry' }
-          : { targets: { node: node.match(/(\d+\.?)+/)[0] } },
+        caller(({ target = 'node' } = {}) => target === 'node')
+          ? { targets: { node: node.match(/(\d+\.?)+/)[0] } }
+          : { corejs: 3, modules: false, useBuiltIns: 'entry' },
       ],
       [
         '@babel/preset-react',

@@ -1,6 +1,5 @@
 'use strict'
 
-const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin')
 const path = require('path')
 const { DefinePlugin } = require('webpack')
 
@@ -21,24 +20,6 @@ module.exports = ({ config, mode }) => {
               test: /\.(bmp|gif|jp(e)?g|png|webp)$/,
               loader: require.resolve('url-loader'),
               options: { limit: 10000, name: '[name].[hash:8].[ext]' },
-            },
-            {
-              test: /\.mdx$/,
-              use: [
-                {
-                  loader: require.resolve('babel-loader'),
-                  options: {
-                    cacheCompression: isEnvProd,
-                    cacheDirectory: true,
-                    caller: { target: 'web' },
-                    compact: isEnvProd,
-                  },
-                },
-                {
-                  loader: require.resolve('@mdx-js/loader'),
-                  options: { compilers: [createCompiler()] },
-                },
-              ],
             },
             {
               test: /\.svg$/,
