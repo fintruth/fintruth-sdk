@@ -1,0 +1,28 @@
+import { action } from '@storybook/addon-actions'
+import centered from '@storybook/addon-centered/react'
+import { Meta, Story } from '@storybook/addon-docs/blocks'
+import { boolean, number, select, text } from '@storybook/addon-knobs'
+
+import Button from '.'
+
+<Meta decorators={[centered]} title="Components|Button" />
+
+<Story name="Default">
+  <Button
+    delay={number('delay', 200)}
+    isDisabled={boolean('isDisabled', false)}
+    isInverted={boolean('isInverted', false)}
+    isLoading={boolean('isLoading', false)}
+    isOutlined={boolean('isOutlined', false)}
+    onClick={action('onClick')}
+    variant={
+      select(
+        'variant',
+        { default: '', primary: 'primary', danger: 'danger' },
+        ''
+      ) || undefined
+    }
+  >
+    {text('children', 'Button')}
+  </Button>
+</Story>

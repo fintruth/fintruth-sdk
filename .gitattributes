@@ -4,11 +4,20 @@
 
 # For the following file types, normalize line endings to LF on check-in and
 # prevent conversion to CRLF when they are checked out
+*.ico          binary eol=lf
+*.png          binary eol=lf
+
 .*             text eol=lf
+*.client       text eol=lf
+*.graphql      text eol=lf
+*.html         text eol=lf
 *.js           text eol=lf
 *.json         text eol=lf
 *.lock         text eol=lf
 *.md           text eol=lf
+*.mdx          text eol=lf
+*.server       text eol=lf
+*.sh           text eol=lf
 *.snap         text eol=lf
 *.svg          text eol=lf
 *.ts           text eol=lf
