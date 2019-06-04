@@ -1,14 +1,12 @@
-import React from 'react'
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
-import { ThemeProvider } from 'styled-components'
-import { addDecorator, addParameters, configure } from '@storybook/react'
 import { withA11y } from '@storybook/addon-a11y'
 import { withKnobs } from '@storybook/addon-knobs'
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { addDecorator, addParameters, load } from '@storybook/react'
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from 'styles/global'
 import theme from 'styles/theme'
-
-const req = require.context('../src', true, /(.*\.)?stories\.tsx$/)
 
 addDecorator(withA11y)
 addDecorator(withKnobs)
@@ -23,12 +21,14 @@ addDecorator(story => (
 
 addParameters({
   options: {
-    brandTitle: '@fintruth-sdk/client',
-    brandUrl:
-      'https://github.com/fintruth/fintruth-sdk/tree/develop/packages/client#readme',
-    selectedAddonPanel: 'storybooks/knobs/panel',
+    selectedPanel: 'storybooks/knobs/panel',
+    theme: {
+      brandTitle: '@fintruth-sdk/client',
+      brandUrl:
+        'https://github.com/fintruth/fintruth-sdk/tree/develop/packages/client#readme',
+    },
   },
   viewports: { ...INITIAL_VIEWPORTS },
 })
 
-configure(() => req.keys().forEach(filename => req(filename)), module)
+load(require.context('../src', true, /(.*\.)?stories\.(md|ts)x$/), module)
