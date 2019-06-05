@@ -1,12 +1,14 @@
 import { withA11y } from '@storybook/addon-a11y'
 import { withKnobs } from '@storybook/addon-knobs'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
-import { addDecorator, addParameters, load } from '@storybook/react'
+import { addDecorator, addParameters, configure } from '@storybook/react'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from 'styles/global'
 import theme from 'styles/theme'
+
+const req = require.context('../src', true, /(.*\.)?stories\.tsx$/)
 
 addDecorator(withA11y)
 addDecorator(withKnobs)
@@ -31,4 +33,4 @@ addParameters({
   viewports: { ...INITIAL_VIEWPORTS },
 })
 
-load(require.context('../src', true, /(.*\.)?stories\.(md|ts)x$/), module)
+configure(() => req.keys().forEach(filename => req(filename)), module)
