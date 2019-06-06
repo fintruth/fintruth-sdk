@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Formik } from 'formik'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
-import userEvent from 'user-event'
 
 import theme from 'styles/theme'
 import Radio from '.'

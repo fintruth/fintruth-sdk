@@ -1,8 +1,8 @@
 import { MockedProvider } from '@apollo/react-testing'
 import { waitForElement } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
-import userEvent from 'user-event'
 
 import theme from 'styles/theme'
 import { renderWithRouter } from 'utilities/specification'
