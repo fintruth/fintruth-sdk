@@ -3169,10 +3169,10 @@
     "@types/react" "*"
     "@types/storybook__react" "*"
 
-"@types/storybook__addon-viewport@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@types/storybook__addon-viewport/-/storybook__addon-viewport-4.1.0.tgz#18af09f1ecd983e4c5ec803f46b15289f88cb299"
-  integrity sha512-4BAIplyTmGyRcL7DuRQv0Bc/iJyJjO/tbZR3ZA1plIO4HGurvaXAeGRPNns9bgo+xCkZUzASh8Vpc68lyrYfLA==
+"@types/storybook__addon-viewport@^4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@types/storybook__addon-viewport/-/storybook__addon-viewport-4.1.1.tgz#d29b04760bf6820ee6bc417f8e08f40280e24379"
+  integrity sha512-ApZkw8mzKpH309vAP25LwnElilWl3XfXRm/Y5WB26zcfiWoaKln7fuHxFIzjOUPDFpCOefL6vNhFEw52v0621Q==
   dependencies:
     "@types/storybook__react" "*"
 
