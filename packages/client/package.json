@@ -112,7 +112,7 @@
     "@types/storybook__addon-centered": "^3.4.1",
     "@types/storybook__addon-knobs": "^5.0.1",
     "@types/storybook__addon-viewport": "^4.1.1",
-    "@types/storybook__react": "^4.0.1",
+    "@types/storybook__react": "^4.0.2",
     "@types/styled-components": "^4.1.16",
     "@types/user-event": "^1.4.1",
     "@types/yup": "^0.26.14",
