@@ -2738,7 +2738,7 @@
     "@babel/runtime" "^7.4.5"
     "@testing-library/dom" "^5.0.1"
 
-"@testing-library/dom@^5.0.0", "@testing-library/dom@^5.0.1":
+"@testing-library/dom@5.1.1", "@testing-library/dom@^5.0.0", "@testing-library/dom@^5.0.1":
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-5.1.1.tgz#091a30b1ca058080bf432cd1aeb2b7c646022f97"
   integrity sha512-twpAkqomsI0xeOLehijOAmPxeKvs6+WZC/6/nXD0+HNQupP3OZeZho/PBlNhrGL+8nQWiPjdvmxeyU0tq+hctA==
@@ -2755,6 +2755,13 @@
   dependencies:
     "@babel/runtime" "^7.4.5"
     "@testing-library/dom" "^5.0.0"
+
+"@testing-library/user-event@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-4.0.0.tgz#d668597486185bb66c7bb954c39327ed4e196925"
+  integrity sha512-t285/i/1ph6ijpLqYyjVLeaWd5pdOZa+EIyYLnTe6h3sn81yo8goo2wNNQp4MDO14ss6HujEJDCeBQjL5s+j3w==
+  dependencies:
+    "@testing-library/dom" "5.1.1"
 
 "@types/accepts@^1.3.5":
   version "1.3.5"
@@ -3204,11 +3211,6 @@
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
   integrity sha512-FvUupuM3rlRsRtCN+fDudtmytGO6iHJuuRKS1Ss0pG5z8oX0diNEw94UEL7hgDbpN94rgaK5R7sWm6RrSkZuAQ==
-
-"@types/user-event@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@types/user-event/-/user-event-1.4.1.tgz#ff359a4be77c9c7e0eea5f1c638b790cceb87a98"
-  integrity sha512-JkB3xL3LZPdTmhaVaTqO6Dp8mblPC+STFrrAalHMT7EgcGn4NI18HVxnTwCrQGyeGNaOolTAMTRfIVvEyuNrSQ==
 
 "@types/uuid@^3.4.4":
   version "3.4.4"
@@ -16612,11 +16614,6 @@ use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==
-
-user-event@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/user-event/-/user-event-4.0.0.tgz#5e5755cfb51b78a80b31c3db7acdcb9ca393c843"
-  integrity sha512-M2at0vzLqzrwZNBmtPDRyd+1BaRwU9UTG7sc+MrUZmGviR/Ws8tmXxVvfRvuv7TWWIDsLqbrMvoF1sF7DW4y5w==
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
