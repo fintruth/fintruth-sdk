@@ -17,13 +17,18 @@ const createConfig = ({ caller, env }) => {
           'polished',
         ],
       },
-      test: { plugins: ['dynamic-import-node'] },
+      test: {
+        plugins: [
+          ['@babel/plugin-transform-runtime', { helpers: false }],
+          'dynamic-import-node',
+        ],
+      },
     },
     ignore: ['build', 'node_modules'],
     plugins: [
       ['@babel/plugin-proposal-object-rest-spread', { useBuiltIns: true }],
       '@babel/plugin-syntax-dynamic-import',
-      ['@babel/plugin-transform-runtime', { helpers: false }],
+      ['@babel/plugin-transform-runtime', { corejs: 3, helpers: false }],
       '@loadable/babel-plugin',
       'graphql-tag',
       ['ramda', { useEs: true }],
