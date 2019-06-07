@@ -36,7 +36,7 @@
     "@apollo/react-hooks": "0.1.0-beta.7",
     "@apollo/react-testing": "0.1.0-beta.2",
     "@babel/runtime-corejs3": "^7.4.5",
-    "@fintruth-sdk/shared": "^0.1.0",
+    "@fintruth-sdk/common": "^0.1.0",
     "@loadable/component": "^5.10.1",
     "@loadable/server": "^5.9.0",
     "@reach/dialog": "^0.2.9",

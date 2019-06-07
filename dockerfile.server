@@ -17,8 +17,8 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 # Add packages
 COPY package.json yarn.lock ./
 COPY packages/client/package.json ./packages/client/
+COPY packages/common/package.json ./packages/common/
 COPY packages/server/package.json ./packages/server/
-COPY packages/shared/package.json ./packages/shared/
 COPY packages/validation/package.json ./packages/validation/
 
 # --------------------------------
@@ -41,7 +41,7 @@ FROM base AS release
 # Production dependencies
 COPY --from=dependencies /app/prod_node_modules ./node_modules
 COPY --from=dependencies /app/packages/server/node_modules ./packages/server/node_modules
-COPY packages/shared ./packages/shared
+COPY packages/common ./packages/common
 COPY packages/validation ./packages/validation
 
 WORKDIR ./packages/server

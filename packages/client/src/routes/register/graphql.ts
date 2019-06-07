@@ -1,4 +1,4 @@
-import { RegisterInput, Response } from '@fintruth-sdk/shared'
+import { RegisterInput, Response } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
 export interface RegisterMutationData {

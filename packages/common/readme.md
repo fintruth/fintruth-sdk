@@ -1,5 +1,5 @@
-# @fintruth-sdk/shared
+# @fintruth-sdk/common
 
-> Shared package
+> Common package
 
 [![Code Style](https://badgen.net/badge/code%20style/prettier/ff69b4)](https://github.com/prettier/prettier)

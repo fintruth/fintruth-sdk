@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/react-hooks'
-import { User } from '@fintruth-sdk/shared'
+import { User } from '@fintruth-sdk/common'
 import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'

@@ -1,4 +1,4 @@
-import { EnableTwoFactorAuthResponse as BaseEnableTwoFactorAuthResponse } from '@fintruth-sdk/shared'
+import { EnableTwoFactorAuthResponse as BaseEnableTwoFactorAuthResponse } from '@fintruth-sdk/common'
 import { Field, ObjectType } from 'type-graphql'
 
 import Response, { Props as ResponseProps } from './response'

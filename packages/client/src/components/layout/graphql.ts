@@ -1,5 +1,5 @@
+import { Response, User } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
-import { Response, User } from '@fintruth-sdk/shared'
 
 export interface LayoutQueryData {
   user?: User

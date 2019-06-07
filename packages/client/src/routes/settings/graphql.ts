@@ -1,4 +1,3 @@
-import gql from 'graphql-tag'
 import {
   EnableTwoFactorAuthResponse,
   ProfileInput,
@@ -6,7 +5,8 @@ import {
   Response,
   User,
   UserResponse,
-} from '@fintruth-sdk/shared'
+} from '@fintruth-sdk/common'
+import gql from 'graphql-tag'
 
 export interface AccountQueryData {
   user?: User

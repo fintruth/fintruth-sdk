@@ -1,4 +1,4 @@
-import { User as UserEntity } from '@fintruth-sdk/shared'
+import { User as UserEntity } from '@fintruth-sdk/common'
 import { compareSync } from 'bcrypt'
 import { isNil } from 'ramda'
 import { Field, ID, ObjectType } from 'type-graphql'

@@ -1,4 +1,4 @@
-import { UserResponse } from '@fintruth-sdk/shared'
+import { UserResponse } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
 export interface SignInMutationData {

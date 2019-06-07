@@ -1,5 +1,5 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { Omit, User } from '@fintruth-sdk/shared'
+import { Omit, User } from '@fintruth-sdk/common'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'

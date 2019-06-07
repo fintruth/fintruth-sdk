@@ -1,8 +1,8 @@
 {
-  "name": "@fintruth-sdk/shared",
+  "name": "@fintruth-sdk/common",
   "private": true,
   "version": "0.1.0",
-  "description": "Shared package",
+  "description": "Common package",
   "files": [
     "build"
   ],
@@ -23,7 +23,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fintruth/fintruth-sdk.git",
-    "directory": "packages/shared"
+    "directory": "packages/common"
   },
   "author": "Fintruth LLC",
   "license": "UNLICENSED",

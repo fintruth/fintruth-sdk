@@ -1,5 +1,5 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { Omit } from '@fintruth-sdk/shared'
+import { Omit } from '@fintruth-sdk/common'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'

@@ -1,4 +1,4 @@
-import { ProfileInput as BaseProfileInput } from '@fintruth-sdk/shared'
+import { ProfileInput as BaseProfileInput } from '@fintruth-sdk/common'
 import { Field, InputType } from 'type-graphql'
 
 @InputType()

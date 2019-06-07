@@ -26,7 +26,7 @@
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "@casl/ability": "^3.0.2",
-    "@fintruth-sdk/shared": "^0.1.0"
+    "@fintruth-sdk/common": "^0.1.0"
   },
   "engines": {
     "node": ">=10.15",

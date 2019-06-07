@@ -1,4 +1,4 @@
-import { Omit } from '@fintruth-sdk/shared'
+import { Omit } from '@fintruth-sdk/common'
 import { darken, em, transparentize } from 'polished'
 import React from 'react'
 import styled, {

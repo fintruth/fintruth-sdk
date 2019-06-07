@@ -1,5 +1,5 @@
 import { Ability, AbilityBuilder } from '@casl/ability'
-import { User } from '@fintruth-sdk/shared'
+import { User } from '@fintruth-sdk/common'
 
 export const defineAbilitiesFor = (user?: User) => {
   const { rules, can } = AbilityBuilder.extract()

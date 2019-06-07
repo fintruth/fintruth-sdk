@@ -33,7 +33,7 @@
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "@fintruth-sdk/auth": "^0.1.0",
-    "@fintruth-sdk/shared": "^0.1.0",
+    "@fintruth-sdk/common": "^0.1.0",
     "@fintruth-sdk/validation": "^0.1.0",
     "apollo-server-express": "^2.6.2",
     "aws-sdk": "^2.470.0",

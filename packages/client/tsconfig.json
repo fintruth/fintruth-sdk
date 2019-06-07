@@ -14,5 +14,5 @@
     },
     "types": ["jest"]
   },
-  "references": [{ "path": "../shared" }]
+  "references": [{ "path": "../common" }]
 }

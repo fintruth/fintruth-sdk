@@ -1,4 +1,4 @@
-import { User } from '@fintruth-sdk/shared'
+import { User } from '@fintruth-sdk/common'
 import { Redirect, RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { RegisterInput as BaseRegisterInput } from '@fintruth-sdk/shared'
+import { RegisterInput as BaseRegisterInput } from '@fintruth-sdk/common'
 import { Field, InputType } from 'type-graphql'
 
 import ProfileInput from './profile-input'

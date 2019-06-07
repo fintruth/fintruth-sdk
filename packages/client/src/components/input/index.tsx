@@ -1,4 +1,4 @@
-import { Omit } from '@fintruth-sdk/shared'
+import { Omit } from '@fintruth-sdk/common'
 import { useField } from 'formik'
 import { em, rem, transparentize } from 'polished'
 import React from 'react'

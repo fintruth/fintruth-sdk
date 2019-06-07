@@ -1,4 +1,4 @@
-import { ProfileResponse as BaseProfileResponse } from '@fintruth-sdk/shared'
+import { ProfileResponse as BaseProfileResponse } from '@fintruth-sdk/common'
 import { Field, ObjectType } from 'type-graphql'
 
 import Response, { Props as ResponseProps } from './response'

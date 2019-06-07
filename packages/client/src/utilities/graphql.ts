@@ -1,4 +1,4 @@
-import { ProfileInput, RegisterInput } from '@fintruth-sdk/shared'
+import { ProfileInput, RegisterInput } from '@fintruth-sdk/common'
 import { pickAll } from 'ramda'
 
 export const toProfileInput: <T extends ProfileInput>(

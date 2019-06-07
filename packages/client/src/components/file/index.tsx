@@ -1,4 +1,4 @@
-import { Omit } from '@fintruth-sdk/shared'
+import { Omit } from '@fintruth-sdk/common'
 import { useField, useFormikContext } from 'formik'
 import { darken, em, rem } from 'polished'
 import { path, pathOr } from 'ramda'

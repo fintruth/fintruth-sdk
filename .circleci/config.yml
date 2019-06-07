@@ -66,7 +66,7 @@ commands:
             - ~/fintruth-sdk/packages/auth/node_modules
             - ~/fintruth-sdk/packages/client/node_modules
             - ~/fintruth-sdk/packages/server/node_modules
-            - ~/fintruth-sdk/packages/shared/node_modules
+            - ~/fintruth-sdk/packages/common/node_modules
             - ~/fintruth-sdk/packages/validation/node_modules
 executors:
   node:
@@ -161,6 +161,43 @@ jobs:
           destination: reports
       - store_test_results:
           path: packages/client/reports
+  common:
+    environment:
+      REPORTS_DIR: reports
+    executor: node
+    working_directory: ~/fintruth-sdk
+    steps:
+      - checkout
+      - with_cache:
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install
+      - run:
+          name: Setup
+          command: mkdir --parents ${REPORTS_DIR}
+          working_directory: packages/common
+      - run:
+          name: Run static analysis
+          command: |
+            yarn --silent lint:files
+            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
+            yarn --silent lint:types
+          working_directory: packages/common
+      - run:
+          name: Run tests
+          command: yarn --silent test:units --runInBand --reporters default jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/test-units.xml
+          working_directory: packages/common
+      - persist_package_build:
+          path: packages/common/build
+          working_directory: packages/common
+      - store_artifacts:
+          path: packages/common/reports
+          destination: reports
+      - store_test_results:
+          path: packages/common/reports
   root:
     executor: node
     working_directory: ~/fintruth-sdk
@@ -217,43 +254,6 @@ jobs:
           destination: reports
       - store_test_results:
           path: packages/server/reports
-  shared:
-    environment:
-      REPORTS_DIR: reports
-    executor: node
-    working_directory: ~/fintruth-sdk
-    steps:
-      - checkout
-      - with_cache:
-          steps:
-            - run:
-                name: Install dependencies
-                command: yarn install
-      - run:
-          name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
-          working_directory: packages/shared
-      - run:
-          name: Run static analysis
-          command: |
-            yarn --silent lint:files
-            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
-            yarn --silent lint:types
-          working_directory: packages/shared
-      - run:
-          name: Run tests
-          command: yarn --silent test:units --runInBand --reporters default jest-junit
-          environment:
-            JEST_JUNIT_OUTPUT: reports/test-units.xml
-          working_directory: packages/shared
-      - persist_package_build:
-          path: packages/shared/build
-          working_directory: packages/shared
-      - store_artifacts:
-          path: packages/shared/reports
-          destination: reports
-      - store_test_results:
-          path: packages/shared/reports
   validation:
     environment:
       REPORTS_DIR: reports
@@ -297,15 +297,15 @@ workflows:
     jobs:
       - auth:
           requires:
-            - shared
+            - common
       - client:
           requires:
-            - shared
+            - common
       - root
       - server:
           requires:
             - auth
-            - shared
+            - common
             - validation
-      - shared
+      - common
       - validation
