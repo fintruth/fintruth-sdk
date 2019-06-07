@@ -4,7 +4,7 @@ const path = require('path')
 const { defaults } = require('jest-config')
 
 module.exports = {
-  collectCoverageFrom: ['src/**/*.ts?(x)', '!src/**/*.stories.tsx'],
+  collectCoverageFrom: ['src/**/*.ts?(x)', '!src/**/?(*.)stories.tsx'],
   coverageDirectory: 'coverage',
   errorOnDeprecated: true,
   globals: { __DEV__: true },
