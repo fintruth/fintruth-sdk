@@ -115,6 +115,7 @@
     "@types/storybook__addon-viewport": "^4.1.1",
     "@types/storybook__react": "^4.0.2",
     "@types/styled-components": "^4.1.16",
+    "@types/testing-library__user-event": "^4.0.0",
     "@types/yup": "^0.26.14",
     "apollo-link-logger": "^1.2.3",
     "babel-jest": "^24.8.0",
