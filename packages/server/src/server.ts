@@ -6,9 +6,9 @@ import expressJwt, { UnauthorizedError } from 'express-jwt'
 import morgan from 'morgan'
 import { Container } from 'typedi'
 
-import { ConfigService } from 'services'
-import { logAs, logger } from 'logger'
 import { User } from './entities'
+import { logAs, logger } from './logger'
+import { ConfigService } from './services'
 
 export interface ServerRequest extends Request {
   user?: User

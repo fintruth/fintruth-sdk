@@ -1,25 +1,33 @@
 'use strict'
 
-const path = require('path')
-const DotenvPlugin = require('dotenv-webpack')
 const LoadablePlugin = require('@loadable/webpack-plugin')
+const DotenvPlugin = require('dotenv-webpack')
+const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
-const nodeExternals = require('webpack-node-externals')
 const { BannerPlugin, DefinePlugin } = require('webpack')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const nodeExternals = require('webpack-node-externals')
 
-const ROOT_DIR = path.resolve(__dirname, '..')
-const BUILD_DIR = path.join(ROOT_DIR, 'build')
+const rootDir = path.resolve(__dirname, '..')
+const buildDir = path.join(rootDir, 'build')
+
+const env = process.env.NODE_ENV || 'development'
+const isEnvProd = /prod(uction)?/i.test(env)
+const isEnvStaging = /staging/i.test(env)
 
 const isAnalyze = process.argv.includes('--analyze')
-const isRelease = process.argv.includes('--release')
+const isRelease =
+  isEnvProd || isEnvStaging || process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
+
+const envExt =
+  isEnvProd || isRelease ? 'prod' : isEnvStaging ? 'staging' : 'dev'
 
 const createConfig = (target, configFactory) =>
   configFactory({
     bail: isRelease,
     cache: !isRelease,
-    context: ROOT_DIR,
+    context: rootDir,
     devtool: isRelease ? 'source-map' : 'eval-source-map',
     mode: isRelease ? 'production' : 'development',
     module: {
@@ -43,7 +51,7 @@ const createConfig = (target, configFactory) =>
             },
             {
               test: /\.ts(x)?$/,
-              include: [path.join(ROOT_DIR, 'src')],
+              include: [path.join(rootDir, 'src')],
               loader: require.resolve('babel-loader'),
               options: {
                 cacheCompression: isRelease,
@@ -81,7 +89,7 @@ const createConfig = (target, configFactory) =>
       devtoolModuleFilenameTemplate: ({ absoluteResourcePath }) =>
         path.resolve(absoluteResourcePath).replace(/\\/g, '/'),
       filename: isRelease ? '[name].[chunkhash:8].js' : '[name].js',
-      path: path.resolve(BUILD_DIR, 'public/assets'),
+      path: path.resolve(buildDir, 'public/assets'),
       pathinfo: isVerbose,
       publicPath: '/assets/',
     },
@@ -91,15 +99,15 @@ const createConfig = (target, configFactory) =>
         __DEV__: !isRelease,
       }),
       new DotenvPlugin({
-        defaults: path.join(ROOT_DIR, '.env.defaults'),
-        path: path.join(ROOT_DIR, `.env${isRelease ? '' : '.local'}`),
-        safe: path.join(ROOT_DIR, '.env.example'),
+        defaults: path.join(rootDir, '.env.defaults'),
+        path: path.join(rootDir, `.env.${envExt}`),
+        safe: path.join(rootDir, '.env.example'),
       }),
     ],
     resolve: {
-      alias: { react: path.resolve(ROOT_DIR, 'node_modules/react') },
+      alias: { react: path.resolve(rootDir, 'node_modules/react') },
       extensions: ['.js', '.json', '.mjs', '.ts', '.tsx', '.wasm'],
-      modules: ['node_modules', path.join(ROOT_DIR, 'src')],
+      modules: ['node_modules', path.join(rootDir, 'src')],
     },
     stats: {
       cached: isVerbose,
@@ -118,7 +126,7 @@ const createConfig = (target, configFactory) =>
 
 const clientConfig = createConfig('web', baseConfig => ({
   ...baseConfig,
-  entry: { client: './src/client.tsx' },
+  entry: { client: path.resolve('./src/client.tsx') },
   name: 'client',
   optimization: {
     minimize: isRelease,
@@ -158,7 +166,7 @@ const clientConfig = createConfig('web', baseConfig => ({
 
 const serverConfig = createConfig('node', baseConfig => ({
   ...baseConfig,
-  entry: { server: './src/server.tsx' },
+  entry: { server: path.resolve('./src/server.tsx') },
   externals: [nodeExternals({ whitelist: [/\.(bmp|gif|jp(e)?g|png|webp)$/] })],
   name: 'server',
   node: false,
@@ -167,7 +175,7 @@ const serverConfig = createConfig('node', baseConfig => ({
     chunkFilename: 'chunks/[name].js',
     filename: '[name].js',
     libraryTarget: 'commonjs2',
-    path: BUILD_DIR,
+    path: buildDir,
   },
   plugins: [
     ...baseConfig.plugins,

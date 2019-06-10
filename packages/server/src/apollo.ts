@@ -6,11 +6,11 @@ import { Container } from 'typedi'
 import { buildSchema } from 'type-graphql'
 import { useContainer } from 'typeorm'
 
-import { logAs } from 'logger'
-import * as resolvers from 'resolvers'
-import { ConfigService } from 'services'
-import { ServerRequest, ServerResponse } from 'server'
 import { User } from './entities'
+import { logAs } from './logger'
+import * as resolvers from './resolvers'
+import { ConfigService } from './services'
+import { ServerRequest, ServerResponse } from './server'
 
 export interface Context {
   res: ServerResponse

@@ -2,12 +2,12 @@ import SES from 'aws-sdk/clients/ses'
 import { start } from 'nact'
 import { Container } from 'typedi'
 
-import { spawnEmailer } from 'actors'
-import { createApolloServer } from 'apollo'
-import { createDatabaseConnection } from 'database'
-import { logAs } from 'logger'
-import { createServer } from 'server'
-import { ConfigService } from 'services'
+import { spawnEmailer } from './actors'
+import { createApolloServer } from './apollo'
+import { createDatabaseConnection } from './database'
+import { logAs } from './logger'
+import { createServer } from './server'
+import { ConfigService } from './services'
 
 const log = logAs('express')
 

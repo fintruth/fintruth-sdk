@@ -1,9 +1,16 @@
 import dotenv from 'dotenv-safe'
+import path from 'path'
 import { ConnectionOptions } from 'typeorm'
 
 import * as entities from './entities'
 
-dotenv.config()
+const env = process.env.NODE_ENV || 'development'
+const isEnvProd = /prod(uction)?/i.test(env)
+const isEnvStaging = /staging/i.test(env)
+
+const envExt = isEnvProd ? 'prod' : isEnvStaging ? 'staging' : 'dev'
+
+dotenv.config({ path: path.resolve(__dirname, `../.env.${envExt}`) })
 
 const baseConfig: Partial<ConnectionOptions> = {
   host: process.env.DB_HOST || '0.0.0.0',

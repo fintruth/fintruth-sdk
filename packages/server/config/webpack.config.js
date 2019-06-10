@@ -1,87 +1,102 @@
+'use strict'
+
+const DotenvPlugin = require('dotenv-webpack')
+const ForkTsCheckerPlugin = require('fork-ts-checker-webpack-plugin')
 const glob = require('glob')
 const path = require('path')
-const DotenvPlugin = require('dotenv-webpack')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const webpack = require('webpack')
+const { BannerPlugin, DefinePlugin } = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
-const isRelease = process.argv.includes('--release')
-const mode = isRelease ? 'production' : 'development'
-
 const rootDir = path.resolve(__dirname, '..')
-const buildDir = path.resolve(rootDir, 'build')
+const buildDir = path.join(rootDir, 'build')
+
+const env = process.env.NODE_ENV || 'development'
+const isEnvProd = /prod(uction)?/i.test(env)
+const isEnvStaging = /staging/i.test(env)
+
+const isRelease =
+  isEnvProd || isEnvStaging || process.argv.includes('--release')
+const isVerbose = process.argv.includes('--verbose')
+
+const envExt =
+  isEnvProd || isRelease ? 'prod' : isEnvStaging ? 'staging' : 'dev'
 
 const baseConfig = {
   bail: isRelease,
+  cache: !isRelease,
   context: rootDir,
+  devtool: isRelease ? 'source-map' : 'eval-source-map',
   externals: [
     nodeExternals(),
-    nodeExternals({
-      modulesDir: path.resolve(rootDir, '../../node_modules'),
-    }),
+    nodeExternals({ modulesDir: path.resolve(rootDir, '../../node_modules') }),
   ],
-  mode,
+  mode: isRelease ? 'production' : 'development',
   module: {
     rules: [
+      { parser: { requireEnsure: false } },
       {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        loader: 'ts-loader',
-        options: {
-          transpileOnly: true,
-        },
+        oneOf: [
+          {
+            test: /\.mjs$/,
+            include: /[/\\\\]node_modules[/\\\\]/,
+            type: 'javascript/auto',
+          },
+          {
+            test: /\.ts$/,
+            include: [path.join(rootDir, 'src')],
+            loader: require.resolve('ts-loader'),
+            options: { transpileOnly: true },
+          },
+          {
+            exclude: /\.((e|m)?js|json|ts)$/,
+            loader: require.resolve('file-loader'),
+            options: {
+              name: isRelease
+                ? '[hash:8].[ext]'
+                : '[path][name].[ext]?[hash:8]',
+            },
+          },
+        ],
       },
     ],
+    strictExportPresence: true,
   },
-  optimization: {
-    minimize: false,
+  output: {
+    chunkFilename: 'chunks/[name].js',
+    devtoolModuleFilenameTemplate: ({ absoluteResourcePath }) =>
+      path.resolve(absoluteResourcePath).replace(/\\/g, '/'),
+    filename: '[name].js',
+    libraryTarget: 'commonjs2',
+    path: buildDir,
+    pathinfo: isVerbose,
   },
   resolve: {
-    modules: [path.resolve(rootDir, 'src'), 'node_modules'],
-    symlinks: false,
-    extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.js', '.json'],
+    extensions: ['.js', '.json', '.mjs', '.ts', '.wasm'],
+    modules: ['node_modules', path.join(rootDir, 'src')],
+  },
+  stats: {
+    cached: isVerbose,
+    cachedAssets: isVerbose,
+    chunkModules: isVerbose,
+    chunks: isVerbose,
+    colors: true,
+    hash: isVerbose,
+    modules: isVerbose,
+    reasons: !isRelease,
+    timings: true,
+    version: isVerbose,
   },
   target: 'node',
-}
-
-const serverConfig = {
-  ...baseConfig,
-  devtool: isRelease ? 'source-map' : 'cheap-module-source-map',
-  entry: './src/main.ts',
-  output: {
-    filename: '[name].js',
-    path: buildDir,
-  },
-  plugins: [
-    new ForkTsCheckerWebpackPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': `'${mode}'`,
-    }),
-    new DotenvPlugin({
-      path: path.join(rootDir, `.env${isRelease ? '.prod' : '.local'}`),
-      safe: path.join(rootDir, '.env.example'),
-      systemvars: true,
-    }),
-    new webpack.BannerPlugin({
-      banner: 'require("source-map-support").install();',
-      entryOnly: false,
-      raw: true,
-    }),
-  ],
 }
 
 const migrationsConfig = {
   ...baseConfig,
   entry: glob
-    .sync(path.resolve('src/migrations/*.ts'))
-    .reduce((entries, filename) => {
-      const migrationName = path.basename(filename, '.ts')
-      return Object.assign({}, entries, {
-        [migrationName]: filename,
-      })
-    }, {}),
+    .sync(path.resolve('./src/migrations/*.ts'))
+    .reduce((acc, cur) => ({ ...acc, [path.basename(cur, '.ts')]: cur }), {}),
+  optimization: { minimize: false },
   output: {
-    filename: '[name].js',
+    ...baseConfig.output,
     libraryTarget: 'umd',
     path: path.join(buildDir, 'migrations'),
   },
@@ -90,18 +105,36 @@ const migrationsConfig = {
 const seedsConfig = {
   ...baseConfig,
   entry: glob
-    .sync(path.resolve('src/seeds/*.ts'))
-    .reduce((entries, filename) => {
-      const seedsName = path.basename(filename, '.ts')
-      return Object.assign({}, entries, {
-        [seedsName]: filename,
-      })
-    }, {}),
+    .sync(path.resolve('./src/seeds/*.ts'))
+    .reduce((acc, cur) => ({ ...acc, [path.basename(cur, '.ts')]: cur }), {}),
+  optimization: { minimize: false },
   output: {
-    filename: '[name].js',
+    ...baseConfig.output,
     libraryTarget: 'umd',
     path: path.join(buildDir, 'seeds'),
   },
 }
 
-module.exports = [serverConfig, migrationsConfig, seedsConfig]
+const serverConfig = {
+  ...baseConfig,
+  entry: { main: path.resolve('./src/main.ts') },
+  name: 'main',
+  node: false,
+  plugins: [
+    new BannerPlugin({
+      banner: 'require("source-map-support").install();',
+      entryOnly: false,
+      raw: true,
+    }),
+    new DefinePlugin({
+      'process.env.NODE_ENV': isRelease ? '"production"' : '"development"',
+    }),
+    new DotenvPlugin({
+      path: path.join(rootDir, `.env.${envExt}`),
+      safe: path.join(rootDir, '.env.example'),
+    }),
+    new ForkTsCheckerPlugin(),
+  ],
+}
+
+module.exports = [migrationsConfig, seedsConfig, serverConfig]
