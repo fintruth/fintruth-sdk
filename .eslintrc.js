@@ -23,11 +23,10 @@ module.exports = {
   overrides: [
     {
       files: ['**/*.ts?(x)', '**/.*/**/*.ts?(x)'],
-      parser: typescriptPlugin.configs.recommended.parser,
-      plugins: typescriptPlugin.configs.recommended.plugins,
+      parser: typescriptPlugin.configs.base.parser,
+      plugins: typescriptPlugin.configs.base.plugins,
       rules: {
         ...typescriptPlugin.configs.recommended.rules,
-        'no-useless-constructor': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-member-accessibility': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
