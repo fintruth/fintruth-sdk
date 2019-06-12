@@ -67,6 +67,7 @@
     "serialize-javascript": "^1.7.0",
     "source-map-support": "^0.5.12",
     "styled-components": "^4.3.1",
+    "text-mask-core": "^5.1.2",
     "yup": "^0.27.0"
   },
   "devDependencies": {

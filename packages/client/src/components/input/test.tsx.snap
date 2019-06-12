@@ -104,6 +104,7 @@ fieldset[disabled] .c0::placeholder {
   autocomplete="off"
   class="c0"
   type="text"
+  value=""
 />
 `;
 
@@ -212,6 +213,7 @@ fieldset[disabled] .c0::placeholder {
   class="c0"
   disabled=""
   type="text"
+  value=""
 />
 `;
 
@@ -314,5 +316,6 @@ fieldset[disabled] .c0::placeholder {
   autocomplete="off"
   class="c0"
   type="text"
+  value=""
 />
 `;

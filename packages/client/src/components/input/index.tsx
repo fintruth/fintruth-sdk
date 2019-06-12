@@ -2,8 +2,10 @@ import { Omit } from '@fintruth-sdk/common'
 import { em, transparentize } from 'polished'
 import React from 'react'
 import styled, { DefaultTheme, Color, css } from 'styled-components' // eslint-disable-line import/named
+import { createTextMaskInputElement } from 'text-mask-core'
 
 import { control } from 'styles/mixins'
+import { setRef } from 'utilities/react'
 
 export type Type = 'email' | 'password' | 'tel' | 'text'
 export type Variant = 'danger'
@@ -15,7 +17,9 @@ interface Props
   > {
   as?: keyof JSX.IntrinsicElements | React.ComponentType
   isDisabled?: boolean
+  isGuided?: boolean
   isRequired?: boolean
+  mask?: (RegExp | string)[]
   type?: Type
   variant?: Variant
 }
@@ -87,20 +91,64 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   {
     autoComplete = 'off',
     isDisabled,
+    isGuided = true,
     isRequired,
+    mask,
+    onChange,
     type = 'text',
+    value,
     ...props
   }: Props,
   ref: React.Ref<HTMLInputElement>
-) => (
-  <Root
-    autoComplete={autoComplete}
-    disabled={isDisabled}
-    ref={ref}
-    required={isRequired}
-    type={type}
-    {...props}
-  />
-)
+) => {
+  const [maskedInput, setMaskedInput] = React.useState()
+  const input = React.useRef<HTMLInputElement>()
+
+  const initTextMask = React.useCallback(() => {
+    const textMask = createTextMaskInputElement({
+      guide: isGuided,
+      inputElement: input.current,
+      keepCharPositions: false,
+      mask: mask || false,
+      placeholderChar: '\u2000',
+      showMask: false,
+    })
+
+    textMask.update(value)
+    setMaskedInput(textMask)
+  }, [isGuided, mask, value])
+
+  React.useEffect(() => {
+    initTextMask()
+  }, [initTextMask, isGuided, mask])
+
+  React.useEffect(() => {
+    if (input && input.current && value !== input.current.value) {
+      initTextMask()
+    }
+  }, [initTextMask, value])
+
+  return (
+    <Root
+      autoComplete={autoComplete}
+      disabled={isDisabled}
+      onChange={event => {
+        maskedInput.update()
+
+        if (onChange) {
+          onChange(event)
+        }
+      }}
+      ref={instance => {
+        setRef(ref, instance)
+        setRef(input, instance)
+      }}
+      required={isRequired}
+      type={type}
+      value={value}
+      {...props}
+    />
+  )
+}
 
 export default React.forwardRef(Input)
