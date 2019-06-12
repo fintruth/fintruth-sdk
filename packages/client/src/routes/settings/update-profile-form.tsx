@@ -7,7 +7,12 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseInput from 'components/input'
+import BaseTextField, {
+  TextFieldControl,
+  TextFieldHelp,
+  TextFieldInput,
+  TextFieldLabel,
+} from 'components/text-field'
 import { help } from 'styles/mixins'
 import {
   UpdateProfileMutationData,
@@ -51,7 +56,7 @@ const Form = styled(BaseForm)`
   ${form};
 `
 
-const Input = styled(BaseInput)`
+const TextField = styled(BaseTextField)`
   ${field};
 `
 
@@ -100,22 +105,20 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <Input
-            id={`${formId}-givenName`}
-            autoComplete="given-name"
-            form={formId}
-            label="FIRST NAME"
-            name="givenName"
-            type="text"
-          />
-          <Input
-            id={`${formId}-familyName`}
-            autoComplete="family-name"
-            form={formId}
-            label="LAST NAME"
-            name="familyName"
-            type="text"
-          />
+          <TextField name="givenName">
+            <TextFieldLabel>FIRST NAME</TextFieldLabel>
+            <TextFieldControl>
+              <TextFieldInput autoComplete="given-name" form={formId} />
+            </TextFieldControl>
+            <TextFieldHelp />
+          </TextField>
+          <TextField name="familyName">
+            <TextFieldLabel>LAST NAME</TextFieldLabel>
+            <TextFieldControl>
+              <TextFieldInput autoComplete="family-name" form={formId} />
+            </TextFieldControl>
+            <TextFieldHelp />
+          </TextField>
           <Button
             form={formId}
             isLoading={loading}

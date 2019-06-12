@@ -1,37 +1,27 @@
 import { Omit } from '@fintruth-sdk/common'
-import { useField } from 'formik'
-import { em, rem, transparentize } from 'polished'
+import { em, transparentize } from 'polished'
 import React from 'react'
-import styled, { Color, DefaultTheme, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { DefaultTheme, Color, css } from 'styled-components' // eslint-disable-line import/named
 
-import BaseLabel from 'components/label'
-import { control, help, loader } from 'styles/mixins'
+import { control } from 'styles/mixins'
 
 export type Type = 'email' | 'password' | 'tel' | 'text'
-type Variant = 'danger'
-
-interface ControlProps {
-  isLoading?: boolean
-}
-
-interface InputProps {
-  variant?: Variant
-}
+export type Variant = 'danger'
 
 interface Props
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
     'disabled' | 'required'
   > {
-  format?: (value: string) => string
-  id: string
+  as?: keyof JSX.IntrinsicElements | React.ComponentType
   isDisabled?: boolean
-  isLoading?: boolean
   isRequired?: boolean
-  label?: string
-  name: string
-  serialize?: (value: string, prevValue: string) => string
   type?: Type
+  variant?: Variant
+}
+
+interface RootProps {
+  variant?: Variant
 }
 
 const colors: Record<Variant, Color> = {
@@ -39,16 +29,6 @@ const colors: Record<Variant, Color> = {
 }
 
 const focusBoxShadowSize = `0 0 0 ${em(2)}`
-
-const loading = css`
-  &::after {
-    ${loader()};
-    position: absolute !important;
-    right: ${em(10)};
-    top: ${em(10)};
-    z-index: 4;
-  }
-`
 
 const standard = (theme: DefaultTheme) => css`
   border-color: ${theme.grayLighter};
@@ -73,28 +53,7 @@ const variation = (color: string) => css`
   }
 `
 
-const Root = styled.div`
-  &:not(:last-child) {
-    margin-bottom: ${rem(12)};
-  }
-`
-
-const Label = styled(BaseLabel)`
-  font-size: inherit;
-  margin-bottom: ${rem(8)};
-`
-
-const Control = styled.div<ControlProps>`
-  box-sizing: border-box;
-  clear: both;
-  font-size: ${rem(16)};
-  position: relative;
-  text-align: left;
-
-  ${({ isLoading }) => isLoading && loading};
-`
-
-const BaseInput = styled.input<InputProps>`
+const Root = styled.input<RootProps>`
   ${control};
   background-color: ${({ theme }) => theme.white};
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -124,57 +83,24 @@ const BaseInput = styled.input<InputProps>`
   }
 `
 
-const Help = styled.p`
-  ${({ theme }) => help(theme.danger)};
-`
-
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   {
-    className,
-    format,
-    id,
+    autoComplete = 'off',
     isDisabled,
-    isLoading,
-    isRequired = true,
-    label,
-    name,
-    serialize,
+    isRequired,
     type = 'text',
     ...props
   }: Props,
   ref: React.Ref<HTMLInputElement>
-) => {
-  const [{ onChange, value, ...field }, { error, touched }] = useField<string>(
-    name
-  )
-
-  return (
-    <Root className={className}>
-      {label && (
-        <Label htmlFor={id} isRequired={isRequired}>
-          {label}
-        </Label>
-      )}
-      <Control isLoading={isLoading}>
-        <BaseInput
-          {...field}
-          id={id}
-          onChange={
-            serialize
-              ? ({ target }) => onChange(name)(serialize(target.value, value))
-              : onChange
-          }
-          type={type}
-          variant={error && touched ? 'danger' : undefined}
-          value={format ? format(value) : value}
-          {...props}
-          ref={ref}
-          disabled={isDisabled}
-        />
-      </Control>
-      {error && touched && <Help>{error}</Help>}
-    </Root>
-  )
-}
+) => (
+  <Root
+    autoComplete={autoComplete}
+    disabled={isDisabled}
+    ref={ref}
+    required={isRequired}
+    type={type}
+    {...props}
+  />
+)
 
 export default React.forwardRef(Input)

@@ -9,7 +9,11 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseInput from 'components/input'
+import BaseTextField, {
+  TextFieldControl,
+  TextFieldHelp,
+  TextFieldInput,
+} from 'components/text-field'
 import { link } from 'styles/deprecated'
 import { help } from 'styles/mixins'
 import {
@@ -66,7 +70,7 @@ const Form = styled(BaseForm)`
   ${form};
 `
 
-const Input = styled(BaseInput)`
+const TextField = styled(BaseTextField)`
   ${field};
 `
 
@@ -119,30 +123,36 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <Input
-            id={`${formId}-password`}
-            autoComplete="off"
-            form={formId}
-            name="password"
-            placeholder="Current Password"
-            type="password"
-          />
-          <Input
-            id={`${formId}-newPassword`}
-            autoComplete="off"
-            form={formId}
-            name="newPassword"
-            placeholder="New Password"
-            type="password"
-          />
-          <Input
-            id={`${formId}-newPasswordConfirm`}
-            autoComplete="off"
-            form={formId}
-            name="newPasswordConfirm"
-            placeholder="Confirm New Password"
-            type="password"
-          />
+          <TextField name="password">
+            <TextFieldControl>
+              <TextFieldInput
+                form={formId}
+                placeholder="Current Password"
+                type="password"
+              />
+            </TextFieldControl>
+            <TextFieldHelp />
+          </TextField>
+          <TextField name="newPassword">
+            <TextFieldControl>
+              <TextFieldInput
+                form={formId}
+                placeholder="New Password"
+                type="password"
+              />
+            </TextFieldControl>
+            <TextFieldHelp />
+          </TextField>
+          <TextField name="newPasswordConfirm">
+            <TextFieldControl>
+              <TextFieldInput
+                form={formId}
+                placeholder="Confirm New Password"
+                type="password"
+              />
+            </TextFieldControl>
+            <TextFieldHelp />
+          </TextField>
           <Link to="/recover">Forgot your password?</Link>
           <Button
             form={formId}

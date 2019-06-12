@@ -7,7 +7,12 @@ import styled from 'styled-components'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseInput from 'components/input'
+import BaseTextField, {
+  TextFieldControl,
+  TextFieldHelp,
+  TextFieldInput,
+  TextFieldLabel,
+} from 'components/text-field'
 import { help } from 'styles/mixins'
 import {
   DisableTwoFactorAuthMutationData,
@@ -49,7 +54,7 @@ const Form = styled(BaseForm)`
   align-items: center;
 `
 
-const Input = styled(BaseInput)`
+const TextField = styled(BaseTextField)`
   ${field};
 `
 
@@ -94,14 +99,13 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <Input
-            id={`${formId}-token`}
-            autoComplete="off"
-            form={formId}
-            label="VERIFICATION CODE"
-            name="token"
-            type="text"
-          />
+          <TextField name="token">
+            <TextFieldLabel>VERIFICATION CODE</TextFieldLabel>
+            <TextFieldControl>
+              <TextFieldInput form={formId} />
+            </TextFieldControl>
+            <TextFieldHelp />
+          </TextField>
           <Button
             form={formId}
             isLoading={loading}

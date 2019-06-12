@@ -7,7 +7,12 @@ import styled from 'styled-components'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import Input from 'components/input'
+import TextField, {
+  TextFieldControl,
+  TextFieldHelp,
+  TextFieldInput,
+  TextFieldLabel,
+} from 'components/text-field'
 import { help } from 'styles/mixins'
 import {
   SignInTwoFactorAuthMutationData,
@@ -46,7 +51,7 @@ const Help = styled.p`
   margin: ${rem(-10)} 0 ${rem(30)};
 `
 
-const LastInput = styled(Input)`
+const LastTextField = styled(TextField)`
   &:not(:last-child) {
     margin-bottom: ${rem(40)};
   }
@@ -94,14 +99,13 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <LastInput
-            id={`${formId}-token`}
-            autoComplete="off"
-            form={formId}
-            label="VERIFICATION CODE"
-            name="token"
-            type="text"
-          />
+          <LastTextField name="token">
+            <TextFieldLabel>VERIFICATION CODE</TextFieldLabel>
+            <TextFieldControl>
+              <TextFieldInput form={formId} />
+            </TextFieldControl>
+            <TextFieldHelp />
+          </LastTextField>
           <Button
             form={formId}
             isLoading={loading}

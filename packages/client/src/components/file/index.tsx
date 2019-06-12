@@ -118,7 +118,7 @@ const File: React.FunctionComponent<Props> = ({
   const input = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
-    if (!value && input && input.current) {
+    if (!value && input !== null && input.current) {
       input.current.value = ''
     }
   }, [value])

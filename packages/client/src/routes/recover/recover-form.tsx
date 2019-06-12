@@ -9,7 +9,12 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import Input from 'components/input'
+import TextField, {
+  TextFieldControl,
+  TextFieldHelp,
+  TextFieldInput,
+  TextFieldLabel,
+} from 'components/text-field'
 import { link } from 'styles/deprecated'
 import { help } from 'styles/mixins'
 import {
@@ -103,14 +108,13 @@ const RecoverForm: React.FunctionComponent<Props> = ({
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <Input
-            id={`${formId}-email`}
-            autoComplete="off"
-            form={formId}
-            label="EMAIL"
-            name="email"
-            type="email"
-          />
+          <TextField name="email">
+            <TextFieldLabel>EMAIL</TextFieldLabel>
+            <TextFieldControl>
+              <TextFieldInput form={formId} type="email" />
+            </TextFieldControl>
+            <TextFieldHelp />
+          </TextField>
           <Description>
             Already have email and password?{' '}
             {user ? (

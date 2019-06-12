@@ -8,7 +8,11 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseInput from 'components/input'
+import BaseTextField, {
+  TextFieldControl,
+  TextFieldHelp,
+  TextFieldInput,
+} from 'components/text-field'
 import { help } from 'styles/mixins'
 import {
   UpdateEmailMutationData,
@@ -53,7 +57,7 @@ const Form = styled(BaseForm)`
   ${form};
 `
 
-const Input = styled(BaseInput)`
+const TextField = styled(BaseTextField)`
   ${field};
 `
 
@@ -102,22 +106,22 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <Input
-            id={`${formId}-newEmail`}
-            autoComplete="off"
-            form={formId}
-            name="newEmail"
-            placeholder="Email"
-            type="email"
-          />
-          <Input
-            id={`${formId}-password`}
-            autoComplete="off"
-            form={formId}
-            name="password"
-            placeholder="Password"
-            type="password"
-          />
+          <TextField name="newEmail">
+            <TextFieldControl>
+              <TextFieldInput form={formId} placeholder="Email" type="email" />
+            </TextFieldControl>
+            <TextFieldHelp />
+          </TextField>
+          <TextField name="password">
+            <TextFieldControl>
+              <TextFieldInput
+                form={formId}
+                placeholder="Password"
+                type="password"
+              />
+            </TextFieldControl>
+            <TextFieldHelp />
+          </TextField>
           <Button
             form={formId}
             isLoading={loading}

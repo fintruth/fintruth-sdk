@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
+  as?: keyof JSX.IntrinsicElements | React.ComponentType
   children: React.ReactNode
   isRequired?: boolean
 }
@@ -18,15 +19,14 @@ const Root = styled.label`
   }
 `
 
-const Label: React.FunctionComponent<Props> = ({
-  children,
-  isRequired,
-  ...props
-}: Props) => (
-  <Root {...props}>
+const Label = (
+  { children, isRequired, ...props }: Props,
+  ref: React.Ref<HTMLLabelElement>
+) => (
+  <Root ref={ref} {...props}>
     {children}
     {isRequired && '*'}
   </Root>
 )
 
-export default Label
+export default React.forwardRef(Label)
