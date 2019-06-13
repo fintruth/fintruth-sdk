@@ -2402,16 +2402,16 @@
     preact "*"
     react "*"
 
-"@storybook/addon-knobs@^5.1.3":
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-5.1.3.tgz#238fdd72193c1936453a6824570c0a9d240051cf"
-  integrity sha512-ug64vIxA/Ly2lc3LYIrOvy6Cq3qocQu4N2lZzvy+BY4aG5aYmgNJupVjQnQ6qLLiYJsGaPyjG5+74cudgE5Nrg==
+"@storybook/addon-knobs@^5.1.4":
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-5.1.4.tgz#2bd7af24d6461c1d0be88d0ba05e3a6243ff9d79"
+  integrity sha512-vWTudIxVfvN1nlli5wVOm253SWslYnnKAHMtEDkpxKuE2VQ0JuUynD8n/7MnKeFhzwAOaPFJ8H/L16WOn14ugw==
   dependencies:
-    "@storybook/addons" "5.1.3"
-    "@storybook/client-api" "5.1.3"
-    "@storybook/components" "5.1.3"
-    "@storybook/core-events" "5.1.3"
-    "@storybook/theming" "5.1.3"
+    "@storybook/addons" "5.1.4"
+    "@storybook/client-api" "5.1.4"
+    "@storybook/components" "5.1.4"
+    "@storybook/core-events" "5.1.4"
+    "@storybook/theming" "5.1.4"
     copy-to-clipboard "^3.0.8"
     core-js "^3.0.1"
     escape-html "^1.0.3"
@@ -2440,7 +2440,7 @@
     prop-types "^15.7.2"
     util-deprecate "^1.0.2"
 
-"@storybook/addons@5.1.3", "@storybook/addons@^5.1.3":
+"@storybook/addons@5.1.3":
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.1.3.tgz#43181aa927e81d9f1747ae5dcbe7dbabf113f978"
   integrity sha512-/xfpU9hIl2JRks3mrWGF/PuP91sflVY+w46KLJuLKXRVGn0slO8ijGs+x+HHBuZZ5MjOW7BCSrQgFjPE8B5Vjg==
@@ -2452,7 +2452,7 @@
     global "^4.3.2"
     util-deprecate "^1.0.2"
 
-"@storybook/addons@5.1.4":
+"@storybook/addons@5.1.4", "@storybook/addons@^5.1.3":
   version "5.1.4"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.1.4.tgz#65cbbccb6bb8d58419e61c4ae97891e8af713c01"
   integrity sha512-JtMTgksgq/r/k/wP9vxaL45xgwYPMqQG/KHEikNy98v83KlK+2QK+MuSO01Nf3ab1Mub+3Q9EDZk7+TcJNriUQ==
@@ -2534,24 +2534,6 @@
   integrity sha512-KnYRuQcFmlsTSnnguj9+yhuHkk3EpGb12GH0zoBe0ilYV0CYtwYyMftPKbDj63oDQci4ycKrKKPH/LkaVJt+1A==
   dependencies:
     core-js "^3.0.1"
-
-"@storybook/client-api@5.1.3":
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/@storybook/client-api/-/client-api-5.1.3.tgz#28724bbedcbe51a2c10e1fa8a76484797334e9af"
-  integrity sha512-KXuzzDl8w0C+n5qfs+xunaVzp0SaSfGboHYy17VLryRAmFRFw8E9om0mHpRWihXqHWfF0zlC7L6onH8V74d8Kw==
-  dependencies:
-    "@storybook/addons" "5.1.3"
-    "@storybook/client-logger" "5.1.3"
-    "@storybook/core-events" "5.1.3"
-    "@storybook/router" "5.1.3"
-    common-tags "^1.8.0"
-    core-js "^3.0.1"
-    eventemitter3 "^3.1.0"
-    global "^4.3.2"
-    is-plain-object "^3.0.0"
-    lodash "^4.17.11"
-    memoizerific "^1.11.3"
-    qs "^6.6.0"
 
 "@storybook/client-api@5.1.4":
   version "5.1.4"
