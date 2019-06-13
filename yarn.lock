@@ -2424,23 +2424,23 @@
     react-lifecycles-compat "^3.0.4"
     react-select "^2.2.0"
 
-"@storybook/addon-viewport@^5.1.3":
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-viewport/-/addon-viewport-5.1.3.tgz#400ba7a5e2de009c374a31e74148d6b8ddeb81ea"
-  integrity sha512-uTP8R69N6och2Xd14Mn5pIXxbX3Zz7awzkTwmIiSiM0NgewTOgfPz4H5g1/naESboLGkZmDwO7lP1HlUKD9O1w==
+"@storybook/addon-viewport@^5.1.4":
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-viewport/-/addon-viewport-5.1.4.tgz#b5f1e91229c144da014854cbb1858f836181cd8f"
+  integrity sha512-7VFOG3NEyKqW+MpxCF1W8bth+9CELEUqdVYQ/aKpIhpZnDEAR0YDkBqg+MayohOqFn1zyPF6tiaVGfVfV/LxFg==
   dependencies:
-    "@storybook/addons" "5.1.3"
-    "@storybook/client-logger" "5.1.3"
-    "@storybook/components" "5.1.3"
-    "@storybook/core-events" "5.1.3"
-    "@storybook/theming" "5.1.3"
+    "@storybook/addons" "5.1.4"
+    "@storybook/client-logger" "5.1.4"
+    "@storybook/components" "5.1.4"
+    "@storybook/core-events" "5.1.4"
+    "@storybook/theming" "5.1.4"
     core-js "^3.0.1"
     global "^4.3.2"
     memoizerific "^1.11.3"
     prop-types "^15.7.2"
     util-deprecate "^1.0.2"
 
-"@storybook/addons@5.1.3", "@storybook/addons@^5.1.3":
+"@storybook/addons@5.1.3":
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.1.3.tgz#43181aa927e81d9f1747ae5dcbe7dbabf113f978"
   integrity sha512-/xfpU9hIl2JRks3mrWGF/PuP91sflVY+w46KLJuLKXRVGn0slO8ijGs+x+HHBuZZ5MjOW7BCSrQgFjPE8B5Vjg==
@@ -2452,7 +2452,7 @@
     global "^4.3.2"
     util-deprecate "^1.0.2"
 
-"@storybook/addons@5.1.4":
+"@storybook/addons@5.1.4", "@storybook/addons@^5.1.3":
   version "5.1.4"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.1.4.tgz#65cbbccb6bb8d58419e61c4ae97891e8af713c01"
   integrity sha512-JtMTgksgq/r/k/wP9vxaL45xgwYPMqQG/KHEikNy98v83KlK+2QK+MuSO01Nf3ab1Mub+3Q9EDZk7+TcJNriUQ==
