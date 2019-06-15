@@ -8,7 +8,6 @@ import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import TextField, {
-  TextFieldControl,
   TextFieldHelp,
   TextFieldInput,
   TextFieldLabel,
@@ -101,9 +100,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         <Form {...props} id={formId} noValidate>
           <LastTextField name="token">
             <TextFieldLabel>VERIFICATION CODE</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput form={formId} />
-            </TextFieldControl>
+            <TextFieldInput form={formId} />
             <TextFieldHelp />
           </LastTextField>
           <Button

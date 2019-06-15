@@ -15,7 +15,7 @@ interface BaseInputProps {
   variant?: Variant
 }
 
-interface Props
+export interface Props
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
     'disabled' | 'required'

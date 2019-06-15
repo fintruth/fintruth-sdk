@@ -9,7 +9,6 @@ import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
 import TextField, {
-  TextFieldControl,
   TextFieldHelp,
   TextFieldInput,
   TextFieldLabel,
@@ -130,37 +129,27 @@ const RegisterForm: React.FunctionComponent<Props> = ({ ...props }: Props) => {
         <Form {...props} id={formId} noValidate>
           <TextField name="profile.givenName">
             <TextFieldLabel>FIRST NAME</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput autoComplete="given-name" form={formId} />
-            </TextFieldControl>
+            <TextFieldInput autoComplete="given-name" form={formId} />
             <TextFieldHelp />
           </TextField>
           <TextField name="profile.familyName">
             <TextFieldLabel>LAST NAME</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput autoComplete="family-name" form={formId} />
-            </TextFieldControl>
+            <TextFieldInput autoComplete="family-name" form={formId} />
             <TextFieldHelp />
           </TextField>
           <TextField name="email">
             <TextFieldLabel>EMAIL</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput form={formId} type="email" />
-            </TextFieldControl>
+            <TextFieldInput form={formId} type="email" />
             <TextFieldHelp />
           </TextField>
           <TextField name="emailConfirm">
             <TextFieldLabel>CONFIRM EMAIL</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput form={formId} type="email" />
-            </TextFieldControl>
+            <TextFieldInput form={formId} type="email" />
             <TextFieldHelp />
           </TextField>
           <LastTextField name="password">
             <TextFieldLabel>PASSWORD</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput form={formId} type="password" />
-            </TextFieldControl>
+            <TextFieldInput form={formId} type="password" />
             <TextFieldHelp />
           </LastTextField>
           <Button

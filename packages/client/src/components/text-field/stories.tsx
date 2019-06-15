@@ -6,12 +6,7 @@ import { Formik } from 'formik'
 import React from 'react'
 
 import { Type } from 'components/input'
-import TextField, {
-  TextFieldControl,
-  TextFieldHelp,
-  TextFieldInput,
-  TextFieldLabel,
-} from '.'
+import TextField, { TextFieldHelp, TextFieldInput, TextFieldLabel } from '.'
 
 interface Values {
   text: string
@@ -33,13 +28,12 @@ storiesOf('Components|Text Field', module)
     <Formik<Values> initialValues={initialValues} onSubmit={action('onSubmit')}>
       <TextField isRequired={boolean('isRequired', true)} name="text">
         <TextFieldLabel>{text('label', 'Label')}</TextFieldLabel>
-        <TextFieldControl isLoading={boolean('isLoading', false)}>
-          <TextFieldInput
-            isDisabled={boolean('isDisabled', false)}
-            placeholder={text('placeholder', 'Placeholder')}
-            type={select('type', types, '') || undefined}
-          />
-        </TextFieldControl>
+        <TextFieldInput
+          isDisabled={boolean('isDisabled', false)}
+          isLoading={boolean('isLoading', false)}
+          placeholder={text('placeholder', 'Placeholder')}
+          type={select('type', types, '') || undefined}
+        />
         <TextFieldHelp />
       </TextField>
     </Formik>

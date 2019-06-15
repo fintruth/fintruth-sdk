@@ -2,18 +2,10 @@ import { Omit } from '@fintruth-sdk/common'
 import { useField } from 'formik'
 import React from 'react'
 
-import BaseInput, { Type } from 'components/input'
+import BaseInput, { Props as InputProps } from 'components/input'
 import { useTextFieldContext } from '.'
 
-interface Props
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'disabled' | 'required'
-  > {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
-  isDisabled?: boolean
-  type?: Type
-}
+type Props = Omit<InputProps, 'isRequired' | 'name' | 'variant'>
 
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   props: Props,

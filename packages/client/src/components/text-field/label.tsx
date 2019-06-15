@@ -1,14 +1,12 @@
+import { Omit } from '@fintruth-sdk/common'
 import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
-import BaseLabel from 'components/label'
+import BaseLabel, { Props as LabelProps } from 'components/label'
 import { useTextFieldContext } from '.'
 
-interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
-  children: React.ReactNode
-}
+type Props = Omit<LabelProps, 'isRequired'>
 
 const Root = styled(BaseLabel)`
   font-size: inherit;

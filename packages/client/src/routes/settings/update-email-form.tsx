@@ -9,7 +9,6 @@ import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseTextField, {
-  TextFieldControl,
   TextFieldHelp,
   TextFieldInput,
 } from 'components/text-field'
@@ -107,19 +106,15 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
       >
         <Form {...props} id={formId} noValidate>
           <TextField name="newEmail">
-            <TextFieldControl>
-              <TextFieldInput form={formId} placeholder="Email" type="email" />
-            </TextFieldControl>
+            <TextFieldInput form={formId} placeholder="Email" type="email" />
             <TextFieldHelp />
           </TextField>
           <TextField name="password">
-            <TextFieldControl>
-              <TextFieldInput
-                form={formId}
-                placeholder="Password"
-                type="password"
-              />
-            </TextFieldControl>
+            <TextFieldInput
+              form={formId}
+              placeholder="Password"
+              type="password"
+            />
             <TextFieldHelp />
           </TextField>
           <Button
