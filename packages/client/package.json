@@ -138,7 +138,7 @@
     "graphql-tag": "^2.10.1",
     "jest-dom": "^3.5.0",
     "jest-junit": "^6.4.0",
-    "jest-styled-components": "^6.3.1",
+    "jest-styled-components": "^6.3.3",
     "mkdirp": "^0.5.1",
     "null-loader": "^3.0.0",
     "polished": "^3.4.0",
