@@ -1,5 +1,5 @@
 import centered from '@storybook/addon-centered/react'
-import { boolean, select, text } from '@storybook/addon-knobs'
+import { boolean, number, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
@@ -48,8 +48,10 @@ storiesOf('Components|Input', module)
   .addDecorator(centered)
   .add('Default', () => (
     <Input
+      delay={number('delay', 200)}
       isDisabled={boolean('isDisabled', false)}
       isGuided={boolean('isGuided', true)}
+      isLoading={boolean('isLoading', false)}
       mask={select('mask', masks, '') || undefined}
       placeholder={text('placeholder', 'Placeholder')}
       type={select('type', types, '') || undefined}

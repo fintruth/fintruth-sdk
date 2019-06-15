@@ -2,6 +2,12 @@
 
 exports[`should render correctly 1`] = `
 .c0 {
+  max-width: 100%;
+  position: relative;
+  vertical-align: top;
+}
+
+.c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -36,80 +42,90 @@ exports[`should render correctly 1`] = `
   border-color: #dbdbdb;
 }
 
-.c0:focus,
-.c0:active {
+.c1:focus,
+.c1:active {
   outline: none;
 }
 
-.c0[disabled],
-fieldset[disabled] .c0 {
+.c1[disabled],
+fieldset[disabled] .c1 {
   cursor: not-allowed;
 }
 
-.c0:hover {
+.c1:hover {
   border-color: #b5b5b5;
 }
 
-.c0:focus,
-.c0:active {
+.c1:focus,
+.c1:active {
   border-color: #3273dc;
   box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
 }
 
-.c0::-webkit-input-placeholder {
+.c1::-webkit-input-placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0::-moz-placeholder {
+.c1::-moz-placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0:-ms-input-placeholder {
+.c1:-ms-input-placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0::placeholder {
+.c1::placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0[disabled],
-fieldset[disabled] .c0 {
+.c1[disabled],
+fieldset[disabled] .c1 {
   background-color: #f5f5f5;
   border-color: #f5f5f5;
   box-shadow: none;
   color: #7a7a7a;
 }
 
-.c0[disabled]::-webkit-input-placeholder,
-fieldset[disabled] .c0::-webkit-input-placeholder {
+.c1[disabled]::-webkit-input-placeholder,
+fieldset[disabled] .c1::-webkit-input-placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-.c0[disabled]::-moz-placeholder,
-fieldset[disabled] .c0::-moz-placeholder {
+.c1[disabled]::-moz-placeholder,
+fieldset[disabled] .c1::-moz-placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-.c0[disabled]:-ms-input-placeholder,
-fieldset[disabled] .c0:-ms-input-placeholder {
+.c1[disabled]:-ms-input-placeholder,
+fieldset[disabled] .c1:-ms-input-placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-.c0[disabled]::placeholder,
-fieldset[disabled] .c0::placeholder {
+.c1[disabled]::placeholder,
+fieldset[disabled] .c1::placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-<input
-  autocomplete="off"
+<div
   class="c0"
-  type="text"
-  value=""
-/>
+>
+  <input
+    autocomplete="off"
+    class="c1"
+    type="text"
+    value=""
+  />
+</div>
 `;
 
 exports[`should render correctly when disabled 1`] = `
 .c0 {
+  max-width: 100%;
+  position: relative;
+  vertical-align: top;
+}
+
+.c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -144,81 +160,91 @@ exports[`should render correctly when disabled 1`] = `
   border-color: #dbdbdb;
 }
 
-.c0:focus,
-.c0:active {
+.c1:focus,
+.c1:active {
   outline: none;
 }
 
-.c0[disabled],
-fieldset[disabled] .c0 {
+.c1[disabled],
+fieldset[disabled] .c1 {
   cursor: not-allowed;
 }
 
-.c0:hover {
+.c1:hover {
   border-color: #b5b5b5;
 }
 
-.c0:focus,
-.c0:active {
+.c1:focus,
+.c1:active {
   border-color: #3273dc;
   box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25);
 }
 
-.c0::-webkit-input-placeholder {
+.c1::-webkit-input-placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0::-moz-placeholder {
+.c1::-moz-placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0:-ms-input-placeholder {
+.c1:-ms-input-placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0::placeholder {
+.c1::placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0[disabled],
-fieldset[disabled] .c0 {
+.c1[disabled],
+fieldset[disabled] .c1 {
   background-color: #f5f5f5;
   border-color: #f5f5f5;
   box-shadow: none;
   color: #7a7a7a;
 }
 
-.c0[disabled]::-webkit-input-placeholder,
-fieldset[disabled] .c0::-webkit-input-placeholder {
+.c1[disabled]::-webkit-input-placeholder,
+fieldset[disabled] .c1::-webkit-input-placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-.c0[disabled]::-moz-placeholder,
-fieldset[disabled] .c0::-moz-placeholder {
+.c1[disabled]::-moz-placeholder,
+fieldset[disabled] .c1::-moz-placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-.c0[disabled]:-ms-input-placeholder,
-fieldset[disabled] .c0:-ms-input-placeholder {
+.c1[disabled]:-ms-input-placeholder,
+fieldset[disabled] .c1:-ms-input-placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-.c0[disabled]::placeholder,
-fieldset[disabled] .c0::placeholder {
+.c1[disabled]::placeholder,
+fieldset[disabled] .c1::placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-<input
-  autocomplete="off"
+<div
   class="c0"
-  disabled=""
-  type="text"
-  value=""
-/>
+>
+  <input
+    autocomplete="off"
+    class="c1"
+    disabled=""
+    type="text"
+    value=""
+  />
+</div>
 `;
 
 exports[`should render the danger variant correctly 1`] = `
 .c0 {
+  max-width: 100%;
+  position: relative;
+  vertical-align: top;
+}
+
+.c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -253,69 +279,195 @@ exports[`should render the danger variant correctly 1`] = `
   border-color: #ff3860;
 }
 
-.c0:focus,
-.c0:active {
+.c1:focus,
+.c1:active {
   outline: none;
 }
 
-.c0[disabled],
-fieldset[disabled] .c0 {
+.c1[disabled],
+fieldset[disabled] .c1 {
   cursor: not-allowed;
 }
 
-.c0:focus,
-.c0:active {
+.c1:hover {
+  border-color: #ff2b56;
+}
+
+.c1:focus,
+.c1:active {
   box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
 }
 
-.c0::-webkit-input-placeholder {
+.c1::-webkit-input-placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0::-moz-placeholder {
+.c1::-moz-placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0:-ms-input-placeholder {
+.c1:-ms-input-placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0::placeholder {
+.c1::placeholder {
   color: rgba(54,54,54,0.3);
 }
 
-.c0[disabled],
-fieldset[disabled] .c0 {
+.c1[disabled],
+fieldset[disabled] .c1 {
   background-color: #f5f5f5;
   border-color: #f5f5f5;
   box-shadow: none;
   color: #7a7a7a;
 }
 
-.c0[disabled]::-webkit-input-placeholder,
-fieldset[disabled] .c0::-webkit-input-placeholder {
+.c1[disabled]::-webkit-input-placeholder,
+fieldset[disabled] .c1::-webkit-input-placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-.c0[disabled]::-moz-placeholder,
-fieldset[disabled] .c0::-moz-placeholder {
+.c1[disabled]::-moz-placeholder,
+fieldset[disabled] .c1::-moz-placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-.c0[disabled]:-ms-input-placeholder,
-fieldset[disabled] .c0:-ms-input-placeholder {
+.c1[disabled]:-ms-input-placeholder,
+fieldset[disabled] .c1:-ms-input-placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-.c0[disabled]::placeholder,
-fieldset[disabled] .c0::placeholder {
+.c1[disabled]::placeholder,
+fieldset[disabled] .c1::placeholder {
   color: rgba(122,122,122,0.3);
 }
 
-<input
-  autocomplete="off"
+<div
   class="c0"
-  type="text"
-  value=""
-/>
+>
+  <input
+    autocomplete="off"
+    class="c1"
+    type="text"
+    value=""
+  />
+</div>
+`;
+
+exports[`should render the danger variant correctly when disabled 1`] = `
+.c0 {
+  max-width: 100%;
+  position: relative;
+  vertical-align: top;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  height: 2.25em;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding: calc(0.375em - 1px) calc(0.625em - 1px);
+  position: relative;
+  vertical-align: top;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px rgba(10,10,10,0.1);
+  color: #363636;
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  border-color: #ff3860;
+}
+
+.c1:focus,
+.c1:active {
+  outline: none;
+}
+
+.c1[disabled],
+fieldset[disabled] .c1 {
+  cursor: not-allowed;
+}
+
+.c1:hover {
+  border-color: #ff2b56;
+}
+
+.c1:focus,
+.c1:active {
+  box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25);
+}
+
+.c1::-webkit-input-placeholder {
+  color: rgba(54,54,54,0.3);
+}
+
+.c1::-moz-placeholder {
+  color: rgba(54,54,54,0.3);
+}
+
+.c1:-ms-input-placeholder {
+  color: rgba(54,54,54,0.3);
+}
+
+.c1::placeholder {
+  color: rgba(54,54,54,0.3);
+}
+
+.c1[disabled],
+fieldset[disabled] .c1 {
+  background-color: #f5f5f5;
+  border-color: #f5f5f5;
+  box-shadow: none;
+  color: #7a7a7a;
+}
+
+.c1[disabled]::-webkit-input-placeholder,
+fieldset[disabled] .c1::-webkit-input-placeholder {
+  color: rgba(122,122,122,0.3);
+}
+
+.c1[disabled]::-moz-placeholder,
+fieldset[disabled] .c1::-moz-placeholder {
+  color: rgba(122,122,122,0.3);
+}
+
+.c1[disabled]:-ms-input-placeholder,
+fieldset[disabled] .c1:-ms-input-placeholder {
+  color: rgba(122,122,122,0.3);
+}
+
+.c1[disabled]::placeholder,
+fieldset[disabled] .c1::placeholder {
+  color: rgba(122,122,122,0.3);
+}
+
+<div
+  class="c0"
+>
+  <input
+    autocomplete="off"
+    class="c1"
+    disabled=""
+    type="text"
+    value=""
+  />
+</div>
 `;

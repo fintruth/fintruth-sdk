@@ -34,3 +34,13 @@ test('should render the danger variant correctly', () => {
 
   expect(container.firstChild).toMatchSnapshot()
 })
+
+test('should render the danger variant correctly when disabled', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Input isDisabled variant="danger" />
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})

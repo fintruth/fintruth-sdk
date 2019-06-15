@@ -1,14 +1,19 @@
 import { Omit } from '@fintruth-sdk/common'
-import { em, transparentize } from 'polished'
+import { darken, em, transparentize } from 'polished'
 import React from 'react'
-import styled, { DefaultTheme, Color, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { Color, css } from 'styled-components' // eslint-disable-line import/named
 import { createTextMaskInputElement } from 'text-mask-core'
 
-import { control } from 'styles/mixins'
+import { useTimer } from 'hooks/time'
+import { control, loader } from 'styles/mixins'
 import { setRef } from 'utilities/react'
 
 export type Type = 'email' | 'password' | 'tel' | 'text'
 export type Variant = 'danger'
+
+interface BaseInputProps {
+  variant?: Variant
+}
 
 interface Props
   extends Omit<
@@ -16,8 +21,10 @@ interface Props
     'disabled' | 'required'
   > {
   as?: keyof JSX.IntrinsicElements | React.ComponentType
+  delay?: number
   isDisabled?: boolean
   isGuided?: boolean
+  isLoading?: boolean
   isRequired?: boolean
   mask?: (RegExp | string)[]
   type?: Type
@@ -25,6 +32,8 @@ interface Props
 }
 
 interface RootProps {
+  isDisabled?: boolean
+  isLoading?: boolean
   variant?: Variant
 }
 
@@ -34,8 +43,18 @@ const colors: Record<Variant, Color> = {
 
 const focusBoxShadowSize = `0 0 0 ${em(2)}`
 
-const standard = (theme: DefaultTheme) => css`
-  border-color: ${theme.grayLighter};
+const loading = (color?: string) => css`
+  &::after {
+    ${loader(color)};
+    position: absolute !important;
+    right: ${em(10)};
+    top: calc(50% - ${em(8)});
+    z-index: 4;
+  }
+`
+
+const standard = css`
+  border-color: ${({ theme }) => theme.grayLighter};
 
   &:hover {
     border-color: ${({ theme }) => theme.grayLight};
@@ -44,12 +63,17 @@ const standard = (theme: DefaultTheme) => css`
   &:focus,
   &:active {
     border-color: ${({ theme }) => theme.linkColor};
-    box-shadow: ${focusBoxShadowSize} ${transparentize(0.75, theme.linkColor)};
+    box-shadow: ${({ theme }) =>
+      `${focusBoxShadowSize} ${transparentize(0.75, theme.linkColor)}`};
   }
 `
 
 const variation = (color: string) => css`
   border-color: ${color};
+
+  &:hover {
+    border-color: ${darken(0.025, color)};
+  }
 
   &:focus,
   &:active {
@@ -57,7 +81,16 @@ const variation = (color: string) => css`
   }
 `
 
-const Root = styled.input<RootProps>`
+const Root = styled.div<RootProps>`
+  max-width: 100%;
+  position: relative;
+  vertical-align: top;
+
+  ${({ isDisabled, isLoading, theme, variant }) =>
+    !isDisabled && isLoading && loading(variant && theme[colors[variant]])};
+`
+
+const BaseInput = styled.input<BaseInputProps>`
   ${control};
   background-color: ${({ theme }) => theme.white};
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -68,7 +101,7 @@ const Root = styled.input<RootProps>`
   width: 100%;
 
   ${({ theme, variant }) =>
-    variant ? variation(theme[colors[variant]]) : standard(theme)};
+    variant ? variation(theme[colors[variant]]) : standard};
 
   &::placeholder {
     color: ${({ theme }) => transparentize(0.7, theme.grayDarker)};
@@ -90,19 +123,24 @@ const Root = styled.input<RootProps>`
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   {
     autoComplete = 'off',
+    className,
+    delay,
     isDisabled,
     isGuided = true,
+    isLoading = false,
     isRequired,
     mask,
     onChange,
     type = 'text',
     value,
+    variant,
     ...props
   }: Props,
   ref: React.Ref<HTMLInputElement>
 ) => {
   const [maskedInput, setMaskedInput] = React.useState()
   const input = React.useRef<HTMLInputElement>()
+  const isExpired = useTimer(isLoading, delay)
 
   const initTextMask = React.useCallback(() => {
     const textMask = createTextMaskInputElement({
@@ -130,24 +168,32 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
 
   return (
     <Root
-      autoComplete={autoComplete}
-      disabled={isDisabled}
-      onChange={event => {
-        maskedInput.update()
+      className={className}
+      isDisabled={isDisabled}
+      isLoading={isExpired}
+      variant={variant}
+    >
+      <BaseInput
+        autoComplete={autoComplete}
+        disabled={isDisabled}
+        onChange={event => {
+          maskedInput.update()
 
-        if (onChange) {
-          onChange(event)
-        }
-      }}
-      ref={instance => {
-        setRef(ref, instance)
-        setRef(input, instance)
-      }}
-      required={isRequired}
-      type={type}
-      value={value}
-      {...props}
-    />
+          if (onChange) {
+            onChange(event)
+          }
+        }}
+        ref={instance => {
+          setRef(ref, instance)
+          setRef(input, instance)
+        }}
+        required={isRequired}
+        type={type}
+        value={value}
+        variant={variant}
+        {...props}
+      />
+    </Root>
   )
 }
 
