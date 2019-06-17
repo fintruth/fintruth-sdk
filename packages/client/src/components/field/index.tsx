@@ -22,7 +22,7 @@ const Root = styled.div`
   }
 `
 
-const TextField: React.RefForwardingComponent<HTMLDivElement, Props> = (
+const Field: React.RefForwardingComponent<HTMLDivElement, Props> = (
   { isRequired = true, name, ...props }: Props,
   ref: React.Ref<HTMLDivElement>
 ) => {
@@ -35,18 +35,19 @@ const TextField: React.RefForwardingComponent<HTMLDivElement, Props> = (
   )
 }
 
-export const useTextFieldContext = () => {
+export const useFieldContext = () => {
   const state = React.useContext(StateContext)
 
   invariant(
     state,
-    'Please ensure that you have called `TextField` higher up in your tree'
+    'Please ensure that you have called `Field` higher up in your tree'
   )
 
   return state as State
 }
 
-export { default as TextFieldHelp } from './help'
-export { default as TextFieldInput } from './input'
-export { default as TextFieldLabel } from './label'
-export default React.forwardRef(TextField)
+export { default as FieldHelp } from './help'
+export { default as FieldInput } from './input'
+export { default as FieldLabel } from './label'
+export { default as FieldSelect } from './select'
+export default React.forwardRef(Field)

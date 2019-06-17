@@ -9,11 +9,7 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import TextField, {
-  TextFieldHelp,
-  TextFieldInput,
-  TextFieldLabel,
-} from 'components/text-field'
+import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { link } from 'styles/deprecated'
 import { help } from 'styles/mixins'
 import {
@@ -107,11 +103,11 @@ const RecoverForm: React.FunctionComponent<Props> = ({
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <TextField name="email">
-            <TextFieldLabel>EMAIL</TextFieldLabel>
-            <TextFieldInput form={formId} type="email" />
-            <TextFieldHelp />
-          </TextField>
+          <Field name="email">
+            <FieldLabel>EMAIL</FieldLabel>
+            <FieldInput form={formId} type="email" />
+            <FieldHelp />
+          </Field>
           <Description>
             Already have email and password?{' '}
             {user ? (

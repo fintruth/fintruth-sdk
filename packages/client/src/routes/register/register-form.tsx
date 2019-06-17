@@ -8,11 +8,7 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
-import TextField, {
-  TextFieldHelp,
-  TextFieldInput,
-  TextFieldLabel,
-} from 'components/text-field'
+import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help } from 'styles/mixins'
 import { toRegisterInput } from 'utilities/graphql'
 import {
@@ -75,7 +71,7 @@ const Help = styled.p<HelpProps>`
   margin: ${rem(-10)} 0 ${rem(30)};
 `
 
-const LastTextField = styled(TextField)`
+const LastField = styled(Field)`
   &:not(:last-child) {
     margin-bottom: ${rem(40)};
   }
@@ -127,31 +123,31 @@ const RegisterForm: React.FunctionComponent<Props> = ({ ...props }: Props) => {
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <TextField name="profile.givenName">
-            <TextFieldLabel>FIRST NAME</TextFieldLabel>
-            <TextFieldInput autoComplete="given-name" form={formId} />
-            <TextFieldHelp />
-          </TextField>
-          <TextField name="profile.familyName">
-            <TextFieldLabel>LAST NAME</TextFieldLabel>
-            <TextFieldInput autoComplete="family-name" form={formId} />
-            <TextFieldHelp />
-          </TextField>
-          <TextField name="email">
-            <TextFieldLabel>EMAIL</TextFieldLabel>
-            <TextFieldInput form={formId} type="email" />
-            <TextFieldHelp />
-          </TextField>
-          <TextField name="emailConfirm">
-            <TextFieldLabel>CONFIRM EMAIL</TextFieldLabel>
-            <TextFieldInput form={formId} type="email" />
-            <TextFieldHelp />
-          </TextField>
-          <LastTextField name="password">
-            <TextFieldLabel>PASSWORD</TextFieldLabel>
-            <TextFieldInput form={formId} type="password" />
-            <TextFieldHelp />
-          </LastTextField>
+          <Field name="profile.givenName">
+            <FieldLabel>FIRST NAME</FieldLabel>
+            <FieldInput autoComplete="given-name" form={formId} />
+            <FieldHelp />
+          </Field>
+          <Field name="profile.familyName">
+            <FieldLabel>LAST NAME</FieldLabel>
+            <FieldInput autoComplete="family-name" form={formId} />
+            <FieldHelp />
+          </Field>
+          <Field name="email">
+            <FieldLabel>EMAIL</FieldLabel>
+            <FieldInput form={formId} type="email" />
+            <FieldHelp />
+          </Field>
+          <Field name="emailConfirm">
+            <FieldLabel>CONFIRM EMAIL</FieldLabel>
+            <FieldInput form={formId} type="email" />
+            <FieldHelp />
+          </Field>
+          <LastField name="password">
+            <FieldLabel>PASSWORD</FieldLabel>
+            <FieldInput form={formId} type="password" />
+            <FieldHelp />
+          </LastField>
           <Button
             form={formId}
             isLoading={loading}

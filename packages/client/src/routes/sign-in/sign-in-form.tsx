@@ -9,11 +9,7 @@ import styled from 'styled-components'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import TextField, {
-  TextFieldHelp,
-  TextFieldInput,
-  TextFieldLabel,
-} from 'components/text-field'
+import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help, link } from 'styles/mixins'
 import {
   SignInMutationData,
@@ -105,16 +101,16 @@ const SignInForm: React.FunctionComponent<Props> = ({
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <TextField name="email">
-            <TextFieldLabel>EMAIL</TextFieldLabel>
-            <TextFieldInput form={formId} type="email" />
-            <TextFieldHelp />
-          </TextField>
-          <TextField name="password">
-            <TextFieldLabel>PASSWORD</TextFieldLabel>
-            <TextFieldInput form={formId} type="password" />
-            <TextFieldHelp />
-          </TextField>
+          <Field name="email">
+            <FieldLabel>EMAIL</FieldLabel>
+            <FieldInput form={formId} type="email" />
+            <FieldHelp />
+          </Field>
+          <Field name="password">
+            <FieldLabel>PASSWORD</FieldLabel>
+            <FieldInput form={formId} type="password" />
+            <FieldHelp />
+          </Field>
           <Link to="/recover">Forgot your password?</Link>
           <Button
             form={formId}
