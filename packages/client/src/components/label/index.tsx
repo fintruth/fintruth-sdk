@@ -2,7 +2,7 @@ import { em, rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
-interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
+export interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
   as?: keyof JSX.IntrinsicElements | React.ComponentType
   children: React.ReactNode
   isRequired?: boolean

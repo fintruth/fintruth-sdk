@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+select[multiple] .c0 {
+  padding: 0.5em 1em;
+}
+
+select[disabled][multiple] .c0,
+fieldset[disabled] select[multiple] .c0 {
+  color: #7a7a7a;
+}
+
+<option
+  class="c0"
+/>
+`;

@@ -3,12 +3,12 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import theme from 'styles/theme'
-import Input from '.'
+import Select from '.'
 
 test('should render correctly', () => {
   const { container } = render(
     <ThemeProvider theme={theme}>
-      <Input />
+      <Select />
     </ThemeProvider>
   )
 
@@ -18,7 +18,17 @@ test('should render correctly', () => {
 test('should render correctly when disabled', () => {
   const { container } = render(
     <ThemeProvider theme={theme}>
-      <Input isDisabled />
+      <Select isDisabled />
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render correctly when disabled and multiple', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Select isDisabled isMultiple />
     </ThemeProvider>
   )
 
@@ -28,7 +38,7 @@ test('should render correctly when disabled', () => {
 test('should render the danger variant correctly', () => {
   const { container } = render(
     <ThemeProvider theme={theme}>
-      <Input variant="danger" />
+      <Select variant="danger" />
     </ThemeProvider>
   )
 
@@ -38,7 +48,17 @@ test('should render the danger variant correctly', () => {
 test('should render the danger variant correctly when disabled', () => {
   const { container } = render(
     <ThemeProvider theme={theme}>
-      <Input isDisabled variant="danger" />
+      <Select isDisabled variant="danger" />
+    </ThemeProvider>
+  )
+
+  expect(container.firstChild).toMatchSnapshot()
+})
+
+test('should render the danger variant correctly when multiple', () => {
+  const { container } = render(
+    <ThemeProvider theme={theme}>
+      <Select isMultiple variant="danger" />
     </ThemeProvider>
   )
 

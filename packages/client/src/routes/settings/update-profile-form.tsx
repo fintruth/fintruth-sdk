@@ -8,7 +8,6 @@ import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseTextField, {
-  TextFieldControl,
   TextFieldHelp,
   TextFieldInput,
   TextFieldLabel,
@@ -107,16 +106,12 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
         <Form {...props} id={formId} noValidate>
           <TextField name="givenName">
             <TextFieldLabel>FIRST NAME</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput autoComplete="given-name" form={formId} />
-            </TextFieldControl>
+            <TextFieldInput autoComplete="given-name" form={formId} />
             <TextFieldHelp />
           </TextField>
           <TextField name="familyName">
             <TextFieldLabel>LAST NAME</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput autoComplete="family-name" form={formId} />
-            </TextFieldControl>
+            <TextFieldInput autoComplete="family-name" form={formId} />
             <TextFieldHelp />
           </TextField>
           <Button

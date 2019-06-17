@@ -10,7 +10,6 @@ import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import TextField, {
-  TextFieldControl,
   TextFieldHelp,
   TextFieldInput,
   TextFieldLabel,
@@ -108,16 +107,12 @@ const SignInForm: React.FunctionComponent<Props> = ({
         <Form {...props} id={formId} noValidate>
           <TextField name="email">
             <TextFieldLabel>EMAIL</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput form={formId} type="email" />
-            </TextFieldControl>
+            <TextFieldInput form={formId} type="email" />
             <TextFieldHelp />
           </TextField>
           <TextField name="password">
             <TextFieldLabel>PASSWORD</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput form={formId} type="password" />
-            </TextFieldControl>
+            <TextFieldInput form={formId} type="password" />
             <TextFieldHelp />
           </TextField>
           <Link to="/recover">Forgot your password?</Link>

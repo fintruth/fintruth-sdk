@@ -2,38 +2,34 @@ import { Omit } from '@fintruth-sdk/common'
 import { darken, em, transparentize } from 'polished'
 import React from 'react'
 import styled, { Color, css } from 'styled-components' // eslint-disable-line import/named
-import { createTextMaskInputElement } from 'text-mask-core'
 
 import { useTimer } from 'hooks/time'
-import { control, loader } from 'styles/mixins'
-import { setRef } from 'utilities/react'
+import { arrow, control, loader } from 'styles/mixins'
 
-export type Type = 'email' | 'password' | 'tel' | 'text'
 export type Variant = 'danger'
 
-interface BaseInputProps {
+interface BaseSelectProps {
   variant?: Variant
 }
 
 export interface Props
   extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'disabled' | 'required'
+    React.SelectHTMLAttributes<HTMLSelectElement>,
+    'disabled' | 'multiple' | 'required'
   > {
   as?: keyof JSX.IntrinsicElements | React.ComponentType
   delay?: number
   isDisabled?: boolean
-  isGuided?: boolean
   isLoading?: boolean
+  isMultiple?: boolean
   isRequired?: boolean
-  mask?: (RegExp | string)[]
-  type?: Type
   variant?: Variant
 }
 
 interface RootProps {
   isDisabled?: boolean
   isLoading?: boolean
+  isMultiple?: boolean
   variant?: Variant
 }
 
@@ -50,6 +46,20 @@ const loading = (color?: string) => css`
     right: ${em(10)};
     top: calc(50% - ${em(8)});
     z-index: 4;
+  }
+`
+
+const single = (color?: string) => css`
+  &::after {
+    ${arrow(color)};
+    position: absolute !important;
+    right: ${em(13)};
+    top: calc(50% - 2.5px);
+    z-index: 4;
+  }
+
+  &:hover::after {
+    border-top-color: ${({ theme }) => theme.grayDarker};
   }
 `
 
@@ -86,25 +96,46 @@ const Root = styled.div<RootProps>`
   position: relative;
   vertical-align: top;
 
-  ${({ isDisabled, isLoading, theme, variant }) =>
-    !isDisabled && isLoading && loading(variant && theme[colors[variant]])};
+  ${({ isDisabled, isLoading, isMultiple, theme, variant }) => {
+    if (isDisabled || isMultiple) {
+      return undefined
+    }
+
+    const color = variant && theme[colors[variant]]
+
+    return isLoading ? loading(color) : single(color)
+  }};
 `
 
-const BaseInput = styled.input<BaseInputProps>`
+const BaseSelect = styled.select<BaseSelectProps>`
   ${control};
   background-color: ${({ theme }) => theme.white};
   border-radius: ${({ theme }) => theme.borderRadius};
   box-shadow: inset 0 1px 2px ${({ theme }) => transparentize(0.9, theme.black)};
   color: ${({ theme }) => theme.grayDarker};
+  cursor: pointer;
   display: block;
+  font-size: ${em(16)};
   max-width: 100%;
+  outline: none;
+  padding-right: ${em(36)};
   width: 100%;
 
   ${({ theme, variant }) =>
     variant ? variation(theme[colors[variant]]) : standard};
 
-  &::placeholder {
-    color: ${({ theme }) => transparentize(0.7, theme.grayDarker)};
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 ${({ theme }) => theme.grayDarker};
+  }
+
+  &::-ms-expand {
+    display: none;
+  }
+
+  &[multiple] {
+    height: auto;
+    padding: 0;
   }
 
   &[disabled],
@@ -113,83 +144,39 @@ const BaseInput = styled.input<BaseInputProps>`
     border-color: ${({ theme }) => theme.backgroundColor};
     box-shadow: none;
     color: ${({ theme }) => theme.textLightColor};
-
-    &::placeholder {
-      color: ${({ theme }) => transparentize(0.7, theme.textLightColor)};
-    }
   }
 `
 
-const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
+const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   {
     autoComplete = 'off',
     className,
     delay,
     isDisabled,
-    isGuided = true,
     isLoading = false,
+    isMultiple,
     isRequired,
-    mask,
-    onChange,
-    type = 'text',
-    value,
     variant,
     ...props
   }: Props,
-  ref: React.Ref<HTMLInputElement>
+  ref: React.Ref<HTMLSelectElement>
 ) => {
-  const [maskedInput, setMaskedInput] = React.useState()
-  const input = React.useRef<HTMLInputElement>()
   const isExpired = useTimer(isLoading, delay)
-
-  const initTextMask = React.useCallback(() => {
-    const textMask = createTextMaskInputElement({
-      guide: isGuided,
-      inputElement: input.current,
-      keepCharPositions: false,
-      mask: mask || false,
-      placeholderChar: '\u2000',
-      showMask: false,
-    })
-
-    textMask.update(value)
-    setMaskedInput(textMask)
-  }, [isGuided, mask, value])
-
-  React.useEffect(() => {
-    initTextMask()
-  }, [initTextMask, isGuided, mask])
-
-  React.useEffect(() => {
-    if (input && input.current && value !== input.current.value) {
-      initTextMask()
-    }
-  }, [initTextMask, value])
 
   return (
     <Root
       className={className}
       isDisabled={isDisabled}
       isLoading={isExpired}
+      isMultiple={isMultiple}
       variant={variant}
     >
-      <BaseInput
+      <BaseSelect
         autoComplete={autoComplete}
         disabled={isDisabled}
-        onChange={event => {
-          maskedInput.update()
-
-          if (onChange) {
-            onChange(event)
-          }
-        }}
-        ref={instance => {
-          setRef(ref, instance)
-          setRef(input, instance)
-        }}
+        multiple={isMultiple}
+        ref={ref}
         required={isRequired}
-        type={type}
-        value={value}
         variant={variant}
         {...props}
       />
@@ -197,4 +184,4 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   )
 }
 
-export default React.forwardRef(Input)
+export default React.forwardRef(Select)

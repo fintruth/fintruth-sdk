@@ -10,7 +10,6 @@ import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseTextField, {
-  TextFieldControl,
   TextFieldHelp,
   TextFieldInput,
 } from 'components/text-field'
@@ -124,33 +123,27 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
       >
         <Form {...props} id={formId} noValidate>
           <TextField name="password">
-            <TextFieldControl>
-              <TextFieldInput
-                form={formId}
-                placeholder="Current Password"
-                type="password"
-              />
-            </TextFieldControl>
+            <TextFieldInput
+              form={formId}
+              placeholder="Current Password"
+              type="password"
+            />
             <TextFieldHelp />
           </TextField>
           <TextField name="newPassword">
-            <TextFieldControl>
-              <TextFieldInput
-                form={formId}
-                placeholder="New Password"
-                type="password"
-              />
-            </TextFieldControl>
+            <TextFieldInput
+              form={formId}
+              placeholder="New Password"
+              type="password"
+            />
             <TextFieldHelp />
           </TextField>
           <TextField name="newPasswordConfirm">
-            <TextFieldControl>
-              <TextFieldInput
-                form={formId}
-                placeholder="Confirm New Password"
-                type="password"
-              />
-            </TextFieldControl>
+            <TextFieldInput
+              form={formId}
+              placeholder="Confirm New Password"
+              type="password"
+            />
             <TextFieldHelp />
           </TextField>
           <Link to="/recover">Forgot your password?</Link>

@@ -42,6 +42,16 @@ const until = (breakpoint: ViewportBreakpoint) => (content: Content) => css`
   }
 `
 
+export const arrow = (color?: string) => css`
+  border: 5px solid transparent;
+  border-bottom-width: 0;
+  border-top-color: ${({ theme }) => color || theme.linkColor};
+  content: '';
+  display: block;
+  pointer-events: none;
+  position: relative;
+`
+
 export const center = (width: string, height?: string) =>
   css`
     left: calc(50% - (${width} / 2));

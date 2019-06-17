@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { help } from 'styles/mixins'
-import { useTextFieldContext } from '.'
+import { usePhoneFieldContext } from '.'
 
 interface Props
   extends Omit<React.HTMLAttributes<HTMLParagraphElement>, 'children'> {
@@ -19,11 +19,11 @@ const Help: React.RefForwardingComponent<HTMLParagraphElement, Props> = (
   props: Props,
   ref: React.Ref<HTMLParagraphElement>
 ) => {
-  const { name } = useTextFieldContext()
-  const { error, touched } = useField<string>(name)[1]
+  const { name } = usePhoneFieldContext()[0]
+  const { error, touched } = useField(`${name}.number`)[1]
 
   return error && touched ? (
-    <Root ref={ref} {...props}>
+    <Root {...props} ref={ref}>
       {error}
     </Root>
   ) : null

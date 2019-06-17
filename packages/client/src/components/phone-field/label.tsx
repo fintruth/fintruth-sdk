@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import BaseLabel, { Props as LabelProps } from 'components/label'
-import { useTextFieldContext } from '.'
+import { usePhoneFieldContext } from '.'
 
 type Props = Omit<LabelProps, 'isRequired'>
 
@@ -20,7 +20,7 @@ const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
   props: Props,
   ref: React.Ref<HTMLLabelElement>
 ) => {
-  const { isRequired } = useTextFieldContext()
+  const { isRequired } = usePhoneFieldContext()[0]
 
   return <Root isRequired={isRequired} ref={ref} {...props} />
 }
