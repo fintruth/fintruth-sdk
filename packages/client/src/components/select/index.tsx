@@ -12,7 +12,7 @@ interface BaseSelectProps {
   variant?: Variant
 }
 
-interface Props
+export interface Props
   extends Omit<
     React.SelectHTMLAttributes<HTMLSelectElement>,
     'disabled' | 'multiple' | 'required'
