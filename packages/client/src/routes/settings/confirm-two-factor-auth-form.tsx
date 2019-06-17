@@ -7,11 +7,7 @@ import styled from 'styled-components'
 import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseTextField, {
-  TextFieldHelp,
-  TextFieldInput,
-  TextFieldLabel,
-} from 'components/text-field'
+import BaseField, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help } from 'styles/mixins'
 import {
   ConfirmTwoFactorAuthMutationData,
@@ -51,7 +47,7 @@ const Form = styled(BaseForm)`
   align-items: center;
 `
 
-const TextField = styled(BaseTextField)`
+const Field = styled(BaseField)`
   ${field};
 `
 
@@ -94,11 +90,11 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <TextField name="token">
-            <TextFieldLabel>VERIFICATION CODE</TextFieldLabel>
-            <TextFieldInput form={formId} />
-            <TextFieldHelp />
-          </TextField>
+          <Field name="token">
+            <FieldLabel>VERIFICATION CODE</FieldLabel>
+            <FieldInput form={formId} />
+            <FieldHelp />
+          </Field>
           <Button
             form={formId}
             isLoading={loading}

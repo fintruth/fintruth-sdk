@@ -9,10 +9,7 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
-import BaseTextField, {
-  TextFieldHelp,
-  TextFieldInput,
-} from 'components/text-field'
+import BaseField, { FieldHelp, FieldInput } from 'components/field'
 import { link } from 'styles/deprecated'
 import { help } from 'styles/mixins'
 import {
@@ -69,7 +66,7 @@ const Form = styled(BaseForm)`
   ${form};
 `
 
-const TextField = styled(BaseTextField)`
+const Field = styled(BaseField)`
   ${field};
 `
 
@@ -122,30 +119,30 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
         validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
-          <TextField name="password">
-            <TextFieldInput
+          <Field name="password">
+            <FieldInput
               form={formId}
               placeholder="Current Password"
               type="password"
             />
-            <TextFieldHelp />
-          </TextField>
-          <TextField name="newPassword">
-            <TextFieldInput
+            <FieldHelp />
+          </Field>
+          <Field name="newPassword">
+            <FieldInput
               form={formId}
               placeholder="New Password"
               type="password"
             />
-            <TextFieldHelp />
-          </TextField>
-          <TextField name="newPasswordConfirm">
-            <TextFieldInput
+            <FieldHelp />
+          </Field>
+          <Field name="newPasswordConfirm">
+            <FieldInput
               form={formId}
               placeholder="Confirm New Password"
               type="password"
             />
-            <TextFieldHelp />
-          </TextField>
+            <FieldHelp />
+          </Field>
           <Link to="/recover">Forgot your password?</Link>
           <Button
             form={formId}
