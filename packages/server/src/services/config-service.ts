@@ -1,14 +1,7 @@
 import dotenv from 'dotenv-safe'
-import path from 'path'
 import { Service } from 'typedi'
 
-const env = process.env.NODE_ENV || 'development'
-const isEnvProd = /prod(uction)?/i.test(env)
-const isEnvStaging = /staging/i.test(env)
-
-const envExt = isEnvProd ? 'prod' : isEnvStaging ? 'staging' : 'dev'
-
-dotenv.config({ path: path.resolve(__dirname, `../../.env.${envExt}`) })
+dotenv.config()
 
 @Service()
 export default class ConfigService {
