@@ -14,7 +14,7 @@ const buildDir = path.join(rootDir, 'build')
 const env = process.env.ENV || 'dev'
 const isProd = /prod(uction)?/i.test(env)
 const isStaging = /(stage|staging)/i.test(env)
-const envExt = isProd ? 'prod' : isStaging ? 'staging' : 'dev'
+const envFile = isProd ? '.env.prod' : isStaging ? '.env.staging' : '.env'
 
 const isAnalyze = process.argv.includes('--analyze')
 const isRelease = isProd || isStaging || process.argv.includes('--release')
@@ -97,7 +97,7 @@ const createConfig = (target, configFactory) =>
       }),
       new DotenvPlugin({
         defaults: path.join(rootDir, '.env.defaults'),
-        path: path.join(rootDir, `.env.${envExt}`),
+        path: path.join(rootDir, envFile),
         safe: path.join(rootDir, '.env.example'),
       }),
     ],
