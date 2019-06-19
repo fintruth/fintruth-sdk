@@ -58,6 +58,7 @@ const baseConfig = {
     ],
     strictExportPresence: true,
   },
+  optimization: { minimize: false },
   output: {
     chunkFilename: 'chunks/[name].js',
     devtoolModuleFilenameTemplate: ({ absoluteResourcePath }) =>
@@ -91,7 +92,6 @@ const migrationsConfig = {
   entry: glob
     .sync(path.resolve('./src/migrations/*.ts'))
     .reduce((acc, cur) => ({ ...acc, [path.basename(cur, '.ts')]: cur }), {}),
-  optimization: { minimize: false },
   output: {
     ...baseConfig.output,
     libraryTarget: 'umd',
@@ -104,7 +104,6 @@ const seedsConfig = {
   entry: glob
     .sync(path.resolve('./src/seeds/*.ts'))
     .reduce((acc, cur) => ({ ...acc, [path.basename(cur, '.ts')]: cur }), {}),
-  optimization: { minimize: false },
   output: {
     ...baseConfig.output,
     libraryTarget: 'umd',
