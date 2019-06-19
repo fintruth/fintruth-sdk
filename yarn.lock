@@ -8270,10 +8270,10 @@ format@^0.2.2:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
 
-formik@2.0.1-rc.5:
-  version "2.0.1-rc.5"
-  resolved "https://registry.yarnpkg.com/formik/-/formik-2.0.1-rc.5.tgz#856a36036fa27d707aa6879476623b4a7753e158"
-  integrity sha512-EEz+CLL5RYh95di4gdnlfrfCJrsC48Eis+kZhcqhanxlkA2ZMBmMLo7XxUZjMx+8aTZjEBOR3GQZstQ2/44chg==
+formik@2.0.1-rc.6:
+  version "2.0.1-rc.6"
+  resolved "https://registry.yarnpkg.com/formik/-/formik-2.0.1-rc.6.tgz#3d5e4a17b694979fc7fdd36a748b64e96afaab6e"
+  integrity sha512-o4KBHzUj51sZb+06fLU2fwhwzYMam0YyTtiMPM+uu2IpIbc20qeRvckv+5iBNJSYSt8OolBOLhyMApY3jnQfxg==
   dependencies:
     deepmerge "^2.1.1"
     hoist-non-react-statics "^3.3.0"
