@@ -9,15 +9,5 @@ const string = () =>
     phoneAnalyser: parseNumber as any,
   })
 
-export {
-  ValidationError,
-  array,
-  boolean,
-  date,
-  lazy,
-  mixed,
-  number,
-  object,
-  ref,
-} from 'yup'
-export { string }
+export * from 'yup'
+export { StringSchema, string }

@@ -3,18 +3,46 @@ import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
+type Dispatch = (action: Action) => void
+type Type = 'setLabelId' | 'setPlaceholder'
+
+interface Action {
+  type: Type
+  payload: Payload
+}
+
+interface BaseState {
+  labelId: string
+}
+
+interface Payload {
+  labelId?: string
+}
+
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   as?: keyof JSX.IntrinsicElements | React.ComponentType
+  isDisabled?: boolean
   isRequired?: boolean
   name: string
 }
 
-interface State {
+interface State extends BaseState {
+  isDisabled: boolean
   isRequired: boolean
   name: string
 }
 
+const DispatchContext = React.createContext<Dispatch | undefined>(undefined)
 const StateContext = React.createContext<State | undefined>(undefined)
+
+const reducer = (prevState: BaseState, { type, payload }: Action) => {
+  switch (type) {
+    case 'setLabelId':
+      return { ...prevState, labelId: payload.labelId || '' }
+    default:
+      throw new Error(`Unhandled action type: ${type}`)
+  }
+}
 
 const Root = styled.div`
   &:not(:last-child) {
@@ -23,27 +51,36 @@ const Root = styled.div`
 `
 
 const Field: React.RefForwardingComponent<HTMLDivElement, Props> = (
-  { isRequired = true, name, ...props }: Props,
+  { isDisabled = false, isRequired = true, name, ...props }: Props,
   ref: React.Ref<HTMLDivElement>
 ) => {
-  const state = React.useMemo(() => ({ isRequired, name }), [isRequired, name])
+  const [baseState, dispatch] = React.useReducer<
+    React.Reducer<BaseState, Action>
+  >(reducer, { labelId: '' })
+  const state = React.useMemo<State>(
+    () => ({ ...baseState, isDisabled, isRequired, name }),
+    [baseState, isDisabled, isRequired, name]
+  )
 
   return (
-    <StateContext.Provider value={state}>
-      <Root ref={ref} {...props} />
-    </StateContext.Provider>
+    <DispatchContext.Provider value={dispatch}>
+      <StateContext.Provider value={state}>
+        <Root ref={ref} {...props} />
+      </StateContext.Provider>
+    </DispatchContext.Provider>
   )
 }
 
-export const useFieldContext = () => {
-  const state = React.useContext(StateContext)
+export const useFieldContext = (): [State, Dispatch] => {
+  const dispatch = React.useContext<Dispatch | undefined>(DispatchContext)
+  const state = React.useContext<State | undefined>(StateContext)
 
   invariant(
-    state,
+    dispatch || state,
     'Please ensure that you have called `Field` higher up in your tree'
   )
 
-  return state as State
+  return [state as State, dispatch as Dispatch]
 }
 
 export { default as FieldHelp } from './help'

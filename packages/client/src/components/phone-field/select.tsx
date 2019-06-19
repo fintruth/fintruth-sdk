@@ -1,15 +1,18 @@
-import { Omit } from '@fintruth-sdk/common'
-import { useField } from 'formik'
+import { useField, useFormikContext, Validate } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
 import Option from 'components/option'
 import BaseSelect, { Props as SelectProps } from 'components/select'
+import { validateSelect } from 'utilities/validation'
 import data from './data'
 import { PhoneValue, usePhoneFieldContext } from '.'
 
-type Props = Omit<SelectProps, 'isRequired' | 'name' | 'variant'>
+interface Props
+  extends Omit<SelectProps, 'children' | 'isDisabled' | 'isRequired' | 'name'> {
+  validate?: Validate
+}
 
 const Root = styled(BaseSelect)`
   &:not(:last-child) {
@@ -18,38 +21,54 @@ const Root = styled(BaseSelect)`
 `
 
 const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
-  props: Props,
+  { validate, ...props }: Props,
   ref: React.Ref<HTMLSelectElement>
 ) => {
-  const [{ isRequired, name }, dispatch] = usePhoneFieldContext()
+  const [
+    { isDisabled, isRequired, labelId, name },
+    dispatch,
+  ] = usePhoneFieldContext()
   const { onBlur, onChange, value, ...field } = useField<PhoneValue>(name)[0]
+  const formik = useFormikContext()
+
+  const defaultValidate = React.useCallback<Validate>(
+    (value: string) => validateSelect(value, { isRequired }),
+    [isRequired]
+  )
 
   React.useEffect(() => {
     const { placeholder = '' } =
       data.find(({ alpha2Code }) => alpha2Code === value.alpha2Code) || {}
 
-    return dispatch({ type: 'setPlaceholder', value: placeholder })
+    return dispatch({ payload: { placeholder }, type: 'setPlaceholder' })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  React.useEffect(() => {
+    formik.registerField(name, { validate: validate || defaultValidate })
+
+    return () => formik.unregisterField(name)
+  }, [defaultValidate, formik, name, validate])
 
   return (
     <Root
+      aria-labelledby={labelId}
+      isDisabled={isDisabled}
       isRequired={isRequired}
-      onBlur={event => {
-        onBlur(`${name}.alpha2Code`)(event)
-        onBlur(`${name}.callingCode`)(event)
+      onBlur={({ target }) => {
+        const { placeholder, ...rest } = data[target.selectedIndex] // eslint-disable-line @typescript-eslint/no-unused-vars
 
-        return onBlur(`${name}.countryName`)(event)
+        return Object.entries(rest).forEach(([key, value]) =>
+          onBlur(`${name}.${key}`)(value)
+        )
       }}
       onChange={({ target }) => {
-        const { alpha2Code, callingCode, countryName, placeholder } = data[
-          target.selectedIndex
-        ]
+        const { placeholder, ...rest } = data[target.selectedIndex]
 
-        onChange(`${name}.alpha2Code`)(alpha2Code)
-        onChange(`${name}.callingCode`)(callingCode)
-        onChange(`${name}.countryName`)(countryName)
+        dispatch({ payload: { placeholder }, type: 'setPlaceholder' })
 
-        return dispatch({ type: 'setPlaceholder', value: placeholder })
+        return Object.entries(rest).forEach(([key, value]) =>
+          onChange(`${name}.${key}`)(value)
+        )
       }}
       ref={ref}
       value={value.alpha2Code}

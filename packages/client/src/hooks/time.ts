@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const useTimer = (canStart: boolean, delay: number = 200) => {
-  const [isExpired, setIsExpired] = React.useState(false)
+  const [isExpired, setIsExpired] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     if (canStart) {

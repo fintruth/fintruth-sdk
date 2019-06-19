@@ -63,6 +63,7 @@
     "ramda": "^0.26.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-uid": "^2.2.0",
     "reactabular-table": "^8.14.0",
     "serialize-javascript": "^1.7.0",
     "source-map-support": "^0.5.12",

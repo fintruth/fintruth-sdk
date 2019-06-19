@@ -41,17 +41,14 @@ const initialValues: Values = {
 }
 
 const validationSchema = object().shape({
-  password: string().required('This is a required field'),
-  newPassword: string()
-    .required('This is a required field')
-    .notOneOf(
-      [ref('password')],
-      'Please enter a password different than the current password'
-    )
-    .min(10, 'Minimum length is ${min} characters'), // eslint-disable-line no-template-curly-in-string
-  newPasswordConfirm: string()
-    .required('This is a required field')
-    .oneOf([ref('newPassword')], 'Please retype the new password'),
+  newPassword: string().notOneOf(
+    [ref('password')],
+    'Enter a password different than the current password'
+  ),
+  newPasswordConfirm: string().oneOf(
+    [ref('newPassword')],
+    'Retype the new password'
+  ),
 })
 
 const formId = 'update-password__Form'

@@ -1,23 +1,40 @@
-import { Omit } from '@fintruth-sdk/common'
-import { useField } from 'formik'
+import { useField, useFormikContext, Validate } from 'formik'
 import React from 'react'
 
 import BaseInput, { Props as InputProps } from 'components/input'
+import { validateInput } from 'utilities/validation'
 import { useFieldContext } from '.'
 
-type Props = Omit<InputProps, 'isRequired' | 'name' | 'variant'>
+interface Props extends Omit<InputProps, 'isDisabled' | 'isRequired' | 'name'> {
+  validate?: Validate
+}
 
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
-  props: Props,
+  { validate, type, ...props }: Props,
   ref: React.Ref<HTMLInputElement>
 ) => {
-  const { isRequired, name } = useFieldContext()
+  const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
   const [field, { error, touched }] = useField<string>(name)
+  const formik = useFormikContext()
+
+  const defaultValidate = React.useCallback<Validate>(
+    (value: string) => validateInput(value, { isRequired, type }),
+    [isRequired, type]
+  )
+
+  React.useEffect(() => {
+    formik.registerField(name, { validate: validate || defaultValidate })
+
+    return () => formik.unregisterField(name)
+  }, [defaultValidate, formik, name, validate])
 
   return (
     <BaseInput
+      aria-labelledby={labelId}
+      isDisabled={isDisabled}
       isRequired={isRequired}
       ref={ref}
+      type={type}
       variant={error && touched ? 'danger' : undefined}
       {...field}
       {...props}

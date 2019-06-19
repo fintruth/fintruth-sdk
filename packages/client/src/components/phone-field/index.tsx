@@ -6,38 +6,49 @@ import styled from 'styled-components'
 import data from './data'
 
 type Dispatch = (action: Action) => void
+type Type = 'setLabelId' | 'setPlaceholder'
 
 interface Action {
-  type: 'setPlaceholder'
-  value: string
+  type: Type
+  payload: Payload
 }
 
-export interface PhoneValue {
-  alpha2Code: typeof data[number]['alpha2Code']
-  callingCode: typeof data[number]['callingCode']
-  countryName: typeof data[number]['countryName']
+interface BaseState {
+  placeholder: string
+  labelId: string
+}
+
+interface Payload {
+  placeholder?: string
+  labelId?: string
+}
+
+export interface PhoneValue extends Omit<typeof data[number], 'placeholder'> {
   number: string
 }
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   as?: keyof JSX.IntrinsicElements | React.ComponentType
+  isDisabled?: boolean
   isRequired?: boolean
   name: string
 }
 
-interface State {
+interface State extends BaseState {
+  isDisabled: boolean
   isRequired: boolean
   name: string
-  placeholder: string
 }
 
 const DispatchContext = React.createContext<Dispatch | undefined>(undefined)
 const StateContext = React.createContext<State | undefined>(undefined)
 
-const reducer = (state: State, { type, value }: Action) => {
+const reducer = (prevState: BaseState, { type, payload }: Action) => {
   switch (type) {
+    case 'setLabelId':
+      return { ...prevState, labelId: payload.labelId || '' }
     case 'setPlaceholder':
-      return { ...state, placeholder: value }
+      return { ...prevState, placeholder: payload.placeholder || '' }
     default:
       throw new Error(`Unhandled action type: ${type}`)
   }
@@ -50,14 +61,16 @@ const Root = styled.div`
 `
 
 const PhoneField: React.RefForwardingComponent<HTMLDivElement, Props> = (
-  { isRequired = true, name, ...props }: Props,
+  { isDisabled = false, isRequired = true, name, ...props }: Props,
   ref: React.Ref<HTMLDivElement>
 ) => {
-  const [state, dispatch] = React.useReducer(reducer, {
-    isRequired,
-    name,
-    placeholder: '',
-  })
+  const [baseState, dispatch] = React.useReducer<
+    React.Reducer<BaseState, Action>
+  >(reducer, { labelId: '', placeholder: '' })
+  const state = React.useMemo<State>(
+    () => ({ ...baseState, isDisabled, isRequired, name }),
+    [baseState, isDisabled, isRequired, name]
+  )
 
   return (
     <DispatchContext.Provider value={dispatch}>
@@ -69,8 +82,8 @@ const PhoneField: React.RefForwardingComponent<HTMLDivElement, Props> = (
 }
 
 export const usePhoneFieldContext = (): [State, Dispatch] => {
-  const dispatch = React.useContext(DispatchContext)
-  const state = React.useContext(StateContext)
+  const dispatch = React.useContext<Dispatch | undefined>(DispatchContext)
+  const state = React.useContext<State | undefined>(StateContext)
 
   invariant(
     dispatch || state,

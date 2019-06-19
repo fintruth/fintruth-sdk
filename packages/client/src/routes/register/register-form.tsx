@@ -49,19 +49,7 @@ const initialValues: Values = {
 }
 
 const validationSchema = object().shape({
-  email: string()
-    .required('This is a required field')
-    .email('Please provide a valid email address'),
-  emailConfirm: string()
-    .required('This is a required field')
-    .oneOf([ref('email')], 'Please retype the email address'),
-  password: string()
-    .required('This is a required field')
-    .min(10, 'Minimum length is ${min} characters'), // eslint-disable-line no-template-curly-in-string
-  profile: object().shape({
-    familyName: string().required('This is a required field'),
-    givenName: string().required('This is a required field'),
-  }),
+  emailConfirm: string().oneOf([ref('email')], 'Retype the email address'),
 })
 
 const formId = 'register__Form'

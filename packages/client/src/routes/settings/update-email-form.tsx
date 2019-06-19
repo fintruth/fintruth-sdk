@@ -5,7 +5,6 @@ import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
-import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput } from 'components/field'
@@ -33,13 +32,6 @@ interface Values {
   newEmail: string
   password: string
 }
-
-const validationSchema = object().shape({
-  newEmail: string()
-    .required('This is a required field')
-    .email('Please provide a valid email address'),
-  password: string().required('This is a required field'),
-})
 
 const formId = 'update-email__Form'
 
@@ -99,7 +91,6 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
             path(['data', 'response', 'error'], value) ? undefined : resetForm()
           )
         }
-        validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
           <Field name="newEmail">

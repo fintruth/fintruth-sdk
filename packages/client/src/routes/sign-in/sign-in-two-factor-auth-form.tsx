@@ -4,7 +4,6 @@ import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
-import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
@@ -34,10 +33,6 @@ interface Values {
 }
 
 const initialValues: Values = { token: '' }
-
-const validationSchema = object().shape({
-  token: string().required('This is a required field'),
-})
 
 const formId = 'sign-in-two-factor-auth__Form'
 
@@ -91,7 +86,6 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         onSubmit={variables =>
           onSubmit({ variables: { ...signInCredentials, ...variables } })
         }
-        validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
           <LastField name="token">

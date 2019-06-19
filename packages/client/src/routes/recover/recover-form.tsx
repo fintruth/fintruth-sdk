@@ -6,7 +6,6 @@ import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
-import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
@@ -33,12 +32,6 @@ interface Props
 interface Values {
   email: string
 }
-
-const validationSchema = object().shape({
-  email: string()
-    .required('This is a required field')
-    .email('Please provide a valid email address'),
-})
 
 const formId = 'recover__Form'
 
@@ -100,7 +93,6 @@ const RecoverForm: React.FunctionComponent<Props> = ({
             path(['data', 'response', 'error'], value) ? undefined : resetForm()
           )
         }
-        validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
           <Field name="email">

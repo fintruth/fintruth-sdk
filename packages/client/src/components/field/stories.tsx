@@ -27,11 +27,14 @@ storiesOf('Components|Field', module)
   .addDecorator(centered)
   .add('Input', () => (
     <Formik<Values> initialValues={initialValues} onSubmit={action('onSubmit')}>
-      <Field isRequired={boolean('isRequired', true)} name="text">
+      <Field
+        isDisabled={boolean('isDisabled', false)}
+        isRequired={boolean('isRequired', true)}
+        name="text"
+      >
         <FieldLabel>{text('label', 'Label')}</FieldLabel>
         <FieldInput
           delay={number('delay', 200)}
-          isDisabled={boolean('isDisabled', false)}
           isLoading={boolean('isLoading', false)}
           placeholder={text('placeholder', 'Placeholder')}
           type={select('type', types, '') || undefined}
@@ -42,14 +45,18 @@ storiesOf('Components|Field', module)
   ))
   .add('Select', () => (
     <Formik<Values> initialValues={initialValues} onSubmit={action('onSubmit')}>
-      <Field isRequired={boolean('isRequired', true)} name="text">
+      <Field
+        isDisabled={boolean('isDisabled', false)}
+        isRequired={boolean('isRequired', true)}
+        name="text"
+      >
         <FieldLabel>{text('label', 'Label')}</FieldLabel>
         <FieldSelect
           delay={number('delay', 200)}
-          isDisabled={boolean('isDisabled', false)}
           isLoading={boolean('isLoading', false)}
           isMultiple={boolean('isMultiple', false)}
         >
+          <Option value="">Select an option</Option>
           <Option value="optionA">Option A</Option>
           <Option value="optionB">Option B</Option>
           <Option value="optionC">Option C</Option>
