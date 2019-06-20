@@ -84,7 +84,7 @@
     "@cypress/webpack-preprocessor": "^4.1.0",
     "@loadable/babel-plugin": "^5.10.0",
     "@loadable/webpack-plugin": "^5.7.1",
-    "@storybook/addon-a11y": "^5.1.8",
+    "@storybook/addon-a11y": "^5.1.9",
     "@storybook/addon-actions": "^5.1.8",
     "@storybook/addon-centered": "^5.1.8",
     "@storybook/addon-knobs": "^5.1.8",
