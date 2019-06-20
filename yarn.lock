@@ -2340,17 +2340,17 @@
   resolved "https://registry.yarnpkg.com/@sheerun/mutationobserver-shim/-/mutationobserver-shim-0.3.2.tgz#8013f2af54a2b7d735f71560ff360d3a8176a87b"
   integrity sha512-vTCdPp/T/Q3oSqwHmZ5Kpa9oI7iLtGl3RQaA/NyLHikvcrPxACkkKVr/XzkSPJWXHRhKGzVvb0urJsbMlRxi1Q==
 
-"@storybook/addon-a11y@^5.1.8":
-  version "5.1.8"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-5.1.8.tgz#f352fc75006d451f97778bb346773c17fc7c7e7f"
-  integrity sha512-yjoW5/Jin8LhC7im6bRP2bETsilSKTZClnmx4qqHPa+kZyu/mHispkpowkR2WrueuKEjWAyfBe1wvAMaLndFBA==
+"@storybook/addon-a11y@^5.1.9":
+  version "5.1.9"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-5.1.9.tgz#3feea3f49680f6c311cefd1838b82721d59f397e"
+  integrity sha512-5u90lEpJtO1W8unwNy5fKTKQG7Sbe3IZJpiC6rf1MdGk0avSwoxDyblt0NImPDBHTh4LeUcuCn57D7AVNLUplg==
   dependencies:
-    "@storybook/addons" "5.1.8"
-    "@storybook/api" "5.1.8"
-    "@storybook/client-logger" "5.1.8"
-    "@storybook/components" "5.1.8"
-    "@storybook/core-events" "5.1.8"
-    "@storybook/theming" "5.1.8"
+    "@storybook/addons" "5.1.9"
+    "@storybook/api" "5.1.9"
+    "@storybook/client-logger" "5.1.9"
+    "@storybook/components" "5.1.9"
+    "@storybook/core-events" "5.1.9"
+    "@storybook/theming" "5.1.9"
     axe-core "^3.2.2"
     common-tags "^1.8.0"
     core-js "^3.0.1"
@@ -2434,7 +2434,7 @@
     prop-types "^15.7.2"
     util-deprecate "^1.0.2"
 
-"@storybook/addons@5.1.8", "@storybook/addons@^5.1.4":
+"@storybook/addons@5.1.8":
   version "5.1.8"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.1.8.tgz#d4c9bacd5cce58c3375a3c5b3b3e47ab0cee2818"
   integrity sha512-qV3NJyoxJWOb6E1pJXjrj4KJ77OHjNNC0tUzdiHPlWqc21Szu8AKIC7b3L6+fqwmZoAUg1XdtrynJwjXaNkVeQ==
@@ -2446,7 +2446,7 @@
     global "^4.3.2"
     util-deprecate "^1.0.2"
 
-"@storybook/addons@5.1.9":
+"@storybook/addons@5.1.9", "@storybook/addons@^5.1.4":
   version "5.1.9"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.1.9.tgz#ecf218d08508b97ca5e6e0f1ed361081385bd3ff"
   integrity sha512-1bavbcS/NiE65DwyKj8c0DmWmz9VekOinB+has2Pqt2bOffZoZwVnbmepcz9hH3GUyvp5fQBYbxTEmTDvF2lLA==
