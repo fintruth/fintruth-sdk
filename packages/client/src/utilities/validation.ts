@@ -2,12 +2,12 @@ import { StringSchema, string } from '@fintruth-sdk/validation'
 
 import { Type } from 'components/input'
 
-interface InputContext {
+export interface InputContext {
   isRequired: boolean
   type?: Type
 }
 
-interface SelectContext {
+export interface SelectContext {
   isRequired: boolean
 }
 
@@ -24,9 +24,7 @@ export const validateInput = (value: string, context: InputContext) =>
           // @ts-ignore missing-properties
           schema = schema.email('Enter a valid email address') // eslint-disable-line no-param-reassign
         } else if (type === 'password') {
-          schema = schema.password(2) // eslint-disable-line no-param-reassign
-        } else if (type === 'tel') {
-          schema = schema.phone('Enter a valid phone number') // eslint-disable-line no-param-reassign
+          schema = schema.password(2, 'Enter a stronger password') // eslint-disable-line no-param-reassign
         }
 
         return schema
