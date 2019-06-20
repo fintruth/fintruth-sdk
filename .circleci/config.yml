@@ -305,7 +305,7 @@ workflows:
           requires:
             - common
             - validation
-      - root:
+      - root
       - server:
           requires:
             - auth
