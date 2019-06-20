@@ -1,6 +1,6 @@
-import { Omit } from '@fintruth-sdk/common'
 import { rem } from 'polished'
 import React from 'react'
+import { useUIDSeed } from 'react-uid'
 import styled from 'styled-components'
 
 import BaseLabel, { Props as LabelProps } from 'components/label'
@@ -17,12 +17,19 @@ const Root = styled(BaseLabel)`
 `
 
 const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
-  props: Props,
+  { id, ...props }: Props,
   ref: React.Ref<HTMLLabelElement>
 ) => {
-  const { isRequired } = usePhoneFieldContext()[0]
+  const [{ isRequired, labelId, name }, dispatch] = usePhoneFieldContext()
+  const seed = useUIDSeed()
 
-  return <Root isRequired={isRequired} ref={ref} {...props} />
+  React.useEffect(
+    () =>
+      dispatch({ payload: { labelId: id || seed(name) }, type: 'setLabelId' }),
+    [dispatch, id, name, seed]
+  )
+
+  return <Root id={labelId} isRequired={isRequired} ref={ref} {...props} />
 }
 
 export default React.forwardRef(Label)

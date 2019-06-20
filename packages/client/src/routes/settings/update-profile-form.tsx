@@ -1,10 +1,9 @@
 import { useMutation } from '@apollo/react-hooks'
-import { Omit, User } from '@fintruth-sdk/common'
+import { User } from '@fintruth-sdk/common'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
-import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
@@ -33,11 +32,6 @@ interface Values {
   familyName: string
   givenName: string
 }
-
-const validationSchema = object().shape({
-  familyName: string().required('This is a required field'),
-  givenName: string().required('This is a required field'),
-})
 
 const formId = 'update-profile__Form'
 
@@ -97,7 +91,6 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
           givenName: user.profile.givenName,
         }}
         onSubmit={input => onSubmit({ variables: { input } })}
-        validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
           <Field name="givenName">

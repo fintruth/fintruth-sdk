@@ -1,21 +1,38 @@
-import { Omit } from '@fintruth-sdk/common'
-import { useField } from 'formik'
+import { useField, useFormikContext, Validate } from 'formik'
 import React from 'react'
 
 import BaseSelect, { Props as SelectProps } from 'components/select'
+import { validateSelect } from 'utilities/validation'
 import { useFieldContext } from '.'
 
-type Props = Omit<SelectProps, 'isRequired' | 'name' | 'variant'>
+interface Props
+  extends Omit<SelectProps, 'isDisabled' | 'isRequired' | 'name'> {
+  validate?: Validate
+}
 
 const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
-  props: Props,
+  { validate, ...props }: Props,
   ref: React.Ref<HTMLSelectElement>
 ) => {
-  const { isRequired, name } = useFieldContext()
+  const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
   const [field, { error, touched }] = useField<string>(name)
+  const formik = useFormikContext()
+
+  const defaultValidate = React.useCallback<Validate>(
+    (value: string) => validateSelect(value, { isRequired }),
+    [isRequired]
+  )
+
+  React.useEffect(() => {
+    formik.registerField(name, { validate: validate || defaultValidate })
+
+    return () => formik.unregisterField(name)
+  }, [defaultValidate, formik, name, validate])
 
   return (
     <BaseSelect
+      aria-labelledby={labelId}
+      isDisabled={isDisabled}
       isRequired={isRequired}
       ref={ref}
       variant={error && touched ? 'danger' : undefined}

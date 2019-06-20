@@ -1,12 +1,11 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { Omit } from '@fintruth-sdk/common'
+import { object, ref, string } from '@fintruth-sdk/validation'
 import { Link as BaseLink } from '@reach/router'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
-import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput } from 'components/field'
@@ -41,17 +40,14 @@ const initialValues: Values = {
 }
 
 const validationSchema = object().shape({
-  password: string().required('This is a required field'),
-  newPassword: string()
-    .required('This is a required field')
-    .notOneOf(
-      [ref('password')],
-      'Please enter a password different than the current password'
-    )
-    .min(10, 'Minimum length is ${min} characters'), // eslint-disable-line no-template-curly-in-string
-  newPasswordConfirm: string()
-    .required('This is a required field')
-    .oneOf([ref('newPassword')], 'Please retype the new password'),
+  newPassword: string().notOneOf(
+    [ref('password')],
+    'Enter a password different than the current password'
+  ),
+  newPasswordConfirm: string().oneOf(
+    [ref('newPassword')],
+    'Retype the new password'
+  ),
 })
 
 const formId = 'update-password__Form'

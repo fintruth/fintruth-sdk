@@ -30,13 +30,14 @@ storiesOf('Components|Phone Field', module)
   .addDecorator(centered)
   .add('Default', () => (
     <Formik<Values> initialValues={initialValues} onSubmit={action('onSubmit')}>
-      <PhoneField isRequired={boolean('isRequired', true)} name="phone">
+      <PhoneField
+        isDisabled={boolean('isDisabled', false)}
+        isRequired={boolean('isRequired', true)}
+        name="phone"
+      >
         <PhoneFieldLabel>{text('label', 'Label')}</PhoneFieldLabel>
         <PhoneFieldSelect />
-        <PhoneFieldInput
-          isDisabled={boolean('isDisabled', false)}
-          isLoading={boolean('isLoading', false)}
-        />
+        <PhoneFieldInput />
         <PhoneFieldHelp />
       </PhoneField>
     </Formik>

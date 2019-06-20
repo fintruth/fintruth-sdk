@@ -1,4 +1,3 @@
-import { Omit } from '@fintruth-sdk/common'
 import { useField } from 'formik'
 import React from 'react'
 import styled from 'styled-components'
@@ -19,7 +18,7 @@ const Help: React.RefForwardingComponent<HTMLParagraphElement, Props> = (
   props: Props,
   ref: React.Ref<HTMLParagraphElement>
 ) => {
-  const { name } = useFieldContext()
+  const { name } = useFieldContext()[0]
   const { error, touched } = useField<string>(name)[1]
 
   return error && touched ? (

@@ -298,13 +298,14 @@ workflows:
       - auth:
           requires:
             - common
-      - common
+      - common:
+          requires:
+            - root
       - client:
           requires:
             - common
-      - root:
-          requires:
-            - common
+            - validation
+      - root
       - server:
           requires:
             - auth
@@ -312,4 +313,4 @@ workflows:
             - validation
       - validation:
           requires:
-            - common
+            - root

@@ -1,11 +1,10 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { Omit } from '@fintruth-sdk/common'
+import { object, ref, string } from '@fintruth-sdk/validation'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
-import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
@@ -49,19 +48,7 @@ const initialValues: Values = {
 }
 
 const validationSchema = object().shape({
-  email: string()
-    .required('This is a required field')
-    .email('Please provide a valid email address'),
-  emailConfirm: string()
-    .required('This is a required field')
-    .oneOf([ref('email')], 'Please retype the email address'),
-  password: string()
-    .required('This is a required field')
-    .min(10, 'Minimum length is ${min} characters'), // eslint-disable-line no-template-curly-in-string
-  profile: object().shape({
-    familyName: string().required('This is a required field'),
-    givenName: string().required('This is a required field'),
-  }),
+  emailConfirm: string().oneOf([ref('email')], 'Retype the email address'),
 })
 
 const formId = 'register__Form'

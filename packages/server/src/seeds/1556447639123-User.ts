@@ -11,7 +11,7 @@ export class User1556447639123 implements MigrationInterface {
         id: '496ca0bf-470b-479a-b56d-f17c063003b1',
         email: 'demo@fintruth.com',
         isAdmin: false,
-        password: hashSync('Asdfg!2345', 10),
+        password: hashSync('A!s2d3f4g5', 10),
       })
       .execute()
 

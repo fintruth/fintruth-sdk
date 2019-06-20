@@ -37,6 +37,7 @@
     "@apollo/react-testing": "0.1.0-beta.3",
     "@babel/runtime-corejs3": "^7.4.5",
     "@fintruth-sdk/common": "^0.1.0",
+    "@fintruth-sdk/validation": "^0.1.0",
     "@loadable/component": "^5.10.1",
     "@loadable/server": "^5.9.0",
     "@reach/dialog": "^0.2.9",
@@ -63,12 +64,12 @@
     "ramda": "^0.26.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-uid": "^2.2.0",
     "reactabular-table": "^8.14.0",
     "serialize-javascript": "^1.7.0",
     "source-map-support": "^0.5.12",
     "styled-components": "5.0.0-beta.2",
-    "text-mask-core": "^5.1.2",
-    "yup": "^0.27.0"
+    "text-mask-core": "^5.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -119,7 +120,6 @@
     "@types/storybook__react": "^4.0.2",
     "@types/styled-components": "^4.1.16",
     "@types/testing-library__user-event": "^4.0.0",
-    "@types/yup": "^0.26.16",
     "apollo-link-logger": "^1.2.3",
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",

@@ -1,10 +1,9 @@
 import { useMutation } from '@apollo/react-hooks'
-import { Omit, User } from '@fintruth-sdk/common'
+import { User } from '@fintruth-sdk/common'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
-import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
@@ -31,10 +30,6 @@ interface Values {
 }
 
 const initialValues: Values = { token: '' }
-
-const validationSchema = object().shape({
-  token: string().required('This is a required field'),
-})
 
 const formId = 'disable-two-factor-auth__Form'
 
@@ -91,7 +86,6 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={variables => onSubmit({ variables })}
-        validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
           <Field name="token">

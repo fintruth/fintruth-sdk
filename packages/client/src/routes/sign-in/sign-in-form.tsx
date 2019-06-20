@@ -1,12 +1,11 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { Omit, User } from '@fintruth-sdk/common'
+import { User } from '@fintruth-sdk/common'
 import { Link as BaseLink } from '@reach/router'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
 import styled from 'styled-components'
-import { object, string } from 'yup'
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
@@ -33,13 +32,6 @@ interface Values {
 }
 
 const initialValues: Values = { email: '', password: '' }
-
-const validationSchema = object().shape({
-  email: string()
-    .required('This is a required field')
-    .email('Please provide a valid email address'),
-  password: string().required('This is a required field'),
-})
 
 const formId = 'sign-in__Form'
 
@@ -98,7 +90,6 @@ const SignInForm: React.FunctionComponent<Props> = ({
               : setSignInCredentials(variables)
           )
         }
-        validationSchema={validationSchema}
       >
         <Form {...props} id={formId} noValidate>
           <Field name="email">

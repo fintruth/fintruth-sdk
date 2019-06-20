@@ -1,4 +1,3 @@
-import { Omit } from '@fintruth-sdk/common'
 import { useField } from 'formik'
 import React from 'react'
 import styled from 'styled-components'

@@ -9,4 +9,3 @@ export {
 export { default as ProfileResponse } from './responses/profile-response'
 export { default as Response } from './responses/response'
 export { default as UserResponse } from './responses/user-response'
-export * from './types/mapped'
