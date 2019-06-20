@@ -2872,10 +2872,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/apollo-upload-client@^8.1.1":
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/@types/apollo-upload-client/-/apollo-upload-client-8.1.1.tgz#ea4e015da059ee8afd734cdc30d86146dc2aab50"
-  integrity sha512-6kVNS8QinfRLre0JimJGQmV2TtY4u5gemVEGsu4GDTs38te7v8wGCGEz32zEZoU1KVdIcQ/+s2xRoL78kemkIw==
+"@types/apollo-upload-client@^8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@types/apollo-upload-client/-/apollo-upload-client-8.1.2.tgz#ed96b64e6e4b775bea7330f4fd36664b2502469d"
+  integrity sha512-9qgxaFJf1h3KMhbpPd0W+c8SaO9KP8nFXdqCoYdG6QuI0hapfgQ8+Cxe0AjKHVhRFJZ2GbHqi8hBcBAZ+P6p8A==
   dependencies:
     "@types/extract-files" "*"
     apollo-link "^1.0.0"
