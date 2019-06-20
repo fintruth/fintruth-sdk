@@ -1,5 +1,5 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { Omit, User } from '@fintruth-sdk/common'
+import { User } from '@fintruth-sdk/common'
 import { Link as BaseLink } from '@reach/router'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'

@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/react-hooks'
-import { Omit, User } from '@fintruth-sdk/common'
+import { User } from '@fintruth-sdk/common'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
