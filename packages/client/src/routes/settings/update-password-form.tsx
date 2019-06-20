@@ -1,12 +1,12 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { Omit } from '@fintruth-sdk/common'
+import { object, ref, string } from '@fintruth-sdk/validation'
 import { Link as BaseLink } from '@reach/router'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
-import { object, ref, string } from 'yup'
 
 import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput } from 'components/field'

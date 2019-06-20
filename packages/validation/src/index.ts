@@ -1,5 +1,5 @@
-import zxcvbn from 'zxcvbn'
 import { parseNumber } from 'libphonenumber-js'
+import zxcvbn from 'zxcvbn'
 
 import StringSchema from './string'
 

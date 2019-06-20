@@ -14,5 +14,5 @@
     },
     "types": ["jest"]
   },
-  "references": [{ "path": "../common" }]
+  "references": [{ "path": "../common" }, { "path": "../validation" }]
 }
