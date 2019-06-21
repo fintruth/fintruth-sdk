@@ -25,7 +25,7 @@
   "license": "UNLICENSED",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
-    "libphonenumber-js": "^1.7.19",
+    "libphonenumber-js": "^1.7.20",
     "ramda": "^0.26.1",
     "ramda-adjunct": "^2.18.0",
     "yup": "^0.27.0",
