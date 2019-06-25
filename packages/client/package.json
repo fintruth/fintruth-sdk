@@ -34,7 +34,7 @@
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "@apollo/react-hooks": "0.1.0-beta.10",
-    "@apollo/react-testing": "0.1.0-beta.3",
+    "@apollo/react-testing": "0.1.0-beta.5",
     "@babel/runtime-corejs3": "^7.4.5",
     "@fintruth-sdk/common": "^0.1.0",
     "@fintruth-sdk/validation": "^0.1.0",
