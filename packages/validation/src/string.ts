@@ -1,88 +1,58 @@
-import { isEmpty, isNil } from 'ramda'
-import { isPlainObject } from 'ramda-adjunct'
-import { string as YupStringSchema } from 'yup'
+import { CountryCode, parsePhoneNumberFromString } from 'libphonenumber-js'
+import { string as BaseStringSchema } from 'yup'
+import zxcvbn from 'zxcvbn'
 
-type Score = 0 | 1 | 2 | 3 | 4
+export type Score = 0 | 1 | 2 | 3 | 4
 
-interface PasswordAnalysis {
-  score: Score
-}
-
-interface PhoneAnalysis {
-  country: string
-  countryCallingCode?: string
-  ext?: string
-  phone: string
-  possible?: boolean
-  valid?: boolean
-}
-
-interface PhoneOptions {
-  defaultCountry?: string
+export interface PasswordOptions {
+  dictionary?: string[]
   excludeEmptyString?: boolean
-  extended?: boolean
   message?: string
 }
 
-interface Props {
-  passwordAnalyser(password: string, dictionary?: string[]): PasswordAnalysis
-  phoneAnalyser(phone: string, options?: PhoneOptions): PhoneAnalysis
+export interface PhoneOptions {
+  defaultCountry?: CountryCode
+  excludeEmptyString?: boolean
+  message?: string
 }
 
-export default class StringSchema extends YupStringSchema {
-  props: Props
+export class StringSchema extends BaseStringSchema {
+  password(minScore: Score, options?: PasswordOptions | string) {
+    const {
+      dictionary = undefined,
+      excludeEmptyString = true,
+      message = 'Enter a stronger password',
+    } = typeof options === 'string' ? { message: options } : options || {}
 
-  constructor(props: Props) {
-    super()
-
-    this.props = props
-  }
-
-  password(minScore: Score, message: string = 'Enter a stronger password') {
     return this.test({
       exclusive: true,
       message,
       name: 'password',
       params: { minScore },
-      test: value =>
-        isNil(value) || minScore < this.props.passwordAnalyser(value).score,
+      test: (value?: null | string) =>
+        value == null ||
+        (value === '' && excludeEmptyString) ||
+        minScore < zxcvbn(value, dictionary).score,
     })
   }
 
   phone(options?: PhoneOptions | string) {
-    let mergedOptions = {
-      defaultCountry: 'US',
-      excludeEmptyString: false,
-      extended: true,
-      message: 'Enter a valid phone number',
-    }
-
-    if (typeof options === 'object' && isPlainObject(options)) {
-      mergedOptions = { ...mergedOptions, ...options }
-    } else if (typeof options === 'string') {
-      mergedOptions.message = options
-    }
+    const {
+      defaultCountry = 'US',
+      excludeEmptyString = true,
+      message = 'Enter a valid phone number',
+    } = typeof options === 'string' ? { message: options } : options || {}
 
     return this.test({
       exclusive: true,
-      message: mergedOptions.message,
+      message,
       name: 'phone',
-      test: value => {
-        if (isNil(value)) {
-          return true
-        }
-
-        if (value === '' && mergedOptions.excludeEmptyString) {
-          return true
-        }
-
-        const result = this.props.phoneAnalyser(value, {
-          defaultCountry: mergedOptions.defaultCountry,
-          extended: mergedOptions.extended,
-        })
-
-        return mergedOptions.extended ? !!result.valid : !isEmpty(result)
-      },
+      test: (value?: null | string) =>
+        value == null ||
+        (value === '' && excludeEmptyString) ||
+        !!parsePhoneNumberFromString(value, defaultCountry),
     })
   }
 }
+
+export const string = () => new StringSchema()
