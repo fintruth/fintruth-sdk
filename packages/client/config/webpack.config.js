@@ -13,7 +13,7 @@ const buildDir = path.join(rootDir, 'build')
 
 const env = process.env.ENV || 'dev'
 const isProd = /prod(uction)?/i.test(env)
-const isStaging = /(stage|staging)/i.test(env)
+const isStaging = /stag(e|ing)/i.test(env)
 const envFile = isProd ? '.env.prod' : isStaging ? '.env.staging' : '.env'
 
 const isAnalyze = process.argv.includes('--analyze')
@@ -45,6 +45,7 @@ const createConfig = (target, configFactory) =>
             {
               test: /\.svg$/,
               loader: require.resolve('@svgr/webpack'),
+              options: { ref: true },
             },
             {
               test: /\.ts(x)?$/,

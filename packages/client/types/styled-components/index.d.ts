@@ -26,6 +26,7 @@ declare module 'styled-components' {
     | 'whiteBis'
     | 'whiteTer'
     | 'yellow'
+
   export type ColorContrast =
     | 'blueContrast'
     | 'cyanContrast'
@@ -40,6 +41,7 @@ declare module 'styled-components' {
     | 'turquoiseContrast'
     | 'warningContrast'
     | 'yellowContrast'
+
   export type ViewportBreakpoint = 'extraLarge' | 'large' | 'medium' | 'small'
 
   export interface DefaultTheme
