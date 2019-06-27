@@ -64,11 +64,12 @@
     "ramda": "^0.26.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-is": "^16.8.6",
     "react-uid": "^2.2.0",
     "reactabular-table": "^8.14.0",
     "serialize-javascript": "^1.7.0",
     "source-map-support": "^0.5.12",
-    "styled-components": "5.0.0-beta.2",
+    "styled-components": "5.0.0-beta.5",
     "text-mask-core": "^5.1.2"
   },
   "devDependencies": {
@@ -108,6 +109,7 @@
     "@types/loadable__server": "^5.9.1",
     "@types/node-fetch": "^2.3.7",
     "@types/ramda": "^0.26.12",
+    "@types/reach__dialog": "^0.1.0",
     "@types/reach__router": "^1.2.4",
     "@types/react": "^16.8.22",
     "@types/react-dom": "^16.8.4",

@@ -31,7 +31,7 @@ describe('validateInput', () => {
   test('should return an error message given a weak password', async () => {
     const context: InputContext = { isRequired: false, type: 'password' }
 
-    expect(await validateInput('', context)).not.toStrictEqual('')
+    expect(await validateInput('', context)).toStrictEqual('')
     expect(await validateInput('A', context)).not.toStrictEqual('')
     expect(await validateInput('A!s2d3f4g5', context)).toStrictEqual('')
   })
