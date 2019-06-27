@@ -3,11 +3,11 @@
 const path = require('path')
 const { DefinePlugin } = require('webpack')
 
-const ROOT_DIR = path.resolve(__dirname, '..')
+const rootDir = path.resolve(__dirname, '..')
 
 module.exports = ({ config, mode }) => {
-  const isEnvDev = /dev(elopment)?/i.test(mode)
-  const isEnvProd = /prod(uction)?/i.test(mode)
+  const isDev = /dev(elopment)?/i.test(mode)
+  const isProd = /prod(uction)?/i.test(mode)
 
   return {
     ...config,
@@ -24,19 +24,20 @@ module.exports = ({ config, mode }) => {
             {
               test: /\.svg$/,
               loader: require.resolve('@svgr/webpack'),
+              options: { ref: true },
             },
             {
               test: /\.ts(x)?$/,
               include: [
-                path.join(ROOT_DIR, '.storybook'),
-                path.join(ROOT_DIR, 'src'),
+                path.join(rootDir, '.storybook'),
+                path.join(rootDir, 'src'),
               ],
               loader: require.resolve('babel-loader'),
               options: {
-                cacheCompression: isEnvProd,
+                cacheCompression: isProd,
                 cacheDirectory: true,
                 caller: { target: 'web' },
-                compact: isEnvProd,
+                compact: isProd,
               },
             },
           ],
@@ -46,12 +47,12 @@ module.exports = ({ config, mode }) => {
     },
     plugins: [
       ...config.plugins,
-      new DefinePlugin({ 'process.env.BROWSER': true, __DEV__: isEnvDev }),
+      new DefinePlugin({ 'process.env.BROWSER': true, __DEV__: isDev }),
     ],
     resolve: {
       ...config.resolve,
       extensions: ['.js', '.json', '.mjs', '.ts', '.tsx', '.wasm'],
-      modules: ['node_modules', path.join(ROOT_DIR, 'src')],
+      modules: ['node_modules', path.join(rootDir, 'src')],
     },
   }
 }

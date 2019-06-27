@@ -5,7 +5,10 @@ import styled from 'styled-components'
 import { raven, white } from 'styles/deprecated'
 
 interface Asset {
-  Icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+  Icon?: React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<React.SVGAttributes<SVGSVGElement>> &
+      React.RefAttributes<SVGSVGElement>
+  >
   label: string
   src?: string
 }
