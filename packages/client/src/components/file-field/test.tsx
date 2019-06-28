@@ -4,34 +4,22 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import theme from 'styles/theme'
-import BaseFile from '.'
-
-test('should render the provided label correctly', () => {
-  const { getByLabelText } = render(
-    <ThemeProvider theme={theme}>
-      <Formik initialValues={{ file: '' }} onSubmit={() => {}}>
-        <BaseFile
-          id="c32b07ef-9c08-487d-9b2e-6f475496e050"
-          data-testid="file"
-          label="label"
-          name="file"
-        />
-      </Formik>
-    </ThemeProvider>
-  )
-
-  expect(getByLabelText('label')).toHaveAttribute('data-testid', 'file')
-})
+import FileField, {
+  FileFieldCallToAction,
+  FileFieldLabel,
+  FileFieldName,
+} from '.'
 
 test('should render the uploaded file name correctly after a file is uploaded', () => {
   const { getByLabelText, getByText, queryByText } = render(
     <ThemeProvider theme={theme}>
       <Formik initialValues={{ file: 'logo.jpg' }} onSubmit={() => {}}>
-        <BaseFile
-          id="cc166607-b4cf-4a53-b9f8-75b828535f6b"
-          label="label"
-          name="file"
-        />
+        <FileField name="file">
+          <FileFieldCallToAction>
+            <FileFieldLabel>label</FileFieldLabel>
+          </FileFieldCallToAction>
+          <FileFieldName />
+        </FileField>
       </Formik>
     </ThemeProvider>
   )
@@ -41,7 +29,7 @@ test('should render the uploaded file name correctly after a file is uploaded', 
     value: [new File(['logo'], 'logo.png', { type: 'image/png' })],
   })
 
-  expect(queryByText('logo.jpg')).toBeInTheDocument()
+  expect(queryByText('logo.jpg')).not.toBeInTheDocument()
 
   fireEvent.change(input)
 
