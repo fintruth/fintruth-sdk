@@ -59,7 +59,7 @@ const validateInput = (value: File | string, context: Context) =>
         return schema.test({
           name: 'maxSize',
           exclusive: true,
-          message: 'File size is too large',
+          message: 'The file size is too large',
           test: (value?: File | string | null) =>
             value == null || !(value instanceof File) || value.size <= maxSize,
         })
