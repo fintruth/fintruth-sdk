@@ -1,4 +1,3 @@
-import {} from 'polished'
 import { css } from 'styled-components'
 
 export const containerHorizontal = css`
