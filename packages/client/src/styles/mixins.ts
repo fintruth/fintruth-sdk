@@ -89,7 +89,10 @@ export const help = (color?: string) => css`
   color: ${({ theme }) => color || theme.textColor};
   display: block;
   font-size: ${rem(12)};
-  margin-top: ${rem(4)};
+
+  &:not(:first-child) {
+    margin-top: ${rem(4)};
+  }
 `
 
 export const link = css`
