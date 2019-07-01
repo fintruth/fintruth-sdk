@@ -1000,10 +1000,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@casl/ability@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@casl/ability/-/ability-3.0.2.tgz#787e581382836c2da998b9a61ecd334c548b049f"
-  integrity sha512-XBs+ESP9nzeuER1gOVrag/iOXlBXjKd9I80qzzFBC0i4Olsnw4WiDadMoSbulfMNtw6jti640DBN9bPvg9mq9g==
+"@casl/ability@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@casl/ability/-/ability-3.1.0.tgz#a761f69cf5ba74e237f0929ff13fbb97644c908b"
+  integrity sha512-Y/5EvP/Qppshzi3WsKTyTyWjQWoB2+VKlv/1azXhZa3wIHzpKddsBBI2YLABl1WEoF/+gv71ikjiFKSlHIZLnw==
   dependencies:
     sift "^7.0.1"
 
