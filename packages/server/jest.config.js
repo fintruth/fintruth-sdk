@@ -9,7 +9,7 @@ module.exports = {
   moduleDirectories: [...defaults.moduleDirectories, '<rootDir>/src'],
   restoreMocks: true,
   setupFilesAfterEnv: ['<rootDir>/config/jest/setup.ts'],
-  testMatch: ['<rootDir>/src/**/?(*.)test.ts'],
+  testMatch: ['<rootDir>/src/**/*(*.)test.ts'],
   testRunner: 'jest-circus/runner',
   transform: { '^.+\\.ts$': require.resolve('ts-jest') },
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.js$'],
