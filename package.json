@@ -83,18 +83,13 @@
     }
   },
   "lint-staged": {
-    "ignore": [
-      "packages/**"
+    "!(packages/**)*.{js,ts,tsx}": [
+      "eslint --fix",
+      "git add"
     ],
-    "linters": {
-      "*.{js,ts,tsx}": [
-        "eslint --fix",
-        "git add"
-      ],
-      "*.{json,md,yml}": [
-        "prettylint --fix",
-        "git add"
-      ]
-    }
+    "!(packages/**)*.{json,md,yml}": [
+      "prettylint --fix",
+      "git add"
+    ]
   }
 }
