@@ -1,29 +1,37 @@
 {
   "name": "@fintruth-sdk/auth",
-  "private": true,
   "version": "0.1.0",
-  "description": "Authentication module",
+  "description": "A role and attribute based authorization library",
+  "keywords": [
+    "authorization",
+    "permissions",
+    "typescript"
+  ],
+  "homepage": "https://github.com/fintruth/fintruth-sdk/tree/develop/packages/auth#readme",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "license": "UNLICENSED",
+  "author": "Fintruth LLC <support@fintruth.com> (https://www.fintruth.com)",
+  "files": [
+    "build"
+  ],
   "main": "build/index.js",
-  "typings": "build/index.d.ts",
+  "types": "build/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fintruth/fintruth-sdk.git",
+    "directory": "packages/auth"
+  },
   "scripts": {
     "build": "tsc",
     "build:release": "yarn build",
     "clean": "del build tsconfig.tsbuildinfo",
     "lint": "run-p lint:*",
-    "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
-    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
+    "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\"",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{js,ts}\"",
     "lint:types": "tsc --noEmit",
     "test": "run-p test:*",
     "test:units": "jest --passWithNoTests"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fintruth/fintruth-sdk.git",
-    "directory": "packages/validation"
-  },
-  "author": "Fintruth LLC",
-  "license": "UNLICENSED",
-  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "@casl/ability": "^3.1.1",
     "@fintruth-sdk/common": "^0.1.0"
@@ -32,6 +40,7 @@
     "node": ">=10.15",
     "yarn": ">=1.12"
   },
+  "private": true,
   "lint-staged": {
     "*.{js,ts}": [
       "eslint --fix",

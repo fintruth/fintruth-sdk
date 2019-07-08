@@ -1,36 +1,43 @@
 {
   "name": "@fintruth-sdk/server",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "An opinionated boilerplate for server development",
-  "scripts": {
-    "build": "webpack --config config/webpack.config.js",
-    "build:release": "yarn build --release",
-    "clean": "del build",
-    "lint": "run-p lint:*",
-    "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
-    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
-    "lint:types": "tsc --noEmit",
-    "migration:generate": "yarn typeorm migration:generate -n",
-    "migration:revert": "yarn typeorm migration:revert",
-    "migration:run": "yarn typeorm migration:run",
-    "prebuild": "yarn clean",
-    "seed:create": "yarn typeorm migration:create -c seed -n",
-    "seed:revert": "yarn typeorm migration:revert -c seed",
-    "seed:run": "yarn typeorm migration:run -c seed",
-    "start": "nodemon",
-    "test": "run-p test:*",
-    "test:units": "jest",
-    "typeorm": "node -r ts-node/register -r tsconfig-paths/register ./node_modules/.bin/typeorm -f ./src/ormconfig.ts"
-  },
+  "keywords": [
+    "graphql",
+    "postgresql",
+    "server-boilerplate",
+    "typeorm",
+    "typescript"
+  ],
+  "homepage": "https://github.com/fintruth/fintruth-sdk/tree/develop/packages/client#readme",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "license": "UNLICENSED",
+  "author": "Fintruth LLC <support@fintruth.com> (https://www.fintruth.com)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fintruth/fintruth-sdk.git",
     "directory": "packages/server"
   },
-  "author": "Fintruth LLC",
-  "license": "UNLICENSED",
-  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "scripts": {
+    "build": "webpack --config config/webpack.config.js",
+    "build:release": "yarn build --release",
+    "clean": "del build",
+    "lint": "run-p lint:*",
+    "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\"",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{js,ts}\"",
+    "lint:types": "tsc --noEmit",
+    "migration:generate": "yarn typeorm migration:generate --name",
+    "migration:revert": "yarn typeorm migration:revert",
+    "migration:run": "yarn typeorm migration:run",
+    "prebuild": "yarn clean",
+    "seed:create": "yarn typeorm migration:create --connection seed --name",
+    "seed:revert": "yarn typeorm migration:revert --connection seed",
+    "seed:run": "yarn typeorm migration:run --connection seed",
+    "start": "nodemon",
+    "test": "run-p test:*",
+    "test:units": "jest",
+    "typeorm": "node --require ts-node/register --require tsconfig-paths/register node_modules/.bin/typeorm --config src/ormconfig.ts"
+  },
   "dependencies": {
     "@fintruth-sdk/auth": "^0.1.0",
     "@fintruth-sdk/common": "^0.1.0",
@@ -94,6 +101,7 @@
     "node": ">=10.15",
     "yarn": ">=1.12"
   },
+  "private": true,
   "lint-staged": {
     "*.{js,ts}": [
       "eslint --fix",

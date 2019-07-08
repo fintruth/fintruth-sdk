@@ -1,8 +1,23 @@
 {
   "name": "@fintruth-sdk/client",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "An opinionated boilerplate for web development",
+  "keywords": [
+    "graphql",
+    "react",
+    "ssr",
+    "typescript",
+    "web-boilerplate"
+  ],
+  "homepage": "https://github.com/fintruth/fintruth-sdk/tree/develop/packages/client#readme",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "license": "UNLICENSED",
+  "author": "Fintruth LLC <support@fintruth.com> (https://www.fintruth.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fintruth/fintruth-sdk.git",
+    "directory": "packages/client"
+  },
   "scripts": {
     "build": "node --require @babel/register scripts/run build",
     "build:release": "yarn build --release",
@@ -13,9 +28,9 @@
     "copy": "node --require @babel/register scripts/run copy",
     "deploy": "node --require @babel/register scripts/run deploy",
     "lint": "run-p lint:*",
-    "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
-    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts,tsx}'",
-    "lint:styles": "stylelint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{ts,tsx}'",
+    "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\"",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{js,ts,tsx}\"",
+    "lint:styles": "stylelint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{ts,tsx}\"",
     "lint:types": "tsc --noEmit",
     "serve": "node --require @babel/register scripts/run run-server",
     "start": "node --require @babel/register scripts/run start",
@@ -24,14 +39,6 @@
     "test:e2e": "cypress run",
     "test:units": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fintruth/fintruth-sdk.git",
-    "directory": "packages/client"
-  },
-  "author": "Fintruth LLC",
-  "license": "UNLICENSED",
-  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "dependencies": {
     "@apollo/react-hooks": "0.1.0-beta.10",
     "@apollo/react-testing": "0.1.0-beta.5",
@@ -165,6 +172,7 @@
     "node": ">=10.15",
     "yarn": ">=1.12"
   },
+  "private": true,
   "browserslist": [
     "> 0.20%",
     "not dead",

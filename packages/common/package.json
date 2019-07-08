@@ -1,34 +1,38 @@
 {
   "name": "@fintruth-sdk/common",
-  "private": true,
   "version": "0.1.0",
-  "description": "Common package",
+  "description": "A collection of common TypeScript types",
+  "keywords": [
+    "types",
+    "typescript",
+    "typescript-definitions"
+  ],
+  "homepage": "https://github.com/fintruth/fintruth-sdk/tree/develop/packages/common#readme",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "license": "UNLICENSED",
+  "author": "Fintruth LLC <support@fintruth.com> (https://www.fintruth.com)",
   "files": [
     "build"
   ],
   "main": "build/index.js",
-  "typings": "build/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "build:release": "yarn build",
-    "clean": "del build tsconfig.tsbuildinfo",
-    "lint": "run-p lint:*",
-    "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
-    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
-    "lint:types": "tsc --noEmit",
-    "postbuild": "ef-tspm",
-    "test": "run-p test:*",
-    "test:units": "jest --passWithNoTests"
-  },
+  "types": "build/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fintruth/fintruth-sdk.git",
     "directory": "packages/common"
   },
-  "author": "Fintruth LLC",
-  "license": "UNLICENSED",
-  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
-  "dependencies": {},
+  "scripts": {
+    "build": "tsc",
+    "build:release": "yarn build",
+    "clean": "del build tsconfig.tsbuildinfo",
+    "lint": "run-p lint:*",
+    "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\"",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{js,ts}\"",
+    "lint:types": "tsc --noEmit",
+    "postbuild": "ef-tspm",
+    "test": "run-p test:*",
+    "test:units": "jest --passWithNoTests"
+  },
   "devDependencies": {
     "@ef-carbon/tspm": "^2.2.5"
   },
@@ -36,6 +40,7 @@
     "node": ">=10.15",
     "yarn": ">=1.12"
   },
+  "private": true,
   "lint-staged": {
     "*.{js,ts}": [
       "eslint --fix",

@@ -1,25 +1,31 @@
 {
   "name": "fintruth-sdk",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Software development kit for Fintruth projects",
+  "keywords": [
+    "boilerplate",
+    "lerna",
+    "nodejs",
+    "template-repository"
+  ],
+  "homepage": "https://github.com/fintruth/fintruth-sdk#readme",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "license": "UNLICENSED",
+  "author": "Fintruth LLC <support@fintruth.com> (https://www.fintruth.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fintruth/fintruth-sdk.git"
+  },
   "scripts": {
     "build": "lerna run --stream build",
     "build:release": "lerna run --stream build:release",
     "clean": "lerna run --stream clean",
     "lint": "yarn run-p lint:* && lerna run --stream lint",
-    "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}' '!packages/**'",
-    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' --ignore-pattern 'packages/**' '**/*.js'",
+    "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\" \"!packages/**\"",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" --ignore-pattern \"packages/**\" \"**/*.js\"",
     "start": "lerna run --parallel --scope @fintruth-sdk/server --scope @fintruth-sdk/client --stream start",
     "test": "lerna run --stream test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fintruth/fintruth-sdk.git"
-  },
-  "author": "Fintruth LLC",
-  "license": "UNLICENSED",
-  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "@types/node": "^12.6.0",
@@ -60,7 +66,11 @@
     "node": ">=10.15",
     "yarn": ">=1.12"
   },
+  "private": true,
   "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
     "nohoist": [
       "**/@loadable/server",
       "**/@loadable/server/**",
@@ -72,9 +82,6 @@
       "**/polished/**",
       "**/node-fetch",
       "**/node-fetch/**"
-    ],
-    "packages": [
-      "packages/*"
     ]
   },
   "husky": {

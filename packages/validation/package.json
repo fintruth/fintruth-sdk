@@ -1,29 +1,38 @@
 {
   "name": "@fintruth-sdk/validation",
-  "private": true,
   "version": "0.1.0",
-  "description": "JSON schema validation",
+  "description": "An Object schema validation library",
+  "keywords": [
+    "schema",
+    "schema-validation",
+    "typescript",
+    "validation"
+  ],
+  "homepage": "https://github.com/fintruth/fintruth-sdk/tree/develop/packages/validation#readme",
+  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "license": "UNLICENSED",
+  "author": "Fintruth LLC <support@fintruth.com> (https://www.fintruth.com)",
+  "files": [
+    "build"
+  ],
   "main": "build/index.js",
-  "typings": "build/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "build:release": "yarn build",
-    "clean": "del build tsconfig.tsbuildinfo",
-    "lint": "run-p lint:*",
-    "lint:files": "prettylint --ignore-path .gitignore '**/*.{json,md,yml}'",
-    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern '!**/.*' '**/*.{js,ts}'",
-    "lint:types": "tsc --noEmit",
-    "test": "run-p test:*",
-    "test:units": "jest --passWithNoTests"
-  },
+  "types": "build/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fintruth/fintruth-sdk.git",
     "directory": "packages/validation"
   },
-  "author": "Fintruth LLC",
-  "license": "UNLICENSED",
-  "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
+  "scripts": {
+    "build": "tsc",
+    "build:release": "yarn build",
+    "clean": "del build tsconfig.tsbuildinfo",
+    "lint": "run-p lint:*",
+    "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\"",
+    "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{js,ts}\"",
+    "lint:types": "tsc --noEmit",
+    "test": "run-p test:*",
+    "test:units": "jest --passWithNoTests"
+  },
   "dependencies": {
     "libphonenumber-js": "^1.7.20",
     "yup": "^0.27.0",
@@ -37,6 +46,7 @@
     "node": ">=10.15",
     "yarn": ">=1.12"
   },
+  "private": true,
   "lint-staged": {
     "*.{js,ts}": [
       "eslint --fix",
