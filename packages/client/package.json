@@ -95,6 +95,7 @@
     "@storybook/react": "^5.1.9",
     "@svgr/webpack": "^4.3.1",
     "@testing-library/cypress": "^4.0.4",
+    "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/react": "^8.0.4",
     "@testing-library/user-event": "^4.1.0",
     "@types/apollo-upload-client": "^8.1.2",
@@ -138,7 +139,6 @@
     "file-loader": "^4.0.0",
     "glob": "^7.1.4",
     "graphql-tag": "^2.10.1",
-    "jest-dom": "^3.5.0",
     "jest-junit": "^6.4.0",
     "jest-styled-components": "7.0.0-beta.1",
     "mkdirp": "^0.5.1",
@@ -172,17 +172,15 @@
     "not op_mini all"
   ],
   "lint-staged": {
-    "linters": {
-      "*.{js,ts,tsx}": [
-        "eslint --fix",
-        "stylelint",
-        "jest --bail --findRelatedTests",
-        "git add"
-      ],
-      "*.{json,md,yml}": [
-        "prettylint --fix",
-        "git add"
-      ]
-    }
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "stylelint",
+      "jest --bail --findRelatedTests",
+      "git add"
+    ],
+    "*.{json,md,yml}": [
+      "prettylint --fix",
+      "git add"
+    ]
   }
 }

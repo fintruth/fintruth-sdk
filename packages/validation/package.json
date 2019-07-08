@@ -38,16 +38,14 @@
     "yarn": ">=1.12"
   },
   "lint-staged": {
-    "linters": {
-      "*.{js,ts}": [
-        "eslint --fix",
-        "jest --bail --findRelatedTests",
-        "git add"
-      ],
-      "*.{json,md,yml}": [
-        "prettylint --fix",
-        "git add"
-      ]
-    }
+    "*.{js,ts}": [
+      "eslint --fix",
+      "jest --bail --findRelatedTests",
+      "git add"
+    ],
+    "*.{json,md,yml}": [
+      "prettylint --fix",
+      "git add"
+    ]
   }
 }
