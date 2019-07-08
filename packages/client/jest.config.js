@@ -15,7 +15,7 @@ module.exports = {
   restoreMocks: true,
   setupFilesAfterEnv: ['<rootDir>/config/jest/setup.ts'],
   snapshotResolver: '<rootDir>/config/jest/snapshot-resolver.js',
-  testMatch: ['<rootDir>/src/**/?(*.)test.ts?(x)'],
+  testMatch: ['<rootDir>/src/**/*(*.)test.ts?(x)'],
   testRunner: 'jest-circus/runner',
   transform: {
     '^(?!.*\\.(js|json|ts(x)?)$)': '<rootDir>/config/jest/file-transformer.js',
