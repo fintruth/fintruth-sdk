@@ -39,7 +39,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@types/yup": "^0.26.20",
+    "@types/yup": "^0.26.21",
     "@types/zxcvbn": "^4.4.0"
   },
   "engines": {
