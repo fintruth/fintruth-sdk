@@ -1,4 +1,4 @@
-import { useField, useFormikContext, Validate } from 'formik'
+import { FieldValidator, useField, useFormikContext } from 'formik'
 import React from 'react'
 
 import BaseInput, { Props as InputProps } from 'components/input'
@@ -10,7 +10,7 @@ interface Props
     InputProps,
     'isDisabled' | 'isRequired' | 'name' | 'placeholder'
   > {
-  validate?: Validate
+  validate?: FieldValidator
 }
 
 const defaultMask = new Array(30).fill(/[-,.()\d\setx]/)
@@ -29,7 +29,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   const [field, { error, touched }] = useField<string>(`${name}.number`)
   const { registerField, unregisterField } = useFormikContext()
 
-  const defaultValidate = React.useCallback<Validate>(
+  const defaultValidate = React.useCallback<FieldValidator>(
     (value: string) => validateInput(value, { isRequired, type }),
     [isRequired, type]
   )

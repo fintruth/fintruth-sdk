@@ -1,4 +1,4 @@
-import { useField, useFormikContext, Validate } from 'formik'
+import { FieldValidator, useField, useFormikContext } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
@@ -11,7 +11,7 @@ import { PhoneValue, usePhoneFieldContext } from '.'
 
 interface Props
   extends Omit<SelectProps, 'children' | 'isDisabled' | 'isRequired' | 'name'> {
-  validate?: Validate
+  validate?: FieldValidator
 }
 
 const Root = styled(BaseSelect)`
@@ -31,7 +31,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   const { onBlur, onChange, value, ...field } = useField<PhoneValue>(name)[0]
   const { registerField, unregisterField } = useFormikContext()
 
-  const defaultValidate = React.useCallback<Validate>(
+  const defaultValidate = React.useCallback<FieldValidator>(
     (value: string) => validateSelect(value, { isRequired }),
     [isRequired]
   )
