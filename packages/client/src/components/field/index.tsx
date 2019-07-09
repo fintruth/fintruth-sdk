@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 type Dispatch = (action: Action) => void
+
 type Type = 'setLabelId' | 'setPlaceholder'
 
 interface Action {
