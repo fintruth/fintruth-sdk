@@ -19,7 +19,7 @@
   "scripts": {
     "build": "lerna run --stream build",
     "build:release": "lerna run --stream build:release",
-    "clean": "lerna run --stream clean",
+    "clean": "del .eslintcache \"*.log*\" && lerna run --stream clean",
     "lint": "yarn run-p lint:* && lerna run --stream lint",
     "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\" \"!packages/**\"",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" --ignore-pattern \"packages/**\" \"**/*.js\"",

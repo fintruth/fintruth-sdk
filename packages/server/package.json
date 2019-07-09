@@ -21,7 +21,7 @@
   "scripts": {
     "build": "webpack --config config/webpack.config.js",
     "build:release": "yarn build --release",
-    "clean": "del build",
+    "clean": "del build coverage .eslintcache \"*.log*\"",
     "lint": "run-p lint:*",
     "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\"",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{js,ts}\"",

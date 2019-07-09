@@ -1,5 +1,5 @@
 {
-  "exclude": ["__mocks__", "build", "config", "node_modules"],
+  "exclude": ["build", "config", "node_modules"],
   "extends": "../../tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
