@@ -61,7 +61,7 @@
     "core-js": "^3.1.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "formik": "2.0.1-rc.6",
+    "formik": "2.0.1-rc.10",
     "graphql": "^14.4.2",
     "history": "^4.9.0",
     "invariant": "^2.2.4",
@@ -76,7 +76,7 @@
     "reactabular-table": "^8.14.0",
     "serialize-javascript": "^1.7.0",
     "source-map-support": "^0.5.12",
-    "styled-components": "5.0.0-beta.5",
+    "styled-components": "5.0.0-beta.8",
     "text-mask-core": "^5.1.2"
   },
   "devDependencies": {
@@ -98,7 +98,7 @@
     "@storybook/addon-centered": "^5.1.9",
     "@storybook/addon-knobs": "^5.1.9",
     "@storybook/addon-viewport": "^5.1.9",
-    "@storybook/addons": "^5.1.4",
+    "@storybook/addons": "^5.1.9",
     "@storybook/react": "^5.1.9",
     "@svgr/webpack": "^4.3.1",
     "@testing-library/cypress": "^4.0.4",
