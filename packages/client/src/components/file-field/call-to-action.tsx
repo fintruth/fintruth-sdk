@@ -1,5 +1,5 @@
 import { mixed, MixedSchema } from '@fintruth-sdk/validation'
-import { useField, useFormikContext, Validate } from 'formik'
+import { FieldValidator, useField, useFormikContext } from 'formik'
 import { darken, em } from 'polished'
 import React from 'react'
 import styled, { Color, ColorContrast, css } from 'styled-components' // eslint-disable-line import/named
@@ -20,7 +20,7 @@ interface Props
   > {
   as?: keyof JSX.IntrinsicElements | React.ComponentType
   maxSize?: number
-  validate?: Validate
+  validate?: FieldValidator
   variant?: Variant
 }
 
@@ -167,7 +167,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
   const { registerField, setFieldValue, unregisterField } = useFormikContext()
   const input = React.useRef<HTMLInputElement>()
 
-  const defaultValidate = React.useCallback<Validate>(
+  const defaultValidate = React.useCallback<FieldValidator>(
     (value: File | string) => validateInput(value, { isRequired, maxSize }),
     [isRequired, maxSize]
   )
