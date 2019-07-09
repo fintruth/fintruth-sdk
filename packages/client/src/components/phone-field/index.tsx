@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import data from './data'
 
 type Dispatch = (action: Action) => void
+
 type Type = 'setLabelId' | 'setPlaceholder'
 
 interface Action {

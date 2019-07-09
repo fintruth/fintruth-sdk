@@ -13,13 +13,10 @@ interface Props
   validate?: Validate
 }
 
+const defaultMask = new Array(30).fill(/[-,.()\d\setx]/)
+
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
-  {
-    mask = new Array(30).fill(/[-,.()\d\setx]/),
-    type = 'tel',
-    validate,
-    ...props
-  }: Props,
+  { mask = defaultMask, type = 'tel', validate, ...props }: Props,
   ref: React.Ref<HTMLInputElement>
 ) => {
   const {
@@ -30,7 +27,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
     placeholder,
   } = usePhoneFieldContext()[0]
   const [field, { error, touched }] = useField<string>(`${name}.number`)
-  const formik = useFormikContext()
+  const { registerField, unregisterField } = useFormikContext()
 
   const defaultValidate = React.useCallback<Validate>(
     (value: string) => validateInput(value, { isRequired, type }),
@@ -38,12 +35,10 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   )
 
   React.useEffect(() => {
-    formik.registerField(`${name}.number`, {
-      validate: validate || defaultValidate,
-    })
+    registerField(`${name}.number`, { validate: validate || defaultValidate })
 
-    return () => formik.unregisterField(`${name}.number`)
-  }, [defaultValidate, formik, name, validate])
+    return () => unregisterField(`${name}.number`)
+  }, [defaultValidate, name, registerField, unregisterField, validate])
 
   return (
     <BaseInput

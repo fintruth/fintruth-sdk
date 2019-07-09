@@ -29,7 +29,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
     dispatch,
   ] = usePhoneFieldContext()
   const { onBlur, onChange, value, ...field } = useField<PhoneValue>(name)[0]
-  const formik = useFormikContext()
+  const { registerField, unregisterField } = useFormikContext()
 
   const defaultValidate = React.useCallback<Validate>(
     (value: string) => validateSelect(value, { isRequired }),
@@ -44,10 +44,10 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
-    formik.registerField(name, { validate: validate || defaultValidate })
+    registerField(name, { validate: validate || defaultValidate })
 
-    return () => formik.unregisterField(name)
-  }, [defaultValidate, formik, name, validate])
+    return () => unregisterField(name)
+  }, [defaultValidate, name, registerField, unregisterField, validate])
 
   return (
     <Root
