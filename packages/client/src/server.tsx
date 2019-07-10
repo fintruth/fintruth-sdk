@@ -106,11 +106,12 @@ prettyError.skipPackage('express')
 
 if (module.hot) {
   app.hot = module.hot
-  module.hot.accept('components/root', () => {})
+
+  module.hot.accept('components/root')
 } else {
-  app.listen(process.env.PORT, () =>
+  app.listen(process.env.APP_PORT, () =>
     console.info(
-      `The server is running at http://localhost:${process.env.PORT}/`
+      `The server is running at http://localhost:${process.env.APP_PORT}/`
     )
   )
 }

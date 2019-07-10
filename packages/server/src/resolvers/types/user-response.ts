@@ -1,4 +1,4 @@
-import { UserResponse as BaseUserResponse } from '@fintruth-sdk/common'
+import { BaseUserResponse } from '@fintruth-sdk/common'
 import { Field, ObjectType } from 'type-graphql'
 
 import Response, { Props as ResponseProps } from './response'

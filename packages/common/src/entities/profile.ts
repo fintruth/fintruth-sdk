@@ -1,7 +1,6 @@
-export default class Profile {
-  userId: string
-  familyName: string
-  givenName: string
-  createdAt: Date
-  updatedAt: Date
+import BaseProfile from './base-profile'
+
+export default class Profile extends BaseProfile {
+  createdAt: string
+  updatedAt: string
 }

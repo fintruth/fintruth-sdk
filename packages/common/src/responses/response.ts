@@ -1,4 +1,4 @@
-import ResponseError from 'errors/response-error'
+import { ResponseError } from 'errors'
 
 export default class Response {
   error?: ResponseError

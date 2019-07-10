@@ -74,8 +74,8 @@ const defaultProfile = {
   userId: '',
   familyName: '',
   givenName: '',
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  createdAt: new Date().toString(),
+  updatedAt: new Date().toString(),
 }
 
 const defaultUser = {
@@ -84,8 +84,8 @@ const defaultUser = {
   isAdmin: false,
   isTwoFactorAuthEnabled: false,
   profile: defaultProfile,
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  createdAt: new Date().toString(),
+  updatedAt: new Date().toString(),
 }
 
 const Settings: React.FunctionComponent<RouteComponentProps> = ({

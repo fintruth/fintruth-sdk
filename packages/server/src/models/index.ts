@@ -1,2 +1,5 @@
+export { default as AddressTypeDao } from './address-type-dao'
+export { default as CountryDao } from './country-dao'
+export { default as PhoneTypeDao } from './phone-type-dao'
 export { default as ProfileDao } from './profile-dao'
 export { default as UserDao } from './user-dao'

@@ -4,7 +4,7 @@ import { isNil, mergeLeft } from 'ramda'
 import { Service } from 'typedi'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { logAs, Loggable } from 'logger'
+import { Loggable, logAs } from 'logger'
 import { UserDao } from 'models'
 import { Response, ResponseError, UserResponse } from 'resolvers/types'
 import { Profile, User } from '../entities'

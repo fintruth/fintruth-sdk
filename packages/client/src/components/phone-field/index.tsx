@@ -3,7 +3,7 @@ import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
-import data from './data'
+import { Alpha2Code } from './data'
 
 type Dispatch = (action: Action) => void
 
@@ -24,7 +24,8 @@ interface Payload {
   labelId?: string
 }
 
-export interface PhoneValue extends Omit<typeof data[number], 'placeholder'> {
+export interface PhoneValue {
+  alpha2Code: Alpha2Code
   number: string
 }
 

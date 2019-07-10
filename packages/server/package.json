@@ -26,6 +26,7 @@
     "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\"",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{js,ts}\"",
     "lint:types": "tsc --noEmit",
+    "migration:create": "yarn typeorm migration:create --name",
     "migration:generate": "yarn typeorm migration:generate --name",
     "migration:revert": "yarn typeorm migration:revert",
     "migration:run": "yarn typeorm migration:run",
@@ -36,14 +37,14 @@
     "start": "nodemon",
     "test": "run-p test:*",
     "test:units": "jest",
-    "typeorm": "node --require ts-node/register --require tsconfig-paths/register node_modules/.bin/typeorm --config src/ormconfig.ts"
+    "typeorm": "ts-node --require tsconfig-paths/register node_modules/.bin/typeorm --config src/ormconfig.ts"
   },
   "dependencies": {
     "@fintruth-sdk/auth": "^0.1.0",
     "@fintruth-sdk/common": "^0.1.0",
     "@fintruth-sdk/validation": "^0.1.0",
     "apollo-server-express": "^2.6.8",
-    "aws-sdk": "^2.490.0",
+    "aws-sdk": "^2.491.0",
     "base64url": "^3.0.1",
     "bcrypt": "^3.0.6",
     "compression": "^1.7.4",
@@ -53,6 +54,7 @@
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
     "graphql": "^14.4.2",
+    "graphql-rate-limit": "^2.0.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "nact": "^7.2.1",

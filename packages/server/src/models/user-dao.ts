@@ -6,11 +6,11 @@ import { User } from '../entities'
 @EntityRepository(User)
 @Service()
 export default class UserDao extends Repository<User> {
-  async findByEmail(email: string) {
+  findByEmail(email: string) {
     return this.findOne({ email })
   }
 
-  async findById(id: string) {
+  findById(id: string) {
     return this.findOne(id)
   }
 }

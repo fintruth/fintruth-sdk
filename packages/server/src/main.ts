@@ -1,4 +1,4 @@
-import SES from 'aws-sdk/clients/ses'
+import Ses from 'aws-sdk/clients/ses'
 import { start } from 'nact'
 import { Container } from 'typedi'
 
@@ -9,22 +9,23 @@ import { logAs } from './logger'
 import { createServer } from './server'
 import { ConfigService } from './services'
 
-const log = logAs('express')
+const log = logAs('Express')
 
 const initializeActors = () => {
-  const system = start()
   const {
     app: { serverUrl },
     aws: {
       credentials,
       region,
-      ses: { apiVersion: sesApiVersion, sender },
+      ses: { apiVersion: sesApiVersion, source },
     },
   } = Container.get(ConfigService)
-  const ses = new SES({ apiVersion: sesApiVersion, credentials, region })
+
+  const ses = new Ses({ apiVersion: sesApiVersion, credentials, region })
+  const system = start()
 
   Container.set('actorSystem', system)
-  Container.set('emailer.actor', spawnEmailer(system, ses, sender, serverUrl))
+  Container.set('emailer.actor', spawnEmailer(system, ses, source, serverUrl))
 }
 
 const bootstrap = async () => {
@@ -32,11 +33,10 @@ const bootstrap = async () => {
 
   initializeActors()
 
+  const { port } = Container.get(ConfigService).app
+
   const app = createServer()
   const server = await createApolloServer()
-  const {
-    app: { port },
-  } = Container.get(ConfigService)
 
   server.applyMiddleware({ app, cors: false, path: '/api' })
 

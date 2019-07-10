@@ -1,8 +1,8 @@
 'use strict'
 
-const jestPlugin = require('eslint-plugin-jest')
-const prettierTypescriptConfig = require('eslint-config-prettier/@typescript-eslint')
 const typescriptPlugin = require('@typescript-eslint/eslint-plugin')
+const prettierTypescriptConfig = require('eslint-config-prettier/@typescript-eslint')
+const jestPlugin = require('eslint-plugin-jest')
 
 module.exports = {
   extends: [

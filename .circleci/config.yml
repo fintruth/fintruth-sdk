@@ -65,8 +65,8 @@ commands:
             - ~/fintruth-sdk/node_modules
             - ~/fintruth-sdk/packages/auth/node_modules
             - ~/fintruth-sdk/packages/client/node_modules
-            - ~/fintruth-sdk/packages/server/node_modules
             - ~/fintruth-sdk/packages/common/node_modules
+            - ~/fintruth-sdk/packages/server/node_modules
             - ~/fintruth-sdk/packages/validation/node_modules
 executors:
   node:

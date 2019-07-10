@@ -10,7 +10,7 @@ import { Inject, Service } from 'typedi'
 import { logAs } from 'logger'
 import ConfigService from './config-service'
 
-interface AESWithAuth {
+interface AesWithAuth {
   encrypted: Buffer
   tag: Buffer
 }
@@ -21,7 +21,7 @@ export default class CryptoService {
   config: ConfigService
 
   private log = logAs('CryptoService')
-  private logError = (error: any) => this.log(error, 'debug')
+  private logError = (error: any) => this.log(error.toString(), 'error')
 
   splitBuffer = (buffer: Buffer, idx: number): Buffer[] => [
     buffer.slice(0, idx),
@@ -40,7 +40,7 @@ export default class CryptoService {
       'sha512'
     )
 
-    const { encrypted, tag } = this.encryptAES(text, key, iv)
+    const { encrypted, tag } = this.encryptAes(text, key, iv)
 
     return base64url(Buffer.concat([iv, tag, salt, encrypted]))
   }
@@ -64,7 +64,7 @@ export default class CryptoService {
         throw new Error('invalid token')
       }
 
-      const decrypted = this.decryptAES(encrypted, key, iv, tag)
+      const decrypted = this.decryptAes(encrypted, key, iv, tag)
 
       return JSON.parse(decrypted)
     } catch (error) {
@@ -74,7 +74,7 @@ export default class CryptoService {
     }
   }
 
-  private decryptAES(
+  private decryptAes(
     encrypted: Buffer,
     key: Buffer,
     iv: Buffer,
@@ -87,7 +87,7 @@ export default class CryptoService {
     return decipher.update(encrypted, 'binary', 'utf8') + decipher.final('utf8')
   }
 
-  private encryptAES(text: string, key: Buffer, iv: Buffer): AESWithAuth {
+  private encryptAes(text: string, key: Buffer, iv: Buffer): AesWithAuth {
     const cipher: any = createCipheriv('aes-256-gcm', key, iv)
 
     const encrypted = Buffer.concat([
@@ -95,9 +95,6 @@ export default class CryptoService {
       cipher.final(),
     ])
 
-    return {
-      encrypted,
-      tag: cipher.getAuthTag(),
-    }
+    return { encrypted, tag: cipher.getAuthTag() }
   }
 }

@@ -1,6 +1,7 @@
-import { Profile as ProfileEntity } from '@fintruth-sdk/common'
+import { BaseProfile } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -14,7 +15,7 @@ import User from './user'
 
 @Entity()
 @ObjectType()
-export default class Profile extends ProfileEntity {
+export default class Profile extends BaseEntity implements BaseProfile {
   @Field(() => ID)
   @PrimaryColumn('uuid')
   userId: string
@@ -31,16 +32,17 @@ export default class Profile extends ProfileEntity {
   @JoinColumn()
   user: User
 
-  @Field()
+  @Field(() => Date)
   @CreateDateColumn()
   createdAt: Date
 
-  @Field()
+  @Field(() => Date)
   @UpdateDateColumn()
   updatedAt: Date
 
-  constructor(partial: Partial<Profile> = {}) {
+  constructor(partialProfile: Partial<Profile> = {}) {
     super()
-    Object.assign(this, partial)
+
+    Object.assign(this, partialProfile)
   }
 }

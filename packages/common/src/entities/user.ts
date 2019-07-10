@@ -1,11 +1,8 @@
+import BaseUser from './base-user'
 import Profile from './profile'
 
-export default class User {
-  id: string
-  email: string
-  isAdmin: boolean
-  isTwoFactorAuthEnabled: boolean
+export default class User extends BaseUser {
   profile: Profile
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
 }

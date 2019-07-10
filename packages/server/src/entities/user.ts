@@ -1,8 +1,8 @@
-import { User as UserEntity } from '@fintruth-sdk/common'
+import { BaseUser } from '@fintruth-sdk/common'
 import { compareSync } from 'bcrypt'
-import { isNil } from 'ramda'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -15,7 +15,7 @@ import Profile from './profile'
 
 @Entity()
 @ObjectType()
-export default class User implements UserEntity {
+export default class User extends BaseEntity implements BaseUser {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -43,17 +43,17 @@ export default class User implements UserEntity {
   @Column({ nullable: true })
   secretTemp?: string
 
-  @Field()
+  @Field(() => Date)
   @CreateDateColumn()
   createdAt: Date
 
-  @Field()
+  @Field(() => Date)
   @UpdateDateColumn()
   updatedAt: Date
 
   @Field()
   get isTwoFactorAuthEnabled(): boolean {
-    return !isNil(this.secret)
+    return this.secret != null
   }
 
   validatePassword(password: string) {

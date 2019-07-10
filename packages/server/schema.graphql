@@ -3,15 +3,80 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Address {
+  id: ID!
+  city: String!
+  country: String!
+  line1: String!
+  line2: String!
+  postalCode: String!
+  subdivision: String!
+  type: AddressType!
+  typeId: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input AddressInput {
+  city: String!
+  country: String!
+  line1: String!
+  line2: String
+  postalCode: String!
+  subdivision: String!
+  typeName: String!
+}
+
+type AddressType {
+  id: ID!
+  name: String!
+}
+
+type Country {
+  id: ID!
+  alpha2Code: String!
+  callingCode: String!
+  name: String!
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
 scalar DateTime
 
+type Email {
+  id: ID!
+  isVerified: Boolean!
+  value: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type EnableTwoFactorAuthResponse {
   error: ResponseError
   dataUrl: String
   secret: String
+}
+
+type Media {
+  id: ID!
+  mimeType: String!
+  name: String!
+  path: String!
+  type: MediaType!
+  typeId: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type MediaResponse {
+  error: ResponseError
+  media: Media
+}
+
+type MediaType {
+  id: ID!
+  name: String!
 }
 
 type Mutation {
@@ -26,6 +91,30 @@ type Mutation {
   register(input: RegisterInput!): Response!
   updateEmail(password: String!, newEmail: String!): UserResponse!
   updatePassword(password: String!, newPassword: String!): Response!
+}
+
+type Phone {
+  id: ID!
+  country: Country!
+  countryId: ID!
+  ext: String!
+  isVerified: Boolean!
+  number: String!
+  type: PhoneType!
+  typeId: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input PhoneInput {
+  alpha2Code: String!
+  number: String!
+  typeName: String!
+}
+
+type PhoneType {
+  id: ID!
+  name: String!
 }
 
 type Profile {
@@ -47,6 +136,8 @@ type ProfileResponse {
 }
 
 type Query {
+  country(id: ID!): Country
+  countries: [Country!]!
   currentUser: User
   user(id: ID!): User
   users: [User!]!

@@ -1,4 +1,4 @@
-import User from 'entities/user'
+import { User } from 'entities'
 import Response from './response'
 
 export default class UserResponse extends Response {

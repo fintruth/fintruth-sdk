@@ -1,7 +1,7 @@
 import { object, string } from '@fintruth-sdk/validation'
 import { Inject, Service } from 'typedi'
 
-import { logAs, Loggable } from 'logger'
+import { Loggable, logAs } from 'logger'
 import {
   RegisterInput,
   Response,

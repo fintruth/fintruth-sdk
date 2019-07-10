@@ -2,7 +2,7 @@ import { object, string } from '@fintruth-sdk/validation'
 import { Service } from 'typedi'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { logAs, Loggable } from 'logger'
+import { Loggable, logAs } from 'logger'
 import { ProfileDao } from 'models'
 import {
   ProfileInput,

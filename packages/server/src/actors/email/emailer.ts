@@ -9,13 +9,15 @@ export interface EmailType extends Message {
 }
 
 export class Registration implements EmailType {
-  readonly type = 'Registration'
+  readonly type: string
 
   constructor(
     readonly recipient: string,
     readonly name: string,
     readonly token: string
-  ) {}
+  ) {
+    this.type = 'Registration'
+  }
 }
 
 export const spawnEmailer = (
