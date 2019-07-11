@@ -49,7 +49,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
         type: 'setPlaceholder',
       }),
     [dispatch, field.value]
-  ) // eslint-disable-line react-hooks/exhaustive-deps
+  )
 
   React.useEffect(() => {
     registerField(`${name}.alpha2Code`, {
