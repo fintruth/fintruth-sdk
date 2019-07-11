@@ -1,3 +1,3 @@
 it('Visits the Home Page', () => {
-  cy.visit('http://localhost:3000/')
+  cy.visit('http://localhost:3000')
 })

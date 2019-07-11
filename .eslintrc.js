@@ -2,6 +2,7 @@
 
 const typescriptPlugin = require('@typescript-eslint/eslint-plugin')
 const prettierTypescriptConfig = require('eslint-config-prettier/@typescript-eslint')
+const cypressPlugin = require('eslint-plugin-cypress')
 const jestPlugin = require('eslint-plugin-jest')
 
 module.exports = {
@@ -40,6 +41,12 @@ module.exports = {
         ],
         ...prettierTypescriptConfig.rules,
       },
+    },
+    {
+      files: ['config/cypress/**/*.?(js|ts)', 'test/**/*.ts'],
+      globals: cypressPlugin.environments.globals.globals,
+      plugins: cypressPlugin.configs.recommended.plugins,
+      rules: cypressPlugin.configs.recommended.rules,
     },
     {
       files: [

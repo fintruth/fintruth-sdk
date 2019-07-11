@@ -1,4 +1,6 @@
 {
+  "exclude": ["node_modules", "packages"],
+  "include": ["**/*", "**/.*/**/*"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "declaration": true,
@@ -15,6 +17,7 @@
     "sourceMap": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "esnext"
+    "target": "esnext",
+    "types": ["cypress"]
   }
 }
