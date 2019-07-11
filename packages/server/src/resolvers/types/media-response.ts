@@ -11,7 +11,7 @@ interface Props extends ResponseProps {
 @ObjectType()
 export default class MediaResponse extends Response
   implements BaseMediaResponse {
-  @Field({ nullable: true })
+  @Field(() => Media, { nullable: true })
   media?: Media
 
   constructor(props: Props) {

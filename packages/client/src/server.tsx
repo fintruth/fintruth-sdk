@@ -111,7 +111,7 @@ if (module.hot) {
 } else {
   app.listen(process.env.APP_PORT, () =>
     console.info(
-      `The server is running at http://localhost:${process.env.APP_PORT}/`
+      `The server is running at http://localhost:${process.env.APP_PORT}`
     )
   )
 }

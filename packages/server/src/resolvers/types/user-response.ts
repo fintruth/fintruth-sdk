@@ -10,7 +10,7 @@ interface Props extends ResponseProps {
 
 @ObjectType()
 export default class UserResponse extends Response implements BaseUserResponse {
-  @Field({ nullable: true })
+  @Field(() => User, { nullable: true })
   user?: User
 
   constructor(props: Props) {

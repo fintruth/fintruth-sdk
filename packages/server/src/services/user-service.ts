@@ -15,6 +15,7 @@ export default class UserService {
   userDao: UserDao
 
   private log = logAs('UserService')
+
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
   async create(email: string, password: string, profile: Profile) {

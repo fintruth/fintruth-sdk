@@ -59,13 +59,16 @@ dotenv.config()
 @Service()
 export default class ConfigService {
   env = process.env.NODE_ENV || 'development'
+
   isProd = this.env === 'production'
+
   app: AppConfig = {
     port: Number(process.env.APP_PORT) || 4000,
     secret: process.env.APP_SECRET || '',
     serverUrl: process.env.APP_SERVER_URL || '',
     trustProxy: process.env.TRUST_PROXY || 'loopback',
   }
+
   aws: AwsConfig = {
     credentials: {
       accessKeyId: process.env.AWS_ACCESS_KEY || '',
@@ -80,12 +83,14 @@ export default class ConfigService {
     },
     ses: { apiVersion: '2010-12-01', source: 'noreply@fintruth.com' },
   }
+
   graphql: GraphqlConfig = {
     rateLimit: {
       max: Number(process.env.GRAPHQL_RATE_LIMIT_MAX) || 5,
       window: process.env.GRAPHQL_RATE_LIMIT_WINDOW || '10s',
     },
   }
+
   media: MediaConfig = {
     allowedTypes: ['application/pdf', 'image/jpeg', 'image/png'],
     maxFileSize: 2000000,

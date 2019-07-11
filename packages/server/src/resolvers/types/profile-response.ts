@@ -11,7 +11,7 @@ interface Props extends ResponseProps {
 @ObjectType()
 export default class ProfileResponse extends Response
   implements BaseProfileResponse {
-  @Field({ nullable: true })
+  @Field(() => Profile, { nullable: true })
   profile?: Profile
 
   constructor(props: Props) {

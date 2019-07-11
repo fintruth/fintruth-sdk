@@ -9,7 +9,7 @@ export interface Props {
 
 @ObjectType()
 export default class Response implements BaseResponse {
-  @Field({ nullable: true })
+  @Field(() => ResponseError, { nullable: true })
   error?: ResponseError
 
   constructor(props: Props = {}) {

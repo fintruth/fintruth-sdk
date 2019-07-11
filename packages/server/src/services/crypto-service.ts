@@ -21,6 +21,7 @@ export default class CryptoService {
   config: ConfigService
 
   private log = logAs('CryptoService')
+
   private logError = (error: any) => this.log(error.toString(), 'error')
 
   splitBuffer = (buffer: Buffer, idx: number): Buffer[] => [

@@ -59,7 +59,7 @@ describe('UserService', () => {
     })
 
     describe('user exists with password', () => {
-      let user: Partial<User> = {
+      const user: Partial<User> = {
         id: 'test',
         email: 'test@test.com',
         validatePassword: jest.fn(equals('password')),
@@ -90,7 +90,7 @@ describe('UserService', () => {
 
   describe('update', () => {
     describe('user exists with password', () => {
-      let user: Partial<User> = {
+      const user: Partial<User> = {
         id: 'test',
         email: 'test@test.com',
         validatePassword: jest.fn(equals('password')),

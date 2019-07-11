@@ -4,7 +4,7 @@ import { InjectRepository } from 'typeorm-typedi-extensions'
 import { CountryDao } from 'models'
 import { Country } from '../entities'
 
-@Resolver(Country)
+@Resolver(() => Country)
 export default class CountryResolver {
   @InjectRepository(Country)
   private readonly countryDao: CountryDao

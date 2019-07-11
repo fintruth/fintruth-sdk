@@ -32,6 +32,7 @@ export default class RegisterService {
   userService: UserService
 
   private log = logAs('RegisterService')
+
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
   validateInput = async ({ profile, ...input }: RegisterInput) => {

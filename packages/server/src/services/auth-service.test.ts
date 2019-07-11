@@ -49,7 +49,7 @@ describe('AuthService', () => {
     })
 
     describe('user exists with password', () => {
-      let user: Partial<User> = {
+      const user: Partial<User> = {
         validatePassword: jest.fn(equals('good')),
       }
 
@@ -88,7 +88,7 @@ describe('AuthService', () => {
     })
 
     describe('user exists with two factor pending', () => {
-      let user: Partial<User> = {
+      const user: Partial<User> = {
         secretTemp: 'secret',
       }
 
@@ -138,7 +138,7 @@ describe('AuthService', () => {
     })
 
     describe('user exists with two factor enabled', () => {
-      let user: Partial<User> = {
+      const user: Partial<User> = {
         secret: 'secret',
       }
 

@@ -2,8 +2,8 @@ import { Service } from 'typedi'
 
 export default Service(() => ({
   app: {
-    secret: 'KEYKEYKEYKEYKEYKEYKEYKEYKEYKEYKEY',
     port: 4000,
+    secret: 'KEYKEYKEYKEYKEYKEYKEYKEYKEYKEYKEY',
     trustProxy: 'loopback',
   },
   aws: { httpOptions: { timeout: 3000 }, s3: { bucket: 'test' } },

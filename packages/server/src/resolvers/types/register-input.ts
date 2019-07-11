@@ -11,6 +11,6 @@ export default class RegisterInput implements BaseRegisterInput {
   @Field()
   password: string
 
-  @Field()
+  @Field(() => ProfileInput)
   profile: ProfileInput
 }

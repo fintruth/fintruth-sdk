@@ -18,6 +18,7 @@ export default class ProfileService {
   profileDao: ProfileDao
 
   private log = logAs('ProfileService')
+
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
   toEntity = (input: ProfileInput) => new Profile(input)
