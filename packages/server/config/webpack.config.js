@@ -12,7 +12,7 @@ const buildDir = path.join(rootDir, 'build')
 
 const env = process.env.ENV || 'dev'
 const isProd = /prod(uction)?/i.test(env)
-const isStaging = /(stage|staging)/i.test(env)
+const isStaging = /stag(e|ing)/i.test(env)
 const envFile = isProd ? '.env.prod' : isStaging ? '.env.staging' : '.env'
 
 const isRelease = isProd || isStaging || process.argv.includes('--release')
@@ -123,11 +123,13 @@ const serverConfig = {
       raw: true,
     }),
     new DefinePlugin({
+      'process.env.IS_BUNDLED': true,
       'process.env.NODE_ENV': isRelease ? '"production"' : '"development"',
     }),
     new DotenvPlugin({
       path: path.join(rootDir, envFile),
       safe: path.join(rootDir, '.env.example'),
+      systemvars: true,
     }),
     new ForkTsCheckerPlugin(),
   ],

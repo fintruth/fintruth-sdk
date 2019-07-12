@@ -24,9 +24,9 @@
     "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\" \"!packages/**\"",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" --ignore-pattern \"packages/**\" \"**/*.{js,ts}\"",
     "lint:types": "tsc --noEmit",
-    "start": "lerna run --parallel --scope @fintruth-sdk/server --scope @fintruth-sdk/client --stream start",
+    "start": "lerna run --parallel --scope @fintruth-sdk/client --scope @fintruth-sdk/server --stream start",
     "test": "run-p test:* && lerna run --stream test",
-    "test:e2e": "cypress run"
+    "test:e2e": "yarn start &> /dev/null & wait-on http://localhost:3000 && cypress run"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^4.1.0",

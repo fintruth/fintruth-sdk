@@ -1,4 +1,3 @@
-import dotenv from 'dotenv-safe'
 import { Service } from 'typedi'
 
 interface AppConfig {
@@ -54,8 +53,6 @@ interface MediaConfig {
   maxFileSize: number
 }
 
-dotenv.config()
-
 @Service()
 export default class ConfigService {
   env = process.env.NODE_ENV || 'development'
@@ -63,9 +60,9 @@ export default class ConfigService {
   isProd = this.env === 'production'
 
   app: AppConfig = {
-    port: Number(process.env.APP_PORT) || 4000,
-    secret: process.env.APP_SECRET || '',
-    serverUrl: process.env.APP_SERVER_URL || '',
+    port: Number(process.env.SERVER_PORT) || 4000,
+    secret: process.env.SERVER_SECRET || '',
+    serverUrl: process.env.CLIENT_URL || '',
     trustProxy: process.env.TRUST_PROXY || 'loopback',
   }
 
