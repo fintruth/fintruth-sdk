@@ -216,6 +216,8 @@ jobs:
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - with_cache:
           steps:
             - run:
