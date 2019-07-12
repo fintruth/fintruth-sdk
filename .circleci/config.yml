@@ -51,7 +51,7 @@ commands:
       cache_version:
         type: string
         description: Cache version; increment this for a fresh cache.
-        default: v1
+        default: v2
     steps:
       - restore_cache:
           keys:
