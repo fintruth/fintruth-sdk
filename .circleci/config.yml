@@ -212,6 +212,9 @@ jobs:
       - store_test_results:
           path: packages/common/reports
   root:
+    environment:
+      OUTPUT_DIR: output
+      REPORTS_DIR: reports
     executor: cypress
     working_directory: ~/fintruth-sdk
     steps:
@@ -224,14 +227,28 @@ jobs:
                 name: Install dependencies
                 command: yarn install
       - run:
+          name: Setup
+          command: mkdir --parents ${OUTPUT_DIR} ${REPORTS_DIR}
+      - run:
           name: Run static analysis
-          command: yarn --silent lint:files
+          command: |
+            yarn --silent lint:files
+            yarn --silent lint:types
       - run:
           name: Run tests
           command: |
-            cd ~/fintruth-sdk/packages/client && yarn --silent build && node build/server.js &
-            cd ~/fintruth-sdk/packages/server && yarn --silent build && node build/main.js &
-            yarn --silent test:e2e
+            lerna run --parallel --scope @fintruth-sdk/client --scope @fintruth-sdk/server --stream build
+            lerna exec --no-prefix --scope @fintruth-sdk/client --stream node build/server.js &> ${OUTPUT_DIR}/client.txt &
+            lerna exec --no-prefix --scope @fintruth-sdk/server --stream node build/main.js &> ${OUTPUT_DIR}/server.txt &
+            yarn --silent test:e2e --reporter junit --reporter-options "mochaFile=${REPORTS_DIR}/test-e2e.xml"
+      - store_artifacts:
+          path: output
+          destination: output
+      - store_artifacts:
+          path: reports
+          destination: reports
+      - store_test_results:
+          path: reports
   server:
     environment:
       COVERAGE_DIR: coverage
