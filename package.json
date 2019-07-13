@@ -26,7 +26,7 @@
     "lint:types": "tsc --noEmit",
     "start": "lerna run --parallel --scope @fintruth-sdk/client --scope @fintruth-sdk/server --stream start",
     "test": "run-p test:* && lerna run --stream test",
-    "test:e2e": "yarn start &> /dev/null & wait-on http://localhost:3000 && cypress run"
+    "test:e2e": "wait-on http://localhost:3000 http://localhost:4000 && cypress run"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^4.1.0",

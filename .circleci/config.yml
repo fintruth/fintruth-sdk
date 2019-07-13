@@ -229,7 +229,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            yarn --silent start && wait-on http://localhost:3000
+            cd ${CIRCLE_WORKING_DIRECTORY}/packages/client && yarn --silent build && node build/server.js &
+            cd ${CIRCLE_WORKING_DIRECTORY}/packages/server && yarn --silent build && node build/main.js &
             yarn --silent test:e2e
   server:
     environment:
