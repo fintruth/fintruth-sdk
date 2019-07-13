@@ -51,7 +51,7 @@ commands:
       cache_version:
         type: string
         description: Cache version; increment this for a fresh cache.
-        default: v2
+        default: v1
     steps:
       - restore_cache:
           keys:
@@ -237,9 +237,9 @@ jobs:
       - run:
           name: Run tests
           command: |
-            lerna run --parallel --scope @fintruth-sdk/client --scope @fintruth-sdk/server --stream build
-            lerna exec --no-prefix --scope @fintruth-sdk/client --stream node build/server.js &> ${OUTPUT_DIR}/client.txt &
-            lerna exec --no-prefix --scope @fintruth-sdk/server --stream node build/main.js &> ${OUTPUT_DIR}/server.txt &
+            yarn --silent lerna run --parallel --scope @fintruth-sdk/client --scope @fintruth-sdk/server --stream build
+            yarn --silent lerna exec --no-prefix --scope @fintruth-sdk/client --stream node build/server.js &> ${OUTPUT_DIR}/client.txt &
+            yarn --silent lerna exec --no-prefix --scope @fintruth-sdk/server --stream node build/main.js &> ${OUTPUT_DIR}/server.txt &
             yarn --silent test:e2e --reporter junit --reporter-options "mochaFile=${REPORTS_DIR}/test-e2e.xml"
       - store_artifacts:
           path: output
