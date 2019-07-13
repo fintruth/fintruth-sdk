@@ -229,11 +229,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            ls -ahl ~
-            ls -ahl ${HOME}
-            ls -ahl ~/fintruth-sdk
-            cd ${CIRCLE_WORKING_DIRECTORY}/packages/client && yarn --silent build && node build/server.js &
-            cd ${CIRCLE_WORKING_DIRECTORY}/packages/server && yarn --silent build && node build/main.js &
+            cd ~/fintruth-sdk/packages/client && yarn --silent build && node build/server.js &
+            cd ~/fintruth-sdk/packages/server && yarn --silent build && node build/main.js &
             yarn --silent test:e2e
   server:
     environment:
