@@ -34,10 +34,11 @@
     "seed:create": "yarn typeorm migration:create --connection seed --name",
     "seed:revert": "yarn typeorm migration:revert --connection seed",
     "seed:run": "yarn typeorm migration:run --connection seed",
-    "start": "nodemon",
+    "start": "run-p \"build --watch\" \"watch --exec \\\"wait-on build/main.js && node --inspect build/main.js\\\" --watch build\"",
     "test": "run-p test:*",
     "test:units": "jest",
-    "typeorm": "ts-node --require tsconfig-paths/register node_modules/.bin/typeorm --config src/ormconfig.ts"
+    "typeorm": "ts-node --require tsconfig-paths/register node_modules/.bin/typeorm --config src/ormconfig.ts",
+    "watch": "nodemon"
   },
   "dependencies": {
     "@fintruth-sdk/auth": "^0.1.0",
@@ -93,7 +94,6 @@
     "fork-ts-checker-webpack-plugin": "^1.4.2",
     "nodemon": "^1.19.1",
     "ts-jest": "^24.0.2",
-    "ts-loader": "^6.0.4",
     "ts-node": "^8.3.0",
     "tsconfig-paths": "^3.8.0",
     "webpack-cli": "^3.3.6"

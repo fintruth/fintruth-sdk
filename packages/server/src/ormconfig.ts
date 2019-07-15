@@ -1,9 +1,10 @@
-import dotenv from 'dotenv-safe'
 import { ConnectionOptions } from 'typeorm'
 
 import * as entities from './entities'
 
-dotenv.config()
+if (!process.env.IS_BUNDLED) {
+  require('dotenv-safe').config()
+}
 
 const baseConfig: Partial<ConnectionOptions> = {
   host: process.env.DB_HOST || '0.0.0.0',
@@ -25,7 +26,7 @@ const defaultConfig: ConnectionOptions = {
     migrationsDir: 'src/migrations',
     subscribersDir: 'src/subscribers',
   },
-  migrations: ['src/migrations/**/*.ts', 'migrations/**/*.js'],
+  migrations: ['?(build)/migrations/**/*.js'],
   migrationsTableName: 'typeorm_migrations',
   type: 'postgres',
 }
@@ -38,7 +39,7 @@ const seedConfig: ConnectionOptions = {
     migrationsDir: 'src/seeds',
     subscribersDir: 'src/subscribers',
   },
-  migrations: ['src/seeds/**/*.ts', 'seeds/**/*.js'],
+  migrations: ['?(build)/seeds/**/*.js'],
   migrationsTableName: 'typeorm_seeds',
   type: 'postgres',
 }

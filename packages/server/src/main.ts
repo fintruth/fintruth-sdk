@@ -13,7 +13,7 @@ const log = logAs('Express')
 
 const initializeActors = () => {
   const {
-    app: { serverUrl },
+    client: { url },
     aws: {
       credentials,
       region,
@@ -25,7 +25,7 @@ const initializeActors = () => {
   const system = start()
 
   Container.set('actorSystem', system)
-  Container.set('emailer.actor', spawnEmailer(system, ses, source, serverUrl))
+  Container.set('emailer.actor', spawnEmailer(system, ses, source, url))
 }
 
 const bootstrap = async () => {

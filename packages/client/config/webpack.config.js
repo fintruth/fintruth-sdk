@@ -97,9 +97,9 @@ const createConfig = (target, configFactory) =>
         __DEV__: !isRelease,
       }),
       new DotenvPlugin({
-        defaults: path.join(rootDir, '.env.defaults'),
         path: path.join(rootDir, envFile),
         safe: path.join(rootDir, '.env.example'),
+        systemvars: true,
       }),
     ],
     resolve: {

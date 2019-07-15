@@ -1,6 +1,10 @@
 # Dependencies
 node_modules
 
+# Test and Code Coverage
+test/screenshots
+test/videos
+
 # Logs
 *.log*
 

@@ -1,10 +1,8 @@
-import dotenv from 'dotenv-safe'
 import { Service } from 'typedi'
 
 interface AppConfig {
   port: number
   secret: string
-  serverUrl: string
   trustProxy: string
 }
 
@@ -40,6 +38,10 @@ interface AwsSesConfig {
   source: string
 }
 
+interface ClientConfig {
+  url: string
+}
+
 interface GraphqlConfig {
   rateLimit: GraphqlRateLimitConfig
 }
@@ -54,8 +56,6 @@ interface MediaConfig {
   maxFileSize: number
 }
 
-dotenv.config()
-
 @Service()
 export default class ConfigService {
   env = process.env.NODE_ENV || 'development'
@@ -63,10 +63,9 @@ export default class ConfigService {
   isProd = this.env === 'production'
 
   app: AppConfig = {
-    port: Number(process.env.APP_PORT) || 4000,
-    secret: process.env.APP_SECRET || '',
-    serverUrl: process.env.APP_SERVER_URL || '',
-    trustProxy: process.env.TRUST_PROXY || 'loopback',
+    port: Number(process.env.SERVER_PORT) || 4000,
+    secret: process.env.SERVER_SECRET || '',
+    trustProxy: process.env.SERVER_TRUST_PROXY || 'loopback',
   }
 
   aws: AwsConfig = {
@@ -82,6 +81,10 @@ export default class ConfigService {
       buckets: { uploads: process.env.AWS_S3_BUCKET_UPLOADS || '' },
     },
     ses: { apiVersion: '2010-12-01', source: 'noreply@fintruth.com' },
+  }
+
+  client: ClientConfig = {
+    url: process.env.CLIENT_URL || '',
   }
 
   graphql: GraphqlConfig = {
