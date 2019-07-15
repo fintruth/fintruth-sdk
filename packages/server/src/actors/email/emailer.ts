@@ -24,12 +24,12 @@ export const spawnEmailer = (
   parent: ActorRef,
   ses: SES,
   sender: Address,
-  serverUrl: string
+  url: string
 ) =>
   spawnStateless<EmailType>(
     parent,
     (msg, { self }) => {
-      const actor = spawnEmailSend(self, ses, sender, serverUrl)
+      const actor = spawnEmailSend(self, ses, sender, url)
 
       return dispatch(actor, msg, self)
     },

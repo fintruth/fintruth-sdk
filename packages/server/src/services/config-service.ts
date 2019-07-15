@@ -3,7 +3,6 @@ import { Service } from 'typedi'
 interface AppConfig {
   port: number
   secret: string
-  serverUrl: string
   trustProxy: string
 }
 
@@ -39,6 +38,10 @@ interface AwsSesConfig {
   source: string
 }
 
+interface ClientConfig {
+  url: string
+}
+
 interface GraphqlConfig {
   rateLimit: GraphqlRateLimitConfig
 }
@@ -62,8 +65,7 @@ export default class ConfigService {
   app: AppConfig = {
     port: Number(process.env.SERVER_PORT) || 4000,
     secret: process.env.SERVER_SECRET || '',
-    serverUrl: process.env.CLIENT_URL || '',
-    trustProxy: process.env.TRUST_PROXY || 'loopback',
+    trustProxy: process.env.SERVER_TRUST_PROXY || 'loopback',
   }
 
   aws: AwsConfig = {
@@ -79,6 +81,10 @@ export default class ConfigService {
       buckets: { uploads: process.env.AWS_S3_BUCKET_UPLOADS || '' },
     },
     ses: { apiVersion: '2010-12-01', source: 'noreply@fintruth.com' },
+  }
+
+  client: ClientConfig = {
+    url: process.env.CLIENT_URL || '',
   }
 
   graphql: GraphqlConfig = {

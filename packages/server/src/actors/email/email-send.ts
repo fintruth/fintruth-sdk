@@ -26,14 +26,14 @@ export const spawnEmailSend = (
   parent: ActorRef,
   ses: SES,
   sender: Address,
-  serverUrl: string
+  url: string
 ) =>
   spawnStateless<Message>(parent, async (msg, ctx) => {
     dispatch(ctx.self, new PoisonPill())
 
     if (msg instanceof Registration) {
       const { name, token, recipient } = msg
-      const { body, subject } = templates.registration(name, token, serverUrl)
+      const { body, subject } = templates.registration(name, token, url)
 
       await ses.sendEmail(getParams(subject, body, recipient, sender)).promise()
     } else if (msg instanceof PoisonPill) {
