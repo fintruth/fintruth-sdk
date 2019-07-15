@@ -241,6 +241,18 @@ jobs:
             yarn --silent lerna exec --no-prefix --scope @fintruth-sdk/client --stream node build/server.js &> ${OUTPUT_DIR}/client.txt &
             yarn --silent lerna exec --no-prefix --scope @fintruth-sdk/server --stream node build/main.js &> ${OUTPUT_DIR}/server.txt &
             yarn --silent test:e2e --reporter junit --reporter-options "mochaFile=${REPORTS_DIR}/test-e2e.xml"
+          environment:
+            API_URI: http://localhost:4000/api
+            AWS_REGION: us-west-2
+            AWS_S3_BUCKET_UPLOADS: fintruth-test
+            CLIENT_PORT: 3000
+            CLIENT_URL: http://localhost:3000
+            DB_HOST: localhost
+            DB_USERNAME: postgres
+            DB_DATABASE: fintruth
+            GRAPHQL_RATE_LIMIT_MAX: 5
+            GRAPHQL_RATE_LIMIT_WINDOW: 10s
+            SERVER_PORT: 4000
       - store_artifacts:
           path: output
           destination: output
