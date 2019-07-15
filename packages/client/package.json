@@ -113,7 +113,7 @@
     "@types/graphql": "^14.2.2",
     "@types/history": "^4.7.2",
     "@types/invariant": "^2.2.30",
-    "@types/loadable__component": "^5.9.0",
+    "@types/loadable__component": "^5.10.0",
     "@types/loadable__server": "^5.9.1",
     "@types/node-fetch": "^2.3.7",
     "@types/ramda": "^0.26.15",

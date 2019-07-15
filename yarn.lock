@@ -3134,10 +3134,10 @@
   resolved "https://registry.yarnpkg.com/@types/keygrip/-/keygrip-1.0.1.tgz#ff540462d2fb4d0a88441ceaf27d287b01c3d878"
   integrity sha1-/1QEYtL7TQqIRBzq8n0oewHD2Hg=
 
-"@types/loadable__component@^5.9.0":
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/@types/loadable__component/-/loadable__component-5.9.0.tgz#6c59ccbfa49329d227f74d0c49002888a11a817d"
-  integrity sha512-uTsudqvPxlZumuXQ4YOfD6yoGjPe3RmkL7q5e3HEFERPKv4BCYPTPE2vQ0Klj9KMWFbprEuF1DRjmjlQRunkEA==
+"@types/loadable__component@^5.10.0":
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/@types/loadable__component/-/loadable__component-5.10.0.tgz#178fdc401983f4f93647fac778226da7b8c1e080"
+  integrity sha512-AaDP1VxV3p7CdPOtOTl3ALgQ6ES4AxJKO9UGj9vJonq/w2yERxwdzFiWNQFh9fEDXEzjxujBlM2RmSJtHV1/pA==
   dependencies:
     "@types/react" "*"
 
