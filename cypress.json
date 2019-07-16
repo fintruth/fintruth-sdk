@@ -1,6 +1,6 @@
 {
   "fixturesFolder": "test/fixtures",
-  "integrationFolder": "test/integration",
+  "integrationFolder": "test/e2e",
   "pluginsFile": "config/cypress/plugins.js",
   "screenshotsFolder": "test/screenshots",
   "supportFile": "config/cypress/support.ts",
