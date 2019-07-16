@@ -15,7 +15,7 @@ const user: Partial<BaseUser> & { password: string } = {
   password: hashSync('A!s2d3f4g5', 10),
 }
 
-export class Mock1562786184526 implements MigrationInterface {
+export class UserMock1562786184526 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     await queryRunner.manager
       .createQueryBuilder()
