@@ -51,18 +51,17 @@ commands:
       cache_version:
         type: string
         description: Cache version; increment this for a fresh cache.
-        default: v3
+        default: v1
     steps:
       - restore_cache:
           keys:
-            - node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-{{ checksum "<< parameters.cache_key >>" }}
-            - node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-
-            - node-dependencies-<< parameters.cache_version >>
+            - node-dependencies-<< parameters.cache_version >>-{{ .Branch }}--{{ checksum "<< parameters.cache_key >>" }}
+            - node-dependencies-<< parameters.cache_version >>-{{ .Branch }}--
+            - node-dependencies-<< parameters.cache_version >>-
       - steps: << parameters.steps >>
       - save_cache:
-          key: node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-{{ checksum "<< parameters.cache_key >>" }}
+          key: node-dependencies-<< parameters.cache_version >>-{{ .Branch }}--{{ checksum "<< parameters.cache_key >>" }}
           paths:
-            - ~/.cache/yarn
             - ~/fintruth-sdk/node_modules
             - ~/fintruth-sdk/packages/auth/node_modules
             - ~/fintruth-sdk/packages/client/node_modules
@@ -101,11 +100,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - with_cache:
-          steps:
-            - run:
-                name: Install dependencies
-                command: yarn install --frozen-lockfile
+      - with_cache
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -141,11 +136,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - with_cache:
-          steps:
-            - run:
-                name: Install dependencies
-                command: yarn install --frozen-lockfile
+      - with_cache
       - run:
           name: Setup
           command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
@@ -222,11 +213,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - with_cache:
-          steps:
-            - run:
-                name: Install dependencies
-                command: yarn install --frozen-lockfile
+      - with_cache
       - run:
           name: Setup
           command: mkdir --parents ${OUTPUT_DIR} ${REPORTS_DIR}
@@ -272,11 +259,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - with_cache:
-          steps:
-            - run:
-                name: Install dependencies
-                command: yarn install --frozen-lockfile
+      - with_cache
       - run:
           name: Setup
           command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
@@ -312,11 +295,7 @@ jobs:
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
-      - with_cache:
-          steps:
-            - run:
-                name: Install dependencies
-                command: yarn install --frozen-lockfile
+      - with_cache
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
