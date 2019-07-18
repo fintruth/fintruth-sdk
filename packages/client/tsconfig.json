@@ -4,7 +4,6 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
-    "declaration": false,
     "isolatedModules": true,
     "jsx": "preserve",
     "lib": ["dom", "esnext"],
