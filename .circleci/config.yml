@@ -44,6 +44,7 @@ commands:
       steps:
         type: steps
         description: Input any custom steps to run with your Node cache.
+        default: []
       cache_key:
         type: string
         description: File to use as a Node cache checksum.
