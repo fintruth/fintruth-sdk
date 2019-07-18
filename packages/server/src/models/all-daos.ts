@@ -14,23 +14,33 @@ import UserDao from './user-dao'
 
 @Service()
 export default class AllDaos {
-  @InjectRepository() readonly addresses: AddressDao
+  @InjectRepository()
+  addresses: AddressDao
 
-  @InjectRepository() readonly addressTypes: AddressTypeDao
+  @InjectRepository()
+  addressTypes: AddressTypeDao
 
-  @InjectRepository() readonly countries: CountryDao
+  @InjectRepository()
+  countries: CountryDao
 
-  @InjectRepository() readonly emails: EmailDao
+  @InjectRepository()
+  emails: EmailDao
 
-  @InjectRepository() readonly media: MediaDao
+  @InjectRepository()
+  media: MediaDao
 
-  @InjectRepository() readonly mediaTypes: MediaTypeDao
+  @InjectRepository()
+  mediaTypes: MediaTypeDao
 
-  @InjectRepository() readonly phones: PhoneDao
+  @InjectRepository()
+  phones: PhoneDao
 
-  @InjectRepository() readonly phoneTypes: PhoneTypeDao
+  @InjectRepository()
+  phoneTypes: PhoneTypeDao
 
-  @InjectRepository() readonly profiles: ProfileDao
+  @InjectRepository()
+  profiles: ProfileDao
 
-  @InjectRepository() readonly users: UserDao
+  @InjectRepository()
+  users: UserDao
 }
