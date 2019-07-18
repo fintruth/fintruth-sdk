@@ -34,12 +34,12 @@
     "test:units": "jest --passWithNoTests"
   },
   "dependencies": {
-    "libphonenumber-js": "^1.7.20",
+    "libphonenumber-js": "^1.7.21",
     "yup": "^0.27.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@types/yup": "^0.26.21",
+    "@types/yup": "^0.26.22",
     "@types/zxcvbn": "^4.4.0"
   },
   "engines": {
