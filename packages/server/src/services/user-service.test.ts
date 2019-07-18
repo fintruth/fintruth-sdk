@@ -25,7 +25,7 @@ describe('UserService', () => {
 
   beforeEach(() => {
     service = Container.get(UserService)
-    service.userDao = getUserDaoMock()
+    service.daos.users = getUserDaoMock()
   })
 
   afterEach(() => {
@@ -66,11 +66,11 @@ describe('UserService', () => {
       }
 
       beforeEach(() => {
-        service.userDao = getUserDaoMock(user)
+        service.daos.users = getUserDaoMock(user)
       })
 
       it('should fail using an existing email', async () => {
-        service.userDao.findByEmail = () => Promise.resolve(new User())
+        service.daos.users.findByEmail = () => Promise.resolve(new User())
 
         const result = await service.create(
           'test@test.com',
@@ -97,7 +97,7 @@ describe('UserService', () => {
       }
 
       beforeEach(() => {
-        service.userDao = getUserDaoMock(user)
+        service.daos.users = getUserDaoMock(user)
       })
 
       it('should update an existing user', async () => {

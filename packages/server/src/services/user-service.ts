@@ -1,18 +1,17 @@
 import { object, string } from '@fintruth-sdk/validation'
 import { hash } from 'bcrypt'
 import { isNil, mergeLeft } from 'ramda'
-import { Service } from 'typedi'
-import { InjectRepository } from 'typeorm-typedi-extensions'
+import { Inject, Service } from 'typedi'
 
 import { Loggable, logAs } from 'logger'
-import { UserDao } from 'models'
+import { Daos } from 'models'
 import { Response, ResponseError, UserResponse } from 'resolvers/types'
 import { Profile, User } from '../entities'
 
 @Service()
 export default class UserService {
-  @InjectRepository(User)
-  userDao: UserDao
+  @Inject()
+  daos: Daos
 
   private log = logAs('UserService')
 
@@ -43,7 +42,7 @@ export default class UserService {
       })
     }
 
-    const user = await this.userDao
+    const user = await this.daos.users
       .save({
         email,
         password: await hash(password, 10),
@@ -61,11 +60,11 @@ export default class UserService {
   }
 
   async isEmailAvailable(email: string) {
-    return isNil(await this.userDao.findByEmail(email))
+    return isNil(await this.daos.users.findByEmail(email))
   }
 
   async update(id: string, password: string, partial: Partial<User>) {
-    const user = await this.userDao.findById(id)
+    const user = await this.daos.users.findById(id)
 
     if (!user) {
       return new UserResponse({
@@ -79,7 +78,7 @@ export default class UserService {
       })
     }
 
-    const updated = await this.userDao
+    const updated = await this.daos.users
       .update(user.id, partial)
       .catch(this.logDebug)
 

@@ -30,7 +30,7 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     service = Container.get(AuthService)
-    service.userDao = getUserDaoMock()
+    service.daos.users = getUserDaoMock()
   })
 
   afterEach(() => {
@@ -54,7 +54,7 @@ describe('AuthService', () => {
       }
 
       beforeEach(() => {
-        service.userDao = getUserDaoMock(user)
+        service.daos.users = getUserDaoMock(user)
       })
 
       it('should return a user using a correct password', async () => {
@@ -73,7 +73,7 @@ describe('AuthService', () => {
 
   describe('confirmTwoFactorAuth', () => {
     it('should return a failure response when a user has not initiated two factor', async () => {
-      service.userDao = getUserDaoMock({})
+      service.daos.users = getUserDaoMock({})
 
       const result = await service.confirmTwoFactorAuth('token', 'userId')
 
@@ -93,7 +93,7 @@ describe('AuthService', () => {
       }
 
       beforeEach(() => {
-        service.userDao = getUserDaoMock(user)
+        service.daos.users = getUserDaoMock(user)
       })
 
       it('should update user secret using a valid token', async () => {
@@ -123,7 +123,7 @@ describe('AuthService', () => {
 
   describe('disableTwoFactorAuth', () => {
     it('should return a failure response when a user has not enabled two factor', async () => {
-      service.userDao = getUserDaoMock({})
+      service.daos.users = getUserDaoMock({})
 
       const result = await service.disableTwoFactorAuth('token', 'userId')
 
@@ -143,7 +143,7 @@ describe('AuthService', () => {
       }
 
       beforeEach(() => {
-        service.userDao = getUserDaoMock(user)
+        service.daos.users = getUserDaoMock(user)
       })
 
       it('should remove user secret using a valid token', async () => {
@@ -185,7 +185,7 @@ describe('AuthService', () => {
     })
 
     it('should initiate two factor', async () => {
-      service.userDao = getUserDaoMock({})
+      service.daos.users = getUserDaoMock({})
 
       const result = await service.enableTwoFactorAuth('userId')
 

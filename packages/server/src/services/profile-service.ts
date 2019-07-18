@@ -1,9 +1,8 @@
 import { object, string } from '@fintruth-sdk/validation'
-import { Service } from 'typedi'
-import { InjectRepository } from 'typeorm-typedi-extensions'
+import { Inject, Service } from 'typedi'
 
 import { Loggable, logAs } from 'logger'
-import { ProfileDao } from 'models'
+import { Daos } from 'models'
 import {
   ProfileInput,
   ProfileResponse,
@@ -14,8 +13,8 @@ import { Profile } from '../entities'
 
 @Service()
 export default class ProfileService {
-  @InjectRepository(Profile)
-  profileDao: ProfileDao
+  @Inject()
+  daos: Daos
 
   private log = logAs('ProfileService')
 
@@ -42,10 +41,10 @@ export default class ProfileService {
       })
     }
 
-    await this.profileDao.update(userId, input)
+    await this.daos.profiles.update(userId, input)
 
     return new ProfileResponse({
-      profile: await this.profileDao.findByUserId(userId),
+      profile: await this.daos.profiles.findByUserId(userId),
     })
   }
 }
