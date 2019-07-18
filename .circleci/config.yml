@@ -170,7 +170,7 @@ jobs:
     environment:
       REPORTS_DIR: reports
     executor: cypress
-    working_directory: ~/fintruth-sdk/packages/common
+    working_directory: ~/fintruth-sdk
     steps:
       - checkout
       - with_cache:
@@ -179,26 +179,26 @@ jobs:
                 name: Install dependencies
                 command: yarn install --frozen-lockfile
       - run:
-          name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
-      - run:
           name: Run static analysis
           command: |
             yarn --silent lint:files
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
             yarn --silent lint:types
+          working_directory: packages/common
       - run:
           name: Run tests
           command: yarn --silent test:units --runInBand --reporters default jest-junit
           environment:
             JEST_JUNIT_OUTPUT: reports/test-units.xml
+          working_directory: packages/common
       - persist_package_build:
-          path: build
+          path: packages/common/build
+          working_directory: packages/common
       - store_artifacts:
-          path: reports
+          path: packages/common/reports
           destination: reports
       - store_test_results:
-          path: reports
+          path: packages/common/reports
   root:
     environment:
       OUTPUT_DIR: output
