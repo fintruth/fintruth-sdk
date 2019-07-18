@@ -5,6 +5,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "composite": true,
+    "declaration": true,
     "outDir": "build",
     "paths": {
       "*": ["src/*"]
