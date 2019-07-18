@@ -52,7 +52,7 @@ commands:
       cache_version:
         type: string
         description: Cache version; increment this for a fresh cache.
-        default: v3
+        default: v4
     steps:
       - restore_cache:
           keys:
@@ -82,14 +82,6 @@ executors:
         environment:
           POSTGRES_DB: fintruth
           POSTGRES_USER: postgres
-  node:
-    parameters:
-      tag:
-        type: string
-        description: Pick a specific circleci/node image variant.
-        default: 10.15.3
-    docker:
-      - image: circleci/node:<< parameters.tag >>
 jobs:
   auth:
     environment:
