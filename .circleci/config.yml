@@ -29,14 +29,11 @@ commands:
             - << parameters.path >>
   with_cache:
     description: |
-      Run a set of steps with Node dependencies cached.
+      Run a set of steps with Yarn packages cached.
 
-      This command will first restore a cache of Node dependencies if one was
+      This command will first restore a cache of Yarn packages if one was
       saved by a previous build. The provided `steps` will then be executed,
       and if successful, a fresh cache will be saved, if required.
-
-      The contents of the root and packages node_modules directories are
-      cached, which will substantially improve build times.
 
       The cache_key is generated from `yarn.lock`. This file path can be
       changed with the `cache_key` parameter.
@@ -51,23 +48,18 @@ commands:
       cache_version:
         type: string
         description: Cache version; increment this for a fresh cache.
-        default: v2
+        default: v1
     steps:
       - restore_cache:
           keys:
-            - node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-{{ checksum "<< parameters.cache_key >>" }}
-            - node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-
-            - node-dependencies-<< parameters.cache_version >>
+            - yarn-packages-<< parameters.cache_version >>-{{ .Branch }}-{{ checksum "<< parameters.cache_key >>" }}
+            - yarn-packages-<< parameters.cache_version >>-{{ .Branch }}-
+            - yarn-packages-<< parameters.cache_version >>
       - steps: << parameters.steps >>
       - save_cache:
-          key: node-dependencies-<< parameters.cache_version >>-{{ .Branch }}-{{ checksum "<< parameters.cache_key >>" }}
+          key: yarn-packages-<< parameters.cache_version >>-{{ .Branch }}-{{ checksum "<< parameters.cache_key >>" }}
           paths:
-            - ~/fintruth-sdk/node_modules
-            - ~/fintruth-sdk/packages/auth/node_modules
-            - ~/fintruth-sdk/packages/client/node_modules
-            - ~/fintruth-sdk/packages/common/node_modules
-            - ~/fintruth-sdk/packages/server/node_modules
-            - ~/fintruth-sdk/packages/validation/node_modules
+            - ~/.cache/yarn
 executors:
   cypress:
     parameters:
@@ -104,7 +96,7 @@ jobs:
           steps:
             - run:
                 name: Install dependencies
-                command: yarn install
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -144,7 +136,7 @@ jobs:
           steps:
             - run:
                 name: Install dependencies
-                command: yarn install
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
@@ -185,7 +177,7 @@ jobs:
           steps:
             - run:
                 name: Install dependencies
-                command: yarn install
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
@@ -225,7 +217,7 @@ jobs:
           steps:
             - run:
                 name: Install dependencies
-                command: yarn install
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${OUTPUT_DIR} ${REPORTS_DIR}
@@ -275,7 +267,7 @@ jobs:
           steps:
             - run:
                 name: Install dependencies
-                command: yarn install
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
@@ -315,7 +307,7 @@ jobs:
           steps:
             - run:
                 name: Install dependencies
-                command: yarn install
+                command: yarn install --frozen-lockfile
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
