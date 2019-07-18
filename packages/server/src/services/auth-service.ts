@@ -3,7 +3,7 @@ import { toDataURL } from 'qrcode'
 import { generateSecret, otpauthURL, totp } from 'speakeasy'
 import { Inject, Service } from 'typedi'
 
-import { AllDaos } from 'models'
+import { Daos } from 'models'
 import {
   EnableTwoFactorAuthResponse,
   Response,
@@ -19,7 +19,7 @@ export default class AuthService {
   config: ConfigService
 
   @Inject()
-  daos: AllDaos
+  daos: Daos
 
   async authenticate(email: string, password: string) {
     const user = await this.daos.users.findOne({ email })

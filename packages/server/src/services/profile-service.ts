@@ -2,7 +2,7 @@ import { object, string } from '@fintruth-sdk/validation'
 import { Inject, Service } from 'typedi'
 
 import { Loggable, logAs } from 'logger'
-import { AllDaos } from 'models'
+import { Daos } from 'models'
 import {
   ProfileInput,
   ProfileResponse,
@@ -14,7 +14,7 @@ import { Profile } from '../entities'
 @Service()
 export default class ProfileService {
   @Inject()
-  daos: AllDaos
+  daos: Daos
 
   private log = logAs('ProfileService')
 

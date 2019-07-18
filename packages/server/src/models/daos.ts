@@ -13,7 +13,7 @@ import ProfileDao from './profile-dao'
 import UserDao from './user-dao'
 
 @Service()
-export default class AllDaos {
+export default class Daos {
   @InjectRepository()
   addresses: AddressDao
 

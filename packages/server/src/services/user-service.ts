@@ -4,14 +4,14 @@ import { isNil, mergeLeft } from 'ramda'
 import { Inject, Service } from 'typedi'
 
 import { Loggable, logAs } from 'logger'
-import { AllDaos } from 'models'
+import { Daos } from 'models'
 import { Response, ResponseError, UserResponse } from 'resolvers/types'
 import { Profile, User } from '../entities'
 
 @Service()
 export default class UserService {
   @Inject()
-  daos: AllDaos
+  daos: Daos
 
   private log = logAs('UserService')
 

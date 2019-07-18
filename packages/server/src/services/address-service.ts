@@ -1,14 +1,14 @@
 import { object, string } from '@fintruth-sdk/validation'
 import { Inject, Service } from 'typedi'
 
-import { AllDaos } from 'models'
+import { Daos } from 'models'
 import { AddressInput } from 'resolvers/types'
 import { Address } from '../entities'
 
 @Service()
 export default class AddressService {
   @Inject()
-  daos: AllDaos
+  daos: Daos
 
   toEntity = async ({ typeName, ...input }: AddressInput) => {
     const { id } = await this.daos.addressTypes.findByNameOrFail(typeName)

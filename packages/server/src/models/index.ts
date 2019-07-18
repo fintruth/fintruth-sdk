@@ -1,7 +1,7 @@
 export { default as AddressDao } from './address-dao'
-export { default as AllDaos } from './all-daos'
 export { default as AddressTypeDao } from './address-type-dao'
 export { default as CountryDao } from './country-dao'
+export { default as Daos } from './daos'
 export { default as EmailDao } from './email-dao'
 export { default as MediaDao } from './media-dao'
 export { default as MediaTypeDao } from './media-type-dao'
