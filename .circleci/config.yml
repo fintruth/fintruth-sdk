@@ -81,7 +81,6 @@ executors:
       - image: postgres:10.6-alpine
         environment:
           POSTGRES_DB: fintruth
-          POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
   node:
     parameters:
@@ -95,7 +94,7 @@ jobs:
   auth:
     environment:
       REPORTS_DIR: reports
-    executor: node
+    executor: cypress
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -131,7 +130,7 @@ jobs:
     environment:
       COVERAGE_DIR: coverage
       REPORTS_DIR: reports
-    executor: node
+    executor: cypress
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -170,8 +169,8 @@ jobs:
   common:
     environment:
       REPORTS_DIR: reports
-    executor: node
-    working_directory: ~/fintruth-sdk
+    executor: cypress
+    working_directory: ~/fintruth-sdk/packages/common
     steps:
       - checkout
       - with_cache:
@@ -182,28 +181,24 @@ jobs:
       - run:
           name: Setup
           command: mkdir --parents ${REPORTS_DIR}
-          working_directory: packages/common
       - run:
           name: Run static analysis
           command: |
             yarn --silent lint:files
             yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
             yarn --silent lint:types
-          working_directory: packages/common
       - run:
           name: Run tests
           command: yarn --silent test:units --runInBand --reporters default jest-junit
           environment:
             JEST_JUNIT_OUTPUT: reports/test-units.xml
-          working_directory: packages/common
       - persist_package_build:
-          path: packages/common/build
-          working_directory: packages/common
+          path: build
       - store_artifacts:
-          path: packages/common/reports
+          path: reports
           destination: reports
       - store_test_results:
-          path: packages/common/reports
+          path: reports
   root:
     environment:
       OUTPUT_DIR: output
@@ -254,7 +249,7 @@ jobs:
     environment:
       COVERAGE_DIR: coverage
       REPORTS_DIR: reports
-    executor: node
+    executor: cypress
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -292,7 +287,7 @@ jobs:
   validation:
     environment:
       REPORTS_DIR: reports
-    executor: node
+    executor: cypress
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
