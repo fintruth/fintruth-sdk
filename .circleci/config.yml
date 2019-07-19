@@ -123,6 +123,8 @@ jobs:
           path: packages/auth/reports
   client:
     environment:
+      API_URI: http://localhost:4000/api
+      CLIENT_PORT: 3000
       COVERAGE_DIR: coverage
       REPORTS_DIR: reports
     executor: fintruth-sdk
@@ -224,24 +226,21 @@ jobs:
       - run:
           name: Test end-to-end
           command: yarn --silent test:e2e --reporter junit --reporter-options "mochaFile=${REPORTS_DIR}/test-e2e.xml"
-          environment:
-            API_URI: http://localhost:4000/api
-            AWS_REGION: us-west-2
-            AWS_S3_BUCKET_UPLOADS: fintruth-test
-            CLIENT_PORT: 3000
-            CLIENT_URL: http://localhost:3000
-            DB_HOST: localhost
-            DB_USERNAME: postgres
-            DB_DATABASE: fintruth
-            GRAPHQL_RATE_LIMIT_MAX: 10
-            GRAPHQL_RATE_LIMIT_WINDOW: 10s
-            SERVER_PORT: 4000
       - store_test_results:
           path: reports
   server:
     environment:
+      AWS_REGION: us-west-2
+      AWS_S3_BUCKET_UPLOADS: fintruth-test
+      CLIENT_URL: http://localhost:3000
       COVERAGE_DIR: coverage
+      DB_HOST: localhost
+      DB_USERNAME: postgres
+      DB_DATABASE: fintruth
+      GRAPHQL_RATE_LIMIT_MAX: 10
+      GRAPHQL_RATE_LIMIT_WINDOW: 10s
       REPORTS_DIR: reports
+      SERVER_PORT: 4000
     executor: fintruth-sdk
     working_directory: ~/fintruth-sdk
     steps:
