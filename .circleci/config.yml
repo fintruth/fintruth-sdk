@@ -52,7 +52,7 @@ commands:
       cache_version:
         type: string
         description: Cache version; increment this for a fresh cache.
-        default: v4
+        default: v5
     steps:
       - restore_cache:
           keys:
@@ -63,6 +63,7 @@ commands:
       - save_cache:
           key: node-dependencies-<< parameters.cache_version >>-{{ .Branch }}--{{ checksum "<< parameters.cache_key >>" }}
           paths:
+            - ~/.cache/Cypress
             - ~/fintruth-sdk/node_modules
             - ~/fintruth-sdk/packages/auth/node_modules
             - ~/fintruth-sdk/packages/client/node_modules
@@ -70,23 +71,27 @@ commands:
             - ~/fintruth-sdk/packages/server/node_modules
             - ~/fintruth-sdk/packages/validation/node_modules
 executors:
-  cypress:
+  fintruth-sdk:
     parameters:
-      tag:
+      cypress_tag:
         type: string
         description: Pick a specific cypress/base image variant.
         default: 10.15.3
+      postgres_tag:
+        type: string
+        description: Pick a specific postgres image variant.
+        default: 10.6-alpine
     docker:
-      - image: cypress/base:<< parameters.tag >>
-      - image: postgres:10.6-alpine
+      - image: cypress/base:<< parameters.cypress_tag >>
+      - image: postgres:<< parameters.postgres_tag >>
         environment:
-          POSTGRES_DB: fintruth
+          POSTGRES_DB: fintruth-sdk
           POSTGRES_USER: postgres
 jobs:
   auth:
     environment:
       REPORTS_DIR: reports
-    executor: cypress
+    executor: fintruth-sdk
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -94,18 +99,19 @@ jobs:
           at: .
       - with_cache
       - run:
-          name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
+          name: Lint files
+          command: yarn --silent lint:files
           working_directory: packages/auth
       - run:
-          name: Run static analysis
-          command: |
-            yarn --silent lint:files
-            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
-            yarn --silent lint:types
+          name: Lint scripts
+          command: yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
           working_directory: packages/auth
       - run:
-          name: Run tests
+          name: Lint types
+          command: yarn --silent lint:types
+          working_directory: packages/auth
+      - run:
+          name: Test units
           command: yarn --silent test:units --runInBand --reporters default jest-junit
           environment:
             JEST_JUNIT_OUTPUT: reports/test-units.xml
@@ -113,16 +119,13 @@ jobs:
       - persist_package_build:
           path: packages/auth/build
           working_directory: packages/auth
-      - store_artifacts:
-          path: packages/auth/reports
-          destination: reports
       - store_test_results:
           path: packages/auth/reports
   client:
     environment:
       COVERAGE_DIR: coverage
       REPORTS_DIR: reports
-    executor: cypress
+    executor: fintruth-sdk
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -130,55 +133,61 @@ jobs:
           at: .
       - with_cache
       - run:
-          name: Setup
-          command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
+          name: Lint files
+          command: yarn --silent lint:files
           working_directory: packages/client
       - run:
-          name: Run static analysis
-          command: |
-            yarn --silent lint:files
-            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
-            yarn --silent lint:styles --custom-formatter ../../node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles.xml
-            yarn --silent lint:types
+          name: Lint scripts
+          command: yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
           working_directory: packages/client
       - run:
-          name: Run tests
-          command: yarn --silent test:units --coverage --runInBand --reporters default jest-junit
+          name: Lint styles
+          command: yarn --silent lint:styles --custom-formatter ../../node_modules/stylelint-junit-formatter > ${REPORTS_DIR}/lint-styles.xml
+          working_directory: packages/client
+      - run:
+          name: Lint types
+          command: yarn --silent lint:types
+          working_directory: packages/client
+      - run:
+          name: Test units
+          command: yarn --silent test:units --coverage --coverageDirectory ${COVERAGE_DIR} --runInBand --reporters default jest-junit
           environment:
             JEST_JUNIT_OUTPUT: reports/test-units.xml
           working_directory: packages/client
       - run:
           name: Publish code coverage results
           command: yarn --silent codecov -F client
-      - store_artifacts:
-          path: packages/client/coverage
-          destination: coverage
-      - store_artifacts:
-          path: packages/client/reports
-          destination: reports
+      - persist_package_build:
+          path: packages/client/build
+          working_directory: packages/client
       - store_test_results:
           path: packages/client/reports
   common:
     environment:
       REPORTS_DIR: reports
-    executor: cypress
+    executor: fintruth-sdk
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
       - with_cache:
           steps:
             - run:
-                name: Install dependencies
+                name: Install Node dependencies
                 command: yarn install --frozen-lockfile
       - run:
-          name: Run static analysis
-          command: |
-            yarn --silent lint:files
-            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
-            yarn --silent lint:types
+          name: Lint files
+          command: yarn --silent lint:files
           working_directory: packages/common
       - run:
-          name: Run tests
+          name: Lint scripts
+          command: yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
+          working_directory: packages/common
+      - run:
+          name: Lint types
+          command: yarn --silent lint:types
+          working_directory: packages/common
+      - run:
+          name: Test units
           command: yarn --silent test:units --runInBand --reporters default jest-junit
           environment:
             JEST_JUNIT_OUTPUT: reports/test-units.xml
@@ -186,16 +195,12 @@ jobs:
       - persist_package_build:
           path: packages/common/build
           working_directory: packages/common
-      - store_artifacts:
-          path: packages/common/reports
-          destination: reports
       - store_test_results:
           path: packages/common/reports
   root:
     environment:
-      OUTPUT_DIR: output
       REPORTS_DIR: reports
-    executor: cypress
+    executor: fintruth-sdk
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -203,20 +208,22 @@ jobs:
           at: .
       - with_cache
       - run:
-          name: Setup
-          command: mkdir --parents ${OUTPUT_DIR} ${REPORTS_DIR}
+          name: Lint files
+          command: yarn --silent lint:files
       - run:
-          name: Run static analysis
-          command: |
-            yarn --silent lint:files
-            yarn --silent lint:types
+          name: Lint types
+          command: yarn --silent lint:types
       - run:
-          name: Run tests
-          command: |
-            yarn --silent lerna run --parallel --scope @fintruth-sdk/client --scope @fintruth-sdk/server --stream build
-            yarn --silent lerna exec --no-prefix --scope @fintruth-sdk/client --stream node build/server.js &> ${OUTPUT_DIR}/client.txt &
-            yarn --silent lerna exec --no-prefix --scope @fintruth-sdk/server --stream node build/main.js &> ${OUTPUT_DIR}/server.txt &
-            yarn --silent test:e2e --reporter junit --reporter-options "mochaFile=${REPORTS_DIR}/test-e2e.xml"
+          name: Start client package
+          command: yarn --silent lerna exec --no-prefix --scope @fintruth-sdk/client --stream node build/server.js
+          background: true
+      - run:
+          name: Start server package
+          command: yarn --silent lerna exec --no-prefix --scope @fintruth-sdk/server --stream node build/main.js
+          background: true
+      - run:
+          name: Test end-to-end
+          command: yarn --silent test:e2e --reporter junit --reporter-options "mochaFile=${REPORTS_DIR}/test-e2e.xml"
           environment:
             API_URI: http://localhost:4000/api
             AWS_REGION: us-west-2
@@ -229,19 +236,13 @@ jobs:
             GRAPHQL_RATE_LIMIT_MAX: 10
             GRAPHQL_RATE_LIMIT_WINDOW: 10s
             SERVER_PORT: 4000
-      - store_artifacts:
-          path: output
-          destination: output
-      - store_artifacts:
-          path: reports
-          destination: reports
       - store_test_results:
           path: reports
   server:
     environment:
       COVERAGE_DIR: coverage
       REPORTS_DIR: reports
-    executor: cypress
+    executor: fintruth-sdk
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
@@ -249,54 +250,53 @@ jobs:
           at: .
       - with_cache
       - run:
-          name: Setup
-          command: mkdir --parents ${COVERAGE_DIR} ${REPORTS_DIR}
+          name: Lint files
+          command: yarn --silent lint:files
           working_directory: packages/server
       - run:
-          name: Run static analysis
-          command: |
-            yarn --silent lint:files
-            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
-            yarn --silent lint:types
+          name: Lint scripts
+          command: yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
           working_directory: packages/server
       - run:
-          name: Run tests
-          command: yarn --silent test:units --coverage --runInBand --reporters default jest-junit
+          name: Lint types
+          command: yarn --silent lint:types
+          working_directory: packages/server
+      - run:
+          name: Test units
+          command: yarn --silent test:units --coverage --coverageDirectory ${COVERAGE_DIR} --runInBand --reporters default jest-junit
           environment:
             JEST_JUNIT_OUTPUT: reports/test-units.xml
           working_directory: packages/server
       - run:
           name: Publish code coverage results
           command: yarn --silent codecov -F server
-      - store_artifacts:
-          path: packages/server/coverage
-          destination: coverage
-      - store_artifacts:
-          path: packages/server/reports
-          destination: reports
+      - persist_package_build:
+          path: packages/server/build
+          working_directory: packages/server
       - store_test_results:
           path: packages/server/reports
   validation:
     environment:
       REPORTS_DIR: reports
-    executor: cypress
+    executor: fintruth-sdk
     working_directory: ~/fintruth-sdk
     steps:
       - checkout
       - with_cache
       - run:
-          name: Setup
-          command: mkdir --parents ${REPORTS_DIR}
+          name: Lint files
+          command: yarn --silent lint:files
           working_directory: packages/validation
       - run:
-          name: Run static analysis
-          command: |
-            yarn --silent lint:files
-            yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
-            yarn --silent lint:types
+          name: Lint scripts
+          command: yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
           working_directory: packages/validation
       - run:
-          name: Run tests
+          name: Lint types
+          command: yarn --silent lint:types
+          working_directory: packages/validation
+      - run:
+          name: Test units
           command: yarn --silent test:units --runInBand --reporters default jest-junit
           environment:
             JEST_JUNIT_OUTPUT: reports/test-units.xml
@@ -304,9 +304,6 @@ jobs:
       - persist_package_build:
           path: packages/validation/build
           working_directory: packages/validation
-      - store_artifacts:
-          path: packages/validation/reports
-          destination: reports
       - store_test_results:
           path: packages/validation/reports
 workflows:
