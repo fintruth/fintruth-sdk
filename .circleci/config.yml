@@ -236,7 +236,7 @@ jobs:
       COVERAGE_DIR: coverage
       DB_HOST: localhost
       DB_USERNAME: postgres
-      DB_DATABASE: fintruth
+      DB_DATABASE: fintruth-sdk
       GRAPHQL_RATE_LIMIT_MAX: 10
       GRAPHQL_RATE_LIMIT_WINDOW: 10s
       REPORTS_DIR: reports
