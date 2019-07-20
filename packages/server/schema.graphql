@@ -47,6 +47,7 @@ scalar DateTime
 type Email {
   id: ID!
   isVerified: Boolean!
+  userId: ID!
   value: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -89,7 +90,7 @@ type Mutation {
   updateProfile(input: ProfileInput!): ProfileResponse!
   confirmRegistration(token: String!): UserResponse!
   register(input: RegisterInput!): Response!
-  updateEmail(password: String!, newEmail: String!): UserResponse!
+  updateEmail: UserResponse!
   updatePassword(password: String!, newPassword: String!): Response!
 }
 
@@ -118,9 +119,10 @@ type PhoneType {
 }
 
 type Profile {
-  userId: ID!
+  id: ID!
   familyName: String!
   givenName: String!
+  userId: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -160,12 +162,12 @@ type ResponseError {
 
 type User {
   id: ID!
-  email: String!
+  emails: [Email!]!
   isAdmin: Boolean!
+  profile: Profile!
   createdAt: DateTime!
   updatedAt: DateTime!
   isTwoFactorAuthEnabled: Boolean!
-  profile: Profile!
 }
 
 type UserResponse {

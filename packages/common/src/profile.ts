@@ -1,9 +1,10 @@
 import { Response } from './response'
 
 export interface BaseProfile {
-  userId: string
+  id: string
   familyName: string
   givenName: string
+  userId: string
 }
 
 export interface Profile extends BaseProfile {

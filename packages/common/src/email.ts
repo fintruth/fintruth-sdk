@@ -1,6 +1,7 @@
 export interface BaseEmail {
   id: string
   isVerified: boolean
+  userId: string
   value: string
 }
 

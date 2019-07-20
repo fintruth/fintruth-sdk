@@ -1,13 +1,16 @@
 import { Service } from 'typedi'
 import { EntityRepository, Repository } from 'typeorm'
 
-import { User } from '../entities'
+import { Email, User } from '../entities'
 
 @EntityRepository(User)
 @Service()
 export default class UserDao extends Repository<User> {
-  findByEmail(email: string) {
-    return this.findOne({ email })
+  findByEmail(value: string) {
+    return this.createQueryBuilder('u')
+      .innerJoin(Email, 'e', 'e."userId" = u.id')
+      .where('e.value = :value', { value })
+      .getOne()
   }
 
   findById(id: string) {

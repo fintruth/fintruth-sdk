@@ -1,9 +1,10 @@
 import { equals } from 'ramda'
 import { Container } from 'typedi'
+import { DeepPartial } from 'typeorm'
 
 import { ResponseError } from 'resolvers/types'
 import UserService from './user-service'
-import { Profile, User } from '../entities'
+import { Email, Profile, User } from '../entities'
 
 jest.mock('bcrypt', () => ({
   hash: () => 'hash',
@@ -59,9 +60,13 @@ describe('UserService', () => {
     })
 
     describe('user exists with password', () => {
-      const user: Partial<User> = {
+      const user: DeepPartial<User> = {
         id: 'test',
-        email: 'test@test.com',
+        emails: [
+          new Email({
+            value: 'test@test.com',
+          }),
+        ],
         validatePassword: jest.fn(equals('password')),
       }
 
@@ -92,7 +97,11 @@ describe('UserService', () => {
     describe('user exists with password', () => {
       const user: Partial<User> = {
         id: 'test',
-        email: 'test@test.com',
+        emails: [
+          new Email({
+            value: 'test@test.com',
+          }),
+        ],
         validatePassword: jest.fn(equals('password')),
       }
 
@@ -102,12 +111,20 @@ describe('UserService', () => {
 
       it('should update an existing user', async () => {
         const result = await service.update('test', 'password', {
-          email: 'updated@test.com',
+          emails: [
+            new Email({
+              value: 'updated@test.com',
+            }),
+          ],
         })
 
         expect(result.user).toStrictEqual({
           id: 'test',
-          email: 'updated@test.com',
+          emails: [
+            new Email({
+              value: 'updated@test.com',
+            }),
+          ],
           validatePassword: expect.any(Function),
         })
       })

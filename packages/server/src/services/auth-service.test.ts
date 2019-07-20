@@ -7,7 +7,7 @@ import {
   EnableTwoFactorAuthResponse,
 } from 'resolvers/types'
 import AuthService from './auth-service'
-import { User } from '../entities'
+import { Email, User } from '../entities'
 
 jest.mock('qrcode', () => ({
   toDataURL: () => 'dataUrl',
@@ -21,6 +21,7 @@ jest.mock('speakeasy', () => ({
 jest.mock('./config-service')
 
 const getUserDaoMock: any = (userMock?: Partial<User>) => ({
+  findByEmail: jest.fn(() => Promise.resolve(userMock)),
   findOne: jest.fn(() => Promise.resolve(userMock)),
   update: jest.fn(() => Promise.resolve(true)),
 })
@@ -185,7 +186,9 @@ describe('AuthService', () => {
     })
 
     it('should initiate two factor', async () => {
-      service.daos.users = getUserDaoMock({})
+      service.daos.users = getUserDaoMock({
+        emails: [new Email({ value: 'test@test.com' })],
+      })
 
       const result = await service.enableTwoFactorAuth('userId')
 

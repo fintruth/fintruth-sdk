@@ -93,27 +93,6 @@ export default class UserService {
     })
   }
 
-  async updateEmail(id: string, password: string, email: string) {
-    const valid = await object()
-      .shape({
-        email: string()
-          .required()
-          .email(),
-      })
-      .validate({ email })
-      .catch(this.logDebug)
-
-    if (!valid) {
-      return new UserResponse({
-        error: new ResponseError(
-          'there is an issue with the provided form values'
-        ),
-      })
-    }
-
-    return this.update(id, password, { email })
-  }
-
   async updatePassword(id: string, password: string, newPassword: string) {
     const valid = await object()
       .shape({

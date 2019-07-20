@@ -13,7 +13,7 @@ import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { Context } from 'apollo'
 import { ProfileDao, UserDao } from 'models'
-import { Response, ResponseError, UserResponse } from 'resolvers/types'
+import { Response, ResponseError } from 'resolvers/types'
 import { UserService } from 'services'
 import { Profile, User } from '../entities'
 
@@ -31,21 +31,6 @@ export default class UserResolver {
   @FieldResolver(() => Profile)
   profile(@Root() { id }: User) {
     return this.profileDao.findByUserId(id)
-  }
-
-  @Mutation(() => UserResponse)
-  async updateEmail(
-    @Arg('newEmail') newEmail: string,
-    @Arg('password') password: string,
-    @Ctx() { user }: Context
-  ) {
-    if (!user) {
-      return new UserResponse({
-        error: new ResponseError('Not authenticated'),
-      })
-    }
-
-    return this.userService.updateEmail(user.id, password, newEmail)
   }
 
   @Mutation(() => Response)
