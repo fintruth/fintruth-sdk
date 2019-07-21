@@ -44,7 +44,7 @@
     "eslint-config-standard-react": "^8.0.0",
     "eslint-import-resolver-typescript": "^1.1.1",
     "eslint-plugin-cypress": "^2.6.0",
-    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^22.11.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-monorepo": "^0.2.1",
