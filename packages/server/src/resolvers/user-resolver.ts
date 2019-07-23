@@ -9,29 +9,20 @@ import {
   Root,
 } from 'type-graphql'
 import { Inject } from 'typedi'
-import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { Context } from 'apollo'
-import { ProfileDao, UserDao } from 'models'
+import { Daos } from 'models'
 import { Response, ResponseError } from 'resolvers/types'
 import { UserService } from 'services'
-import { Profile, User } from '../entities'
+import { Email, Profile, User } from '../entities'
 
 @Resolver(() => User)
 export default class UserResolver {
-  @InjectRepository(Profile)
-  private readonly profileDao: ProfileDao
-
-  @InjectRepository(User)
-  private readonly userDao: UserDao
+  @Inject()
+  daos: Daos
 
   @Inject()
   private readonly userService: UserService
-
-  @FieldResolver(() => Profile)
-  profile(@Root() { id }: User) {
-    return this.profileDao.findByUserId(id)
-  }
 
   @Mutation(() => Response)
   async updatePassword(
@@ -50,16 +41,26 @@ export default class UserResolver {
 
   @Query(() => User, { nullable: true })
   currentUser(@Ctx() { user }: Context) {
-    return user ? this.userDao.findOne(user.id) : null
+    return user ? this.daos.users.findOne(user.id) : null
   }
 
   @Query(() => User, { nullable: true })
   user(@Arg('id', () => ID) id: string) {
-    return this.userDao.findOne(id)
+    return this.daos.users.findOne(id)
   }
 
   @Query(() => [User])
   users() {
-    return this.userDao.find()
+    return this.daos.users.find()
+  }
+
+  @FieldResolver(() => Profile)
+  profile(@Root() { id }: User) {
+    return this.daos.profiles.findByUser(id)
+  }
+
+  @FieldResolver(() => [Email])
+  emails(@Root() { id }: User) {
+    return this.daos.emails.findByUser(id)
   }
 }

@@ -90,7 +90,6 @@ type Mutation {
   updateProfile(input: ProfileInput!): ProfileResponse!
   confirmRegistration(token: String!): UserResponse!
   register(input: RegisterInput!): Response!
-  updateEmail: UserResponse!
   updatePassword(password: String!, newPassword: String!): Response!
 }
 
