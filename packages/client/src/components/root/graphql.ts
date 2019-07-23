@@ -9,7 +9,10 @@ export const rootQuery = gql`
   query RootQuery {
     user: currentUser {
       id
-      email
+      emails {
+        id
+        value
+      }
       isTwoFactorAuthEnabled
       profile {
         familyName

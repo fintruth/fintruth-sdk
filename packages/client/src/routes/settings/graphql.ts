@@ -62,7 +62,10 @@ export const accountQuery = gql`
   query AccountQuery {
     user: currentUser {
       id
-      email
+      emails {
+        id
+        value
+      }
       isTwoFactorAuthEnabled
       profile {
         familyName
@@ -112,7 +115,10 @@ export const updateEmailMutation = gql`
       }
       user {
         id
-        email
+        emails {
+          id
+          value
+        }
       }
     }
   }

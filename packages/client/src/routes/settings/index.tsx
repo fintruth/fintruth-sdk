@@ -71,21 +71,22 @@ const Method = styled.div`
 `
 
 const defaultProfile = {
+  id: '',
   userId: '',
   familyName: '',
   givenName: '',
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
+  createdAt: new Date(0).toISOString(),
+  updatedAt: new Date(0).toISOString(),
 }
 
 const defaultUser = {
   id: '',
-  email: '',
+  emails: [],
   isAdmin: false,
   isTwoFactorAuthEnabled: false,
   profile: defaultProfile,
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
+  createdAt: new Date(0).toISOString(),
+  updatedAt: new Date(0).toISOString(),
 }
 
 const Settings: React.FunctionComponent<RouteComponentProps> = ({

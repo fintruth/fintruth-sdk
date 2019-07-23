@@ -85,7 +85,7 @@ const UpdateEmailForm: React.FunctionComponent<Props> = ({
     <React.Fragment>
       {helpContent && <Help color={helpColor}>{helpContent}</Help>}
       <Formik<Values>
-        initialValues={{ newEmail: user.email, password: '' }}
+        initialValues={{ newEmail: user.emails[0].value, password: '' }}
         onSubmit={(variables, { resetForm }) =>
           onSubmit({ variables }).then(value =>
             path(['data', 'response', 'error'], value) ? undefined : resetForm()
