@@ -141,7 +141,7 @@
     "file-loader": "^4.1.0",
     "glob": "^7.1.4",
     "graphql-tag": "^2.10.1",
-    "jest-junit": "^6.4.0",
+    "jest-junit": "^7.0.0",
     "jest-styled-components": "7.0.0-beta.1",
     "mkdirp": "^0.5.1",
     "null-loader": "^3.0.0",
