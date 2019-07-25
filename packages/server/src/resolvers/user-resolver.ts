@@ -12,7 +12,7 @@ import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
 import { Daos } from 'models'
-import { Response, ResponseError } from 'resolvers/types'
+import { Response, ResponseError, UserResponse } from 'resolvers/types'
 import { UserService } from 'services'
 import { Email, Profile, User } from '../entities'
 
@@ -23,6 +23,21 @@ export default class UserResolver {
 
   @Inject()
   private readonly userService: UserService
+
+  @Mutation(() => UserResponse)
+  addEmail(
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Ctx() { user }: Context
+  ) {
+    if (!user) {
+      return new UserResponse({
+        error: new ResponseError('Not authenticated'),
+      })
+    }
+
+    return this.userService.addEmail(user.id, password, email)
+  }
 
   @Mutation(() => Response)
   async updatePassword(
