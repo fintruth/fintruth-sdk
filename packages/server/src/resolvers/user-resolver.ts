@@ -39,6 +39,17 @@ export default class UserResolver {
     return this.userService.addEmail(user.id, password, email)
   }
 
+  @Mutation(() => UserResponse)
+  removeEmail(@Arg('emailId') emailId: string, @Ctx() { user }: Context) {
+    if (!user) {
+      return new UserResponse({
+        error: new ResponseError('Not authenticated'),
+      })
+    }
+
+    return this.userService.removeEmail(user.id, emailId)
+  }
+
   @Mutation(() => Response)
   async updatePassword(
     @Arg('newPassword') newPassword: string,

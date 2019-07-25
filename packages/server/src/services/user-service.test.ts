@@ -24,6 +24,8 @@ const getUserDaoMock: any = (userMock?: DeepPartial<User>) => ({
 })
 
 const getEmailDaoMock: any = () => ({
+  delete: () => {},
+  findAndCount: () => Promise.resolve([[], 0]),
   findByUser: () => Promise.resolve([]),
   save: () => {},
 })
@@ -80,7 +82,7 @@ describe('UserService', () => {
       })
     })
 
-    it('should return a failure response if the user does not exist', async () => {
+    it('should return a failure response when the user does not exist', async () => {
       const result = await service['editUser']('test', 'password')(
         async () => new Response()
       )
@@ -172,6 +174,42 @@ describe('UserService', () => {
           new ResponseError('email is not available', expect.any(String))
         )
       })
+    })
+  })
+
+  describe('removeEmail', () => {
+    describe('user exists with password', () => {
+      beforeEach(() => {
+        service.daos.users = getUserDaoMock(userMock)
+      })
+
+      it('should return a user response', async () => {
+        const result = await service.removeEmail('userId', 'emailId')
+
+        expect(result.user).toStrictEqual({
+          id: 'test',
+          emails: expect.any(Array),
+          validatePassword: expect.any(Function),
+        })
+      })
+
+      it('should return a failure response when the user has one email', async () => {
+        service.daos.emails.findAndCount = () => Promise.resolve([[], 1]) as any
+
+        const result = await service.removeEmail('userId', 'emailId')
+
+        expect(result.error).toStrictEqual(
+          new ResponseError('one email is required', expect.any(String))
+        )
+      })
+    })
+
+    it('should return a failure response when the user does not exist', async () => {
+      const result = await service.removeEmail('userId', 'emailId')
+
+      expect(result.error).toStrictEqual(
+        new ResponseError('user not found', expect.any(String))
+      )
     })
   })
 

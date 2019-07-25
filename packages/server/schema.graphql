@@ -91,6 +91,7 @@ type Mutation {
   confirmRegistration(token: String!): UserResponse!
   register(input: RegisterInput!): Response!
   addEmail(password: String!, email: String!): UserResponse!
+  removeEmail(emailId: String!): UserResponse!
   updatePassword(password: String!, newPassword: String!): Response!
 }
 

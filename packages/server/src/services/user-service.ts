@@ -110,6 +110,32 @@ export default class UserService {
     return isNil(await this.daos.users.findByEmail(email))
   }
 
+  async removeEmail(id: string, emailId: string) {
+    const user = await this.daos.users.findById(id)
+
+    if (!user) {
+      return new UserResponse({
+        error: new ResponseError('user not found'),
+      })
+    }
+
+    const [, count] = await this.daos.emails.findAndCount({ userId: id })
+
+    if (count === 1) {
+      return new UserResponse({
+        error: new ResponseError('one email is required'),
+      })
+    }
+
+    await this.daos.emails.delete({ id: emailId, userId: id })
+
+    const emails = await this.daos.emails.findByUser(id)
+
+    return new UserResponse({
+      user: mergeLeft({ emails }, user),
+    })
+  }
+
   async update(id: string, password: string, partial: Partial<User>) {
     return this.editUser(id, password)(async user => {
       const updated = await this.daos.users
