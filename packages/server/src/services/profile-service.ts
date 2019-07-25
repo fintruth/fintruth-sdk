@@ -44,7 +44,7 @@ export default class ProfileService {
     await this.daos.profiles.update(userId, input)
 
     return new ProfileResponse({
-      profile: await this.daos.profiles.findByUserId(userId),
+      profile: await this.daos.profiles.findByUser(userId),
     })
   }
 }
