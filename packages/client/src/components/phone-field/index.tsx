@@ -10,18 +10,18 @@ type Dispatch = (action: Action) => void
 type Type = 'setLabelId' | 'setPlaceholder'
 
 interface Action {
-  type: Type
   payload: Payload
+  type: Type
 }
 
 interface BaseState {
-  placeholder: string
   labelId: string
+  placeholder: string
 }
 
 interface Payload {
-  placeholder?: string
   labelId?: string
+  placeholder?: string
 }
 
 export interface PhoneValue {
@@ -77,7 +77,7 @@ const PhoneField: React.RefForwardingComponent<HTMLDivElement, Props> = (
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
-        <Root ref={ref} {...props} />
+        <Root data-phone-field ref={ref} {...props} />
       </StateContext.Provider>
     </DispatchContext.Provider>
   )

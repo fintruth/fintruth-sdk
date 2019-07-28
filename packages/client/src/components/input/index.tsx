@@ -141,6 +141,17 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   const input = React.useRef<HTMLInputElement>()
   const isExpired = useTimer(isLoading, delay)
 
+  const handleChange = React.useCallback<
+    React.ChangeEventHandler<HTMLInputElement>
+  >(
+    event => {
+      maskedInput.update()
+
+      return onChange && onChange(event)
+    },
+    [maskedInput, onChange]
+  )
+
   const initTextMask = React.useCallback(() => {
     const textMask = createTextMaskInputElement({
       guide: isGuided,
@@ -152,16 +163,15 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
     })
 
     textMask.update(value)
-    setMaskedInput(textMask)
+
+    return setMaskedInput(textMask)
   }, [isGuided, mask, value])
 
-  React.useEffect(() => {
-    initTextMask()
-  }, [initTextMask, isGuided, mask])
+  React.useEffect(() => initTextMask(), [initTextMask, isGuided, mask])
 
   React.useEffect(() => {
-    if (input && input.current && value !== input.current.value) {
-      initTextMask()
+    if (input.current && value !== input.current.value) {
+      return initTextMask()
     }
   }, [initTextMask, value])
 
@@ -175,16 +185,11 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
       <BaseInput
         autoComplete={autoComplete}
         disabled={isDisabled}
-        onChange={event => {
-          maskedInput.update()
-
-          if (onChange) {
-            onChange(event)
-          }
-        }}
+        onChange={handleChange}
         ref={instance => {
           setRef(ref, instance)
-          setRef(input, instance)
+
+          return setRef(input, instance)
         }}
         required={isRequired}
         type={type}

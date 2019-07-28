@@ -34,6 +34,7 @@ storiesOf('Components|File Field', module)
   .add('Default', () => (
     <Formik<Values> initialValues={initialValues} onSubmit={action('onSubmit')}>
       <FileField
+        fileName={text('fileName', '')}
         isDisabled={boolean('isDisabled', false)}
         isRequired={boolean('isRequired', true)}
         name="file"
@@ -52,6 +53,7 @@ storiesOf('Components|File Field', module)
   .add('Horizontal', () => (
     <Formik<Values> initialValues={initialValues} onSubmit={action('onSubmit')}>
       <FileField
+        fileName={text('fileName', '')}
         isDisabled={boolean('isDisabled', false)}
         isRequired={boolean('isRequired', true)}
         name="file"
