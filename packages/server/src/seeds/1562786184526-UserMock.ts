@@ -4,6 +4,8 @@ import { MigrationInterface, QueryRunner } from 'typeorm'
 
 const email: Partial<BaseEmail> = {
   id: '2bf22acd-ca93-425a-8912-20ad607c556b',
+  isPrimary: true,
+  isVerified: true,
   value: 'demo@fintruth.com',
   userId: '496ca0bf-470b-479a-b56d-f17c063003b1',
 }
