@@ -39,13 +39,14 @@ export default class UserService {
 
   async addEmail(id: string, value: string) {
     const user = await this.daos.users.findById(id)
-    const email = await Email.fromString(value).catch(this.logDebug)
 
     if (!user) {
       return new UserResponse({
         error: new ResponseError('user not found'),
       })
     }
+
+    const email = await Email.fromString(value).catch(this.logDebug)
 
     if (!email) {
       return new UserResponse({
@@ -119,13 +120,14 @@ export default class UserService {
 
   async removeEmail(id: string, emailId: string) {
     const user = await this.daos.users.findById(id)
-    const email = await this.daos.emails.findOne(emailId)
 
     if (!user) {
       return new UserResponse({
         error: new ResponseError('user not found'),
       })
     }
+
+    const email = await this.daos.emails.findById(emailId)
 
     if (!email || email.isPrimary) {
       return new UserResponse({

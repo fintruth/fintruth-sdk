@@ -26,7 +26,7 @@ const getUserDaoMock: any = (userMock?: DeepPartial<User>) => ({
 const getEmailDaoMock: any = () => ({
   delete: () => {},
   findByUser: () => Promise.resolve([]),
-  findOne: () => {},
+  findById: () => {},
   save: () => {},
 })
 
@@ -196,7 +196,7 @@ describe('UserService', () => {
       })
 
       it('should return a user response', async () => {
-        service.daos.emails.findOne = () =>
+        service.daos.emails.findById = () =>
           Promise.resolve(new Email({ value: 'test@test.com' }))
 
         const result = await service.removeEmail('userId', 'emailId')
@@ -209,7 +209,7 @@ describe('UserService', () => {
       })
 
       it('should return a failure response using a primary email', async () => {
-        service.daos.emails.findOne = () =>
+        service.daos.emails.findById = () =>
           Promise.resolve(
             new Email({ value: 'test@test.com', isPrimary: true })
           )
