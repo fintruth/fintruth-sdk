@@ -157,7 +157,7 @@ describe('UserService', () => {
     })
 
     it('should return a failure response when the user does not exist', async () => {
-      const result = await service.removeEmail('userId', 'emailId')
+      const result = await service.addEmail('userId', 'test@test.com')
 
       expect(result.error).toStrictEqual(
         new ResponseError('user not found', expect.any(String))
@@ -251,6 +251,9 @@ describe('UserService', () => {
     })
 
     it('should return a failure response when the user does not exist', async () => {
+      service.daos.emails.findById = () =>
+        Promise.resolve(new Email({ value: 'test@test.com' }))
+
       const result = await service.removeEmail('userId', 'emailId')
 
       expect(result.error).toStrictEqual(

@@ -46,15 +46,15 @@ export default class UserService {
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
   async addEmail(id: string, value: string) {
+    const email = await Email.fromString(value).catch(this.logDebug)
+
+    if (!email) {
+      return new UserResponse({
+        error: new ResponseError('invalid data provided'),
+      })
+    }
+
     return this.validateUser(id)(async user => {
-      const email = await Email.fromString(value).catch(this.logDebug)
-
-      if (!email) {
-        return new UserResponse({
-          error: new ResponseError('invalid data provided'),
-        })
-      }
-
       if (!(await this.isEmailAvailable(value))) {
         return new UserResponse({
           error: new ResponseError('email is not available'),
@@ -121,15 +121,15 @@ export default class UserService {
   }
 
   async removeEmail(id: string, emailId: string) {
+    const email = await this.daos.emails.findById(emailId)
+
+    if (!email || email.isPrimary) {
+      return new UserResponse({
+        error: new ResponseError('unable to remove email'),
+      })
+    }
+
     return this.validateUser(id)(async user => {
-      const email = await this.daos.emails.findById(emailId)
-
-      if (!email || email.isPrimary) {
-        return new UserResponse({
-          error: new ResponseError('unable to remove email'),
-        })
-      }
-
       await this.daos.emails.delete({ id: emailId, userId: id })
 
       const emails = await this.daos.emails.findByUser(id)
