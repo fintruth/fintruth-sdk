@@ -16,7 +16,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
 ) => {
   const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
   const [field, { error, touched }] = useField<string>(name)
-  const { registerField, unregisterField } = useFormikContext()
+  const { registerField, unregisterField } = useFormikContext<any>()
 
   const defaultValidate = React.useCallback<FieldValidator>(
     (value: string) => validateSelect(value, { isRequired }),
@@ -31,6 +31,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
 
   return (
     <BaseSelect
+      data-field-select
       aria-labelledby={labelId}
       isDisabled={isDisabled}
       isRequired={isRequired}

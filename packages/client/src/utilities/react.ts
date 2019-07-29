@@ -7,7 +7,7 @@ export const setRef = <T>(
   if (typeof ref === 'function') {
     ref(instance)
   } else if (ref !== null && instance !== null) {
-    // @ts-ignore readonly-property
+    // @ts-ignore TS2540
     ref.current = instance // eslint-disable-line no-param-reassign
   }
 }

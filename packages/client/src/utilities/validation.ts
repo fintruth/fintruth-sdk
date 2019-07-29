@@ -21,7 +21,6 @@ export const validateInput = (value: string, context: InputContext) =>
         }
 
         if (type === 'email') {
-          // @ts-ignore missing-properties
           schema = schema.email('Enter a valid email address') // eslint-disable-line no-param-reassign
         } else if (type === 'password') {
           schema = schema.password(2, 'Enter a stronger password') // eslint-disable-line no-param-reassign

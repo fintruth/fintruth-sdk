@@ -188,7 +188,7 @@ test('should render the sign-in route correctly when unauthenticated', async () 
 })
 
 test('should render the default route correctly when authenticated', async () => {
-  // @ts-ignore no-const-assign
+  // @ts-ignore TS2588
   __DEV__ = false
 
   const { getByTestId, queryByTestId } = renderWithRouter(
@@ -202,12 +202,12 @@ test('should render the default route correctly when authenticated', async () =>
   expect(notFoundElement).toBeInTheDocument()
   expect(queryByTestId('error')).not.toBeInTheDocument()
 
-  // @ts-ignore no-const-assign
+  // @ts-ignore TS2588
   __DEV__ = true
 })
 
 test('should render the default route correctly when unauthenticated', async () => {
-  // @ts-ignore no-const-assign
+  // @ts-ignore TS2588
   __DEV__ = false
 
   const { getByTestId, queryByTestId } = renderWithRouter(
@@ -221,6 +221,6 @@ test('should render the default route correctly when unauthenticated', async () 
   expect(notFoundElement).toBeInTheDocument()
   expect(queryByTestId('error')).not.toBeInTheDocument()
 
-  // @ts-ignore no-const-assign
+  // @ts-ignore TS2588
   __DEV__ = true
 })

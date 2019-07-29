@@ -29,7 +29,15 @@ const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
     [dispatch, id, name, seed]
   )
 
-  return <Root id={labelId} isRequired={isRequired} ref={ref} {...props} />
+  return (
+    <Root
+      id={labelId}
+      data-phone-field-label
+      isRequired={isRequired}
+      ref={ref}
+      {...props}
+    />
+  )
 }
 
 export default React.forwardRef(Label)
