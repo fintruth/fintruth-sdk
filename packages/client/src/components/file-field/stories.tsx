@@ -7,6 +7,7 @@ import React from 'react'
 
 import FileField, {
   FileFieldCallToAction,
+  FileFieldCropper,
   FileFieldHelp,
   FileFieldIcon,
   FileFieldLabel,
@@ -46,6 +47,7 @@ storiesOf('Components|File Field', module)
           <FileFieldLabel>{text('label', 'Label')}</FileFieldLabel>
         </FileFieldCallToAction>
         <FileFieldName />
+        <FileFieldCropper alt="Cropped Image" />
         <FileFieldHelp />
       </FileField>
     </Formik>
@@ -68,6 +70,7 @@ storiesOf('Components|File Field', module)
           </FileFieldCallToAction>
           <FileFieldName css={nameHorizontalRight} />
         </div>
+        <FileFieldCropper alt="Cropped Image" />
         <FileFieldHelp />
       </FileField>
     </Formik>
