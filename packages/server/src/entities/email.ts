@@ -22,6 +22,10 @@ export default class Email extends BaseEntity implements BaseEmail {
 
   @Field()
   @Column({ default: false })
+  isPrimary: boolean
+
+  @Field()
+  @Column({ default: false })
   isVerified: boolean
 
   @ManyToOne(() => User, ({ emails }) => emails, { onDelete: 'CASCADE' })

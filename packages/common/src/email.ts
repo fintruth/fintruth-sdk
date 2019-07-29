@@ -1,5 +1,6 @@
 export interface BaseEmail {
   id: string
+  isPrimary: boolean
   isVerified: boolean
   userId: string
   value: string
