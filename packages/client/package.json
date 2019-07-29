@@ -102,7 +102,7 @@
     "@svgr/webpack": "^4.3.2",
     "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/react": "^8.0.7",
-    "@testing-library/user-event": "^4.2.3",
+    "@testing-library/user-event": "^4.2.4",
     "@types/apollo-upload-client": "^8.1.2",
     "@types/body-parser": "^1.17.0",
     "@types/compression": "^0.0.36",
