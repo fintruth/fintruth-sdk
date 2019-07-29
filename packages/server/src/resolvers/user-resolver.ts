@@ -25,14 +25,14 @@ export default class UserResolver {
   private readonly userService: UserService
 
   @Mutation(() => UserResponse)
-  addEmail(@Arg('email') email: string, @Ctx() { user }: Context) {
+  addEmail(@Arg('value') value: string, @Ctx() { user }: Context) {
     if (!user) {
       return new UserResponse({
         error: new ResponseError('Not authenticated'),
       })
     }
 
-    return this.userService.addEmail(user.id, email)
+    return this.userService.addEmail(user.id, value)
   }
 
   @Mutation(() => UserResponse)
