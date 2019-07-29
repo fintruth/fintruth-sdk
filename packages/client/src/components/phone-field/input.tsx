@@ -27,7 +27,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
     placeholder,
   } = usePhoneFieldContext()[0]
   const [field, { error, touched }] = useField<string>(`${name}.number`)
-  const { registerField, unregisterField } = useFormikContext()
+  const { registerField, unregisterField } = useFormikContext<any>()
 
   const defaultValidate = React.useCallback<FieldValidator>(
     (value: string) => validateInput(value, { isRequired, type }),
@@ -43,6 +43,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   return (
     <BaseInput
       aria-labelledby={labelId}
+      data-phone-field-input
       isDisabled={isDisabled}
       isRequired={isRequired}
       mask={mask}

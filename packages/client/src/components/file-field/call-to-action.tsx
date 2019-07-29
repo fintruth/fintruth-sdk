@@ -1,5 +1,6 @@
 import { mixed, MixedSchema } from '@fintruth-sdk/validation'
 import { FieldValidator, useField, useFormikContext } from 'formik'
+import { getType } from 'mime/lite'
 import { darken, em } from 'polished'
 import React from 'react'
 import styled, { Color, ColorContrast, css } from 'styled-components' // eslint-disable-line import/named
@@ -162,14 +163,40 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
   }: Props,
   ref: React.Ref<HTMLInputElement>
 ) => {
-  const { isDisabled, isRequired, labelId, name } = useFileFieldContext()[0]
+  const {
+    fileName,
+    isDisabled,
+    isRequired,
+    labelId,
+    name,
+  } = useFileFieldContext()[0]
   const { onBlur, value } = useField<File | string>(name)[0]
-  const { registerField, setFieldValue, unregisterField } = useFormikContext()
+  const { registerField, setFieldValue, unregisterField } = useFormikContext<
+    any
+  >()
   const input = React.useRef<HTMLInputElement>()
 
   const defaultValidate = React.useCallback<FieldValidator>(
     (value: File | string) => validateInput(value, { isRequired, maxSize }),
     [isRequired, maxSize]
+  )
+
+  const handleChange = React.useCallback<
+    React.ChangeEventHandler<HTMLInputElement>
+  >(
+    ({ target: { files } }) => {
+      if (!files || !files[0]) {
+        return
+      }
+
+      const type = getType(fileName) || 'image/jpeg'
+      const file = fileName
+        ? new File([files[0]], fileName, { type })
+        : files[0]
+
+      return setFieldValue(name, file)
+    },
+    [fileName, name, setFieldValue]
   )
 
   React.useEffect(() => {
@@ -179,7 +206,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
   }, [defaultValidate, name, registerField, unregisterField, validate])
 
   React.useEffect(() => {
-    if (!value && input !== null && input.current) {
+    if (!value && input.current) {
       input.current.value = ''
     }
   }, [value])
@@ -194,20 +221,15 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
     >
       <Input
         aria-labelledby={labelId}
+        data-file-field-input
         disabled={isDisabled}
         name={name}
         onBlur={onBlur}
-        onChange={event => {
-          const file =
-            event.target.files !== null && event.target.files.length >= 1
-              ? event.target.files[0]
-              : undefined
-
-          return file && setFieldValue(name as never, file)
-        }}
+        onChange={handleChange}
         ref={instance => {
           setRef(ref, instance)
-          setRef(input, instance)
+
+          return setRef(input, instance)
         }}
         required={isRequired}
         type="file"
