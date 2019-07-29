@@ -6,7 +6,7 @@ import { Profile } from '../entities'
 @EntityRepository(Profile)
 @Service()
 export default class ProfileDao extends Repository<Profile> {
-  findByUserId(id: string) {
-    return this.findOne(id)
+  findByUser(userId: string) {
+    return this.findOne({ userId })
   }
 }

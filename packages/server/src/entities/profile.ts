@@ -7,7 +7,7 @@ import {
   Entity,
   JoinColumn,
   OneToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 
@@ -17,8 +17,8 @@ import User from './user'
 @ObjectType()
 export default class Profile extends BaseEntity implements BaseProfile {
   @Field(() => ID)
-  @PrimaryColumn('uuid')
-  userId: string
+  @PrimaryGeneratedColumn('uuid')
+  id: string
 
   @Field()
   @Column()
@@ -31,6 +31,10 @@ export default class Profile extends BaseEntity implements BaseProfile {
   @OneToOne(() => User, ({ profile }) => profile, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: User
+
+  @Field(() => ID)
+  @Column()
+  userId: string
 
   @Field(() => Date)
   @CreateDateColumn()

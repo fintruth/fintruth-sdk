@@ -28,7 +28,10 @@ export const signInMutation = gql`
       }
       user {
         id
-        email
+        emails {
+          id
+          value
+        }
         isTwoFactorAuthEnabled
       }
     }
@@ -51,7 +54,10 @@ export const signInTwoFactorAuthMutation = gql`
       }
       user {
         id
-        email
+        emails {
+          id
+          value
+        }
         isTwoFactorAuthEnabled
       }
     }

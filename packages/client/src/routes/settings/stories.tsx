@@ -20,7 +20,12 @@ const defaultMocks = [
       data: {
         user: {
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-          email: 'demo@fintruth.com',
+          emails: [
+            {
+              id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
+              value: 'demo@fintruth.com',
+            },
+          ],
           isTwoFactorAuthEnabled: false,
           profile: { familyName: 'User', givenName: 'Demo' },
         },
@@ -38,7 +43,12 @@ const defaultMocks = [
           error: null,
           user: {
             id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            email: 'test@fintruth.com',
+            emails: [
+              {
+                id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
+                value: 'demo@fintruth.com',
+              },
+            ],
           },
         },
       },
@@ -98,7 +108,12 @@ const defaultTwoFactorAuthEnabledMocks = [
       data: {
         user: {
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-          email: 'demo@fintruth.com',
+          emails: [
+            {
+              id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
+              value: 'demo@fintruth.com',
+            },
+          ],
           isTwoFactorAuthEnabled: true,
           profile: { familyName: 'User', givenName: 'Demo' },
         },
@@ -116,7 +131,12 @@ const defaultTwoFactorAuthEnabledMocks = [
           error: null,
           user: {
             id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            email: 'test@fintruth.com',
+            emails: [
+              {
+                id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
+                value: 'demo@fintruth.com',
+              },
+            ],
           },
         },
       },
@@ -175,7 +195,12 @@ const errorMocks = [
       data: {
         user: {
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-          email: 'demo@fintruth.com',
+          emails: [
+            {
+              id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
+              value: 'demo@fintruth.com',
+            },
+          ],
           isTwoFactorAuthEnabled: false,
           profile: { familyName: 'User', givenName: 'Demo' },
         },
@@ -283,7 +308,12 @@ const errorTwoFactorAuthEnabledMocks = [
       data: {
         user: {
           id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-          email: 'demo@fintruth.com',
+          emails: [
+            {
+              id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
+              value: 'demo@fintruth.com',
+            },
+          ],
           isTwoFactorAuthEnabled: true,
           profile: { familyName: 'User', givenName: 'Demo' },
         },

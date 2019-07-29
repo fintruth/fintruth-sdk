@@ -6,11 +6,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 
+import Email from './email'
 import Profile from './profile'
 
 @Entity()
@@ -20,9 +22,9 @@ export default class User extends BaseEntity implements BaseUser {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Field()
-  @Column({ unique: true })
-  email: string
+  @Field(() => [Email])
+  @OneToMany(() => Email, ({ user }) => user, { cascade: true })
+  emails: Email[]
 
   @Field()
   @Column({ default: false })
@@ -31,10 +33,8 @@ export default class User extends BaseEntity implements BaseUser {
   @Column()
   password: string
 
-  @OneToOne(() => Profile, ({ user }) => user, {
-    cascade: true,
-    onDelete: 'CASCADE',
-  })
+  @Field(() => Profile)
+  @OneToOne(() => Profile, ({ user }) => user, { cascade: true })
   profile: Profile
 
   @Column({ nullable: true })

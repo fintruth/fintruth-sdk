@@ -22,7 +22,7 @@ export default class AuthService {
   daos: Daos
 
   async authenticate(email: string, password: string) {
-    const user = await this.daos.users.findOne({ email })
+    const user = await this.daos.users.findByEmail(email)
 
     return user && user.validatePassword(password) ? user : null
   }
@@ -83,7 +83,9 @@ export default class AuthService {
   }
 
   async enableTwoFactorAuth(userId: string) {
-    const user = await this.daos.users.findOne(userId)
+    const user = await this.daos.users.findOne(userId, {
+      relations: ['emails'],
+    })
 
     if (!user) {
       return new EnableTwoFactorAuthResponse({
@@ -95,7 +97,7 @@ export default class AuthService {
     const dataUrl: string = await toDataURL(
       otpauthURL({
         issuer: encodeURIComponent('Fintruth'),
-        label: encodeURIComponent(user.email),
+        label: encodeURIComponent(user.emails[0].value),
         secret: ascii,
       }),
       { margin: 0 }

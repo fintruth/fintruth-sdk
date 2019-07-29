@@ -27,7 +27,10 @@ export const recoverQuery = gql`
   query RecoverQuery {
     user: currentUser {
       id
-      email
+      emails {
+        id
+        value
+      }
     }
   }
 `
