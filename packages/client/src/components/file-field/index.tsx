@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 type Dispatch = (action: Action) => void
 
-type Type = 'setLabelId'
+type Type = 'setHasCropper' | 'setLabelId' | 'setSrc'
 
 export type Variant = 'danger' | 'primary'
 
@@ -15,11 +15,15 @@ interface Action {
 }
 
 interface BaseState {
+  hasCropper: boolean
   labelId: string
+  src: string
 }
 
 interface Payload {
+  hasCropper?: boolean
   labelId?: string
+  src?: string
 }
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
@@ -42,8 +46,12 @@ const StateContext = React.createContext<State | undefined>(undefined)
 
 const reducer = (prevState: BaseState, { type, payload }: Action) => {
   switch (type) {
+    case 'setHasCropper':
+      return { ...prevState, hasCropper: payload.hasCropper || false }
     case 'setLabelId':
       return { ...prevState, labelId: payload.labelId || '' }
+    case 'setSrc':
+      return { ...prevState, src: payload.src || '' }
     default:
       throw new Error(`Unhandled action type: ${type}`)
   }
@@ -67,7 +75,7 @@ const FileField: React.RefForwardingComponent<HTMLDivElement, Props> = (
 ) => {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>
-  >(reducer, { labelId: '' })
+  >(reducer, { hasCropper: false, labelId: '', src: '' })
   const state = React.useMemo<State>(
     () => ({ ...baseState, fileName, isDisabled, isRequired, name }),
     [baseState, fileName, isDisabled, isRequired, name]
@@ -95,6 +103,7 @@ export const useFileFieldContext = (): [State, Dispatch] => {
 }
 
 export { default as FileFieldCallToAction } from './call-to-action'
+export { default as FileFieldCropper } from './cropper'
 export { default as FileFieldHelp } from './help'
 export { default as FileFieldIcon } from './icon'
 export * from './mixins'
