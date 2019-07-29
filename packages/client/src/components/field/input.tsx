@@ -15,7 +15,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
 ) => {
   const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
   const [field, { error, touched }] = useField<string>(name)
-  const { registerField, unregisterField } = useFormikContext()
+  const { registerField, unregisterField } = useFormikContext<any>()
 
   const defaultValidate = React.useCallback<FieldValidator>(
     (value: string) => validateInput(value, { isRequired, type }),
@@ -31,6 +31,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   return (
     <BaseInput
       aria-labelledby={labelId}
+      data-field-input
       isDisabled={isDisabled}
       isRequired={isRequired}
       ref={ref}

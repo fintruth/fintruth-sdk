@@ -5,11 +5,11 @@ import styled from 'styled-components'
 
 type Dispatch = (action: Action) => void
 
-type Type = 'setLabelId' | 'setPlaceholder'
+type Type = 'setLabelId'
 
 interface Action {
-  type: Type
   payload: Payload
+  type: Type
 }
 
 interface BaseState {
@@ -66,7 +66,7 @@ const Field: React.RefForwardingComponent<HTMLDivElement, Props> = (
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
-        <Root ref={ref} {...props} />
+        <Root data-field ref={ref} {...props} />
       </StateContext.Provider>
     </DispatchContext.Provider>
   )

@@ -31,7 +31,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
     dispatch,
   ] = usePhoneFieldContext()
   const { onChange, ...field } = useField<Alpha2Code>(`${name}.alpha2Code`)[0]
-  const { registerField, unregisterField } = useFormikContext()
+  const { registerField, unregisterField } = useFormikContext<any>()
 
   const { data: { countries = [] } = {}, loading } = useQuery<
     CountriesQueryData
@@ -40,6 +40,20 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   const defaultValidate = React.useCallback<FieldValidator>(
     (value: string) => validateSelect(value, { isRequired }),
     [isRequired]
+  )
+
+  const handleChange = React.useCallback<
+    React.ChangeEventHandler<HTMLSelectElement>
+  >(
+    ({ target: { value } }) => {
+      dispatch({
+        payload: { placeholder: data[value as Alpha2Code] },
+        type: 'setPlaceholder',
+      })
+
+      return onChange(`${name}.alpha2Code`)(value)
+    },
+    [dispatch, name, onChange]
   )
 
   React.useEffect(
@@ -62,17 +76,11 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   return (
     <Root
       aria-labelledby={labelId}
+      data-phone-field-select
       isDisabled={isDisabled}
       isLoading={loading}
       isRequired={isRequired}
-      onChange={({ target }) => {
-        dispatch({
-          payload: { placeholder: data[target.value as Alpha2Code] },
-          type: 'setPlaceholder',
-        })
-
-        return onChange(`${name}.alpha2Code`)(target.value)
-      }}
+      onChange={handleChange}
       ref={ref}
       {...field}
       {...props}

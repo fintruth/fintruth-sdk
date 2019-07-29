@@ -24,12 +24,14 @@ interface Payload {
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   as?: keyof JSX.IntrinsicElements | React.ComponentType
+  fileName?: string
   isDisabled?: boolean
   isRequired?: boolean
   name: string
 }
 
 interface State extends BaseState {
+  fileName: string
   isDisabled: boolean
   isRequired: boolean
   name: string
@@ -54,15 +56,21 @@ const Root = styled.div`
 `
 
 const FileField: React.RefForwardingComponent<HTMLDivElement, Props> = (
-  { isDisabled = false, isRequired = true, name, ...props }: Props,
+  {
+    fileName = '',
+    isDisabled = false,
+    isRequired = true,
+    name,
+    ...props
+  }: Props,
   ref: React.Ref<HTMLDivElement>
 ) => {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>
   >(reducer, { labelId: '' })
   const state = React.useMemo<State>(
-    () => ({ ...baseState, isDisabled, isRequired, name }),
-    [baseState, isDisabled, isRequired, name]
+    () => ({ ...baseState, fileName, isDisabled, isRequired, name }),
+    [baseState, fileName, isDisabled, isRequired, name]
   )
 
   return (
