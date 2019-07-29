@@ -17,7 +17,7 @@ const getUserDaoMock: any = (userMock?: DeepPartial<User>) => ({
   findById: () => Promise.resolve(userMock),
   findOne: () => Promise.resolve(userMock),
   save: async (partial: Partial<User>) => ({
-    id: 'test',
+    id: 'userId',
     ...partial,
   }),
   update: () => Promise.resolve(true),
@@ -31,7 +31,7 @@ const getEmailDaoMock: any = () => ({
 })
 
 const userMock: DeepPartial<User> = {
-  id: 'test',
+  id: 'userId',
   emails: [
     new Email({
       value: 'test@test.com',
@@ -57,22 +57,49 @@ describe('UserService', () => {
     expect(service).toBeDefined()
   })
 
-  describe('editUser', () => {
+  describe('validateUser', () => {
     describe('user exists with password', () => {
       beforeEach(() => {
         service.daos.users = getUserDaoMock(userMock)
       })
 
       it('should return a response', async () => {
-        const result = await service['editUser']('test', 'password')(
+        const result = await service['validateUser']('userId')(
           async () => new Response()
         )
 
         expect(result).toStrictEqual(new Response())
       })
+    })
+
+    it('should return a failure response when the user does not exist', async () => {
+      const result = await service['validateUser']('userId')(
+        async () => new Response()
+      )
+
+      expect(result.error).toStrictEqual(
+        new ResponseError('user not found', expect.any(String))
+      )
+    })
+  })
+
+  describe('validateUserPassword', () => {
+    describe('user exists with password', () => {
+      beforeEach(() => {
+        service.daos.users = getUserDaoMock(userMock)
+      })
+
+      it('should return a response', async () => {
+        const result = await service['validateUserPassword'](
+          'userId',
+          'password'
+        )(async () => new Response())
+
+        expect(result).toStrictEqual(new Response())
+      })
 
       it('should return a failure response using an invalid password', async () => {
-        const result = await service['editUser']('test', 'bad')(
+        const result = await service['validateUserPassword']('userId', 'bad')(
           async () => new Response()
         )
 
@@ -83,9 +110,10 @@ describe('UserService', () => {
     })
 
     it('should return a failure response when the user does not exist', async () => {
-      const result = await service['editUser']('test', 'password')(
-        async () => new Response()
-      )
+      const result = await service['validateUserPassword'](
+        'userId',
+        'password'
+      )(async () => new Response())
 
       expect(result.error).toStrictEqual(
         new ResponseError('user not found', expect.any(String))
@@ -102,17 +130,17 @@ describe('UserService', () => {
       it('should return a user response', async () => {
         service.daos.users.findByEmail = () => Promise.resolve(null) as any
 
-        const result = await service.addEmail('test', 'test1@test.com')
+        const result = await service.addEmail('userId', 'test1@test.com')
 
         expect(result.user).toStrictEqual({
-          id: 'test',
+          id: 'userId',
           emails: expect.any(Array),
           validatePassword: expect.any(Function),
         })
       })
 
       it('should return a failure response using an invalid email', async () => {
-        const result = await service.addEmail('test', 'invalid')
+        const result = await service.addEmail('userId', 'invalid')
 
         expect(result.error).toStrictEqual(
           new ResponseError('invalid data provided', expect.any(String))
@@ -120,7 +148,7 @@ describe('UserService', () => {
       })
 
       it('should return a failure response using a taken email', async () => {
-        const result = await service.addEmail('test', 'test@test.com')
+        const result = await service.addEmail('userId', 'test@test.com')
 
         expect(result.error).toStrictEqual(
           new ResponseError('email is not available', expect.any(String))
@@ -149,7 +177,7 @@ describe('UserService', () => {
       )
 
       expect(result.user).toStrictEqual({
-        id: 'test',
+        id: 'userId',
         emails: [
           new Email({
             value: 'test@test.com',
@@ -202,7 +230,7 @@ describe('UserService', () => {
         const result = await service.removeEmail('userId', 'emailId')
 
         expect(result.user).toStrictEqual({
-          id: 'test',
+          id: 'userId',
           emails: expect.any(Array),
           validatePassword: expect.any(Function),
         })
@@ -237,12 +265,12 @@ describe('UserService', () => {
     })
 
     it('should update an existing user', async () => {
-      const result = await service.update('test', 'password', {
+      const result = await service.update('userId', 'password', {
         password: 'updated',
       })
 
       expect(result.user).toStrictEqual({
-        id: 'test',
+        id: 'userId',
         emails: [new Email({ value: 'test@test.com' })],
         password: 'updated',
         validatePassword: expect.any(Function),

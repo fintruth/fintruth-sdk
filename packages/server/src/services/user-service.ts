@@ -8,14 +8,14 @@ import { Daos } from 'models'
 import { Response, ResponseError, UserResponse } from 'resolvers/types'
 import { Email, Profile, User } from '../entities'
 
+type UserResponseFn = (user: User) => Promise<UserResponse>
+
 @Service()
 export default class UserService {
   @Inject()
   daos: Daos
 
-  private editUser = (id: string, password: string) => async (
-    cb: (user: User) => Promise<UserResponse>
-  ) => {
+  private validateUser = (id: string) => async (fn: UserResponseFn) => {
     const user = await this.daos.users.findById(id)
 
     if (!user) {
@@ -24,13 +24,21 @@ export default class UserService {
       })
     }
 
-    if (!user.validatePassword(password)) {
-      return new UserResponse({
-        error: new ResponseError('incorrect password'),
-      })
-    }
+    return fn(user)
+  }
 
-    return cb(user)
+  private validateUserPassword = (id: string, password: string) => (
+    fn: UserResponseFn
+  ) => {
+    return this.validateUser(id)(async user => {
+      if (!user.validatePassword(password)) {
+        return new UserResponse({
+          error: new ResponseError('incorrect password'),
+        })
+      }
+
+      return fn(user)
+    })
   }
 
   private log = logAs('UserService')
@@ -38,35 +46,29 @@ export default class UserService {
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
   async addEmail(id: string, value: string) {
-    const user = await this.daos.users.findById(id)
+    return this.validateUser(id)(async user => {
+      const email = await Email.fromString(value).catch(this.logDebug)
 
-    if (!user) {
+      if (!email) {
+        return new UserResponse({
+          error: new ResponseError('invalid data provided'),
+        })
+      }
+
+      if (!(await this.isEmailAvailable(value))) {
+        return new UserResponse({
+          error: new ResponseError('email is not available'),
+        })
+      }
+
+      email.userId = id
+      await this.daos.emails.save(email)
+
+      const emails = await this.daos.emails.findByUser(id)
+
       return new UserResponse({
-        error: new ResponseError('user not found'),
+        user: mergeLeft({ emails }, user),
       })
-    }
-
-    const email = await Email.fromString(value).catch(this.logDebug)
-
-    if (!email) {
-      return new UserResponse({
-        error: new ResponseError('invalid data provided'),
-      })
-    }
-
-    if (!(await this.isEmailAvailable(value))) {
-      return new UserResponse({
-        error: new ResponseError('email is not available'),
-      })
-    }
-
-    email.userId = id
-    await this.daos.emails.save(email)
-
-    const emails = await this.daos.emails.findByUser(id)
-
-    return new UserResponse({
-      user: mergeLeft({ emails }, user),
     })
   }
 
@@ -119,33 +121,27 @@ export default class UserService {
   }
 
   async removeEmail(id: string, emailId: string) {
-    const user = await this.daos.users.findById(id)
+    return this.validateUser(id)(async user => {
+      const email = await this.daos.emails.findById(emailId)
 
-    if (!user) {
+      if (!email || email.isPrimary) {
+        return new UserResponse({
+          error: new ResponseError('unable to remove email'),
+        })
+      }
+
+      await this.daos.emails.delete({ id: emailId, userId: id })
+
+      const emails = await this.daos.emails.findByUser(id)
+
       return new UserResponse({
-        error: new ResponseError('user not found'),
+        user: mergeLeft({ emails }, user),
       })
-    }
-
-    const email = await this.daos.emails.findById(emailId)
-
-    if (!email || email.isPrimary) {
-      return new UserResponse({
-        error: new ResponseError('unable to remove email'),
-      })
-    }
-
-    await this.daos.emails.delete({ id: emailId, userId: id })
-
-    const emails = await this.daos.emails.findByUser(id)
-
-    return new UserResponse({
-      user: mergeLeft({ emails }, user),
     })
   }
 
   async update(id: string, password: string, partial: Partial<User>) {
-    return this.editUser(id, password)(async user => {
+    return this.validateUserPassword(id, password)(async user => {
       const updated = await this.daos.users
         .update(user.id, partial)
         .catch(this.logDebug)
