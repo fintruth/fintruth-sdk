@@ -46,6 +46,7 @@ scalar DateTime
 
 type Email {
   id: ID!
+  isPrimary: Boolean!
   isVerified: Boolean!
   userId: ID!
   value: String!
@@ -90,7 +91,7 @@ type Mutation {
   updateProfile(input: ProfileInput!): ProfileResponse!
   confirmRegistration(token: String!): UserResponse!
   register(input: RegisterInput!): Response!
-  addEmail(password: String!, email: String!): UserResponse!
+  addEmail(email: String!): UserResponse!
   removeEmail(emailId: String!): UserResponse!
   updatePassword(password: String!, newPassword: String!): Response!
 }

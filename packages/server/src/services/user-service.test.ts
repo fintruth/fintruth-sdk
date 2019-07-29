@@ -25,8 +25,8 @@ const getUserDaoMock: any = (userMock?: DeepPartial<User>) => ({
 
 const getEmailDaoMock: any = () => ({
   delete: () => {},
-  findAndCount: () => Promise.resolve([[], 0]),
   findByUser: () => Promise.resolve([]),
+  findOne: () => {},
   save: () => {},
 })
 
@@ -94,39 +94,45 @@ describe('UserService', () => {
   })
 
   describe('addEmail', () => {
-    beforeEach(() => {
-      service.daos.users = getUserDaoMock(userMock)
-    })
+    describe('user exists with password', () => {
+      beforeEach(() => {
+        service.daos.users = getUserDaoMock(userMock)
+      })
 
-    it('should return a user response', async () => {
-      service.daos.users.findByEmail = () => Promise.resolve(null) as any
+      it('should return a user response', async () => {
+        service.daos.users.findByEmail = () => Promise.resolve(null) as any
 
-      const result = await service.addEmail(
-        'test',
-        'password',
-        'test1@test.com'
-      )
+        const result = await service.addEmail('test', 'test1@test.com')
 
-      expect(result.user).toStrictEqual({
-        id: 'test',
-        emails: expect.any(Array),
-        validatePassword: expect.any(Function),
+        expect(result.user).toStrictEqual({
+          id: 'test',
+          emails: expect.any(Array),
+          validatePassword: expect.any(Function),
+        })
+      })
+
+      it('should return a failure response using an invalid email', async () => {
+        const result = await service.addEmail('test', 'invalid')
+
+        expect(result.error).toStrictEqual(
+          new ResponseError('invalid data provided', expect.any(String))
+        )
+      })
+
+      it('should return a failure response using a taken email', async () => {
+        const result = await service.addEmail('test', 'test@test.com')
+
+        expect(result.error).toStrictEqual(
+          new ResponseError('email is not available', expect.any(String))
+        )
       })
     })
 
-    it('should return a failure response using an invalid email', async () => {
-      const result = await service.addEmail('test', 'password', 'invalid')
+    it('should return a failure response when the user does not exist', async () => {
+      const result = await service.removeEmail('userId', 'emailId')
 
       expect(result.error).toStrictEqual(
-        new ResponseError('invalid data provided', expect.any(String))
-      )
-    })
-
-    it('should return a failure response using a taken email', async () => {
-      const result = await service.addEmail('test', 'password', 'test@test.com')
-
-      expect(result.error).toStrictEqual(
-        new ResponseError('email is not available', expect.any(String))
+        new ResponseError('user not found', expect.any(String))
       )
     })
   })
@@ -144,7 +150,13 @@ describe('UserService', () => {
 
       expect(result.user).toStrictEqual({
         id: 'test',
-        email: 'test@test.com',
+        emails: [
+          new Email({
+            value: 'test@test.com',
+            isPrimary: true,
+            isVerified: true,
+          }),
+        ],
         password: 'hash',
         profile: new Profile({
           familyName: '',
@@ -184,6 +196,9 @@ describe('UserService', () => {
       })
 
       it('should return a user response', async () => {
+        service.daos.emails.findOne = () =>
+          Promise.resolve(new Email({ value: 'test@test.com' }))
+
         const result = await service.removeEmail('userId', 'emailId')
 
         expect(result.user).toStrictEqual({
@@ -193,13 +208,16 @@ describe('UserService', () => {
         })
       })
 
-      it('should return a failure response when the user has one email', async () => {
-        service.daos.emails.findAndCount = () => Promise.resolve([[], 1]) as any
+      it('should return a failure response using a primary email', async () => {
+        service.daos.emails.findOne = () =>
+          Promise.resolve(
+            new Email({ value: 'test@test.com', isPrimary: true })
+          )
 
         const result = await service.removeEmail('userId', 'emailId')
 
         expect(result.error).toStrictEqual(
-          new ResponseError('one email is required', expect.any(String))
+          new ResponseError('unable to remove email', expect.any(String))
         )
       })
     })

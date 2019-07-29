@@ -37,30 +37,35 @@ export default class UserService {
 
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
-  async addEmail(id: string, password: string, value: string) {
-    return this.editUser(id, password)(async user => {
-      const email = await Email.fromString(value).catch(this.logDebug)
+  async addEmail(id: string, value: string) {
+    const user = await this.daos.users.findById(id)
+    const email = await Email.fromString(value).catch(this.logDebug)
 
-      if (!email) {
-        return new UserResponse({
-          error: new ResponseError('invalid data provided'),
-        })
-      }
-
-      if (!(await this.isEmailAvailable(value))) {
-        return new UserResponse({
-          error: new ResponseError('email is not available'),
-        })
-      }
-
-      email.userId = id
-      await this.daos.emails.save(email)
-
-      const emails = await this.daos.emails.findByUser(id)
-
+    if (!user) {
       return new UserResponse({
-        user: mergeLeft({ emails }, user),
+        error: new ResponseError('user not found'),
       })
+    }
+
+    if (!email) {
+      return new UserResponse({
+        error: new ResponseError('invalid data provided'),
+      })
+    }
+
+    if (!(await this.isEmailAvailable(value))) {
+      return new UserResponse({
+        error: new ResponseError('email is not available'),
+      })
+    }
+
+    email.userId = id
+    await this.daos.emails.save(email)
+
+    const emails = await this.daos.emails.findByUser(id)
+
+    return new UserResponse({
+      user: mergeLeft({ emails }, user),
     })
   }
 
@@ -91,7 +96,9 @@ export default class UserService {
 
     const user = await this.daos.users
       .save({
-        email,
+        emails: [
+          new Email({ value: email, isPrimary: true, isVerified: true }),
+        ],
         password: await hash(password, 10),
         profile,
       })
@@ -112,6 +119,7 @@ export default class UserService {
 
   async removeEmail(id: string, emailId: string) {
     const user = await this.daos.users.findById(id)
+    const email = await this.daos.emails.findOne(emailId)
 
     if (!user) {
       return new UserResponse({
@@ -119,11 +127,9 @@ export default class UserService {
       })
     }
 
-    const [, count] = await this.daos.emails.findAndCount({ userId: id })
-
-    if (count === 1) {
+    if (!email || email.isPrimary) {
       return new UserResponse({
-        error: new ResponseError('one email is required'),
+        error: new ResponseError('unable to remove email'),
       })
     }
 
