@@ -163,13 +163,10 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
   }: Props,
   ref: React.Ref<HTMLInputElement>
 ) => {
-  const {
-    fileName,
-    isDisabled,
-    isRequired,
-    labelId,
-    name,
-  } = useFileFieldContext()[0]
+  const [
+    { fileName, hasCropper, isDisabled, isRequired, labelId, name },
+    dispatch,
+  ] = useFileFieldContext()
   const { onBlur, value } = useField<File | string>(name)[0]
   const { registerField, setFieldValue, unregisterField } = useFormikContext<
     any
@@ -194,9 +191,22 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
         ? new File([files[0]], fileName, { type })
         : files[0]
 
+      if (hasCropper) {
+        const reader = new FileReader()
+
+        reader.addEventListener('load', () =>
+          dispatch({
+            payload: { src: reader.result as string },
+            type: 'setSrc',
+          })
+        )
+
+        reader.readAsDataURL(file)
+      }
+
       return setFieldValue(name, file)
     },
-    [fileName, name, setFieldValue]
+    [dispatch, fileName, hasCropper, name, setFieldValue]
   )
 
   React.useEffect(() => {

@@ -3306,6 +3306,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-image-crop@^8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@types/react-image-crop/-/react-image-crop-8.1.1.tgz#41fc1ec870f888d7f2b9e81a5f517d3c68070a9c"
+  integrity sha512-jI3/e4Ek6aSTYTWoj15ktWU4KTDdVuNq4c2CWOSAot7a5rDXxr9WErvnz1cxNcZHPZ2oHjsZs4eexqwgcZ9yww==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-native@*":
   version "0.60.2"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.60.2.tgz#2dca78481a904419c2a5907288dd97d1090c6e3c"
@@ -5896,6 +5903,11 @@ clone@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
+
+clsx@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.0.4.tgz#0c0171f6d5cb2fe83848463c15fcc26b4df8c2ec"
+  integrity sha512-1mQ557MIZTrL/140j+JVdRM6e31/OA4vTYxXgqIIZlndyfjHpyawKZia1Im05Vp9BWmImkcNrNtFYQMyFcgJDg==
 
 co@^4.6.0:
   version "4.6.0"
@@ -14057,6 +14069,15 @@ react-hotkeys@2.0.0-pre4:
   integrity sha512-oa+UncSWyOwMK3GExt+oELXaR7T3ItgcMolsupQFdKvwkEhVAluJd5rYczsRSQpQlVkdNoHG46De2NUeuS+88Q==
   dependencies:
     prop-types "^15.6.1"
+
+react-image-crop@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-8.2.0.tgz#c46958d5bd0d8d4ca7bfe308b7174a353c212fa5"
+  integrity sha512-iAQMw3gT9XIda8FKtsOK5PNWpQFN+IYbVtuqtJPS906jrhSmca1jfFH0IYLBDRyLQSgTUanf2A5qrDnbkmxPEg==
+  dependencies:
+    clsx "^1.0.4"
+    core-js "^3.1.4"
+    prop-types "^15.7.2"
 
 react-input-autosize@^2.2.1:
   version "2.2.1"
