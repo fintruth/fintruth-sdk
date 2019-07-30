@@ -1,10 +1,8 @@
-import { Service } from 'typedi'
 import { EntityRepository, Repository } from 'typeorm'
 
 import { Country } from '../entities'
 
 @EntityRepository(Country)
-@Service()
 export default class CountryDao extends Repository<Country> {
   findById(id: string) {
     return this.findOne(id)
