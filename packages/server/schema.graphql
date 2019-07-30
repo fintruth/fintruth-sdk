@@ -91,7 +91,7 @@ type Mutation {
   updateProfile(input: ProfileInput!): ProfileResponse!
   confirmRegistration(token: String!): UserResponse!
   register(input: RegisterInput!): Response!
-  addEmail(email: String!): UserResponse!
+  addEmail(value: String!): UserResponse!
   removeEmail(emailId: String!): UserResponse!
   updatePassword(password: String!, newPassword: String!): Response!
 }
@@ -140,6 +140,7 @@ type ProfileResponse {
 }
 
 type Query {
+  address(id: ID!): Address
   country(id: ID!): Country
   countries: [Country!]!
   currentUser: User

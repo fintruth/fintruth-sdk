@@ -44,7 +44,7 @@ export default class Address extends BaseEntity implements BaseAddress {
   subdivision: string
 
   @Field(() => AddressType)
-  @ManyToOne(() => AddressType, ({ addresses }) => addresses, { eager: true })
+  @ManyToOne(() => AddressType, ({ addresses }) => addresses)
   type: AddressType
 
   @Field(() => ID)

@@ -1,3 +1,4 @@
+export { default as AddressResolver } from './address-resolver'
 export { default as AuthResolver } from './auth-resolver'
 export { default as CountryResolver } from './country-resolver'
 export { default as ProfileResolver } from './profile-resolver'
