@@ -119,7 +119,7 @@
     "@types/ramda": "^0.26.18",
     "@types/reach__dialog": "^0.1.0",
     "@types/reach__router": "^1.2.4",
-    "@types/react": "^16.8.23",
+    "@types/react": "^16.8.24",
     "@types/react-dom": "^16.8.5",
     "@types/react-image-crop": "^8.1.1",
     "@types/serialize-javascript": "^1.5.0",
