@@ -3339,10 +3339,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-image-crop@^8.1.1":
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/@types/react-image-crop/-/react-image-crop-8.1.1.tgz#41fc1ec870f888d7f2b9e81a5f517d3c68070a9c"
-  integrity sha512-jI3/e4Ek6aSTYTWoj15ktWU4KTDdVuNq4c2CWOSAot7a5rDXxr9WErvnz1cxNcZHPZ2oHjsZs4eexqwgcZ9yww==
+"@types/react-image-crop@^8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@types/react-image-crop/-/react-image-crop-8.1.2.tgz#9c16d6b0b577a63a854a1a895180cc76800e2988"
+  integrity sha512-K6mbw1Bj/CeePnRa78E3v3gIn/EeqlCof5IVU9IPLdzMjOsf+ccn3Qv/vagsH/6eANGgoDz4hG41eJ2kggiuuw==
   dependencies:
     "@types/react" "*"
 
