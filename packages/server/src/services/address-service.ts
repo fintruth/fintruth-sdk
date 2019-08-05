@@ -1,5 +1,6 @@
 import { object, string } from '@fintruth-sdk/validation'
 import { Inject, Service } from 'typedi'
+import { Ability } from '@casl/ability'
 
 import { Daos } from 'models'
 import { AddressInput } from 'resolvers/types'
@@ -28,4 +29,12 @@ export default class AddressService {
         typeName: string().required(),
       })
       .validate(input)
+
+  async findById(id: string, ability: Ability) {
+    const address = await this.daos.addresses.findById(id)
+
+    ability.throwUnlessCan('read', address)
+
+    return address
+  }
 }
