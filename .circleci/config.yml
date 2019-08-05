@@ -65,7 +65,6 @@ commands:
           paths:
             - ~/.cache/Cypress
             - ~/fintruth-sdk/node_modules
-            - ~/fintruth-sdk/packages/auth/node_modules
             - ~/fintruth-sdk/packages/client/node_modules
             - ~/fintruth-sdk/packages/common/node_modules
             - ~/fintruth-sdk/packages/server/node_modules
@@ -88,39 +87,6 @@ executors:
           POSTGRES_DB: fintruth-sdk
           POSTGRES_USER: postgres
 jobs:
-  auth:
-    environment:
-      REPORTS_DIR: reports
-    executor: fintruth-sdk
-    working_directory: ~/fintruth-sdk
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - with_cache
-      - run:
-          name: Lint files
-          command: yarn --silent lint:files
-          working_directory: packages/auth
-      - run:
-          name: Lint scripts
-          command: yarn --silent lint:scripts --format junit --output-file ${REPORTS_DIR}/lint-scripts.xml
-          working_directory: packages/auth
-      - run:
-          name: Lint types
-          command: yarn --silent lint:types
-          working_directory: packages/auth
-      - run:
-          name: Test units
-          command: yarn --silent test:units --runInBand --reporters default jest-junit
-          environment:
-            JEST_JUNIT_OUTPUT: reports/test-units.xml
-          working_directory: packages/auth
-      - persist_package_build:
-          path: packages/auth/build
-          working_directory: packages/auth
-      - store_test_results:
-          path: packages/auth/reports
   client:
     environment:
       API_URI: http://localhost:4000/api

@@ -13,6 +13,13 @@ import { ServerResponse } from 'server'
 import ConfigService from './config-service'
 import { User } from '../entities'
 
+export interface UserTokenData {
+  iat?: number
+  id: string
+  isAdmin: boolean
+  exp?: number
+}
+
 @Service()
 export default class AuthService {
   @Inject()
@@ -110,7 +117,8 @@ export default class AuthService {
 
   signAuthToken(res: ServerResponse, { id, isAdmin }: User) {
     const expiresIn = 60 * 60 * 24 * 180
-    const token = jwt.sign({ id, isAdmin }, this.config.app.secret, {
+    const tokenData: UserTokenData = { id, isAdmin }
+    const token = jwt.sign(tokenData, this.config.app.secret, {
       expiresIn,
     })
 

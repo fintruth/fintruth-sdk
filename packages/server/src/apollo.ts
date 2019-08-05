@@ -1,5 +1,3 @@
-import { Ability, defineAbilitiesFor } from '@fintruth-sdk/auth'
-import { User } from '@fintruth-sdk/common'
 import { ApolloServer } from 'apollo-server-express'
 import { GraphQLError } from 'graphql'
 import { tap } from 'ramda'
@@ -7,7 +5,10 @@ import { Container } from 'typedi'
 import { buildSchema } from 'type-graphql'
 import { useContainer } from 'typeorm'
 
+import { Ability, defineAbilitiesFor } from './auth'
+import { User } from './entities'
 import { logAs } from './logger'
+import { Daos } from './models'
 import * as resolvers from './resolvers'
 import { RateLimit } from './resolvers/middlewares'
 import { ConfigService } from './services'
@@ -40,20 +41,27 @@ export const createApolloServer = async (): Promise<ApolloServer> => {
   } = Container.get(ConfigService)
 
   const schema = await buildSchema({
+    authChecker: ({ context: { user } }) => !!user,
     container: Container,
     emitSchemaFile: !isProd && './schema.graphql',
     globalMiddlewares: [RateLimit(max, window)],
     resolvers: Object.values(resolvers),
-    validate: false, // See https://github.com/typestack/class-validator/issues/261
+    validate: false, // https://github.com/typestack/class-validator/issues/261
   })
 
   return new ApolloServer({
-    context: ({ req: { ip, user }, res }: RequestParams): Context => ({
-      ability: defineAbilitiesFor(user),
-      ip,
-      res,
-      user,
-    }),
+    context: async ({ req: { ip, token }, res }: RequestParams) => {
+      const user = token
+        ? await Container.get(Daos).users.findById(token.id)
+        : undefined
+
+      return {
+        ability: defineAbilitiesFor(user),
+        ip,
+        res,
+        user,
+      }
+    },
     debug: !isProd,
     formatError: tap(logError),
     playground: !isProd,

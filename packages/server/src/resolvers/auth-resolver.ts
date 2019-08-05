@@ -1,4 +1,4 @@
-import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
+import { Arg, Authorized, Ctx, Mutation, Resolver } from 'type-graphql'
 import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
@@ -15,33 +15,22 @@ export default class AuthResolver {
   @Inject()
   private readonly authService: AuthService
 
+  @Authorized()
   @Mutation(() => Response)
   confirmTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {
-    if (!user) {
-      return new Response({ error: new ResponseError('Not authenticated') })
-    }
-
-    return this.authService.confirmTwoFactorAuth(token, user.id)
+    return user && this.authService.confirmTwoFactorAuth(token, user.id)
   }
 
+  @Authorized()
   @Mutation(() => Response)
   disableTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {
-    if (!user) {
-      return new Response({ error: new ResponseError('Not authenticated') })
-    }
-
-    return this.authService.disableTwoFactorAuth(token, user.id)
+    return user && this.authService.disableTwoFactorAuth(token, user.id)
   }
 
+  @Authorized()
   @Mutation(() => EnableTwoFactorAuthResponse)
   enableTwoFactorAuth(@Ctx() { user }: Context) {
-    if (!user) {
-      return new EnableTwoFactorAuthResponse({
-        error: new ResponseError('Not authenticated'),
-      })
-    }
-
-    return this.authService.enableTwoFactorAuth(user.id)
+    return user && this.authService.enableTwoFactorAuth(user.id)
   }
 
   @Mutation(() => UserResponse)
