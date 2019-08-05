@@ -1,6 +1,6 @@
 import {
   Arg,
-  Authorized,
+  Authorized as Authenticated,
   Ctx,
   FieldResolver,
   ID,
@@ -25,19 +25,19 @@ export default class UserResolver {
   @Inject()
   private readonly userService: UserService
 
-  @Authorized()
+  @Authenticated()
   @Mutation(() => UserResponse)
   addEmail(@Arg('value') value: string, @Ctx() { user }: Context) {
     return user && this.userService.addEmail(user.id, value)
   }
 
-  @Authorized()
+  @Authenticated()
   @Mutation(() => UserResponse)
   removeEmail(@Arg('emailId') emailId: string, @Ctx() { user }: Context) {
     return user && this.userService.removeEmail(user.id, emailId)
   }
 
-  @Authorized()
+  @Authenticated()
   @Mutation(() => Response)
   async updatePassword(
     @Arg('newPassword') newPassword: string,
@@ -54,13 +54,11 @@ export default class UserResolver {
     return user ? this.daos.users.findOne(user.id) : null
   }
 
-  @Authorized()
   @Query(() => User, { nullable: true })
   user(@Arg('id', () => ID) id: string) {
     return this.daos.users.findOne(id)
   }
 
-  @Authorized()
   @Query(() => [User])
   users() {
     return this.daos.users.find()

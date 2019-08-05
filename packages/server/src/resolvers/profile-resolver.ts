@@ -1,4 +1,10 @@
-import { Arg, Authorized, Ctx, Mutation, Resolver } from 'type-graphql'
+import {
+  Arg,
+  Authorized as Authenticated,
+  Ctx,
+  Mutation,
+  Resolver,
+} from 'type-graphql'
 import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
@@ -11,7 +17,7 @@ export default class ProfileResolver {
   @Inject()
   private readonly profileService: ProfileService
 
-  @Authorized()
+  @Authenticated()
   @Mutation(() => ProfileResponse)
   async updateProfile(
     @Arg('input') input: ProfileInput,

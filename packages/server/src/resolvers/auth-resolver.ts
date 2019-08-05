@@ -1,4 +1,10 @@
-import { Arg, Authorized, Ctx, Mutation, Resolver } from 'type-graphql'
+import {
+  Arg,
+  Authorized as Authenticated,
+  Ctx,
+  Mutation,
+  Resolver,
+} from 'type-graphql'
 import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
@@ -15,19 +21,19 @@ export default class AuthResolver {
   @Inject()
   private readonly authService: AuthService
 
-  @Authorized()
+  @Authenticated()
   @Mutation(() => Response)
   confirmTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {
     return user && this.authService.confirmTwoFactorAuth(token, user.id)
   }
 
-  @Authorized()
+  @Authenticated()
   @Mutation(() => Response)
   disableTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {
     return user && this.authService.disableTwoFactorAuth(token, user.id)
   }
 
-  @Authorized()
+  @Authenticated()
   @Mutation(() => EnableTwoFactorAuthResponse)
   enableTwoFactorAuth(@Ctx() { user }: Context) {
     return user && this.authService.enableTwoFactorAuth(user.id)

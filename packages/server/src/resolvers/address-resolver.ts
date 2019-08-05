@@ -1,12 +1,4 @@
-import {
-  Arg,
-  Authorized,
-  FieldResolver,
-  ID,
-  Query,
-  Resolver,
-  Root,
-} from 'type-graphql'
+import { Arg, FieldResolver, ID, Query, Resolver, Root } from 'type-graphql'
 import { Inject } from 'typedi'
 
 import { Daos } from 'models'
@@ -17,7 +9,6 @@ export default class AddressResolver {
   @Inject()
   private readonly daos: Daos
 
-  @Authorized()
   @Query(() => Address, { nullable: true })
   address(@Arg('id', () => ID) id: string) {
     return this.daos.addresses.findById(id)
