@@ -1,9 +1,10 @@
-import { useApolloClient, useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import { User } from '@fintruth-sdk/common'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
-import styled from 'styled-components'
+import { useUIDSeed } from 'react-uid'
+import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
@@ -14,13 +15,17 @@ import {
   signInTwoFactorAuthMutation,
 } from './graphql'
 
+interface HelpProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  color?: Color
+}
+
 interface Props
   extends Omit<
     React.FormHTMLAttributes<HTMLFormElement>,
     'onReset' | 'onSubmit'
   > {
   onCompleted: (user: User) => void
-  signInCredentials?: SignInCredentials
+  signInCredentials: SignInCredentials
 }
 
 export interface SignInCredentials {
@@ -34,10 +39,13 @@ interface Values {
 
 const initialValues: Values = { token: '' }
 
-const formId = 'sign-in-two-factor-auth__Form'
+const name = 'sign-in-two-factor-auth-form'
 
-const Help = styled.p`
-  ${({ theme }) => help(theme.danger)};
+const Help = styled.p.attrs((props: HelpProps) => ({
+  color: 'danger',
+  ...props,
+}))`
+  ${({ color, theme }) => help(theme[color])};
   margin: ${rem(-10)} 0 ${rem(30)};
 `
 
@@ -54,52 +62,48 @@ const Button = styled(BaseButton)`
 
 const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   onCompleted,
-  signInCredentials = { email: '', password: '' },
+  signInCredentials,
   ...props
 }: Props) => {
-  const [helpContent, setHelpContent] = React.useState<string>()
-  const client = useApolloClient()
+  const [helpProps, setHelpProps] = React.useState<HelpProps>({})
+  const seed = useUIDSeed()
 
-  const [onSubmit, { loading }] = useMutation<
+  const [onSubmit, { loading: isSubmitting }] = useMutation<
     SignInTwoFactorAuthMutationData,
     SignInTwoFactorAuthMutationVariables
   >(signInTwoFactorAuthMutation, {
+    fetchPolicy: 'no-cache',
     onCompleted: ({ response }) => {
-      // NOTE: Due to the inability to invalidate Apollo's cache the
-      // entire store needs to be reset in order to prevent storing
-      // private data
-      client.resetStore()
-
       if (response.error) {
-        setHelpContent(response.error.message)
-      } else if (response.user) {
-        onCompleted(response.user)
+        return setHelpProps({ children: response.error.message })
       }
+
+      return response.user && onCompleted(response.user)
     },
   })
 
   return (
     <React.Fragment>
-      {helpContent && <Help>{helpContent}</Help>}
+      {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={variables =>
           onSubmit({ variables: { ...signInCredentials, ...variables } })
         }
       >
-        <Form {...props} id={formId} noValidate>
+        <Form {...props} id={seed(name)} noValidate>
           <LastField name="token">
-            <FieldLabel>VERIFICATION CODE</FieldLabel>
-            <FieldInput form={formId} />
+            <FieldLabel>Verification Code</FieldLabel>
+            <FieldInput form={seed(name)} />
             <FieldHelp />
           </LastField>
           <Button
-            form={formId}
-            isLoading={loading}
+            form={seed(name)}
+            isLoading={isSubmitting}
             type="submit"
             variant="primary"
           >
-            CONTINUE
+            Continue
           </Button>
         </Form>
       </Formik>

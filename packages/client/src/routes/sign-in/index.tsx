@@ -1,29 +1,28 @@
+import { useApolloClient } from '@apollo/react-hooks'
 import { User } from '@fintruth-sdk/common'
-import { Redirect, RouteComponentProps } from '@reach/router'
+import { RouteComponentProps, navigate } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
+import Loading from 'components/loading'
 import BaseSubnavbar from 'components/subnavbar'
+import { CurrentUserQueryData, currentUserQuery } from './graphql'
 import SignInForm from './sign-in-form'
 import SignInTwoFactorAuthForm, {
   SignInCredentials,
 } from './sign-in-two-factor-auth-form'
 
+type GetNextStep = (user: User) => Step
+
+type Props = RouteComponentProps
+
 type Step = 'signIn' | 'signInTwoFactorAuth' | 'redirect'
 
 const items = [
-  { id: 'sign-in', content: 'SIGN IN', to: '/sign-in' },
-  { id: 'register', content: 'REGISTER', to: '/register' },
+  { id: 'sign-in', content: 'Sign In', to: '/sign-in' },
+  { id: 'register', content: 'Register', to: '/register' },
 ]
-
-const getNextStep = (currentStep: Step, { isTwoFactorAuthEnabled }: User) => {
-  if (currentStep === 'signIn' && isTwoFactorAuthEnabled) {
-    return 'signInTwoFactorAuth'
-  }
-
-  return 'redirect'
-}
 
 const Root = styled.div`
   align-items: center;
@@ -43,29 +42,52 @@ const Subnavbar = styled(BaseSubnavbar)`
   margin-bottom: ${rem(50)};
 `
 
-const SignIn: React.FunctionComponent<RouteComponentProps> = ({
-  ...props
-}: RouteComponentProps) => {
+const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   const [currentStep, setCurrentStep] = React.useState<Step>('signIn')
   const [signInCredentials, setSignInCredentials] = React.useState<
     SignInCredentials
-  >()
+  >({ email: '', password: '' })
+  const client = useApolloClient()
+
+  const getNextStep = React.useCallback<GetNextStep>(
+    ({ isTwoFactorAuthEnabled }) =>
+      currentStep === 'signIn' && isTwoFactorAuthEnabled
+        ? 'signInTwoFactorAuth'
+        : 'redirect',
+    [currentStep]
+  )
+
+  React.useEffect(() => {
+    if (currentStep === 'redirect') {
+      client
+        .query<CurrentUserQueryData>({
+          fetchPolicy: 'network-only',
+          query: currentUserQuery,
+        })
+        .then(({ data }) => data.user && navigate('/', { replace: true }))
+        .catch(error => __DEV__ && console.error(error))
+    }
+  }, [client, currentStep])
 
   if (currentStep === 'signInTwoFactorAuth') {
     return (
       <Root data-testid="sign-in" {...props}>
         <Content>
           <SignInTwoFactorAuthForm
-            onCompleted={(user: User) =>
-              setCurrentStep(getNextStep(currentStep, user))
-            }
+            onCompleted={user => setCurrentStep(getNextStep(user))}
             signInCredentials={signInCredentials}
           />
         </Content>
       </Root>
     )
   } else if (currentStep === 'redirect') {
-    return <Redirect from="/sign-in" noThrow to="/" />
+    return (
+      <Root data-testid="sign-in" {...props}>
+        <Content>
+          <Loading />
+        </Content>
+      </Root>
+    )
   }
 
   return (
@@ -73,9 +95,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = ({
       <Content>
         <Subnavbar items={items} />
         <SignInForm
-          onCompleted={(user: User) =>
-            setCurrentStep(getNextStep(currentStep, user))
-          }
+          onCompleted={user => setCurrentStep(getNextStep(user))}
           setSignInCredentials={setSignInCredentials}
         />
       </Content>

@@ -2,9 +2,9 @@ import { equals, F, T } from 'ramda'
 import { Container } from 'typedi'
 
 import {
-  Response,
-  ResponseError,
   EnableTwoFactorAuthResponse,
+  ResponseError,
+  UserResponse,
 } from 'resolvers/types'
 import AuthService from './auth-service'
 import { Email, User } from '../entities'
@@ -79,7 +79,7 @@ describe('AuthService', () => {
       const result = await service.confirmTwoFactorAuth('token', 'userId')
 
       expect(result).toStrictEqual(
-        new Response({
+        new UserResponse({
           error: new ResponseError(
             'Two factor not initiated',
             expect.any(String)
@@ -89,9 +89,7 @@ describe('AuthService', () => {
     })
 
     describe('user exists with two factor pending', () => {
-      const user: Partial<User> = {
-        secretTemp: 'secret',
-      }
+      const user: Partial<User> = { secretTemp: 'secret' }
 
       beforeEach(() => {
         service.daos.users = getUserDaoMock(user)
@@ -102,7 +100,7 @@ describe('AuthService', () => {
 
         const result = await service.confirmTwoFactorAuth('token', 'userId')
 
-        expect(result).toStrictEqual(new Response())
+        expect(result).toStrictEqual(new UserResponse({ user: user as User }))
       })
 
       it('should return a failure response using an invalid token', async () => {
@@ -111,7 +109,7 @@ describe('AuthService', () => {
         const result = await service.confirmTwoFactorAuth('token', 'userId')
 
         expect(result).toStrictEqual(
-          new Response({
+          new UserResponse({
             error: new ResponseError(
               'Token is invalid or expired',
               expect.any(String)
@@ -129,7 +127,7 @@ describe('AuthService', () => {
       const result = await service.disableTwoFactorAuth('token', 'userId')
 
       expect(result).toStrictEqual(
-        new Response({
+        new UserResponse({
           error: new ResponseError(
             'Two factor not enabled',
             expect.any(String)
@@ -139,9 +137,7 @@ describe('AuthService', () => {
     })
 
     describe('user exists with two factor enabled', () => {
-      const user: Partial<User> = {
-        secret: 'secret',
-      }
+      const user: Partial<User> = { secret: 'secret' }
 
       beforeEach(() => {
         service.daos.users = getUserDaoMock(user)
@@ -152,7 +148,7 @@ describe('AuthService', () => {
 
         const result = await service.disableTwoFactorAuth('secret', 'userId')
 
-        expect(result).toStrictEqual(new Response())
+        expect(result).toStrictEqual(new UserResponse({ user: user as User }))
       })
 
       it('should return a failure response using an invalid token', async () => {
@@ -161,7 +157,7 @@ describe('AuthService', () => {
         const result = await service.disableTwoFactorAuth('secret', 'userId')
 
         expect(result).toStrictEqual(
-          new Response({
+          new UserResponse({
             error: new ResponseError(
               'Token is invalid or expired',
               expect.any(String)

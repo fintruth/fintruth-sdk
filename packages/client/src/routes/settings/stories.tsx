@@ -3,271 +3,205 @@ import { storiesOf } from '@storybook/react'
 import React from 'react'
 
 import {
-  accountQuery,
+  emailBuilder,
+  enableTwoFactorAuthResponseBuilder,
+  profileBuilder,
+  profileResponseBuilder,
+  responseBuilder,
+  userBuilder,
+  userResponseBuilder,
+} from 'utilities/specification'
+import {
   confirmTwoFactorAuthMutation,
+  currentUserQuery,
   disableTwoFactorAuthMutation,
   enableTwoFactorAuthMutation,
-  updateEmailMutation,
   updatePasswordMutation,
   updateProfileMutation,
 } from './graphql'
 import Settings from '.'
 
+const familyName = 'User'
+const givenName = 'Demo'
+const newPassword = '!A2s3d4f5g'
+const password = 'A!s2d3f4g5'
+const token = '123456'
+const userId = '02411db8-e5d3-4ca8-a7a7-bea9d0b6d4f3'
+
+const enableTwoFactorAuthResponse = enableTwoFactorAuthResponseBuilder()
+
+const response = responseBuilder()
+
+const user = userBuilder({
+  id: userId,
+  emails: [emailBuilder({ isPrimary: true, userId })],
+  isTwoFactorAuthEnabled: false,
+  profile: profileBuilder({ userId }),
+})
+
+const profileResponse = profileResponseBuilder({
+  profile: { ...user.profile, familyName, givenName },
+})
+
+const userResponse = userResponseBuilder({ user })
+
 const defaultMocks = [
-  {
-    request: { query: accountQuery },
-    result: {
-      data: {
-        user: {
-          id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-          emails: [
-            {
-              id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-              value: 'demo@fintruth.com',
-            },
-          ],
-          isTwoFactorAuthEnabled: false,
-          profile: { familyName: 'User', givenName: 'Demo' },
-        },
-      },
-    },
-  },
-  {
-    request: {
-      query: updateEmailMutation,
-      variables: { newEmail: 'test@fintruth.com', password: 'Asdfg!2345' },
-    },
-    result: {
-      data: {
-        response: {
-          error: null,
-          user: {
-            id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            emails: [
-              {
-                id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-                value: 'demo@fintruth.com',
-              },
-            ],
-          },
-        },
-      },
-    },
-  },
+  { request: { query: currentUserQuery }, result: { data: { user } } },
   {
     request: {
       query: updatePasswordMutation,
-      variables: {
-        newPassword: 'A!s2d3f4g5',
-        newPasswordConfirm: 'A!s2d3f4g5',
-        password: 'Asdfg!2345',
-      },
+      variables: { newPassword, newPasswordConfirm: newPassword, password },
     },
-    result: { data: { response: { error: null } } },
+    result: { data: { response: { ...response, error: null } } },
   },
   {
     request: {
       query: updateProfileMutation,
-      variables: { input: { familyName: 'User', givenName: 'Demo' } },
+      variables: { input: { familyName, givenName } },
     },
-    result: {
-      data: {
-        response: {
-          error: null,
-          profile: { familyName: 'User', givenName: 'Demo' },
-        },
-      },
-    },
+    result: { data: { response: { ...profileResponse, error: null } } },
   },
   {
     request: { query: enableTwoFactorAuthMutation },
     result: {
-      data: {
-        response: {
-          dataUrl:
-            'data:image/png;base64,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',
-          error: null,
-          secret: 'NYTDMZSWJ5NHUNCBKAUFOUB6OZBHA3Z3GJVUONZBEUSTCJDJEZ5Q',
-        },
-      },
+      data: { response: { ...enableTwoFactorAuthResponse, error: null } },
     },
   },
   {
-    request: {
-      query: confirmTwoFactorAuthMutation,
-      variables: { token: '123456' },
+    request: { query: confirmTwoFactorAuthMutation, variables: { token } },
+    result: {
+      data: {
+        response: {
+          ...userResponse,
+          error: null,
+          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
+        },
+      },
     },
-    result: { data: { response: { error: null } } },
   },
 ]
 
 const defaultTwoFactorAuthEnabledMocks = [
   {
-    request: { query: accountQuery },
-    result: {
-      data: {
-        user: {
-          id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-          emails: [
-            {
-              id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-              value: 'demo@fintruth.com',
-            },
-          ],
-          isTwoFactorAuthEnabled: true,
-          profile: { familyName: 'User', givenName: 'Demo' },
-        },
-      },
-    },
-  },
-  {
-    request: {
-      query: updateEmailMutation,
-      variables: { newEmail: 'test@fintruth.com', password: 'Asdfg!2345' },
-    },
-    result: {
-      data: {
-        response: {
-          error: null,
-          user: {
-            id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            emails: [
-              {
-                id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-                value: 'demo@fintruth.com',
-              },
-            ],
-          },
-        },
-      },
-    },
+    request: { query: currentUserQuery },
+    result: { data: { user: { ...user, isTwoFactorAuthEnabled: true } } },
   },
   {
     request: {
       query: updatePasswordMutation,
-      variables: {
-        newPassword: 'A!s2d3f4g5',
-        newPasswordConfirm: 'A!s2d3f4g5',
-        password: 'Asdfg!2345',
-      },
+      variables: { newPassword, newPasswordConfirm: newPassword, password },
     },
-    result: { data: { response: { error: null } } },
+    result: { data: { response: { ...response, error: null } } },
   },
   {
     request: {
       query: updateProfileMutation,
-      variables: { input: { familyName: 'User', givenName: 'Demo' } },
+      variables: { input: { familyName, givenName } },
     },
-    result: {
-      data: {
-        response: {
-          error: null,
-          profile: { familyName: 'User', givenName: 'Demo' },
-        },
-      },
-    },
+    result: { data: { response: { ...profileResponse, error: null } } },
   },
   {
-    request: {
-      query: disableTwoFactorAuthMutation,
-      variables: { token: '123456' },
-    },
-    result: { data: { response: { error: null } } },
+    request: { query: disableTwoFactorAuthMutation, variables: { token } },
+    result: { data: { response: { ...userResponse, error: null } } },
   },
 ]
 
-const delayMocks = defaultMocks.map(defaultMock => ({
-  ...defaultMock,
-  delay: 5000,
-}))
-
-const delayTwoFactorAuthEnabledMocks = defaultTwoFactorAuthEnabledMocks.map(
-  defaultTwoFactorAuthEnabledMock => ({
-    ...defaultTwoFactorAuthEnabledMock,
-    delay: 5000,
-  })
-)
-
-const errorMocks = [
+const delayMocks = [
   {
-    request: { query: accountQuery },
+    delay: 5000,
+    request: { query: currentUserQuery },
+    result: { data: { user } },
+  },
+  {
+    delay: 5000,
+    request: {
+      query: updatePasswordMutation,
+      variables: { newPassword, newPasswordConfirm: newPassword, password },
+    },
+    result: { data: { response: { ...response, error: null } } },
+  },
+  {
+    delay: 5000,
+    request: {
+      query: updateProfileMutation,
+      variables: { input: { familyName, givenName } },
+    },
+    result: { data: { response: { ...profileResponse, error: null } } },
+  },
+  {
+    delay: 5000,
+    request: { query: enableTwoFactorAuthMutation },
     result: {
-      data: {
-        user: {
-          id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-          emails: [
-            {
-              id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-              value: 'demo@fintruth.com',
-            },
-          ],
-          isTwoFactorAuthEnabled: false,
-          profile: { familyName: 'User', givenName: 'Demo' },
-        },
-      },
+      data: { response: { ...enableTwoFactorAuthResponse, error: null } },
     },
   },
   {
-    request: {
-      query: updateEmailMutation,
-      variables: { newEmail: 'test@fintruth.com', password: 'Asdfg!2345' },
-    },
+    delay: 5000,
+    request: { query: confirmTwoFactorAuthMutation, variables: { token } },
     result: {
       data: {
         response: {
-          error: {
-            message: 'We encountered an issue when updating your email',
-          },
-          user: null,
+          ...userResponse,
+          error: null,
+          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
         },
       },
     },
   },
+]
+
+const delayTwoFactorAuthEnabledMocks = [
+  {
+    delay: 5000,
+    request: { query: currentUserQuery },
+    result: { data: { user: { ...user, isTwoFactorAuthEnabled: true } } },
+  },
+  {
+    delay: 5000,
+    request: {
+      query: updatePasswordMutation,
+      variables: { newPassword, newPasswordConfirm: newPassword, password },
+    },
+    result: { data: { response: { ...response, error: null } } },
+  },
+  {
+    delay: 5000,
+    request: {
+      query: updateProfileMutation,
+      variables: { input: { familyName, givenName } },
+    },
+    result: { data: { response: { ...profileResponse, error: null } } },
+  },
+  {
+    delay: 5000,
+    request: { query: disableTwoFactorAuthMutation, variables: { token } },
+    result: { data: { response: { ...userResponse, error: null } } },
+  },
+]
+
+const errorMocks = [
+  { request: { query: currentUserQuery }, result: { data: { user } } },
   {
     request: {
       query: updatePasswordMutation,
-      variables: {
-        newPassword: 'A!s2d3f4g5',
-        newPasswordConfirm: 'A!s2d3f4g5',
-        password: 'Asdfg!2345',
-      },
+      variables: { newPassword, newPasswordConfirm: newPassword, password },
     },
-    result: {
-      data: {
-        response: {
-          error: {
-            message: 'We encountered an issue when updating your password',
-          },
-        },
-      },
-    },
+    result: { data: { response } },
   },
   {
     request: {
       query: updateProfileMutation,
-      variables: { input: { familyName: 'User', givenName: 'Demo' } },
+      variables: { input: { familyName, givenName } },
     },
-    result: {
-      data: {
-        response: {
-          error: {
-            message: 'We encountered an issue when updating your profile',
-          },
-          profile: null,
-        },
-      },
-    },
+    result: { data: { response: { ...profileResponse, profile: null } } },
   },
   {
     request: { query: enableTwoFactorAuthMutation },
     result: {
       data: {
         response: {
+          ...enableTwoFactorAuthResponse,
           dataUrl: null,
-          error: {
-            message:
-              'An error occurred while enabling two-factor authentication',
-          },
           secret: null,
         },
       },
@@ -276,147 +210,68 @@ const errorMocks = [
   {
     request: { query: enableTwoFactorAuthMutation },
     result: {
-      data: {
-        response: {
-          dataUrl:
-            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAYAAAAZtYVBAAAAAklEQVR4AewaftIAAAe9SURBVO3BQY4kRxLAQDLR//8yV0eHDiEkqnomFnAzgfiDKr5J5aRiUnmj4g2VqeITKlPFicpJxRsqf9LDWhd5WOsiD2td5Id/qfgmlTdUpopJ5Q2VqWJSeUNlqvibVP6kim9SmR7WusjDWhd5WOsiP/wHlTcq3lB5o2JSmSreqJhUJpVPqEwVk8pJxUnFpPKGylTxhsobFScPa13kYa2LPKx1kR/+z6hMFW+onFR8U8Wk8obKGxWTyv+Th7Uu8rDWRR7WusgP/2cqJpWpYlJ5Q+WkYlKZKiaVNyreUJlUTlRu9rDWRR7WusjDWhf54T9U3KzipGJSmSpOVCaVb6p4Q+WNihOVT1R808NaF3lY6yIPa13kh39R+ZsqJpWpYlKZKiaVqWJSmSpOKiaVNyomlaliUpkqJpWpYlKZKj6h8pse1rrIw1oXeVjrIj8VN6uYVL6p4qTiDZU3Kk4qJpU3KiaVNyr+pIe1LvKw1kUe1rqIQAwVk8o3VXxCZaqYVKaKE5WTim9SeaNiUvmmihOVb6o4eVjrIg9rXeRhrYsIxAsVk8pJxSdUpopJ5WYVk8pU8QmVqWJSOal4Q+WbKqaHtS7ysNZFHta6iP2DQWWqmFSmihOVk4pJ5ZsqJpWTikllqjhROal4Q+WkYlI5qfiEyicqTh7WusjDWhd5WOsiAvFFFW+oTBWTylQxqUwVJyonFZPKGxW/SeWk4kRlqphUTiomlZOKSWWqmB7WusjDWhd5WOsiAjFUTConFZPKGxUnKicV36RyUjGp/KaKSWWqmFSmiknlpGJSmSpOVN6omB7WusjDWhd5WOsiAvGLKiaVNypOVH5TxSdUpoo3VKaKSWWqmFT+pooTlelhrYs8rHWRh7Uu8lNxovJGxaQyVUwqb6icVEwqU8UbKlPFpDJVTBWTyhsVJxVvVPwmlROVqWJ6WOsiD2td5GGtiwjEUHGi8kbFGyq/qeI3qUwVk8pU8YbKVHGiMlVMKlPFicpUMalMFW88rHWRh7Uu8rDWRX74UMWJym+qeEPlpGJSmSq+SeWkYqo4UZkq/iaVk4rpYa2LPKx1kYe1LiIQBxVvqEwVb6hMFZPKVDGpfKLiROWkYlL5popJ5aRiUpkqTlTeqJhUpopJZXpY6yIPa13kYa2L/FRMKt+kMlV8k8pUMalMFW+onFS8UXGiMlWcVHxC5aRiUjlReaNieljrIg9rXeRhrYsIxBdVnKhMFZPKGxWTyknFpDJVnKhMFZ9QOal4Q+WkYlKZKiaVqWJSmSomlTce1rrIw1oXeVjrIgJxUPGGyknFpDJV/EkqU8WkMlVMKn9TxSdUporfpDJVTA9rXeRhrYs8rHUR+weDylQxqUwVb6hMFScqb1R8QmWqmFSmikllqphU3qg4UTmpmFSmiknljYpJ5RMPa13kYa2LPKx1kR+VT6h8k8qfpPJGxRsqU8WkcqJyUjGpnFRMKm9UnFR84mGtizysdZGHtS7yw79UfKLiDZU3KiaVSeWNihOV31RxojJVnFR8U8Wk8pse1rrIw1oXeVjrIvYPDlSmijdUTireUHmjYlJ5o+I3qfymiknlpGJSOamYVKaKSeXkYa2LPKx1kYe1LvLDf6iYVKaKk4rfVDGpnFScqJyofFPFpDJVnKhMFW9UvFHxmx7WusjDWhd5WOsiP/yLylRxojJVTCpTxaQyVUwqU8WkMlV8omJSmSpOVKaKNyomlW+qOFH5RMUbFdPDWhd5WOsiD2td5EfljYoTlanipGJSmSomlaliUjmpmFSmiqniJhWTyk1Upoo3Hta6yMNaF3lY6yL2DwaVNyomlU9UvKEyVZyonFR8QmWqOFE5qXhDZaqYVKaKE5Wp4kTlEw9rXeRhrYs8rHWRH5WTiknlpOImKm+oTBUnKt9U8YbKVDGpnKicVJyonFS88bDWRR7WusjDWhf54V8qPqFyUnGiMlV8ouINlROVqeJvqvhExTdVfOJhrYs8rHWRh7Uu8sNLFZPKScWkclLxCZWTikllqnhDZar4JpU3KqaKSeVEZao4qZhUpooTlelhrYs8rHWRh7UuIhBDxaRyUjGpnFScqLxRMalMFZPKVDGpTBWTyhsVb6hMFScqJxWTym+qmFSmipOHtS7ysNZFHta6iP2Dv0jlpGJSOan4hMpJxaRyUnGi8k0Vb6hMFW+ovFExqUwPa13kYa2LPKx1EYH4gyp+k8pUcaJyUjGpvFHxTSqfqJhUpopJZaqYVKaKSWWqOHlY6yIPa13kYa2L/PAvFd+kcqIyVUwqU8VJxYnKVDGpTConFZPKpHJSMalMFScVk8qJyhsV36QyVUwPa13kYa2LPKx1kR/+g8obFd9UMamcVEwqb1ScqLxRMalMKlPFpHKiMlWcqJyo/KaKk4e1LvKw1kUe1rrID5dROak4UfmEyknFGyrfVDGpvFExqUwV31QxqZw8rHWRh7Uu8rDWRX64TMUnKt5QeUNlqvhExRsqv0nlExWTyknF9LDWRR7WusjDWhf54T9U/KaKE5VvqjipOFGZVE4qTlSmiqniEypTxUnFpDJVTCqTyice1rrIw1oXeVjrIj/8i8qfpPKbKj6hMlVMKlPFJ1TeqJhUpopJZar4popJZao4eVjrIg9rXeRhrYv8D7M+U1HJaWYBAAAAAElFTkSuQmCC',
-          error: null,
-          secret: 'NYTDMZSWJ5NHUNCBKAUFOUB6OZBHA3Z3GJVUONZBEUSTCJDJEZ5Q',
-        },
-      },
+      data: { response: { ...enableTwoFactorAuthResponse, error: null } },
     },
   },
   {
-    request: {
-      query: confirmTwoFactorAuthMutation,
-      variables: { token: '123456' },
-    },
-    result: {
-      data: {
-        response: {
-          error: { message: 'The verification code has expired or is invalid' },
-        },
-      },
-    },
+    request: { query: confirmTwoFactorAuthMutation, variables: { token } },
+    result: { data: { response: { ...userResponse, user: null } } },
   },
 ]
 
 const errorTwoFactorAuthEnabledMocks = [
   {
-    request: { query: accountQuery },
-    result: {
-      data: {
-        user: {
-          id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-          emails: [
-            {
-              id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-              value: 'demo@fintruth.com',
-            },
-          ],
-          isTwoFactorAuthEnabled: true,
-          profile: { familyName: 'User', givenName: 'Demo' },
-        },
-      },
-    },
-  },
-  {
-    request: {
-      query: updateEmailMutation,
-      variables: { newEmail: 'test@fintruth.com', password: 'Asdfg!2345' },
-    },
-    result: {
-      data: {
-        response: {
-          error: {
-            message: 'We encountered an issue when updating your email',
-          },
-          user: null,
-        },
-      },
-    },
+    request: { query: currentUserQuery },
+    result: { data: { user: { ...user, isTwoFactorAuthEnabled: true } } },
   },
   {
     request: {
       query: updatePasswordMutation,
-      variables: {
-        newPassword: 'A!s2d3f4g5',
-        newPasswordConfirm: 'A!s2d3f4g5',
-        password: 'Asdfg!2345',
-      },
+      variables: { newPassword, newPasswordConfirm: newPassword, password },
     },
-    result: {
-      data: {
-        response: {
-          error: {
-            message: 'We encountered an issue when updating your password',
-          },
-        },
-      },
-    },
+    result: { data: { response } },
   },
   {
     request: {
       query: updateProfileMutation,
-      variables: { input: { familyName: 'User', givenName: 'Demo' } },
+      variables: { input: { familyName, givenName } },
     },
-    result: {
-      data: {
-        response: {
-          error: {
-            message: 'We encountered an issue when updating your profile',
-          },
-          profile: null,
-        },
-      },
-    },
+    result: { data: { response: { ...profileResponse, profile: null } } },
   },
   {
-    request: {
-      query: disableTwoFactorAuthMutation,
-      variables: { token: '123456' },
-    },
-    result: {
-      data: {
-        response: {
-          error: { message: 'The verification code has expired or is invalid' },
-        },
-      },
-    },
+    request: { query: disableTwoFactorAuthMutation, variables: { token } },
+    result: { data: { response: { ...userResponse, user: null } } },
   },
 ]
 
 storiesOf('Routes|Settings', module)
   .add('Default', () => (
-    <MockedProvider addTypename={false} mocks={defaultMocks}>
+    <MockedProvider mocks={defaultMocks}>
       <Settings />
     </MockedProvider>
   ))
   .add('Default (2FA Enabled)', () => (
-    <MockedProvider
-      addTypename={false}
-      mocks={defaultTwoFactorAuthEnabledMocks}
-    >
+    <MockedProvider mocks={defaultTwoFactorAuthEnabledMocks}>
       <Settings />
     </MockedProvider>
   ))
   .add('With Delay', () => (
-    <MockedProvider addTypename={false} mocks={delayMocks}>
+    <MockedProvider mocks={delayMocks}>
       <Settings />
     </MockedProvider>
   ))
   .add('With Delay (2FA Enabled)', () => (
-    <MockedProvider addTypename={false} mocks={delayTwoFactorAuthEnabledMocks}>
+    <MockedProvider mocks={delayTwoFactorAuthEnabledMocks}>
       <Settings />
     </MockedProvider>
   ))
   .add('With Error', () => (
-    <MockedProvider addTypename={false} mocks={errorMocks}>
+    <MockedProvider mocks={errorMocks}>
       <Settings />
     </MockedProvider>
   ))
   .add('With Error (2FA Enabled)', () => (
-    <MockedProvider addTypename={false} mocks={errorTwoFactorAuthEnabledMocks}>
+    <MockedProvider mocks={errorTwoFactorAuthEnabledMocks}>
       <Settings />
     </MockedProvider>
   ))

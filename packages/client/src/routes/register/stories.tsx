@@ -2,65 +2,67 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
+import { responseBuilder } from 'utilities/specification'
 import { registerMutation } from './graphql'
 import Register from '.'
+
+const response = responseBuilder()
+
+const email = 'demo@fintruth.com'
+const familyName = 'User'
+const givenName = 'Demo'
+const password = 'A!s2d3f4g5'
 
 const defaultMocks = [
   {
     request: {
       query: registerMutation,
       variables: {
-        input: {
-          email: 'demo@fintruth.com',
-          emailConfirm: 'demo@fintruth.com',
-          familyName: 'User',
-          givenName: 'Demo',
-          password: 'Asdfg!2345',
-        },
+        input: { email, password, profile: { familyName, givenName } },
       },
     },
-    result: { data: { response: { error: null } } },
+    result: { data: { response: { ...response, error: null } } },
   },
 ]
 
-const delayMocks = defaultMocks.map(defaultMock => ({
-  ...defaultMock,
-  delay: 5000,
-}))
+const delayMocks = [
+  {
+    delay: 5000,
+    request: {
+      query: registerMutation,
+      variables: {
+        input: { email, password, profile: { familyName, givenName } },
+      },
+    },
+    result: { data: { response: { ...response, error: null } } },
+  },
+]
 
 const errorMocks = [
   {
     request: {
       query: registerMutation,
       variables: {
-        input: {
-          email: 'demo@fintruth.com',
-          emailConfirm: 'demo@fintruth.com',
-          familyName: 'User',
-          givenName: 'Demo',
-          password: 'Asdfg!2345',
-        },
+        input: { email, password, profile: { familyName, givenName } },
       },
     },
-    result: {
-      data: { response: { error: { message: 'The user already exists' } } },
-    },
+    result: { data: { response } },
   },
 ]
 
 storiesOf('Routes|Register', module)
   .add('Default', () => (
-    <MockedProvider addTypename={false} mocks={defaultMocks}>
+    <MockedProvider mocks={defaultMocks}>
       <Register />
     </MockedProvider>
   ))
   .add('With Delay', () => (
-    <MockedProvider addTypename={false} mocks={delayMocks}>
+    <MockedProvider mocks={delayMocks}>
       <Register />
     </MockedProvider>
   ))
   .add('With Error', () => (
-    <MockedProvider addTypename={false} mocks={errorMocks}>
+    <MockedProvider mocks={errorMocks}>
       <Register />
     </MockedProvider>
   ))

@@ -1,4 +1,8 @@
-import { RegisterInput, Response } from '@fintruth-sdk/common'
+import {
+  RegisterInput,
+  Response,
+  responsePropsFragment,
+} from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
 export interface RegisterMutationData {
@@ -12,9 +16,8 @@ export interface RegisterMutationVariables {
 export const registerMutation = gql`
   mutation RegisterMutation($input: RegisterInput!) {
     response: register(input: $input) {
-      error {
-        message
-      }
+      ...ResponseProps
     }
   }
+  ${responsePropsFragment}
 `

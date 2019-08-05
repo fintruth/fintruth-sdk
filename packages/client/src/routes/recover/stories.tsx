@@ -2,133 +2,112 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
-import { recoverMutation, recoverQuery } from './graphql'
+import {
+  emailBuilder,
+  profileBuilder,
+  responseBuilder,
+  userBuilder,
+} from 'utilities/specification'
+import { currentUserQuery, recoverMutation } from './graphql'
 import Recover from '.'
 
+const email = 'demo@fintruth.com'
+const userId = '02411db8-e5d3-4ca8-a7a7-bea9d0b6d4f3'
+
+const response = responseBuilder()
+
+const user = userBuilder({
+  id: userId,
+  emails: [emailBuilder({ isPrimary: true, userId, value: email })],
+  profile: profileBuilder({ userId }),
+})
+
 const defaultMocks = [
-  { request: { query: recoverQuery }, result: { data: { user: null } } },
+  { request: { query: currentUserQuery }, result: { data: { user: null } } },
   {
-    request: {
-      query: recoverMutation,
-      variables: { email: 'demo@fintruth.com' },
-    },
-    result: { data: { response: { error: null } } },
+    request: { query: recoverMutation, variables: { email } },
+    result: { data: { response: { ...response, error: null } } },
   },
 ]
 
 const defaultAuthenticatedMocks = [
+  { request: { query: currentUserQuery }, result: { data: { user } } },
   {
-    request: { query: recoverQuery },
-    result: {
-      data: {
-        user: {
-          id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-          emails: [
-            {
-              id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-              value: 'demo@fintruth.com',
-            },
-          ],
-        },
-      },
-    },
-  },
-  {
-    request: {
-      query: recoverMutation,
-      variables: { email: 'demo@fintruth.com' },
-    },
-    result: { data: { response: { error: null } } },
+    request: { query: recoverMutation, variables: { email } },
+    result: { data: { response: { ...response, error: null } } },
   },
 ]
 
-const delayMocks = defaultMocks.map(defaultMock => ({
-  ...defaultMock,
-  delay: 5000,
-}))
-
-const delayAuthenticatedMocks = defaultAuthenticatedMocks.map(
-  defaultAuthenticatedMock => ({
-    ...defaultAuthenticatedMock,
+const delayMocks = [
+  {
     delay: 5000,
-  })
-)
+    request: { query: currentUserQuery },
+    result: { data: { user: null } },
+  },
+  {
+    delay: 5000,
+    request: { query: recoverMutation, variables: { email } },
+    result: { data: { response: { ...response, error: null } } },
+  },
+]
+
+const delayAuthenticatedMocks = [
+  {
+    delay: 5000,
+    request: { query: currentUserQuery },
+    result: { data: { user } },
+  },
+  {
+    delay: 5000,
+    request: { query: recoverMutation, variables: { email } },
+    result: { data: { response: { ...response, error: null } } },
+  },
+]
 
 const errorMocks = [
-  { request: { query: recoverQuery }, result: { data: { user: null } } },
+  { request: { query: currentUserQuery }, result: { data: { user: null } } },
   {
-    request: {
-      query: recoverMutation,
-      variables: { email: 'demo@fintruth.com' },
-    },
-    result: {
-      data: { response: { error: { message: 'The user does not exist' } } },
-    },
+    request: { query: recoverMutation, variables: { email } },
+    result: { data: { response } },
   },
 ]
 
 const errorAuthenticatedMocks = [
+  { request: { query: currentUserQuery }, result: { data: { user } } },
   {
-    request: { query: recoverQuery },
-    result: {
-      data: {
-        user: {
-          id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-          emails: [
-            {
-              id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-              value: 'demo@fintruth.com',
-            },
-          ],
-        },
-      },
-    },
-  },
-  {
-    request: {
-      query: recoverMutation,
-      variables: { email: 'demo@fintruth.com' },
-    },
-    result: {
-      data: {
-        response: {
-          error: {
-            message: 'An issue was encountered when sending the recovery email',
-          },
-        },
-      },
-    },
+    request: { query: recoverMutation, variables: { email } },
+    result: { data: { response } },
   },
 ]
 
 storiesOf('Routes|Recover', module)
   .add('Default', () => (
-    <MockedProvider addTypename={false} mocks={defaultMocks}>
+    <MockedProvider mocks={defaultMocks}>
       <Recover />
     </MockedProvider>
   ))
   .add('Default (Authenticated)', () => (
-    <MockedProvider addTypename={false} mocks={defaultAuthenticatedMocks}>
+    <MockedProvider mocks={defaultAuthenticatedMocks}>
       <Recover />
     </MockedProvider>
   ))
   .add('With Delay', () => (
-    <MockedProvider addTypename={false} mocks={delayMocks}>
+    <MockedProvider mocks={delayMocks}>
       <Recover />
     </MockedProvider>
   ))
   .add('With Delay (Authenticated)', () => (
-    <MockedProvider addTypename={false} mocks={delayAuthenticatedMocks}>
+    <MockedProvider mocks={delayAuthenticatedMocks}>
       <Recover />
     </MockedProvider>
   ))
   .add('With Error', () => (
-    <MockedProvider addTypename={false} mocks={errorMocks}>
+    <MockedProvider mocks={errorMocks}>
       <Recover />
     </MockedProvider>
   ))
   .add('With Error (Authenticated)', () => (
-    <MockedProvider addTypename={false} mocks={errorAuthenticatedMocks}>
+    <MockedProvider mocks={errorAuthenticatedMocks}>
       <Recover />
     </MockedProvider>
   ))

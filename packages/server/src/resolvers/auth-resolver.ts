@@ -15,19 +15,19 @@ export default class AuthResolver {
   @Inject()
   private readonly authService: AuthService
 
-  @Mutation(() => Response)
+  @Mutation(() => UserResponse)
   confirmTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {
     if (!user) {
-      return new Response({ error: new ResponseError('Not authenticated') })
+      return new UserResponse({ error: new ResponseError('Not authenticated') })
     }
 
     return this.authService.confirmTwoFactorAuth(token, user.id)
   }
 
-  @Mutation(() => Response)
+  @Mutation(() => UserResponse)
   disableTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {
     if (!user) {
-      return new Response({ error: new ResponseError('Not authenticated') })
+      return new UserResponse({ error: new ResponseError('Not authenticated') })
     }
 
     return this.authService.disableTwoFactorAuth(token, user.id)

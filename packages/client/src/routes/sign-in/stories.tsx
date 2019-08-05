@@ -2,192 +2,174 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
-import { signInMutation, signInTwoFactorAuthMutation } from './graphql'
+import {
+  emailBuilder,
+  profileBuilder,
+  userBuilder,
+  userResponseBuilder,
+} from 'utilities/specification'
+import {
+  currentUserQuery,
+  signInMutation,
+  signInTwoFactorAuthMutation,
+} from './graphql'
 import SignIn from '.'
+
+const email = 'demo@fintruth.com'
+const password = 'A!s2d3f4g5'
+const token = '123456'
+const userId = '02411db8-e5d3-4ca8-a7a7-bea9d0b6d4f3'
+
+const user = userBuilder({
+  id: userId,
+  emails: [emailBuilder({ isPrimary: true, userId, value: email })],
+  isTwoFactorAuthEnabled: false,
+  profile: profileBuilder({ userId }),
+})
+
+const userResponse = userResponseBuilder({ user })
 
 const defaultMocks = [
   {
-    request: {
-      query: signInMutation,
-      variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
-    },
-    result: {
-      data: {
-        response: {
-          error: null,
-          user: {
-            id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            emails: [
-              {
-                id: '592c4352-d108-409a-bb6f-ca1a6d88ff5b',
-                value: 'demo@fintruth.com',
-              },
-            ],
-            isTwoFactorAuthEnabled: false,
-          },
-        },
-      },
-    },
+    request: { query: signInMutation, variables: { email, password } },
+    result: { data: { response: { ...userResponse, error: null } } },
   },
+  { request: { query: currentUserQuery }, result: { data: { user } } },
 ]
 
 const defaultTwoFactorAuthEnabledMocks = [
   {
-    request: {
-      query: signInMutation,
-      variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
-    },
+    request: { query: signInMutation, variables: { email, password } },
     result: {
       data: {
         response: {
+          ...userResponse,
           error: null,
-          user: {
-            id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            emails: [
-              {
-                id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-                value: 'demo@fintruth.com',
-              },
-            ],
-            isTwoFactorAuthEnabled: true,
-          },
+          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
         },
       },
     },
   },
+  { request: { query: currentUserQuery }, result: { data: { user: null } } },
   {
     request: {
       query: signInTwoFactorAuthMutation,
-      variables: {
-        email: 'demo@fintruth.com',
-        password: 'Asdfg!2345',
-        token: '123456',
-      },
+      variables: { email, password, token },
     },
     result: {
       data: {
         response: {
+          ...userResponse,
           error: null,
-          user: {
-            id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            emails: [
-              {
-                id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-                value: 'demo@fintruth.com',
-              },
-            ],
-            isTwoFactorAuthEnabled: true,
-          },
+          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
         },
       },
     },
   },
+  { request: { query: currentUserQuery }, result: { data: { user } } },
 ]
 
-const delayMocks = defaultMocks.map(defaultMock => ({
-  ...defaultMock,
-  delay: 5000,
-}))
-
-const delayTwoFactorAuthEnabledMocks = defaultTwoFactorAuthEnabledMocks.map(
-  defaultTwoFactorAuthEnabledMock => ({
-    ...defaultTwoFactorAuthEnabledMock,
-    delay: 5000,
-  })
-)
-
-const errorMocks = [
+const delayMocks = [
   {
+    delay: 5000,
+    request: { query: signInMutation, variables: { email, password } },
+    result: { data: { response: { ...userResponse, error: null } } },
+  },
+  { request: { query: currentUserQuery }, result: { data: { user } } },
+]
+
+const delayTwoFactorAuthEnabledMocks = [
+  {
+    delay: 5000,
+    request: { query: signInMutation, variables: { email, password } },
+    result: {
+      data: {
+        response: {
+          ...userResponse,
+          error: null,
+          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
+        },
+      },
+    },
+  },
+  { request: { query: currentUserQuery }, result: { data: { user: null } } },
+  {
+    delay: 5000,
     request: {
-      query: signInMutation,
-      variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
+      query: signInTwoFactorAuthMutation,
+      variables: { email, password, token },
     },
     result: {
       data: {
         response: {
-          error: { message: 'Incorrect email or password' },
-          user: null,
+          ...userResponse,
+          error: null,
+          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
         },
       },
     },
+  },
+  { request: { query: currentUserQuery }, result: { data: { user } } },
+]
+
+const errorMocks = [
+  {
+    request: { query: signInMutation, variables: { email, password } },
+    result: { data: { response: { ...userResponse, user: null } } },
   },
 ]
 
 const errorTwoFactorAuthEnabledMocks = [
   {
-    request: {
-      query: signInMutation,
-      variables: { email: 'demo@fintruth.com', password: 'Asdfg!2345' },
-    },
+    request: { query: signInMutation, variables: { email, password } },
     result: {
       data: {
         response: {
+          ...userResponse,
           error: null,
-          user: {
-            id: 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a',
-            emails: [
-              {
-                id: '5ec99e43-c24b-4104-a8d2-4b659109ae1f',
-                value: 'demo@fintruth.com',
-              },
-            ],
-            isTwoFactorAuthEnabled: true,
-          },
+          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
         },
       },
     },
   },
+  { request: { query: currentUserQuery }, result: { data: { user: null } } },
   {
     request: {
       query: signInTwoFactorAuthMutation,
-      variables: {
-        email: 'demo@fintruth.com',
-        password: 'Asdfg!2345',
-        token: '123456',
-      },
+      variables: { email, password, token },
     },
-    result: {
-      data: {
-        response: {
-          error: { message: 'Incorrect verification code' },
-          user: null,
-        },
-      },
-    },
+    result: { data: { response: { ...userResponse, user: null } } },
   },
 ]
 
 storiesOf('Routes|Sign In', module)
   .add('Default', () => (
-    <MockedProvider addTypename={false} mocks={defaultMocks}>
+    <MockedProvider mocks={defaultMocks}>
       <SignIn />
     </MockedProvider>
   ))
   .add('Default (2FA Enabled)', () => (
-    <MockedProvider
-      addTypename={false}
-      mocks={defaultTwoFactorAuthEnabledMocks}
-    >
+    <MockedProvider mocks={defaultTwoFactorAuthEnabledMocks}>
       <SignIn />
     </MockedProvider>
   ))
   .add('With Delay', () => (
-    <MockedProvider addTypename={false} mocks={delayMocks}>
+    <MockedProvider mocks={delayMocks}>
       <SignIn />
     </MockedProvider>
   ))
   .add('With Delay (2FA Enabled)', () => (
-    <MockedProvider addTypename={false} mocks={delayTwoFactorAuthEnabledMocks}>
+    <MockedProvider mocks={delayTwoFactorAuthEnabledMocks}>
       <SignIn />
     </MockedProvider>
   ))
   .add('With Error', () => (
-    <MockedProvider addTypename={false} mocks={errorMocks}>
+    <MockedProvider mocks={errorMocks}>
       <SignIn />
     </MockedProvider>
   ))
   .add('With Error (2FA Enabled)', () => (
-    <MockedProvider addTypename={false} mocks={errorTwoFactorAuthEnabledMocks}>
+    <MockedProvider mocks={errorTwoFactorAuthEnabledMocks}>
       <SignIn />
     </MockedProvider>
   ))

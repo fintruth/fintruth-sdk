@@ -6,8 +6,8 @@ import { Inject, Service } from 'typedi'
 import { Daos } from 'models'
 import {
   EnableTwoFactorAuthResponse,
-  Response,
   ResponseError,
+  UserResponse,
 } from 'resolvers/types'
 import { ServerResponse } from 'server'
 import ConfigService from './config-service'
@@ -31,11 +31,11 @@ export default class AuthService {
     const user = await this.daos.users.findOne(userId)
 
     if (!user) {
-      return new Response({ error: new ResponseError('User not found') })
+      return new UserResponse({ error: new ResponseError('User not found') })
     }
 
     if (!user.secretTemp) {
-      return new Response({
+      return new UserResponse({
         error: new ResponseError('Two factor not initiated'),
       })
     }
@@ -43,7 +43,7 @@ export default class AuthService {
     const isValid = this.verifyTwoFactorAuthToken(token, user.secretTemp)
 
     if (!isValid) {
-      return new Response({
+      return new UserResponse({
         error: new ResponseError('Token is invalid or expired'),
       })
     }
@@ -53,18 +53,18 @@ export default class AuthService {
       secretTemp: undefined,
     })
 
-    return new Response()
+    return new UserResponse({ user: await this.daos.users.findOne(userId) })
   }
 
   async disableTwoFactorAuth(token: string, userId: string) {
     const user = await this.daos.users.findOne(userId)
 
     if (!user) {
-      return new Response({ error: new ResponseError('User not found') })
+      return new UserResponse({ error: new ResponseError('User not found') })
     }
 
     if (!user.secret) {
-      return new Response({
+      return new UserResponse({
         error: new ResponseError('Two factor not enabled'),
       })
     }
@@ -72,14 +72,14 @@ export default class AuthService {
     const isValid = this.verifyTwoFactorAuthToken(token, user.secret)
 
     if (!isValid) {
-      return new Response({
+      return new UserResponse({
         error: new ResponseError('Token is invalid or expired'),
       })
     }
 
     await this.daos.users.update(userId, { secret: undefined })
 
-    return new Response()
+    return new UserResponse({ user: await this.daos.users.findOne(userId) })
   }
 
   async enableTwoFactorAuth(userId: string) {

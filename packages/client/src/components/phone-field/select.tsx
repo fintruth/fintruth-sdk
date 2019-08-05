@@ -33,9 +33,10 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   const { onChange, ...field } = useField<Alpha2Code>(`${name}.alpha2Code`)[0]
   const { registerField, unregisterField } = useFormikContext<any>()
 
-  const { data: { countries = [] } = {}, loading } = useQuery<
-    CountriesQueryData
-  >(countriesQuery)
+  const {
+    data: { countries = [] } = {},
+    loading: isQueryingCountries,
+  } = useQuery<CountriesQueryData>(countriesQuery)
 
   const defaultValidate = React.useCallback<FieldValidator>(
     (value: string) => validateSelect(value, { isRequired }),
@@ -78,7 +79,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       aria-labelledby={labelId}
       data-phone-field-select
       isDisabled={isDisabled}
-      isLoading={loading}
+      isLoading={isQueryingCountries}
       isRequired={isRequired}
       onChange={handleChange}
       ref={ref}

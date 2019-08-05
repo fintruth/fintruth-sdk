@@ -4,24 +4,26 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Layout from 'components/layout'
-import { centered, fill, title } from 'styles/deprecated'
-import { container } from 'styles/mixins'
+import { container, title } from 'styles/mixins'
+
+type Props = RouteComponentProps
 
 const Root = styled.div`
   ${container()};
-  ${centered};
-  ${fill};
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  justify-content: center;
   padding: ${rem(48)} ${rem(24)};
 `
 
-const Title = styled.h1`
+const Title = styled.h2`
   ${title};
-  font-size: ${rem(36)};
+  font-size: ${rem(40)};
 `
 
-const Home: React.FunctionComponent<RouteComponentProps> = ({
-  ...props
-}: RouteComponentProps) => (
+const Home: React.FunctionComponent<Props> = (props: Props) => (
   <Layout data-testid="home" {...props}>
     <Root>
       <Title>Welcome Home!</Title>

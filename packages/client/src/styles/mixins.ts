@@ -10,7 +10,9 @@ import {
 import { spin } from './animations'
 
 type Content = FlattenInterpolation<ThemedStyledProps<{}, DefaultTheme>>
+
 type ViewportBreakpointLower = Exclude<ViewportBreakpoint, 'extraLarge'>
+
 type ViewportBreakpointUpper = Exclude<ViewportBreakpoint, 'small'>
 
 const from = (breakpoint: ViewportBreakpoint) => (content: Content) => css`

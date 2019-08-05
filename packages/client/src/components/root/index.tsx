@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components'
 import GlobalStyle from 'styles/global'
 import theme from 'styles/theme'
 import { renderLoadingIf } from 'utilities/loading'
-import { RootQueryData, rootQuery } from './graphql'
+import { CurrentUserQueryData, currentUserQuery } from './graphql'
 
 const Home = loadable(() =>
   import(/* webpackChunkName: 'home' */ 'routes/home')
@@ -36,18 +36,17 @@ const SignIn = loadable(() =>
 const Root: React.FunctionComponent = () => {
   const Fault = __DEV__ ? require('routes/fault').default : undefined
 
-  const { data = {}, loading } = useQuery<RootQueryData>(rootQuery, {
-    fetchPolicy: 'network-only',
-    ssr: false,
-  })
+  const { data = {}, loading: isQueryingCurrentUser } = useQuery<
+    CurrentUserQueryData
+  >(currentUserQuery, { fetchPolicy: 'network-only', ssr: false })
 
   return (
     <React.StrictMode>
-      {renderLoadingIf(loading, () => (
-        <ThemeProvider theme={theme}>
-          <React.Fragment>
-            <GlobalStyle />
-            {data.user ? (
+      <ThemeProvider theme={theme}>
+        <React.Fragment>
+          <GlobalStyle />
+          {renderLoadingIf(isQueryingCurrentUser, () =>
+            data.user ? (
               <Router>
                 {Fault && <Fault path="/error" />}
                 <Home path="/" />
@@ -64,10 +63,10 @@ const Root: React.FunctionComponent = () => {
                 <SignIn path="/sign-in" />
                 <NotFound default />
               </Router>
-            )}
-          </React.Fragment>
-        </ThemeProvider>
-      ))}
+            )
+          )}
+        </React.Fragment>
+      </ThemeProvider>
     </React.StrictMode>
   )
 }

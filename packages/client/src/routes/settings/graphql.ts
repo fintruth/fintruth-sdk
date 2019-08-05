@@ -5,23 +5,28 @@ import {
   Response,
   User,
   UserResponse,
+  enableTwoFactorAuthResponsePropsFragment,
+  profileResponsePropsFragment,
+  responsePropsFragment,
+  userPropsFragment,
+  userResponsePropsFragment,
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
-export interface AccountQueryData {
-  user?: User
-}
-
 export interface ConfirmTwoFactorAuthMutationData {
-  response: Response
+  response: UserResponse
 }
 
 export interface ConfirmTwoFactorAuthMutationVariables {
   token: string
 }
 
+export interface CurrentUserQueryData {
+  user?: User
+}
+
 export interface DisableTwoFactorAuthMutationData {
-  response: Response
+  response: UserResponse
 }
 
 export interface DisableTwoFactorAuthMutationVariables {
@@ -30,15 +35,6 @@ export interface DisableTwoFactorAuthMutationVariables {
 
 export interface EnableTwoFactorAuthMutationData {
   response: EnableTwoFactorAuthResponse
-}
-
-export interface UpdateEmailMutationData {
-  response: UserResponse
-}
-
-export interface UpdateEmailMutationVariables {
-  newEmail: string
-  password: string
 }
 
 export interface UpdatePasswordMutationData {
@@ -58,92 +54,56 @@ export interface UpdateProfileMutationVariables {
   input: ProfileInput
 }
 
-export const accountQuery = gql`
-  query AccountQuery {
-    user: currentUser {
-      id
-      emails {
-        id
-        value
-      }
-      isTwoFactorAuthEnabled
-      profile {
-        familyName
-        givenName
-      }
-    }
-  }
-`
-
 export const confirmTwoFactorAuthMutation = gql`
   mutation ConfirmTwoFactorAuthMutation($token: String!) {
     response: confirmTwoFactorAuth(token: $token) {
-      error {
-        message
-      }
+      ...UserResponseProps
     }
   }
+  ${userResponsePropsFragment}
+`
+
+export const currentUserQuery = gql`
+  query CurrentUserQuery {
+    user: currentUser {
+      ...UserProps
+    }
+  }
+  ${userPropsFragment}
 `
 
 export const disableTwoFactorAuthMutation = gql`
   mutation DisableTwoFactorAuthMutation($token: String!) {
     response: disableTwoFactorAuth(token: $token) {
-      error {
-        message
-      }
+      ...UserResponseProps
     }
   }
+  ${userResponsePropsFragment}
 `
 
 export const enableTwoFactorAuthMutation = gql`
   mutation EnableTwoFactorAuthMutation {
     response: enableTwoFactorAuth {
-      dataUrl
-      error {
-        message
-      }
-      secret
+      ...EnableTwoFactorAuthResponseProps
     }
   }
-`
-
-export const updateEmailMutation = gql`
-  mutation UpdateEmailMutation($newEmail: String!, $password: String!) {
-    response: updateEmail(newEmail: $newEmail, password: $password) {
-      error {
-        message
-      }
-      user {
-        id
-        emails {
-          id
-          value
-        }
-      }
-    }
-  }
+  ${enableTwoFactorAuthResponsePropsFragment}
 `
 
 export const updatePasswordMutation = gql`
   mutation UpdatePasswordMutation($newPassword: String!, $password: String!) {
     response: updatePassword(newPassword: $newPassword, password: $password) {
-      error {
-        message
-      }
+      ...ResponseProps
     }
   }
+  ${responsePropsFragment}
 `
 
 export const updateProfileMutation = gql`
   mutation UpdateProfileMutation($input: ProfileInput!) {
     response: updateProfile(input: $input) {
-      error {
-        message
-      }
-      profile {
-        familyName
-        givenName
-      }
+      ...ProfileResponseProps
     }
   }
+  ${profileResponsePropsFragment}
 `

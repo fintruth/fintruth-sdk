@@ -1,5 +1,14 @@
-import { UserResponse } from '@fintruth-sdk/common'
+import {
+  User,
+  UserResponse,
+  userPropsFragment,
+  userResponsePropsFragment,
+} from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
+
+export interface CurrentUserQueryData {
+  user?: User
+}
 
 export interface SignInMutationData {
   response: UserResponse
@@ -20,22 +29,22 @@ export interface SignInTwoFactorAuthMutationVariables {
   token: string
 }
 
+export const currentUserQuery = gql`
+  query CurrentUserQuery {
+    user: currentUser {
+      ...UserProps
+    }
+  }
+  ${userPropsFragment}
+`
+
 export const signInMutation = gql`
   mutation SignInMutation($email: String!, $password: String!) {
     response: signIn(email: $email, password: $password) {
-      error {
-        message
-      }
-      user {
-        id
-        emails {
-          id
-          value
-        }
-        isTwoFactorAuthEnabled
-      }
+      ...UserResponseProps
     }
   }
+  ${userResponsePropsFragment}
 `
 
 export const signInTwoFactorAuthMutation = gql`
@@ -49,17 +58,8 @@ export const signInTwoFactorAuthMutation = gql`
       password: $password
       token: $token
     ) {
-      error {
-        message
-      }
-      user {
-        id
-        emails {
-          id
-          value
-        }
-        isTwoFactorAuthEnabled
-      }
+      ...UserResponseProps
     }
   }
+  ${userResponsePropsFragment}
 `

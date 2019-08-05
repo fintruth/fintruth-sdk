@@ -5,20 +5,20 @@ import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
+import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
-import { link } from 'styles/deprecated'
-import { help } from 'styles/mixins'
+import { help, link } from 'styles/mixins'
 import {
   RecoverMutationData,
   RecoverMutationVariables,
   recoverMutation,
 } from './graphql'
 
-interface HelpProps {
-  color: Color
+interface HelpProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  color?: Color
 }
 
 interface Props
@@ -33,9 +33,12 @@ interface Values {
   email: string
 }
 
-const formId = 'recover__Form'
+const name = 'recover-form'
 
-const Help = styled.p<HelpProps>`
+const Help = styled.p.attrs((props: HelpProps) => ({
+  color: 'success',
+  ...props,
+}))`
   ${({ color, theme }) => help(theme[color])};
   margin: ${rem(-10)} 0 ${rem(30)};
   width: ${rem(280)};
@@ -65,39 +68,41 @@ const RecoverForm: React.FunctionComponent<Props> = ({
   user,
   ...props
 }: Props) => {
-  const [helpColor, setHelpColor] = React.useState<Color>('success')
-  const [helpContent, setHelpContent] = React.useState<string>()
+  const [helpProps, setHelpProps] = React.useState<HelpProps>({})
+  const seed = useUIDSeed()
 
-  const [onSubmit, { loading }] = useMutation<
+  const [onSubmit, { loading: isSubmitting }] = useMutation<
     RecoverMutationData,
     RecoverMutationVariables
   >(recoverMutation, {
-    onCompleted: ({ response }) => {
-      if (response.error) {
-        setHelpColor('danger')
-        setHelpContent(response.error.message)
-      } else {
-        setHelpColor('success')
-        setHelpContent('A verification email has been sent')
-      }
-    },
+    onCompleted: ({ response }) =>
+      setHelpProps(
+        response.error
+          ? { children: response.error.message, color: 'danger' }
+          : { children: 'A verification email has been sent' }
+      ),
   })
 
   return (
     <React.Fragment>
-      {helpContent && <Help color={helpColor}>{helpContent}</Help>}
+      {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
-        initialValues={{ email: user ? user.emails[0].value : '' }}
+        initialValues={{
+          email: user
+            ? (user.emails.find(({ isPrimary }) => isPrimary) || { value: '' })
+                .value
+            : '',
+        }}
         onSubmit={(variables, { resetForm }) =>
           onSubmit({ variables }).then(value =>
             path(['data', 'response', 'error'], value) ? undefined : resetForm()
           )
         }
       >
-        <Form {...props} id={formId} noValidate>
+        <Form {...props} id={seed(name)} noValidate>
           <Field name="email">
-            <FieldLabel>EMAIL</FieldLabel>
-            <FieldInput form={formId} type="email" />
+            <FieldLabel>Email</FieldLabel>
+            <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <Description>
@@ -109,12 +114,12 @@ const RecoverForm: React.FunctionComponent<Props> = ({
             )}
           </Description>
           <Button
-            form={formId}
-            isLoading={loading}
+            form={seed(name)}
+            isLoading={isSubmitting}
             type="submit"
             variant="primary"
           >
-            RECOVER
+            Recover
           </Button>
         </Form>
       </Formik>

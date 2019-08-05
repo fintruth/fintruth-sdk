@@ -1,23 +1,15 @@
-import { User } from '@fintruth-sdk/common'
+import { User, userPropsFragment } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
-export interface RootQueryData {
+export interface CurrentUserQueryData {
   user?: User
 }
 
-export const rootQuery = gql`
-  query RootQuery {
+export const currentUserQuery = gql`
+  query CurrentUserQuery {
     user: currentUser {
-      id
-      emails {
-        id
-        value
-      }
-      isTwoFactorAuthEnabled
-      profile {
-        familyName
-        givenName
-      }
+      ...UserProps
     }
   }
+  ${userPropsFragment}
 `

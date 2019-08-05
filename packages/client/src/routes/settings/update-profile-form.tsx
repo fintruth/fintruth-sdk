@@ -1,8 +1,9 @@
 import { useMutation } from '@apollo/react-hooks'
-import { User } from '@fintruth-sdk/common'
+import { Profile } from '@fintruth-sdk/common'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
+import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
 import BaseButton from 'components/button'
@@ -11,13 +12,12 @@ import { help } from 'styles/mixins'
 import {
   UpdateProfileMutationData,
   UpdateProfileMutationVariables,
-  accountQuery,
   updateProfileMutation,
 } from './graphql'
 import { button, field, form } from './mixins'
 
-interface HelpProps {
-  color: Color
+interface HelpProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  color?: Color
 }
 
 interface Props
@@ -25,7 +25,7 @@ interface Props
     React.FormHTMLAttributes<HTMLFormElement>,
     'onReset' | 'onSubmit'
   > {
-  user: User
+  profile: Profile
 }
 
 interface Values {
@@ -33,9 +33,12 @@ interface Values {
   givenName: string
 }
 
-const formId = 'update-profile__Form'
+const name = 'update-profile-form'
 
-const Help = styled.p<HelpProps>`
+const Help = styled.p.attrs((props: HelpProps) => ({
+  color: 'success',
+  ...props,
+}))`
   ${({ color, theme }) => help(theme[color])};
   margin: ${rem(-10)} 0 ${rem(30)};
   width: ${rem(280)};
@@ -54,62 +57,49 @@ const Button = styled(BaseButton)`
 `
 
 const UpdateProfileForm: React.FunctionComponent<Props> = ({
-  user,
+  profile: { familyName, givenName },
   ...props
 }: Props) => {
-  const [helpColor, setHelpColor] = React.useState<Color>('success')
-  const [helpContent, setHelpContent] = React.useState<string>()
+  const [helpProps, setHelpProps] = React.useState<HelpProps>({})
+  const seed = useUIDSeed()
 
-  const [onSubmit, { loading }] = useMutation<
+  const [onSubmit, { loading: isSubmitting }] = useMutation<
     UpdateProfileMutationData,
     UpdateProfileMutationVariables
   >(updateProfileMutation, {
-    onCompleted: ({ response }) => {
-      if (response.error) {
-        setHelpColor('danger')
-        setHelpContent(response.error.message)
-      } else if (response.profile) {
-        setHelpColor('success')
-        setHelpContent('Your profile information was successfully updated')
-      }
-    },
-    update: (cache, { data }) =>
-      data &&
-      data.response.profile &&
-      cache.writeQuery({
-        data: { user: { ...user, profile: data.response.profile } },
-        query: accountQuery,
-      }),
+    onCompleted: ({ response }) =>
+      setHelpProps(
+        response.error
+          ? { children: response.error.message, color: 'danger' }
+          : { children: 'Your profile information was successfully updated' }
+      ),
   })
 
   return (
     <React.Fragment>
-      {helpContent && <Help color={helpColor}>{helpContent}</Help>}
+      {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
-        initialValues={{
-          familyName: user.profile.familyName,
-          givenName: user.profile.givenName,
-        }}
+        initialValues={{ familyName, givenName }}
         onSubmit={input => onSubmit({ variables: { input } })}
       >
-        <Form {...props} id={formId} noValidate>
+        <Form {...props} id={seed(name)} noValidate>
           <Field name="givenName">
-            <FieldLabel>FIRST NAME</FieldLabel>
-            <FieldInput autoComplete="given-name" form={formId} />
+            <FieldLabel>First Name</FieldLabel>
+            <FieldInput autoComplete="given-name" form={seed(name)} />
             <FieldHelp />
           </Field>
           <Field name="familyName">
-            <FieldLabel>LAST NAME</FieldLabel>
-            <FieldInput autoComplete="family-name" form={formId} />
+            <FieldLabel>Last Name</FieldLabel>
+            <FieldInput autoComplete="family-name" form={seed(name)} />
             <FieldHelp />
           </Field>
           <Button
-            form={formId}
-            isLoading={loading}
+            form={seed(name)}
+            isLoading={isSubmitting}
             type="submit"
             variant="primary"
           >
-            SAVE
+            Save
           </Button>
         </Form>
       </Formik>

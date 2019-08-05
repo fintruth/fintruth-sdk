@@ -3,7 +3,7 @@ import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
-import { jet } from 'styles/deprecated'
+import { title } from 'styles/mixins'
 
 interface Props extends RouteComponentProps {
   error?: any
@@ -19,9 +19,8 @@ const Root = styled.div`
   padding: 0 ${rem(32)};
 `
 
-const Title = styled.h1`
-  color: ${jet};
-  font-weight: 400;
+const Title = styled.h3`
+  ${title};
 `
 
 const Content = styled.pre`

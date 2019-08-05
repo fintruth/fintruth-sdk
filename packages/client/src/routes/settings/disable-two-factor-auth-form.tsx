@@ -1,9 +1,9 @@
 import { useMutation } from '@apollo/react-hooks'
-import { User } from '@fintruth-sdk/common'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
-import styled from 'styled-components'
+import { useUIDSeed } from 'react-uid'
+import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
 import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
@@ -11,10 +11,13 @@ import { help } from 'styles/mixins'
 import {
   DisableTwoFactorAuthMutationData,
   DisableTwoFactorAuthMutationVariables,
-  accountQuery,
   disableTwoFactorAuthMutation,
 } from './graphql'
 import { button, field, form } from './mixins'
+
+interface HelpProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  color?: Color
+}
 
 interface Props
   extends Omit<
@@ -22,7 +25,6 @@ interface Props
     'onReset' | 'onSubmit'
   > {
   onCompleted?: () => void
-  user: User
 }
 
 interface Values {
@@ -31,10 +33,13 @@ interface Values {
 
 const initialValues: Values = { token: '' }
 
-const formId = 'disable-two-factor-auth__Form'
+const name = 'disable-two-factor-auth-form'
 
-const Help = styled.p`
-  ${({ theme }) => help(theme.danger)};
+const Help = styled.p.attrs((props: HelpProps) => ({
+  color: 'danger',
+  ...props,
+}))`
+  ${({ color, theme }) => help(theme[color])};
   margin: 0 0 ${rem(30)};
   width: ${rem(280)};
 `
@@ -55,52 +60,45 @@ const Button = styled(BaseButton)`
 
 const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   onCompleted,
-  user,
   ...props
 }: Props) => {
-  const [helpContent, setHelpContent] = React.useState<string>()
+  const [helpProps, setHelpProps] = React.useState<HelpProps>({})
+  const seed = useUIDSeed()
 
-  const [onSubmit, { loading }] = useMutation<
+  const [onSubmit, { loading: isSubmitting }] = useMutation<
     DisableTwoFactorAuthMutationData,
     DisableTwoFactorAuthMutationVariables
   >(disableTwoFactorAuthMutation, {
     onCompleted: ({ response }) => {
       if (response.error) {
-        setHelpContent(response.error.message)
-      } else if (onCompleted) {
-        onCompleted()
+        return setHelpProps({ children: response.error.message })
       }
+
+      return onCompleted && onCompleted()
     },
-    update: (cache, { data }) =>
-      data && data.response.error
-        ? undefined
-        : cache.writeQuery({
-            data: { user: { ...user, isTwoFactorAuthEnabled: false } },
-            query: accountQuery,
-          }),
   })
 
   return (
     <React.Fragment>
-      {helpContent && <Help>{helpContent}</Help>}
+      {helpProps && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={variables => onSubmit({ variables })}
       >
-        <Form {...props} id={formId} noValidate>
+        <Form {...props} id={seed(name)} noValidate>
           <Field name="token">
-            <FieldLabel>VERIFICATION CODE</FieldLabel>
-            <FieldInput form={formId} />
+            <FieldLabel>Verification Code</FieldLabel>
+            <FieldInput form={seed(name)} />
             <FieldHelp />
           </Field>
           <Button
-            form={formId}
-            isLoading={loading}
+            form={seed(name)}
+            isLoading={isSubmitting}
             isOutlined
             type="submit"
             variant="danger"
           >
-            DISABLE
+            Disable
           </Button>
         </Form>
       </Formik>

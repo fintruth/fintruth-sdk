@@ -82,8 +82,8 @@ type MediaType {
 }
 
 type Mutation {
-  confirmTwoFactorAuth(token: String!): Response!
-  disableTwoFactorAuth(token: String!): Response!
+  confirmTwoFactorAuth(token: String!): UserResponse!
+  disableTwoFactorAuth(token: String!): UserResponse!
   enableTwoFactorAuth: EnableTwoFactorAuthResponse!
   signIn(password: String!, email: String!): UserResponse!
   signInTwoFactorAuth(token: String!, password: String!, email: String!): UserResponse!

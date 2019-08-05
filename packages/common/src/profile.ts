@@ -1,4 +1,6 @@
-import { Response } from './response'
+import gql from 'graphql-tag'
+
+import { Response, responseErrorPropsFragment } from './response'
 
 export interface BaseProfile {
   id: string
@@ -24,3 +26,27 @@ export interface BaseProfileResponse extends Response {
 export interface ProfileResponse extends BaseProfileResponse {
   profile?: Profile
 }
+
+export const profilePropsFragment = gql`
+  fragment ProfileProps on Profile {
+    id
+    familyName
+    givenName
+    userId
+    createdAt
+    updatedAt
+  }
+`
+
+export const profileResponsePropsFragment = gql`
+  fragment ProfileResponseProps on ProfileResponse {
+    error {
+      ...ResponseErrorProps
+    }
+    profile {
+      ...ProfileProps
+    }
+  }
+  ${profilePropsFragment}
+  ${responseErrorPropsFragment}
+`

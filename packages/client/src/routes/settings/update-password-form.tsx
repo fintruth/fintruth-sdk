@@ -1,16 +1,16 @@
-import { useApolloClient, useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import { object, ref, string } from '@fintruth-sdk/validation'
 import { Link as BaseLink } from '@reach/router'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
+import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
 import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput } from 'components/field'
-import { link } from 'styles/deprecated'
-import { help } from 'styles/mixins'
+import { help, link } from 'styles/mixins'
 import {
   UpdatePasswordMutationData,
   UpdatePasswordMutationVariables,
@@ -23,8 +23,8 @@ type Props = Omit<
   'onReset' | 'onSubmit'
 >
 
-interface HelpProps {
-  color: Color
+interface HelpProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  color?: Color
 }
 
 interface Values {
@@ -50,9 +50,12 @@ const validationSchema = object().shape({
   ),
 })
 
-const formId = 'update-password__Form'
+const name = 'update-password-form'
 
-const Help = styled.p<HelpProps>`
+const Help = styled.p.attrs((props: HelpProps) => ({
+  color: 'success',
+  ...props,
+}))`
   ${({ color, theme }) => help(theme[color])};
   margin: ${rem(-10)} 0 ${rem(30)};
   width: ${rem(280)};
@@ -78,33 +81,25 @@ const Button = styled(BaseButton)`
 const UpdatePasswordForm: React.FunctionComponent<Props> = ({
   ...props
 }: Props) => {
-  const [helpColor, setHelpColor] = React.useState<Color>('success')
-  const [helpContent, setHelpContent] = React.useState<string>()
-  const client = useApolloClient()
+  const [helpProps, setHelpProps] = React.useState<HelpProps>({})
+  const seed = useUIDSeed()
 
-  const [onSubmit, { loading }] = useMutation<
+  const [onSubmit, { loading: isSubmitting }] = useMutation<
     UpdatePasswordMutationData,
     UpdatePasswordMutationVariables
   >(updatePasswordMutation, {
-    onCompleted: ({ response }) => {
-      // NOTE: Due to the inability to invalidate Apollo's cache the
-      // entire store needs to be reset in order to prevent storing
-      // private data
-      client.resetStore()
-
-      if (response.error) {
-        setHelpColor('danger')
-        setHelpContent(response.error.message)
-      } else {
-        setHelpColor('success')
-        setHelpContent('Your password was successfully updated')
-      }
-    },
+    fetchPolicy: 'no-cache',
+    onCompleted: ({ response }) =>
+      setHelpProps(
+        response.error
+          ? { children: response.error.message, color: 'danger' }
+          : { children: 'Your password was successfully updated' }
+      ),
   })
 
   return (
     <React.Fragment>
-      {helpContent && <Help color={helpColor}>{helpContent}</Help>}
+      {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={(variables, { resetForm }) =>
@@ -114,10 +109,10 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
         }
         validationSchema={validationSchema}
       >
-        <Form {...props} id={formId} noValidate>
+        <Form {...props} id={seed(name)} noValidate>
           <Field name="password">
             <FieldInput
-              form={formId}
+              form={seed(name)}
               placeholder="Current Password"
               type="password"
             />
@@ -125,7 +120,7 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
           </Field>
           <Field name="newPassword">
             <FieldInput
-              form={formId}
+              form={seed(name)}
               placeholder="New Password"
               type="password"
             />
@@ -133,7 +128,7 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
           </Field>
           <Field name="newPasswordConfirm">
             <FieldInput
-              form={formId}
+              form={seed(name)}
               placeholder="Confirm New Password"
               type="password"
             />
@@ -141,12 +136,12 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
           </Field>
           <Link to="/recover">Forgot your password?</Link>
           <Button
-            form={formId}
-            isLoading={loading}
+            form={seed(name)}
+            isLoading={isSubmitting}
             type="submit"
             variant="primary"
           >
-            UPDATE
+            Update
           </Button>
         </Form>
       </Formik>
