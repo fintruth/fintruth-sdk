@@ -3,11 +3,13 @@ import { toDataURL } from 'qrcode'
 import { generateSecret, otpauthURL, totp } from 'speakeasy'
 import { Inject, Service } from 'typedi'
 
+import { Ability } from 'auth'
 import { Daos } from 'models'
 import {
   EnableTwoFactorAuthResponse,
   Response,
   ResponseError,
+  UserResponse,
 } from 'resolvers/types'
 import { ServerResponse } from 'server'
 import ConfigService from './config-service'
@@ -28,14 +30,55 @@ export default class AuthService {
   @Inject()
   daos: Daos
 
-  async authenticate(email: string, password: string) {
+  private verifyTwoFactorAuthToken = (token: string, secret: string) =>
+    totp.verify({ encoding: 'base32', secret, token })
+
+  async authenticate(email: string, password: string, res: ServerResponse) {
     const user = await this.daos.users.findByEmail(email)
 
-    return user && user.validatePassword(password) ? user : null
+    if (!user || !user.validatePassword(password)) {
+      return new UserResponse({
+        error: new ResponseError('Incorrect email or password'),
+      })
+    }
+
+    if (!user.isTwoFactorAuthEnabled) {
+      this.signAuthToken(res, user)
+    }
+
+    return new UserResponse({ user })
   }
 
-  async confirmTwoFactorAuth(token: string, userId: string) {
-    const user = await this.daos.users.findOne(userId)
+  async authenticateTwoFactor(
+    email: string,
+    password: string,
+    token: string,
+    res: ServerResponse
+  ) {
+    const response = await this.authenticate(email, password, res)
+
+    if (response.error || !response.user) {
+      return response
+    }
+
+    const { user } = response
+
+    const isValid =
+      user.secret && this.verifyTwoFactorAuthToken(token, user.secret)
+
+    if (!isValid) {
+      return new UserResponse({
+        error: new ResponseError('Token is invalid or expired'),
+      })
+    }
+
+    this.signAuthToken(res, user)
+
+    return new UserResponse({ user })
+  }
+
+  async confirmTwoFactorAuth(token: string, userId: string, ability: Ability) {
+    const user = await this.daos.users.findById(userId)
 
     if (!user) {
       return new Response({ error: new ResponseError('User not found') })
@@ -46,6 +89,8 @@ export default class AuthService {
         error: new ResponseError('Two factor not initiated'),
       })
     }
+
+    ability.throwUnlessCan('update', user)
 
     const isValid = this.verifyTwoFactorAuthToken(token, user.secretTemp)
 
@@ -63,8 +108,8 @@ export default class AuthService {
     return new Response()
   }
 
-  async disableTwoFactorAuth(token: string, userId: string) {
-    const user = await this.daos.users.findOne(userId)
+  async disableTwoFactorAuth(token: string, userId: string, ability: Ability) {
+    const user = await this.daos.users.findById(userId)
 
     if (!user) {
       return new Response({ error: new ResponseError('User not found') })
@@ -75,6 +120,8 @@ export default class AuthService {
         error: new ResponseError('Two factor not enabled'),
       })
     }
+
+    ability.throwUnlessCan('update', user)
 
     const isValid = this.verifyTwoFactorAuthToken(token, user.secret)
 
@@ -89,7 +136,7 @@ export default class AuthService {
     return new Response()
   }
 
-  async enableTwoFactorAuth(userId: string) {
+  async enableTwoFactorAuth(userId: string, ability: Ability) {
     const user = await this.daos.users.findOne(userId, {
       relations: ['emails'],
     })
@@ -99,6 +146,8 @@ export default class AuthService {
         error: new ResponseError('User not found'),
       })
     }
+
+    ability.throwUnlessCan('update', user)
 
     const { ascii, base32 } = generateSecret()
     const dataUrl: string = await toDataURL(
@@ -127,9 +176,5 @@ export default class AuthService {
       maxAge: expiresIn * 1000,
       signed: false,
     })
-  }
-
-  verifyTwoFactorAuthToken(token: string, secret: string) {
-    return totp.verify({ encoding: 'base32', secret, token })
   }
 }

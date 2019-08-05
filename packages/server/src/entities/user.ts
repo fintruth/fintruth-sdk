@@ -51,6 +51,12 @@ export default class User extends BaseEntity implements BaseUser {
   @UpdateDateColumn()
   updatedAt: Date
 
+  constructor(partial: Partial<User> = {}) {
+    super()
+
+    Object.assign(this, partial)
+  }
+
   @Field()
   get isTwoFactorAuthEnabled(): boolean {
     return this.secret != null
