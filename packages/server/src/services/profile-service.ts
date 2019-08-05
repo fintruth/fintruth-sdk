@@ -1,14 +1,11 @@
 import { object, string } from '@fintruth-sdk/validation'
+import { mergeLeft } from 'ramda'
 import { Inject, Service } from 'typedi'
 
+import { Ability } from 'auth'
 import { Loggable, logAs } from 'logger'
 import { Daos } from 'models'
-import {
-  ProfileInput,
-  ProfileResponse,
-  ResponseError,
-  UserResponse,
-} from 'resolvers/types'
+import { ProfileInput, ProfileResponse, ResponseError } from 'resolvers/types'
 import { Profile } from '../entities'
 
 @Service()
@@ -30,21 +27,25 @@ export default class ProfileService {
       })
       .validate(input)
 
-  async update(userId: string, input: ProfileInput) {
+  async update(id: string, input: ProfileInput, ability: Ability) {
     const isValid = await this.validateInput(input).catch(this.logDebug)
 
     if (!isValid) {
-      return new UserResponse({
+      return new ProfileResponse({
         error: new ResponseError(
           'There is an issue with the provided form values'
         ),
       })
     }
 
-    await this.daos.profiles.update(userId, input)
+    const profile = await this.daos.profiles.findOneOrFail(id)
+
+    ability.throwUnlessCan('update', profile)
+
+    const updated = await this.daos.profiles.save(mergeLeft(input, profile))
 
     return new ProfileResponse({
-      profile: await this.daos.profiles.findByUser(userId),
+      profile: ability.can('read', profile) ? updated : undefined,
     })
   }
 }

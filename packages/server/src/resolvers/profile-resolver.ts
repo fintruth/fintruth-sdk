@@ -21,8 +21,8 @@ export default class ProfileResolver {
   @Mutation(() => ProfileResponse)
   async updateProfile(
     @Arg('input') input: ProfileInput,
-    @Ctx() { user }: Context
+    @Ctx() { ability, user }: Context
   ) {
-    return user && this.profileService.update(user.id, input)
+    return user && this.profileService.update(user.id, input, ability)
   }
 }
