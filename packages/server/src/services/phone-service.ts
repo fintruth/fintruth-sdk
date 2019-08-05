@@ -2,6 +2,7 @@ import { object, string } from '@fintruth-sdk/validation'
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js'
 import { Inject, Service } from 'typedi'
 
+import { Ability } from 'auth'
 import { Daos } from 'models'
 import { PhoneInput } from 'resolvers/types'
 import { Phone } from '../entities'
@@ -40,4 +41,12 @@ export default class PhoneService {
         typeName: string().required(),
       })
       .validate({ alpha2Code, ...input })
+
+  async findById(id: string, ability: Ability) {
+    const phone = await this.daos.phones.findById(id)
+
+    ability.throwUnlessCan('read', phone)
+
+    return phone
+  }
 }
