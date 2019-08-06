@@ -275,9 +275,6 @@ workflows:
   version: 2.1
   test:
     jobs:
-      - auth:
-          requires:
-            - common
       - common
       - client:
           requires:
@@ -289,7 +286,6 @@ workflows:
             - server
       - server:
           requires:
-            - auth
             - common
             - validation
       - validation:
