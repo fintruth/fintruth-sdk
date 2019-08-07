@@ -1,5 +1,4 @@
 import { object, string } from '@fintruth-sdk/validation'
-import { mergeLeft } from 'ramda'
 import { Inject, Service } from 'typedi'
 
 import { Ability } from 'auth'
@@ -27,7 +26,7 @@ export default class ProfileService {
       })
       .validate(input)
 
-  async update(id: string, input: ProfileInput, ability: Ability) {
+  async updateByUser(userId: string, input: ProfileInput, ability: Ability) {
     const isValid = await this.validateInput(input).catch(this.logDebug)
 
     if (!isValid) {
@@ -38,14 +37,12 @@ export default class ProfileService {
       })
     }
 
-    const profile = await this.daos.profiles.findOneOrFail(id)
+    ability.throwUnlessCan('update', new Profile({ userId }))
 
-    ability.throwUnlessCan('update', profile)
-
-    const updated = await this.daos.profiles.save(mergeLeft(input, profile))
+    await this.daos.profiles.update({ userId }, input)
 
     return new ProfileResponse({
-      profile: ability.can('read', profile) ? updated : undefined,
+      profile: await this.daos.profiles.findByUser(userId),
     })
   }
 }

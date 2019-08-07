@@ -10,7 +10,8 @@ const abilityMock: any = {
 }
 
 const getProfileDaoMock: any = (profileMock?: Partial<Profile>) => ({
-  findOneOrFail: () => Promise.resolve(profileMock),
+  findOneOrFail: async () => profileMock,
+  findByUser: async () => profileMock,
   save: async (partial: Partial<Profile>) => ({
     id: 'profileId',
     ...partial,
@@ -37,26 +38,22 @@ describe('ProfileService', () => {
     expect(service).toBeDefined()
   })
 
-  describe('update', () => {
+  describe('updateByUser', () => {
     beforeEach(() => {
       service.daos.profiles = getProfileDaoMock(profileMock)
     })
 
-    it('should update an existing profile', async () => {
-      const result = await service.update(
-        'profileId',
+    it('should return a profile', async () => {
+      const result = await service.updateByUser(
+        'userId',
         {
-          familyName: 'familyName',
-          givenName: 'givenName',
+          familyName: 'a',
+          givenName: 'b',
         },
         abilityMock
       )
 
-      expect(result.profile).toStrictEqual({
-        id: 'profileId',
-        familyName: 'familyName',
-        givenName: 'givenName',
-      })
+      expect(result.profile).toStrictEqual(profileMock)
     })
   })
 })

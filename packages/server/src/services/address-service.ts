@@ -1,6 +1,6 @@
+import { Ability } from '@casl/ability'
 import { object, string } from '@fintruth-sdk/validation'
 import { Inject, Service } from 'typedi'
-import { Ability } from '@casl/ability'
 
 import { Daos } from 'models'
 import { AddressInput } from 'resolvers/types'
