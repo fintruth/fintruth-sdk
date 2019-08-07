@@ -3,12 +3,7 @@ import { Inject, Service } from 'typedi'
 
 import { Loggable, logAs } from 'logger'
 import { Daos } from 'models'
-import {
-  ProfileInput,
-  ProfileResponse,
-  ResponseError,
-  UserResponse,
-} from 'resolvers/types'
+import { ProfileInput, ProfileResponse, ResponseError } from 'resolvers/types'
 import { Profile } from '../entities'
 
 @Service()
@@ -34,7 +29,7 @@ export default class ProfileService {
     const isValid = await this.validateInput(input).catch(this.logDebug)
 
     if (!isValid) {
-      return new UserResponse({
+      return new ProfileResponse({
         error: new ResponseError(
           'There is an issue with the provided form values'
         ),

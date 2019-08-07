@@ -100,7 +100,7 @@ describe('AuthService', () => {
 
         const result = await service.confirmTwoFactorAuth('token', 'userId')
 
-        expect(result).toStrictEqual(new UserResponse({ user: user as User }))
+        expect(result.user).toStrictEqual({ secretTemp: 'secret' })
       })
 
       it('should return a failure response using an invalid token', async () => {
@@ -148,7 +148,7 @@ describe('AuthService', () => {
 
         const result = await service.disableTwoFactorAuth('secret', 'userId')
 
-        expect(result).toStrictEqual(new UserResponse({ user: user as User }))
+        expect(result.user).toStrictEqual({ secret: 'secret' })
       })
 
       it('should return a failure response using an invalid token', async () => {
