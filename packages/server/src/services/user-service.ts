@@ -169,18 +169,10 @@ export default class UserService {
     return this.validateUserPassword(id, password)(async user => {
       ability.throwUnlessCan('update', user)
 
-      const updated = await this.daos.users
-        .update(user.id, partial)
-        .catch(this.logDebug)
-
-      if (!updated) {
-        return new UserResponse({
-          error: new ResponseError('failed to update user'),
-        })
-      }
+      await this.daos.users.update(id, partial)
 
       return new UserResponse({
-        user: mergeLeft(partial, user) as User,
+        user: await this.daos.users.findById(id),
       })
     })
   }

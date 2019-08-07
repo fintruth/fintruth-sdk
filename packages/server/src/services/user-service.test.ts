@@ -287,26 +287,20 @@ describe('UserService', () => {
   })
 
   describe('update', () => {
-    beforeEach(() => {
+    it('should return a user', async () => {
       service.daos.users = getUserDaoMock(userMock)
+
+      const result = await service.update('userId', 'password', {}, abilityMock)
+
+      expect(result.user).toStrictEqual(userMock)
     })
 
-    it('should update an existing user', async () => {
-      const result = await service.update(
-        'userId',
-        'password',
-        {
-          password: 'updated',
-        },
-        abilityMock
-      )
+    it('should return a failure response when the user does not exist', async () => {
+      const result = await service.update('userId', 'password', {}, abilityMock)
 
-      expect(result.user).toStrictEqual({
-        id: 'userId',
-        emails: [new Email({ value: 'test@test.com' })],
-        password: 'updated',
-        validatePassword: expect.any(Function),
-      })
+      expect(result.error).toStrictEqual(
+        new ResponseError('user not found', expect.any(String))
+      )
     })
   })
 })
