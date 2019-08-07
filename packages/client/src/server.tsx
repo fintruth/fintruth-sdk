@@ -1,4 +1,5 @@
-import { ApolloProvider, renderToStringWithData } from '@apollo/react-hooks'
+import { ApolloProvider } from '@apollo/react-hooks'
+import { renderToStringWithData } from '@apollo/react-ssr'
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 import { ServerLocation, isRedirect } from '@reach/router'
 import bodyParser from 'body-parser'

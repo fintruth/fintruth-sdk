@@ -37,7 +37,7 @@ storiesOf('Components|Field', module)
           delay={number('delay', 200)}
           isLoading={boolean('isLoading', false)}
           placeholder={text('placeholder', 'Placeholder')}
-          type={select('type', types, '') || undefined}
+          type={select<Type | ''>('type', types, '') || undefined}
         />
         <FieldHelp />
       </Field>

@@ -4,6 +4,7 @@ import { boolean, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import { Formik } from 'formik'
 import React from 'react'
+import styled from 'styled-components'
 
 import FileField, {
   FileFieldCallToAction,
@@ -30,6 +31,18 @@ const variants: Record<string, Variant | ''> = {
   danger: 'danger',
 }
 
+const ContainerHorizontal = styled.div`
+  ${containerHorizontal};
+`
+
+const FileFieldCallToActionHorizontal = styled(FileFieldCallToAction)`
+  ${ctaHorizontalLeft};
+`
+
+const FileFieldNameHorizontal = styled(FileFieldName)`
+  ${nameHorizontalRight};
+`
+
 storiesOf('Components|File Field', module)
   .addDecorator(centered)
   .add('Default', () => (
@@ -41,7 +54,7 @@ storiesOf('Components|File Field', module)
         name="file"
       >
         <FileFieldCallToAction
-          variant={select('variant', variants, '') || undefined}
+          variant={select<Variant | ''>('variant', variants, '') || undefined}
         >
           <FileFieldIcon />
           <FileFieldLabel>{text('label', 'Label')}</FileFieldLabel>
@@ -60,16 +73,15 @@ storiesOf('Components|File Field', module)
         isRequired={boolean('isRequired', true)}
         name="file"
       >
-        <div css={containerHorizontal}>
-          <FileFieldCallToAction
-            css={ctaHorizontalLeft}
-            variant={select('variant', variants, '') || undefined}
+        <ContainerHorizontal>
+          <FileFieldCallToActionHorizontal
+            variant={select<Variant | ''>('variant', variants, '') || undefined}
           >
             <FileFieldIcon />
             <FileFieldLabel>{text('label', 'Label')}</FileFieldLabel>
-          </FileFieldCallToAction>
-          <FileFieldName css={nameHorizontalRight} />
-        </div>
+          </FileFieldCallToActionHorizontal>
+          <FileFieldNameHorizontal />
+        </ContainerHorizontal>
         <FileFieldCropper alt="Cropped Image" />
         <FileFieldHelp />
       </FileField>
