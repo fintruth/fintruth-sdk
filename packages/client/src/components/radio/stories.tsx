@@ -16,15 +16,15 @@ storiesOf('Components|Radio ', module)
       <React.Fragment>
         <Radio
           id="f524dabc-13b6-4fa2-b633-2a852b28b39a"
-          isDisabled={boolean('isDisabled (Radio A)', false, 'Radio A')}
-          label={text('label (Radio A)', 'Radio A', 'Radio A')}
+          isDisabled={boolean('isDisabled', false, 'Radio A')}
+          label={text('label', 'Radio A', 'Radio A')}
           name="radioGroup"
           value="radio-a"
         />
         <Radio
           id="53394530-d091-4a93-be90-351df19d704c"
-          isDisabled={boolean('isDisabled (Radio B)', false, 'Radio B')}
-          label={text('label (Radio B)', 'Radio B', 'Radio B')}
+          isDisabled={boolean('isDisabled', false, 'Radio B')}
+          label={text('label', 'Radio B', 'Radio B')}
           name="radioGroup"
           value="radio-b"
         />

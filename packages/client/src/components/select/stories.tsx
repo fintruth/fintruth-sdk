@@ -19,7 +19,7 @@ storiesOf('Components|Select', module)
       isDisabled={boolean('isDisabled', false)}
       isLoading={boolean('isLoading', false)}
       isMultiple={boolean('isMultiple', false)}
-      variant={select('variant', variants, '') || undefined}
+      variant={select<Variant | ''>('variant', variants, '') || undefined}
     >
       <Option value="optionA">Option A</Option>
       <Option value="optionB">Option B</Option>

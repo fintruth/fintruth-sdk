@@ -22,7 +22,7 @@ storiesOf('Components|Button', module)
       isLoading={boolean('isLoading', false)}
       isOutlined={boolean('isOutlined', false)}
       onClick={action('onClick')}
-      variant={select('variant', options, '') || undefined}
+      variant={select<Variant | ''>('variant', options, '') || undefined}
     >
       {text('children', 'Button')}
     </Button>
