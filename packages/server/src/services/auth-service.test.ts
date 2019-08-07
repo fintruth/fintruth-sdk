@@ -9,6 +9,10 @@ import {
 import AuthService from './auth-service'
 import { Email, User } from '../entities'
 
+jest.mock('jsonwebtoken', () => ({
+  sign: () => 'token',
+}))
+
 jest.mock('qrcode', () => ({
   toDataURL: () => 'dataUrl',
 }))
@@ -16,14 +20,36 @@ jest.mock('qrcode', () => ({
 jest.mock('speakeasy', () => ({
   generateSecret: () => ({ ascii: '', base32: 'base32' }),
   otpauthURL: () => '',
+  totp: () => {},
 }))
 
 jest.mock('./config-service')
 
-const getUserDaoMock: any = (userMock?: Partial<User>) => ({
-  findByEmail: jest.fn(() => Promise.resolve(userMock)),
-  findOne: jest.fn(() => Promise.resolve(userMock)),
-  update: jest.fn(() => Promise.resolve(true)),
+const abilityMock: any = {
+  throwUnlessCan: () => {},
+}
+
+const resMock: any = {
+  cookies: {
+    set: () => {},
+  },
+}
+
+const getUserDaoMock: any = (userMock?: User) => ({
+  findByEmail: async () => userMock,
+  findById: async () => userMock,
+  findOne: async () => userMock,
+  update: () => {},
+})
+
+const userMock = new User({
+  id: 'userId',
+  emails: [
+    new Email({
+      value: 'test@test.com',
+    }),
+  ],
+  validatePassword: jest.fn(equals('good')),
 })
 
 describe('AuthService', () => {
@@ -34,40 +60,120 @@ describe('AuthService', () => {
     service.daos.users = getUserDaoMock()
   })
 
-  afterEach(() => {
-    Container.reset(AuthService)
-  })
-
   it('should be defined', () => {
     expect(service).toBeDefined()
   })
 
   describe('authenticate', () => {
-    it('should return null when a user does not exist', async () => {
-      const result = await service.authenticate('test@test.com', 'good')
+    it('should return a failure response when a user does not exist', async () => {
+      const result = await service.authenticate(
+        'test@test.com',
+        'good',
+        resMock
+      )
 
-      expect(result).toBeNull()
+      expect(result.error).toStrictEqual(
+        new ResponseError('Incorrect email or password', expect.any(String))
+      )
     })
 
     describe('user exists with password', () => {
-      const user: Partial<User> = {
-        validatePassword: jest.fn(equals('good')),
-      }
-
       beforeEach(() => {
-        service.daos.users = getUserDaoMock(user)
+        service.daos.users = getUserDaoMock(userMock)
       })
 
-      it('should return a user using a correct password', async () => {
-        const result = await service.authenticate('test@test.com', 'good')
+      it('should return a user response', async () => {
+        const result = await service.authenticate(
+          'test@test.com',
+          'good',
+          resMock
+        )
 
-        expect(result).toStrictEqual(user)
+        expect(result.user).toStrictEqual(userMock)
       })
 
-      it('should return null using an incorrect password', async () => {
-        const result = await service.authenticate('test@test.com', 'bad')
+      it('should return a failure response using an incorrect password', async () => {
+        const result = await service.authenticate(
+          'test@test.com',
+          'bad',
+          resMock
+        )
 
-        expect(result).toBeNull()
+        expect(result.error).toStrictEqual(
+          new ResponseError('Incorrect email or password', expect.any(String))
+        )
+      })
+    })
+  })
+
+  describe('authenticateTwoFactor', () => {
+    it('should return a failure response when a user does not exist', async () => {
+      const result = await service.authenticateTwoFactor(
+        'test@test.com',
+        'good',
+        'token',
+        resMock
+      )
+
+      expect(result.error).toStrictEqual(
+        new ResponseError('Incorrect email or password', expect.any(String))
+      )
+    })
+
+    describe('user exists with password and 2FA', () => {
+      beforeEach(() => {
+        service.daos.users = getUserDaoMock(
+          new User({
+            ...userMock,
+            secret: 'secret',
+          })
+        )
+      })
+
+      it('should return a user response', async () => {
+        service['verifyTwoFactorAuthToken'] = T
+
+        const result = await service.authenticateTwoFactor(
+          'test@test.com',
+          'good',
+          'token',
+          resMock
+        )
+
+        expect(result.user).toStrictEqual(
+          new User({
+            ...userMock,
+            secret: 'secret',
+          })
+        )
+      })
+
+      it('should return a failure response using an invalid token', async () => {
+        service['verifyTwoFactorAuthToken'] = F
+
+        const result = await service.authenticateTwoFactor(
+          'test@test.com',
+          'good',
+          'token',
+          resMock
+        )
+
+        expect(result.error).toStrictEqual(
+          new ResponseError('Token is invalid or expired', expect.any(String))
+        )
+      })
+
+      it('should return a failure response using an incorrect password', async () => {
+        const result = await service.authenticateTwoFactor(
+          'test@test.com',
+          'bad',
+          'token',
+          resMock
+        )
+
+        expect(result.error).toStrictEqual(
+          new ResponseError('Incorrect email or password', expect.any(String))
+        )
       })
     })
   })
@@ -76,7 +182,11 @@ describe('AuthService', () => {
     it('should return a failure response when a user has not initiated two factor', async () => {
       service.daos.users = getUserDaoMock({})
 
-      const result = await service.confirmTwoFactorAuth('token', 'userId')
+      const result = await service.confirmTwoFactorAuth(
+        'token',
+        'userId',
+        abilityMock
+      )
 
       expect(result).toStrictEqual(
         new UserResponse({
@@ -96,17 +206,25 @@ describe('AuthService', () => {
       })
 
       it('should update user secret using a valid token', async () => {
-        service.verifyTwoFactorAuthToken = T
+        service['verifyTwoFactorAuthToken'] = T
 
-        const result = await service.confirmTwoFactorAuth('token', 'userId')
+        const result = await service.confirmTwoFactorAuth(
+          'token',
+          'userId',
+          abilityMock
+        )
 
         expect(result.user).toStrictEqual({ secretTemp: 'secret' })
       })
 
       it('should return a failure response using an invalid token', async () => {
-        service.verifyTwoFactorAuthToken = F
+        service['verifyTwoFactorAuthToken'] = F
 
-        const result = await service.confirmTwoFactorAuth('token', 'userId')
+        const result = await service.confirmTwoFactorAuth(
+          'token',
+          'userId',
+          abilityMock
+        )
 
         expect(result).toStrictEqual(
           new UserResponse({
@@ -124,7 +242,11 @@ describe('AuthService', () => {
     it('should return a failure response when a user has not enabled two factor', async () => {
       service.daos.users = getUserDaoMock({})
 
-      const result = await service.disableTwoFactorAuth('token', 'userId')
+      const result = await service.disableTwoFactorAuth(
+        'token',
+        'userId',
+        abilityMock
+      )
 
       expect(result).toStrictEqual(
         new UserResponse({
@@ -144,17 +266,25 @@ describe('AuthService', () => {
       })
 
       it('should remove user secret using a valid token', async () => {
-        service.verifyTwoFactorAuthToken = T
+        service['verifyTwoFactorAuthToken'] = T
 
-        const result = await service.disableTwoFactorAuth('secret', 'userId')
+        const result = await service.disableTwoFactorAuth(
+          'secret',
+          'userId',
+          abilityMock
+        )
 
         expect(result.user).toStrictEqual({ secret: 'secret' })
       })
 
       it('should return a failure response using an invalid token', async () => {
-        service.verifyTwoFactorAuthToken = F
+        service['verifyTwoFactorAuthToken'] = F
 
-        const result = await service.disableTwoFactorAuth('secret', 'userId')
+        const result = await service.disableTwoFactorAuth(
+          'secret',
+          'userId',
+          abilityMock
+        )
 
         expect(result).toStrictEqual(
           new UserResponse({
@@ -170,7 +300,7 @@ describe('AuthService', () => {
 
   describe('enableTwoFactorAuth', () => {
     it('should return a failure response when a user does not exist', async () => {
-      const result = await service.enableTwoFactorAuth('userId')
+      const result = await service.enableTwoFactorAuth('userId', abilityMock)
 
       expect(result).toStrictEqual(
         new EnableTwoFactorAuthResponse({
@@ -186,7 +316,7 @@ describe('AuthService', () => {
         emails: [new Email({ value: 'test@test.com' })],
       })
 
-      const result = await service.enableTwoFactorAuth('userId')
+      const result = await service.enableTwoFactorAuth('userId', abilityMock)
 
       expect(result).toStrictEqual(
         new EnableTwoFactorAuthResponse({

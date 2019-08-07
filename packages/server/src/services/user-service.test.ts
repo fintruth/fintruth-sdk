@@ -10,6 +10,10 @@ jest.mock('bcrypt', () => ({
   hash: () => 'hash',
 }))
 
+const abilityMock: any = {
+  throwUnlessCan: () => {},
+}
+
 const getUserDaoMock: any = (userMock?: DeepPartial<User>) => ({
   addEmail: (_: string, email: Email) =>
     userMock && [...(userMock.emails || []), email],
@@ -130,7 +134,11 @@ describe('UserService', () => {
       it('should return a user response', async () => {
         service.daos.users.findByEmail = () => Promise.resolve(null) as any
 
-        const result = await service.addEmail('userId', 'test1@test.com')
+        const result = await service.addEmail(
+          'userId',
+          'test1@test.com',
+          abilityMock
+        )
 
         expect(result.user).toStrictEqual({
           id: 'userId',
@@ -140,7 +148,7 @@ describe('UserService', () => {
       })
 
       it('should return a failure response using an invalid email', async () => {
-        const result = await service.addEmail('userId', 'invalid')
+        const result = await service.addEmail('userId', 'invalid', abilityMock)
 
         expect(result.error).toStrictEqual(
           new ResponseError('invalid data provided', expect.any(String))
@@ -148,7 +156,11 @@ describe('UserService', () => {
       })
 
       it('should return a failure response using a taken email', async () => {
-        const result = await service.addEmail('userId', 'test@test.com')
+        const result = await service.addEmail(
+          'userId',
+          'test@test.com',
+          abilityMock
+        )
 
         expect(result.error).toStrictEqual(
           new ResponseError('email is not available', expect.any(String))
@@ -157,7 +169,11 @@ describe('UserService', () => {
     })
 
     it('should return a failure response when the user does not exist', async () => {
-      const result = await service.addEmail('userId', 'test@test.com')
+      const result = await service.addEmail(
+        'userId',
+        'test@test.com',
+        abilityMock
+      )
 
       expect(result.error).toStrictEqual(
         new ResponseError('user not found', expect.any(String))
@@ -227,7 +243,11 @@ describe('UserService', () => {
         service.daos.emails.findById = () =>
           Promise.resolve(new Email({ value: 'test@test.com' }))
 
-        const result = await service.removeEmail('userId', 'emailId')
+        const result = await service.removeEmail(
+          'userId',
+          'emailId',
+          abilityMock
+        )
 
         expect(result.user).toStrictEqual({
           id: 'userId',
@@ -242,7 +262,11 @@ describe('UserService', () => {
             new Email({ value: 'test@test.com', isPrimary: true })
           )
 
-        const result = await service.removeEmail('userId', 'emailId')
+        const result = await service.removeEmail(
+          'userId',
+          'emailId',
+          abilityMock
+        )
 
         expect(result.error).toStrictEqual(
           new ResponseError('unable to remove email', expect.any(String))
@@ -254,7 +278,7 @@ describe('UserService', () => {
       service.daos.emails.findById = () =>
         Promise.resolve(new Email({ value: 'test@test.com' }))
 
-      const result = await service.removeEmail('userId', 'emailId')
+      const result = await service.removeEmail('userId', 'emailId', abilityMock)
 
       expect(result.error).toStrictEqual(
         new ResponseError('user not found', expect.any(String))
@@ -263,21 +287,20 @@ describe('UserService', () => {
   })
 
   describe('update', () => {
-    beforeEach(() => {
+    it('should return a user', async () => {
       service.daos.users = getUserDaoMock(userMock)
+
+      const result = await service.update('userId', 'password', {}, abilityMock)
+
+      expect(result.user).toStrictEqual(userMock)
     })
 
-    it('should update an existing user', async () => {
-      const result = await service.update('userId', 'password', {
-        password: 'updated',
-      })
+    it('should return a failure response when the user does not exist', async () => {
+      const result = await service.update('userId', 'password', {}, abilityMock)
 
-      expect(result.user).toStrictEqual({
-        id: 'userId',
-        emails: [new Email({ value: 'test@test.com' })],
-        password: 'updated',
-        validatePassword: expect.any(Function),
-      })
+      expect(result.error).toStrictEqual(
+        new ResponseError('user not found', expect.any(String))
+      )
     })
   })
 })

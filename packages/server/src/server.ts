@@ -1,4 +1,3 @@
-import { User } from '@fintruth-sdk/common'
 import Cookies from 'cookies'
 import cors from 'cors'
 import compression from 'compression'
@@ -9,9 +8,10 @@ import { Container } from 'typedi'
 
 import { logAs, logger } from './logger'
 import { ConfigService } from './services'
+import { UserTokenData } from './services/auth-service'
 
 export interface ServerRequest extends Request {
-  user?: User
+  token?: UserTokenData
 }
 
 export interface ServerResponse extends Response {
@@ -46,6 +46,7 @@ export const createServer = (): Application =>
         credentialsRequired: false,
         getToken: (req: Request) => req.cookies.get('token-id'),
         secret,
+        userProperty: 'token',
       })
     )
     .use(logUnauthorizedError)

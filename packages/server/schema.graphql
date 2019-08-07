@@ -143,6 +143,7 @@ type Query {
   address(id: ID!): Address
   country(id: ID!): Country
   countries: [Country!]!
+  phone(id: ID!): Phone
   currentUser: User
   user(id: ID!): User
   users: [User!]!

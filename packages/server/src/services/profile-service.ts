@@ -1,6 +1,7 @@
 import { object, string } from '@fintruth-sdk/validation'
 import { Inject, Service } from 'typedi'
 
+import { Ability } from 'auth'
 import { Loggable, logAs } from 'logger'
 import { Daos } from 'models'
 import { ProfileInput, ProfileResponse, ResponseError } from 'resolvers/types'
@@ -25,7 +26,7 @@ export default class ProfileService {
       })
       .validate(input)
 
-  async update(userId: string, input: ProfileInput) {
+  async updateByUser(userId: string, input: ProfileInput, ability: Ability) {
     const isValid = await this.validateInput(input).catch(this.logDebug)
 
     if (!isValid) {
@@ -35,6 +36,8 @@ export default class ProfileService {
         ),
       })
     }
+
+    ability.throwUnlessCan('update', new Profile({ userId }))
 
     await this.daos.profiles.update({ userId }, input)
 

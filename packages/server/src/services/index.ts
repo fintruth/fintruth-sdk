@@ -1,6 +1,7 @@
 export { default as AddressService } from './address-service'
 export { default as AuthService } from './auth-service'
 export { default as ConfigService } from './config-service'
+export { default as CountryService } from './country-service'
 export { default as CryptoService } from './crypto-service'
 export { default as PhoneService } from './phone-service'
 export { default as RegisterService } from './register-service'

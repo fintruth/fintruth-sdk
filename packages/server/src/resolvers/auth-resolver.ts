@@ -1,11 +1,16 @@
-import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
+import {
+  Arg,
+  Authorized as Authenticated,
+  Ctx,
+  Mutation,
+  Resolver,
+} from 'type-graphql'
 import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
 import {
   EnableTwoFactorAuthResponse,
   Response,
-  ResponseError,
   UserResponse,
 } from 'resolvers/types'
 import { AuthService } from 'services'
@@ -15,33 +20,32 @@ export default class AuthResolver {
   @Inject()
   private readonly authService: AuthService
 
+  @Authenticated()
   @Mutation(() => UserResponse)
-  confirmTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {
-    if (!user) {
-      return new UserResponse({ error: new ResponseError('Not authenticated') })
-    }
-
-    return this.authService.confirmTwoFactorAuth(token, user.id)
+  confirmTwoFactorAuth(
+    @Arg('token') token: string,
+    @Ctx() { ability, user }: Context
+  ) {
+    return (
+      user && this.authService.confirmTwoFactorAuth(token, user.id, ability)
+    )
   }
 
+  @Authenticated()
   @Mutation(() => UserResponse)
-  disableTwoFactorAuth(@Arg('token') token: string, @Ctx() { user }: Context) {
-    if (!user) {
-      return new UserResponse({ error: new ResponseError('Not authenticated') })
-    }
-
-    return this.authService.disableTwoFactorAuth(token, user.id)
+  disableTwoFactorAuth(
+    @Arg('token') token: string,
+    @Ctx() { ability, user }: Context
+  ) {
+    return (
+      user && this.authService.disableTwoFactorAuth(token, user.id, ability)
+    )
   }
 
+  @Authenticated()
   @Mutation(() => EnableTwoFactorAuthResponse)
-  enableTwoFactorAuth(@Ctx() { user }: Context) {
-    if (!user) {
-      return new EnableTwoFactorAuthResponse({
-        error: new ResponseError('Not authenticated'),
-      })
-    }
-
-    return this.authService.enableTwoFactorAuth(user.id)
+  enableTwoFactorAuth(@Ctx() { ability, user }: Context) {
+    return user && this.authService.enableTwoFactorAuth(user.id, ability)
   }
 
   @Mutation(() => UserResponse)
@@ -50,19 +54,7 @@ export default class AuthResolver {
     @Arg('password') password: string,
     @Ctx() { res }: Context
   ) {
-    const user = await this.authService.authenticate(email, password)
-
-    if (!user) {
-      return new UserResponse({
-        error: new ResponseError('Incorrect email or password'),
-      })
-    }
-
-    if (!user.isTwoFactorAuthEnabled) {
-      this.authService.signAuthToken(res, user)
-    }
-
-    return new UserResponse({ user })
+    return this.authService.authenticate(email, password, res)
   }
 
   @Mutation(() => UserResponse)
@@ -72,27 +64,7 @@ export default class AuthResolver {
     @Arg('token') token: string,
     @Ctx() { res }: Context
   ) {
-    const user = await this.authService.authenticate(email, password)
-
-    if (!user) {
-      return new UserResponse({
-        error: new ResponseError('Incorrect email or password'),
-      })
-    }
-
-    const isValid =
-      user.secret &&
-      this.authService.verifyTwoFactorAuthToken(token, user.secret)
-
-    if (!isValid) {
-      return new UserResponse({
-        error: new ResponseError('Token is invalid or expired'),
-      })
-    }
-
-    this.authService.signAuthToken(res, user)
-
-    return new UserResponse({ user })
+    return this.authService.authenticateTwoFactor(email, password, token, res)
   }
 
   @Mutation(() => Response)
