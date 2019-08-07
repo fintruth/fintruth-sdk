@@ -1,6 +1,7 @@
 export { default as AddressResolver } from './address-resolver'
 export { default as AuthResolver } from './auth-resolver'
 export { default as CountryResolver } from './country-resolver'
+export { default as PhoneResolver } from './phone-resolver'
 export { default as ProfileResolver } from './profile-resolver'
 export { default as RegisterResolver } from './register-resolver'
 export { default as UserResolver } from './user-resolver'

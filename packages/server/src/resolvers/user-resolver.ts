@@ -1,5 +1,6 @@
 import {
   Arg,
+  Authorized as Authenticated,
   Ctx,
   FieldResolver,
   ID,
@@ -12,7 +13,7 @@ import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
 import { Daos } from 'models'
-import { Response, ResponseError, UserResponse } from 'resolvers/types'
+import { Response, UserResponse } from 'resolvers/types'
 import { UserService } from 'services'
 import { Email, Profile, User } from '../entities'
 
@@ -24,56 +25,47 @@ export default class UserResolver {
   @Inject()
   private readonly userService: UserService
 
+  @Authenticated()
   @Mutation(() => UserResponse)
-  addEmail(@Arg('value') value: string, @Ctx() { user }: Context) {
-    if (!user) {
-      return new UserResponse({
-        error: new ResponseError('Not authenticated'),
-      })
-    }
-
-    return this.userService.addEmail(user.id, value)
+  addEmail(@Arg('value') value: string, @Ctx() { ability, user }: Context) {
+    return user && this.userService.addEmail(user.id, value, ability)
   }
 
+  @Authenticated()
   @Mutation(() => UserResponse)
-  removeEmail(@Arg('emailId') emailId: string, @Ctx() { user }: Context) {
-    if (!user) {
-      return new UserResponse({
-        error: new ResponseError('Not authenticated'),
-      })
-    }
-
-    return this.userService.removeEmail(user.id, emailId)
+  removeEmail(
+    @Arg('emailId') emailId: string,
+    @Ctx() { ability, user }: Context
+  ) {
+    return user && this.userService.removeEmail(user.id, emailId, ability)
   }
 
+  @Authenticated()
   @Mutation(() => Response)
   async updatePassword(
     @Arg('newPassword') newPassword: string,
     @Arg('password') password: string,
-    @Ctx() { user }: Context
+    @Ctx() { ability, user }: Context
   ) {
-    if (!user) {
-      return new Response({
-        error: new ResponseError('Not authenticated'),
-      })
-    }
-
-    return this.userService.updatePassword(user.id, password, newPassword)
+    return (
+      user &&
+      this.userService.updatePassword(user.id, password, newPassword, ability)
+    )
   }
 
   @Query(() => User, { nullable: true })
-  currentUser(@Ctx() { user }: Context) {
-    return user ? this.daos.users.findOne(user.id) : null
+  currentUser(@Ctx() { ability, user }: Context) {
+    return user ? this.userService.findById(user.id, ability) : null
   }
 
   @Query(() => User, { nullable: true })
-  user(@Arg('id', () => ID) id: string) {
-    return this.daos.users.findOne(id)
+  user(@Arg('id', () => ID) id: string, @Ctx() { ability }: Context) {
+    return this.userService.findById(id, ability)
   }
 
   @Query(() => [User])
-  users() {
-    return this.daos.users.find()
+  users(@Ctx() { ability }: Context) {
+    return this.userService.getAll(ability)
   }
 
   @FieldResolver(() => Profile)

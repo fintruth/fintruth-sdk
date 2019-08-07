@@ -3,6 +3,7 @@ import { hash } from 'bcrypt'
 import { isNil, mergeLeft } from 'ramda'
 import { Inject, Service } from 'typedi'
 
+import { Ability } from 'auth'
 import { Loggable, logAs } from 'logger'
 import { Daos } from 'models'
 import { Response, ResponseError, UserResponse } from 'resolvers/types'
@@ -45,7 +46,7 @@ export default class UserService {
 
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
-  async addEmail(id: string, value: string) {
+  async addEmail(id: string, value: string, ability: Ability) {
     const email = await Email.fromString(value).catch(this.logDebug)
 
     if (!email) {
@@ -62,6 +63,9 @@ export default class UserService {
       }
 
       email.userId = id
+
+      ability.throwUnlessCan('create', email)
+
       await this.daos.emails.save(email)
 
       const emails = await this.daos.emails.findByUser(id)
@@ -116,12 +120,28 @@ export default class UserService {
     return new UserResponse({ user })
   }
 
+  async findById(id: string, ability: Ability) {
+    const user = await this.daos.users.findOne(id)
+
+    ability.throwUnlessCan('read', user)
+
+    return user
+  }
+
   async isEmailAvailable(email: string) {
     return isNil(await this.daos.users.findByEmail(email))
   }
 
-  async removeEmail(id: string, emailId: string) {
+  getAll(ability: Ability) {
+    ability.throwUnlessCan('read', User)
+
+    return this.daos.users.find()
+  }
+
+  async removeEmail(id: string, emailId: string, ability: Ability) {
     const email = await this.daos.emails.findById(emailId)
+
+    ability.throwUnlessCan('delete', email)
 
     if (!email || email.isPrimary) {
       return new UserResponse({
@@ -140,25 +160,29 @@ export default class UserService {
     })
   }
 
-  async update(id: string, password: string, partial: Partial<User>) {
+  async update(
+    id: string,
+    password: string,
+    partial: Partial<User>,
+    ability: Ability
+  ) {
     return this.validateUserPassword(id, password)(async user => {
-      const updated = await this.daos.users
-        .update(user.id, partial)
-        .catch(this.logDebug)
+      ability.throwUnlessCan('update', user)
 
-      if (!updated) {
-        return new UserResponse({
-          error: new ResponseError('failed to update user'),
-        })
-      }
+      await this.daos.users.update(id, partial)
 
       return new UserResponse({
-        user: mergeLeft(partial, user) as User,
+        user: await this.daos.users.findById(id),
       })
     })
   }
 
-  async updatePassword(id: string, password: string, newPassword: string) {
+  async updatePassword(
+    id: string,
+    password: string,
+    newPassword: string,
+    ability: Ability
+  ) {
     const valid = await object()
       .shape({
         newPassword: string()
@@ -177,8 +201,13 @@ export default class UserService {
       })
     }
 
-    return this.update(id, password, {
-      password: await hash(newPassword, 10),
-    })
+    return this.update(
+      id,
+      password,
+      {
+        password: await hash(newPassword, 10),
+      },
+      ability
+    )
   }
 }
