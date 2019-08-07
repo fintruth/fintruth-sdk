@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@apollo/react-common@^0.1.0-beta.8", "@apollo/react-common@^0.1.0-beta.9":
-  version "0.1.0-beta.9"
-  resolved "https://registry.yarnpkg.com/@apollo/react-common/-/react-common-0.1.0-beta.9.tgz#33d0a46d049d15e97b2f9f1e9e012c338567c1de"
-  integrity sha512-3/FYW7LilVlhfCkxL26Yglmr1LfWd2z+LEMHvtHF8K54Ejmb8kYglvDfbuAIsGT1f8WagpIkDm7eI1tfTdgNmw==
+"@apollo/react-common@^0.1.0-beta.10", "@apollo/react-common@^0.1.0-beta.8":
+  version "0.1.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@apollo/react-common/-/react-common-0.1.0-beta.10.tgz#e01a5345968dbea739ac0604d2647d4300bf8cc2"
+  integrity sha512-P4zrBn1BtPh5h0cCpIaf6FLWJ8CNFNUotGjOOXzzKYWcLsgrGRXBr4zcM0oW44qWoSWyfw/Y5iO2wuw4Tq2LPQ==
   dependencies:
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
@@ -20,12 +20,12 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-testing@0.1.0-beta.6":
-  version "0.1.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@apollo/react-testing/-/react-testing-0.1.0-beta.6.tgz#2f4b426f51fa9ecccc8be0431daf08dcab937898"
-  integrity sha512-DMC0V3ODLXdAGVu18fuJaHOHQxOU+Iom1ck/apNwBn6IvKsMAIwNmZLqss9uNkJqC8uL5mkoB94AHHADlzU8wA==
+"@apollo/react-testing@0.1.0-beta.7":
+  version "0.1.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@apollo/react-testing/-/react-testing-0.1.0-beta.7.tgz#8279f6110bd139690571afca77f39eafb5a0eb37"
+  integrity sha512-shqeqZZCBTyju7ktVzM4x/9yIsNQ4u1CPmb0VkqtIKgCJeKC63GZU5SvmaWMcW/qJ4BPT2emW2ie3YtWjdormg==
   dependencies:
-    "@apollo/react-common" "^0.1.0-beta.9"
+    "@apollo/react-common" "^0.1.0-beta.10"
     fast-json-stable-stringify "^2.0.0"
     tslib "^1.10.0"
 
@@ -3180,10 +3180,10 @@
   resolved "https://registry.yarnpkg.com/@types/jest-diff/-/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
   integrity sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
 
-"@types/jest@^24.0.16":
-  version "24.0.16"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.16.tgz#8d3e406ec0f0dc1688d6711af3062ff9bd428066"
-  integrity sha512-JrAiyV+PPGKZzw6uxbI761cHZ0G7QMOHXPhtSpcl08rZH6CswXaaejckn3goFKmF7M3nzEoJ0lwYCbqLMmjziQ==
+"@types/jest@^24.0.17":
+  version "24.0.17"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.17.tgz#b66ea026efb746eb5db1356ee28518aaff7af416"
+  integrity sha512-1cy3xkOAfSYn78dsBWy4M3h/QF/HeWPchNFDjysVtp3GHeTdSmtluNnELfCmfNRRHo0OWEcpf+NsEJQvwQfdqQ==
   dependencies:
     "@types/jest-diff" "*"
 
