@@ -1,33 +1,51 @@
 import {
-  Response,
-  User,
-  responsePropsFragment,
-  userPropsFragment,
+  Profile,
+  ResponseError,
+  ShallowUser,
+  shallowProfilePropsFragment,
+  shallowResponseErrorPropsFragment,
+  shallowUserPropsFragment,
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
+interface QueriedResponse {
+  error: ResponseError
+}
+
+interface QueriedUser extends ShallowUser {
+  profile: Profile
+}
+
 export interface CurrentUserQueryData {
-  user?: User
+  user?: QueriedUser
 }
 
 export interface SignOutMutationData {
-  response: Response
+  response: QueriedResponse
 }
 
 export const currentUserQuery = gql`
   query CurrentUserQuery {
     user: currentUser {
-      ...UserProps
+      ...ShallowUserProps
+      profile {
+        ...ShallowProfileProps
+      }
     }
   }
-  ${userPropsFragment}
+
+  ${shallowProfilePropsFragment}
+  ${shallowUserPropsFragment}
 `
 
 export const signOutMutation = gql`
   mutation SignOutMutation {
     response: signOut {
-      ...ResponseProps
+      error {
+        ...ShallowResponseErrorProps
+      }
     }
   }
-  ${responsePropsFragment}
+
+  ${shallowResponseErrorPropsFragment}
 `

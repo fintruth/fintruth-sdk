@@ -83,13 +83,13 @@ type MediaType {
 }
 
 type Mutation {
-  confirmTwoFactorAuth(token: String!): UserResponse!
-  disableTwoFactorAuth(token: String!): UserResponse!
+  confirmTwoFactorAuth(token: String!): Response!
+  disableTwoFactorAuth(token: String!): Response!
   enableTwoFactorAuth: EnableTwoFactorAuthResponse!
-  signIn(password: String!, email: String!): UserResponse!
-  signInTwoFactorAuth(token: String!, password: String!, email: String!): UserResponse!
+  signIn(password: String!, email: String!): SignInResponse!
+  signInTwoFactorAuth(token: String!, password: String!, email: String!): Response!
   signOut: Response!
-  updateProfile(input: ProfileInput!): ProfileResponse!
+  updateProfile(input: ProfileInput!): Response!
   confirmRegistration(token: String!): UserResponse!
   register(input: RegisterInput!): Response!
   addEmail(value: String!): UserResponse!
@@ -135,16 +135,12 @@ input ProfileInput {
   givenName: String!
 }
 
-type ProfileResponse {
-  error: ResponseError
-  profile: Profile
-}
-
 type Query {
   address(id: ID!): Address
   country(id: ID!): Country
   countries: [Country!]!
   phone(id: ID!): Phone
+  currentProfile: Profile
   currentUser: User
   user(id: ID!): User
   users: [User!]!
@@ -163,6 +159,11 @@ type Response {
 type ResponseError {
   id: ID!
   message: String!
+}
+
+type SignInResponse {
+  error: ResponseError
+  isTwoFactorAuthEnabled: Boolean
 }
 
 type User implements BaseEntity {

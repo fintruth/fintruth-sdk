@@ -7,8 +7,9 @@ import { Ability } from 'auth'
 import { Daos } from 'models'
 import {
   EnableTwoFactorAuthResponse,
+  Response,
   ResponseError,
-  UserResponse,
+  SignInResponse,
 } from 'resolvers/types'
 import { ServerResponse } from 'server'
 import ConfigService from './config-service'
@@ -36,16 +37,18 @@ export default class AuthService {
     const user = await this.daos.users.findByEmail(email)
 
     if (!user || !user.validatePassword(password)) {
-      return new UserResponse({
+      return new SignInResponse({
         error: new ResponseError('Incorrect email or password'),
       })
     }
 
-    if (!user.isTwoFactorAuthEnabled) {
+    const { isTwoFactorAuthEnabled } = user
+
+    if (!isTwoFactorAuthEnabled) {
       this.signAuthToken(res, user)
     }
 
-    return new UserResponse({ user })
+    return new SignInResponse({ isTwoFactorAuthEnabled })
   }
 
   async authenticateTwoFactor(
@@ -54,37 +57,41 @@ export default class AuthService {
     token: string,
     res: ServerResponse
   ) {
-    const response = await this.authenticate(email, password, res)
+    const user = await this.daos.users.findByEmail(email)
 
-    if (response.error || !response.user) {
-      return response
+    if (!user || !user.validatePassword(password)) {
+      return new Response({
+        error: new ResponseError('Incorrect email or password'),
+      })
     }
 
-    const { user } = response
+    if (!user.isTwoFactorAuthEnabled) {
+      this.signAuthToken(res, user)
+    }
 
     const isValid =
       user.secret && this.verifyTwoFactorAuthToken(token, user.secret)
 
     if (!isValid) {
-      return new UserResponse({
+      return new Response({
         error: new ResponseError('Token is invalid or expired'),
       })
     }
 
     this.signAuthToken(res, user)
 
-    return new UserResponse({ user })
+    return new Response()
   }
 
   async confirmTwoFactorAuth(token: string, userId: string, ability: Ability) {
     const user = await this.daos.users.findById(userId)
 
     if (!user) {
-      return new UserResponse({ error: new ResponseError('User not found') })
+      return new Response({ error: new ResponseError('User not found') })
     }
 
     if (!user.secretTemp) {
-      return new UserResponse({
+      return new Response({
         error: new ResponseError('Two factor not initiated'),
       })
     }
@@ -94,7 +101,7 @@ export default class AuthService {
     const isValid = this.verifyTwoFactorAuthToken(token, user.secretTemp)
 
     if (!isValid) {
-      return new UserResponse({
+      return new Response({
         error: new ResponseError('Token is invalid or expired'),
       })
     }
@@ -104,18 +111,18 @@ export default class AuthService {
       secretTemp: undefined,
     })
 
-    return new UserResponse({ user: await this.daos.users.findOne(userId) })
+    return new Response()
   }
 
   async disableTwoFactorAuth(token: string, userId: string, ability: Ability) {
     const user = await this.daos.users.findById(userId)
 
     if (!user) {
-      return new UserResponse({ error: new ResponseError('User not found') })
+      return new Response({ error: new ResponseError('User not found') })
     }
 
     if (!user.secret) {
-      return new UserResponse({
+      return new Response({
         error: new ResponseError('Two factor not enabled'),
       })
     }
@@ -125,14 +132,14 @@ export default class AuthService {
     const isValid = this.verifyTwoFactorAuthToken(token, user.secret)
 
     if (!isValid) {
-      return new UserResponse({
+      return new Response({
         error: new ResponseError('Token is invalid or expired'),
       })
     }
 
     await this.daos.users.update(userId, { secret: undefined })
 
-    return new UserResponse({ user: await this.daos.users.findOne(userId) })
+    return new Response()
   }
 
   async enableTwoFactorAuth(userId: string, ability: Ability) {

@@ -46,14 +46,11 @@ describe('ProfileService', () => {
     it('should return a profile', async () => {
       const result = await service.updateByUser(
         'userId',
-        {
-          familyName: 'a',
-          givenName: 'b',
-        },
+        { familyName: 'a', givenName: 'b' },
         abilityMock
       )
 
-      expect(result.profile).toStrictEqual(profileMock)
+      expect(result.error).toBeUndefined()
     })
   })
 })

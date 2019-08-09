@@ -1,20 +1,31 @@
 import {
-  EnableTwoFactorAuthResponse,
+  Profile,
   ProfileInput,
-  ProfileResponse,
-  Response,
-  User,
-  UserResponse,
-  enableTwoFactorAuthResponsePropsFragment,
-  profileResponsePropsFragment,
-  responsePropsFragment,
-  userPropsFragment,
-  userResponsePropsFragment,
+  ResponseError,
+  ShallowEnableTwoFactorAuthResponse,
+  ShallowUser,
+  shallowEnableTwoFactorAuthResponsePropsFragment,
+  shallowProfilePropsFragment,
+  shallowResponseErrorPropsFragment,
+  shallowUserPropsFragment,
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
+interface QueriedEnableTwoFactorAuthResponse
+  extends ShallowEnableTwoFactorAuthResponse {
+  error: ResponseError
+}
+
+interface QueriedResponse {
+  error: ResponseError
+}
+
+interface QueriedUser extends ShallowUser {
+  profile: Profile
+}
+
 export interface ConfirmTwoFactorAuthMutationData {
-  response: UserResponse
+  response: QueriedResponse
 }
 
 export interface ConfirmTwoFactorAuthMutationVariables {
@@ -22,11 +33,11 @@ export interface ConfirmTwoFactorAuthMutationVariables {
 }
 
 export interface CurrentUserQueryData {
-  user?: User
+  user?: QueriedUser
 }
 
 export interface DisableTwoFactorAuthMutationData {
-  response: UserResponse
+  response: QueriedResponse
 }
 
 export interface DisableTwoFactorAuthMutationVariables {
@@ -34,11 +45,11 @@ export interface DisableTwoFactorAuthMutationVariables {
 }
 
 export interface EnableTwoFactorAuthMutationData {
-  response: EnableTwoFactorAuthResponse
+  response: QueriedEnableTwoFactorAuthResponse
 }
 
 export interface UpdatePasswordMutationData {
-  response: Response
+  response: QueriedResponse
 }
 
 export interface UpdatePasswordMutationVariables {
@@ -47,7 +58,7 @@ export interface UpdatePasswordMutationVariables {
 }
 
 export interface UpdateProfileMutationData {
-  response: ProfileResponse
+  response: QueriedResponse
 }
 
 export interface UpdateProfileMutationVariables {
@@ -57,53 +68,75 @@ export interface UpdateProfileMutationVariables {
 export const confirmTwoFactorAuthMutation = gql`
   mutation ConfirmTwoFactorAuthMutation($token: String!) {
     response: confirmTwoFactorAuth(token: $token) {
-      ...UserResponseProps
+      error {
+        ...ShallowResponseErrorProps
+      }
     }
   }
-  ${userResponsePropsFragment}
+
+  ${shallowResponseErrorPropsFragment}
 `
 
 export const currentUserQuery = gql`
   query CurrentUserQuery {
     user: currentUser {
-      ...UserProps
+      ...ShallowUserProps
+      profile {
+        ...ShallowProfileProps
+      }
     }
   }
-  ${userPropsFragment}
+
+  ${shallowProfilePropsFragment}
+  ${shallowUserPropsFragment}
 `
 
 export const disableTwoFactorAuthMutation = gql`
   mutation DisableTwoFactorAuthMutation($token: String!) {
     response: disableTwoFactorAuth(token: $token) {
-      ...UserResponseProps
+      error {
+        ...ShallowResponseErrorProps
+      }
     }
   }
-  ${userResponsePropsFragment}
+
+  ${shallowResponseErrorPropsFragment}
 `
 
 export const enableTwoFactorAuthMutation = gql`
   mutation EnableTwoFactorAuthMutation {
     response: enableTwoFactorAuth {
-      ...EnableTwoFactorAuthResponseProps
+      ...ShallowEnableTwoFactorAuthResponseProps
+      error {
+        ...ShallowResponseErrorProps
+      }
     }
   }
-  ${enableTwoFactorAuthResponsePropsFragment}
+
+  ${shallowResponseErrorPropsFragment}
+  ${shallowEnableTwoFactorAuthResponsePropsFragment}
 `
 
 export const updatePasswordMutation = gql`
   mutation UpdatePasswordMutation($newPassword: String!, $password: String!) {
     response: updatePassword(newPassword: $newPassword, password: $password) {
-      ...ResponseProps
+      error {
+        ...ShallowResponseErrorProps
+      }
     }
   }
-  ${responsePropsFragment}
+
+  ${shallowResponseErrorPropsFragment}
 `
 
 export const updateProfileMutation = gql`
   mutation UpdateProfileMutation($input: ProfileInput!) {
     response: updateProfile(input: $input) {
-      ...ProfileResponseProps
+      error {
+        ...ShallowResponseErrorProps
+      }
     }
   }
-  ${profileResponsePropsFragment}
+
+  ${shallowResponseErrorPropsFragment}
 `

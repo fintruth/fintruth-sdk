@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/react-hooks'
-import { User } from '@fintruth-sdk/common'
 import { Link as BaseLink } from '@reach/router'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
@@ -12,6 +11,7 @@ import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help, link } from 'styles/mixins'
 import {
+  QueriedUser,
   RecoverMutationData,
   RecoverMutationVariables,
   recoverMutation,
@@ -26,7 +26,7 @@ interface Props
     React.FormHTMLAttributes<HTMLFormElement>,
     'onReset' | 'onSubmit'
   > {
-  user?: User
+  user?: QueriedUser
 }
 
 interface Values {

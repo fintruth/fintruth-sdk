@@ -5,8 +5,9 @@ import React from 'react'
 import {
   emailBuilder,
   profileBuilder,
+  responseBuilder,
+  signInResponseBuilder,
   userBuilder,
-  userResponseBuilder,
 } from 'utilities/specification'
 import {
   currentUserQuery,
@@ -20,6 +21,9 @@ const password = 'A!s2d3f4g5'
 const token = '123456'
 const userId = '02411db8-e5d3-4ca8-a7a7-bea9d0b6d4f3'
 
+const response = responseBuilder()
+const signInResponse = signInResponseBuilder({ isTwoFactorAuthEnabled: false })
+
 const user = userBuilder({
   id: userId,
   emails: [emailBuilder({ isPrimary: true, userId, value: email })],
@@ -27,12 +31,10 @@ const user = userBuilder({
   profile: profileBuilder({ userId }),
 })
 
-const userResponse = userResponseBuilder({ user })
-
 const defaultMocks = [
   {
     request: { query: signInMutation, variables: { email, password } },
-    result: { data: { response: { ...userResponse, error: null } } },
+    result: { data: { response: { ...signInResponse, error: null } } },
   },
   { request: { query: currentUserQuery }, result: { data: { user } } },
 ]
@@ -43,28 +45,19 @@ const defaultTwoFactorAuthEnabledMocks = [
     result: {
       data: {
         response: {
-          ...userResponse,
+          ...signInResponse,
           error: null,
-          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
+          isTwoFactorAuthEnabled: true,
         },
       },
     },
   },
-  { request: { query: currentUserQuery }, result: { data: { user: null } } },
   {
     request: {
       query: signInTwoFactorAuthMutation,
       variables: { email, password, token },
     },
-    result: {
-      data: {
-        response: {
-          ...userResponse,
-          error: null,
-          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
-        },
-      },
-    },
+    result: { data: { response: { ...response, error: null } } },
   },
   { request: { query: currentUserQuery }, result: { data: { user } } },
 ]
@@ -73,7 +66,7 @@ const delayMocks = [
   {
     delay: 5000,
     request: { query: signInMutation, variables: { email, password } },
-    result: { data: { response: { ...userResponse, error: null } } },
+    result: { data: { response: { ...signInResponse, error: null } } },
   },
   { request: { query: currentUserQuery }, result: { data: { user } } },
 ]
@@ -85,29 +78,20 @@ const delayTwoFactorAuthEnabledMocks = [
     result: {
       data: {
         response: {
-          ...userResponse,
+          ...signInResponse,
           error: null,
-          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
+          isTwoFactorAuthEnabled: true,
         },
       },
     },
   },
-  { request: { query: currentUserQuery }, result: { data: { user: null } } },
   {
     delay: 5000,
     request: {
       query: signInTwoFactorAuthMutation,
       variables: { email, password, token },
     },
-    result: {
-      data: {
-        response: {
-          ...userResponse,
-          error: null,
-          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
-        },
-      },
-    },
+    result: { data: { response: { ...response, error: null } } },
   },
   { request: { query: currentUserQuery }, result: { data: { user } } },
 ]
@@ -115,7 +99,7 @@ const delayTwoFactorAuthEnabledMocks = [
 const errorMocks = [
   {
     request: { query: signInMutation, variables: { email, password } },
-    result: { data: { response: { ...userResponse, user: null } } },
+    result: { data: { response: signInResponse } },
   },
 ]
 
@@ -125,20 +109,19 @@ const errorTwoFactorAuthEnabledMocks = [
     result: {
       data: {
         response: {
-          ...userResponse,
+          ...signInResponse,
           error: null,
-          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
+          isTwoFactorAuthEnabled: true,
         },
       },
     },
   },
-  { request: { query: currentUserQuery }, result: { data: { user: null } } },
   {
     request: {
       query: signInTwoFactorAuthMutation,
       variables: { email, password, token },
     },
-    result: { data: { response: { ...userResponse, user: null } } },
+    result: { data: { response } },
   },
 ]
 

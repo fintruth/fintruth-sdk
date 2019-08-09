@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 
-import { BaseEntity } from './base-entity'
-import { Response, responseErrorPropsFragment } from './response'
+import { BaseEntity, shallowBaseEntityPropsFragment } from './base-entity'
 
 export interface Profile extends BaseEntity {
   familyName: string
@@ -14,30 +13,13 @@ export interface ProfileInput {
   givenName: string
 }
 
-export interface ProfileResponse extends Response {
-  profile?: Profile
-}
-
-export const profilePropsFragment = gql`
-  fragment ProfileProps on Profile {
-    id
+export const shallowProfilePropsFragment = gql`
+  fragment ShallowProfileProps on Profile {
+    ...ShallowBaseEntityProps
     familyName
     givenName
     userId
-    createdAt
-    updatedAt
   }
-`
 
-export const profileResponsePropsFragment = gql`
-  fragment ProfileResponseProps on ProfileResponse {
-    error {
-      ...ResponseErrorProps
-    }
-    profile {
-      ...ProfileProps
-    }
-  }
-  ${profilePropsFragment}
-  ${responseErrorPropsFragment}
+  ${shallowBaseEntityPropsFragment}
 `

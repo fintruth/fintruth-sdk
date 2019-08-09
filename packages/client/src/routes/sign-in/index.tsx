@@ -1,5 +1,4 @@
 import { useApolloClient } from '@apollo/react-hooks'
-import { User } from '@fintruth-sdk/common'
 import { RouteComponentProps, navigate } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
@@ -13,8 +12,6 @@ import SignInTwoFactorAuthForm, {
   SignInCredentials,
 } from './sign-in-two-factor-auth-form'
 
-type GetNextStep = (user: User) => Step
-
 type Props = RouteComponentProps
 
 type Step = 'signIn' | 'signInTwoFactorAuth' | 'redirect'
@@ -23,6 +20,14 @@ const items = [
   { id: 'sign-in', content: 'Sign In', to: '/sign-in' },
   { id: 'register', content: 'Register', to: '/register' },
 ]
+
+const getNextStep = (
+  currentStep: Step,
+  isTwoFactorAuthEnabled: boolean = false
+) =>
+  currentStep === 'signIn' && isTwoFactorAuthEnabled
+    ? 'signInTwoFactorAuth'
+    : 'redirect'
 
 const Root = styled.div`
   align-items: center;
@@ -49,14 +54,6 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   >({ email: '', password: '' })
   const client = useApolloClient()
 
-  const getNextStep = React.useCallback<GetNextStep>(
-    ({ isTwoFactorAuthEnabled }) =>
-      currentStep === 'signIn' && isTwoFactorAuthEnabled
-        ? 'signInTwoFactorAuth'
-        : 'redirect',
-    [currentStep]
-  )
-
   React.useEffect(() => {
     if (currentStep === 'redirect') {
       client
@@ -74,7 +71,9 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
       <Root data-testid="sign-in" {...props}>
         <Content>
           <SignInTwoFactorAuthForm
-            onCompleted={user => setCurrentStep(getNextStep(user))}
+            onCompleted={isTwoFactorAuthEnabled =>
+              setCurrentStep(getNextStep(currentStep, isTwoFactorAuthEnabled))
+            }
             signInCredentials={signInCredentials}
           />
         </Content>
@@ -95,7 +94,9 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
       <Content>
         <Subnavbar items={items} />
         <SignInForm
-          onCompleted={user => setCurrentStep(getNextStep(user))}
+          onCompleted={isTwoFactorAuthEnabled =>
+            setCurrentStep(getNextStep(currentStep, isTwoFactorAuthEnabled))
+          }
           setSignInCredentials={setSignInCredentials}
         />
       </Content>

@@ -3,8 +3,8 @@ import { Container } from 'typedi'
 
 import {
   EnableTwoFactorAuthResponse,
+  Response,
   ResponseError,
-  UserResponse,
 } from 'resolvers/types'
 import AuthService from './auth-service'
 import { Email, User } from '../entities'
@@ -89,7 +89,7 @@ describe('AuthService', () => {
           resMock
         )
 
-        expect(result.user).toStrictEqual(userMock)
+        expect(result.error).toBeUndefined()
       })
 
       it('should return a failure response using an incorrect password', async () => {
@@ -140,12 +140,7 @@ describe('AuthService', () => {
           resMock
         )
 
-        expect(result.user).toStrictEqual(
-          new User({
-            ...userMock,
-            secret: 'secret',
-          })
-        )
+        expect(result.error).toBeUndefined()
       })
 
       it('should return a failure response using an invalid token', async () => {
@@ -189,7 +184,7 @@ describe('AuthService', () => {
       )
 
       expect(result).toStrictEqual(
-        new UserResponse({
+        new Response({
           error: new ResponseError(
             'Two factor not initiated',
             expect.any(String)
@@ -214,7 +209,7 @@ describe('AuthService', () => {
           abilityMock
         )
 
-        expect(result.user).toStrictEqual({ secretTemp: 'secret' })
+        expect(result.error).toBeUndefined()
       })
 
       it('should return a failure response using an invalid token', async () => {
@@ -227,7 +222,7 @@ describe('AuthService', () => {
         )
 
         expect(result).toStrictEqual(
-          new UserResponse({
+          new Response({
             error: new ResponseError(
               'Token is invalid or expired',
               expect.any(String)
@@ -249,7 +244,7 @@ describe('AuthService', () => {
       )
 
       expect(result).toStrictEqual(
-        new UserResponse({
+        new Response({
           error: new ResponseError(
             'Two factor not enabled',
             expect.any(String)
@@ -274,7 +269,7 @@ describe('AuthService', () => {
           abilityMock
         )
 
-        expect(result.user).toStrictEqual({ secret: 'secret' })
+        expect(result.error).toBeUndefined()
       })
 
       it('should return a failure response using an invalid token', async () => {
@@ -287,7 +282,7 @@ describe('AuthService', () => {
         )
 
         expect(result).toStrictEqual(
-          new UserResponse({
+          new Response({
             error: new ResponseError(
               'Token is invalid or expired',
               expect.any(String)

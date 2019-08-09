@@ -9,18 +9,9 @@ export interface ResponseError {
   message: string
 }
 
-export const responseErrorPropsFragment = gql`
-  fragment ResponseErrorProps on ResponseError {
+export const shallowResponseErrorPropsFragment = gql`
+  fragment ShallowResponseErrorProps on ResponseError {
     id
     message
   }
-`
-
-export const responsePropsFragment = gql`
-  fragment ResponseProps on Response {
-    error {
-      ...ResponseErrorProps
-    }
-  }
-  ${responseErrorPropsFragment}
 `

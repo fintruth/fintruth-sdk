@@ -1,17 +1,33 @@
 import {
-  User,
-  UserResponse,
-  userPropsFragment,
-  userResponsePropsFragment,
+  Profile,
+  ResponseError,
+  ShallowSignInResponse,
+  ShallowUser,
+  shallowProfilePropsFragment,
+  shallowResponseErrorPropsFragment,
+  shallowSignInResponsePropsFragment,
+  shallowUserPropsFragment,
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
+interface QueriedResponse {
+  error: ResponseError
+}
+
+interface QueriedSignInResponse extends ShallowSignInResponse {
+  error: ResponseError
+}
+
+interface QueriedUser extends ShallowUser {
+  profile: Profile
+}
+
 export interface CurrentUserQueryData {
-  user?: User
+  user?: QueriedUser
 }
 
 export interface SignInMutationData {
-  response: UserResponse
+  response: QueriedSignInResponse
 }
 
 export interface SignInMutationVariables {
@@ -20,7 +36,7 @@ export interface SignInMutationVariables {
 }
 
 export interface SignInTwoFactorAuthMutationData {
-  response: UserResponse
+  response: QueriedResponse
 }
 
 export interface SignInTwoFactorAuthMutationVariables {
@@ -32,19 +48,29 @@ export interface SignInTwoFactorAuthMutationVariables {
 export const currentUserQuery = gql`
   query CurrentUserQuery {
     user: currentUser {
-      ...UserProps
+      ...ShallowUserProps
+      profile {
+        ...ShallowProfileProps
+      }
     }
   }
-  ${userPropsFragment}
+
+  ${shallowProfilePropsFragment}
+  ${shallowUserPropsFragment}
 `
 
 export const signInMutation = gql`
   mutation SignInMutation($email: String!, $password: String!) {
     response: signIn(email: $email, password: $password) {
-      ...UserResponseProps
+      ...ShallowSignInResponseProps
+      error {
+        ...ShallowResponseErrorProps
+      }
     }
   }
-  ${userResponsePropsFragment}
+
+  ${shallowResponseErrorPropsFragment}
+  ${shallowSignInResponsePropsFragment}
 `
 
 export const signInTwoFactorAuthMutation = gql`
@@ -58,8 +84,11 @@ export const signInTwoFactorAuthMutation = gql`
       password: $password
       token: $token
     ) {
-      ...UserResponseProps
+      error {
+        ...ShallowResponseErrorProps
+      }
     }
   }
-  ${userResponsePropsFragment}
+
+  ${shallowResponseErrorPropsFragment}
 `

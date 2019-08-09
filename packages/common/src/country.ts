@@ -7,8 +7,8 @@ export interface Country {
   name: string
 }
 
-export const countryPropsFragment = gql`
-  fragment CountryProps on Country {
+export const shallowCountryPropsFragment = gql`
+  fragment ShallowCountryProps on Country {
     id
     alpha2Code
     callingCode

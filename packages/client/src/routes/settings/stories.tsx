@@ -6,10 +6,8 @@ import {
   emailBuilder,
   enableTwoFactorAuthResponseBuilder,
   profileBuilder,
-  profileResponseBuilder,
   responseBuilder,
   userBuilder,
-  userResponseBuilder,
 } from 'utilities/specification'
 import {
   confirmTwoFactorAuthMutation,
@@ -39,12 +37,6 @@ const user = userBuilder({
   profile: profileBuilder({ userId }),
 })
 
-const profileResponse = profileResponseBuilder({
-  profile: { ...user.profile, familyName, givenName },
-})
-
-const userResponse = userResponseBuilder({ user })
-
 const defaultMocks = [
   { request: { query: currentUserQuery }, result: { data: { user } } },
   {
@@ -59,7 +51,7 @@ const defaultMocks = [
       query: updateProfileMutation,
       variables: { input: { familyName, givenName } },
     },
-    result: { data: { response: { ...profileResponse, error: null } } },
+    result: { data: { response: { ...response, error: null } } },
   },
   {
     request: { query: enableTwoFactorAuthMutation },
@@ -69,15 +61,7 @@ const defaultMocks = [
   },
   {
     request: { query: confirmTwoFactorAuthMutation, variables: { token } },
-    result: {
-      data: {
-        response: {
-          ...userResponse,
-          error: null,
-          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
-        },
-      },
-    },
+    result: { data: { response: { ...response, error: null } } },
   },
 ]
 
@@ -98,11 +82,11 @@ const defaultTwoFactorAuthEnabledMocks = [
       query: updateProfileMutation,
       variables: { input: { familyName, givenName } },
     },
-    result: { data: { response: { ...profileResponse, error: null } } },
+    result: { data: { response: { ...response, error: null } } },
   },
   {
     request: { query: disableTwoFactorAuthMutation, variables: { token } },
-    result: { data: { response: { ...userResponse, error: null } } },
+    result: { data: { response: { ...response, error: null } } },
   },
 ]
 
@@ -126,7 +110,7 @@ const delayMocks = [
       query: updateProfileMutation,
       variables: { input: { familyName, givenName } },
     },
-    result: { data: { response: { ...profileResponse, error: null } } },
+    result: { data: { response: { ...response, error: null } } },
   },
   {
     delay: 5000,
@@ -138,15 +122,7 @@ const delayMocks = [
   {
     delay: 5000,
     request: { query: confirmTwoFactorAuthMutation, variables: { token } },
-    result: {
-      data: {
-        response: {
-          ...userResponse,
-          error: null,
-          user: { ...userResponse.user, isTwoFactorAuthEnabled: true },
-        },
-      },
-    },
+    result: { data: { response: { ...response, error: null } } },
   },
 ]
 
@@ -170,12 +146,12 @@ const delayTwoFactorAuthEnabledMocks = [
       query: updateProfileMutation,
       variables: { input: { familyName, givenName } },
     },
-    result: { data: { response: { ...profileResponse, error: null } } },
+    result: { data: { response: { ...response, error: null } } },
   },
   {
     delay: 5000,
     request: { query: disableTwoFactorAuthMutation, variables: { token } },
-    result: { data: { response: { ...userResponse, error: null } } },
+    result: { data: { response: { ...response, error: null } } },
   },
 ]
 
@@ -193,7 +169,7 @@ const errorMocks = [
       query: updateProfileMutation,
       variables: { input: { familyName, givenName } },
     },
-    result: { data: { response: { ...profileResponse, profile: null } } },
+    result: { data: { response } },
   },
   {
     request: { query: enableTwoFactorAuthMutation },
@@ -215,7 +191,7 @@ const errorMocks = [
   },
   {
     request: { query: confirmTwoFactorAuthMutation, variables: { token } },
-    result: { data: { response: { ...userResponse, user: null } } },
+    result: { data: { response } },
   },
 ]
 
@@ -236,11 +212,11 @@ const errorTwoFactorAuthEnabledMocks = [
       query: updateProfileMutation,
       variables: { input: { familyName, givenName } },
     },
-    result: { data: { response: { ...profileResponse, profile: null } } },
+    result: { data: { response } },
   },
   {
     request: { query: disableTwoFactorAuthMutation, variables: { token } },
-    result: { data: { response: { ...userResponse, user: null } } },
+    result: { data: { response } },
   },
 ]
 

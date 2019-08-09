@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/react-hooks'
-import { User } from '@fintruth-sdk/common'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
@@ -24,7 +23,7 @@ interface Props
     React.FormHTMLAttributes<HTMLFormElement>,
     'onReset' | 'onSubmit'
   > {
-  onCompleted: (user: User) => void
+  onCompleted: (isTwoFactorAuthEnabled?: boolean) => void
   signInCredentials: SignInCredentials
 }
 
@@ -73,13 +72,10 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
     SignInTwoFactorAuthMutationVariables
   >(signInTwoFactorAuthMutation, {
     fetchPolicy: 'no-cache',
-    onCompleted: ({ response }) => {
-      if (response.error) {
-        return setHelpProps({ children: response.error.message })
-      }
-
-      return response.user && onCompleted(response.user)
-    },
+    onCompleted: ({ response }) =>
+      response.error
+        ? setHelpProps({ children: response.error.message })
+        : onCompleted(),
   })
 
   return (

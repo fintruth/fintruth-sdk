@@ -2,11 +2,10 @@ import {
   Email,
   EnableTwoFactorAuthResponse,
   Profile,
-  ProfileResponse,
   Response,
   ResponseError,
+  SignInResponse,
   User,
-  UserResponse,
 } from '@fintruth-sdk/common'
 import {
   LocationProvider,
@@ -77,17 +76,17 @@ export const enableTwoFactorAuthResponseBuilder = build<
   __typename: 'EnableTwoFactorAuthResponse',
 })
 
-export const profileResponseBuilder = build<ProfileResponse & TypeName>(
-  'ProfileResponse'
-).fields({
-  error: responseErrorBuilder(),
-  profile: profileBuilder(),
-  __typename: 'ProfileResponse',
-})
-
 export const responseBuilder = build<Response & TypeName>('Response').fields({
   error: responseErrorBuilder(),
   __typename: 'Response',
+})
+
+export const signInResponseBuilder = build<SignInResponse & TypeName>(
+  'SignInResponse'
+).fields({
+  error: responseErrorBuilder(),
+  isTwoFactorAuthEnabled: bool(),
+  __typename: 'SignInResponse',
 })
 
 export const userBuilder = build<User & TypeName>('User').fields({
@@ -99,12 +98,4 @@ export const userBuilder = build<User & TypeName>('User').fields({
   createdAt: fake(({ date }) => date.past().toISOString()),
   updatedAt: fake(({ date }) => date.recent().toISOString()),
   __typename: 'User',
-})
-
-export const userResponseBuilder = build<UserResponse & TypeName>(
-  'UserResponse'
-).fields({
-  error: responseErrorBuilder(),
-  user: userBuilder(),
-  __typename: 'UserResponse',
 })

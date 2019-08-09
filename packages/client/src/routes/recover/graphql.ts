@@ -1,17 +1,27 @@
 import {
-  Response,
-  User,
-  responsePropsFragment,
-  userPropsFragment,
+  Email,
+  ResponseError,
+  ShallowUser,
+  shallowEmailPropsFragment,
+  shallowResponseErrorPropsFragment,
+  shallowUserPropsFragment,
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
+interface QueriedResponse {
+  error: ResponseError
+}
+
+export interface QueriedUser extends ShallowUser {
+  emails: Email[]
+}
+
 export interface CurrentUserQueryData {
-  user?: User
+  user?: QueriedUser
 }
 
 export interface RecoverMutationData {
-  response: Response
+  response: QueriedResponse
 }
 
 export interface RecoverMutationVariables {
@@ -21,17 +31,25 @@ export interface RecoverMutationVariables {
 export const currentUserQuery = gql`
   query CurrentUserQuery {
     user: currentUser {
-      ...UserProps
+      ...ShallowUserProps
+      emails {
+        ...ShallowEmailProps
+      }
     }
   }
-  ${userPropsFragment}
+
+  ${shallowEmailPropsFragment}
+  ${shallowUserPropsFragment}
 `
 
 export const recoverMutation = gql`
   mutation RecoverMutation($email: String!) {
     response: recover(email: $email) {
-      ...ResponseProps
+      error {
+        ...ShallowResponseErrorProps
+      }
     }
   }
-  ${responsePropsFragment}
+
+  ${shallowResponseErrorPropsFragment}
 `
