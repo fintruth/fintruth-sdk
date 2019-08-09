@@ -1,5 +1,5 @@
 import { BaseEntity as IBaseEntity } from '@fintruth-sdk/common'
-import moment from 'moment'
+import { parseISO } from 'date-fns'
 import { Field, ID, InterfaceType } from 'type-graphql'
 import {
   BaseEntity as TypeOrmBaseEntity,
@@ -11,8 +11,8 @@ import {
 
 const dateColumnOptions: ColumnOptions = {
   transformer: {
-    to: (str?: string) => (!str ? str : moment(str).toDate()),
-    from: (date?: Date) => (!date ? date : moment(date).format()),
+    to: (str?: string) => (!str ? str : parseISO(str)),
+    from: (date?: Date) => (!date ? date : date.toISOString()),
   },
   type: 'timestamptz',
 }
