@@ -103,7 +103,6 @@ const createConfig = (target, configFactory) =>
       }),
     ],
     resolve: {
-      alias: { react: path.resolve(rootDir, 'node_modules/react') },
       extensions: ['.js', '.json', '.mjs', '.ts', '.tsx', '.wasm'],
       modules: ['node_modules', path.join(rootDir, 'src')],
     },
@@ -165,7 +164,10 @@ const clientConfig = createConfig('web', baseConfig => ({
 const serverConfig = createConfig('node', baseConfig => ({
   ...baseConfig,
   entry: { server: path.resolve('./src/server.tsx') },
-  externals: [nodeExternals({ whitelist: [/\.(bmp|gif|jp(e)?g|png|webp)$/] })],
+  externals: [
+    nodeExternals({ whitelist: [/\.(bmp|gif|jp(e)?g|png|webp)$/] }),
+    nodeExternals({ modulesDir: path.resolve(rootDir, '../../node_modules') }),
+  ],
   name: 'server',
   node: false,
   output: {
