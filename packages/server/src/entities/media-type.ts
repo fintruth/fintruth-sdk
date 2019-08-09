@@ -1,4 +1,4 @@
-import { MediaType as BaseMediaType } from '@fintruth-sdk/common'
+import { MediaType as IMediaType } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
   BaseEntity,
@@ -12,7 +12,7 @@ import Media from './media'
 
 @Entity()
 @ObjectType()
-export default class MediaType extends BaseEntity implements BaseMediaType {
+export default class MediaType extends BaseEntity implements IMediaType {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string

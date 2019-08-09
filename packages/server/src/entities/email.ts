@@ -1,25 +1,14 @@
 import { string } from '@fintruth-sdk/validation'
-import { BaseEmail } from '@fintruth-sdk/common'
+import { Email as IEmail } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 
+import BaseEntity from './base-entity'
 import User from './user'
 
 @Entity()
 @ObjectType()
-export default class Email extends BaseEntity implements BaseEmail {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+export default class Email extends BaseEntity implements IEmail {
   @Field()
   @Column({ default: false })
   isPrimary: boolean
@@ -38,14 +27,6 @@ export default class Email extends BaseEntity implements BaseEmail {
   @Field()
   @Column({ unique: true })
   value: string
-
-  @Field(() => Date)
-  @CreateDateColumn()
-  createdAt: Date
-
-  @Field(() => Date)
-  @UpdateDateColumn()
-  updatedAt: Date
 
   constructor(partialEmail: Partial<Email> = {}) {
     super()

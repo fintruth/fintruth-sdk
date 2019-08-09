@@ -1,12 +1,8 @@
-export interface BaseEmail {
-  id: string
+import { BaseEntity } from './base-entity'
+
+export interface Email extends BaseEntity {
   isPrimary: boolean
   isVerified: boolean
   userId: string
   value: string
-}
-
-export interface Email extends BaseEmail {
-  createdAt: string
-  updatedAt: string
 }

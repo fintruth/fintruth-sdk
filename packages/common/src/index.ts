@@ -1,5 +1,6 @@
 export * from './address'
 export * from './auth'
+export * from './base-entity'
 export * from './country'
 export * from './email'
 export * from './media'

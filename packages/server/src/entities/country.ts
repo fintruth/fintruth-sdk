@@ -1,4 +1,4 @@
-import { Country as BaseCountry } from '@fintruth-sdk/common'
+import { Country as ICountry } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
   BaseEntity,
@@ -12,7 +12,7 @@ import Phone from './phone'
 
 @Entity()
 @ObjectType()
-export default class Country extends BaseEntity implements BaseCountry {
+export default class Country extends BaseEntity implements ICountry {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string
