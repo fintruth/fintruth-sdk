@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Formik } from 'formik'
 import React from 'react'
@@ -25,7 +25,7 @@ test('should render the provided label correctly', () => {
   expect(getByLabelText('label')).toHaveAttribute('data-testid', 'radio')
 })
 
-test('should only allow one radio button to be checked at a time', () => {
+test('should only allow one radio button to be checked at a time', async () => {
   const { getByLabelText } = render(
     <ThemeProvider theme={theme}>
       <Formik initialValues={{ radioGroup: 'radio-a' }} onSubmit={() => {}}>
@@ -52,7 +52,7 @@ test('should only allow one radio button to be checked at a time', () => {
   expect(radioA.checked).toBe(true)
   expect(radioB.checked).toBe(false)
 
-  userEvent.click(radioB)
+  await act(async () => userEvent.click(radioB))
 
   expect(radioA.checked).toBe(false)
   expect(radioB.checked).toBe(true)

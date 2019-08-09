@@ -54,7 +54,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-ramda": "^2.5.1",
     "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^1.6.1",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-unicorn": "^10.0.0",
     "fork-ts-checker-webpack-plugin": "^1.5.0",
@@ -82,16 +82,6 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": [
-      "**/@loadable/server",
-      "**/@loadable/server/**",
-      "**/express",
-      "**/express/**",
-      "**/polished",
-      "**/polished/**",
-      "**/node-fetch",
-      "**/node-fetch/**"
     ]
   },
   "husky": {

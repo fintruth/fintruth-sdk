@@ -1,6 +1,5 @@
 'use strict'
 
-const path = require('path')
 const { defaults } = require('jest-config')
 
 module.exports = {
@@ -9,9 +8,6 @@ module.exports = {
   errorOnDeprecated: true,
   globals: { __DEV__: true },
   moduleDirectories: [...defaults.moduleDirectories, '<rootDir>/src'],
-  moduleNameMapper: {
-    '^react$': path.resolve(__dirname, 'node_modules/react'),
-  },
   restoreMocks: true,
   setupFilesAfterEnv: ['<rootDir>/config/jest/setup.ts'],
   snapshotResolver: '<rootDir>/config/jest/snapshot-resolver.js',
