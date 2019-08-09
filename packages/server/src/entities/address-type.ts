@@ -1,4 +1,4 @@
-import { AddressType as BaseAddressType } from '@fintruth-sdk/common'
+import { AddressType as IAddressType } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
   BaseEntity,
@@ -12,7 +12,7 @@ import Address from './address'
 
 @Entity()
 @ObjectType()
-export default class AddressType extends BaseEntity implements BaseAddressType {
+export default class AddressType extends BaseEntity implements IAddressType {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string

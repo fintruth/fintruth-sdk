@@ -1,8 +1,8 @@
-import { ProfileInput as BaseProfileInput } from '@fintruth-sdk/common'
+import { ProfileInput as IProfileInput } from '@fintruth-sdk/common'
 import { Field, InputType } from 'type-graphql'
 
 @InputType()
-export default class ProfileInput implements BaseProfileInput {
+export default class ProfileInput implements IProfileInput {
   @Field()
   familyName: string
 

@@ -1,7 +1,8 @@
 import gql from 'graphql-tag'
 
-import { BaseEmail, Email, emailPropsFragment } from './email'
-import { BaseProfile, Profile, profilePropsFragment } from './profile'
+import { BaseEntity } from './base-entity'
+import { Email, emailPropsFragment } from './email'
+import { Profile, profilePropsFragment } from './profile'
 import { Response, responseErrorPropsFragment } from './response'
 
 export type ShallowUser = Pick<
@@ -9,26 +10,14 @@ export type ShallowUser = Pick<
   'id' | 'isAdmin' | 'isTwoFactorAuthEnabled' | 'createdAt' | 'updatedAt'
 >
 
-export interface BaseUser {
-  id: string
-  emails: BaseEmail[]
+export interface User extends BaseEntity {
+  emails: Email[]
   isAdmin: boolean
   isTwoFactorAuthEnabled: boolean
-  profile: BaseProfile
-}
-
-export interface User extends BaseUser {
-  emails: Email[]
   profile: Profile
-  createdAt: string
-  updatedAt: string
 }
 
-export interface BaseUserResponse extends Response {
-  user?: BaseUser
-}
-
-export interface UserResponse extends BaseUserResponse {
+export interface UserResponse extends Response {
   user?: User
 }
 

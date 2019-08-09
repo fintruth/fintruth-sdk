@@ -1,25 +1,14 @@
-import { BasePhone } from '@fintruth-sdk/common'
+import { Phone as IPhone } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 
+import BaseEntity from './base-entity'
 import Country from './country'
 import PhoneType from './phone-type'
 
 @Entity()
-@ObjectType()
-export default class Phone extends BaseEntity implements BasePhone {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+@ObjectType({ implements: BaseEntity })
+export default class Phone extends BaseEntity implements IPhone {
   @Field(() => Country)
   @ManyToOne(() => Country, ({ phones }) => phones)
   country: Country
@@ -47,14 +36,6 @@ export default class Phone extends BaseEntity implements BasePhone {
   @Field(() => ID)
   @Column()
   typeId: string
-
-  @Field(() => Date)
-  @CreateDateColumn()
-  createdAt: Date
-
-  @Field(() => Date)
-  @UpdateDateColumn()
-  updatedAt: Date
 
   constructor(partialPhone: Partial<Phone> = {}) {
     super()

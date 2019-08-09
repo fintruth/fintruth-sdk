@@ -1,17 +1,12 @@
 import gql from 'graphql-tag'
 
+import { BaseEntity } from './base-entity'
 import { Response, responseErrorPropsFragment } from './response'
 
-export interface BaseProfile {
-  id: string
+export interface Profile extends BaseEntity {
   familyName: string
   givenName: string
   userId: string
-}
-
-export interface Profile extends BaseProfile {
-  createdAt: string
-  updatedAt: string
 }
 
 export interface ProfileInput {
@@ -19,11 +14,7 @@ export interface ProfileInput {
   givenName: string
 }
 
-export interface BaseProfileResponse extends Response {
-  profile?: BaseProfile
-}
-
-export interface ProfileResponse extends BaseProfileResponse {
+export interface ProfileResponse extends Response {
   profile?: Profile
 }
 

@@ -1,4 +1,4 @@
-import { BaseProfileResponse } from '@fintruth-sdk/common'
+import { ProfileResponse as IProfileResponse } from '@fintruth-sdk/common'
 import { Field, ObjectType } from 'type-graphql'
 
 import Response, { Props as ResponseProps } from './response'
@@ -10,7 +10,7 @@ interface Props extends ResponseProps {
 
 @ObjectType()
 export default class ProfileResponse extends Response
-  implements BaseProfileResponse {
+  implements IProfileResponse {
   @Field(() => Profile, { nullable: true })
   profile?: Profile
 

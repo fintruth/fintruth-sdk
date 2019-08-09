@@ -1,5 +1,6 @@
-export interface BaseAddress {
-  id: string
+import { BaseEntity } from './base-entity'
+
+export interface Address extends BaseEntity {
   city: string
   country: string
   line1: string
@@ -8,11 +9,6 @@ export interface BaseAddress {
   subdivision: string
   type: AddressType
   typeId: string
-}
-
-export interface Address extends BaseAddress {
-  createdAt: string
-  updatedAt: string
 }
 
 export interface AddressInput {

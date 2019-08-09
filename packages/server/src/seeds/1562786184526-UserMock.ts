@@ -1,8 +1,8 @@
-import { BaseEmail, BaseProfile, BaseUser } from '@fintruth-sdk/common'
+import { Email, Profile, User } from '@fintruth-sdk/common'
 import { hashSync } from 'bcrypt'
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
-const email: Partial<BaseEmail> = {
+const email: Partial<Email> = {
   id: '2bf22acd-ca93-425a-8912-20ad607c556b',
   isPrimary: true,
   isVerified: true,
@@ -10,14 +10,14 @@ const email: Partial<BaseEmail> = {
   userId: '496ca0bf-470b-479a-b56d-f17c063003b1',
 }
 
-const profile: BaseProfile = {
+const profile: Partial<Profile> = {
   id: 'a1398ba1-bf84-41b6-ae7d-b6d51c3b32cf',
   familyName: 'User',
   givenName: 'Demo',
   userId: '496ca0bf-470b-479a-b56d-f17c063003b1',
 }
 
-const user: Partial<BaseUser> & { password: string } = {
+const user: Partial<User> & { password: string } = {
   id: '496ca0bf-470b-479a-b56d-f17c063003b1',
   isAdmin: false,
   password: hashSync('A!s2d3f4g5', 10),

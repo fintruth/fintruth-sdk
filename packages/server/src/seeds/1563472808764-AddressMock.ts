@@ -1,7 +1,7 @@
-import { BaseAddress } from '@fintruth-sdk/common'
+import { Address } from '@fintruth-sdk/common'
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
-const address: Partial<BaseAddress> = {
+const address: Partial<Address> = {
   id: '2b84ebdb-cbbc-4590-97bd-c0381c796783',
   city: 'Las Vegas',
   country: 'United States',

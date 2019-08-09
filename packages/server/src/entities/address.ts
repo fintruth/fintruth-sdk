@@ -1,24 +1,13 @@
-import { BaseAddress } from '@fintruth-sdk/common'
+import { Address as IAddress } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 
 import AddressType from './address-type'
+import BaseEntity from './base-entity'
 
 @Entity()
-@ObjectType()
-export default class Address extends BaseEntity implements BaseAddress {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+@ObjectType({ implements: BaseEntity })
+export default class Address extends BaseEntity implements IAddress {
   @Field()
   @Column()
   city: string
@@ -50,14 +39,6 @@ export default class Address extends BaseEntity implements BaseAddress {
   @Field(() => ID)
   @Column()
   typeId: string
-
-  @Field(() => Date)
-  @CreateDateColumn()
-  createdAt: Date
-
-  @Field(() => Date)
-  @UpdateDateColumn()
-  updatedAt: Date
 
   constructor(partialAddress: Partial<Address> = {}) {
     super()
