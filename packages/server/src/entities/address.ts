@@ -6,7 +6,7 @@ import AddressType from './address-type'
 import BaseEntity from './base-entity'
 
 @Entity()
-@ObjectType()
+@ObjectType({ implements: BaseEntity })
 export default class Address extends BaseEntity implements IAddress {
   @Field()
   @Column()

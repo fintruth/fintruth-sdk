@@ -8,7 +8,7 @@ import Email from './email'
 import Profile from './profile'
 
 @Entity()
-@ObjectType()
+@ObjectType({ implements: BaseEntity })
 export default class User extends BaseEntity implements IUser {
   @Field(() => [Email])
   @OneToMany(() => Email, ({ user }) => user, { cascade: true })

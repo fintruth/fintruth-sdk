@@ -3,7 +3,7 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Address {
+type Address implements BaseEntity {
   id: ID!
   createdAt: String!
   updatedAt: String!
@@ -32,7 +32,7 @@ type AddressType {
   name: String!
 }
 
-type BaseEntity {
+interface BaseEntity {
   id: ID!
   createdAt: String!
   updatedAt: String!
@@ -45,7 +45,7 @@ type Country {
   name: String!
 }
 
-type Email {
+type Email implements BaseEntity {
   id: ID!
   createdAt: String!
   updatedAt: String!
@@ -61,7 +61,7 @@ type EnableTwoFactorAuthResponse {
   secret: String
 }
 
-type Media {
+type Media implements BaseEntity {
   id: ID!
   createdAt: String!
   updatedAt: String!
@@ -97,7 +97,7 @@ type Mutation {
   updatePassword(password: String!, newPassword: String!): Response!
 }
 
-type Phone {
+type Phone implements BaseEntity {
   id: ID!
   createdAt: String!
   updatedAt: String!
@@ -121,7 +121,7 @@ type PhoneType {
   name: String!
 }
 
-type Profile {
+type Profile implements BaseEntity {
   id: ID!
   createdAt: String!
   updatedAt: String!
@@ -165,7 +165,7 @@ type ResponseError {
   message: String!
 }
 
-type User {
+type User implements BaseEntity {
   id: ID!
   createdAt: String!
   updatedAt: String!

@@ -12,7 +12,7 @@ import BaseEntity from './base-entity'
 import User from './user'
 
 @Entity()
-@ObjectType()
+@ObjectType({ implements: BaseEntity })
 export default class Profile extends BaseEntity implements IProfile {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')

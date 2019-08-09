@@ -7,7 +7,7 @@ import BaseEntity from './base-entity'
 import User from './user'
 
 @Entity()
-@ObjectType()
+@ObjectType({ implements: BaseEntity })
 export default class Email extends BaseEntity implements IEmail {
   @Field()
   @Column({ default: false })

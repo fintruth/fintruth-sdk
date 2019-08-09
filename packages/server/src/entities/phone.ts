@@ -7,7 +7,7 @@ import Country from './country'
 import PhoneType from './phone-type'
 
 @Entity()
-@ObjectType()
+@ObjectType({ implements: BaseEntity })
 export default class Phone extends BaseEntity implements IPhone {
   @Field(() => Country)
   @ManyToOne(() => Country, ({ phones }) => phones)

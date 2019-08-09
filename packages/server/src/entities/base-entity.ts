@@ -1,6 +1,6 @@
 import { BaseEntity as IBaseEntity } from '@fintruth-sdk/common'
 import moment from 'moment'
-import { Field, ID, ObjectType } from 'type-graphql'
+import { Field, ID, InterfaceType } from 'type-graphql'
 import {
   BaseEntity as TypeOrmBaseEntity,
   ColumnOptions,
@@ -17,7 +17,7 @@ const dateColumnOptions: ColumnOptions = {
   type: 'timestamptz',
 }
 
-@ObjectType()
+@InterfaceType()
 export default abstract class BaseEntity extends TypeOrmBaseEntity
   implements IBaseEntity {
   @Field(() => ID)

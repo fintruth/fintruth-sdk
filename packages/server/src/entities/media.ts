@@ -6,7 +6,7 @@ import BaseEntity from './base-entity'
 import MediaType from './media-type'
 
 @Entity()
-@ObjectType()
+@ObjectType({ implements: BaseEntity })
 export default class Media extends BaseEntity implements IMedia {
   @Field()
   @Column()
