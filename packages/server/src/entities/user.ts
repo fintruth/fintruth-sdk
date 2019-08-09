@@ -1,27 +1,15 @@
-import { BaseUser } from '@fintruth-sdk/common'
+import { User as IUser } from '@fintruth-sdk/common'
 import { compareSync } from 'bcrypt'
-import { Field, ID, ObjectType } from 'type-graphql'
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm'
+import { Field, ObjectType } from 'type-graphql'
+import { Column, Entity, OneToMany, OneToOne } from 'typeorm'
 
+import BaseEntity from './base-entity'
 import Email from './email'
 import Profile from './profile'
 
 @Entity()
-@ObjectType()
-export default class User extends BaseEntity implements BaseUser {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+@ObjectType({ implements: BaseEntity })
+export default class User extends BaseEntity implements IUser {
   @Field(() => [Email])
   @OneToMany(() => Email, ({ user }) => user, { cascade: true })
   emails: Email[]
@@ -42,14 +30,6 @@ export default class User extends BaseEntity implements BaseUser {
 
   @Column({ nullable: true })
   secretTemp?: string
-
-  @Field(() => Date)
-  @CreateDateColumn()
-  createdAt: Date
-
-  @Field(() => Date)
-  @UpdateDateColumn()
-  updatedAt: Date
 
   constructor(partial: Partial<User> = {}) {
     super()

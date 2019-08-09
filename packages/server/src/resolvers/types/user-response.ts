@@ -1,4 +1,4 @@
-import { BaseUserResponse } from '@fintruth-sdk/common'
+import { UserResponse as IUserResponse } from '@fintruth-sdk/common'
 import { Field, ObjectType } from 'type-graphql'
 
 import Response, { Props as ResponseProps } from './response'
@@ -9,7 +9,7 @@ interface Props extends ResponseProps {
 }
 
 @ObjectType()
-export default class UserResponse extends Response implements BaseUserResponse {
+export default class UserResponse extends Response implements IUserResponse {
   @Field(() => User, { nullable: true })
   user?: User
 

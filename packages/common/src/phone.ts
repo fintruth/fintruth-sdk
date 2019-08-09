@@ -1,18 +1,13 @@
+import { BaseEntity } from './base-entity'
 import { Country } from './country'
 
-export interface BasePhone {
-  id: string
+export interface Phone extends BaseEntity {
   country: Country
   ext: string
   isVerified: boolean
   number: string
   type: PhoneType
   typeId: string
-}
-
-export interface Phone extends BasePhone {
-  createdAt: string
-  updatedAt: string
 }
 
 export interface PhoneInput {

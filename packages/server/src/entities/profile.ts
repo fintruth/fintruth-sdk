@@ -1,21 +1,19 @@
-import { BaseProfile } from '@fintruth-sdk/common'
+import { Profile as IProfile } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
-  BaseEntity,
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm'
 
+import BaseEntity from './base-entity'
 import User from './user'
 
 @Entity()
-@ObjectType()
-export default class Profile extends BaseEntity implements BaseProfile {
+@ObjectType({ implements: BaseEntity })
+export default class Profile extends BaseEntity implements IProfile {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -35,14 +33,6 @@ export default class Profile extends BaseEntity implements BaseProfile {
   @Field(() => ID)
   @Column()
   userId: string
-
-  @Field(() => Date)
-  @CreateDateColumn()
-  createdAt: Date
-
-  @Field(() => Date)
-  @UpdateDateColumn()
-  updatedAt: Date
 
   constructor(partialProfile: Partial<Profile> = {}) {
     super()

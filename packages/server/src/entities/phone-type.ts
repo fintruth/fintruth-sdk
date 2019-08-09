@@ -1,4 +1,4 @@
-import { PhoneType as BasePhoneType } from '@fintruth-sdk/common'
+import { PhoneType as IPhoneType } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
 import {
   BaseEntity,
@@ -12,7 +12,7 @@ import Phone from './phone'
 
 @Entity()
 @ObjectType()
-export default class PhoneType extends BaseEntity implements BasePhoneType {
+export default class PhoneType extends BaseEntity implements IPhoneType {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string

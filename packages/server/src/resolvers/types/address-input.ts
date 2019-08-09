@@ -1,8 +1,8 @@
-import { AddressInput as BaseAddressInput } from '@fintruth-sdk/common'
+import { AddressInput as IAddressInput } from '@fintruth-sdk/common'
 import { Field, InputType } from 'type-graphql'
 
 @InputType()
-export default class AddressInput implements BaseAddressInput {
+export default class AddressInput implements IAddressInput {
   @Field()
   city: string
 

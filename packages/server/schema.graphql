@@ -3,8 +3,10 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Address {
+type Address implements BaseEntity {
   id: ID!
+  createdAt: String!
+  updatedAt: String!
   city: String!
   country: String!
   line1: String!
@@ -13,8 +15,6 @@ type Address {
   subdivision: String!
   type: AddressType!
   typeId: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
 input AddressInput {
@@ -32,6 +32,12 @@ type AddressType {
   name: String!
 }
 
+interface BaseEntity {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+}
+
 type Country {
   id: ID!
   alpha2Code: String!
@@ -39,19 +45,14 @@ type Country {
   name: String!
 }
 
-"""
-The javascript `Date` as string. Type represents date and time as the ISO Date string.
-"""
-scalar DateTime
-
-type Email {
+type Email implements BaseEntity {
   id: ID!
+  createdAt: String!
+  updatedAt: String!
   isPrimary: Boolean!
   isVerified: Boolean!
   userId: ID!
   value: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
 type EnableTwoFactorAuthResponse {
@@ -60,15 +61,15 @@ type EnableTwoFactorAuthResponse {
   secret: String
 }
 
-type Media {
+type Media implements BaseEntity {
   id: ID!
+  createdAt: String!
+  updatedAt: String!
   mimeType: String!
   name: String!
   path: String!
   type: MediaType!
   typeId: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
 type MediaResponse {
@@ -96,8 +97,10 @@ type Mutation {
   updatePassword(password: String!, newPassword: String!): Response!
 }
 
-type Phone {
+type Phone implements BaseEntity {
   id: ID!
+  createdAt: String!
+  updatedAt: String!
   country: Country!
   countryId: ID!
   ext: String!
@@ -105,8 +108,6 @@ type Phone {
   number: String!
   type: PhoneType!
   typeId: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
 input PhoneInput {
@@ -120,13 +121,13 @@ type PhoneType {
   name: String!
 }
 
-type Profile {
+type Profile implements BaseEntity {
   id: ID!
+  createdAt: String!
+  updatedAt: String!
   familyName: String!
   givenName: String!
   userId: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
 input ProfileInput {
@@ -164,13 +165,13 @@ type ResponseError {
   message: String!
 }
 
-type User {
+type User implements BaseEntity {
   id: ID!
+  createdAt: String!
+  updatedAt: String!
   emails: [Email!]!
   isAdmin: Boolean!
   profile: Profile!
-  createdAt: DateTime!
-  updatedAt: DateTime!
   isTwoFactorAuthEnabled: Boolean!
 }
 

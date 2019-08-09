@@ -1,7 +1,7 @@
+import { BaseEntity } from './base-entity'
 import { Response } from './response'
 
-export interface BaseMedia {
-  id: string
+export interface Media extends BaseEntity {
   mimeType: string
   name: string
   path: string
@@ -9,16 +9,7 @@ export interface BaseMedia {
   typeId: string
 }
 
-export interface Media extends BaseMedia {
-  createdAt: string
-  updatedAt: string
-}
-
-export interface BaseMediaResponse extends Response {
-  media?: BaseMedia
-}
-
-export interface MediaResponse extends BaseMediaResponse {
+export interface MediaResponse extends Response {
   media?: Media
 }
 

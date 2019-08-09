@@ -1,26 +1,15 @@
-import { BaseEmail, Email } from './email'
-import { BaseProfile, Profile } from './profile'
+import { Email } from './email'
+import { BaseEntity } from './base-entity'
+import { Profile } from './profile'
 import { Response } from './response'
 
-export interface BaseUser {
-  id: string
-  emails: BaseEmail[]
+export interface User extends BaseEntity {
+  emails: Email[]
   isAdmin: boolean
   isTwoFactorAuthEnabled: boolean
-  profile: BaseProfile
-}
-
-export interface User extends BaseUser {
-  emails: Email[]
   profile: Profile
-  createdAt: string
-  updatedAt: string
 }
 
-export interface BaseUserResponse extends Response {
-  user?: BaseUser
-}
-
-export interface UserResponse extends BaseUserResponse {
+export interface UserResponse extends Response {
   user?: User
 }

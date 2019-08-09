@@ -1,8 +1,8 @@
-import { PhoneInput as BasePhoneInput } from '@fintruth-sdk/common'
+import { PhoneInput as IPhoneInput } from '@fintruth-sdk/common'
 import { Field, InputType } from 'type-graphql'
 
 @InputType()
-export default class PhoneInput implements BasePhoneInput {
+export default class PhoneInput implements IPhoneInput {
   @Field()
   alpha2Code: string
 

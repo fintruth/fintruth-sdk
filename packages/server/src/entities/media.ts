@@ -1,24 +1,13 @@
-import { BaseMedia } from '@fintruth-sdk/common'
+import { Media as IMedia } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 
+import BaseEntity from './base-entity'
 import MediaType from './media-type'
 
 @Entity()
-@ObjectType()
-export default class Media extends BaseEntity implements BaseMedia {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+@ObjectType({ implements: BaseEntity })
+export default class Media extends BaseEntity implements IMedia {
   @Field()
   @Column()
   mimeType: string
@@ -38,14 +27,6 @@ export default class Media extends BaseEntity implements BaseMedia {
   @Field(() => ID)
   @Column()
   typeId: string
-
-  @Field(() => Date)
-  @CreateDateColumn()
-  createdAt: Date
-
-  @Field(() => Date)
-  @UpdateDateColumn()
-  updatedAt: Date
 
   constructor(partialMedia: Partial<Media> = {}) {
     super()

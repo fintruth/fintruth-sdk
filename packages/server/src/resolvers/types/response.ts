@@ -1,4 +1,4 @@
-import { Response as BaseResponse } from '@fintruth-sdk/common'
+import { Response as IResponse } from '@fintruth-sdk/common'
 import { Field, ObjectType } from 'type-graphql'
 
 import ResponseError from './response-error'
@@ -8,7 +8,7 @@ export interface Props {
 }
 
 @ObjectType()
-export default class Response implements BaseResponse {
+export default class Response implements IResponse {
   @Field(() => ResponseError, { nullable: true })
   error?: ResponseError
 
