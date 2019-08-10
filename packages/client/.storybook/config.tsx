@@ -7,7 +7,6 @@ import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from 'styles/global'
 import theme from 'styles/theme'
-import { homepage, name } from '../package.json'
 
 addDecorator(withA11y)
 addDecorator(withKnobs)
@@ -23,8 +22,12 @@ addDecorator(story => (
 addParameters({
   options: {
     selectedPanel: PANEL_ID,
-    // @ts-ignore 2322
-    theme: { brandTitle: name, brandUrl: homepage },
+    theme: {
+      brandTitle: '@fintruth-sdk/client',
+      // @ts-ignore 2322
+      brandUrl:
+        'https://github.com/fintruth/fintruth-sdk/tree/develop/packages/client#readme',
+    },
   },
   viewport: { viewports: INITIAL_VIEWPORTS },
 })
