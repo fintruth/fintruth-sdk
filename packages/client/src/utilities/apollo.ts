@@ -1,5 +1,17 @@
 import { ErrorLink } from 'apollo-link-error'
-import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory'
+import {
+  InMemoryCache,
+  InMemoryCacheConfig as InMemoryCacheOptions,
+  IntrospectionFragmentMatcher,
+  IntrospectionResultData,
+  defaultDataIdFromObject,
+} from 'apollo-cache-inmemory'
+
+import introspectionQueryResultData from '../fragment-types.json'
+
+interface IntrospectionFragmentMatcherOptions {
+  introspectionQueryResultData?: IntrospectionResultData
+}
 
 export const createErrorLink = () =>
   new ErrorLink(({ graphQLErrors, networkError }) => {
@@ -16,7 +28,12 @@ export const createErrorLink = () =>
     }
   })
 
-export const createInMemoryCache = () =>
+export const createFragmentMatcher = (
+  options: IntrospectionFragmentMatcherOptions = {}
+) =>
+  new IntrospectionFragmentMatcher({ introspectionQueryResultData, ...options })
+
+export const createInMemoryCache = (options: InMemoryCacheOptions = {}) =>
   new InMemoryCache({
     dataIdFromObject: obj => {
       switch (obj.__typename) {
@@ -25,4 +42,5 @@ export const createInMemoryCache = () =>
       }
     },
     freezeResults: true,
+    ...options,
   })

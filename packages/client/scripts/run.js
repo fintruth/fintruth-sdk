@@ -1,3 +1,14 @@
+import { config } from 'dotenv-safe'
+import path from 'path'
+
+const rootDir = path.resolve(__dirname, '..')
+
+config({
+  path: path.join(rootDir, '.env'),
+  safe: path.join(rootDir, '.env.example'),
+  systemvars: true,
+})
+
 export const format = time =>
   time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1')
 
@@ -28,7 +39,7 @@ const run = (fn, options) => {
 if (require.main === module && process.argv.length > 2) {
   delete require.cache[__filename]
 
-  const module = require(`./${process.argv[2]}.js`).default
+  const module = require(`./${process.argv[2]}`).default
 
   run(module).catch(error => {
     console.error(error.stack)
