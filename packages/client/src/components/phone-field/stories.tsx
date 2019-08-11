@@ -6,6 +6,7 @@ import { storiesOf } from '@storybook/react'
 import { Formik } from 'formik'
 import React from 'react'
 
+import { createFragmentMatcher, createInMemoryCache } from 'utilities/apollo'
 import { countriesQuery } from './graphql'
 import PhoneField, {
   PhoneFieldHelp,
@@ -222,6 +223,8 @@ const countries = [
   },
 ]
 
+const fragmentMatcher = createFragmentMatcher()
+
 const initialValues: Values = { phone: { alpha2Code: 'WF', number: '' } }
 
 const defaultMocks = [
@@ -239,7 +242,10 @@ const delayMocks = [
 storiesOf('Components|Phone Field', module)
   .addDecorator(centered)
   .add('Default', () => (
-    <MockedProvider mocks={defaultMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={defaultMocks}
+    >
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={action('onSubmit')}
@@ -258,7 +264,10 @@ storiesOf('Components|Phone Field', module)
     </MockedProvider>
   ))
   .add('With Delay', () => (
-    <MockedProvider mocks={delayMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={delayMocks}
+    >
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={action('onSubmit')}

@@ -2,10 +2,12 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
+import { createFragmentMatcher, createInMemoryCache } from 'utilities/apollo'
 import { responseBuilder } from 'utilities/specification'
 import { registerMutation } from './graphql'
 import Register from '.'
 
+const fragmentMatcher = createFragmentMatcher()
 const response = responseBuilder()
 
 const email = 'demo@fintruth.com'
@@ -52,17 +54,26 @@ const errorMocks = [
 
 storiesOf('Routes|Register', module)
   .add('Default', () => (
-    <MockedProvider mocks={defaultMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={defaultMocks}
+    >
       <Register />
     </MockedProvider>
   ))
   .add('With Delay', () => (
-    <MockedProvider mocks={delayMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={delayMocks}
+    >
       <Register />
     </MockedProvider>
   ))
   .add('With Error', () => (
-    <MockedProvider mocks={errorMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={errorMocks}
+    >
       <Register />
     </MockedProvider>
   ))

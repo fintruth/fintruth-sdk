@@ -2,6 +2,7 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
+import { createFragmentMatcher, createInMemoryCache } from 'utilities/apollo'
 import {
   emailBuilder,
   profileBuilder,
@@ -16,18 +17,21 @@ import {
 } from './graphql'
 import SignIn from '.'
 
+const fragmentMatcher = createFragmentMatcher()
+const response = responseBuilder()
+
 const email = 'demo@fintruth.com'
+const isTwoFactorAuthEnabled = false
 const password = 'A!s2d3f4g5'
 const token = '123456'
 const userId = '02411db8-e5d3-4ca8-a7a7-bea9d0b6d4f3'
 
-const response = responseBuilder()
-const signInResponse = signInResponseBuilder({ isTwoFactorAuthEnabled: false })
+const signInResponse = signInResponseBuilder({ isTwoFactorAuthEnabled })
 
 const user = userBuilder({
   id: userId,
   emails: [emailBuilder({ isPrimary: true, userId, value: email })],
-  isTwoFactorAuthEnabled: false,
+  isTwoFactorAuthEnabled,
   profile: profileBuilder({ userId }),
 })
 
@@ -127,32 +131,50 @@ const errorTwoFactorAuthEnabledMocks = [
 
 storiesOf('Routes|Sign In', module)
   .add('Default', () => (
-    <MockedProvider mocks={defaultMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={defaultMocks}
+    >
       <SignIn />
     </MockedProvider>
   ))
   .add('Default (2FA Enabled)', () => (
-    <MockedProvider mocks={defaultTwoFactorAuthEnabledMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={defaultTwoFactorAuthEnabledMocks}
+    >
       <SignIn />
     </MockedProvider>
   ))
   .add('With Delay', () => (
-    <MockedProvider mocks={delayMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={delayMocks}
+    >
       <SignIn />
     </MockedProvider>
   ))
   .add('With Delay (2FA Enabled)', () => (
-    <MockedProvider mocks={delayTwoFactorAuthEnabledMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={delayTwoFactorAuthEnabledMocks}
+    >
       <SignIn />
     </MockedProvider>
   ))
   .add('With Error', () => (
-    <MockedProvider mocks={errorMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={errorMocks}
+    >
       <SignIn />
     </MockedProvider>
   ))
   .add('With Error (2FA Enabled)', () => (
-    <MockedProvider mocks={errorTwoFactorAuthEnabledMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={errorTwoFactorAuthEnabledMocks}
+    >
       <SignIn />
     </MockedProvider>
   ))

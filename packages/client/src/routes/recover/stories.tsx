@@ -2,6 +2,7 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
+import { createFragmentMatcher, createInMemoryCache } from 'utilities/apollo'
 import {
   emailBuilder,
   profileBuilder,
@@ -11,10 +12,11 @@ import {
 import { currentUserQuery, recoverMutation } from './graphql'
 import Recover from '.'
 
+const fragmentMatcher = createFragmentMatcher()
+const response = responseBuilder()
+
 const email = 'demo@fintruth.com'
 const userId = '02411db8-e5d3-4ca8-a7a7-bea9d0b6d4f3'
-
-const response = responseBuilder()
 
 const user = userBuilder({
   id: userId,
@@ -82,32 +84,50 @@ const errorAuthenticatedMocks = [
 
 storiesOf('Routes|Recover', module)
   .add('Default', () => (
-    <MockedProvider mocks={defaultMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={defaultMocks}
+    >
       <Recover />
     </MockedProvider>
   ))
   .add('Default (Authenticated)', () => (
-    <MockedProvider mocks={defaultAuthenticatedMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={defaultAuthenticatedMocks}
+    >
       <Recover />
     </MockedProvider>
   ))
   .add('With Delay', () => (
-    <MockedProvider mocks={delayMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={delayMocks}
+    >
       <Recover />
     </MockedProvider>
   ))
   .add('With Delay (Authenticated)', () => (
-    <MockedProvider mocks={delayAuthenticatedMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={delayAuthenticatedMocks}
+    >
       <Recover />
     </MockedProvider>
   ))
   .add('With Error', () => (
-    <MockedProvider mocks={errorMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={errorMocks}
+    >
       <Recover />
     </MockedProvider>
   ))
   .add('With Error (Authenticated)', () => (
-    <MockedProvider mocks={errorAuthenticatedMocks}>
+    <MockedProvider
+      cache={createInMemoryCache({ fragmentMatcher })}
+      mocks={errorAuthenticatedMocks}
+    >
       <Recover />
     </MockedProvider>
   ))
