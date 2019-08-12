@@ -37,8 +37,8 @@
     "@ef-carbon/tspm": "^2.2.5"
   },
   "engines": {
-    "node": ">=10.15",
-    "yarn": ">=1.12"
+    "node": ">=10.16",
+    "yarn": ">=1.16"
   },
   "private": true,
   "lint-staged": {
