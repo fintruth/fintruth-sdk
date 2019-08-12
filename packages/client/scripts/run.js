@@ -1,14 +1,3 @@
-import { config } from 'dotenv-safe'
-import path from 'path'
-
-const rootDir = path.resolve(__dirname, '..')
-
-config({
-  path: path.join(rootDir, '.env'),
-  safe: path.join(rootDir, '.env.example'),
-  systemvars: true,
-})
-
 export const format = time =>
   time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1')
 

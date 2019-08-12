@@ -7,7 +7,7 @@ interface IntrospectionQueryResult {
   data: IntrospectionResultData
 }
 
-const extractFragments = async () => {
+const extractFragmentTypes = async () => {
   const response = await fetch(process.env.API_URI || '', {
     body: JSON.stringify({
       query:
@@ -31,4 +31,4 @@ const extractFragments = async () => {
   )
 }
 
-export default extractFragments
+export default extractFragmentTypes
