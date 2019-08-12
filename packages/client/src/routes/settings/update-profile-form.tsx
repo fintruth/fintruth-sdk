@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/react-hooks'
 import { Profile } from '@fintruth-sdk/common'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
+import { path } from 'ramda'
 import React from 'react'
 import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
@@ -12,6 +13,7 @@ import { help } from 'styles/mixins'
 import {
   UpdateProfileMutationData,
   UpdateProfileMutationVariables,
+  currentProfileQuery,
   updateProfileMutation,
 } from './graphql'
 import { button, field, form } from './mixins'
@@ -67,12 +69,15 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
     UpdateProfileMutationData,
     UpdateProfileMutationVariables
   >(updateProfileMutation, {
+    awaitRefetchQueries: true,
     onCompleted: ({ response }) =>
       setHelpProps(
         response.error
           ? { children: response.error.message, color: 'danger' }
           : { children: 'Your profile information was successfully updated' }
       ),
+    refetchQueries: ({ data }) =>
+      path(['response', 'error'], data) ? [] : [{ query: currentProfileQuery }],
   })
 
   return (

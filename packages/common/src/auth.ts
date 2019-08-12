@@ -7,13 +7,13 @@ export interface ShallowEnableTwoFactorAuthResponse {
   secret?: string
 }
 
-export interface ShallowSignInResponse {
-  isTwoFactorAuthEnabled?: boolean
-}
-
 export interface EnableTwoFactorAuthResponse
   extends ShallowEnableTwoFactorAuthResponse,
     Response {}
+
+export interface ShallowSignInResponse {
+  isTwoFactorAuthEnabled?: boolean
+}
 
 export interface SignInResponse extends ShallowSignInResponse, Response {}
 

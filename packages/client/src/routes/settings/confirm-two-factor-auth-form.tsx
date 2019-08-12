@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/react-hooks'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
+import { path } from 'ramda'
 import React from 'react'
 import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
@@ -12,6 +13,7 @@ import {
   ConfirmTwoFactorAuthMutationData,
   ConfirmTwoFactorAuthMutationVariables,
   confirmTwoFactorAuthMutation,
+  shallowCurrentUserQuery,
 } from './graphql'
 import { button, field, form } from './mixins'
 
@@ -69,6 +71,7 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
     ConfirmTwoFactorAuthMutationData,
     ConfirmTwoFactorAuthMutationVariables
   >(confirmTwoFactorAuthMutation, {
+    awaitRefetchQueries: true,
     onCompleted: ({ response }) => {
       if (response.error) {
         return setHelpProps({ children: response.error.message })
@@ -76,6 +79,10 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
 
       return onCompleted && onCompleted()
     },
+    refetchQueries: ({ data }) =>
+      path(['response', 'error'], data)
+        ? []
+        : [{ query: shallowCurrentUserQuery }],
   })
 
   return (

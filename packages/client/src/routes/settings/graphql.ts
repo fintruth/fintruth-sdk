@@ -77,6 +77,16 @@ export const confirmTwoFactorAuthMutation = gql`
   ${shallowResponseErrorPropsFragment}
 `
 
+export const currentProfileQuery = gql`
+  query CurrentProfileQuery {
+    profile: currentProfile {
+      ...ShallowProfileProps
+    }
+  }
+
+  ${shallowProfilePropsFragment}
+`
+
 export const currentUserQuery = gql`
   query CurrentUserQuery {
     user: currentUser {
@@ -115,6 +125,16 @@ export const enableTwoFactorAuthMutation = gql`
 
   ${shallowResponseErrorPropsFragment}
   ${shallowEnableTwoFactorAuthResponsePropsFragment}
+`
+
+export const shallowCurrentUserQuery = gql`
+  query ShallowCurrentUserQuery {
+    user: currentUser {
+      ...ShallowUserProps
+    }
+  }
+
+  ${shallowUserPropsFragment}
 `
 
 export const updatePasswordMutation = gql`

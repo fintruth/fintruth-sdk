@@ -12,9 +12,11 @@ import {
 } from 'utilities/specification'
 import {
   confirmTwoFactorAuthMutation,
+  currentProfileQuery,
   currentUserQuery,
   disableTwoFactorAuthMutation,
   enableTwoFactorAuthMutation,
+  shallowCurrentUserQuery,
   updatePasswordMutation,
   updateProfileMutation,
 } from './graphql'
@@ -55,6 +57,10 @@ const defaultMocks = [
     result: { data: { response: { ...response, error: null } } },
   },
   {
+    request: { query: currentProfileQuery },
+    result: { data: { profile: { ...user.profile, familyName, givenName } } },
+  },
+  {
     request: { query: enableTwoFactorAuthMutation },
     result: {
       data: { response: { ...enableTwoFactorAuthResponse, error: null } },
@@ -63,6 +69,10 @@ const defaultMocks = [
   {
     request: { query: confirmTwoFactorAuthMutation, variables: { token } },
     result: { data: { response: { ...response, error: null } } },
+  },
+  {
+    request: { query: shallowCurrentUserQuery },
+    result: { data: { user: { ...user, isTwoFactorAuthEnabled: true } } },
   },
 ]
 
@@ -86,9 +96,14 @@ const defaultTwoFactorAuthEnabledMocks = [
     result: { data: { response: { ...response, error: null } } },
   },
   {
+    request: { query: currentProfileQuery },
+    result: { data: { profile: { ...user.profile, familyName, givenName } } },
+  },
+  {
     request: { query: disableTwoFactorAuthMutation, variables: { token } },
     result: { data: { response: { ...response, error: null } } },
   },
+  { request: { query: shallowCurrentUserQuery }, result: { data: { user } } },
 ]
 
 const delayMocks = [
@@ -114,6 +129,11 @@ const delayMocks = [
     result: { data: { response: { ...response, error: null } } },
   },
   {
+    delay: 2000,
+    request: { query: currentProfileQuery },
+    result: { data: { profile: { ...user.profile, familyName, givenName } } },
+  },
+  {
     delay: 5000,
     request: { query: enableTwoFactorAuthMutation },
     result: {
@@ -124,6 +144,11 @@ const delayMocks = [
     delay: 5000,
     request: { query: confirmTwoFactorAuthMutation, variables: { token } },
     result: { data: { response: { ...response, error: null } } },
+  },
+  {
+    delay: 2000,
+    request: { query: shallowCurrentUserQuery },
+    result: { data: { user: { ...user, isTwoFactorAuthEnabled: true } } },
   },
 ]
 
@@ -150,9 +175,19 @@ const delayTwoFactorAuthEnabledMocks = [
     result: { data: { response: { ...response, error: null } } },
   },
   {
+    delay: 2000,
+    request: { query: currentProfileQuery },
+    result: { data: { profile: { ...user.profile, familyName, givenName } } },
+  },
+  {
     delay: 5000,
     request: { query: disableTwoFactorAuthMutation, variables: { token } },
     result: { data: { response: { ...response, error: null } } },
+  },
+  {
+    delay: 2000,
+    request: { query: shallowCurrentUserQuery },
+    result: { data: { user } },
   },
 ]
 
