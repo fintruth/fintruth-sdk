@@ -3,34 +3,22 @@
 const { node } = require('./package.json').engines
 
 const createConfig = ({ caller, env }) => {
-  const isEnvDev = env('development')
-  const isEnvProd = env('production')
-  const isEnvTest = env('test')
+  const isDev = env('development')
+  const isProd = env('production')
+  const isTest = env('test')
 
   return {
-    env: {
-      production: {
-        plugins: [
-          '@babel/transform-react-constant-elements',
-          '@babel/transform-react-inline-elements',
-        ],
-      },
-      test: {
-        plugins: [
-          ['@babel/plugin-transform-runtime', { helpers: false }],
-          'dynamic-import-node',
-        ],
-      },
-    },
-    ignore: ['build', 'node_modules'],
     plugins: [
       '@babel/plugin-syntax-dynamic-import',
-      ['@babel/plugin-transform-runtime', { corejs: 3, helpers: false }],
+      [
+        '@babel/plugin-transform-runtime',
+        { corejs: !isTest && 3, helpers: false },
+      ],
       '@loadable/babel-plugin',
       'graphql-tag',
       'polished',
       ['ramda', { useEs: true }],
-      ['styled-components', { displayName: isEnvDev, pure: isEnvProd }],
+      ['styled-components', { displayName: isDev, pure: isProd }],
     ],
     presets: [
       [
@@ -41,10 +29,20 @@ const createConfig = ({ caller, env }) => {
       ],
       [
         '@babel/preset-react',
-        { development: isEnvDev || isEnvTest, useBuiltIns: true },
+        { development: isDev || isTest, useBuiltIns: true },
       ],
       '@babel/preset-typescript',
     ],
+    env: {
+      production: {
+        plugins: [
+          '@babel/transform-react-constant-elements',
+          '@babel/transform-react-inline-elements',
+        ],
+      },
+      test: { plugins: ['dynamic-import-node'] },
+    },
+    ignore: ['build', 'node_modules'],
   }
 }
 

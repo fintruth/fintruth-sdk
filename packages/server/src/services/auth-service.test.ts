@@ -1,11 +1,7 @@
 import { equals, F, T } from 'ramda'
 import { Container } from 'typedi'
 
-import {
-  EnableTwoFactorAuthResponse,
-  Response,
-  ResponseError,
-} from 'resolvers/types'
+import { EnableTwoFactorAuthResponse, ResponseError } from 'resolvers/types'
 import AuthService from './auth-service'
 import { Email, User } from '../entities'
 
@@ -44,11 +40,7 @@ const getUserDaoMock: any = (userMock?: User) => ({
 
 const userMock = new User({
   id: 'userId',
-  emails: [
-    new Email({
-      value: 'test@test.com',
-    }),
-  ],
+  emails: [new Email({ value: 'test@test.com' })],
   validatePassword: jest.fn(equals('good')),
 })
 
@@ -82,14 +74,14 @@ describe('AuthService', () => {
         service.daos.users = getUserDaoMock(userMock)
       })
 
-      it('should return a user response', async () => {
+      it('should return a sign-in response', async () => {
         const result = await service.authenticate(
           'test@test.com',
           'good',
           resMock
         )
 
-        expect(result.error).toBeUndefined()
+        expect(result.isTwoFactorAuthEnabled).toBe(false)
       })
 
       it('should return a failure response using an incorrect password', async () => {
@@ -123,14 +115,11 @@ describe('AuthService', () => {
     describe('user exists with password and 2FA', () => {
       beforeEach(() => {
         service.daos.users = getUserDaoMock(
-          new User({
-            ...userMock,
-            secret: 'secret',
-          })
+          new User({ ...userMock, secret: 'secret' })
         )
       })
 
-      it('should return a user response', async () => {
+      it('should return a response', async () => {
         service['verifyTwoFactorAuthToken'] = T
 
         const result = await service.authenticateTwoFactor(
@@ -183,13 +172,8 @@ describe('AuthService', () => {
         abilityMock
       )
 
-      expect(result).toStrictEqual(
-        new Response({
-          error: new ResponseError(
-            'Two factor not initiated',
-            expect.any(String)
-          ),
-        })
+      expect(result.error).toStrictEqual(
+        new ResponseError('Two factor not initiated', expect.any(String))
       )
     })
 
@@ -221,13 +205,8 @@ describe('AuthService', () => {
           abilityMock
         )
 
-        expect(result).toStrictEqual(
-          new Response({
-            error: new ResponseError(
-              'Token is invalid or expired',
-              expect.any(String)
-            ),
-          })
+        expect(result.error).toStrictEqual(
+          new ResponseError('Token is invalid or expired', expect.any(String))
         )
       })
     })
@@ -243,13 +222,8 @@ describe('AuthService', () => {
         abilityMock
       )
 
-      expect(result).toStrictEqual(
-        new Response({
-          error: new ResponseError(
-            'Two factor not enabled',
-            expect.any(String)
-          ),
-        })
+      expect(result.error).toStrictEqual(
+        new ResponseError('Two factor not enabled', expect.any(String))
       )
     })
 
@@ -281,13 +255,8 @@ describe('AuthService', () => {
           abilityMock
         )
 
-        expect(result).toStrictEqual(
-          new Response({
-            error: new ResponseError(
-              'Token is invalid or expired',
-              expect.any(String)
-            ),
-          })
+        expect(result.error).toStrictEqual(
+          new ResponseError('Token is invalid or expired', expect.any(String))
         )
       })
     })
@@ -297,12 +266,8 @@ describe('AuthService', () => {
     it('should return a failure response when a user does not exist', async () => {
       const result = await service.enableTwoFactorAuth('userId', abilityMock)
 
-      expect(result).toStrictEqual(
-        new EnableTwoFactorAuthResponse({
-          dataUrl: undefined,
-          error: new ResponseError('User not found', expect.any(String)),
-          secret: undefined,
-        })
+      expect(result.error).toStrictEqual(
+        new ResponseError('User not found', expect.any(String))
       )
     })
 

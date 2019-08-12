@@ -43,7 +43,7 @@ describe('ProfileService', () => {
       service.daos.profiles = getProfileDaoMock(profileMock)
     })
 
-    it('should return a profile', async () => {
+    it('should return a response', async () => {
       const result = await service.updateByUser(
         'userId',
         { familyName: 'a', givenName: 'b' },
