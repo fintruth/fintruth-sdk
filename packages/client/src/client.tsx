@@ -86,7 +86,7 @@ const onLocationChange = async (location: Location, action?: string) => {
       }
     )
   } catch (error) {
-    if (__DEV__) {
+    if (__IS_DEV__) {
       throw error
     }
 

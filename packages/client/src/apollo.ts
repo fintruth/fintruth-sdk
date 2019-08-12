@@ -29,14 +29,14 @@ export const createApolloClient = ({
     cache.writeData({ data: defaults })
   }
 
-  if (__DEV__ && process.env.BROWSER) {
+  if (__IS_DEV__ && __IS_BROWSER__) {
     links.push(require('apollo-link-logger').default)
   }
 
   links.push(
     createUploadLink({
       credentials: 'include',
-      fetch: process.env.BROWSER ? window.fetch : require('node-fetch').default,
+      fetch: __IS_BROWSER__ ? window.fetch : require('node-fetch').default,
       uri: process.env.API_URI,
     })
   )
@@ -46,8 +46,8 @@ export const createApolloClient = ({
     cache,
     link: ApolloLink.from(links),
     resolvers,
-    ssrForceFetchDelay: process.env.BROWSER ? 100 : undefined,
-    ssrMode: !process.env.BROWSER,
+    ssrForceFetchDelay: __IS_BROWSER__ ? 100 : undefined,
+    ssrMode: !__IS_BROWSER__,
     typeDefs,
   })
 }
