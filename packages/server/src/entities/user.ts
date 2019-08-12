@@ -31,10 +31,10 @@ export default class User extends BaseEntity implements IUser {
   @Column({ nullable: true })
   secretTemp?: string
 
-  constructor(partial: Partial<User> = {}) {
+  constructor(partialUser: Partial<User> = {}) {
     super()
 
-    Object.assign(this, partial)
+    Object.assign(this, partialUser)
   }
 
   @Field()

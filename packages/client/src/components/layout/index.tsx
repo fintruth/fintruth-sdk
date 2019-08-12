@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@apollo/react-hooks'
+import { useApolloClient, useMutation, useQuery } from '@apollo/react-hooks'
 import { Link as BaseLink, navigate } from '@reach/router'
 import { darken, rem } from 'polished'
 import React from 'react'
@@ -14,13 +14,12 @@ import {
   SubmenuLink,
   SubmenuList,
 } from 'components/submenu'
-import { raven } from 'styles/deprecated'
 import { container, medium, untilMedium } from 'styles/mixins'
 import { renderLoadingIf } from 'utilities/loading'
 import {
-  LayoutQueryData,
+  CurrentUserQueryData,
   SignOutMutationData,
-  layoutQuery,
+  currentUserQuery,
   signOutMutation,
 } from './graphql'
 
@@ -87,7 +86,7 @@ const Toggler = styled.button`
 `
 
 const TogglerIcon = styled.span`
-  background-color: ${raven};
+  background-color: ${({ theme }) => theme.grayDarker};
   height: ${rem(1)};
   left: calc(50% - ${rem(8)});
   position: absolute;
@@ -124,11 +123,11 @@ const TogglerIcon = styled.span`
   }
 
   ${/* sc-selector */ Toggler}:hover > & {
-    background-color: ${darken(0.05, raven)};
+    background-color: ${({ theme }) => darken(0.05, theme.grayDarker)};
   }
 
   ${/* sc-selector */ Toggler}:active > & {
-    background-color: ${darken(0.1, raven)};
+    background-color: ${({ theme }) => darken(0.1, theme.grayDarker)};
   }
 `
 
@@ -153,18 +152,18 @@ const Menu = styled.div`
 `
 
 const ExpandMore = styled(BaseExpandMore)`
-  fill: ${raven};
+  fill: ${({ theme }) => theme.grayDarker};
   height: ${rem(5)};
   margin: 0 ${rem(12)} 0 ${rem(6)};
 `
 
 const UserCircle = styled(BaseUserCircle)`
-  fill: ${raven};
+  fill: ${({ theme }) => theme.grayDarker};
   height: ${rem(40)};
 `
 
 const MenuLink = styled(BaseLink)`
-  color: ${raven};
+  color: ${({ theme }) => theme.grayDarker};
   display: block;
   font-size: ${rem(14)};
   padding: ${rem(8)} ${rem(12)};
@@ -175,11 +174,11 @@ const MenuLink = styled(BaseLink)`
   `)};
 
   &:hover {
-    color: ${darken(0.05, raven)};
+    color: ${({ theme }) => darken(0.05, theme.grayDarker)};
   }
 
   &:active {
-    color: ${darken(0.1, raven)};
+    color: ${({ theme }) => darken(0.1, theme.grayDarker)};
   }
 `
 
@@ -188,19 +187,27 @@ const Layout: React.FunctionComponent<Props> = ({
   ...props
 }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-  const { client, data = {}, loading } = useQuery<LayoutQueryData>(layoutQuery)
+  const client = useApolloClient()
 
   const [onSignOut] = useMutation<SignOutMutationData>(signOutMutation, {
-    onCompleted: () => {
-      client.resetStore()
-
-      return navigate('/')
-    },
+    onCompleted: () =>
+      client
+        .resetStore()
+        .then(() =>
+          window.location.pathname !== '/'
+            ? navigate('/', { replace: true })
+            : undefined
+        )
+        .catch(error => __IS_DEV__ && console.error(error)),
   })
+
+  const { data = {}, loading: isQueryingCurrentUser } = useQuery<
+    CurrentUserQueryData
+  >(currentUserQuery)
 
   return (
     <Root {...props}>
-      {renderLoadingIf(loading, () => (
+      {renderLoadingIf(isQueryingCurrentUser, () => (
         <React.Fragment>
           <header>
             <Navbar aria-label="main navigation">

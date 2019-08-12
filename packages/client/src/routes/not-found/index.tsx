@@ -3,7 +3,9 @@ import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
-import { jet } from 'styles/deprecated'
+import { subtitle, title } from 'styles/mixins'
+
+type Props = RouteComponentProps
 
 const Root = styled.div`
   align-items: center;
@@ -13,26 +15,22 @@ const Root = styled.div`
   justify-content: center;
 `
 
-const Title = styled.h1`
-  color: ${jet};
-  font-size: ${rem(32)};
-  font-weight: 400;
-  line-height: 1.2;
-  margin: 0;
+const Title = styled.h3`
+  ${title};
 `
 
-const Content = styled.p`
+const Subtitle = styled.h5`
+  ${subtitle};
+  margin-top: ${rem(-20)};
   width: ${rem(280)};
 `
 
-const NotFound: React.FunctionComponent<RouteComponentProps> = ({
-  ...props
-}: RouteComponentProps) => (
+const NotFound: React.FunctionComponent<Props> = (props: Props) => (
   <Root data-testid="not-found" {...props}>
     <Title>Page Not Found</Title>
-    <Content>
+    <Subtitle>
       Sorry, but the page you were trying to view does not exist.
-    </Content>
+    </Subtitle>
   </Root>
 )
 

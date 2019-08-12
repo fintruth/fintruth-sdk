@@ -1,23 +1,32 @@
-import { useQuery } from '@apollo/react-hooks'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import { RouteComponentProps } from '@reach/router'
-import { rem } from 'polished'
+import { darken, rem } from 'polished'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
+import BaseButton from 'components/button'
 import Layout from 'components/layout'
-import { card, fill, steel } from 'styles/deprecated'
 import { container, untilMedium } from 'styles/mixins'
 import { renderLoadingIf } from 'utilities/loading'
-import AuthenticatorAppButton from './authenticator-app-button'
-import { AccountQueryData, accountQuery } from './graphql'
-import UpdateEmailForm from './update-email-form'
+import DisableTwoFactorAuthDialog from './disable-two-factor-auth-dialog'
+import EnableTwoFactorAuthDialog from './enable-two-factor-auth-dialog'
+import {
+  CurrentUserQueryData,
+  EnableTwoFactorAuthMutationData,
+  currentUserQuery,
+  enableTwoFactorAuthMutation,
+} from './graphql'
 import UpdatePasswordForm from './update-password-form'
 import UpdateProfileForm from './update-profile-form'
 
+type Props = RouteComponentProps
+
 const Root = styled.div`
   ${container()};
-  ${fill}
+  display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 0;
   padding: ${rem(40)} 0;
 
   ${untilMedium(css`
@@ -26,7 +35,8 @@ const Root = styled.div`
 `
 
 const Card = styled.div`
-  ${card};
+  background-color: ${({ theme }) => darken(0.026, theme.white)};
+  padding: ${rem(40)};
 
   & + & {
     margin-top: ${rem(20)};
@@ -40,7 +50,7 @@ const Header = styled.h2`
 `
 
 const Subheader = styled.h3`
-  color: ${steel};
+  color: ${({ theme }) => theme.gray};
   font-size: ${rem(16)};
   font-weight: 700;
   margin: ${rem(20)} 0 ${rem(20)} 0;
@@ -50,14 +60,14 @@ const Subheader = styled.h3`
   }
 `
 
-const MethodContainer = styled.div`
+const Methods = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: ${rem(20)};
 `
 
 const Label = styled.div`
-  color: ${steel};
+  color: ${({ theme }) => theme.gray};
   font-size: ${rem(14)};
   font-weight: 700;
   padding: ${rem(8)} 0 ${rem(9)};
@@ -70,57 +80,89 @@ const Method = styled.div`
   padding-top: ${rem(15)};
 `
 
+const Button = styled(BaseButton)`
+  display: inline-flex;
+  margin-left: ${rem(20)};
+`
+
 const defaultProfile = {
   id: '',
-  userId: '',
   familyName: '',
   givenName: '',
+  userId: '',
   createdAt: new Date(0).toISOString(),
   updatedAt: new Date(0).toISOString(),
 }
 
-const defaultUser = {
-  id: '',
-  emails: [],
-  isAdmin: false,
-  isTwoFactorAuthEnabled: false,
-  profile: defaultProfile,
-  createdAt: new Date(0).toISOString(),
-  updatedAt: new Date(0).toISOString(),
-}
+const Settings: React.FunctionComponent<Props> = (props: Props) => {
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
 
-const Settings: React.FunctionComponent<RouteComponentProps> = ({
-  ...props
-}: RouteComponentProps) => {
-  const { data = {}, loading } = useQuery<AccountQueryData>(accountQuery)
-  const user = data.user || defaultUser
+  const [onEnable, { data, loading: isEnabling }] = useMutation<
+    EnableTwoFactorAuthMutationData
+  >(enableTwoFactorAuthMutation, {
+    fetchPolicy: 'no-cache',
+    onCompleted: ({ response }) =>
+      response.error ? undefined : setIsDialogOpen(true),
+  })
+
+  const {
+    data: {
+      user: { isTwoFactorAuthEnabled = false, profile = defaultProfile } = {},
+    } = {},
+    loading: isQueryingCurrentUser,
+  } = useQuery<CurrentUserQueryData>(currentUserQuery)
+
+  const handleDismiss = React.useCallback(() => setIsDialogOpen(false), [])
 
   return (
     <Layout data-testid="settings" {...props}>
-      {renderLoadingIf(loading, () => (
+      {renderLoadingIf(isQueryingCurrentUser, () => (
         <Root>
           <Card>
-            <Subheader>EMAIL</Subheader>
-            <UpdateEmailForm user={user} />
-            <Subheader>PASSWORD</Subheader>
+            <Subheader>Password</Subheader>
             <UpdatePasswordForm />
-            <Subheader>PROFILE INFORMATION</Subheader>
-            <UpdateProfileForm user={user} />
+            <Subheader>Profile Information</Subheader>
+            <UpdateProfileForm profile={profile} />
           </Card>
           <Card>
             <Header>Two-Factor Authentication</Header>
             Two-factor authentication adds an additional layer of security to
             your account by requiring more than just a password to sign in.
-            <MethodContainer>
+            <Methods>
               <Label>Methods</Label>
               <Method>
                 Authenticator App
                 <div>
-                  {!user.isTwoFactorAuthEnabled && 'Not'} Configured
-                  <AuthenticatorAppButton user={user} />
+                  {!isTwoFactorAuthEnabled && 'Not'} Configured
+                  <Button
+                    isLoading={isEnabling}
+                    isOutlined
+                    onClick={() =>
+                      isTwoFactorAuthEnabled
+                        ? setIsDialogOpen(true)
+                        : onEnable()
+                    }
+                    type="button"
+                    variant={data && data.response.error && 'danger'}
+                  >
+                    Edit
+                  </Button>
+                  {isTwoFactorAuthEnabled ? (
+                    <DisableTwoFactorAuthDialog
+                      isOpen={isDialogOpen}
+                      onDismiss={handleDismiss}
+                    />
+                  ) : (
+                    <EnableTwoFactorAuthDialog
+                      dataUrl={data && data.response.dataUrl}
+                      isOpen={isDialogOpen}
+                      onDismiss={handleDismiss}
+                      secret={data && data.response.secret}
+                    />
+                  )}
                 </div>
               </Method>
-            </MethodContainer>
+            </Methods>
           </Card>
         </Root>
       ))}

@@ -1,4 +1,6 @@
-import { BaseEntity } from './base-entity'
+import gql from 'graphql-tag'
+
+import { BaseEntity, shallowBaseEntityPropsFragment } from './base-entity'
 
 export interface Email extends BaseEntity {
   isPrimary: boolean
@@ -6,3 +8,15 @@ export interface Email extends BaseEntity {
   userId: string
   value: string
 }
+
+export const shallowEmailPropsFragment = gql`
+  fragment ShallowEmailProps on Email {
+    ...ShallowBaseEntityProps
+    isPrimary
+    isVerified
+    userId
+    value
+  }
+
+  ${shallowBaseEntityPropsFragment}
+`

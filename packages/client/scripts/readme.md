@@ -6,7 +6,7 @@
 - Copies static files to the output folder (`copy.js`)
 - Launches [Webpack](https://webpack.github.io/) compiler in a watch mode (via
   [webpack-middleware](https://github.com/kriasoft/webpack-middleware))
-- Launches Node.js server from the compiled output folder (`run-server.js`)
+- Launches Node.js server from the compiled output folder (`start-server.js`)
 - Launches [Browsersync](https://browsersync.io/) and
   [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement)
 

@@ -4,7 +4,7 @@ import { Inject, Service } from 'typedi'
 import { Ability } from 'auth'
 import { Loggable, logAs } from 'logger'
 import { Daos } from 'models'
-import { ProfileInput, ProfileResponse, ResponseError } from 'resolvers/types'
+import { ProfileInput, Response, ResponseError } from 'resolvers/types'
 import { Profile } from '../entities'
 
 @Service()
@@ -26,11 +26,19 @@ export default class ProfileService {
       })
       .validate(input)
 
+  async findByUser(userId: string, ability: Ability) {
+    ability.throwUnlessCan('read', new Profile({ userId }))
+
+    const profile = await this.daos.profiles.findByUser(userId)
+
+    return profile
+  }
+
   async updateByUser(userId: string, input: ProfileInput, ability: Ability) {
     const isValid = await this.validateInput(input).catch(this.logDebug)
 
     if (!isValid) {
-      return new ProfileResponse({
+      return new Response({
         error: new ResponseError(
           'There is an issue with the provided form values'
         ),
@@ -41,8 +49,6 @@ export default class ProfileService {
 
     await this.daos.profiles.update({ userId }, input)
 
-    return new ProfileResponse({
-      profile: await this.daos.profiles.findByUser(userId),
-    })
+    return new Response()
   }
 }

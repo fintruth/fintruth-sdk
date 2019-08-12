@@ -5,12 +5,15 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import theme from 'styles/theme'
+import { createFragmentMatcher, createInMemoryCache } from 'utilities/apollo'
 import { renderWithRouter } from 'utilities/specification'
 import Layout from '.'
 
+const fragmentMatcher = createFragmentMatcher()
+
 test('clicking the logo should navigate to the home route', async () => {
   const { getByAltText, history } = renderWithRouter(
-    <MockedProvider>
+    <MockedProvider cache={createInMemoryCache({ fragmentMatcher })}>
       <ThemeProvider theme={theme}>
         <Layout>child</Layout>
       </ThemeProvider>

@@ -2,8 +2,6 @@ import { darken, rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
-import { raven, white } from 'styles/deprecated'
-
 interface Asset {
   Icon?: React.ForwardRefExoticComponent<
     React.PropsWithoutRef<React.SVGAttributes<SVGSVGElement>> &
@@ -26,7 +24,7 @@ const Root = styled.div`
 
 const Container = styled.div`
   align-items: center;
-  background-color: ${darken(0.08, white)};
+  background-color: ${({ theme }) => darken(0.08, theme.white)};
   border-radius: ${rem(2)};
   display: flex;
   flex-direction: column;
@@ -36,7 +34,7 @@ const Container = styled.div`
 `
 
 const Icon = styled.svg`
-  fill: ${raven};
+  fill: ${({ theme }) => theme.grayDarker};
   height: ${rem(48)};
 `
 

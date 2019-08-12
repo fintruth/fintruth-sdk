@@ -28,7 +28,7 @@ const run = (fn, options) => {
 if (require.main === module && process.argv.length > 2) {
   delete require.cache[__filename]
 
-  const module = require(`./${process.argv[2]}.js`).default
+  const module = require(`./${process.argv[2]}`).default
 
   run(module).catch(error => {
     console.error(error.stack)

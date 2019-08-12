@@ -11,7 +11,7 @@ import { Context } from 'apollo'
 import {
   EnableTwoFactorAuthResponse,
   Response,
-  UserResponse,
+  SignInResponse,
 } from 'resolvers/types'
 import { AuthService } from 'services'
 
@@ -48,7 +48,7 @@ export default class AuthResolver {
     return user && this.authService.enableTwoFactorAuth(user.id, ability)
   }
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => SignInResponse)
   async signIn(
     @Arg('email') email: string,
     @Arg('password') password: string,
@@ -57,7 +57,7 @@ export default class AuthResolver {
     return this.authService.authenticate(email, password, res)
   }
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => Response)
   async signInTwoFactorAuth(
     @Arg('email') email: string,
     @Arg('password') password: string,

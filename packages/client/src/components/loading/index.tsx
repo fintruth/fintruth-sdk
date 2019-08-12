@@ -2,15 +2,16 @@ import { rem } from 'polished'
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { centered, fill, raven } from 'styles/deprecated'
-
 interface Props {
   delay?: number
 }
 
 const Root = styled.div`
-  ${centered};
-  ${fill};
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  justify-content: center;
 `
 
 const ease = keyframes`
@@ -26,7 +27,7 @@ const ease = keyframes`
 
 const Icon = styled.div`
   animation: ${ease} 900ms ease infinite;
-  background-color: ${raven};
+  background-color: ${({ theme }) => theme.grayDarker};
   border-radius: ${rem(20)};
   display: inline-block;
   height: ${rem(20)};

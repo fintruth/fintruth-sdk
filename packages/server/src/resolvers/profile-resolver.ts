@@ -3,12 +3,13 @@ import {
   Authorized as Authenticated,
   Ctx,
   Mutation,
+  Query,
   Resolver,
 } from 'type-graphql'
 import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
-import { ProfileInput, ProfileResponse } from 'resolvers/types'
+import { ProfileInput, Response } from 'resolvers/types'
 import ProfileService from 'services/profile-service'
 import { Profile } from '../entities'
 
@@ -18,11 +19,16 @@ export default class ProfileResolver {
   private readonly profileService: ProfileService
 
   @Authenticated()
-  @Mutation(() => ProfileResponse)
+  @Mutation(() => Response)
   updateProfile(
     @Arg('input') input: ProfileInput,
     @Ctx() { ability, user }: Context
   ) {
     return user && this.profileService.updateByUser(user.id, input, ability)
+  }
+
+  @Query(() => Profile, { nullable: true })
+  currentProfile(@Ctx() { ability, user }: Context) {
+    return user ? this.profileService.findByUser(user.id, ability) : null
   }
 }

@@ -8,6 +8,7 @@ import { control, loader } from 'styles/mixins'
 import { setRef } from 'utilities/react'
 
 export type Type = 'email' | 'password' | 'tel' | 'text'
+
 export type Variant = 'danger'
 
 interface BaseInputProps {
