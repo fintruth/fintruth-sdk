@@ -198,7 +198,7 @@ const Layout: React.FunctionComponent<Props> = ({
             ? navigate('/', { replace: true })
             : undefined
         )
-        .catch(error => __DEV__ && console.error(error)),
+        .catch(error => __IS_DEV__ && console.error(error)),
   })
 
   const { data = {}, loading: isQueryingCurrentUser } = useQuery<

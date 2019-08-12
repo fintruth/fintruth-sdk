@@ -29,7 +29,7 @@ const Content = styled.pre`
 `
 
 const Fault: React.FunctionComponent<Props> = ({ error, ...props }: Props) =>
-  __DEV__ && error ? (
+  __IS_DEV__ && error ? (
     <Root data-testid="error" {...props}>
       <Title>{error.name}</Title>
       <Content>{error.stack}</Content>

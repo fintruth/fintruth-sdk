@@ -2,7 +2,8 @@ interface Window {
   __APOLLO_STATE__: {}
 }
 
-declare const __DEV__: boolean
+declare const __IS_BROWSER__: boolean
+declare const __IS_DEV__: boolean
 
 declare module '*.bmp' {
   const src: string

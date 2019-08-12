@@ -34,7 +34,7 @@ const SignIn = loadable(() =>
 )
 
 const Root: React.FunctionComponent = () => {
-  const Fault = __DEV__ ? require('routes/fault').default : undefined
+  const Fault = __IS_DEV__ ? require('routes/fault').default : undefined
 
   const { data = {}, loading: isQueryingCurrentUser } = useQuery<
     CurrentUserQueryData

@@ -224,7 +224,7 @@ test('should render the sign-in route correctly when unauthenticated', async () 
 
 test('should render the default route correctly when authenticated', async () => {
   // @ts-ignore TS2588
-  __DEV__ = false
+  __IS_DEV__ = false
 
   const { getByTestId, queryByTestId } = renderWithRouter(
     <MockedProvider
@@ -241,12 +241,12 @@ test('should render the default route correctly when authenticated', async () =>
   expect(queryByTestId('error')).not.toBeInTheDocument()
 
   // @ts-ignore TS2588
-  __DEV__ = true
+  __IS_DEV__ = true
 })
 
 test('should render the default route correctly when unauthenticated', async () => {
   // @ts-ignore TS2588
-  __DEV__ = false
+  __IS_DEV__ = false
 
   const { getByTestId, queryByTestId } = renderWithRouter(
     <MockedProvider
@@ -263,5 +263,5 @@ test('should render the default route correctly when unauthenticated', async () 
   expect(queryByTestId('error')).not.toBeInTheDocument()
 
   // @ts-ignore TS2588
-  __DEV__ = true
+  __IS_DEV__ = true
 })

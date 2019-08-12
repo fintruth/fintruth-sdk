@@ -62,7 +62,7 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
           query: currentUserQuery,
         })
         .then(({ data }) => data.user && navigate('/', { replace: true }))
-        .catch(error => __DEV__ && console.error(error))
+        .catch(error => __IS_DEV__ && console.error(error))
     }
   }, [client, currentStep])
 
