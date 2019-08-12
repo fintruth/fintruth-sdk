@@ -1,0 +1,30 @@
+{
+  "__schema": {
+    "types": [
+      {
+        "kind": "INTERFACE",
+        "name": "BaseEntity",
+        "possibleTypes": [
+          {
+            "name": "Address"
+          },
+          {
+            "name": "Phone"
+          },
+          {
+            "name": "Profile"
+          },
+          {
+            "name": "User"
+          },
+          {
+            "name": "Email"
+          },
+          {
+            "name": "Media"
+          }
+        ]
+      }
+    ]
+  }
+}

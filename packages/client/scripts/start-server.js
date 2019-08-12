@@ -14,7 +14,7 @@ const serverPath = path.join(
 let server
 let pending = true
 
-const runServer = () =>
+const startServer = () =>
   new Promise(resolve => {
     const onStdOut = data => {
       const time = new Date().toTimeString()
@@ -64,4 +64,4 @@ process.on('exit', () => {
   }
 })
 
-export default runServer
+export default startServer

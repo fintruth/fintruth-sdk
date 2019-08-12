@@ -1,4 +1,3 @@
-import { User } from '@fintruth-sdk/common'
 import { Dialog, DialogProps } from '@reach/dialog'
 import { rem } from 'polished'
 import React from 'react'
@@ -6,9 +5,7 @@ import styled from 'styled-components'
 
 import DisableTwoFactorAuthForm from './disable-two-factor-auth-form'
 
-interface Props extends DialogProps {
-  user: User
-}
+type Props = DialogProps
 
 const Header = styled.h1`
   font-size: ${rem(20)};
@@ -16,7 +13,7 @@ const Header = styled.h1`
   margin: 0 0 ${rem(20)} 0;
 `
 
-const ColumnContainer = styled.div`
+const Columns = styled.div`
   display: flex;
   margin-top: ${rem(30)};
 `
@@ -31,7 +28,6 @@ const Column = styled.div`
 
 const DisableTwoFactorAuthDialog: React.FunctionComponent<Props> = ({
   onDismiss,
-  user,
   ...props
 }: Props) => (
   <Dialog onDismiss={onDismiss} {...props}>
@@ -40,12 +36,12 @@ const DisableTwoFactorAuthDialog: React.FunctionComponent<Props> = ({
     to sign in. If you remove this extra layer of security, you will only be
     asked for a password when you sign in. It might be easier for someone to
     break into your account.
-    <ColumnContainer>
+    <Columns>
       <Column />
       <Column>
-        <DisableTwoFactorAuthForm onCompleted={onDismiss} user={user} />
+        <DisableTwoFactorAuthForm onCompleted={onDismiss} />
       </Column>
-    </ColumnContainer>
+    </Columns>
   </Dialog>
 )
 

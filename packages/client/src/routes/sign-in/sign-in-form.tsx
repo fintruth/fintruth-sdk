@@ -1,11 +1,11 @@
-import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { User } from '@fintruth-sdk/common'
+import { useMutation } from '@apollo/react-hooks'
 import { Link as BaseLink } from '@reach/router'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
-import styled from 'styled-components'
+import { useUIDSeed } from 'react-uid'
+import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
@@ -17,12 +17,16 @@ import {
 } from './graphql'
 import { SignInCredentials } from './sign-in-two-factor-auth-form'
 
+interface HelpProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  color?: Color
+}
+
 interface Props
   extends Omit<
     React.FormHTMLAttributes<HTMLFormElement>,
     'onReset' | 'onSubmit'
   > {
-  onCompleted: (user: User) => void
+  onCompleted: (isTwoFactorAuthEnabled?: boolean) => void
   setSignInCredentials: (signInCredentials: SignInCredentials) => void
 }
 
@@ -33,10 +37,13 @@ interface Values {
 
 const initialValues: Values = { email: '', password: '' }
 
-const formId = 'sign-in__Form'
+const name = 'sign-in-form'
 
-const Help = styled.p`
-  ${({ theme }) => help(theme.danger)};
+const Help = styled.p.attrs((props: HelpProps) => ({
+  color: 'danger',
+  ...props,
+}))`
+  ${({ color, theme }) => help(theme[color])};
   margin: ${rem(-10)} 0 ${rem(30)};
 `
 
@@ -57,59 +64,52 @@ const SignInForm: React.FunctionComponent<Props> = ({
   setSignInCredentials,
   ...props
 }: Props) => {
-  const [helpContent, setHelpContent] = React.useState<string>()
-  const client = useApolloClient()
+  const [helpProps, setHelpProps] = React.useState<HelpProps>({})
+  const seed = useUIDSeed()
 
-  const [onSubmit, { loading }] = useMutation<
+  const [onSubmit, { loading: isSubmitting }] = useMutation<
     SignInMutationData,
     SignInMutationVariables
   >(signInMutation, {
-    onCompleted: ({ response }) => {
-      // NOTE: Due to the inability to invalidate Apollo's cache the
-      // entire store needs to be reset in order to prevent storing
-      // private data
-      client.resetStore()
-
-      if (response.error) {
-        setHelpContent(response.error.message)
-      } else if (response.user) {
-        onCompleted(response.user)
-      }
-    },
+    fetchPolicy: 'no-cache',
+    onCompleted: ({ response }) =>
+      response.error
+        ? setHelpProps({ children: response.error.message })
+        : onCompleted(response.isTwoFactorAuthEnabled),
   })
 
   return (
     <React.Fragment>
-      {helpContent && <Help>{helpContent}</Help>}
+      {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={variables =>
           onSubmit({ variables }).then(value =>
-            path(['data', 'response', 'error'], value)
-              ? undefined
-              : setSignInCredentials(variables)
+            path(['data', 'response', 'user'], value)
+              ? setSignInCredentials(variables)
+              : undefined
           )
         }
       >
-        <Form {...props} id={formId} noValidate>
+        <Form {...props} id={seed(name)} noValidate>
           <Field name="email">
-            <FieldLabel>EMAIL</FieldLabel>
-            <FieldInput form={formId} type="email" />
+            <FieldLabel>Email</FieldLabel>
+            <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <Field name="password">
-            <FieldLabel>PASSWORD</FieldLabel>
-            <FieldInput form={formId} type="password" />
+            <FieldLabel>Password</FieldLabel>
+            <FieldInput form={seed(name)} type="password" />
             <FieldHelp />
           </Field>
           <Link to="/recover">Forgot your password?</Link>
           <Button
-            form={formId}
-            isLoading={loading}
+            form={seed(name)}
+            isLoading={isSubmitting}
             type="submit"
             variant="primary"
           >
-            SIGN IN
+            Sign In
           </Button>
         </Form>
       </Formik>

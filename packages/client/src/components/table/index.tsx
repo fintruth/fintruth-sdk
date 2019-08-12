@@ -11,7 +11,6 @@ import {
 } from 'reactabular-table'
 import styled, { css } from 'styled-components'
 
-import { heather, lilia, steel } from 'styles/deprecated'
 import { formatEmpty, mergeColumnDefaults } from 'utilities/table'
 
 interface Props {
@@ -28,8 +27,8 @@ const Root = styled(Provider)`
 `
 
 export const Thead = styled.thead`
-  border-bottom: ${rem(1)} solid ${lilia};
-  border-top: ${rem(1)} solid ${lilia};
+  border-bottom: ${rem(1)} solid ${({ theme }) => theme.whiteTer};
+  border-top: ${rem(1)} solid ${({ theme }) => theme.whiteTer};
 `
 
 const cell = css`
@@ -40,13 +39,13 @@ const cell = css`
 
 export const Td = styled.td`
   ${cell}
-  color: ${steel};
+  color: ${({ theme }) => theme.gray};
   padding-top: ${rem(30)};
 `
 
 export const Th = styled.th`
   ${cell}
-  color: ${heather};
+  color: ${({ theme }) => theme.grayLight};
   font-size: ${rem(12)};
   font-weight: 700;
   padding: ${rem(18)} 0 ${rem(19)};

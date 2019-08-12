@@ -6,9 +6,11 @@ import styled from 'styled-components'
 import BaseSubnavbar from 'components/subnavbar'
 import RegisterForm from './register-form'
 
+type Props = RouteComponentProps
+
 const items = [
-  { id: 'sign-in', content: 'SIGN IN', to: '/sign-in' },
-  { id: 'register', content: 'REGISTER', to: '/register' },
+  { id: 'sign-in', content: 'Sign In', to: '/sign-in' },
+  { id: 'register', content: 'Register', to: '/register' },
 ]
 
 const Root = styled.div`
@@ -29,9 +31,7 @@ const Subnavbar = styled(BaseSubnavbar)`
   margin-bottom: ${rem(50)};
 `
 
-const Register: React.FunctionComponent<RouteComponentProps> = ({
-  ...props
-}: RouteComponentProps) => (
+const Register: React.FunctionComponent<Props> = (props: Props) => (
   <Root data-testid="register" {...props}>
     <Content>
       <Subnavbar items={items} />

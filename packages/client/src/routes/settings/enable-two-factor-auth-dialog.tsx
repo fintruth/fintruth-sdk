@@ -3,7 +3,7 @@ import { darken, rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
-import { azure, link, white } from 'styles/deprecated'
+import { link } from 'styles/mixins'
 import ConfirmTwoFactorAuthForm from './confirm-two-factor-auth-form'
 
 interface Props extends DialogProps {
@@ -25,16 +25,20 @@ const Header = styled.h1`
   margin: 0 0 ${rem(20)} 0;
 `
 
-const Link = styled.a`
+const Link = styled.a.attrs(props => ({
+  rel: 'noopener noreferrer',
+  target: '_blank',
+  ...props,
+}))`
   ${link}
   font-size: unset;
 `
 
-const SecretContainer = styled.div`
+const Secrets = styled.div`
   margin-top: ${rem(10)};
 `
 
-const ColumnContainer = styled.div`
+const Columns = styled.div`
   display: flex;
   margin-top: ${rem(30)};
 `
@@ -47,21 +51,21 @@ const Column = styled.div`
   justify-content: center;
 `
 
-const QRCodeContainer = styled.div`
-  background-color: ${darken(0.026, white)};
+const QRCodes = styled.div`
+  background-color: ${({ theme }) => darken(0.026, theme.white)};
   margin-top: ${rem(10)};
 `
 
-const QRCode = styled.img`
+const QRCode = styled.img<QRCodeProps>`
   height: ${rem(200)};
-  opacity: ${({ isVisible }: QRCodeProps) => (isVisible ? 1 : 0)};
+  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   width: ${rem(200)};
 `
 
 const Button = styled.button`
   background-color: unset;
   border: unset;
-  color: ${azure};
+  color: ${({ theme }) => theme.blue};
   cursor: pointer;
   outline: none;
 
@@ -70,47 +74,13 @@ const Button = styled.button`
   }
 `
 
-const Secret = styled.span`
-  background-color: ${darken(0.026, white)};
-  display: ${({ isVisible }: SecretProps) =>
-    isVisible ? 'inline-block' : 'none'};
+const Secret = styled.span<SecretProps>`
+  background-color: ${({ theme }) => darken(0.026, theme.white)};
+  display: ${({ isVisible }) => (isVisible ? 'inline-block' : 'none')};
   font-family: 'Helvetica Neue', 'Raleway', sans-serif;
   margin-top: ${rem(5)};
   padding: ${rem(5)} ${rem(8)};
 `
-
-const AuthyLink: React.FunctionComponent = ({ ...props }) => (
-  <Link
-    {...props}
-    href="https://support.authy.com/hc/en-us/articles/360006303934-Add-a-New-Two-Factor-Authentication-2FA-Account-Token-in-the-Authy-App"
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    Authy
-  </Link>
-)
-
-const LastPassLink: React.FunctionComponent = ({ ...props }) => (
-  <Link
-    {...props}
-    href="https://support.logmeininc.com/lastpass/help/lastpass-authenticator-lp030014"
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    LastPass
-  </Link>
-)
-
-const OnePasswordLink: React.FunctionComponent = ({ ...props }) => (
-  <Link
-    {...props}
-    href="https://support.1password.com/one-time-passwords"
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    1Password
-  </Link>
-)
 
 const EnableTwoFactorAuthDialog: React.FunctionComponent<Props> = ({
   dataUrl,
@@ -124,32 +94,33 @@ const EnableTwoFactorAuthDialog: React.FunctionComponent<Props> = ({
   return (
     <Dialog onDismiss={onDismiss} {...props}>
       <Header>Enable 2-Factor Authentication</Header>
-      We recommend using an application such as <AuthyLink />,{' '}
-      <OnePasswordLink />
-      , or <LastPassLink /> Authenticator. These applications support secure
-      backup of your verification codes in the cloud and can be restored if you
-      lose access to your device. Scan the QR code below with the application of
-      your choosing to begin.
-      <SecretContainer>
+      We recommend using an application such as{' '}
+      <Link href="https://bit.ly/2ODCBad">Authy</Link>,{' '}
+      <Link href="https://bit.ly/2YCLrc9">1Password</Link>, or{' '}
+      <Link href="https://bit.ly/2KkL2Sj">LastPass</Link> Authenticator. These
+      applications support secure backup of your verification codes in the cloud
+      and can be restored if you lose access to your device. Scan the QR code
+      below with the application of your choosing to begin.
+      <Secrets>
         Alternatively, you can type the secret key.{' '}
         <Button onClick={() => setIsSecretVisible(!isSecretVisible)}>
           {isSecretVisible ? 'Hide' : 'Show'} secret key
         </Button>
         <Secret isVisible={isSecretVisible}>{secret}</Secret>
-      </SecretContainer>
-      <ColumnContainer>
+      </Secrets>
+      <Columns>
         <Column>
           <Button onClick={() => setIsQRCodeVisible(!isQRCodeVisible)}>
             {isQRCodeVisible ? 'Hide' : 'Show'} QR code
           </Button>
-          <QRCodeContainer>
+          <QRCodes>
             <QRCode alt="QR Code" isVisible={isQRCodeVisible} src={dataUrl} />
-          </QRCodeContainer>
+          </QRCodes>
         </Column>
         <Column>
           <ConfirmTwoFactorAuthForm onCompleted={onDismiss} />
         </Column>
-      </ColumnContainer>
+      </Columns>
     </Dialog>
   )
 }

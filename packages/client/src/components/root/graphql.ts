@@ -1,23 +1,29 @@
-import { User } from '@fintruth-sdk/common'
+import {
+  Profile,
+  ShallowUser,
+  shallowProfilePropsFragment,
+  shallowUserPropsFragment,
+} from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
-export interface RootQueryData {
-  user?: User
+interface QueriedUser extends ShallowUser {
+  profile: Profile
 }
 
-export const rootQuery = gql`
-  query RootQuery {
+export interface CurrentUserQueryData {
+  user?: QueriedUser
+}
+
+export const currentUserQuery = gql`
+  query CurrentUserQuery {
     user: currentUser {
-      id
-      emails {
-        id
-        value
-      }
-      isTwoFactorAuthEnabled
+      ...ShallowUserProps
       profile {
-        familyName
-        givenName
+        ...ShallowProfileProps
       }
     }
   }
+
+  ${shallowProfilePropsFragment}
+  ${shallowUserPropsFragment}
 `

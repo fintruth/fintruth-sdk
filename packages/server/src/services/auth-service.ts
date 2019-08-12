@@ -9,7 +9,7 @@ import {
   EnableTwoFactorAuthResponse,
   Response,
   ResponseError,
-  UserResponse,
+  SignInResponse,
 } from 'resolvers/types'
 import { ServerResponse } from 'server'
 import ConfigService from './config-service'
@@ -37,16 +37,18 @@ export default class AuthService {
     const user = await this.daos.users.findByEmail(email)
 
     if (!user || !user.validatePassword(password)) {
-      return new UserResponse({
+      return new SignInResponse({
         error: new ResponseError('Incorrect email or password'),
       })
     }
 
-    if (!user.isTwoFactorAuthEnabled) {
+    const { isTwoFactorAuthEnabled } = user
+
+    if (!isTwoFactorAuthEnabled) {
       this.signAuthToken(res, user)
     }
 
-    return new UserResponse({ user })
+    return new SignInResponse({ isTwoFactorAuthEnabled })
   }
 
   async authenticateTwoFactor(
@@ -55,26 +57,30 @@ export default class AuthService {
     token: string,
     res: ServerResponse
   ) {
-    const response = await this.authenticate(email, password, res)
+    const user = await this.daos.users.findByEmail(email)
 
-    if (response.error || !response.user) {
-      return response
+    if (!user || !user.validatePassword(password)) {
+      return new Response({
+        error: new ResponseError('Incorrect email or password'),
+      })
     }
 
-    const { user } = response
+    if (!user.isTwoFactorAuthEnabled) {
+      this.signAuthToken(res, user)
+    }
 
     const isValid =
       user.secret && this.verifyTwoFactorAuthToken(token, user.secret)
 
     if (!isValid) {
-      return new UserResponse({
+      return new Response({
         error: new ResponseError('Token is invalid or expired'),
       })
     }
 
     this.signAuthToken(res, user)
 
-    return new UserResponse({ user })
+    return new Response()
   }
 
   async confirmTwoFactorAuth(token: string, userId: string, ability: Ability) {
