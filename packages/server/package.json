@@ -99,8 +99,8 @@
     "webpack-cli": "^3.3.6"
   },
   "engines": {
-    "node": ">=10.15",
-    "yarn": ">=1.12"
+    "node": ">=10.16",
+    "yarn": ">=1.16"
   },
   "private": true,
   "lint-staged": {
