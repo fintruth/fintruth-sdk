@@ -5,7 +5,7 @@ import { createTextMaskInputElement } from 'text-mask-core'
 
 import { useTimer } from 'hooks/time'
 import { control, loader } from 'styles/mixins'
-import { setRef } from 'utilities/react'
+import { setRef } from 'utils/react'
 
 export type Type = 'email' | 'password' | 'tel' | 'text'
 

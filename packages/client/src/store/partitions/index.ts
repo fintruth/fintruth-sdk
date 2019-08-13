@@ -1,4 +1,4 @@
-import { mergePartitions } from 'utilities/store'
+import { mergePartitions } from 'utils/store'
 
 export const { defaults = {}, resolvers = {}, typeDefs = '' } = mergePartitions(
   {}

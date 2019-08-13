@@ -15,7 +15,7 @@ import {
   SubmenuList,
 } from 'components/submenu'
 import { container, medium, untilMedium } from 'styles/mixins'
-import { renderLoadingIf } from 'utilities/loading'
+import { renderLoadingIf } from 'utils/loading'
 import {
   CurrentUserQueryData,
   SignOutMutationData,

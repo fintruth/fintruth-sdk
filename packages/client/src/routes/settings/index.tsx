@@ -7,7 +7,7 @@ import styled, { css } from 'styled-components'
 import BaseButton from 'components/button'
 import Layout from 'components/layout'
 import { container, untilMedium } from 'styles/mixins'
-import { renderLoadingIf } from 'utilities/loading'
+import { renderLoadingIf } from 'utils/loading'
 import DisableTwoFactorAuthDialog from './disable-two-factor-auth-dialog'
 import EnableTwoFactorAuthDialog from './enable-two-factor-auth-dialog'
 import {
