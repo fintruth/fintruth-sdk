@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/react-hooks'
-import { Profile } from '@fintruth-sdk/common'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
@@ -11,6 +10,7 @@ import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help } from 'styles/mixins'
 import {
+  QueriedProfile,
   UpdateProfileMutationData,
   UpdateProfileMutationVariables,
   currentProfileQuery,
@@ -27,7 +27,7 @@ interface Props
     React.FormHTMLAttributes<HTMLFormElement>,
     'onReset' | 'onSubmit'
   > {
-  profile: Profile
+  profile: QueriedProfile
 }
 
 interface Values {

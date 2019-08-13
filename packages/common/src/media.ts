@@ -1,17 +1,19 @@
 import gql from 'graphql-tag'
 
+import { Primitive, SubType } from 'utils'
 import { BaseEntity, shallowBaseEntityPropsFragment } from './base-entity'
 import { Response } from './response'
 
-export interface ShallowMedia extends BaseEntity {
+export type ShallowMedia = SubType<Media, Primitive>
+
+export type ShallowMediaType = SubType<MediaType, Primitive>
+
+export interface Media extends BaseEntity {
   mimeType: string
   name: string
   path: string
-  typeId: string
-}
-
-export interface Media extends ShallowMedia {
   type: MediaType
+  typeId: string
 }
 
 export interface MediaResponse extends Response {
@@ -23,13 +25,6 @@ export interface MediaType {
   name: string
 }
 
-export const shallowMediaTypePropsFragment = gql`
-  fragment ShallowMediaTypeProps on MediaType {
-    id
-    name
-  }
-`
-
 export const shallowMediaPropsFragment = gql`
   fragment ShallowMediaProps on Media {
     ...ShallowBaseEntityProps
@@ -40,4 +35,11 @@ export const shallowMediaPropsFragment = gql`
   }
 
   ${shallowBaseEntityPropsFragment}
+`
+
+export const shallowMediaTypePropsFragment = gql`
+  fragment ShallowMediaTypeProps on MediaType {
+    id
+    name
+  }
 `
