@@ -1,21 +1,23 @@
 import gql from 'graphql-tag'
 
+import { Primitive, SubType } from 'utils'
 import { Response } from './response'
 
-export interface ShallowEnableTwoFactorAuthResponse {
+export type ShallowEnableTwoFactorAuthResponse = SubType<
+  EnableTwoFactorAuthResponse,
+  Primitive
+>
+
+export type ShallowSignInResponse = SubType<SignInResponse, Primitive>
+
+export interface EnableTwoFactorAuthResponse extends Response {
   dataUrl?: string
   secret?: string
 }
 
-export interface EnableTwoFactorAuthResponse
-  extends ShallowEnableTwoFactorAuthResponse,
-    Response {}
-
-export interface ShallowSignInResponse {
+export interface SignInResponse extends Response {
   isTwoFactorAuthEnabled?: boolean
 }
-
-export interface SignInResponse extends ShallowSignInResponse, Response {}
 
 export const shallowEnableTwoFactorAuthResponsePropsFragment = gql`
   fragment ShallowEnableTwoFactorAuthResponseProps on EnableTwoFactorAuthResponse {

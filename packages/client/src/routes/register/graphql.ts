@@ -1,12 +1,12 @@
 import {
   RegisterInput,
-  ResponseError,
+  ShallowResponseError as QueriedResponseError,
   shallowResponseErrorPropsFragment,
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
 interface QueriedResponse {
-  error: ResponseError
+  error: QueriedResponseError
 }
 
 export interface RegisterMutationData {

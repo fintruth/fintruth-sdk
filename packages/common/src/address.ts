@@ -1,19 +1,21 @@
 import gql from 'graphql-tag'
 
+import { Primitive, SubType } from 'utils'
 import { BaseEntity, shallowBaseEntityPropsFragment } from './base-entity'
 
-export interface ShallowAddress extends BaseEntity {
+export type ShallowAddress = SubType<Address, Primitive>
+
+export type ShallowAddressType = SubType<AddressType, Primitive>
+
+export interface Address extends BaseEntity {
   city: string
   country: string
   line1: string
   line2?: string
   postalCode: string
   subdivision: string
-  typeId: string
-}
-
-export interface Address extends ShallowAddress {
   type: AddressType
+  typeId: string
 }
 
 export interface AddressInput {
@@ -31,13 +33,6 @@ export interface AddressType {
   name: string
 }
 
-export const shallowAddressTypePropsFragment = gql`
-  fragment ShallowAddressTypeProps on AddressType {
-    id
-    name
-  }
-`
-
 export const shallowAddressPropsFragment = gql`
   fragment ShallowAddressProps on Address {
     ...ShallowBaseEntityProps
@@ -51,4 +46,11 @@ export const shallowAddressPropsFragment = gql`
   }
 
   ${shallowBaseEntityPropsFragment}
+`
+
+export const shallowAddressTypePropsFragment = gql`
+  fragment ShallowAddressTypeProps on AddressType {
+    id
+    name
+  }
 `

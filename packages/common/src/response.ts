@@ -1,5 +1,11 @@
 import gql from 'graphql-tag'
 
+import { Primitive, SubType } from 'utils'
+
+export type ShallowResponse = SubType<Response, Primitive>
+
+export type ShallowResponseError = SubType<ResponseError, Primitive>
+
 export interface Response {
   error?: ResponseError
 }
