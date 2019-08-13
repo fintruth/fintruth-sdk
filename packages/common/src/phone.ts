@@ -1,18 +1,20 @@
 import gql from 'graphql-tag'
 
+import { Primitive, SubType } from 'utils'
 import { BaseEntity, shallowBaseEntityPropsFragment } from './base-entity'
 import { Country } from './country'
 
-export interface ShallowPhone extends BaseEntity {
+export type ShallowPhone = SubType<Phone, Primitive>
+
+export type ShallowPhoneType = SubType<PhoneType, Primitive>
+
+export interface Phone extends BaseEntity {
+  country: Country
   ext: string
   isVerified: boolean
   number: string
-  typeId: string
-}
-
-export interface Phone extends ShallowPhone {
-  country: Country
   type: PhoneType
+  typeId: string
 }
 
 export interface PhoneInput {
@@ -26,13 +28,6 @@ export interface PhoneType {
   name: string
 }
 
-export const shallowPhoneTypePropsFragment = gql`
-  fragment ShallowPhoneTypeProps on PhoneType {
-    id
-    name
-  }
-`
-
 export const shallowPhonePropsFragment = gql`
   fragment ShallowPhoneProps on Phone {
     ...ShallowBaseEntityProps
@@ -43,4 +38,11 @@ export const shallowPhonePropsFragment = gql`
   }
 
   ${shallowBaseEntityPropsFragment}
+`
+
+export const shallowPhoneTypePropsFragment = gql`
+  fragment ShallowPhoneTypeProps on PhoneType {
+    id
+    name
+  }
 `

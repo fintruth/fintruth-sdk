@@ -12,7 +12,9 @@ test('should render once the provided delay (ms) has passed', () => {
 
   expect(queryByTestId('loading')).not.toBeInTheDocument()
 
-  act(() => jest.runOnlyPendingTimers())
+  act(() => {
+    jest.runOnlyPendingTimers()
+  })
 
   expect(getByTestId('loading')).toBeInTheDocument()
 })

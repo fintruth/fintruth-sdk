@@ -1,6 +1,9 @@
 import gql from 'graphql-tag'
 
+import { Primitive, SubType } from 'utils'
 import { BaseEntity, shallowBaseEntityPropsFragment } from './base-entity'
+
+export type ShallowProfile = SubType<Profile, Primitive>
 
 export interface Profile extends BaseEntity {
   familyName: string
