@@ -6,7 +6,7 @@ import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from 'styles/global'
 import theme from 'styles/theme'
-import { renderLoadingIf } from 'utilities/loading'
+import { renderLoadingIf } from 'utils/loading'
 import { CurrentUserQueryData, currentUserQuery } from './graphql'
 
 const Home = loadable(() =>

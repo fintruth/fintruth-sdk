@@ -2,8 +2,8 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
-import { createFragmentMatcher, createInMemoryCache } from 'utilities/apollo'
-import { responseBuilder } from 'utilities/specification'
+import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
+import { responseBuilder } from 'utils/specification'
 import { registerMutation } from './graphql'
 import Register from '.'
 

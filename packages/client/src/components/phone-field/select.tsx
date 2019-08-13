@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import Option from 'components/option'
 import BaseSelect, { Props as SelectProps } from 'components/select'
-import { validateSelect } from 'utilities/validation'
+import { validateSelect } from 'utils/validation'
 import data, { Alpha2Code } from './data'
 import { CountriesQueryData, countriesQuery } from './graphql'
 import { usePhoneFieldContext } from '.'

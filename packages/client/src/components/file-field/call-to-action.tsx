@@ -6,7 +6,7 @@ import React from 'react'
 import styled, { Color, ColorContrast, css } from 'styled-components' // eslint-disable-line import/named
 
 import { control, unselectable } from 'styles/mixins'
-import { setRef } from 'utilities/react'
+import { setRef } from 'utils/react'
 import { useFileFieldContext, Variant } from '.'
 
 interface Context {

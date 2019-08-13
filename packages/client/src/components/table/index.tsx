@@ -11,7 +11,7 @@ import {
 } from 'reactabular-table'
 import styled, { css } from 'styled-components'
 
-import { formatEmpty, mergeColumnDefaults } from 'utilities/table'
+import { formatEmpty, mergeColumnDefaults } from 'utils/table'
 
 interface Props {
   columns: Column[]
