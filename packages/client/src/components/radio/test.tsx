@@ -52,7 +52,10 @@ test('should only allow one radio button to be checked at a time', async () => {
   expect(radioA.checked).toBe(true)
   expect(radioB.checked).toBe(false)
 
-  await act(async () => userEvent.click(radioB))
+  // @ts-ignore 2345
+  await act(async () => {
+    userEvent.click(radioB)
+  })
 
   expect(radioA.checked).toBe(false)
   expect(radioB.checked).toBe(true)
