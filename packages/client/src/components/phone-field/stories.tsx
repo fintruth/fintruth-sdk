@@ -6,7 +6,7 @@ import { storiesOf } from '@storybook/react'
 import { Formik } from 'formik'
 import React from 'react'
 
-import { createFragmentMatcher, createInMemoryCache } from 'utilities/apollo'
+import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
 import { countriesQuery } from './graphql'
 import PhoneField, {
   PhoneFieldHelp,

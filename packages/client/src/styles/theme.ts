@@ -1,7 +1,7 @@
 import { hsl } from 'polished'
 import { DefaultTheme } from 'styled-components' // eslint-disable-line import/named
 
-import { readableColor } from 'utilities/style'
+import { readableColor } from 'utils/style'
 
 const grayDarker = hsl(0, 0, 0.21)
 const grayDark = hsl(0, 0, 0.29)

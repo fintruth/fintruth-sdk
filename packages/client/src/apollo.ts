@@ -7,7 +7,7 @@ import {
   createErrorLink,
   createFragmentMatcher,
   createInMemoryCache,
-} from './utilities/apollo'
+} from './utils/apollo'
 
 interface Options extends Partial<ApolloClientOptions<NormalizedCacheObject>> {
   defaults?: {}
