@@ -3,7 +3,7 @@ import { RouteComponentProps } from '@reach/router'
 import React from 'react'
 import styled from 'styled-components'
 
-import { renderLoadingIf } from 'utilities/loading'
+import { renderLoadingIf } from 'utils/loading'
 import { CurrentUserQueryData, currentUserQuery } from './graphql'
 import RecoverForm from './recover-form'
 

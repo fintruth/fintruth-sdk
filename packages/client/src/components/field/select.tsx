@@ -2,7 +2,7 @@ import { FieldValidator, useField, useFormikContext } from 'formik'
 import React from 'react'
 
 import BaseSelect, { Props as SelectProps } from 'components/select'
-import { validateSelect } from 'utilities/validation'
+import { validateSelect } from 'utils/validation'
 import { useFieldContext } from '.'
 
 interface Props

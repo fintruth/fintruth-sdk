@@ -5,7 +5,7 @@ import ReactCrop, { Crop, PercentCrop, ReactCropProps } from 'react-image-crop'
 import styled from 'styled-components'
 
 import { unselectable } from 'styles/mixins'
-import { setRef } from 'utilities/react'
+import { setRef } from 'utils/react'
 import { useFileFieldContext } from '.'
 
 type ReactCropEventHandler = (crop: Crop, percentCrop: PercentCrop) => void
