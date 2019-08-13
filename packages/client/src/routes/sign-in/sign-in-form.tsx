@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
+import { FormattedMessage, defineMessages } from 'react-intl'
 import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
@@ -36,6 +37,29 @@ interface Values {
 }
 
 const initialValues: Values = { email: '', password: '' }
+
+const messages = defineMessages({
+  emailLabel: {
+    id: 'routes.signIn.signInForm.emailLabel',
+    defaultMessage: 'Email',
+    description: 'The label of the Email field',
+  },
+  passwordLabel: {
+    id: 'routes.signIn.signInForm.passwordLabel',
+    defaultMessage: 'Password',
+    description: 'The label of the Password field',
+  },
+  accountHelpRecover: {
+    id: 'routes.signIn.signInForm.accountHelpRecover',
+    defaultMessage: 'Forgot your password?',
+    description: 'The Recover link in the Account Help section',
+  },
+  submit: {
+    id: 'routes.signIn.signInForm.submit',
+    defaultMessage: 'Sign in',
+    description: 'The text of the submit button',
+  },
+})
 
 const name = 'sign-in-form'
 
@@ -93,23 +117,29 @@ const SignInForm: React.FunctionComponent<Props> = ({
       >
         <Form {...props} id={seed(name)} noValidate>
           <Field name="email">
-            <FieldLabel>Email</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...messages.emailLabel} />
+            </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <Field name="password">
-            <FieldLabel>Password</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...messages.passwordLabel} />
+            </FieldLabel>
             <FieldInput form={seed(name)} type="password" />
             <FieldHelp />
           </Field>
-          <Link to="/recover">Forgot your password?</Link>
+          <Link to="/recover">
+            <FormattedMessage {...messages.accountHelpRecover} />
+          </Link>
           <Button
             form={seed(name)}
             isLoading={isSubmitting}
             type="submit"
             variant="primary"
           >
-            Sign In
+            <FormattedMessage {...messages.submit} />
           </Button>
         </Form>
       </Formik>

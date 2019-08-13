@@ -4,6 +4,7 @@ import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
+import { FormattedMessage, defineMessages, useIntl } from 'react-intl'
 import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
@@ -32,6 +33,40 @@ interface Props
 interface Values {
   email: string
 }
+
+const messages = defineMessages({
+  success: {
+    id: 'routes.recover.recoverForm.success',
+    defaultMessage: 'A verification email has been sent',
+    description:
+      'The message displayed when the form is successfully submitted',
+  },
+  emailLabel: {
+    id: 'routes.recover.recoverForm.emailLabel',
+    defaultMessage: 'Email',
+    description: 'The label of the Email field',
+  },
+  accountHelpDescription: {
+    id: 'routes.recover.recoverForm.accountHelpDescription',
+    defaultMessage: 'Already have email and password?',
+    description: 'The description in the Account Help section',
+  },
+  accountHelpSettings: {
+    id: 'routes.recover.recoverForm.accountHelpSettings',
+    defaultMessage: 'Settings',
+    description: 'The Settings link in the Account Help section',
+  },
+  accountHelpSignIn: {
+    id: 'routes.recover.recoverForm.accountHelpSignIn',
+    defaultMessage: 'Sign-In',
+    description: 'The Sign-In link in the Account Help section',
+  },
+  submit: {
+    id: 'routes.recover.recoverForm.submit',
+    defaultMessage: 'Recover',
+    description: 'The text of the submit button',
+  },
+})
 
 const name = 'recover-form'
 
@@ -69,6 +104,7 @@ const RecoverForm: React.FunctionComponent<Props> = ({
   ...props
 }: Props) => {
   const [helpProps, setHelpProps] = React.useState<HelpProps>({})
+  const { formatMessage } = useIntl()
   const seed = useUIDSeed()
 
   const [onSubmit, { loading: isSubmitting }] = useMutation<
@@ -79,7 +115,7 @@ const RecoverForm: React.FunctionComponent<Props> = ({
       setHelpProps(
         response.error
           ? { children: response.error.message, color: 'danger' }
-          : { children: 'A verification email has been sent' }
+          : { children: formatMessage(messages.success) }
       ),
   })
 
@@ -101,16 +137,22 @@ const RecoverForm: React.FunctionComponent<Props> = ({
       >
         <Form {...props} id={seed(name)} noValidate>
           <Field name="email">
-            <FieldLabel>Email</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...messages.emailLabel} />
+            </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <Description>
-            Already have email and password?{' '}
+            <FormattedMessage {...messages.accountHelpDescription} />{' '}
             {user ? (
-              <Link to="/settings">Settings</Link>
+              <Link to="/settings">
+                <FormattedMessage {...messages.accountHelpSettings} />
+              </Link>
             ) : (
-              <Link to="/sign-in">Sign in</Link>
+              <Link to="/sign-in">
+                <FormattedMessage {...messages.accountHelpSignIn} />
+              </Link>
             )}
           </Description>
           <Button
@@ -119,7 +161,7 @@ const RecoverForm: React.FunctionComponent<Props> = ({
             type="submit"
             variant="primary"
           >
-            Recover
+            <FormattedMessage {...messages.submit} />
           </Button>
         </Form>
       </Formik>

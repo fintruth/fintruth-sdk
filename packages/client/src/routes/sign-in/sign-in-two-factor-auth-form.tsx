@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/react-hooks'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
+import { FormattedMessage, defineMessages } from 'react-intl'
 import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
@@ -37,6 +38,19 @@ interface Values {
 }
 
 const initialValues: Values = { token: '' }
+
+const messages = defineMessages({
+  tokenLabel: {
+    id: 'routes.signIn.signInTwoFactorAuthForm.tokenLabel',
+    defaultMessage: 'Verification Code',
+    description: 'The label of the Token field',
+  },
+  submit: {
+    id: 'routes.signIn.signInTwoFactorAuthForm.submit',
+    defaultMessage: 'Continue',
+    description: 'The text of the submit button',
+  },
+})
 
 const name = 'sign-in-two-factor-auth-form'
 
@@ -89,7 +103,9 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
       >
         <Form {...props} id={seed(name)} noValidate>
           <LastField name="token">
-            <FieldLabel>Verification Code</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...messages.tokenLabel} />
+            </FieldLabel>
             <FieldInput form={seed(name)} />
             <FieldHelp />
           </LastField>
@@ -99,7 +115,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
             type="submit"
             variant="primary"
           >
-            Continue
+            <FormattedMessage {...messages.submit} />
           </Button>
         </Form>
       </Formik>

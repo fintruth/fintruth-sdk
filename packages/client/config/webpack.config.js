@@ -166,7 +166,10 @@ const serverConfig = createConfig('node', baseConfig => ({
   entry: { server: path.resolve('./src/server.tsx') },
   externals: [
     nodeExternals({ whitelist: [/\.(bmp|gif|jp(e)?g|png|webp)$/] }),
-    nodeExternals({ modulesDir: path.resolve(rootDir, '../../node_modules') }),
+    nodeExternals({
+      modulesDir: path.resolve(rootDir, '../../node_modules'),
+      whitelist: [/\.(bmp|gif|jp(e)?g|png|webp)$/],
+    }),
   ],
   name: 'server',
   node: false,
