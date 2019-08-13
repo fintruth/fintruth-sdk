@@ -2,13 +2,13 @@ import { MockedProvider } from '@apollo/react-testing'
 import { waitForElement } from '@testing-library/react'
 import React from 'react'
 
-import { createFragmentMatcher, createInMemoryCache } from 'utilities/apollo'
+import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
 import {
   emailBuilder,
   profileBuilder,
   renderWithRouter,
   userBuilder,
-} from 'utilities/specification'
+} from 'utils/specification'
 import { currentUserQuery } from './graphql'
 import Root from '.'
 

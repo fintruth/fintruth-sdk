@@ -2,14 +2,14 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
-import { createFragmentMatcher, createInMemoryCache } from 'utilities/apollo'
+import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
 import {
   emailBuilder,
   enableTwoFactorAuthResponseBuilder,
   profileBuilder,
   responseBuilder,
   userBuilder,
-} from 'utilities/specification'
+} from 'utils/specification'
 import {
   confirmTwoFactorAuthMutation,
   currentProfileQuery,

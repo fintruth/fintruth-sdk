@@ -2,7 +2,7 @@ import { FieldValidator, useField, useFormikContext } from 'formik'
 import React from 'react'
 
 import BaseInput, { Props as InputProps } from 'components/input'
-import { validateInput } from 'utilities/validation'
+import { validateInput } from 'utils/validation'
 import { useFieldContext } from '.'
 
 interface Props extends Omit<InputProps, 'isDisabled' | 'isRequired' | 'name'> {

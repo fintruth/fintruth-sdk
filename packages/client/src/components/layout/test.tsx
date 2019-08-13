@@ -5,8 +5,8 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import theme from 'styles/theme'
-import { createFragmentMatcher, createInMemoryCache } from 'utilities/apollo'
-import { renderWithRouter } from 'utilities/specification'
+import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
+import { renderWithRouter } from 'utils/specification'
 import Layout from '.'
 
 const fragmentMatcher = createFragmentMatcher()
