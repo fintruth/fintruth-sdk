@@ -1,16 +1,26 @@
-import React from 'react'
 import centered from '@storybook/addon-centered/react'
 import { storiesOf } from '@storybook/react'
+import React from 'react'
+import { CellFormatter, Column } from 'reactabular-table'
 
 import Table from '.'
 
-const formatSalary = (salary: number) =>
+interface Row {
+  id: string
+  company: string
+  location?: string
+  name: string
+  salary?: number
+  title?: string
+}
+
+const formatSalary: CellFormatter<Row> = (salary: number) =>
   salary.toLocaleString('en-US', {
     currency: 'USD',
     style: 'currency',
   })
 
-const columns = [
+const columns: Column<Row>[] = [
   { property: 'name', header: { label: 'Name' } },
   { property: 'company', header: { label: 'Company' } },
   { property: 'title', header: { label: 'Title' } },
@@ -22,7 +32,7 @@ const columns = [
   { property: 'location', header: { label: 'Location' } },
 ]
 
-const rows = [
+const rows: Row[] = [
   {
     id: 'a',
     company: 'Dunder Mifflin',

@@ -1,40 +1,91 @@
 declare module 'reactabular-table' {
-  import * as React from 'react'
+  import {
+    Component,
+    HTMLAttributes,
+    ReactElement,
+    TableHTMLAttributes,
+  } from 'react'
 
-  export interface BodyProps
-    extends React.TableHTMLAttributes<HTMLTableSectionElement> {
-    onRow?: Function
-    rowKey: Function | string
+  export type CellFormatter<RowData = {}> = (
+    value: any,
+    extraParams: ExtraCellParams<RowData>
+  ) => ReactElement | string
+
+  export type CellTransform<RowData = {}> = (
+    value: any,
+    extraParams: ExtraCellParams<RowData>
+  ) => Record<string, any>
+
+  export type HeaderFormatter = (
+    label: string,
+    extraParams: ExtraHeaderParams
+  ) => ReactElement | string
+
+  export type HeaderTransform = (
+    label: string,
+    extraParams: ExtraHeaderParams
+  ) => Record<string, any>
+
+  export type Row = Record<string, any>
+
+  export type RowKey<RowData = {}> = (data: RowKeyData<RowData>) => string
+
+  export interface BodyProps<RowData = {}>
+    extends TableHTMLAttributes<HTMLTableSectionElement> {
+    onRow?: (
+      rowData: RowData,
+      extraParams: ExtraRowParams<RowData>
+    ) => Record<string, any>
+    rowKey: RowKey<RowData> | string
     rows: Column[] | [][]
   }
 
-  export interface CellType {
-    formatters?: Function[]
+  export interface CellType<RowData = {}> {
+    formatters?: CellFormatter<RowData>[]
     property?: number | string
-    props?: React.HTMLAttributes<HTMLTableCellElement>
-    transforms?: Function[]
+    props?: HTMLAttributes<HTMLTableCellElement>
+    transforms?: CellTransform<RowData>[]
   }
 
-  export interface Column {
-    cell?: CellType
+  export interface Column<RowData = {}> {
+    cell?: CellType<RowData>
     header?: HeaderType
     property?: number | string
   }
 
+  interface ExtraCellParams<RowData = {}> {
+    column: Column
+    columnIndex: number
+    property: number | string
+    rowData: RowData
+    rowIndex: number
+    rowKey: RowKey<RowData> | string
+  }
+
+  interface ExtraHeaderParams {
+    column: Column
+    columnIndex: number
+    property: number | string
+  }
+
+  interface ExtraRowParams<RowData = {}> {
+    rowIndex: number
+    rowKey?: RowKey<RowData> | string
+  }
+
   export interface HeaderProps
-    extends React.TableHTMLAttributes<HTMLTableSectionElement> {
+    extends TableHTMLAttributes<HTMLTableSectionElement> {
     headerRows?: Column[][]
   }
 
   export interface HeaderType {
-    formatters?: Function[]
+    formatters?: HeaderFormatter[]
     label?: string
-    props?: React.HTMLAttributes<HTMLTableCellElement>
-    transforms?: Function[]
+    props?: HTMLAttributes<HTMLTableCellElement>
+    transforms?: HeaderTransform[]
   }
 
-  export interface ProviderProps
-    extends React.TableHTMLAttributes<HTMLTableElement> {
+  export interface ProviderProps extends TableHTMLAttributes<HTMLTableElement> {
     columns: Column[]
     renderers?: Renderers
   }
@@ -45,8 +96,9 @@ declare module 'reactabular-table' {
     table?: string
   }
 
-  export interface Row {
-    [key: string]: any
+  interface RowKeyData<RowData = {}> {
+    rowData: RowData
+    rowIndex: number
   }
 
   export interface SectionRenderers {
@@ -55,9 +107,9 @@ declare module 'reactabular-table' {
     cell?: string
   }
 
-  export class Body extends React.Component<BodyProps> {}
+  export class Body<RowData = {}> extends Component<BodyProps<RowData>> {}
 
-  export class Header extends React.Component<HeaderProps> {}
+  export class Header extends Component<HeaderProps> {}
 
-  export class Provider extends React.Component<ProviderProps> {}
+  export class Provider extends Component<ProviderProps> {}
 }
