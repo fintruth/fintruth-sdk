@@ -52,7 +52,9 @@ test('should only allow one radio button to be checked at a time', async () => {
   expect(radioA.checked).toBe(true)
   expect(radioB.checked).toBe(false)
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore 2345
+  // eslint-disable-next-line @typescript-eslint/require-await
   await act(async () => {
     userEvent.click(radioB)
   })
