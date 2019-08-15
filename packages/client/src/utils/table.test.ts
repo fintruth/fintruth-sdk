@@ -16,12 +16,12 @@ describe('mergeColumnDefaults', () => {
     const columns = [
       {
         property: 'company',
-        cell: { formatters: [() => {}] },
+        cell: { formatters: [() => ''] },
         header: { props: { className: 'companyHeader' } },
       },
     ]
     const defaults = {
-      cell: { formatters: [() => {}], props: { className: 'td' } },
+      cell: { formatters: [() => ''], props: { className: 'td' } },
       header: { props: { className: 'th' } },
     }
 
