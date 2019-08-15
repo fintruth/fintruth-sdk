@@ -2,7 +2,7 @@ import { useApolloClient } from '@apollo/react-hooks'
 import { RouteComponentProps, navigate } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
-import { defineMessages, useIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import styled from 'styled-components'
 
 import Loading from 'components/loading'
@@ -12,23 +12,11 @@ import SignInForm from './sign-in-form'
 import SignInTwoFactorAuthForm, {
   SignInCredentials,
 } from './sign-in-two-factor-auth-form'
+import { subnavbar } from './translations'
 
 type Props = RouteComponentProps
 
 type Step = 'signIn' | 'signInTwoFactorAuth' | 'redirect'
-
-const messages = defineMessages({
-  subnavbarSignIn: {
-    id: 'routes.signIn.subnavbarSignIn',
-    defaultMessage: 'Sign-In',
-    description: 'The Sign-In link in the subnavbar',
-  },
-  subnavbarRegister: {
-    id: 'routes.signIn.subnavbarRegister',
-    defaultMessage: 'Register',
-    description: 'The Register link in the subnavbar',
-  },
-})
 
 const getNextStep = (
   currentStep: Step,
@@ -67,12 +55,12 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   const items = [
     {
       id: 'sign-in',
-      content: formatMessage(messages.subnavbarSignIn),
+      content: formatMessage(subnavbar.signIn),
       to: '/sign-in',
     },
     {
       id: 'register',
-      content: formatMessage(messages.subnavbarRegister),
+      content: formatMessage(subnavbar.register),
       to: '/register',
     },
   ]

@@ -1,21 +1,14 @@
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
-import { FormattedMessage, defineMessages } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 
 import Layout from 'components/layout'
 import { container, title } from 'styles/mixins'
+import { root } from './translations'
 
 type Props = RouteComponentProps
-
-const messages = defineMessages({
-  title: {
-    id: 'routes.home.title',
-    defaultMessage: 'Welcome Home!',
-    description: 'The title of the Home page',
-  },
-})
 
 const Root = styled.div`
   ${container()};
@@ -36,7 +29,7 @@ const Home: React.FunctionComponent<Props> = (props: Props) => (
   <Layout data-testid="home" {...props}>
     <Root>
       <Title>
-        <FormattedMessage {...messages.title} />
+        <FormattedMessage {...root.title} />
       </Title>
     </Root>
   </Layout>

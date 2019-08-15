@@ -1,26 +1,14 @@
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
-import { defineMessages, useIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import styled from 'styled-components'
 
 import BaseSubnavbar from 'components/subnavbar'
 import RegisterForm from './register-form'
+import { subnavbar } from './translations'
 
 type Props = RouteComponentProps
-
-const messages = defineMessages({
-  subnavbarSignIn: {
-    id: 'routes.register.subnavbarSignIn',
-    defaultMessage: 'Sign-In',
-    description: 'The Sign-In link in the subnavbar',
-  },
-  subnavbarRegister: {
-    id: 'routes.register.subnavbarRegister',
-    defaultMessage: 'Register',
-    description: 'The Register link in the subnavbar',
-  },
-})
 
 const Root = styled.div`
   align-items: center;
@@ -46,12 +34,12 @@ const Register: React.FunctionComponent<Props> = (props: Props) => {
   const items = [
     {
       id: 'sign-in',
-      content: formatMessage(messages.subnavbarSignIn),
+      content: formatMessage(subnavbar.signIn),
       to: '/sign-in',
     },
     {
       id: 'register',
-      content: formatMessage(messages.subnavbarRegister),
+      content: formatMessage(subnavbar.register),
       to: '/register',
     },
   ]
