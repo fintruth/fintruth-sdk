@@ -9,14 +9,4 @@ export const accountHelp = defineMessages({
     defaultMessage: 'Already have email and password?',
     description: 'The description in the Account Help section',
   },
-  settings: {
-    id: `${accountHelpId}.settings`,
-    defaultMessage: 'Settings',
-    description: 'The Settings link in the Account Help section',
-  },
-  signIn: {
-    id: `${accountHelpId}.signIn`,
-    defaultMessage: 'Sign-In',
-    description: 'The Sign-In link in the Account Help section',
-  },
 })

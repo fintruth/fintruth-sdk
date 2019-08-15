@@ -12,6 +12,7 @@ import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help, link } from 'styles/mixins'
 import { field, submit, success } from 'translations/form'
+import { route } from 'translations/navigation'
 import {
   QueriedUser,
   RecoverMutationData,
@@ -115,11 +116,11 @@ const RecoverForm: React.FunctionComponent<Props> = ({
             <FormattedMessage {...accountHelp.description} />{' '}
             {user ? (
               <Link to="/settings">
-                <FormattedMessage {...accountHelp.settings} />
+                <FormattedMessage {...route.settings} />
               </Link>
             ) : (
               <Link to="/sign-in">
-                <FormattedMessage {...accountHelp.signIn} />
+                <FormattedMessage {...route.signIn} />
               </Link>
             )}
           </Description>

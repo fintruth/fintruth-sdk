@@ -5,8 +5,8 @@ import { useIntl } from 'react-intl'
 import styled from 'styled-components'
 
 import BaseSubnavbar from 'components/subnavbar'
+import { route } from 'translations/navigation'
 import RegisterForm from './register-form'
-import { subnavbar } from './translations'
 
 type Props = RouteComponentProps
 
@@ -34,12 +34,12 @@ const Register: React.FunctionComponent<Props> = (props: Props) => {
   const items = [
     {
       id: 'sign-in',
-      content: formatMessage(subnavbar.signIn),
+      content: formatMessage(route.signIn),
       to: '/sign-in',
     },
     {
       id: 'register',
-      content: formatMessage(subnavbar.register),
+      content: formatMessage(route.register),
       to: '/register',
     },
   ]
