@@ -24,6 +24,7 @@ addParameters({
     selectedPanel: PANEL_ID,
     theme: {
       brandTitle: '@fintruth-sdk/client',
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore 2322
       brandUrl:
         'https://github.com/fintruth/fintruth-sdk/tree/develop/packages/client#readme',

@@ -25,16 +25,14 @@ module.exports = {
     {
       files: ['**/*.ts?(x)', '**/.*/**/*.ts?(x)'],
       parser: typescriptPlugin.configs.base.parser,
+      parserOptions: { project: 'tsconfig.json' },
       plugins: typescriptPlugin.configs.base.plugins,
       rules: {
         ...typescriptPlugin.configs.recommended.rules,
+        ...typescriptPlugin.configs['recommended-requiring-type-checking']
+          .rules,
         '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/explicit-member-accessibility': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/no-parameter-properties': [
-          'error',
-          { allows: ['readonly'] },
-        ],
         '@typescript-eslint/no-unused-vars': [
           'warn',
           { argsIgnorePattern: '^_' },

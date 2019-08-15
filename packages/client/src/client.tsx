@@ -98,7 +98,7 @@ const onLocationChange = async (location: Location, action?: string) => {
   }
 }
 
-history.listen(onLocationChange)
+history.listen(onLocationChange) // eslint-disable-line @typescript-eslint/no-misused-promises
 onLocationChange(currentLocation)
 
 if (module.hot) {
