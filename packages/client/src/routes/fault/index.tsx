@@ -1,9 +1,11 @@
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 
 import { title } from 'styles/mixins'
+import { root } from './translations'
 
 interface Props extends RouteComponentProps {
   error?: any
@@ -36,8 +38,12 @@ const Fault: React.FunctionComponent<Props> = ({ error, ...props }: Props) =>
     </Root>
   ) : (
     <Root data-testid="error" {...props}>
-      <Title>Error</Title>
-      <p>Sorry, a critical error occurred on this page.</p>
+      <Title>
+        <FormattedMessage {...root.title} />
+      </Title>
+      <p>
+        <FormattedMessage {...root.description} />
+      </p>
     </Root>
   )
 

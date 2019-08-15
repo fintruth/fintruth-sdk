@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/react-hooks'
 import loadable from '@loadable/component'
 import { Router } from '@reach/router'
 import React from 'react'
+import { IntlProvider } from 'react-intl'
 import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from 'styles/global'
@@ -42,31 +43,33 @@ const Root: React.FunctionComponent = () => {
 
   return (
     <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <React.Fragment>
-          <GlobalStyle />
-          {renderLoadingIf(isQueryingCurrentUser, () =>
-            data.user ? (
-              <Router>
-                {Fault && <Fault path="/error" />}
-                <Home path="/" />
-                <Recover path="/recover" />
-                <Settings path="/settings" />
-                <NotFound default />
-              </Router>
-            ) : (
-              <Router>
-                {Fault && <Fault path="/error" />}
-                <Home path="/" />
-                <Recover path="/recover" />
-                <Register path="/register" />
-                <SignIn path="/sign-in" />
-                <NotFound default />
-              </Router>
-            )
-          )}
-        </React.Fragment>
-      </ThemeProvider>
+      <IntlProvider locale="en">
+        <ThemeProvider theme={theme}>
+          <React.Fragment>
+            <GlobalStyle />
+            {renderLoadingIf(isQueryingCurrentUser, () =>
+              data.user ? (
+                <Router>
+                  {Fault && <Fault path="/error" />}
+                  <Home path="/" />
+                  <Recover path="/recover" />
+                  <Settings path="/settings" />
+                  <NotFound default />
+                </Router>
+              ) : (
+                <Router>
+                  {Fault && <Fault path="/error" />}
+                  <Home path="/" />
+                  <Recover path="/recover" />
+                  <Register path="/register" />
+                  <SignIn path="/sign-in" />
+                  <NotFound default />
+                </Router>
+              )
+            )}
+          </React.Fragment>
+        </ThemeProvider>
+      </IntlProvider>
     </React.StrictMode>
   )
 }

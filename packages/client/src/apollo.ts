@@ -1,4 +1,4 @@
-import { ApolloClient } from 'apollo-client'
+import { ApolloClient, ApolloClientOptions } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 import { createUploadLink } from 'apollo-upload-client'
@@ -9,11 +9,9 @@ import {
   createInMemoryCache,
 } from './utils/apollo'
 
-interface Options {
-  defaults: {}
+interface Options extends Partial<ApolloClientOptions<NormalizedCacheObject>> {
+  defaults?: {}
   preloadedCache?: NormalizedCacheObject
-  resolvers: {}
-  typeDefs?: string
 }
 
 const fragmentMatcher = createFragmentMatcher()
@@ -21,9 +19,8 @@ const fragmentMatcher = createFragmentMatcher()
 export const createApolloClient = ({
   defaults,
   preloadedCache,
-  resolvers,
-  typeDefs,
-}: Options) => {
+  ...options
+}: Options = {}) => {
   const links: ApolloLink[] = [createErrorLink()]
   let cache = createInMemoryCache({ fragmentMatcher })
 
@@ -51,9 +48,8 @@ export const createApolloClient = ({
     assumeImmutableResults: true,
     cache,
     link: ApolloLink.from(links),
-    resolvers,
     ssrForceFetchDelay: __IS_BROWSER__ ? 100 : undefined,
     ssrMode: !__IS_BROWSER__,
-    typeDefs,
+    ...options,
   })
 }

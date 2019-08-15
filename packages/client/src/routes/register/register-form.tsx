@@ -4,12 +4,14 @@ import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help } from 'styles/mixins'
+import { field, submit, success } from 'translations/form'
 import {
   RegisterMutationData,
   RegisterMutationVariables,
@@ -71,6 +73,7 @@ const Button = styled(BaseButton)`
 
 const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
   const [helpProps, setHelpProps] = React.useState<HelpProps>({})
+  const { formatMessage } = useIntl()
   const seed = useUIDSeed()
 
   const [onSubmit, { loading: isSubmitting }] = useMutation<
@@ -82,7 +85,7 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
       setHelpProps(
         response.error
           ? { children: response.error.message, color: 'danger' }
-          : { children: 'A verification email has been sent' }
+          : { children: formatMessage(success.verificationEmail) }
       )
     },
   })
@@ -101,27 +104,37 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
       >
         <Form {...props} id={seed(name)} noValidate>
           <Field name="profile.givenName">
-            <FieldLabel>First Name</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...field.givenNameLabel} />
+            </FieldLabel>
             <FieldInput autoComplete="given-name" form={seed(name)} />
             <FieldHelp />
           </Field>
           <Field name="profile.familyName">
-            <FieldLabel>Last Name</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...field.familyNameLabel} />
+            </FieldLabel>
             <FieldInput autoComplete="family-name" form={seed(name)} />
             <FieldHelp />
           </Field>
           <Field name="email">
-            <FieldLabel>Email</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...field.emailLabel} />
+            </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <Field name="emailConfirm">
-            <FieldLabel>Confirm Email</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...field.emailConfirmLabel} />
+            </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <LastField name="password">
-            <FieldLabel>Password</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...field.passwordLabel} />
+            </FieldLabel>
             <FieldInput form={seed(name)} type="password" />
             <FieldHelp />
           </LastField>
@@ -131,7 +144,7 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
             type="submit"
             variant="primary"
           >
-            Register
+            <FormattedMessage {...submit.register} />
           </Button>
         </Form>
       </Formik>

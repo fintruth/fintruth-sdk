@@ -1,9 +1,11 @@
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 
 import { subtitle, title } from 'styles/mixins'
+import { root } from './translations'
 
 type Props = RouteComponentProps
 
@@ -27,9 +29,11 @@ const Subtitle = styled.h5`
 
 const NotFound: React.FunctionComponent<Props> = (props: Props) => (
   <Root data-testid="not-found" {...props}>
-    <Title>Page Not Found</Title>
+    <Title>
+      <FormattedMessage {...root.title} />
+    </Title>
     <Subtitle>
-      Sorry, but the page you were trying to view does not exist.
+      <FormattedMessage {...root.description} />
     </Subtitle>
   </Root>
 )

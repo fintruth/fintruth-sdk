@@ -4,18 +4,21 @@ import { Form, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help, link } from 'styles/mixins'
+import { field, submit } from 'translations/form'
 import {
   SignInMutationData,
   SignInMutationVariables,
   signInMutation,
 } from './graphql'
 import { SignInCredentials } from './sign-in-two-factor-auth-form'
+import { accountHelp } from './translations'
 
 interface HelpProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color
@@ -93,23 +96,29 @@ const SignInForm: React.FunctionComponent<Props> = ({
       >
         <Form {...props} id={seed(name)} noValidate>
           <Field name="email">
-            <FieldLabel>Email</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...field.emailLabel} />
+            </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <Field name="password">
-            <FieldLabel>Password</FieldLabel>
+            <FieldLabel>
+              <FormattedMessage {...field.passwordLabel} />
+            </FieldLabel>
             <FieldInput form={seed(name)} type="password" />
             <FieldHelp />
           </Field>
-          <Link to="/recover">Forgot your password?</Link>
+          <Link to="/recover">
+            <FormattedMessage {...accountHelp.recover} />
+          </Link>
           <Button
             form={seed(name)}
             isLoading={isSubmitting}
             type="submit"
             variant="primary"
           >
-            Sign In
+            <FormattedMessage {...submit.signIn} />
           </Button>
         </Form>
       </Formik>

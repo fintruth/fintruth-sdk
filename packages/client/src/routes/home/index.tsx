@@ -1,10 +1,12 @@
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 
 import Layout from 'components/layout'
 import { container, title } from 'styles/mixins'
+import { root } from './translations'
 
 type Props = RouteComponentProps
 
@@ -26,7 +28,9 @@ const Title = styled.h2`
 const Home: React.FunctionComponent<Props> = (props: Props) => (
   <Layout data-testid="home" {...props}>
     <Root>
-      <Title>Welcome Home!</Title>
+      <Title>
+        <FormattedMessage {...root.title} />
+      </Title>
     </Root>
   </Layout>
 )

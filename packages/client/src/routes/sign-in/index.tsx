@@ -2,10 +2,12 @@ import { useApolloClient } from '@apollo/react-hooks'
 import { RouteComponentProps, navigate } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
+import { useIntl } from 'react-intl'
 import styled from 'styled-components'
 
 import Loading from 'components/loading'
 import BaseSubnavbar from 'components/subnavbar'
+import { route } from 'translations/navigation'
 import { CurrentUserQueryData, currentUserQuery } from './graphql'
 import SignInForm from './sign-in-form'
 import SignInTwoFactorAuthForm, {
@@ -15,11 +17,6 @@ import SignInTwoFactorAuthForm, {
 type Props = RouteComponentProps
 
 type Step = 'signIn' | 'signInTwoFactorAuth' | 'redirect'
-
-const items = [
-  { id: 'sign-in', content: 'Sign In', to: '/sign-in' },
-  { id: 'register', content: 'Register', to: '/register' },
-]
 
 const getNextStep = (currentStep: Step, isTwoFactorAuthEnabled = false) =>
   currentStep === 'signIn' && isTwoFactorAuthEnabled
@@ -49,7 +46,21 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   const [signInCredentials, setSignInCredentials] = React.useState<
     SignInCredentials
   >({ email: '', password: '' })
+  const { formatMessage } = useIntl()
   const client = useApolloClient()
+
+  const items = [
+    {
+      id: 'sign-in',
+      content: formatMessage(route.signIn),
+      to: '/sign-in',
+    },
+    {
+      id: 'register',
+      content: formatMessage(route.register),
+      to: '/register',
+    },
+  ]
 
   React.useEffect(() => {
     if (currentStep === 'redirect') {
