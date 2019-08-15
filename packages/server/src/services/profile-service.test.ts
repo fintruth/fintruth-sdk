@@ -10,12 +10,10 @@ const abilityMock: any = {
 }
 
 const getProfileDaoMock: any = (profileMock?: Partial<Profile>) => ({
-  findOneOrFail: async () => profileMock,
-  findByUser: async () => profileMock,
-  save: async (partial: Partial<Profile>) => ({
-    id: 'profileId',
-    ...partial,
-  }),
+  findOneOrFail: () => Promise.resolve(profileMock),
+  findByUser: () => Promise.resolve(profileMock),
+  save: (partial: Partial<Profile>) =>
+    Promise.resolve({ id: 'profileId', ...partial }),
   update: () => Promise.resolve(true),
 })
 

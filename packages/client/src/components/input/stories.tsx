@@ -52,6 +52,7 @@ storiesOf('Components|Input', module)
       isDisabled={boolean('isDisabled', false)}
       isGuided={boolean('isGuided', true)}
       isLoading={boolean('isLoading', false)}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore 2344
       mask={select<(RegExp | string)[] | ''>('mask', masks, '') || undefined}
       placeholder={text('placeholder', 'Placeholder')}

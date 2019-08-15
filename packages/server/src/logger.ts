@@ -32,10 +32,7 @@ export const logger = winston.createLogger({
   transports,
 })
 
-export const logAs = (name: string) => (
-  message: Loggable,
-  level: string = 'info'
-) => {
+export const logAs = (name: string) => (message: Loggable, level = 'info') => {
   if (is(Object, message)) {
     logger.log(level, `[${name}]`, message)
   } else {
@@ -43,4 +40,4 @@ export const logAs = (name: string) => (
   }
 }
 
-logger.stream = split().on('data', logger.info) as any
+logger.stream = split().on('data', logger.info) as any // eslint-disable-line @typescript-eslint/unbound-method

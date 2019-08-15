@@ -32,9 +32,9 @@ const resMock: any = {
 }
 
 const getUserDaoMock: any = (userMock?: User) => ({
-  findByEmail: async () => userMock,
-  findById: async () => userMock,
-  findOne: async () => userMock,
+  findByEmail: () => Promise.resolve(userMock),
+  findById: () => Promise.resolve(userMock),
+  findOne: () => Promise.resolve(userMock),
   update: () => {},
 })
 

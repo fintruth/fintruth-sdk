@@ -28,6 +28,7 @@ export const spawnEmailSend = (
   sender: Address,
   url: string
 ) =>
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   spawnStateless<Message>(parent, async (msg, ctx) => {
     dispatch(ctx.self, new PoisonPill())
 

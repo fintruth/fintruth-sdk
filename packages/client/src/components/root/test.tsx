@@ -223,6 +223,7 @@ test('should render the sign-in route correctly when unauthenticated', async () 
 })
 
 test('should render the default route correctly when authenticated', async () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore TS2588
   __IS_DEV__ = false
 
@@ -240,11 +241,13 @@ test('should render the default route correctly when authenticated', async () =>
   expect(notFoundElement).toBeInTheDocument()
   expect(queryByTestId('error')).not.toBeInTheDocument()
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore TS2588
   __IS_DEV__ = true
 })
 
 test('should render the default route correctly when unauthenticated', async () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore TS2588
   __IS_DEV__ = false
 
@@ -262,6 +265,7 @@ test('should render the default route correctly when unauthenticated', async () 
   expect(notFoundElement).toBeInTheDocument()
   expect(queryByTestId('error')).not.toBeInTheDocument()
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore TS2588
   __IS_DEV__ = true
 })

@@ -40,7 +40,7 @@ export const createServer = (): Application =>
     .use(Cookies.express(['token-id']))
     .use(compression())
     .use(cors({ credentials: true, origin: true }))
-    .use(morgan('common', { stream: logger.stream } as any))
+    .use(morgan('common', { stream: logger.stream } as any)) // eslint-disable-line @typescript-eslint/unbound-method
     .use(
       expressJwt({
         credentialsRequired: false,

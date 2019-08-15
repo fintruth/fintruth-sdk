@@ -39,7 +39,7 @@ export const createApolloClient = ({
   links.push(
     createUploadLink({
       credentials: 'include',
-      fetch: __IS_BROWSER__ ? window.fetch : require('node-fetch').default,
+      fetch: __IS_BROWSER__ ? fetch : require('node-fetch').default,
       uri: process.env.API_URI,
     })
   )
