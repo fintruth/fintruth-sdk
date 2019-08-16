@@ -1,15 +1,29 @@
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, defineMessages } from 'react-intl'
 import styled from 'styled-components'
 
 import { title } from 'styles/mixins'
-import { root } from './translations'
 
 interface Props extends RouteComponentProps {
   error?: any
 }
+
+const rootId = 'routes.fault'
+
+const translations = defineMessages({
+  title: {
+    id: `${rootId}.title`,
+    defaultMessage: 'Error',
+    description: 'The title of the Fault page',
+  },
+  description: {
+    id: `${rootId}.description`,
+    defaultMessage: 'Sorry, a critical error occurred on this page.',
+    description: 'The description of the Fault page',
+  },
+})
 
 const Root = styled.div`
   align-items: center;
@@ -39,10 +53,10 @@ const Fault: React.FunctionComponent<Props> = ({ error, ...props }: Props) =>
   ) : (
     <Root data-testid="error" {...props}>
       <Title>
-        <FormattedMessage {...root.title} />
+        <FormattedMessage {...translations.title} />
       </Title>
       <p>
-        <FormattedMessage {...root.description} />
+        <FormattedMessage {...translations.description} />
       </p>
     </Root>
   )

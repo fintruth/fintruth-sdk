@@ -11,7 +11,7 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help } from 'styles/mixins'
-import { field, submit, success } from 'translations/form'
+import { form } from 'translations'
 import {
   RegisterMutationData,
   RegisterMutationVariables,
@@ -39,6 +39,8 @@ interface Values {
   profile: ProfileValues
 }
 
+const name = 'register-form'
+
 const initialValues: Values = {
   email: '',
   emailConfirm: '',
@@ -49,8 +51,6 @@ const initialValues: Values = {
 const validationSchema = object().shape({
   emailConfirm: string().oneOf([ref('email')], 'Retype the email address'),
 })
-
-const name = 'register-form'
 
 const Help = styled.p.attrs((props: HelpProps) => ({
   color: 'success',
@@ -85,7 +85,7 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
       setHelpProps(
         response.error
           ? { children: response.error.message, color: 'danger' }
-          : { children: formatMessage(success.verificationEmail) }
+          : { children: formatMessage(form.success.verificationEmail) }
       )
     },
   })
@@ -105,35 +105,35 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
         <Form {...props} id={seed(name)} noValidate>
           <Field name="profile.givenName">
             <FieldLabel>
-              <FormattedMessage {...field.givenNameLabel} />
+              <FormattedMessage {...form.field.givenNameLabel} />
             </FieldLabel>
             <FieldInput autoComplete="given-name" form={seed(name)} />
             <FieldHelp />
           </Field>
           <Field name="profile.familyName">
             <FieldLabel>
-              <FormattedMessage {...field.familyNameLabel} />
+              <FormattedMessage {...form.field.familyNameLabel} />
             </FieldLabel>
             <FieldInput autoComplete="family-name" form={seed(name)} />
             <FieldHelp />
           </Field>
           <Field name="email">
             <FieldLabel>
-              <FormattedMessage {...field.emailLabel} />
+              <FormattedMessage {...form.field.emailLabel} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <Field name="emailConfirm">
             <FieldLabel>
-              <FormattedMessage {...field.emailConfirmLabel} />
+              <FormattedMessage {...form.field.emailConfirmLabel} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <LastField name="password">
             <FieldLabel>
-              <FormattedMessage {...field.passwordLabel} />
+              <FormattedMessage {...form.field.passwordLabel} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="password" />
             <FieldHelp />
@@ -144,7 +144,7 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
             type="submit"
             variant="primary"
           >
-            <FormattedMessage {...submit.register} />
+            <FormattedMessage {...form.submit.register} />
           </Button>
         </Form>
       </Formik>

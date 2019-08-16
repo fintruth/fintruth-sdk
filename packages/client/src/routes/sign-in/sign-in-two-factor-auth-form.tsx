@@ -9,7 +9,7 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help } from 'styles/mixins'
-import { field, submit } from 'translations/form'
+import { form } from 'translations'
 import {
   SignInTwoFactorAuthMutationData,
   SignInTwoFactorAuthMutationVariables,
@@ -38,9 +38,9 @@ interface Values {
   token: string
 }
 
-const initialValues: Values = { token: '' }
-
 const name = 'sign-in-two-factor-auth-form'
+
+const initialValues: Values = { token: '' }
 
 const Help = styled.p.attrs((props: HelpProps) => ({
   color: 'danger',
@@ -92,7 +92,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         <Form {...props} id={seed(name)} noValidate>
           <LastField name="token">
             <FieldLabel>
-              <FormattedMessage {...field.tokenLabel} />
+              <FormattedMessage {...form.field.tokenLabel} />
             </FieldLabel>
             <FieldInput form={seed(name)} />
             <FieldHelp />
@@ -103,7 +103,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
             type="submit"
             variant="primary"
           >
-            <FormattedMessage {...submit.continue} />
+            <FormattedMessage {...form.submit.continue} />
           </Button>
         </Form>
       </Formik>
