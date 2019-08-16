@@ -6,83 +6,83 @@ declare module 'reactabular-table' {
     TableHTMLAttributes,
   } from 'react'
 
-  export type CellFormatter<RowData = {}> = (
+  export type CellFormatter<RowData = any> = (
     value: any,
     extraParams: ExtraCellParams<RowData>
   ) => ReactElement | string
 
-  export type CellTransform<RowData = {}> = (
+  export type CellTransform<RowData = any> = (
     value: any,
     extraParams: ExtraCellParams<RowData>
   ) => Record<string, any>
 
-  export type HeaderFormatter = (
+  export type HeaderFormatter<RowData = any> = (
     label: string,
-    extraParams: ExtraHeaderParams
+    extraParams: ExtraHeaderParams<RowData>
   ) => ReactElement | string
 
-  export type HeaderTransform = (
+  export type HeaderTransform<RowData = any> = (
     label: string,
-    extraParams: ExtraHeaderParams
+    extraParams: ExtraHeaderParams<RowData>
   ) => Record<string, any>
 
   export type Row = Record<string, any>
 
-  export type RowKey<RowData = {}> = (data: RowKeyData<RowData>) => string
+  export type RowKey<RowData = any> = (data: RowKeyData<RowData>) => string
 
-  export interface BodyProps<RowData = {}>
+  export interface BodyProps<RowData = any>
     extends TableHTMLAttributes<HTMLTableSectionElement> {
     onRow?: (
       rowData: RowData,
       extraParams: ExtraRowParams<RowData>
     ) => Record<string, any>
-    rowKey: RowKey<RowData> | string
+    rowKey: RowKey<RowData> | keyof RowData
     rows: Column[] | [][]
   }
 
-  export interface CellType<RowData = {}> {
+  export interface CellType<RowData = any> {
     formatters?: CellFormatter<RowData>[]
-    property?: number | string
+    property?: keyof RowData
     props?: HTMLAttributes<HTMLTableCellElement>
     transforms?: CellTransform<RowData>[]
   }
 
-  export interface Column<RowData = {}> {
+  export interface Column<RowData = any> {
     cell?: CellType<RowData>
-    header?: HeaderType
-    property?: number | string
+    header?: HeaderType<RowData>
+    property?: keyof RowData
   }
 
-  interface ExtraCellParams<RowData = {}> {
-    column: Column
+  interface ExtraCellParams<RowData = any> {
+    column: Column<RowData>
     columnIndex: number
-    property: number | string
+    property?: keyof RowData
     rowData: RowData
     rowIndex: number
-    rowKey: RowKey<RowData> | string
+    rowKey: RowKey<RowData> | keyof RowData
   }
 
-  interface ExtraHeaderParams {
-    column: Column
+  interface ExtraHeaderParams<RowData = any> {
+    column: Column<RowData>
     columnIndex: number
-    property: number | string
+    property?: keyof RowData
   }
 
-  interface ExtraRowParams<RowData = {}> {
+  interface ExtraRowParams<RowData = any> {
     rowIndex: number
-    rowKey?: RowKey<RowData> | string
+    rowKey?: RowKey<RowData> | keyof RowData
   }
 
-  export interface HeaderProps
+  export interface HeaderProps<RowData = any>
     extends TableHTMLAttributes<HTMLTableSectionElement> {
-    headerRows?: Column[][]
+    headerRows?: Column<RowData>[][]
   }
 
-  export interface HeaderType {
-    formatters?: HeaderFormatter[]
+  export interface HeaderType<RowData = any> {
+    formatters?: HeaderFormatter<RowData>[]
     label?: string
     props?: HTMLAttributes<HTMLTableCellElement>
-    transforms?: HeaderTransform[]
+    transforms?: HeaderTransform<RowData>[]
   }
 
   export interface ProviderProps extends TableHTMLAttributes<HTMLTableElement> {
@@ -96,7 +96,7 @@ declare module 'reactabular-table' {
     table?: string
   }
 
-  interface RowKeyData<RowData = {}> {
+  interface RowKeyData<RowData = any> {
     rowData: RowData
     rowIndex: number
   }
@@ -107,9 +107,9 @@ declare module 'reactabular-table' {
     cell?: string
   }
 
-  export class Body<RowData = {}> extends Component<BodyProps<RowData>> {}
+  export class Body<RowData = any> extends Component<BodyProps<RowData>> {}
 
-  export class Header extends Component<HeaderProps> {}
+  export class Header<RowData = any> extends Component<HeaderProps<RowData>> {}
 
   export class Provider extends Component<ProviderProps> {}
 }
