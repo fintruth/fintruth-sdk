@@ -108,14 +108,14 @@ const SignInForm: React.FunctionComponent<Props> = ({
         <Form {...props} id={seed(name)} noValidate>
           <Field name="email">
             <FieldLabel>
-              <FormattedMessage {...form.field.emailLabel} />
+              <FormattedMessage {...form.field.label.email} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <Field name="password">
             <FieldLabel>
-              <FormattedMessage {...form.field.passwordLabel} />
+              <FormattedMessage {...form.field.label.password} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="password" />
             <FieldHelp />

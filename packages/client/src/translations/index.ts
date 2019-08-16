@@ -1,4 +1,2 @@
-import * as form from './form'
-import * as navigation from './navigation'
-
-export { form, navigation }
+export { default as form } from './form'
+export { default as navigation } from './navigation'

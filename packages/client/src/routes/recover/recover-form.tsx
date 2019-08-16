@@ -117,7 +117,7 @@ const RecoverForm: React.FunctionComponent<Props> = ({
         <Form {...props} id={seed(name)} noValidate>
           <Field name="email">
             <FieldLabel>
-              <FormattedMessage {...form.field.emailLabel} />
+              <FormattedMessage {...form.field.label.email} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />

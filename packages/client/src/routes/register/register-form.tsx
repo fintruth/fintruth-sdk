@@ -105,35 +105,35 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
         <Form {...props} id={seed(name)} noValidate>
           <Field name="profile.givenName">
             <FieldLabel>
-              <FormattedMessage {...form.field.givenNameLabel} />
+              <FormattedMessage {...form.field.label.givenName} />
             </FieldLabel>
             <FieldInput autoComplete="given-name" form={seed(name)} />
             <FieldHelp />
           </Field>
           <Field name="profile.familyName">
             <FieldLabel>
-              <FormattedMessage {...form.field.familyNameLabel} />
+              <FormattedMessage {...form.field.label.familyName} />
             </FieldLabel>
             <FieldInput autoComplete="family-name" form={seed(name)} />
             <FieldHelp />
           </Field>
           <Field name="email">
             <FieldLabel>
-              <FormattedMessage {...form.field.emailLabel} />
+              <FormattedMessage {...form.field.label.email} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <Field name="emailConfirm">
             <FieldLabel>
-              <FormattedMessage {...form.field.emailConfirmLabel} />
+              <FormattedMessage {...form.field.label.emailConfirm} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <LastField name="password">
             <FieldLabel>
-              <FormattedMessage {...form.field.passwordLabel} />
+              <FormattedMessage {...form.field.label.password} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="password" />
             <FieldHelp />
