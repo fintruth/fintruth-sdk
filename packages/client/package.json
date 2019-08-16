@@ -134,7 +134,7 @@
     "@types/styled-components": "^4.1.18",
     "@types/webpack-env": "^1.14.0",
     "apollo-link-logger": "^1.2.3",
-    "babel-jest": "^24.8.0",
+    "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-dynamic-import-node": "^2.3.0",
     "babel-plugin-graphql-tag": "^2.4.0",
