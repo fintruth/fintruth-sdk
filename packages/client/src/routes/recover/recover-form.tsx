@@ -4,22 +4,20 @@ import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import { path } from 'ramda'
 import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage, defineMessages, useIntl } from 'react-intl'
 import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help, link } from 'styles/mixins'
-import { field, submit, success } from 'translations/form'
-import { route } from 'translations/navigation'
+import { form, navigation } from 'translations'
 import {
   QueriedUser,
   RecoverMutationData,
   RecoverMutationVariables,
   recoverMutation,
 } from './graphql'
-import { accountHelp } from './translations'
 
 interface HelpProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: Color
@@ -38,6 +36,18 @@ interface Values {
 }
 
 const name = 'recover-form'
+const rootId = 'routes.recover.recoverForm.'
+const accountHelpId = `${rootId}.accountHelp`
+
+const translations = {
+  accountHelp: defineMessages({
+    description: {
+      id: `${accountHelpId}.description`,
+      defaultMessage: 'Already have email and password?',
+      description: 'The description in the Account Help section',
+    },
+  }),
+}
 
 const Help = styled.p.attrs((props: HelpProps) => ({
   color: 'success',
@@ -84,7 +94,7 @@ const RecoverForm: React.FunctionComponent<Props> = ({
       setHelpProps(
         response.error
           ? { children: response.error.message, color: 'danger' }
-          : { children: formatMessage(success.verificationEmail) }
+          : { children: formatMessage(form.success.verificationEmail) }
       ),
   })
 
@@ -107,20 +117,20 @@ const RecoverForm: React.FunctionComponent<Props> = ({
         <Form {...props} id={seed(name)} noValidate>
           <Field name="email">
             <FieldLabel>
-              <FormattedMessage {...field.emailLabel} />
+              <FormattedMessage {...form.field.emailLabel} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />
           </Field>
           <Description>
-            <FormattedMessage {...accountHelp.description} />{' '}
+            <FormattedMessage {...translations.accountHelp.description} />{' '}
             {user ? (
               <Link to="/settings">
-                <FormattedMessage {...route.settings} />
+                <FormattedMessage {...navigation.route.settings} />
               </Link>
             ) : (
               <Link to="/sign-in">
-                <FormattedMessage {...route.signIn} />
+                <FormattedMessage {...navigation.route.signIn} />
               </Link>
             )}
           </Description>
@@ -130,7 +140,7 @@ const RecoverForm: React.FunctionComponent<Props> = ({
             type="submit"
             variant="primary"
           >
-            <FormattedMessage {...submit.recover} />
+            <FormattedMessage {...form.submit.recover} />
           </Button>
         </Form>
       </Formik>

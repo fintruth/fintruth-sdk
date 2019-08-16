@@ -1,13 +1,28 @@
 import { RouteComponentProps } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, defineMessages } from 'react-intl'
 import styled from 'styled-components'
 
 import { subtitle, title } from 'styles/mixins'
-import { root } from './translations'
 
 type Props = RouteComponentProps
+
+const rootId = 'routes.notfound'
+
+const translations = defineMessages({
+  title: {
+    id: `${rootId}.title`,
+    defaultMessage: 'Page Not Found',
+    description: 'The title of the Not Found page',
+  },
+  description: {
+    id: `${rootId}.description`,
+    defaultMessage:
+      'Sorry, but the page you were trying to view does not exist.',
+    description: 'The description of the Not Found page',
+  },
+})
 
 const Root = styled.div`
   align-items: center;
@@ -30,10 +45,10 @@ const Subtitle = styled.h5`
 const NotFound: React.FunctionComponent<Props> = (props: Props) => (
   <Root data-testid="not-found" {...props}>
     <Title>
-      <FormattedMessage {...root.title} />
+      <FormattedMessage {...translations.title} />
     </Title>
     <Subtitle>
-      <FormattedMessage {...root.description} />
+      <FormattedMessage {...translations.description} />
     </Subtitle>
   </Root>
 )

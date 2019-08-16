@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import Loading from 'components/loading'
 import BaseSubnavbar from 'components/subnavbar'
-import { route } from 'translations/navigation'
+import { navigation } from 'translations'
 import { CurrentUserQueryData, currentUserQuery } from './graphql'
 import SignInForm from './sign-in-form'
 import SignInTwoFactorAuthForm, {
@@ -52,12 +52,12 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   const items = [
     {
       id: 'sign-in',
-      content: formatMessage(route.signIn),
+      content: formatMessage(navigation.route.signIn),
       to: '/sign-in',
     },
     {
       id: 'register',
-      content: formatMessage(route.register),
+      content: formatMessage(navigation.route.register),
       to: '/register',
     },
   ]
