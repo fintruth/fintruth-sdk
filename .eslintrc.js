@@ -4,6 +4,7 @@ const typescriptPlugin = require('@typescript-eslint/eslint-plugin')
 const prettierTypescriptConfig = require('eslint-config-prettier/@typescript-eslint')
 const cypressPlugin = require('eslint-plugin-cypress')
 const jestPlugin = require('eslint-plugin-jest')
+const path = require('path')
 
 module.exports = {
   extends: [
@@ -25,7 +26,15 @@ module.exports = {
     {
       files: ['**/*.ts?(x)', '**/.*/**/*.ts?(x)'],
       parser: typescriptPlugin.configs.base.parser,
-      parserOptions: { project: 'tsconfig.json' },
+      parserOptions: {
+        project: [
+          path.resolve(__dirname, './tsconfig.json'),
+          path.resolve(__dirname, './packages/client/tsconfig.json'),
+          path.resolve(__dirname, './packages/common/tsconfig.json'),
+          path.resolve(__dirname, './packages/server/tsconfig.json'),
+          path.resolve(__dirname, './packages/validation/tsconfig.json'),
+        ],
+      },
       plugins: typescriptPlugin.configs.base.plugins,
       rules: {
         ...typescriptPlugin.configs.recommended.rules,
