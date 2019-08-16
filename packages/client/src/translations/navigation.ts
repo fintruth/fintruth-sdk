@@ -17,7 +17,7 @@ export default {
     },
     signIn: {
       id: `${routeId}.signIn`,
-      defaultMessage: 'Sign-In',
+      defaultMessage: 'Sign In',
       description: 'The text of a local route link',
     },
   }),
