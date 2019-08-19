@@ -26,7 +26,7 @@ const defaultConfig: ConnectionOptions = {
     migrationsDir: 'src/migrations',
     subscribersDir: 'src/subscribers',
   },
-  migrations: ['?(build)/migrations/**/*.js'],
+  migrations: ['src/migrations/**/*.ts', 'migrations/**/*.js'],
   migrationsTableName: 'typeorm_migrations',
   type: 'postgres',
 }
@@ -39,7 +39,7 @@ const seedConfig: ConnectionOptions = {
     migrationsDir: 'src/seeds',
     subscribersDir: 'src/subscribers',
   },
-  migrations: ['?(build)/seeds/**/*.js'],
+  migrations: ['src/seeds/**/*.ts', 'seeds/**/*.js'],
   migrationsTableName: 'typeorm_seeds',
   type: 'postgres',
 }
