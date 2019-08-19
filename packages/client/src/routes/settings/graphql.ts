@@ -1,9 +1,10 @@
 import {
+  EnableTwoFactorAuthResponse,
+  Profile,
   ProfileInput,
-  ShallowEnableTwoFactorAuthResponse,
-  ShallowProfile,
-  ShallowResponseError as QueriedResponseError,
-  ShallowUser,
+  ResponseError,
+  Shallow,
+  User,
   shallowEnableTwoFactorAuthResponsePropsFragment,
   shallowProfilePropsFragment,
   shallowResponseErrorPropsFragment,
@@ -11,7 +12,9 @@ import {
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
-export type QueriedProfile = ShallowProfile
+export type QueriedProfile = Shallow<Profile>
+
+type QueriedResponseError = Shallow<ResponseError>
 
 export interface ConfirmTwoFactorAuthMutationData {
   response: QueriedResponse
@@ -38,7 +41,7 @@ export interface EnableTwoFactorAuthMutationData {
 }
 
 interface QueriedEnableTwoFactorAuthResponse
-  extends ShallowEnableTwoFactorAuthResponse {
+  extends Shallow<EnableTwoFactorAuthResponse> {
   error: QueriedResponseError
 }
 
@@ -46,7 +49,7 @@ interface QueriedResponse {
   error: QueriedResponseError
 }
 
-interface QueriedUser extends ShallowUser {
+interface QueriedUser extends Shallow<User> {
   profile: QueriedProfile
 }
 

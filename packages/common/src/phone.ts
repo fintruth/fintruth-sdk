@@ -1,12 +1,7 @@
 import gql from 'graphql-tag'
 
-import { Primitive, SubType } from 'utils'
 import { BaseEntity, shallowBaseEntityPropsFragment } from './base-entity'
 import { Country } from './country'
-
-export type ShallowPhone = SubType<Phone, Primitive>
-
-export type ShallowPhoneType = SubType<PhoneType, Primitive>
 
 export interface Phone extends BaseEntity {
   country: Country

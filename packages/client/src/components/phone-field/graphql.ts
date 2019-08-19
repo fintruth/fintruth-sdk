@@ -1,8 +1,11 @@
 import {
-  ShallowCountry as QueriedCountry,
+  Country,
+  Shallow,
   shallowCountryPropsFragment,
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
+
+type QueriedCountry = Shallow<Country>
 
 export interface CountriesQueryData {
   countries: QueriedCountry[]

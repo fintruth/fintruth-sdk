@@ -1,12 +1,17 @@
 import {
-  ShallowEmail as QueriedEmail,
-  ShallowResponseError as QueriedResponseError,
-  ShallowUser,
+  Email,
+  ResponseError,
+  Shallow,
+  User,
   shallowEmailPropsFragment,
   shallowResponseErrorPropsFragment,
   shallowUserPropsFragment,
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
+
+type QueriedEmail = Shallow<Email>
+
+type QueriedResponseError = Shallow<ResponseError>
 
 export interface CurrentUserQueryData {
   user?: QueriedUser
@@ -16,7 +21,7 @@ interface QueriedResponse {
   error: QueriedResponseError
 }
 
-export interface QueriedUser extends ShallowUser {
+export interface QueriedUser extends Shallow<User> {
   emails: QueriedEmail[]
 }
 

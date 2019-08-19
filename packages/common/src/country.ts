@@ -1,9 +1,5 @@
 import gql from 'graphql-tag'
 
-import { Primitive, SubType } from 'utils'
-
-export type ShallowCountry = SubType<Country, Primitive>
-
 export interface Country {
   id: string
   alpha2Code: string
