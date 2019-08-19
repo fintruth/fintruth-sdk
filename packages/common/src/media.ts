@@ -1,12 +1,7 @@
 import gql from 'graphql-tag'
 
-import { Primitive, SubType } from 'utils'
 import { BaseEntity, shallowBaseEntityPropsFragment } from './base-entity'
 import { Response } from './response'
-
-export type ShallowMedia = SubType<Media, Primitive>
-
-export type ShallowMediaType = SubType<MediaType, Primitive>
 
 export interface Media extends BaseEntity {
   mimeType: string

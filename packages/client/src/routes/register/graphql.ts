@@ -1,9 +1,12 @@
 import {
   RegisterInput,
-  ShallowResponseError as QueriedResponseError,
+  ResponseError,
+  Shallow,
   shallowResponseErrorPropsFragment,
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
+
+type QueriedResponseError = Shallow<ResponseError>
 
 interface QueriedResponse {
   error: QueriedResponseError

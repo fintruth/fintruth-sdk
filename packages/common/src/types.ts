@@ -11,4 +11,6 @@ export type FilterFlags<Base, Condition> = {
 
 export type Primitive = string | number | boolean
 
+export type Shallow<Base> = SubType<Base, Primitive>
+
 export type SubType<Base, Condition> = Pick<Base, AllowedNames<Base, Condition>>

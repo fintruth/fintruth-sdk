@@ -1,12 +1,9 @@
 import gql from 'graphql-tag'
 
-import { Primitive, SubType } from 'utils'
 import { BaseEntity, shallowBaseEntityPropsFragment } from './base-entity'
 import { Email } from './email'
 import { Profile } from './profile'
 import { Response } from './response'
-
-export type ShallowUser = SubType<User, Primitive>
 
 export interface User extends BaseEntity {
   emails: Email[]
