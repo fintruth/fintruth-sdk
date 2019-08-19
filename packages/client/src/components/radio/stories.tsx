@@ -5,29 +5,33 @@ import { storiesOf } from '@storybook/react'
 import { Formik } from 'formik'
 import React from 'react'
 
-import Radio from '.'
+import Radio, { RadioInput, RadioLabel } from '.'
 
-const initialValues = { radioGroup: 'radio-a' }
+interface Values {
+  radioGroup: string
+}
+
+const initialValues: Values = { radioGroup: 'radio-a' }
 
 storiesOf('Components|Radio ', module)
   .addDecorator(centered)
   .add('Default', () => (
-    <Formik initialValues={initialValues} onSubmit={action('On Submit')}>
+    <Formik initialValues={initialValues} onSubmit={action('onSubmit')}>
       <React.Fragment>
         <Radio
-          id="f524dabc-13b6-4fa2-b633-2a852b28b39a"
           isDisabled={boolean('isDisabled', false, 'Radio A')}
-          label={text('label', 'Radio A', 'Radio A')}
           name="radioGroup"
-          value="radio-a"
-        />
+        >
+          <RadioInput value="radio-a" />
+          <RadioLabel>{text('label', 'Radio A', 'Radio A')}</RadioLabel>
+        </Radio>
         <Radio
-          id="53394530-d091-4a93-be90-351df19d704c"
           isDisabled={boolean('isDisabled', false, 'Radio B')}
-          label={text('label', 'Radio B', 'Radio B')}
           name="radioGroup"
-          value="radio-b"
-        />
+        >
+          <RadioInput value="radio-b" />
+          <RadioLabel>{text('label', 'Radio B', 'Radio B')}</RadioLabel>
+        </Radio>
       </React.Fragment>
     </Formik>
   ))

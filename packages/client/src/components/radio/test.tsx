@@ -5,43 +5,21 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import theme from 'styles/theme'
-import Radio from '.'
-
-test('should render the provided label correctly', () => {
-  const { getByLabelText } = render(
-    <ThemeProvider theme={theme}>
-      <Formik initialValues={{ radio: 'radio' }} onSubmit={() => {}}>
-        <Radio
-          id="d3e57c46-66a7-4e4a-9d15-3e6f4e57ff83"
-          data-testid="radio"
-          label="label"
-          name="radio"
-          value="radio"
-        />
-      </Formik>
-    </ThemeProvider>
-  )
-
-  expect(getByLabelText('label')).toHaveAttribute('data-testid', 'radio')
-})
+import Radio, { RadioInput, RadioLabel } from '.'
 
 test('should only allow one radio button to be checked at a time', async () => {
   const { getByLabelText } = render(
     <ThemeProvider theme={theme}>
       <Formik initialValues={{ radioGroup: 'radio-a' }} onSubmit={() => {}}>
         <React.Fragment>
-          <Radio
-            id="fce32d61-a4cf-4ae5-86de-82600ea8ddfb"
-            label="Radio A"
-            name="radioGroup"
-            value="radio-a"
-          />
-          <Radio
-            id="ac5b408f-c7a8-4bd0-a812-078f83ef947f"
-            label="Radio B"
-            name="radioGroup"
-            value="radio-b"
-          />
+          <Radio name="radioGroup">
+            <RadioInput value="radio-a" />
+            <RadioLabel>Radio A</RadioLabel>
+          </Radio>
+          <Radio name="radioGroup">
+            <RadioInput value="radio-b" />
+            <RadioLabel>Radio B</RadioLabel>
+          </Radio>
         </React.Fragment>
       </Formik>
     </ThemeProvider>

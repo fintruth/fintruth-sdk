@@ -1,18 +1,44 @@
-import { useField } from 'formik'
-import { em, transparentize } from 'polished'
+import invariant from 'invariant'
+import { em } from 'polished'
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
-interface Props
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'checked' | 'disabled' | 'type'
-  > {
-  id: string
+type Dispatch = (action: Action) => void
+
+type Payload = Partial<BaseState>
+
+type Type = 'setInputId'
+
+interface Action {
+  payload: Payload
+  type: Type
+}
+
+interface BaseState {
+  inputId: string
+}
+
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  as?: keyof JSX.IntrinsicElements | React.ComponentType
   isDisabled?: boolean
-  label?: string
   name: string
-  value: string
+}
+
+interface State extends BaseState {
+  isDisabled: boolean
+  name: string
+}
+
+const DispatchContext = React.createContext<Dispatch | undefined>(undefined)
+const StateContext = React.createContext<State | undefined>(undefined)
+
+const reducer = (prevState: BaseState, { type, payload }: Action) => {
+  switch (type) {
+    case 'setInputId':
+      return { ...prevState, inputId: payload.inputId || '' }
+    default:
+      throw new Error(`Unhandled action type: ${type}`)
+  }
 }
 
 const Root = styled.div`
@@ -25,102 +51,39 @@ const Root = styled.div`
   }
 `
 
-const shared = css`
-  border-radius: ${({ theme }) => theme.borderRadiusRounded};
-  height: ${em(20)};
-  width: ${em(20)};
-`
-
-const Input = styled.input`
-  ${shared};
-  cursor: pointer;
-  font-size: ${em(16)};
-  opacity: 0;
-  position: absolute;
-
-  &[disabled],
-  fieldset[disabled] & {
-    cursor: not-allowed;
-  }
-`
-
-const Toggle = styled.div`
-  ${shared};
-  align-items: center;
-  border: 2px solid ${({ theme }) => theme.textColor};
-  display: inline-flex;
-  justify-content: center;
-
-  &::before {
-    border-radius: ${({ theme }) => theme.borderRadiusRounded};
-    content: '';
-    height: ${em(10)};
-    width: ${em(10)};
-
-    input:checked ~ & {
-      background-color: ${({ theme }) => theme.linkColor};
-    }
-
-    input[disabled]:checked ~ & {
-      background-color: ${({ theme }) => theme.textLightColor};
-    }
-  }
-
-  input:focus ~ &,
-  input:active ~ & {
-    border-color: ${({ theme }) => theme.linkColor};
-    box-shadow: 0 0 0 ${em(2)}
-      ${({ theme }) => transparentize(0.75, theme.linkColor)};
-  }
-
-  input:checked ~ & {
-    border-color: ${({ theme }) => theme.linkColor};
-  }
-
-  input[disabled] ~ & {
-    border-color: ${({ theme }) => theme.textLightColor};
-    box-shadow: none;
-  }
-`
-
-const Label = styled.label`
-  cursor: pointer;
-  margin-left: ${em(4)};
-
-  &:hover,
-  input:hover ~ & {
-    color: ${({ theme }) => theme.grayDarker};
-  }
-
-  input[disabled] ~ &,
-  fieldset[disabled] & {
-    color: ${({ theme }) => theme.textLightColor};
-    cursor: not-allowed;
-  }
-`
-
-const Radio: React.RefForwardingComponent<HTMLInputElement, Props> = (
-  { className, id, isDisabled, label, name, value, ...props }: Props,
-  ref: React.Ref<HTMLInputElement>
+const Radio: React.RefForwardingComponent<HTMLDivElement, Props> = (
+  { isDisabled = false, name, ...props }: Props,
+  ref: React.Ref<HTMLDivElement>
 ) => {
-  const [{ value: fieldValue, ...field }] = useField<string>(name)
+  const [baseState, dispatch] = React.useReducer<
+    React.Reducer<BaseState, Action>
+  >(reducer, { inputId: '' })
+  const state = React.useMemo<State>(
+    () => ({ ...baseState, isDisabled, name }),
+    [baseState, isDisabled, name]
+  )
 
   return (
-    <Root className={className}>
-      <Input
-        {...field}
-        id={id}
-        value={value}
-        {...props}
-        checked={value === fieldValue}
-        disabled={isDisabled}
-        ref={ref}
-        type="radio"
-      />
-      <Toggle />
-      <Label htmlFor={id}>{label}</Label>
-    </Root>
+    <DispatchContext.Provider value={dispatch}>
+      <StateContext.Provider value={state}>
+        <Root data-radio ref={ref} {...props} />
+      </StateContext.Provider>
+    </DispatchContext.Provider>
   )
 }
 
+export const useRadioContext = (): [State, Dispatch] => {
+  const dispatch = React.useContext<Dispatch | undefined>(DispatchContext)
+  const state = React.useContext<State | undefined>(StateContext)
+
+  invariant(
+    dispatch || state,
+    'Please ensure that you have called `Radio` higher up in your tree'
+  )
+
+  return [state as State, dispatch as Dispatch]
+}
+
+export { default as RadioInput } from './input'
+export { default as RadioLabel } from './label'
 export default React.forwardRef(Radio)
