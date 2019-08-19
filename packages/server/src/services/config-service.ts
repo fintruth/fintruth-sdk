@@ -63,8 +63,8 @@ export default class ConfigService {
   isProd = this.env === 'production'
 
   app: AppConfig = {
-    port: Number(process.env.PORT) || 4000,
-    secret: process.env.SECRET || '',
+    port: Number(process.env.SERVER_PORT) || 4000,
+    secret: process.env.SERVER_PORT || '',
     trustProxy: process.env.SERVER_TRUST_PROXY || 'loopback',
   }
 

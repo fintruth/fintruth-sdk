@@ -206,7 +206,7 @@ jobs:
       GRAPHQL_RATE_LIMIT_MAX: 10
       GRAPHQL_RATE_LIMIT_WINDOW: 10s
       REPORTS_DIR: reports
-      PORT: 4000
+      SERVER_PORT: 4000
     executor: fintruth-sdk
     working_directory: ~/fintruth-sdk
     steps:
