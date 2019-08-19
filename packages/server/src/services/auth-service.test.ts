@@ -120,7 +120,7 @@ describe('AuthService', () => {
       })
 
       it('should return a response', async () => {
-        service['verifyTwoFactorAuthToken'] = T
+        Object.defineProperty(service, 'verifyTwoFactorAuthToken', { value: T })
 
         const result = await service.authenticateTwoFactor(
           'test@test.com',
@@ -133,7 +133,7 @@ describe('AuthService', () => {
       })
 
       it('should return a failure response using an invalid token', async () => {
-        service['verifyTwoFactorAuthToken'] = F
+        Object.defineProperty(service, 'verifyTwoFactorAuthToken', { value: F })
 
         const result = await service.authenticateTwoFactor(
           'test@test.com',
@@ -185,7 +185,7 @@ describe('AuthService', () => {
       })
 
       it('should update user secret using a valid token', async () => {
-        service['verifyTwoFactorAuthToken'] = T
+        Object.defineProperty(service, 'verifyTwoFactorAuthToken', { value: T })
 
         const result = await service.confirmTwoFactorAuth(
           'token',
@@ -197,7 +197,7 @@ describe('AuthService', () => {
       })
 
       it('should return a failure response using an invalid token', async () => {
-        service['verifyTwoFactorAuthToken'] = F
+        Object.defineProperty(service, 'verifyTwoFactorAuthToken', { value: F })
 
         const result = await service.confirmTwoFactorAuth(
           'token',
@@ -235,7 +235,7 @@ describe('AuthService', () => {
       })
 
       it('should remove user secret using a valid token', async () => {
-        service['verifyTwoFactorAuthToken'] = T
+        Object.defineProperty(service, 'verifyTwoFactorAuthToken', { value: T })
 
         const result = await service.disableTwoFactorAuth(
           'secret',
@@ -247,7 +247,7 @@ describe('AuthService', () => {
       })
 
       it('should return a failure response using an invalid token', async () => {
-        service['verifyTwoFactorAuthToken'] = F
+        Object.defineProperty(service, 'verifyTwoFactorAuthToken', { value: F })
 
         const result = await service.disableTwoFactorAuth(
           'secret',
