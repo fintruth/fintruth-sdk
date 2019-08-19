@@ -11,7 +11,7 @@ test('should only allow one radio button to be checked at a time', async () => {
   const { getByLabelText } = render(
     <ThemeProvider theme={theme}>
       <Formik initialValues={{ radioGroup: 'radio-a' }} onSubmit={() => {}}>
-        <React.Fragment>
+        <>
           <Radio name="radioGroup">
             <RadioInput value="radio-a" />
             <RadioLabel>Radio A</RadioLabel>
@@ -20,7 +20,7 @@ test('should only allow one radio button to be checked at a time', async () => {
             <RadioInput value="radio-b" />
             <RadioLabel>Radio B</RadioLabel>
           </Radio>
-        </React.Fragment>
+        </>
       </Formik>
     </ThemeProvider>
   )

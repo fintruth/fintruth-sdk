@@ -93,7 +93,7 @@ const SignInForm: React.FunctionComponent<Props> = ({
   })
 
   return (
-    <React.Fragment>
+    <>
       {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
@@ -133,7 +133,7 @@ const SignInForm: React.FunctionComponent<Props> = ({
           </Button>
         </Form>
       </Formik>
-    </React.Fragment>
+    </>
   )
 }
 

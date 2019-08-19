@@ -89,5 +89,8 @@ module.exports = {
     'unicorn/prevent-abbreviations': 'off',
     'prettier/prettier': 'error',
   },
-  settings: { 'import/resolver': { typescript: true } },
+  settings: {
+    'import/resolver': { typescript: true },
+    react: { version: 'detect' },
+  },
 }

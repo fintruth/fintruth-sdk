@@ -12,10 +12,10 @@ addDecorator(withA11y)
 addDecorator(withKnobs)
 addDecorator(story => (
   <ThemeProvider theme={theme}>
-    <React.Fragment>
+    <>
       <GlobalStyle />
       {story()}
-    </React.Fragment>
+    </>
   </ThemeProvider>
 ))
 

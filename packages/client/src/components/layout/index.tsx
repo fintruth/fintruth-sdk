@@ -208,7 +208,7 @@ const Layout: React.FunctionComponent<Props> = ({
   return (
     <Root {...props}>
       {renderLoadingIf(isQueryingCurrentUser, () => (
-        <React.Fragment>
+        <>
           <header>
             <Navbar aria-label="main navigation">
               <Brand>
@@ -245,16 +245,16 @@ const Layout: React.FunctionComponent<Props> = ({
                     </SubmenuList>
                   </Submenu>
                 ) : (
-                  <React.Fragment>
+                  <>
                     <MenuLink to="/sign-in">Sign In</MenuLink>
                     <MenuLink to="/register">Register</MenuLink>
-                  </React.Fragment>
+                  </>
                 )}
               </Menu>
             </Navbar>
           </header>
           {children}
-        </React.Fragment>
+        </>
       ))}
     </Root>
   )

@@ -99,7 +99,7 @@ const RecoverForm: React.FunctionComponent<Props> = ({
   })
 
   return (
-    <React.Fragment>
+    <>
       {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={{
@@ -144,7 +144,7 @@ const RecoverForm: React.FunctionComponent<Props> = ({
           </Button>
         </Form>
       </Formik>
-    </React.Fragment>
+    </>
   )
 }
 

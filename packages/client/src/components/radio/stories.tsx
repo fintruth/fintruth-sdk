@@ -17,7 +17,7 @@ storiesOf('Components|Radio ', module)
   .addDecorator(centered)
   .add('Default', () => (
     <Formik initialValues={initialValues} onSubmit={action('onSubmit')}>
-      <React.Fragment>
+      <>
         <Radio
           isDisabled={boolean('isDisabled', false, 'Radio A')}
           name="radioGroup"
@@ -32,6 +32,6 @@ storiesOf('Components|Radio ', module)
           <RadioInput value="radio-b" />
           <RadioLabel>{text('label', 'Radio B', 'Radio B')}</RadioLabel>
         </Radio>
-      </React.Fragment>
+      </>
     </Formik>
   ))

@@ -86,7 +86,7 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   })
 
   return (
-    <React.Fragment>
+    <>
       {helpProps && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
@@ -109,7 +109,7 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
           </Button>
         </Form>
       </Formik>
-    </React.Fragment>
+    </>
   )
 }
 

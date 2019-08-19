@@ -92,7 +92,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   )
 
   return (
-    <React.Fragment>
+    <>
       <Root
         id={inputId}
         data-radio-input
@@ -103,7 +103,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
         {...props}
       />
       <Toggle className={className} data-radio-toggle />
-    </React.Fragment>
+    </>
   )
 }
 
