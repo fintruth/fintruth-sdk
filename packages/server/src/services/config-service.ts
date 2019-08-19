@@ -64,7 +64,7 @@ export default class ConfigService {
 
   app: AppConfig = {
     port: Number(process.env.SERVER_PORT) || 4000,
-    secret: process.env.SERVER_PORT || '',
+    secret: process.env.SERVER_SECRET || '',
     trustProxy: process.env.SERVER_TRUST_PROXY || 'loopback',
   }
 
