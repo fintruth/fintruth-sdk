@@ -66,6 +66,7 @@ describe('UserService', () => {
       })
 
       it('should return a response', async () => {
+        // eslint-disable-next-line dot-notation
         const result = await service['validateUser']('userId')(() =>
           Promise.resolve(new Response())
         )
@@ -75,6 +76,7 @@ describe('UserService', () => {
     })
 
     it('should return a failure response when the user does not exist', async () => {
+      // eslint-disable-next-line dot-notation
       const result = await service['validateUser']('userId')(() =>
         Promise.resolve(new Response())
       )
@@ -92,6 +94,7 @@ describe('UserService', () => {
       })
 
       it('should return a response', async () => {
+        // eslint-disable-next-line dot-notation
         const result = await service['validateUserPassword'](
           'userId',
           'password'
@@ -101,6 +104,7 @@ describe('UserService', () => {
       })
 
       it('should return a failure response using an invalid password', async () => {
+        // eslint-disable-next-line dot-notation
         const result = await service['validateUserPassword']('userId', 'bad')(
           () => Promise.resolve(new Response())
         )
@@ -112,6 +116,7 @@ describe('UserService', () => {
     })
 
     it('should return a failure response when the user does not exist', async () => {
+      // eslint-disable-next-line dot-notation
       const result = await service['validateUserPassword'](
         'userId',
         'password'
