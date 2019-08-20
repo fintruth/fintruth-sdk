@@ -133,7 +133,7 @@
     "@types/rimraf": "^2.0.2",
     "@types/serialize-javascript": "^1.5.0",
     "@types/styled-components": "^4.1.18",
-    "@types/testing-library__dom": "^6.0.0",
+    "@types/testing-library__dom": "^6.0.1",
     "@types/testing-library__react": "^9.1.0",
     "@types/webpack-env": "^1.14.0",
     "apollo-link-logger": "^1.2.3",
