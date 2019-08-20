@@ -81,7 +81,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
   })
 
   return (
-    <React.Fragment>
+    <>
       {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
@@ -107,7 +107,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
           </Button>
         </Form>
       </Formik>
-    </React.Fragment>
+    </>
   )
 }
 

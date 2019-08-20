@@ -81,7 +81,7 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
   })
 
   return (
-    <React.Fragment>
+    <>
       {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={{ familyName, givenName }}
@@ -108,7 +108,7 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
           </Button>
         </Form>
       </Formik>
-    </React.Fragment>
+    </>
   )
 }
 

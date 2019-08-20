@@ -45,7 +45,7 @@ const Root: React.FunctionComponent = () => {
     <React.StrictMode>
       <IntlProvider locale="en">
         <ThemeProvider theme={theme}>
-          <React.Fragment>
+          <>
             <GlobalStyle />
             {renderLoadingIf(isQueryingCurrentUser, () =>
               data.user ? (
@@ -67,7 +67,7 @@ const Root: React.FunctionComponent = () => {
                 </Router>
               )
             )}
-          </React.Fragment>
+          </>
         </ThemeProvider>
       </IntlProvider>
     </React.StrictMode>

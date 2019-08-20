@@ -91,7 +91,7 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
   })
 
   return (
-    <React.Fragment>
+    <>
       {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
@@ -148,7 +148,7 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
           </Button>
         </Form>
       </Formik>
-    </React.Fragment>
+    </>
   )
 }
 
