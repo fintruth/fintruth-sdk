@@ -32,102 +32,8 @@ const unauthenticatedMocks = [
   { request: { query: currentUserQuery }, result: { data: { user: null } } },
 ]
 
-test('should render the error route correctly when authenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={authenticatedMocks}
-    >
-      <Root />
-    </MockedProvider>,
-    { initialPath: '/error' }
-  )
-  const errorElement = await waitForElement(() => getByTestId('error'))
-
-  expect(errorElement).toBeInTheDocument()
-  expect(queryByTestId('not-found')).not.toBeInTheDocument()
-})
-
-test('should render the error route correctly when unauthenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={unauthenticatedMocks}
-    >
-      <Root />
-    </MockedProvider>,
-    { initialPath: '/error' }
-  )
-  const errorElement = await waitForElement(() => getByTestId('error'))
-
-  expect(errorElement).toBeInTheDocument()
-  expect(queryByTestId('not-found')).not.toBeInTheDocument()
-})
-
-test('should render the home route correctly when authenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={authenticatedMocks}
-    >
-      <Root />
-    </MockedProvider>
-  )
-  const homeElement = await waitForElement(() => getByTestId('home'))
-
-  expect(homeElement).toBeInTheDocument()
-  expect(queryByTestId('not-found')).not.toBeInTheDocument()
-})
-
-test('should render the home route correctly when unauthenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={unauthenticatedMocks}
-    >
-      <Root />
-    </MockedProvider>
-  )
-  const homeElement = await waitForElement(() => getByTestId('home'))
-
-  expect(homeElement).toBeInTheDocument()
-  expect(queryByTestId('not-found')).not.toBeInTheDocument()
-})
-
-test('should render the recover route correctly when authenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={authenticatedMocks}
-    >
-      <Root />
-    </MockedProvider>,
-    { initialPath: '/recover' }
-  )
-  const recoverElement = await waitForElement(() => getByTestId('recover'))
-
-  expect(recoverElement).toBeInTheDocument()
-  expect(queryByTestId('not-found')).not.toBeInTheDocument()
-})
-
-test('should render the recover route correctly when unauthenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={unauthenticatedMocks}
-    >
-      <Root />
-    </MockedProvider>,
-    { initialPath: '/recover' }
-  )
-  const recoverElement = await waitForElement(() => getByTestId('recover'))
-
-  expect(recoverElement).toBeInTheDocument()
-  expect(queryByTestId('not-found')).not.toBeInTheDocument()
-})
-
 test('should render the register route correctly when authenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
+  const { getByTestId } = renderWithRouter(
     <MockedProvider
       cache={createInMemoryCache({ fragmentMatcher })}
       mocks={authenticatedMocks}
@@ -139,43 +45,10 @@ test('should render the register route correctly when authenticated', async () =
   const notFoundElement = await waitForElement(() => getByTestId('not-found'))
 
   expect(notFoundElement).toBeInTheDocument()
-  expect(queryByTestId('register')).not.toBeInTheDocument()
-})
-
-test('should render the register route correctly when unauthenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={unauthenticatedMocks}
-    >
-      <Root />
-    </MockedProvider>,
-    { initialPath: '/register' }
-  )
-  const registerElement = await waitForElement(() => getByTestId('register'))
-
-  expect(registerElement).toBeInTheDocument()
-  expect(queryByTestId('not-found')).not.toBeInTheDocument()
-})
-
-test('should render the settings route correctly when authenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={authenticatedMocks}
-    >
-      <Root />
-    </MockedProvider>,
-    { initialPath: '/settings' }
-  )
-  const settingsElement = await waitForElement(() => getByTestId('settings'))
-
-  expect(settingsElement).toBeInTheDocument()
-  expect(queryByTestId('not-found')).not.toBeInTheDocument()
 })
 
 test('should render the settings route correctly when unauthenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
+  const { getByTestId } = renderWithRouter(
     <MockedProvider
       cache={createInMemoryCache({ fragmentMatcher })}
       mocks={unauthenticatedMocks}
@@ -187,11 +60,10 @@ test('should render the settings route correctly when unauthenticated', async ()
   const notFoundElement = await waitForElement(() => getByTestId('not-found'))
 
   expect(notFoundElement).toBeInTheDocument()
-  expect(queryByTestId('settings')).not.toBeInTheDocument()
 })
 
 test('should render the sign-in route correctly when authenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
+  const { getByTestId } = renderWithRouter(
     <MockedProvider
       cache={createInMemoryCache({ fragmentMatcher })}
       mocks={authenticatedMocks}
@@ -203,23 +75,6 @@ test('should render the sign-in route correctly when authenticated', async () =>
   const notFoundElement = await waitForElement(() => getByTestId('not-found'))
 
   expect(notFoundElement).toBeInTheDocument()
-  expect(queryByTestId('sign-in')).not.toBeInTheDocument()
-})
-
-test('should render the sign-in route correctly when unauthenticated', async () => {
-  const { getByTestId, queryByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={unauthenticatedMocks}
-    >
-      <Root />
-    </MockedProvider>,
-    { initialPath: '/sign-in' }
-  )
-  const signInElement = await waitForElement(() => getByTestId('sign-in'))
-
-  expect(signInElement).toBeInTheDocument()
-  expect(queryByTestId('not-found')).not.toBeInTheDocument()
 })
 
 test('should render the default route correctly when authenticated', async () => {
@@ -227,7 +82,7 @@ test('should render the default route correctly when authenticated', async () =>
   // @ts-ignore TS2588
   __IS_DEV__ = false
 
-  const { getByTestId, queryByTestId } = renderWithRouter(
+  const { getByTestId } = renderWithRouter(
     <MockedProvider
       cache={createInMemoryCache({ fragmentMatcher })}
       mocks={authenticatedMocks}
@@ -239,7 +94,6 @@ test('should render the default route correctly when authenticated', async () =>
   const notFoundElement = await waitForElement(() => getByTestId('not-found'))
 
   expect(notFoundElement).toBeInTheDocument()
-  expect(queryByTestId('error')).not.toBeInTheDocument()
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore TS2588
@@ -251,7 +105,7 @@ test('should render the default route correctly when unauthenticated', async () 
   // @ts-ignore TS2588
   __IS_DEV__ = false
 
-  const { getByTestId, queryByTestId } = renderWithRouter(
+  const { getByTestId } = renderWithRouter(
     <MockedProvider
       cache={createInMemoryCache({ fragmentMatcher })}
       mocks={unauthenticatedMocks}
@@ -263,7 +117,6 @@ test('should render the default route correctly when unauthenticated', async () 
   const notFoundElement = await waitForElement(() => getByTestId('not-found'))
 
   expect(notFoundElement).toBeInTheDocument()
-  expect(queryByTestId('error')).not.toBeInTheDocument()
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore TS2588
