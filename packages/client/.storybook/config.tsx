@@ -3,6 +3,7 @@ import { PANEL_ID, withKnobs } from '@storybook/addon-knobs'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import { addDecorator, addParameters, configure } from '@storybook/react'
 import React from 'react'
+import { IntlProvider } from 'react-intl'
 import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from 'styles/global'
@@ -11,12 +12,14 @@ import theme from 'styles/theme'
 addDecorator(withA11y)
 addDecorator(withKnobs)
 addDecorator(story => (
-  <ThemeProvider theme={theme}>
-    <>
-      <GlobalStyle />
-      {story()}
-    </>
-  </ThemeProvider>
+  <IntlProvider locale="en">
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyle />
+        {story()}
+      </>
+    </ThemeProvider>
+  </IntlProvider>
 ))
 
 addParameters({

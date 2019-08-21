@@ -20,7 +20,10 @@ const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
   { id, ...props }: Props,
   ref: React.Ref<HTMLLabelElement>
 ) => {
-  const [{ isRequired, labelId, name }, dispatch] = usePhoneFieldContext()
+  const [
+    { controlId, isRequired, labelId, name },
+    dispatch,
+  ] = usePhoneFieldContext()
   const seed = useUIDSeed()
 
   React.useEffect(
@@ -33,6 +36,7 @@ const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
     <Root
       id={labelId}
       data-phone-field-label
+      htmlFor={controlId}
       isRequired={isRequired}
       ref={ref}
       {...props}

@@ -1,11 +1,18 @@
 import { useQuery } from '@apollo/react-hooks'
-import { FieldValidator, useField, useFormikContext } from 'formik'
+import {
+  FieldAttributes,
+  FieldValidator,
+  useField,
+  useFormikContext,
+} from 'formik'
 import { rem } from 'polished'
 import React from 'react'
+import { useIntl } from 'react-intl'
 import styled from 'styled-components'
 
 import Option from 'components/option'
 import BaseSelect, { Props as SelectProps } from 'components/select'
+import { country } from 'translations'
 import { validateSelect } from 'utils/validation'
 import data, { Alpha2Code } from './data'
 import { CountriesQueryData, countriesQuery } from './graphql'
@@ -30,32 +37,16 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
     { isDisabled, isRequired, labelId, name },
     dispatch,
   ] = usePhoneFieldContext()
-  const { onChange, ...field } = useField<Alpha2Code>(`${name}.alpha2Code`)[0]
+  const { formatMessage } = useIntl()
+  const { onChange, ...field } = useField<FieldAttributes<any>>({
+    name: `${name}.alpha2Code`,
+  })[0]
   const { registerField, unregisterField } = useFormikContext<any>()
 
   const {
     data: { countries = [] } = {},
     loading: isQueryingCountries,
   } = useQuery<CountriesQueryData>(countriesQuery)
-
-  const defaultValidate = React.useCallback<FieldValidator>(
-    (value: string) => validateSelect(value, { isRequired }),
-    [isRequired]
-  )
-
-  const handleChange = React.useCallback<
-    React.ChangeEventHandler<HTMLSelectElement>
-  >(
-    ({ target: { value } }) => {
-      dispatch({
-        payload: { placeholder: data[value as Alpha2Code] },
-        type: 'setPlaceholder',
-      })
-
-      return onChange(`${name}.alpha2Code`)(value)
-    },
-    [dispatch, name, onChange]
-  )
 
   React.useEffect(
     () =>
@@ -68,11 +59,12 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
 
   React.useEffect(() => {
     registerField(`${name}.alpha2Code`, {
-      validate: validate || defaultValidate,
+      validate:
+        validate || ((value: string) => validateSelect(value, { isRequired })),
     })
 
     return () => unregisterField(`${name}.alpha2Code`)
-  }, [defaultValidate, name, registerField, unregisterField, validate])
+  }, [isRequired, name, registerField, unregisterField, validate])
 
   return (
     <Root
@@ -81,14 +73,23 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       isDisabled={isDisabled}
       isLoading={isQueryingCountries}
       isRequired={isRequired}
-      onChange={handleChange}
+      onChange={({ target: { value } }) => {
+        dispatch({
+          payload: { placeholder: data[value as Alpha2Code] },
+          type: 'setPlaceholder',
+        })
+
+        return onChange(`${name}.alpha2Code`)(value)
+      }}
       ref={ref}
       {...field}
       {...props}
     >
-      {countries.map(({ alpha2Code, callingCode, name }) => (
+      {countries.map(({ alpha2Code, callingCode }) => (
         <Option key={alpha2Code} value={alpha2Code}>
-          {`${name} +${callingCode}`}
+          {`${formatMessage(
+            country.name[alpha2Code.toLowerCase() as keyof typeof country.name]
+          )} +${callingCode}`}
         </Option>
       ))}
     </Root>

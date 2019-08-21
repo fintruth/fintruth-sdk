@@ -1,5 +1,11 @@
-import { FieldValidator, useField, useFormikContext } from 'formik'
+import {
+  FieldAttributes,
+  FieldValidator,
+  useField,
+  useFormikContext,
+} from 'formik'
 import React from 'react'
+import { useUIDSeed } from 'react-uid'
 
 import BaseInput, { Props as InputProps } from 'components/input'
 import { validateInput } from 'utils/validation'
@@ -16,33 +22,42 @@ interface Props
 const defaultMask = new Array(30).fill(/[-,.()\d\setx]/)
 
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
-  { mask = defaultMask, type = 'tel', validate, ...props }: Props,
+  { id, mask = defaultMask, type = 'tel', validate, ...props }: Props,
   ref: React.Ref<HTMLInputElement>
 ) => {
-  const {
-    isDisabled,
-    isRequired,
-    labelId,
-    name,
-    placeholder,
-  } = usePhoneFieldContext()[0]
-  const [field, { error, touched }] = useField<string>(`${name}.number`)
+  const [
+    { controlId, isDisabled, isRequired, name, placeholder },
+    dispatch,
+  ] = usePhoneFieldContext()
+  const [field, { error, touched }] = useField<FieldAttributes<any>>({
+    name: `${name}.number`,
+    type,
+  })
   const { registerField, unregisterField } = useFormikContext<any>()
+  const seed = useUIDSeed()
 
-  const defaultValidate = React.useCallback<FieldValidator>(
-    (value: string) => validateInput(value, { isRequired, type }),
-    [isRequired, type]
+  React.useEffect(
+    () =>
+      dispatch({
+        payload: { controlId: id || seed(`${name}.number`) },
+        type: 'setControlId',
+      }),
+    [dispatch, id, name, seed]
   )
 
   React.useEffect(() => {
-    registerField(`${name}.number`, { validate: validate || defaultValidate })
+    registerField(`${name}.number`, {
+      validate:
+        validate ||
+        ((value: string) => validateInput(value, { isRequired, type })),
+    })
 
     return () => unregisterField(`${name}.number`)
-  }, [defaultValidate, name, registerField, unregisterField, validate])
+  }, [isRequired, name, registerField, type, unregisterField, validate])
 
   return (
     <BaseInput
-      aria-labelledby={labelId}
+      id={controlId}
       data-phone-field-input
       isDisabled={isDisabled}
       isRequired={isRequired}

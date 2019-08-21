@@ -7,7 +7,9 @@ import { Alpha2Code } from './data'
 
 type Dispatch = (action: Action) => void
 
-type Type = 'setLabelId' | 'setPlaceholder'
+type Payload = Partial<BaseState>
+
+type Type = 'setControlId' | 'setLabelId' | 'setPlaceholder'
 
 interface Action {
   payload: Payload
@@ -15,13 +17,9 @@ interface Action {
 }
 
 interface BaseState {
+  controlId: string
   labelId: string
   placeholder: string
-}
-
-interface Payload {
-  labelId?: string
-  placeholder?: string
 }
 
 export interface PhoneValue {
@@ -47,6 +45,8 @@ const StateContext = React.createContext<State | undefined>(undefined)
 
 const reducer = (prevState: BaseState, { type, payload }: Action) => {
   switch (type) {
+    case 'setControlId':
+      return { ...prevState, controlId: payload.controlId || '' }
     case 'setLabelId':
       return { ...prevState, labelId: payload.labelId || '' }
     case 'setPlaceholder':
@@ -68,7 +68,7 @@ const PhoneField: React.RefForwardingComponent<HTMLDivElement, Props> = (
 ) => {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>
-  >(reducer, { labelId: '', placeholder: '' })
+  >(reducer, { controlId: '', labelId: '', placeholder: '' })
   const state = React.useMemo<State>(
     () => ({ ...baseState, isDisabled, isRequired, name }),
     [baseState, isDisabled, isRequired, name]
