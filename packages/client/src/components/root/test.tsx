@@ -32,7 +32,7 @@ const unauthenticatedMocks = [
   { request: { query: currentUserQuery }, result: { data: { user: null } } },
 ]
 
-test('should render the register route correctly when authenticated', async () => {
+test('should render the "/register" route correctly when authenticated', async () => {
   const { getByTestId } = renderWithRouter(
     <MockedProvider
       cache={createInMemoryCache({ fragmentMatcher })}
@@ -47,7 +47,7 @@ test('should render the register route correctly when authenticated', async () =
   expect(notFoundElement).toBeInTheDocument()
 })
 
-test('should render the settings route correctly when unauthenticated', async () => {
+test('should render the "/settings" route correctly when unauthenticated', async () => {
   const { getByTestId } = renderWithRouter(
     <MockedProvider
       cache={createInMemoryCache({ fragmentMatcher })}
@@ -62,7 +62,7 @@ test('should render the settings route correctly when unauthenticated', async ()
   expect(notFoundElement).toBeInTheDocument()
 })
 
-test('should render the sign-in route correctly when authenticated', async () => {
+test('should render the "/sign-in" route correctly when authenticated', async () => {
   const { getByTestId } = renderWithRouter(
     <MockedProvider
       cache={createInMemoryCache({ fragmentMatcher })}

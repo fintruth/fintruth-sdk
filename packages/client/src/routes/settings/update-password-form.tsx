@@ -107,9 +107,9 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
             path(['data', 'response', 'error'], value) ? undefined : resetForm()
           )
         }
-        validationSchema={validationSchema}
         validateOnBlur={false}
         validateOnChange={false}
+        validationSchema={validationSchema}
       >
         <Form {...props} id={seed(name)} noValidate>
           <Field name="password">
