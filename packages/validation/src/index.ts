@@ -66,15 +66,25 @@ export type AnySchemaConstructor =
   | ArraySchemaConstructor
   | ObjectSchemaConstructor
 
+type MappedLocaleSchema<S extends Schema<any>> = {
+  [key in keyof S]?: S[key] extends (...args: infer P) => any
+    ? MessageFromParameters<Required<P>>
+    : never
+}
+
+type MessageFromParameters<P extends unknown[]> = {
+  [K in keyof P]: P[K] extends TestOptionsMessage<any> ? P[K] : never
+}[number]
+
 export interface LocaleObject {
-  array?: { [key in keyof ArraySchema<any>]?: string }
-  bool?: { [key in keyof BooleanSchema]?: string }
-  boolean?: { [key in keyof BooleanSchema]?: string }
-  date?: { [key in keyof DateSchema]?: string }
-  mixed?: { [key in keyof MixedSchema]?: string } & { notType?: LocaleValue }
-  number?: { [key in keyof NumberSchema]?: string }
-  object?: { [key in keyof ObjectSchema<any>]?: string }
-  string?: { [key in keyof StringSchema]?: string }
+  array?: MappedLocaleSchema<ArraySchema<any>>
+  bool?: MappedLocaleSchema<BooleanSchema>
+  boolean?: MappedLocaleSchema<BooleanSchema>
+  date?: MappedLocaleSchema<DateSchema>
+  mixed?: MappedLocaleSchema<MixedSchema> & { notType?: LocaleValue }
+  number?: MappedLocaleSchema<NumberSchema>
+  object?: MappedLocaleSchema<ObjectSchema<any>>
+  string?: MappedLocaleSchema<StringSchema>
 }
 
 export {

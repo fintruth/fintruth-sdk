@@ -24,18 +24,30 @@ export interface PhoneOptions {
 
 export interface StringSchema<T extends string | null | undefined = string>
   extends Schema<T> {
-  email(message?: TestOptionsMessage): StringSchema<T>
+  email(message?: TestOptionsMessage<{ regex: RegExp }>): StringSchema<T>
   ensure(): StringSchema<T>
-  length(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>
+  length(
+    limit: number | Ref,
+    message?: TestOptionsMessage<{ length: number | Ref }>
+  ): StringSchema<T>
   lowercase(message?: TestOptionsMessage): StringSchema<T>
   matches(
     regex: RegExp,
     messageOrOptions?:
-      | TestOptionsMessage
-      | { message?: TestOptionsMessage; excludeEmptyString?: boolean }
+      | TestOptionsMessage<{ regex: RegExp }>
+      | {
+          message?: TestOptionsMessage<{ regex: RegExp }>
+          excludeEmptyString?: boolean
+        }
   ): StringSchema<T>
-  max(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>
-  min(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>
+  max(
+    limit: number | Ref,
+    message?: TestOptionsMessage<{ max: number | Ref }>
+  ): StringSchema<T>
+  min(
+    limit: number | Ref,
+    message?: TestOptionsMessage<{ min: number | Ref }>
+  ): StringSchema<T>
   notRequired(): StringSchema<T | undefined>
   nullable(isNullable: false): StringSchema<Exclude<T, null>>
   nullable(isNullable?: boolean): StringSchema<T>
@@ -45,7 +57,7 @@ export interface StringSchema<T extends string | null | undefined = string>
   required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>
   trim(message?: TestOptionsMessage): StringSchema<T>
   uppercase(message?: TestOptionsMessage): StringSchema<T>
-  url(message?: TestOptionsMessage): StringSchema<T>
+  url(message?: TestOptionsMessage<{ regex: RegExp }>): StringSchema<T>
 }
 
 export interface StringSchemaConstructor {
