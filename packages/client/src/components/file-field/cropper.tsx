@@ -36,6 +36,8 @@ interface Props
   onLoad?: RefHandler<HTMLImageElement>
 }
 
+const defaultInitialCrop: Crop = { height: 0, unit: 'px', width: 0, x: 0, y: 0 }
+
 const Root = styled(ReactCrop)`
   &:not(:first-child) {
     margin-top: ${rem(12)};
@@ -48,13 +50,7 @@ const Root = styled(ReactCrop)`
 `
 
 const Cropper: React.RefForwardingComponent<HTMLImageElement, Props> = (
-  {
-    alt,
-    initialCrop = { height: 0, unit: 'px', width: 0, x: 0, y: 0 },
-    isLocked,
-    onLoad,
-    ...props
-  }: Props,
+  { alt, initialCrop = defaultInitialCrop, isLocked, onLoad, ...props }: Props,
   ref: React.Ref<HTMLImageElement>
 ) => {
   const [{ isDisabled, name, src }, dispatch] = useFileFieldContext()
@@ -137,7 +133,7 @@ const Cropper: React.RefForwardingComponent<HTMLImageElement, Props> = (
       disabled={isDisabled}
       imageAlt={alt}
       locked={isLocked}
-      onChange={(crop: Crop) => setCrop(crop)}
+      onChange={crop => setCrop(crop)}
       onComplete={handleComplete}
       onImageLoaded={handleLoad}
       src={src}
