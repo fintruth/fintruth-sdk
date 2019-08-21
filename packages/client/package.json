@@ -62,7 +62,7 @@
     "core-js": "^3.2.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "formik": "2.0.1-rc.12",
+    "formik": "2.0.1-rc.13",
     "graphql": "^14.4.2",
     "history": "^4.9.0",
     "invariant": "^2.2.4",
