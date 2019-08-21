@@ -105,14 +105,14 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
         <Form {...props} id={seed(name)} noValidate>
           <Field name="profile.givenName">
             <FieldLabel>
-              <FormattedMessage {...form.field.label.givenName} />
+              <FormattedMessage {...form.field.label.firstName} />
             </FieldLabel>
             <FieldInput autoComplete="given-name" form={seed(name)} />
             <FieldHelp />
           </Field>
           <Field name="profile.familyName">
             <FieldLabel>
-              <FormattedMessage {...form.field.label.familyName} />
+              <FormattedMessage {...form.field.label.lastName} />
             </FieldLabel>
             <FieldInput autoComplete="family-name" form={seed(name)} />
             <FieldHelp />
@@ -126,7 +126,7 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
           </Field>
           <Field name="emailConfirm">
             <FieldLabel>
-              <FormattedMessage {...form.field.label.emailConfirm} />
+              <FormattedMessage {...form.field.label.confirmEmail} />
             </FieldLabel>
             <FieldInput form={seed(name)} type="email" />
             <FieldHelp />

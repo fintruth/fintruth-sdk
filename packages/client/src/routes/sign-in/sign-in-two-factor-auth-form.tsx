@@ -92,7 +92,7 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         <Form {...props} id={seed(name)} noValidate>
           <LastField name="token">
             <FieldLabel>
-              <FormattedMessage {...form.field.label.token} />
+              <FormattedMessage {...form.field.label.verificationCode} />
             </FieldLabel>
             <FieldInput form={seed(name)} />
             <FieldHelp />

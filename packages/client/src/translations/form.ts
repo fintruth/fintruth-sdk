@@ -9,24 +9,24 @@ const successId = `${rootId}.success`
 export default {
   field: {
     label: defineMessages({
+      confirmEmail: {
+        id: `${labelId}.confirmEmail`,
+        defaultMessage: 'Confirm Email',
+        description: 'The label of a field',
+      },
       email: {
         id: `${labelId}.email`,
         defaultMessage: 'Email',
         description: 'The label of a field',
       },
-      emailConfirm: {
-        id: `${labelId}.emailConfirm`,
-        defaultMessage: 'Confirm Email',
-        description: 'The label of a field',
-      },
-      familyName: {
-        id: `${labelId}.familyName`,
-        defaultMessage: 'Last Name',
-        description: 'The label of a field',
-      },
-      givenName: {
-        id: `${labelId}.givenName`,
+      firstName: {
+        id: `${labelId}.firstName`,
         defaultMessage: 'First Name',
+        description: 'The label of a field',
+      },
+      lastName: {
+        id: `${labelId}.lastName`,
+        defaultMessage: 'Last Name',
         description: 'The label of a field',
       },
       password: {
@@ -34,8 +34,8 @@ export default {
         defaultMessage: 'Password',
         description: 'The label of a field',
       },
-      token: {
-        id: `${labelId}.token`,
+      verificationCode: {
+        id: `${labelId}.verificationCode`,
         defaultMessage: 'Verification Code',
         description: 'The label of a field',
       },
