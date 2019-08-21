@@ -100,6 +100,8 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
             path(['data', 'response', 'error'], value) ? undefined : resetForm()
           )
         }
+        validateOnBlur={false}
+        validateOnChange={false}
         validationSchema={validationSchema}
       >
         <Form {...props} id={seed(name)} noValidate>

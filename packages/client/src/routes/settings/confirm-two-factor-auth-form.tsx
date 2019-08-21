@@ -91,6 +91,8 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={variables => onSubmit({ variables })}
+        validateOnBlur={false}
+        validateOnChange={false}
       >
         <Form {...props} id={seed(name)} noValidate>
           <Field name="token">

@@ -86,6 +86,8 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
       <Formik<Values>
         initialValues={{ familyName, givenName }}
         onSubmit={input => onSubmit({ variables: { input } })}
+        validateOnBlur={false}
+        validateOnChange={false}
       >
         <Form {...props} id={seed(name)} noValidate>
           <Field name="givenName">

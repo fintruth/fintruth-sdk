@@ -88,6 +88,8 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         onSubmit={variables =>
           onSubmit({ variables: { ...signInCredentials, ...variables } })
         }
+        validateOnBlur={false}
+        validateOnChange={false}
       >
         <Form {...props} id={seed(name)} noValidate>
           <LastField name="token">

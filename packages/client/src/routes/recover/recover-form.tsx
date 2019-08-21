@@ -113,6 +113,8 @@ const RecoverForm: React.FunctionComponent<Props> = ({
             path(['data', 'response', 'error'], value) ? undefined : resetForm()
           )
         }
+        validateOnBlur={false}
+        validateOnChange={false}
       >
         <Form {...props} id={seed(name)} noValidate>
           <Field name="email">
