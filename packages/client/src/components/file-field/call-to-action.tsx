@@ -1,4 +1,4 @@
-import { mixed, MixedSchema } from '@fintruth-sdk/validation'
+import { MixedSchema, mixed } from '@fintruth-sdk/validation'
 import {
   FieldAttributes,
   FieldValidator,
