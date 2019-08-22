@@ -8,12 +8,12 @@ interface Options {
 
 export const renderLoadingIf = (
   isLoading: boolean,
-  componentFactory: <Props = {}>() => React.ReactElement<Props>,
+  componentFactory: () => React.ReactNode,
   options: Options = {}
 ) => (isLoading ? <Loading {...options} /> : componentFactory())
 
 export const renderLoadingUnless = (
   isLoading: boolean,
-  componentFactory: <Props = {}>() => React.ReactElement<Props>,
+  componentFactory: () => React.ReactNode,
   options?: Options
 ) => renderLoadingIf(!isLoading, componentFactory, options)
