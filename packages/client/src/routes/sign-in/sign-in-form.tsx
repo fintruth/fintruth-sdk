@@ -37,7 +37,6 @@ interface Values {
   password: string
 }
 
-const name = 'sign-in-form'
 const rootId = 'routes.signIn.signInForm'
 const accountHelpId = `${rootId}.accountHelp`
 
@@ -74,12 +73,14 @@ const Button = styled(BaseButton)`
 `
 
 const SignInForm: React.FunctionComponent<Props> = ({
+  id,
   onCompleted,
   setSignInCredentials,
   ...props
 }: Props) => {
   const [helpProps, setHelpProps] = React.useState<HelpProps>({})
   const seed = useUIDSeed()
+  const formId = id || seed('sign-in-form')
 
   const [onSubmit, { loading: isSubmitting }] = useMutation<
     SignInMutationData,
@@ -107,26 +108,26 @@ const SignInForm: React.FunctionComponent<Props> = ({
         validateOnBlur={false}
         validateOnChange={false}
       >
-        <Form {...props} id={seed(name)} noValidate>
+        <Form id={formId} noValidate {...props}>
           <Field name="email">
             <FieldLabel>
               <FormattedMessage {...form.field.label.email} />
             </FieldLabel>
-            <FieldInput form={seed(name)} type="email" />
+            <FieldInput form={formId} type="email" />
             <FieldHelp />
           </Field>
           <Field name="password">
             <FieldLabel>
               <FormattedMessage {...form.field.label.password} />
             </FieldLabel>
-            <FieldInput form={seed(name)} type="password" />
+            <FieldInput form={formId} type="password" />
             <FieldHelp />
           </Field>
           <Link to="/recover">
             <FormattedMessage {...translations.accountHelp.recover} />
           </Link>
           <Button
-            form={seed(name)}
+            form={formId}
             isLoading={isSubmitting}
             type="submit"
             variant="primary"

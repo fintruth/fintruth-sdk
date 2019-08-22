@@ -27,15 +27,13 @@ interface Props
     React.FormHTMLAttributes<HTMLFormElement>,
     'onReset' | 'onSubmit'
   > {
-  profile: QueriedProfile
+  data: QueriedProfile
 }
 
 interface Values {
   familyName: string
   givenName: string
 }
-
-const name = 'update-profile-form'
 
 const Help = styled.p.attrs((props: HelpProps) => ({
   color: 'success',
@@ -59,11 +57,13 @@ const Button = styled(BaseButton)`
 `
 
 const UpdateProfileForm: React.FunctionComponent<Props> = ({
-  profile: { familyName, givenName },
+  data: { familyName, givenName },
+  id,
   ...props
 }: Props) => {
   const [helpProps, setHelpProps] = React.useState<HelpProps>({})
   const seed = useUIDSeed()
+  const formId = id || seed('update-profile-form')
 
   const [onSubmit, { loading: isSubmitting }] = useMutation<
     UpdateProfileMutationData,
@@ -76,8 +76,10 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
           ? { children: response.error.message, color: 'danger' }
           : { children: 'Your profile information was successfully updated' }
       ),
-    refetchQueries: ({ data }) =>
-      path(['response', 'error'], data) ? [] : [{ query: currentProfileQuery }],
+    refetchQueries: result =>
+      path(['data', 'response', 'error'], result)
+        ? []
+        : [{ query: currentProfileQuery }],
   })
 
   return (
@@ -89,19 +91,19 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
         validateOnBlur={false}
         validateOnChange={false}
       >
-        <Form {...props} id={seed(name)} noValidate>
+        <Form {...props} id={formId} noValidate>
           <Field name="givenName">
             <FieldLabel>First Name</FieldLabel>
-            <FieldInput autoComplete="given-name" form={seed(name)} />
+            <FieldInput autoComplete="given-name" form={formId} />
             <FieldHelp />
           </Field>
           <Field name="familyName">
             <FieldLabel>Last Name</FieldLabel>
-            <FieldInput autoComplete="family-name" form={seed(name)} />
+            <FieldInput autoComplete="family-name" form={formId} />
             <FieldHelp />
           </Field>
           <Button
-            form={seed(name)}
+            form={formId}
             isLoading={isSubmitting}
             type="submit"
             variant="primary"

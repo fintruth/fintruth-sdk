@@ -39,8 +39,6 @@ interface Values {
   profile: ProfileValues
 }
 
-const name = 'register-form'
-
 const initialValues: Values = {
   email: '',
   emailConfirm: '',
@@ -71,10 +69,14 @@ const Button = styled(BaseButton)`
   margin: 0 auto;
 `
 
-const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
+const RegisterForm: React.FunctionComponent<Props> = ({
+  id,
+  ...props
+}: Props) => {
   const [helpProps, setHelpProps] = React.useState<HelpProps>({})
   const { formatMessage } = useIntl()
   const seed = useUIDSeed()
+  const formId = id || seed('register-form')
 
   const [onSubmit, { loading: isSubmitting }] = useMutation<
     RegisterMutationData,
@@ -104,44 +106,44 @@ const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
         validateOnChange={false}
         validationSchema={validationSchema}
       >
-        <Form {...props} id={seed(name)} noValidate>
+        <Form id={formId} noValidate {...props}>
           <Field name="profile.givenName">
             <FieldLabel>
               <FormattedMessage {...form.field.label.firstName} />
             </FieldLabel>
-            <FieldInput autoComplete="given-name" form={seed(name)} />
+            <FieldInput autoComplete="given-name" form={formId} />
             <FieldHelp />
           </Field>
           <Field name="profile.familyName">
             <FieldLabel>
               <FormattedMessage {...form.field.label.lastName} />
             </FieldLabel>
-            <FieldInput autoComplete="family-name" form={seed(name)} />
+            <FieldInput autoComplete="family-name" form={formId} />
             <FieldHelp />
           </Field>
           <Field name="email">
             <FieldLabel>
               <FormattedMessage {...form.field.label.email} />
             </FieldLabel>
-            <FieldInput form={seed(name)} type="email" />
+            <FieldInput form={formId} type="email" />
             <FieldHelp />
           </Field>
           <Field name="emailConfirm">
             <FieldLabel>
               <FormattedMessage {...form.field.label.confirmEmail} />
             </FieldLabel>
-            <FieldInput form={seed(name)} type="email" />
+            <FieldInput form={formId} type="email" />
             <FieldHelp />
           </Field>
           <LastField name="password">
             <FieldLabel>
               <FormattedMessage {...form.field.label.password} />
             </FieldLabel>
-            <FieldInput form={seed(name)} type="password" />
+            <FieldInput form={formId} type="password" />
             <FieldHelp />
           </LastField>
           <Button
-            form={seed(name)}
+            form={formId}
             isLoading={isSubmitting}
             type="submit"
             variant="primary"

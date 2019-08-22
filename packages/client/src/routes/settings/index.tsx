@@ -122,7 +122,7 @@ const Settings: React.FunctionComponent<Props> = (props: Props) => {
             <Subheader>Password</Subheader>
             <UpdatePasswordForm />
             <Subheader>Profile Information</Subheader>
-            <UpdateProfileForm profile={profile} />
+            <UpdateProfileForm data={profile} />
           </Card>
           <Card>
             <Header>Two-Factor Authentication</Header>

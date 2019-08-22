@@ -28,14 +28,13 @@ interface Props
     React.FormHTMLAttributes<HTMLFormElement>,
     'onReset' | 'onSubmit'
   > {
-  user?: QueriedUser
+  data?: QueriedUser
 }
 
 interface Values {
   email: string
 }
 
-const name = 'recover-form'
 const rootId = 'routes.recover.recoverForm.'
 const accountHelpId = `${rootId}.accountHelp`
 
@@ -79,12 +78,14 @@ const Link = styled(BaseLink)`
 `
 
 const RecoverForm: React.FunctionComponent<Props> = ({
-  user,
+  data,
+  id,
   ...props
 }: Props) => {
   const [helpProps, setHelpProps] = React.useState<HelpProps>({})
   const { formatMessage } = useIntl()
   const seed = useUIDSeed()
+  const formId = id || seed('recover-form')
 
   const [onSubmit, { loading: isSubmitting }] = useMutation<
     RecoverMutationData,
@@ -103,8 +104,8 @@ const RecoverForm: React.FunctionComponent<Props> = ({
       {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={{
-          email: user
-            ? (user.emails.find(({ isPrimary }) => isPrimary) || { value: '' })
+          email: data
+            ? (data.emails.find(({ isPrimary }) => isPrimary) || { value: '' })
                 .value
             : '',
         }}
@@ -116,17 +117,17 @@ const RecoverForm: React.FunctionComponent<Props> = ({
         validateOnBlur={false}
         validateOnChange={false}
       >
-        <Form {...props} id={seed(name)} noValidate>
+        <Form id={formId} noValidate {...props}>
           <Field name="email">
             <FieldLabel>
               <FormattedMessage {...form.field.label.email} />
             </FieldLabel>
-            <FieldInput form={seed(name)} type="email" />
+            <FieldInput form={formId} type="email" />
             <FieldHelp />
           </Field>
           <Description>
             <FormattedMessage {...translations.accountHelp.description} />{' '}
-            {user ? (
+            {data ? (
               <Link to="/settings">
                 <FormattedMessage {...navigation.route.settings} />
               </Link>
@@ -137,7 +138,7 @@ const RecoverForm: React.FunctionComponent<Props> = ({
             )}
           </Description>
           <Button
-            form={seed(name)}
+            form={formId}
             isLoading={isSubmitting}
             type="submit"
             variant="primary"

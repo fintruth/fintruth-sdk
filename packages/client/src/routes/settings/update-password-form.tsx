@@ -50,8 +50,6 @@ const validationSchema = object().shape({
   ),
 })
 
-const name = 'update-password-form'
-
 const Help = styled.p.attrs((props: HelpProps) => ({
   color: 'success',
   ...props,
@@ -79,10 +77,12 @@ const Button = styled(BaseButton)`
 `
 
 const UpdatePasswordForm: React.FunctionComponent<Props> = ({
+  id,
   ...props
 }: Props) => {
   const [helpProps, setHelpProps] = React.useState<HelpProps>({})
   const seed = useUIDSeed()
+  const formId = id || seed('update-password-form')
 
   const [onSubmit, { loading: isSubmitting }] = useMutation<
     UpdatePasswordMutationData,
@@ -111,10 +111,10 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
         validateOnChange={false}
         validationSchema={validationSchema}
       >
-        <Form {...props} id={seed(name)} noValidate>
+        <Form id={formId} noValidate {...props}>
           <Field name="password">
             <FieldInput
-              form={seed(name)}
+              form={formId}
               placeholder="Current Password"
               type="password"
             />
@@ -122,7 +122,7 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
           </Field>
           <Field name="newPassword">
             <FieldInput
-              form={seed(name)}
+              form={formId}
               placeholder="New Password"
               type="password"
             />
@@ -130,7 +130,7 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
           </Field>
           <Field name="newPasswordConfirm">
             <FieldInput
-              form={seed(name)}
+              form={formId}
               placeholder="Confirm New Password"
               type="password"
             />
@@ -138,7 +138,7 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
           </Field>
           <Link to="/recover">Forgot your password?</Link>
           <Button
-            form={seed(name)}
+            form={formId}
             isLoading={isSubmitting}
             type="submit"
             variant="primary"

@@ -25,7 +25,7 @@ const Recover: React.FunctionComponent<RouteComponentProps> = ({
   return (
     <Root data-testid="recover" {...props}>
       {renderLoadingIf(isQueryingCurrentUser, () => (
-        <RecoverForm user={data.user} />
+        <RecoverForm data={data.user} />
       ))}
     </Root>
   )

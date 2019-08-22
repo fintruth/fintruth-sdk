@@ -38,8 +38,6 @@ interface Values {
   token: string
 }
 
-const name = 'sign-in-two-factor-auth-form'
-
 const initialValues: Values = { token: '' }
 
 const Help = styled.p.attrs((props: HelpProps) => ({
@@ -62,12 +60,14 @@ const Button = styled(BaseButton)`
 `
 
 const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
+  id,
   onCompleted,
   signInCredentials,
   ...props
 }: Props) => {
   const [helpProps, setHelpProps] = React.useState<HelpProps>({})
   const seed = useUIDSeed()
+  const formId = id || seed('sign-in-two-factor-auth-form')
 
   const [onSubmit, { loading: isSubmitting }] = useMutation<
     SignInTwoFactorAuthMutationData,
@@ -91,16 +91,16 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         validateOnBlur={false}
         validateOnChange={false}
       >
-        <Form {...props} id={seed(name)} noValidate>
+        <Form id={formId} noValidate {...props}>
           <LastField name="token">
             <FieldLabel>
               <FormattedMessage {...form.field.label.verificationCode} />
             </FieldLabel>
-            <FieldInput form={seed(name)} />
+            <FieldInput form={formId} />
             <FieldHelp />
           </LastField>
           <Button
-            form={seed(name)}
+            form={formId}
             isLoading={isSubmitting}
             type="submit"
             variant="primary"

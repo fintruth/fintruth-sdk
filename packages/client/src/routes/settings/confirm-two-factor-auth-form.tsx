@@ -35,8 +35,6 @@ interface Values {
 
 const initialValues: Values = { token: '' }
 
-const name = 'confirm-two-factor-auth-form'
-
 const Help = styled.p.attrs((props: HelpProps) => ({
   color: 'danger',
   ...props,
@@ -61,11 +59,13 @@ const Button = styled(BaseButton)`
 `
 
 const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
+  id,
   onCompleted,
   ...props
 }: Props) => {
   const [helpProps, setHelpProps] = React.useState<HelpProps>({})
   const seed = useUIDSeed()
+  const formId = id || seed('confirm-two-factor-auth-form')
 
   const [onSubmit, { loading: isSubmitting }] = useMutation<
     ConfirmTwoFactorAuthMutationData,
@@ -79,8 +79,8 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
 
       return onCompleted && onCompleted()
     },
-    refetchQueries: ({ data }) =>
-      path(['response', 'error'], data)
+    refetchQueries: result =>
+      path(['data', 'response', 'error'], result)
         ? []
         : [{ query: shallowCurrentUserQuery }],
   })
@@ -94,14 +94,14 @@ const ConfirmTwoFactorAuthForm: React.FunctionComponent<Props> = ({
         validateOnBlur={false}
         validateOnChange={false}
       >
-        <Form {...props} id={seed(name)} noValidate>
+        <Form id={formId} noValidate {...props}>
           <Field name="token">
             <FieldLabel>Verification Code</FieldLabel>
-            <FieldInput form={seed(name)} />
+            <FieldInput form={formId} />
             <FieldHelp />
           </Field>
           <Button
-            form={seed(name)}
+            form={formId}
             isLoading={isSubmitting}
             type="submit"
             variant="primary"
