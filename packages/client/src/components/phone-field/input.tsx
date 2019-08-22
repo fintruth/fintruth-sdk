@@ -1,9 +1,4 @@
-import {
-  FieldAttributes,
-  FieldValidator,
-  useField,
-  useFormikContext,
-} from 'formik'
+import { FieldAttributes, FieldValidator, useField } from 'formik'
 import React from 'react'
 import { useUIDSeed } from 'react-uid'
 
@@ -32,8 +27,10 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   const [field, { error, touched }] = useField<FieldAttributes<any>>({
     name: `${name}.number`,
     type,
+    validate:
+      validate ||
+      ((value: string) => validateInput(value, { isRequired, type })),
   })
-  const { registerField, unregisterField } = useFormikContext<any>()
   const seed = useUIDSeed()
 
   React.useEffect(
@@ -44,16 +41,6 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
       }),
     [dispatch, id, name, seed]
   )
-
-  React.useEffect(() => {
-    registerField(`${name}.number`, {
-      validate:
-        validate ||
-        ((value: string) => validateInput(value, { isRequired, type })),
-    })
-
-    return () => unregisterField(`${name}.number`)
-  }, [isRequired, name, registerField, type, unregisterField, validate])
 
   return (
     <BaseInput

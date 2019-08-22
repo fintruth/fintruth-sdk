@@ -1,10 +1,5 @@
 import { useQuery } from '@apollo/react-hooks'
-import {
-  FieldAttributes,
-  FieldValidator,
-  useField,
-  useFormikContext,
-} from 'formik'
+import { FieldAttributes, FieldValidator, useField } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
 import { useIntl } from 'react-intl'
@@ -40,8 +35,9 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   const { formatMessage } = useIntl()
   const { onChange, ...field } = useField<FieldAttributes<any>>({
     name: `${name}.alpha2Code`,
+    validate:
+      validate || ((value: string) => validateSelect(value, { isRequired })),
   })[0]
-  const { registerField, unregisterField } = useFormikContext<any>()
 
   const {
     data: { countries = [] } = {},
@@ -56,15 +52,6 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       }),
     [dispatch, field.value]
   )
-
-  React.useEffect(() => {
-    registerField(`${name}.alpha2Code`, {
-      validate:
-        validate || ((value: string) => validateSelect(value, { isRequired })),
-    })
-
-    return () => unregisterField(`${name}.alpha2Code`)
-  }, [isRequired, name, registerField, unregisterField, validate])
 
   return (
     <Root

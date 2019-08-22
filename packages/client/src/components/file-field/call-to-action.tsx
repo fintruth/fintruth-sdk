@@ -1,5 +1,10 @@
 import { mixed, MixedSchema } from '@fintruth-sdk/validation'
-import { FieldValidator, useField, useFormikContext } from 'formik'
+import {
+  FieldAttributes,
+  FieldValidator,
+  useField,
+  useFormikContext,
+} from 'formik'
 import { getType } from 'mime/lite'
 import { darken, em } from 'polished'
 import React from 'react'
@@ -167,53 +172,15 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
     { fileName, hasCropper, isDisabled, isRequired, labelId, name },
     dispatch,
   ] = useFileFieldContext()
-  const { onBlur, value } = useField<File | string>(name)[0]
-  const { registerField, setFieldValue, unregisterField } = useFormikContext<
-    any
-  >()
+  const { onBlur, value } = useField<FieldAttributes<any>>({
+    name,
+    type: 'file',
+    validate:
+      validate ||
+      ((value: File | string) => validateInput(value, { isRequired, maxSize })),
+  })[0]
+  const { setFieldValue } = useFormikContext<any>()
   const input = React.useRef<HTMLInputElement>()
-
-  const defaultValidate = React.useCallback<FieldValidator>(
-    (value: File | string) => validateInput(value, { isRequired, maxSize }),
-    [isRequired, maxSize]
-  )
-
-  const handleChange = React.useCallback<
-    React.ChangeEventHandler<HTMLInputElement>
-  >(
-    ({ target: { files } }) => {
-      if (!files || !files[0]) {
-        return
-      }
-
-      const type = getType(fileName) || 'image/jpeg'
-      const file = fileName
-        ? new File([files[0]], fileName, { type })
-        : files[0]
-
-      if (hasCropper) {
-        const reader = new FileReader()
-
-        reader.addEventListener('load', () =>
-          dispatch({
-            payload: { src: reader.result as string },
-            type: 'setSrc',
-          })
-        )
-
-        reader.readAsDataURL(file)
-      }
-
-      return setFieldValue(name, file)
-    },
-    [dispatch, fileName, hasCropper, name, setFieldValue]
-  )
-
-  React.useEffect(() => {
-    registerField(name, { validate: validate || defaultValidate })
-
-    return () => unregisterField(name)
-  }, [defaultValidate, name, registerField, unregisterField, validate])
 
   React.useEffect(() => {
     if (!value && input.current) {
@@ -235,7 +202,31 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
         disabled={isDisabled}
         name={name}
         onBlur={onBlur}
-        onChange={handleChange}
+        onChange={({ target: { files } }) => {
+          if (!files || !files[0]) {
+            return
+          }
+
+          const type = getType(fileName) || 'image/jpeg'
+          const file = fileName
+            ? new File([files[0]], fileName, { type })
+            : files[0]
+
+          if (hasCropper) {
+            const reader = new FileReader()
+
+            reader.addEventListener('load', () =>
+              dispatch({
+                payload: { src: reader.result as string },
+                type: 'setSrc',
+              })
+            )
+
+            reader.readAsDataURL(file)
+          }
+
+          return setFieldValue(name, file)
+        }}
         ref={instance => {
           setRef(ref, instance)
 
