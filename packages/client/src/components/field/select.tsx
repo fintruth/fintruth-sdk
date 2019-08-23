@@ -11,11 +11,15 @@ interface Props
 }
 
 const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
-  { validate, ...props }: Props,
+  { isMultiple, validate, ...props }: Props,
   ref: React.Ref<HTMLSelectElement>
 ) => {
   const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
-  const [field, { error, touched }] = useField<FieldAttributes<any>>({
+  const [{ multiple: _, ...field }, { error, touched }] = useField<
+    FieldAttributes<any>
+  >({
+    as: 'select',
+    multiple: isMultiple,
     name,
     validate:
       validate || ((value: string) => validateSelect(value, { isRequired })),
@@ -26,6 +30,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       data-field-select
       aria-labelledby={labelId}
       isDisabled={isDisabled}
+      isMultiple={isMultiple}
       isRequired={isRequired}
       ref={ref}
       variant={error && touched ? 'danger' : undefined}

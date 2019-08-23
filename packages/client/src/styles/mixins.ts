@@ -111,6 +111,17 @@ export const link = css`
   }
 `
 
+export const option = css`
+  select[multiple] & {
+    padding: ${em(8)} ${em(16)};
+  }
+
+  select[disabled][multiple] &,
+  fieldset[disabled] select[multiple] & {
+    color: ${({ theme }) => theme.textLightColor};
+  }
+`
+
 export const untilSmall = until('small')
 
 export const small = (content: Content) => css`

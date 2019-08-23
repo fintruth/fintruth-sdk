@@ -84,6 +84,7 @@ export const useFieldContext = (): [State, Dispatch] => {
   return [state as State, dispatch as Dispatch]
 }
 
+export { default as FieldCountrySelect } from './country-select'
 export { default as FieldHelp } from './help'
 export { default as FieldInput } from './input'
 export { default as FieldLabel } from './label'

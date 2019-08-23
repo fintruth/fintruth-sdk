@@ -1,87 +1,64 @@
 import { useQuery } from '@apollo/react-hooks'
 import { FieldAttributes, FieldValidator, useField } from 'formik'
-import { rem } from 'polished'
 import React from 'react'
 import { useIntl } from 'react-intl'
 import styled from 'styled-components'
 
 import BaseSelect, { Props as SelectProps } from 'components/select'
+import { validateSelect } from 'utils/validation'
 import { option } from 'styles/mixins'
 import { country } from 'translations'
-import { validateSelect } from 'utils/validation'
-import data, { Alpha2Code } from './data'
 import { CountriesQueryData, countriesQuery } from './graphql'
-import { usePhoneFieldContext } from '.'
+import { useFieldContext } from '.'
 
 interface Props
   extends Omit<
     SelectProps,
     'children' | 'isDisabled' | 'isLoading' | 'isRequired' | 'name'
   > {
+  placeholder?: string
   validate?: FieldValidator
 }
-
-const Root = styled(BaseSelect)`
-  &:not(:last-child) {
-    margin-bottom: ${rem(12)};
-  }
-`
 
 const Option = styled.option`
   ${option};
 `
 
 const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
-  { isMultiple, validate, ...props }: Props,
+  { isMultiple, placeholder, validate, ...props }: Props,
   ref: React.Ref<HTMLSelectElement>
 ) => {
-  const [
-    { isDisabled, isRequired, labelId, name },
-    dispatch,
-  ] = usePhoneFieldContext()
-  const { formatMessage } = useIntl()
-  const { multiple: _, onChange, ...field } = useField<FieldAttributes<any>>({
+  const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
+  const [{ multiple: _, ...field }, { error, touched }] = useField<
+    FieldAttributes<any>
+  >({
     as: 'select',
     multiple: isMultiple,
-    name: `${name}.alpha2Code`,
+    name,
     validate:
       validate || ((value: string) => validateSelect(value, { isRequired })),
-  })[0]
+  })
+  const { formatMessage } = useIntl()
 
   const {
     data: { countries = [] } = {},
     loading: isQueryingCountries,
   } = useQuery<CountriesQueryData>(countriesQuery)
 
-  React.useEffect(
-    () =>
-      dispatch({
-        payload: { placeholder: data[field.value as Alpha2Code] },
-        type: 'setPlaceholder',
-      }),
-    [dispatch, field.value]
-  )
-
   return (
-    <Root
+    <BaseSelect
       aria-labelledby={labelId}
-      data-phone-field-select
+      data-field-country-select
       isDisabled={isDisabled}
       isLoading={isQueryingCountries}
       isMultiple={isMultiple}
       isRequired={isRequired}
-      onChange={({ target: { value } }) => {
-        dispatch({
-          payload: { placeholder: data[value as Alpha2Code] },
-          type: 'setPlaceholder',
-        })
-
-        return onChange(`${name}.alpha2Code`)(value)
-      }}
       ref={ref}
+      variant={error && touched ? 'danger' : undefined}
       {...field}
       {...props}
     >
+      {placeholder && <Option value="">{placeholder}</Option>}
       {countries.map(({ alpha2Code, callingCode }) => (
         <Option key={alpha2Code} value={alpha2Code}>
           {`${formatMessage(
@@ -89,7 +66,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
           )} +${callingCode}`}
         </Option>
       ))}
-    </Root>
+    </BaseSelect>
   )
 }
 
