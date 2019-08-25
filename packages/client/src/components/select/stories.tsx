@@ -2,14 +2,19 @@ import centered from '@storybook/addon-centered/react'
 import { boolean, number, select } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
+import styled from 'styled-components'
 
-import Option from 'components/option'
+import { option } from 'styles/mixins'
 import Select, { Variant } from '.'
 
 const variants: Record<string, Variant | ''> = {
   default: '',
   danger: 'danger',
 }
+
+const Option = styled.option`
+  ${option};
+`
 
 storiesOf('Components|Select', module)
   .addDecorator(centered)
