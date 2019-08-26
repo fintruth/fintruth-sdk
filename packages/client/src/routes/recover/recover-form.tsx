@@ -35,7 +35,7 @@ interface Values {
   email: string
 }
 
-const rootId = 'routes.recover.recoverForm.'
+const rootId = 'routes.recover.recoverForm'
 const accountHelpId = `${rootId}.accountHelp`
 
 const translations = {
