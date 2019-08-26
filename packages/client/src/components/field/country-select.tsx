@@ -67,11 +67,11 @@ const CountrySelect: React.RefForwardingComponent<HTMLSelectElement, Props> = (
           ({ alpha2Code }) =>
             !exclude.includes(alpha2Code.toLowerCase() as Alpha2Code)
         )
-        .map(({ alpha2Code, callingCode }) => (
-          <Option key={alpha2Code} value={alpha2Code}>
-            {`${formatMessage(
+        .map(({ alpha2Code, name }) => (
+          <Option key={alpha2Code} value={name}>
+            {formatMessage(
               country.name[alpha2Code.toLowerCase() as Alpha2Code]
-            )} +${callingCode}`}
+            )}
           </Option>
         ))}
     </BaseSelect>
