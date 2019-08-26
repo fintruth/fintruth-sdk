@@ -1,4 +1,5 @@
 import { withA11y } from '@storybook/addon-a11y'
+import { DocsContainer, DocsPage } from '@storybook/addon-docs/blocks'
 import { PANEL_ID, withKnobs } from '@storybook/addon-knobs'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import { addDecorator, addParameters, configure } from '@storybook/react'
@@ -24,6 +25,8 @@ addDecorator(story => (
 
 addParameters({
   options: {
+    docs: DocsPage,
+    docsContainer: DocsContainer,
     selectedPanel: PANEL_ID,
     theme: {
       brandTitle: '@fintruth-sdk/client',
@@ -36,4 +39,4 @@ addParameters({
   viewport: { viewports: INITIAL_VIEWPORTS },
 })
 
-configure(require.context('../src', true, /(.*\.)?stories\.tsx$/), module)
+configure(require.context('../src', true, /(.*\.)?stories\.(mdx|tsx)$/), module)

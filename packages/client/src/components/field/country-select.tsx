@@ -11,11 +11,14 @@ import { country } from 'translations'
 import { CountriesQueryData, countriesQuery } from './graphql'
 import { useFieldContext } from '.'
 
+type Alpha2Code = keyof typeof country.name
+
 interface Props
   extends Omit<
     SelectProps,
     'children' | 'isDisabled' | 'isLoading' | 'isRequired' | 'name'
   > {
+  exclude?: Alpha2Code[]
   placeholder?: string
   validate?: FieldValidator
 }
@@ -24,8 +27,8 @@ const Option = styled.option`
   ${option};
 `
 
-const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
-  { isMultiple, placeholder, validate, ...props }: Props,
+const CountrySelect: React.RefForwardingComponent<HTMLSelectElement, Props> = (
+  { exclude = [], isMultiple, placeholder, validate, ...props }: Props,
   ref: React.Ref<HTMLSelectElement>
 ) => {
   const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
@@ -59,15 +62,20 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       {...props}
     >
       {placeholder && <Option value="">{placeholder}</Option>}
-      {countries.map(({ alpha2Code, callingCode }) => (
-        <Option key={alpha2Code} value={alpha2Code}>
-          {`${formatMessage(
-            country.name[alpha2Code.toLowerCase() as keyof typeof country.name]
-          )} +${callingCode}`}
-        </Option>
-      ))}
+      {countries
+        .filter(
+          ({ alpha2Code }) =>
+            !exclude.includes(alpha2Code.toLowerCase() as Alpha2Code)
+        )
+        .map(({ alpha2Code, callingCode }) => (
+          <Option key={alpha2Code} value={alpha2Code}>
+            {`${formatMessage(
+              country.name[alpha2Code.toLowerCase() as Alpha2Code]
+            )} +${callingCode}`}
+          </Option>
+        ))}
     </BaseSelect>
   )
 }
 
-export default React.forwardRef(Select)
+export default React.forwardRef(CountrySelect)

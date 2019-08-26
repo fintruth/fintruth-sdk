@@ -1,10 +1,10 @@
+import { Meta, Preview, Story } from '@storybook/addon-docs/blocks'
 import { MockedProvider } from '@apollo/react-testing'
 import { action } from '@storybook/addon-actions'
 import centered from '@storybook/addon-centered/react'
-import { boolean, number, select, text } from '@storybook/addon-knobs'
+import { array, boolean, number, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import { Formik } from 'formik'
-import React from 'react'
 import styled from 'styled-components'
 
 import { Type } from 'components/input'
@@ -19,11 +19,7 @@ import Field, {
   FieldSelect,
 } from '.'
 
-interface Values {
-  text: string
-}
-
-const countries = [
+export const countries = [
   {
     id: 'd5554a44-4be6-4438-8374-0b1d244c696a',
     alpha2Code: 'AF',
@@ -226,11 +222,11 @@ const countries = [
   },
 ]
 
-const fragmentMatcher = createFragmentMatcher()
+export const fragmentMatcher = createFragmentMatcher()
 
-const initialValues: Values = { text: '' }
+export const initialValues = { text: '' }
 
-const types: Record<string, Type | ''> = {
+export const types = {
   default: '',
   email: 'email',
   password: 'password',
@@ -238,14 +234,15 @@ const types: Record<string, Type | ''> = {
   text: 'text',
 }
 
-const Option = styled.option`
+export const Option = styled.option`
   ${option};
 `
 
-storiesOf('Components|Field', module)
-  .addDecorator(centered)
-  .add('Input', () => (
-    <Formik<Values> initialValues={initialValues} onSubmit={action('onSubmit')}>
+<Meta decorators={[centered]} title="Components|Field" />
+
+<Preview>
+  <Story name="Input">
+    <Formik initialValues={initialValues} onSubmit={action('onSubmit')}>
       <Field
         isDisabled={boolean('isDisabled', false)}
         isRequired={boolean('isRequired', true)}
@@ -256,14 +253,14 @@ storiesOf('Components|Field', module)
           delay={number('delay', 200)}
           isLoading={boolean('isLoading', false)}
           placeholder={text('placeholder', 'Placeholder')}
-          type={select<Type | ''>('type', types, '') || undefined}
+          type={select('type', types, '')}
         />
         <FieldHelp />
       </Field>
     </Formik>
-  ))
-  .add('Select', () => (
-    <Formik<Values> initialValues={initialValues} onSubmit={action('onSubmit')}>
+  </Story>
+  <Story name="Select">
+    <Formik initialValues={initialValues} onSubmit={action('onSubmit')}>
       <Field
         isDisabled={boolean('isDisabled', false)}
         isRequired={boolean('isRequired', true)}
@@ -283,18 +280,15 @@ storiesOf('Components|Field', module)
         <FieldHelp />
       </Field>
     </Formik>
-  ))
-  .add('Country Select', () => (
+  </Story>
+  <Story name="Country Select">
     <MockedProvider
       cache={createInMemoryCache({ fragmentMatcher })}
       mocks={[
         { request: { query: countriesQuery }, result: { data: { countries } } },
       ]}
     >
-      <Formik<Values>
-        initialValues={initialValues}
-        onSubmit={action('onSubmit')}
-      >
+      <Formik initialValues={initialValues} onSubmit={action('onSubmit')}>
         <Field
           isDisabled={boolean('isDisabled', false)}
           isRequired={boolean('isRequired', true)}
@@ -302,11 +296,13 @@ storiesOf('Components|Field', module)
         >
           <FieldLabel>{text('label', 'Label')}</FieldLabel>
           <FieldCountrySelect
-            placeholder={text('placeholder', 'Select a country')}
             delay={number('delay', 200)}
+            exclude={array('exclude', [], ', ')}
+            placeholder={text('placeholder', 'Select a country')}
           />
           <FieldHelp />
         </Field>
       </Formik>
     </MockedProvider>
-  ))
+  </Story>
+</Preview>

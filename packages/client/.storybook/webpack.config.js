@@ -1,9 +1,10 @@
 'use strict'
 
-const path = require('path')
+const mdxCompiler = require('@storybook/addon-docs/mdx-compiler-plugin')
+const { join, resolve } = require('path')
 const { DefinePlugin } = require('webpack')
 
-const rootDir = path.resolve(__dirname, '..')
+const rootDir = resolve(__dirname, '..')
 
 module.exports = ({ config, mode }) => {
   const isDev = /dev(elopment)?/i.test(mode)
@@ -22,16 +23,31 @@ module.exports = ({ config, mode }) => {
               options: { limit: 10000, name: '[name].[hash:8].[ext]' },
             },
             {
+              test: /\.mdx$/,
+              use: [
+                {
+                  loader: require.resolve('babel-loader'),
+                  options: {
+                    cacheCompression: isProd,
+                    cacheDirectory: true,
+                    caller: { target: 'web' },
+                    compact: isProd,
+                  },
+                },
+                {
+                  loader: require.resolve('@mdx-js/loader'),
+                  options: { compilers: [mdxCompiler()] },
+                },
+              ],
+            },
+            {
               test: /\.svg$/,
               loader: require.resolve('@svgr/webpack'),
               options: { ref: true },
             },
             {
               test: /\.ts(x)?$/,
-              include: [
-                path.join(rootDir, '.storybook'),
-                path.join(rootDir, 'src'),
-              ],
+              include: [join(rootDir, '.storybook'), join(rootDir, 'src')],
               loader: require.resolve('babel-loader'),
               options: {
                 cacheCompression: isProd,
@@ -52,7 +68,7 @@ module.exports = ({ config, mode }) => {
     resolve: {
       ...config.resolve,
       extensions: ['.js', '.json', '.mjs', '.ts', '.tsx', '.wasm'],
-      modules: ['node_modules', path.join(rootDir, 'src')],
+      modules: ['node_modules', join(rootDir, 'src')],
     },
   }
 }
