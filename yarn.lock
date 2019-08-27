@@ -2871,10 +2871,10 @@
     "@testing-library/dom" "^6.0.0"
     "@types/testing-library__react" "^9.1.0"
 
-"@testing-library/user-event@^4.2.4":
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-4.2.4.tgz#9029bdf35d7f0557954452916f22ba0e9f11eff9"
-  integrity sha512-Hi74+nCCjTM+HFRmN1CASq3Y1DC8XZk/oF0Ov/sIRXS5izvXCXtjxJcpPNzyi7YL5jGjWuldzsQTiPPtYbudwg==
+"@testing-library/user-event@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-5.0.0.tgz#89405a0cf4dc6f9bc04e12b4aadbd51febd9e39a"
+  integrity sha512-sH1oXU7Q4qam35iehvB/SMtuXJh5Ff29pWd7Z2c3Jt39K8kDE344xM/jlI/Qh4CJ6/UguPfKdFSGubLsNeWEgg==
 
 "@types/accepts@*", "@types/accepts@^1.3.5":
   version "1.3.5"
