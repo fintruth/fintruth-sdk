@@ -34,7 +34,7 @@
     "test:units": "jest --passWithNoTests"
   },
   "dependencies": {
-    "libphonenumber-js": "^1.7.22",
+    "libphonenumber-js": "^1.7.23",
     "yup": "^0.27.0",
     "zxcvbn": "^4.4.2"
   },
