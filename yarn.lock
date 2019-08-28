@@ -16100,12 +16100,12 @@ stylelint-config-styled-components@^0.1.1:
   resolved "https://registry.yarnpkg.com/stylelint-config-styled-components/-/stylelint-config-styled-components-0.1.1.tgz#b408388d7c687833ab4be4c4e6522d97d2827ede"
   integrity sha512-z5Xz/9GmvxO6e/DLzBMwkB85zHxEEjN6K7Cj80Bi+o/9vR9eS3GX3E9VuMnX9WLFYulqbqLtTapGGY28JBiy9Q==
 
-stylelint-junit-formatter@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/stylelint-junit-formatter/-/stylelint-junit-formatter-0.2.1.tgz#8cddde6b3d3a93189f5b3b1b419dcf3c338038ab"
-  integrity sha512-C1n8dBpqMwUeJGmyL8tGVB1DKQISnEMhynzCzo38kTpjXybxLLYPrblbm41q5fEHwbaLjE5bPhZpZyMoHaJhIQ==
+stylelint-junit-formatter@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/stylelint-junit-formatter/-/stylelint-junit-formatter-0.2.2.tgz#a2b49d1dc6c9d62c309ff1828479c17143baf068"
+  integrity sha512-8Yx0sG5vYKf+wBbFKibbuiuydKezBwo2M9svoNYtvYTKvSiMYVhZSvVJh9hMAWeSPImcVP9OwTq+Ku/00j9/Ng==
   dependencies:
-    xmlbuilder "^10.0.0"
+    xmlbuilder "^13.0.2"
 
 stylelint-order@^3.0.1:
   version "3.0.1"
@@ -17822,10 +17822,10 @@ xml@^1.0.1:
   resolved "https://registry.yarnpkg.com/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
   integrity sha1-eLpyAgApxbyHuKgaPPzXS0ovweU=
 
-xmlbuilder@^10.0.0:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-10.1.1.tgz#8cae6688cc9b38d850b7c8d3c0a4161dcaf475b0"
-  integrity sha512-OyzrcFLL/nb6fMGHbiRDuPup9ljBycsdCypwuyg5AAHvyWzGfChJpCXMG88AGTIMFhGZ9RccFN1e6lhg3hkwKg==
+xmlbuilder@^13.0.2:
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-13.0.2.tgz#02ae33614b6a047d1c32b5389c1fdacb2bce47a7"
+  integrity sha512-Eux0i2QdDYKbdbA6AM6xE4m6ZTZr4G4xF9kahI2ukSEMCzwce2eX9WlTI5J3s+NU7hpasFsr8hWIONae7LluAQ==
 
 xmlbuilder@~9.0.1:
   version "9.0.7"
