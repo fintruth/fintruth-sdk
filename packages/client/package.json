@@ -79,7 +79,7 @@
     "react-is": "^16.9.0",
     "react-uid": "^2.2.0",
     "reactabular-table": "^8.14.0",
-    "serialize-javascript": "^1.8.0",
+    "serialize-javascript": "^1.9.0",
     "source-map-support": "^0.5.13",
     "styled-components": "5.0.0-beta.8",
     "text-mask-core": "^5.1.2"
