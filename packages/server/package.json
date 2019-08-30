@@ -44,7 +44,7 @@
     "@casl/ability": "^3.2.0",
     "@fintruth-sdk/common": "^0.1.0",
     "@fintruth-sdk/validation": "^0.1.0",
-    "apollo-server-express": "^2.9.1",
+    "apollo-server-express": "^2.9.2",
     "aws-sdk": "^2.520.0",
     "base64url": "^3.0.1",
     "bcrypt": "^3.0.6",
