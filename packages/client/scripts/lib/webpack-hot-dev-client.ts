@@ -1,5 +1,4 @@
 import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages'
-import hotClient from 'webpack-hot-middleware/client'
 import launchEditorEndpoint from 'react-dev-utils/launchEditorEndpoint'
 import {
   dismissBuildError,
@@ -8,20 +7,29 @@ import {
   startReportingRuntimeErrors,
   stopReportingRuntimeErrors,
 } from 'react-error-overlay'
+import client from 'webpack-hot-middleware/client'
 
-setEditorHandler(errorLocation =>
+setEditorHandler(({ fileName, lineNumber }) => {
   fetch(
     `${launchEditorEndpoint}?fileName=${encodeURIComponent(
-      errorLocation.fileName
-    )}&lineNumber=${encodeURIComponent(errorLocation.lineNumber || 1)}`
+      fileName
+    )}&lineNumber=${encodeURIComponent(lineNumber || 1)}`
   )
-)
+})
 
-hotClient.setOptionsAndConnect({ name: 'client', reload: true })
-hotClient.useCustomOverlay({
+client.setOptionsAndConnect({ name: 'client', reload: true })
+client.useCustomOverlay({
   clear: () => dismissBuildError(),
-  showProblems: (type, errors) =>
-    reportBuildError(formatWebpackMessages({ errors, warnings: [] }).errors[0]),
+  showProblems: (_, errors) => {
+    const messages = formatWebpackMessages({
+      _showErrors: true,
+      _showWarnings: true,
+      errors,
+      warnings: [],
+    })
+
+    return reportBuildError(messages.errors[0])
+  },
 })
 
 startReportingRuntimeErrors({ filename: '/assets/client.js' })

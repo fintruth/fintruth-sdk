@@ -2,14 +2,14 @@
 
 const LoadablePlugin = require('@loadable/webpack-plugin')
 const DotenvPlugin = require('dotenv-webpack')
-const path = require('path')
+const { join, resolve } = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
 const { BannerPlugin, DefinePlugin } = require('webpack')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const nodeExternals = require('webpack-node-externals')
 
-const rootDir = path.resolve(__dirname, '..')
-const buildDir = path.join(rootDir, 'build')
+const rootDir = resolve(__dirname, '..')
+const buildDir = join(rootDir, 'build')
 
 const env = process.env.ENV || 'dev'
 const isProd = /prod(uction)?/i.test(env)
@@ -49,7 +49,7 @@ const createConfig = (target, configFactory) =>
             },
             {
               test: /\.ts(x)?$/,
-              include: [path.join(rootDir, 'src')],
+              include: join(rootDir, 'src'),
               loader: require.resolve('babel-loader'),
               options: {
                 cacheCompression: isRelease,
@@ -85,9 +85,9 @@ const createConfig = (target, configFactory) =>
         ? '[name].[chunkhash:8].chunk.js'
         : '[name].chunk.js',
       devtoolModuleFilenameTemplate: ({ absoluteResourcePath }) =>
-        path.resolve(absoluteResourcePath).replace(/\\/g, '/'),
+        resolve(absoluteResourcePath).replace(/\\/g, '/'),
       filename: isRelease ? '[name].[chunkhash:8].js' : '[name].js',
-      path: path.resolve(buildDir, 'public/assets'),
+      path: resolve(buildDir, 'public/assets'),
       pathinfo: isVerbose,
       publicPath: '/assets/',
     },
@@ -97,14 +97,14 @@ const createConfig = (target, configFactory) =>
         __IS_DEV__: !isRelease,
       }),
       new DotenvPlugin({
-        path: path.join(rootDir, envFile),
-        safe: path.join(rootDir, '.env.example'),
+        path: join(rootDir, envFile),
+        safe: join(rootDir, '.env.example'),
         systemvars: true,
       }),
     ],
     resolve: {
       extensions: ['.js', '.json', '.mjs', '.ts', '.tsx', '.wasm'],
-      modules: ['node_modules', path.join(rootDir, 'src')],
+      modules: ['node_modules', join(rootDir, 'src')],
     },
     stats: {
       cached: isVerbose,
@@ -123,7 +123,7 @@ const createConfig = (target, configFactory) =>
 
 const clientConfig = createConfig('web', baseConfig => ({
   ...baseConfig,
-  entry: { client: path.resolve('./src/client.tsx') },
+  entry: { client: resolve('./src/client.tsx') },
   name: 'client',
   optimization: {
     minimize: isRelease,
@@ -163,12 +163,15 @@ const clientConfig = createConfig('web', baseConfig => ({
 
 const serverConfig = createConfig('node', baseConfig => ({
   ...baseConfig,
-  entry: { server: path.resolve('./src/server.tsx') },
+  entry: { server: resolve('./src/server.tsx') },
   externals: [
-    nodeExternals({ whitelist: [/\.(bmp|gif|jp(e)?g|png|webp)$/] }),
     nodeExternals({
-      modulesDir: path.resolve(rootDir, '../../node_modules'),
-      whitelist: [/\.(bmp|gif|jp(e)?g|png|webp)$/],
+      modulesDir: join(rootDir, 'node_modules'),
+      whitelist: [/\.(bmp|css|gif|jp(e)?g|png|webp)$/],
+    }),
+    nodeExternals({
+      modulesDir: resolve(rootDir, '../../node_modules'),
+      whitelist: [/\.(bmp|css|gif|jp(e)?g|png|webp)$/],
     }),
   ],
   name: 'server',

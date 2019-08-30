@@ -3,12 +3,12 @@
 const DotenvPlugin = require('dotenv-webpack')
 const ForkTsCheckerPlugin = require('fork-ts-checker-webpack-plugin')
 const glob = require('glob')
-const path = require('path')
+const { basename, join, resolve } = require('path')
 const { BannerPlugin, DefinePlugin } = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
-const rootDir = path.resolve(__dirname, '..')
-const buildDir = path.join(rootDir, 'build')
+const rootDir = resolve(__dirname, '..')
+const buildDir = join(rootDir, 'build')
 
 const env = process.env.ENV || 'dev'
 const isProd = /prod(uction)?/i.test(env)
@@ -24,8 +24,8 @@ const baseConfig = {
   context: rootDir,
   devtool: isRelease ? 'source-map' : 'eval-source-map',
   externals: [
-    nodeExternals(),
-    nodeExternals({ modulesDir: path.resolve(rootDir, '../../node_modules') }),
+    nodeExternals({ modulesDir: join(rootDir, 'node_modules') }),
+    nodeExternals({ modulesDir: resolve(rootDir, '../../node_modules') }),
   ],
   mode: isRelease ? 'production' : 'development',
   module: {
@@ -40,7 +40,7 @@ const baseConfig = {
           },
           {
             test: /\.ts$/,
-            include: [path.join(rootDir, 'src')],
+            include: join(rootDir, 'src'),
             loader: require.resolve('ts-loader'),
             options: { transpileOnly: true },
           },
@@ -62,7 +62,7 @@ const baseConfig = {
   output: {
     chunkFilename: 'chunks/[name].js',
     devtoolModuleFilenameTemplate: ({ absoluteResourcePath }) =>
-      path.resolve(absoluteResourcePath).replace(/\\/g, '/'),
+      resolve(absoluteResourcePath).replace(/\\/g, '/'),
     filename: '[name].js',
     libraryTarget: 'commonjs2',
     path: buildDir,
@@ -70,7 +70,7 @@ const baseConfig = {
   },
   resolve: {
     extensions: ['.js', '.json', '.mjs', '.ts', '.wasm'],
-    modules: ['node_modules', path.join(rootDir, 'src')],
+    modules: ['node_modules', join(rootDir, 'src')],
   },
   stats: {
     cached: isVerbose,
@@ -90,30 +90,30 @@ const baseConfig = {
 const migrationsConfig = {
   ...baseConfig,
   entry: glob
-    .sync(path.resolve('./src/migrations/*.ts'))
-    .reduce((acc, cur) => ({ ...acc, [path.basename(cur, '.ts')]: cur }), {}),
+    .sync(resolve('./src/migrations/*.ts'))
+    .reduce((acc, cur) => ({ ...acc, [basename(cur, '.ts')]: cur }), {}),
   output: {
     ...baseConfig.output,
     libraryTarget: 'umd',
-    path: path.join(buildDir, 'migrations'),
+    path: join(buildDir, 'migrations'),
   },
 }
 
 const seedsConfig = {
   ...baseConfig,
   entry: glob
-    .sync(path.resolve('./src/seeds/*.ts'))
-    .reduce((acc, cur) => ({ ...acc, [path.basename(cur, '.ts')]: cur }), {}),
+    .sync(resolve('./src/seeds/*.ts'))
+    .reduce((acc, cur) => ({ ...acc, [basename(cur, '.ts')]: cur }), {}),
   output: {
     ...baseConfig.output,
     libraryTarget: 'umd',
-    path: path.join(buildDir, 'seeds'),
+    path: join(buildDir, 'seeds'),
   },
 }
 
 const serverConfig = {
   ...baseConfig,
-  entry: { main: path.resolve('./src/main.ts') },
+  entry: { main: resolve('./src/main.ts') },
   name: 'main',
   node: false,
   plugins: [
@@ -127,8 +127,8 @@ const serverConfig = {
       'process.env.NODE_ENV': isRelease ? '"production"' : '"development"',
     }),
     new DotenvPlugin({
-      path: path.join(rootDir, envFile),
-      safe: path.join(rootDir, '.env.example'),
+      path: join(rootDir, envFile),
+      safe: join(rootDir, '.env.example'),
       systemvars: true,
     }),
     new ForkTsCheckerPlugin(),

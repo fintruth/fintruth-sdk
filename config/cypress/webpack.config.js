@@ -1,9 +1,9 @@
 'use strict'
 
-const path = require('path')
 const ForkTsCheckerPlugin = require('fork-ts-checker-webpack-plugin')
+const { join, resolve } = require('path')
 
-const rootDir = path.resolve(__dirname, '../..')
+const rootDir = resolve(__dirname, '../..')
 
 module.exports = {
   module: {
@@ -14,8 +14,8 @@ module.exports = {
           {
             test: /\.ts$/,
             include: [
-              path.resolve(rootDir, 'config/cypress'),
-              path.join(rootDir, 'test'),
+              resolve(rootDir, 'config/cypress'),
+              join(rootDir, 'test'),
             ],
             loader: require.resolve('ts-loader'),
             options: { transpileOnly: true },
