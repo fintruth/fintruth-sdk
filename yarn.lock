@@ -2420,17 +2420,17 @@
     react-lifecycles-compat "^3.0.4"
     react-select "^3.0.0"
 
-"@storybook/addon-viewport@5.2.0-rc.0":
-  version "5.2.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-viewport/-/addon-viewport-5.2.0-rc.0.tgz#21e9a1d332e207b763e041d393b463441c557b48"
-  integrity sha512-Ac14HZXK99Clb3EW5Tb0tSP9St/uGbOFBNHLDuD5GchKHntdR8VssnRwwft3owL5oVvKGhGTv1YCXxINzCz9CQ==
+"@storybook/addon-viewport@5.2.0-rc.4":
+  version "5.2.0-rc.4"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-viewport/-/addon-viewport-5.2.0-rc.4.tgz#7831698e050de58d12483cb0df26b854050b71b2"
+  integrity sha512-Iv0AaITIvyceLEgQ4WKCQJDTLpBN8SY7XvlpceTY32Z0Lxqi96xGTB+QSXAzS/msLAwZxtBkxLfDt4HRk8Y+pw==
   dependencies:
-    "@storybook/addons" "5.2.0-rc.0"
-    "@storybook/api" "5.2.0-rc.0"
-    "@storybook/client-logger" "5.2.0-rc.0"
-    "@storybook/components" "5.2.0-rc.0"
-    "@storybook/core-events" "5.2.0-rc.0"
-    "@storybook/theming" "5.2.0-rc.0"
+    "@storybook/addons" "5.2.0-rc.4"
+    "@storybook/api" "5.2.0-rc.4"
+    "@storybook/client-logger" "5.2.0-rc.4"
+    "@storybook/components" "5.2.0-rc.4"
+    "@storybook/core-events" "5.2.0-rc.4"
+    "@storybook/theming" "5.2.0-rc.4"
     core-js "^3.0.1"
     global "^4.3.2"
     memoizerific "^1.11.3"
