@@ -50,12 +50,15 @@ const validationSchema = object().shape({
   emailConfirm: string().oneOf([ref('email')], 'Retype the email address'),
 })
 
-const Help = styled.p.attrs((props: HelpProps) => ({
-  color: 'success',
-  ...props,
-}))`
+const Help = styled.p.attrs(attrs => ({ color: 'success', ...attrs }))<
+  HelpProps
+>`
   ${({ color, theme }) => help(theme[color])};
-  margin: ${rem(-10)} 0 ${rem(30)};
+  margin-bottom: ${rem(30)};
+
+  &:not(:first-child) {
+    margin-top: ${rem(-10)};
+  }
 `
 
 const LastField = styled(Field)`

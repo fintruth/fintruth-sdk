@@ -18,7 +18,7 @@ const Root = styled(BaseLabel)`
 
 const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
   { id, ...props }: Props,
-  ref: React.Ref<HTMLLabelElement>
+  ref?: React.Ref<HTMLLabelElement>
 ) => {
   const [{ isRequired, labelId, name }, dispatch] = useFieldContext()
   const seed = useUIDSeed()

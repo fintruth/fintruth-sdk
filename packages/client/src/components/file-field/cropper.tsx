@@ -27,7 +27,6 @@ interface Props
     | 'src'
   > {
   alt: string
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
   crossOrigin?: 'anonymous' | 'use-credentials'
   initialCrop?: Crop
   isLocked?: boolean
@@ -51,7 +50,7 @@ const Root = styled(ReactCrop)`
 
 const Cropper: React.RefForwardingComponent<HTMLImageElement, Props> = (
   { alt, initialCrop = defaultInitialCrop, isLocked, onLoad, ...props }: Props,
-  ref: React.Ref<HTMLImageElement>
+  ref?: React.Ref<HTMLImageElement>
 ) => {
   const [{ isDisabled, name, src }, dispatch] = useFileFieldContext()
   const [crop, setCrop] = React.useState<Crop>(initialCrop)
@@ -59,9 +58,32 @@ const Cropper: React.RefForwardingComponent<HTMLImageElement, Props> = (
   const { value } = useField<File | string>(name)[0]
   const image = React.useRef<HTMLImageElement>()
 
-  const handleComplete = React.useCallback<ReactCropEventHandler>(
-    async ({ height, width, x = 0, y = 0 }) => {
-      if (image.current && width && height) {
+  React.useEffect(
+    () => dispatch({ payload: { hasCropper: true }, type: 'setHasCropper' }),
+    [dispatch]
+  )
+
+  React.useEffect(() => {
+    if (!value) {
+      dispatch({ payload: { src: '' }, type: 'setSrc' })
+
+      return setCrop(initialCrop)
+    }
+  }, [dispatch, initialCrop, value])
+
+  return src ? (
+    <Root
+      data-file-field-cropper
+      crop={crop}
+      disabled={isDisabled}
+      imageAlt={alt}
+      locked={isLocked}
+      onChange={crop => setCrop(crop)}
+      onComplete={async ({ height, width, x = 0, y = 0 }) => {
+        if (!image.current || !width || !height) {
+          return
+        }
+
         const canvas = document.createElement('canvas')
         const scaleX = image.current.naturalWidth / image.current.width
         const scaleY = image.current.naturalHeight / image.current.height
@@ -98,44 +120,16 @@ const Cropper: React.RefForwardingComponent<HTMLImageElement, Props> = (
         )
 
         return setFieldValue(name, file)
-      }
-    },
-    [name, setFieldValue, value.name, value.type]
-  )
+      }}
+      onImageLoaded={instance => {
+        if (ref) {
+          setRef(ref, instance)
+        }
 
-  const handleLoad = React.useCallback<RefHandler<HTMLImageElement>>(
-    instance => {
-      setRef(ref, instance)
-      setRef(image, instance)
+        setRef(image, instance)
 
-      return onLoad && onLoad(instance)
-    },
-    [onLoad, ref]
-  )
-
-  React.useEffect(
-    () => dispatch({ payload: { hasCropper: true }, type: 'setHasCropper' }),
-    [dispatch]
-  )
-
-  React.useEffect(() => {
-    if (!value) {
-      dispatch({ payload: { src: '' }, type: 'setSrc' })
-
-      return setCrop(initialCrop)
-    }
-  }, [dispatch, initialCrop, value])
-
-  return src ? (
-    <Root
-      data-file-field-cropper
-      crop={crop}
-      disabled={isDisabled}
-      imageAlt={alt}
-      locked={isLocked}
-      onChange={crop => setCrop(crop)}
-      onComplete={handleComplete}
-      onImageLoaded={handleLoad}
+        return onLoad && onLoad(instance)
+      }}
       src={src}
       {...props}
     />

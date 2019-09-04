@@ -4,9 +4,7 @@ import styled from 'styled-components'
 
 import { useFileFieldContext } from '.'
 
-interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
-}
+type Props = React.LabelHTMLAttributes<HTMLLabelElement>
 
 const Root = styled.label`
   cursor: pointer;
@@ -17,7 +15,7 @@ const Root = styled.label`
 
 const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
   { id, ...props }: Props,
-  ref: React.Ref<HTMLLabelElement>
+  ref?: React.Ref<HTMLLabelElement>
 ) => {
   const [{ labelId, name }, dispatch] = useFileFieldContext()
   const seed = useUIDSeed()

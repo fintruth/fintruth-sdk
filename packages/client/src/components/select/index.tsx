@@ -16,7 +16,6 @@ export interface Props
     React.SelectHTMLAttributes<HTMLSelectElement>,
     'disabled' | 'multiple' | 'required'
   > {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
   delay?: number
   isDisabled?: boolean
   isLoading?: boolean
@@ -158,7 +157,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
     variant,
     ...props
   }: Props,
-  ref: React.Ref<HTMLSelectElement>
+  ref?: React.Ref<HTMLSelectElement>
 ) => {
   const isExpired = useTimer(isLoading, delay)
 

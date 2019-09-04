@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components'
 import { useRadioContext } from '.'
 
 interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
   children: React.ReactNode
 }
 
@@ -36,7 +35,7 @@ const Root = styled.label<RootProps>`
 
 const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
   props: Props,
-  ref: React.Ref<HTMLLabelElement>
+  ref?: React.Ref<HTMLLabelElement>
 ) => {
   const { inputId, isDisabled } = useRadioContext()[0]
 

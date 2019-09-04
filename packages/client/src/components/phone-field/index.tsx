@@ -28,7 +28,6 @@ export interface PhoneValue {
 }
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
   isDisabled?: boolean
   isRequired?: boolean
   name: string
@@ -64,7 +63,7 @@ const Root = styled.div`
 
 const PhoneField: React.RefForwardingComponent<HTMLDivElement, Props> = (
   { isDisabled = false, isRequired = true, name, ...props }: Props,
-  ref: React.Ref<HTMLDivElement>
+  ref?: React.Ref<HTMLDivElement>
 ) => {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>

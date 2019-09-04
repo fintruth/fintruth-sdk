@@ -35,13 +35,16 @@ interface Values {
 
 const initialValues: Values = { token: '' }
 
-const Help = styled.p.attrs((props: HelpProps) => ({
-  color: 'danger',
-  ...props,
-}))`
+const Help = styled.p.attrs(attrs => ({ color: 'danger', ...attrs }))<
+  HelpProps
+>`
   ${({ color, theme }) => help(theme[color])};
-  margin: 0 0 ${rem(30)};
+  margin-bottom: ${rem(30)};
   width: ${rem(280)};
+
+  &:not(:first-child) {
+    margin-top: unset;
+  }
 `
 
 const Form = styled(BaseForm)`

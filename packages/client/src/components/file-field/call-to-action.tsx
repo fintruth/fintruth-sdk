@@ -24,7 +24,6 @@ interface Props
     React.InputHTMLAttributes<HTMLInputElement>,
     'disabled' | 'required' | 'type'
   > {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
   maxSize?: number
   validate?: FieldValidator
   variant?: Variant
@@ -166,7 +165,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
     variant,
     ...props
   }: Props,
-  ref: React.Ref<HTMLInputElement>
+  ref?: React.Ref<HTMLInputElement>
 ) => {
   const [
     { fileName, hasCropper, isDisabled, isRequired, labelId, name },
@@ -228,7 +227,9 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
           return setFieldValue(name, file)
         }}
         ref={instance => {
-          setRef(ref, instance)
+          if (ref) {
+            setRef(ref, instance)
+          }
 
           return setRef(input, instance)
         }}

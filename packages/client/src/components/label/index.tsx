@@ -3,7 +3,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 export interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
   children: React.ReactNode
   isRequired?: boolean
 }
@@ -21,7 +20,7 @@ const Root = styled.label`
 
 const Label = (
   { children, isRequired, ...props }: Props,
-  ref: React.Ref<HTMLLabelElement>
+  ref?: React.Ref<HTMLLabelElement>
 ) => (
   <Root ref={ref} {...props}>
     {children}

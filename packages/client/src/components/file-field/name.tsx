@@ -6,9 +6,7 @@ import styled from 'styled-components'
 import { control } from 'styles/mixins'
 import { useFileFieldContext } from '.'
 
-interface Props extends React.HTMLAttributes<HTMLSpanElement> {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
-}
+type Props = React.HTMLAttributes<HTMLSpanElement>
 
 interface RootProps {
   disabled: boolean
@@ -42,7 +40,7 @@ const Root = styled.span<RootProps>`
 
 const Name: React.RefForwardingComponent<HTMLSpanElement, Props> = (
   props: Props,
-  ref: React.Ref<HTMLSpanElement>
+  ref?: React.Ref<HTMLSpanElement>
 ) => {
   const { isDisabled, name } = useFileFieldContext()[0]
   const { value } = useField<File | string>(name)[0]

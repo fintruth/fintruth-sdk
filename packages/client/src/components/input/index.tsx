@@ -20,7 +20,6 @@ export interface Props
     React.InputHTMLAttributes<HTMLInputElement>,
     'disabled' | 'required'
   > {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
   delay?: number
   isDisabled?: boolean
   isGuided?: boolean
@@ -136,7 +135,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
     variant,
     ...props
   }: Props,
-  ref: React.Ref<HTMLInputElement>
+  ref?: React.Ref<HTMLInputElement>
 ) => {
   const [maskedInput, setMaskedInput] = React.useState()
   const input = React.useRef<HTMLInputElement>()
@@ -188,7 +187,9 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
         disabled={isDisabled}
         onChange={handleChange}
         ref={instance => {
-          setRef(ref, instance)
+          if (ref) {
+            setRef(ref, instance)
+          }
 
           return setRef(input, instance)
         }}

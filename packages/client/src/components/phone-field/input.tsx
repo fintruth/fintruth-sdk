@@ -18,7 +18,7 @@ const defaultMask = new Array(30).fill(/[-,.()\d\setx]/)
 
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   { id, mask = defaultMask, type = 'tel', validate, ...props }: Props,
-  ref: React.Ref<HTMLInputElement>
+  ref?: React.Ref<HTMLInputElement>
 ) => {
   const [
     { controlId, isDisabled, isRequired, name, placeholder },

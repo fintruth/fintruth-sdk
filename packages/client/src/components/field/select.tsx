@@ -12,7 +12,7 @@ interface Props
 
 const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   { isMultiple, validate, ...props }: Props,
-  ref: React.Ref<HTMLSelectElement>
+  ref?: React.Ref<HTMLSelectElement>
 ) => {
   const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
   const [{ multiple: _, ...field }, { error, touched }] = useField<

@@ -11,7 +11,6 @@ interface Props
     React.InputHTMLAttributes<HTMLInputElement>,
     'checked' | 'disabled' | 'required' | 'type'
   > {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
   value: string
 }
 
@@ -79,7 +78,7 @@ const Toggle = styled.div`
 
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   { className, id, value, ...props }: Props,
-  ref: React.Ref<HTMLInputElement>
+  ref?: React.Ref<HTMLInputElement>
 ) => {
   const [{ inputId, isDisabled, name }, dispatch] = useRadioContext()
   const field = useField<FieldAttributes<any>>({ name, type, value })[0]

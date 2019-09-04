@@ -5,10 +5,7 @@ import styled from 'styled-components'
 import { help } from 'styles/mixins'
 import { useFieldContext } from '.'
 
-interface Props
-  extends Omit<React.HTMLAttributes<HTMLParagraphElement>, 'children'> {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
-}
+type Props = Omit<React.HTMLAttributes<HTMLParagraphElement>, 'children'>
 
 const Root = styled.p`
   ${({ theme }) => help(theme.danger)};
@@ -16,7 +13,7 @@ const Root = styled.p`
 
 const Help: React.RefForwardingComponent<HTMLParagraphElement, Props> = (
   props: Props,
-  ref: React.Ref<HTMLParagraphElement>
+  ref?: React.Ref<HTMLParagraphElement>
 ) => {
   const { name } = useFieldContext()[0]
   const { error, touched } = useField<string>(name)[1]

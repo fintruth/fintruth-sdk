@@ -11,7 +11,7 @@ interface Props extends Omit<InputProps, 'isDisabled' | 'isRequired' | 'name'> {
 
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   { validate, type, ...props }: Props,
-  ref: React.Ref<HTMLInputElement>
+  ref?: React.Ref<HTMLInputElement>
 ) => {
   const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
   const [field, { error, touched }] = useField<FieldAttributes<any>>({

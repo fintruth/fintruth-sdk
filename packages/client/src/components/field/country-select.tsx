@@ -29,7 +29,7 @@ const Option = styled.option`
 
 const CountrySelect: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   { exclude = [], isMultiple, placeholder, validate, ...props }: Props,
-  ref: React.Ref<HTMLSelectElement>
+  ref?: React.Ref<HTMLSelectElement>
 ) => {
   const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
   const [{ multiple: _, ...field }, { error, touched }] = useField<

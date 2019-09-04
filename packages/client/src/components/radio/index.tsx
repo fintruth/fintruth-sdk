@@ -19,7 +19,6 @@ interface BaseState {
 }
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
   isDisabled?: boolean
   name: string
 }
@@ -53,7 +52,7 @@ const Root = styled.div`
 
 const Radio: React.RefForwardingComponent<HTMLDivElement, Props> = (
   { isDisabled = false, name, ...props }: Props,
-  ref: React.Ref<HTMLDivElement>
+  ref?: React.Ref<HTMLDivElement>
 ) => {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>

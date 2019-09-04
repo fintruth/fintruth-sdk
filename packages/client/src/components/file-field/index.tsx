@@ -5,6 +5,8 @@ import styled from 'styled-components'
 
 type Dispatch = (action: Action) => void
 
+type Payload = Partial<BaseState>
+
 type Type = 'setHasCropper' | 'setLabelId' | 'setSrc'
 
 export type Variant = 'danger' | 'primary'
@@ -20,14 +22,7 @@ interface BaseState {
   src: string
 }
 
-interface Payload {
-  hasCropper?: boolean
-  labelId?: string
-  src?: string
-}
-
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
   fileName?: string
   isDisabled?: boolean
   isRequired?: boolean
@@ -71,7 +66,7 @@ const FileField: React.RefForwardingComponent<HTMLDivElement, Props> = (
     name,
     ...props
   }: Props,
-  ref: React.Ref<HTMLDivElement>
+  ref?: React.Ref<HTMLDivElement>
 ) => {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>
