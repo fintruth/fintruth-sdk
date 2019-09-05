@@ -98,7 +98,7 @@
     "@loadable/babel-plugin": "^5.10.0",
     "@loadable/webpack-plugin": "^5.7.1",
     "@mdx-js/loader": "^1.4.4",
-    "@storybook/addon-a11y": "5.2.0-rc.5",
+    "@storybook/addon-a11y": "5.2.0-rc.6",
     "@storybook/addon-actions": "5.2.0-rc.5",
     "@storybook/addon-centered": "5.2.0-rc.5",
     "@storybook/addon-docs": "5.2.0-rc.5",
