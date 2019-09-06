@@ -6,6 +6,8 @@ import bodyParser from 'body-parser'
 import compression from 'compression'
 import cors from 'cors'
 import express, { Express, NextFunction, Request, Response } from 'express'
+import { Styles } from 'isomorphic-style-loader'
+import StyleContext from 'isomorphic-style-loader/StyleContext'
 import path from 'path'
 import PrettyError from 'pretty-error'
 import React from 'react'
@@ -37,21 +39,34 @@ app
 app.get('*', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const client = createApolloClient({ defaults, resolvers: {} })
+    const css = new Set()
     const extractor = new ChunkExtractor({
       entrypoints: 'client',
       statsFile: path.resolve(__dirname, 'stats.json'),
     })
     const sheet = new ServerStyleSheet()
 
+    const insertCss = (...styles: Styles[]) => {
+      const removeCss = styles.map(({ _getCss, _insertCss }) => {
+        css.add(_getCss())
+
+        return _insertCss()
+      })
+
+      return () => removeCss.forEach(dispose => dispose())
+    }
+
     const root = await renderToStringWithData(
       <ChunkExtractorManager extractor={extractor}>
-        <StyleSheetManager sheet={sheet.instance}>
-          <ServerLocation url={req.url}>
-            <ApolloProvider client={client}>
-              <Root />
-            </ApolloProvider>
-          </ServerLocation>
-        </StyleSheetManager>
+        <StyleContext.Provider value={{ insertCss }}>
+          <StyleSheetManager sheet={sheet.instance}>
+            <ServerLocation url={req.url}>
+              <ApolloProvider client={client}>
+                <Root />
+              </ApolloProvider>
+            </ServerLocation>
+          </StyleSheetManager>
+        </StyleContext.Provider>
       </ChunkExtractorManager>
     )
 
@@ -63,7 +78,13 @@ app.get('*', async (req: Request, res: Response, next: NextFunction) => {
           __APOLLO_CACHE__: client.extract(),
           __APOLLO_STATE__: defaults,
         }}
-        styles={sheet.getStyleElement()}
+        styles={[
+          <style
+            key="css"
+            dangerouslySetInnerHTML={{ __html: [...css].join(', ') }}
+          />,
+          ...sheet.getStyleElement(),
+        ]}
       >
         {root}
       </Html>

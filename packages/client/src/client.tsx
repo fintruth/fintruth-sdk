@@ -1,6 +1,8 @@
 import { ApolloProvider } from '@apollo/react-hooks'
 import { loadableReady } from '@loadable/component'
 import { Location, createBrowserHistory } from 'history'
+import { Styles } from 'isomorphic-style-loader'
+import StyleContext from 'isomorphic-style-loader/StyleContext'
 import React from 'react'
 import deepForceUpdate from 'react-deep-force-update'
 import { hydrate } from 'react-dom'
@@ -25,6 +27,12 @@ const history = createBrowserHistory()
 const scrollPositionsHistory: Record<string, Position> = {}
 let currentLocation = history.location
 let appInstance: any
+
+const insertCss = (...styles: Styles[]) => {
+  const removeCss = styles.map(({ _insertCss }) => _insertCss())
+
+  return () => removeCss.forEach(dispose => dispose())
+}
 
 const onLocationChange = async (location: Location, action?: string) => {
   const isInitialRender = !action
@@ -53,7 +61,9 @@ const onLocationChange = async (location: Location, action?: string) => {
 
     appInstance = hydrate(
       <ApolloProvider client={client}>
-        <Root />
+        <StyleContext.Provider value={{ insertCss }}>
+          <Root />
+        </StyleContext.Provider>
       </ApolloProvider>,
       container,
       () => {

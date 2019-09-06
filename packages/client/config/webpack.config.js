@@ -38,6 +38,20 @@ const createConfig = (target, configFactory) =>
               options: { limit: 10000, name: '[name].[hash:8].[ext]' },
             },
             {
+              test: /\.css$/,
+              include: /[/\\\\]node_modules[/\\\\]/,
+              rules: [
+                {
+                  issuer: { not: [/\.css$/] },
+                  loader: require.resolve('isomorphic-style-loader'),
+                },
+                {
+                  loader: require.resolve('css-loader'),
+                  options: { sourceMap: isRelease },
+                },
+              ],
+            },
+            {
               test: /\.mjs$/,
               include: /[/\\\\]node_modules[/\\\\]/,
               type: 'javascript/auto',

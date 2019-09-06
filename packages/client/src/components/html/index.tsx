@@ -50,10 +50,6 @@ const Html: React.FunctionComponent<Props> = ({
         rel="stylesheet"
         href="https://unpkg.com/@reach/menu-button@0.1.18/styles.css"
       />
-      <link
-        rel="stylesheet"
-        href="https://unpkg.com/react-image-crop@8.1.0/dist/ReactCrop.css"
-      />
       {styles}
     </head>
     <body>

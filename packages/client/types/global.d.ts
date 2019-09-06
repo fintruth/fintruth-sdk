@@ -11,6 +11,14 @@ declare module '*.bmp' {
   export default src
 }
 
+declare module '*.css' {
+  import { Styles } from 'isomorphic-style-loader' // eslint-disable-line import/order
+
+  const src: Styles
+
+  export default src
+}
+
 declare module '*.gif' {
   const src: string
 

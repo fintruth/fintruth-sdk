@@ -1,7 +1,9 @@
 import { useField, useFormikContext } from 'formik'
+import useStyles from 'isomorphic-style-loader/useStyles'
 import { rem } from 'polished'
 import React from 'react'
 import ReactCrop, { Crop, PercentCrop, ReactCropProps } from 'react-image-crop'
+import styles from 'react-image-crop/dist/ReactCrop.css'
 import styled from 'styled-components'
 
 import { unselectable } from 'styles/mixins'
@@ -70,6 +72,8 @@ const Cropper: React.RefForwardingComponent<HTMLImageElement, Props> = (
       return setCrop(initialCrop)
     }
   }, [dispatch, initialCrop, value])
+
+  useStyles(styles)
 
   return src ? (
     <Root

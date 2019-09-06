@@ -3,6 +3,8 @@ import { DocsContainer, DocsPage } from '@storybook/addon-docs/blocks'
 import { PANEL_ID, withKnobs } from '@storybook/addon-knobs'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import { addDecorator, addParameters, configure } from '@storybook/react'
+import { Styles } from 'isomorphic-style-loader'
+import StyleContext from 'isomorphic-style-loader/StyleContext'
 import React from 'react'
 import { IntlProvider } from 'react-intl'
 import { ThemeProvider } from 'styled-components'
@@ -10,23 +12,30 @@ import { ThemeProvider } from 'styled-components'
 import GlobalStyle from 'styles/global'
 import theme from 'styles/theme'
 
+const insertCss = (...styles: Styles[]) => {
+  const removeCss = styles.map(({ _insertCss }) => _insertCss())
+
+  return () => removeCss.forEach(dispose => dispose())
+}
+
 addDecorator(withA11y)
 addDecorator(withKnobs)
 addDecorator(story => (
   <IntlProvider locale="en">
-    <ThemeProvider theme={theme}>
-      <>
-        <GlobalStyle />
-        {story()}
-      </>
-    </ThemeProvider>
+    <StyleContext.Provider value={{ insertCss }}>
+      <ThemeProvider theme={theme}>
+        <>
+          <GlobalStyle />
+          {story()}
+        </>
+      </ThemeProvider>
+    </StyleContext.Provider>
   </IntlProvider>
 ))
 
 addParameters({
   options: {
-    docs: DocsPage,
-    docsContainer: DocsContainer,
+    docs: { container: DocsContainer, page: DocsPage },
     selectedPanel: PANEL_ID,
     theme: {
       brandTitle: '@fintruth-sdk/client',
@@ -39,4 +48,4 @@ addParameters({
   viewport: { viewports: INITIAL_VIEWPORTS },
 })
 
-configure(require.context('../src', true, /(.*\.)?stories\.(mdx|tsx)$/), module)
+configure(require.context('../src', true, /(.*\.)?stories\.tsx$/), module)
