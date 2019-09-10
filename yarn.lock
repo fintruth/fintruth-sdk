@@ -2507,10 +2507,10 @@
     global "^4.3.2"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-docs@5.2.0-rc.6":
-  version "5.2.0-rc.6"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-5.2.0-rc.6.tgz#966b18a75a82344b41e865d8af28c9fd886012b8"
-  integrity sha512-QIoSrIhsNoL4EdhKDu22GVBoxfQIt55cUPAiBjRR6gr+vZ9vpoSgmTAPs2pI5QfXynle11QzHSF42ZMVbnI86w==
+"@storybook/addon-docs@5.2.0-rc.10":
+  version "5.2.0-rc.10"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-5.2.0-rc.10.tgz#678d6434f474c71379e4627ea3c1fd0e70b75bb4"
+  integrity sha512-ePB82PMzScxZR6fmhUMGFiaWBs/wm9cjvRRbKdPPK2Ywe4CNo4qtWL7ZxmojX0xtQQhSiMb/iseD0kLMNlU8QA==
   dependencies:
     "@babel/generator" "^7.4.0"
     "@babel/parser" "^7.4.2"
@@ -2518,12 +2518,12 @@
     "@mdx-js/loader" "^1.1.0"
     "@mdx-js/mdx" "^1.1.0"
     "@mdx-js/react" "^1.0.27"
-    "@storybook/addons" "5.2.0-rc.6"
-    "@storybook/api" "5.2.0-rc.6"
-    "@storybook/components" "5.2.0-rc.6"
-    "@storybook/router" "5.2.0-rc.6"
-    "@storybook/source-loader" "5.2.0-rc.6"
-    "@storybook/theming" "5.2.0-rc.6"
+    "@storybook/addons" "5.2.0-rc.10"
+    "@storybook/api" "5.2.0-rc.10"
+    "@storybook/components" "5.2.0-rc.10"
+    "@storybook/router" "5.2.0-rc.10"
+    "@storybook/source-loader" "5.2.0-rc.10"
+    "@storybook/theming" "5.2.0-rc.10"
     core-js "^3.0.1"
     global "^4.3.2"
     js-string-escape "^1.0.1"
@@ -2957,13 +2957,13 @@
     memoizerific "^1.11.3"
     qs "^6.6.0"
 
-"@storybook/source-loader@5.2.0-rc.6":
-  version "5.2.0-rc.6"
-  resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-5.2.0-rc.6.tgz#0c896fb66a408e4e92fd000a5cb1ca82716bc56d"
-  integrity sha512-NBMsT7jNjvzjc2eOR28FKH2ETTZ3CzqueENrxQfoo32OdNrEiT13/TO2xfMGguZe1IGhZFnpUw1Vtbe5279Faw==
+"@storybook/source-loader@5.2.0-rc.10":
+  version "5.2.0-rc.10"
+  resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-5.2.0-rc.10.tgz#78f1efc7c9cebf12279f5c65eab2be5e9430212a"
+  integrity sha512-aYmA+NhZ3fzYqGHkO31Kx9LMqoLNLAw5MAFmPf5DudNS5yN+nkmnDmV8OsDwHxskqGlChmU3okWQP5/USSIG5g==
   dependencies:
-    "@storybook/addons" "5.2.0-rc.6"
-    "@storybook/router" "5.2.0-rc.6"
+    "@storybook/addons" "5.2.0-rc.10"
+    "@storybook/router" "5.2.0-rc.10"
     core-js "^3.0.1"
     estraverse "^4.2.0"
     global "^4.3.2"
