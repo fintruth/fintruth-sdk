@@ -136,7 +136,7 @@
     "@types/react-image-crop": "^8.1.2",
     "@types/rimraf": "^2.0.2",
     "@types/serialize-javascript": "^1.5.0",
-    "@types/styled-components": "^4.1.18",
+    "@types/styled-components": "^4.1.19",
     "@types/testing-library__dom": "^6.0.3",
     "@types/testing-library__react": "^9.1.1",
     "@types/webpack": "^4.39.1",
