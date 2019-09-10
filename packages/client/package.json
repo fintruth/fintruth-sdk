@@ -106,7 +106,7 @@
     "@storybook/addon-docs": "5.2.0-rc.6",
     "@storybook/addon-knobs": "5.2.0-rc.6",
     "@storybook/addon-viewport": "5.2.0-rc.6",
-    "@storybook/addons": "5.2.0-rc.6",
+    "@storybook/addons": "5.2.0-rc.10",
     "@storybook/react": "5.2.0-rc.6",
     "@svgr/webpack": "^4.3.2",
     "@testing-library/dom": "^6.2.0",
