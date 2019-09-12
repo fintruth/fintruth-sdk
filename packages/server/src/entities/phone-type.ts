@@ -24,9 +24,9 @@ export default class PhoneType extends BaseEntity implements IPhoneType {
   @OneToMany(() => Phone, ({ type }) => type)
   phones: Phone[]
 
-  constructor(partialPhoneType: Partial<PhoneType> = {}) {
+  constructor(partial: Partial<PhoneType> = {}) {
     super()
 
-    Object.assign(this, partialPhoneType)
+    Object.assign(this, partial)
   }
 }

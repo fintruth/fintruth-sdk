@@ -24,9 +24,9 @@ export default class MediaType extends BaseEntity implements IMediaType {
   @Column()
   name: string
 
-  constructor(partialMediaType: Partial<MediaType> = {}) {
+  constructor(partial: Partial<MediaType> = {}) {
     super()
 
-    Object.assign(this, partialMediaType)
+    Object.assign(this, partial)
   }
 }

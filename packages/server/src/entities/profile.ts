@@ -34,9 +34,9 @@ export default class Profile extends BaseEntity implements IProfile {
   @Column()
   userId: string
 
-  constructor(partialProfile: Partial<Profile> = {}) {
+  constructor(partial: Partial<Profile> = {}) {
     super()
 
-    Object.assign(this, partialProfile)
+    Object.assign(this, partial)
   }
 }

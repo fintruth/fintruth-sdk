@@ -1,4 +1,3 @@
-import { object, string } from '@fintruth-sdk/validation'
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js'
 import { Inject, Service } from 'typedi'
 
@@ -30,17 +29,6 @@ export default class PhoneService {
       ...(ext ? { ext: ext as string } : {}),
     })
   }
-
-  validateInput = ({ alpha2Code, ...input }: PhoneInput) =>
-    object<PhoneInput>()
-      .shape({
-        alpha2Code: string().required(),
-        number: string()
-          .required()
-          .phone({ defaultCountry: alpha2Code as CountryCode }),
-        typeName: string().required(),
-      })
-      .validate({ alpha2Code, ...input })
 
   async findById(id: string, ability: Ability) {
     const phone = await this.daos.phones.findById(id)

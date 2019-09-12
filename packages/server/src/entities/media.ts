@@ -28,9 +28,9 @@ export default class Media extends BaseEntity implements IMedia {
   @Column()
   typeId: string
 
-  constructor(partialMedia: Partial<Media> = {}) {
+  constructor(partial: Partial<Media> = {}) {
     super()
 
-    Object.assign(this, partialMedia)
+    Object.assign(this, partial)
   }
 }

@@ -1,4 +1,3 @@
-import { object, string } from '@fintruth-sdk/validation'
 import { Inject, Service } from 'typedi'
 
 import { Ability } from 'auth'
@@ -18,14 +17,6 @@ export default class ProfileService {
 
   toEntity = (input: ProfileInput) => new Profile(input)
 
-  validateInput = (input: ProfileInput) =>
-    object<ProfileInput>()
-      .shape({
-        familyName: string().required(),
-        givenName: string().required(),
-      })
-      .validate(input)
-
   async findByUser(userId: string, ability: Ability) {
     ability.throwUnlessCan('read', new Profile({ userId }))
 
@@ -35,7 +26,7 @@ export default class ProfileService {
   }
 
   async updateByUser(userId: string, input: ProfileInput, ability: Ability) {
-    const isValid = await this.validateInput(input).catch(this.logDebug)
+    const isValid = await ProfileInput.validate(input).catch(this.logDebug)
 
     if (!isValid) {
       return new Response({
