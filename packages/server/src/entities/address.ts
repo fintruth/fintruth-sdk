@@ -40,9 +40,9 @@ export default class Address extends BaseEntity implements IAddress {
   @Column()
   typeId: string
 
-  constructor(partialAddress: Partial<Address> = {}) {
+  constructor(partial: Partial<Address> = {}) {
     super()
 
-    Object.assign(this, partialAddress)
+    Object.assign(this, partial)
   }
 }

@@ -24,9 +24,9 @@ export default class AddressType extends BaseEntity implements IAddressType {
   @Column()
   name: string
 
-  constructor(partialAddressType: Partial<AddressType> = {}) {
+  constructor(partial: Partial<AddressType> = {}) {
     super()
 
-    Object.assign(this, partialAddressType)
+    Object.assign(this, partial)
   }
 }

@@ -1,5 +1,4 @@
 import { Ability } from '@casl/ability'
-import { object, string } from '@fintruth-sdk/validation'
 import { Inject, Service } from 'typedi'
 
 import { Daos } from 'models'
@@ -16,19 +15,6 @@ export default class AddressService {
 
     return new Address({ typeId: id, ...input })
   }
-
-  validateInput = (input: AddressInput) =>
-    object<AddressInput>()
-      .shape({
-        city: string().required(),
-        country: string().required(),
-        line1: string().required(),
-        line2: string(),
-        postalCode: string().required(),
-        subdivision: string().required(),
-        typeName: string().required(),
-      })
-      .validate(input)
 
   async findById(id: string, ability: Ability) {
     const address = await this.daos.addresses.findById(id)

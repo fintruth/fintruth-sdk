@@ -1,4 +1,3 @@
-import { object, string } from '@fintruth-sdk/validation'
 import { Inject, Service } from 'typedi'
 
 import { Loggable, logAs } from 'logger'
@@ -35,21 +34,6 @@ export default class RegisterService {
 
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
-  validateInput = async ({ profile, ...input }: RegisterInput) => {
-    await this.profileService.validateInput(profile)
-
-    return object<RegisterInput>()
-      .shape({
-        email: string()
-          .required()
-          .email(),
-        password: string()
-          .required()
-          .password(2),
-      })
-      .validate({ profile, ...input })
-  }
-
   confirmRegistration(token: string) {
     const {
       email,
@@ -72,7 +56,7 @@ export default class RegisterService {
   }
 
   async register({ email, profile, ...input }: RegisterInput) {
-    const isValid = await this.validateInput({
+    const isValid = await RegisterInput.validate({
       email,
       profile,
       ...input,

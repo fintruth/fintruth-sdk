@@ -32,9 +32,9 @@ export default class Country extends BaseEntity implements ICountry {
   @OneToMany(() => Phone, ({ country }) => country)
   phones: Phone[]
 
-  constructor(partialCountry: Partial<Country> = {}) {
+  constructor(partial: Partial<Country> = {}) {
     super()
 
-    Object.assign(this, partialCountry)
+    Object.assign(this, partial)
   }
 }

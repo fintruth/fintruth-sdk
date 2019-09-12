@@ -37,9 +37,9 @@ export default class Phone extends BaseEntity implements IPhone {
   @Column()
   typeId: string
 
-  constructor(partialPhone: Partial<Phone> = {}) {
+  constructor(partial: Partial<Phone> = {}) {
     super()
 
-    Object.assign(this, partialPhone)
+    Object.assign(this, partial)
   }
 }

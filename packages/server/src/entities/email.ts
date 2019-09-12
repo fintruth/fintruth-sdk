@@ -28,10 +28,10 @@ export default class Email extends BaseEntity implements IEmail {
   @Column({ unique: true })
   value: string
 
-  constructor(partialEmail: Partial<Email> = {}) {
+  constructor(partial: Partial<Email> = {}) {
     super()
 
-    Object.assign(this, partialEmail)
+    Object.assign(this, partial)
   }
 
   static async fromString(value: string) {
