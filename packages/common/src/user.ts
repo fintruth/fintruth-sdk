@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 import { BaseEntity, shallowBaseEntityPropsFragment } from './base-entity'
 import { Email } from './email'
-import { Profile } from './profile'
+import { Profile, ProfileInput } from './profile'
 import { Response } from './response'
 
 export interface User extends BaseEntity {
@@ -10,6 +10,13 @@ export interface User extends BaseEntity {
   isAdmin: boolean
   isTwoFactorAuthEnabled: boolean
   profile: Profile
+}
+
+export interface UserInput {
+  email: string
+  isAdmin?: boolean
+  password: string
+  profile: ProfileInput
 }
 
 export interface UserResponse extends Response {

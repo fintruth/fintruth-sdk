@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/unbound-method,dot-notation */
 import { equals } from 'ramda'
 import { Container } from 'typedi'
 import { DeepPartial } from 'typeorm'
 
-import { Response, ResponseError } from 'resolvers/types'
+import { Response, ResponseError, UserInput } from 'resolvers/types'
 import UserService from './user-service'
 import { Email, Profile, User } from '../entities'
 
@@ -26,10 +27,10 @@ const getUserDaoMock: any = (userMock?: DeepPartial<User>) => ({
 })
 
 const getEmailDaoMock: any = () => ({
-  delete: () => {},
+  delete: () => Promise.resolve(),
   findByUser: () => Promise.resolve([]),
-  findById: () => {},
-  save: () => {},
+  findById: () => Promise.resolve(),
+  save: () => Promise.resolve(),
 })
 
 const userMock: DeepPartial<User> = {
@@ -66,7 +67,6 @@ describe('UserService', () => {
       })
 
       it('should return a response', async () => {
-        // eslint-disable-next-line dot-notation
         const result = await service['validateUser']('userId')(() =>
           Promise.resolve(new Response())
         )
@@ -76,7 +76,6 @@ describe('UserService', () => {
     })
 
     it('should return a failure response when the user does not exist', async () => {
-      // eslint-disable-next-line dot-notation
       const result = await service['validateUser']('userId')(() =>
         Promise.resolve(new Response())
       )
@@ -94,7 +93,6 @@ describe('UserService', () => {
       })
 
       it('should return a response', async () => {
-        // eslint-disable-next-line dot-notation
         const result = await service['validateUserPassword'](
           'userId',
           'password'
@@ -104,7 +102,6 @@ describe('UserService', () => {
       })
 
       it('should return a failure response using an invalid password', async () => {
-        // eslint-disable-next-line dot-notation
         const result = await service['validateUserPassword']('userId', 'bad')(
           () => Promise.resolve(new Response())
         )
@@ -116,7 +113,6 @@ describe('UserService', () => {
     })
 
     it('should return a failure response when the user does not exist', async () => {
-      // eslint-disable-next-line dot-notation
       const result = await service['validateUserPassword'](
         'userId',
         'password'
@@ -135,7 +131,7 @@ describe('UserService', () => {
       })
 
       it('should return a user response', async () => {
-        service.daos.users.findByEmail = () => Promise.resolve(null) as any // eslint-disable-line @typescript-eslint/unbound-method
+        service.daos.users.findByEmail = () => Promise.resolve(null) as any
 
         const result = await service.addEmail(
           'userId',
@@ -185,24 +181,24 @@ describe('UserService', () => {
   })
 
   describe('create', () => {
-    it('should save a new user', async () => {
-      const result = await service.create(
-        'test@test.com',
-        'Asdfg2345!',
-        new Profile({ familyName: '', givenName: '' })
-      )
+    const input: UserInput = {
+      email: 'test@test.com',
+      password: 'Asdfg2345!',
+      profile: new Profile({
+        familyName: 'familyName',
+        givenName: 'givenName',
+      }),
+    }
+
+    it('should return a user', async () => {
+      const result = await service.create(input)
 
       expect(result.user).toStrictEqual({
         id: 'userId',
-        emails: [
-          new Email({
-            value: 'test@test.com',
-            isPrimary: true,
-            isVerified: true,
-          }),
-        ],
+        emails: [expect.any(Email)],
+        isAdmin: false,
         password: 'hash',
-        profile: new Profile({ familyName: '', givenName: '' }),
+        profile: expect.any(Profile),
       })
     })
 
@@ -211,17 +207,10 @@ describe('UserService', () => {
         service.daos.users = getUserDaoMock(userMock)
       })
 
-      it('should fail using an existing email', async () => {
-        service.daos.users.findByEmail = () => Promise.resolve(new User()) // eslint-disable-line @typescript-eslint/unbound-method
+      it('should return a failure response using an existing email', async () => {
+        service.daos.users.findByEmail = () => Promise.resolve(new User())
 
-        const result = await service.create(
-          'test@test.com',
-          'Asdfg2345!',
-          new Profile({
-            familyName: '',
-            givenName: '',
-          })
-        )
+        const result = await service.create(input)
 
         expect(result.error).toStrictEqual(
           new ResponseError('email is not available', expect.any(String))
@@ -237,7 +226,6 @@ describe('UserService', () => {
       })
 
       it('should return a user response', async () => {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
         service.daos.emails.findById = () =>
           Promise.resolve(new Email({ value: 'test@test.com' }))
 
@@ -255,7 +243,6 @@ describe('UserService', () => {
       })
 
       it('should return a failure response using a primary email', async () => {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
         service.daos.emails.findById = () =>
           Promise.resolve(
             new Email({ value: 'test@test.com', isPrimary: true })
@@ -274,7 +261,6 @@ describe('UserService', () => {
     })
 
     it('should return a failure response when the user does not exist', async () => {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       service.daos.emails.findById = () =>
         Promise.resolve(new Email({ value: 'test@test.com' }))
 
