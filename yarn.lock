@@ -2497,12 +2497,12 @@
     react-inspector "^3.0.2"
     uuid "^3.3.2"
 
-"@storybook/addon-centered@5.2.0-rc.10":
-  version "5.2.0-rc.10"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-centered/-/addon-centered-5.2.0-rc.10.tgz#a36878e6ef24ddb6a828a6eedf418f81a503aa00"
-  integrity sha512-LPp5AGnW303YVaRQ5/6Qxg2LOHe0qyfu+rsivNU8xGReApHSivkL1K9N/4+YydDmN8S6Hq3+iaPXaqSvV8aPZw==
+"@storybook/addon-centered@5.2.0-rc.11":
+  version "5.2.0-rc.11"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-centered/-/addon-centered-5.2.0-rc.11.tgz#04cdede2d963d4779650e1156f5bb6c11900281d"
+  integrity sha512-GLyDt51Yl/RCWsnT5NFaaMSzkhVCXQA0jkvRMr4FwY3ucbtmWsDJ7eMON1vLIVF4bEoqoMFgoQhlmt5BsOTj4w==
   dependencies:
-    "@storybook/addons" "5.2.0-rc.10"
+    "@storybook/addons" "5.2.0-rc.11"
     core-js "^3.0.1"
     global "^4.3.2"
     util-deprecate "^1.0.2"
