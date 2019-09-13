@@ -13,7 +13,7 @@ import { Inject } from 'typedi'
 
 import { Context } from 'apollo'
 import { Daos } from 'models'
-import { Response, UserResponse } from 'resolvers/types'
+import { Response, UserInput, UserResponse } from 'resolvers/types'
 import { UserService } from 'services'
 import { Email, Profile, User } from '../entities'
 
@@ -29,6 +29,14 @@ export default class UserResolver {
   @Mutation(() => UserResponse)
   addEmail(@Arg('value') value: string, @Ctx() { ability, user }: Context) {
     return user && this.userService.addEmail(user.id, value, ability)
+  }
+
+  @Authenticated()
+  @Mutation(() => UserResponse)
+  createUser(@Arg('input') input: UserInput, @Ctx() { ability }: Context) {
+    ability.throwUnlessCan('create', User)
+
+    return this.userService.create(input)
   }
 
   @Authenticated()
@@ -54,18 +62,22 @@ export default class UserResolver {
   }
 
   @Query(() => User, { nullable: true })
-  currentUser(@Ctx() { ability, user }: Context) {
-    return user ? this.userService.findById(user.id, ability) : null
+  currentUser(@Ctx() { user }: Context) {
+    return user ? this.daos.users.findById(user.id) : null
   }
 
   @Query(() => User, { nullable: true })
   user(@Arg('id', () => ID) id: string, @Ctx() { ability }: Context) {
-    return this.userService.findById(id, ability)
+    ability.throwUnlessCan('read', new User({ id }))
+
+    return this.daos.users.findById(id)
   }
 
   @Query(() => [User])
   users(@Ctx() { ability }: Context) {
-    return this.userService.getAll(ability)
+    ability.throwUnlessCan('read', User)
+
+    return this.daos.users.find()
   }
 
   @FieldResolver(() => Profile)

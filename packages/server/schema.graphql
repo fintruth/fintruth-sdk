@@ -93,6 +93,7 @@ type Mutation {
   confirmRegistration(token: String!): UserResponse!
   register(input: RegisterInput!): Response!
   addEmail(value: String!): UserResponse!
+  createUser(input: UserInput!): UserResponse!
   removeEmail(emailId: String!): UserResponse!
   updatePassword(password: String!, newPassword: String!): Response!
 }
@@ -174,6 +175,13 @@ type User implements BaseEntity {
   isAdmin: Boolean!
   profile: Profile!
   isTwoFactorAuthEnabled: Boolean!
+}
+
+input UserInput {
+  email: String!
+  isAdmin: Boolean
+  password: String!
+  profile: ProfileInput!
 }
 
 type UserResponse {
