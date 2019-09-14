@@ -6,8 +6,14 @@ import { Inject, Service } from 'typedi'
 import { Ability } from 'auth'
 import { Loggable, logAs } from 'logger'
 import { Daos } from 'models'
-import { Response, ResponseError, UserResponse } from 'resolvers/types'
-import { Email, Profile, User } from '../entities'
+import {
+  Response,
+  ResponseError,
+  UserInput,
+  UserResponse,
+} from 'resolvers/types'
+import ProfileService from './profile-service'
+import { Email, User } from '../entities'
 
 type UserResponseFn = (user: User) => Promise<UserResponse>
 
@@ -15,6 +21,9 @@ type UserResponseFn = (user: User) => Promise<UserResponse>
 export default class UserService {
   @Inject()
   daos: Daos
+
+  @Inject()
+  profileService: ProfileService
 
   private validateUser = (id: string) => async (fn: UserResponseFn) => {
     const user = await this.daos.users.findById(id)
@@ -76,24 +85,8 @@ export default class UserService {
     })
   }
 
-  async create(email: string, password: string, profile: Profile) {
-    const valid = await object()
-      .shape({
-        email: string()
-          .required()
-          .email(),
-        password: string()
-          .required()
-          .password(2),
-      })
-      .validate({ email, password })
-      .catch(this.logDebug)
-
-    if (!valid) {
-      return new UserResponse({
-        error: new ResponseError('invalid data provided'),
-      })
-    }
+  async create({ email, password, profile, isAdmin = false }: UserInput) {
+    await UserInput.validate({ email, password, profile })
 
     if (!(await this.isEmailAvailable(email))) {
       return new UserResponse({
@@ -106,8 +99,9 @@ export default class UserService {
         emails: [
           new Email({ value: email, isPrimary: true, isVerified: true }),
         ],
+        isAdmin,
         password: await hash(password, 10),
-        profile,
+        profile: this.profileService.toEntity(profile),
       })
       .catch(this.logDebug)
 
@@ -120,22 +114,8 @@ export default class UserService {
     return new UserResponse({ user })
   }
 
-  async findById(id: string, ability: Ability) {
-    const user = await this.daos.users.findOne(id)
-
-    ability.throwUnlessCan('read', user)
-
-    return user
-  }
-
   async isEmailAvailable(email: string) {
     return isNil(await this.daos.users.findByEmail(email))
-  }
-
-  getAll(ability: Ability) {
-    ability.throwUnlessCan('read', User)
-
-    return this.daos.users.find()
   }
 
   async removeEmail(id: string, emailId: string, ability: Ability) {

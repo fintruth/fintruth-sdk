@@ -35,12 +35,15 @@ export default class RegisterService {
   private logDebug = (message: Loggable) => this.log(message, 'debug')
 
   confirmRegistration(token: string) {
-    const {
-      email,
-      expiresAt,
-      password,
-      profile,
-    } = this.cryptoService.parseToken(token) as RegistrationTokenData
+    const data = this.cryptoService.parseToken<RegistrationTokenData>(token)
+
+    if (!data) {
+      return new UserResponse({
+        error: new ResponseError('The provided token is invalid'),
+      })
+    }
+
+    const { expiresAt, ...input } = data
 
     if (expiresAt < Date.now()) {
       return new UserResponse({
@@ -48,11 +51,7 @@ export default class RegisterService {
       })
     }
 
-    return this.userService.create(
-      email,
-      password,
-      this.profileService.toEntity(profile)
-    )
+    return this.userService.create(input)
   }
 
   async register({ email, profile, ...input }: RegisterInput) {
