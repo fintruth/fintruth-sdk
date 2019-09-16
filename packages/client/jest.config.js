@@ -3,7 +3,13 @@
 const { defaults } = require('jest-config')
 
 module.exports = {
-  collectCoverageFrom: ['src/**/*.ts?(x)', '!src/**/?(*.)stories.tsx'],
+  collectCoverageFrom: [
+    'src/**/*.ts?(x)',
+    '!src/components/html/*.ts?(x)',
+    '!src/translations/*.ts?(x)',
+    '!src/**/?(*.)stories.tsx',
+    '!src/*.ts?(x)',
+  ],
   coverageDirectory: 'coverage',
   errorOnDeprecated: true,
   globals: { __IS_BROWSER__: false, __IS_DEV__: true },
