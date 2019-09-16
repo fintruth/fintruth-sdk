@@ -1,1 +1,3 @@
-export const InjectRepository = () => () => {}
+const noop = () => {}
+
+export const InjectRepository = () => noop

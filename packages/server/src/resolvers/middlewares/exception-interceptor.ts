@@ -5,7 +5,7 @@ import { Context } from 'apollo'
 import { Response, ResponseError } from 'resolvers/types'
 
 const ExceptionInterceptor = (
-  constructors: Function[]
+  constructors: Function[] // eslint-disable-next-line unicorn/consistent-function-scoping
 ): MiddlewareFn<Context> => async (_, next) => {
   try {
     return await next()
