@@ -8,7 +8,7 @@ import cors from 'cors'
 import express, { Express, NextFunction, Request, Response } from 'express'
 import { Styles } from 'isomorphic-style-loader'
 import StyleContext from 'isomorphic-style-loader/StyleContext'
-import path from 'path'
+import { resolve } from 'path'
 import PrettyError from 'pretty-error'
 import React from 'react'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
@@ -34,7 +34,7 @@ app
   .use(bodyParser.urlencoded({ extended: true }))
   .use(compression())
   .use(cors())
-  .use(express.static(path.resolve(__dirname, 'public')))
+  .use(express.static(resolve(__dirname, 'public')))
 
 app.get('*', async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -42,7 +42,7 @@ app.get('*', async (req: Request, res: Response, next: NextFunction) => {
     const css = new Set()
     const extractor = new ChunkExtractor({
       entrypoints: 'client',
-      statsFile: path.resolve(__dirname, 'stats.json'),
+      statsFile: resolve(__dirname, 'stats.json'),
     })
     const sheet = new ServerStyleSheet()
 
