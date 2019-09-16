@@ -1,7 +1,5 @@
 import webpack from 'webpack'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore TS7016
 import webpackConfig from '../config/webpack.config'
 
 const bundle = () =>

@@ -1,12 +1,24 @@
-'use strict'
+import LoadablePlugin from '@loadable/webpack-plugin'
+import DotenvPlugin from 'dotenv-webpack'
+import { join, resolve } from 'path'
+import TerserPlugin from 'terser-webpack-plugin'
+import { Configuration, BannerPlugin, DefinePlugin } from 'webpack'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import nodeExternals from 'webpack-node-externals'
 
-const LoadablePlugin = require('@loadable/webpack-plugin')
-const DotenvPlugin = require('dotenv-webpack')
-const { join, resolve } = require('path')
-const TerserPlugin = require('terser-webpack-plugin')
-const { BannerPlugin, DefinePlugin } = require('webpack')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-const nodeExternals = require('webpack-node-externals')
+type ConfigFactory = (config: Configuration) => Configuration
+
+type Target =
+  | 'async-node'
+  | 'atom'
+  | 'electron-main'
+  | 'electron-renderer'
+  | 'electron'
+  | 'node-webkit'
+  | 'node'
+  | 'web'
+  | 'webworker'
+  | ((compiler?: any) => void)
 
 const rootDir = resolve(__dirname, '..')
 const buildDir = join(rootDir, 'build')
@@ -20,7 +32,7 @@ const isAnalyze = process.argv.includes('--analyze')
 const isRelease = isProd || isStaging || process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
 
-const createConfig = (target, configFactory) =>
+const createConfig = (target: Target, configFactory: ConfigFactory) =>
   configFactory({
     bail: isRelease,
     cache: !isRelease,
@@ -146,7 +158,7 @@ const clientConfig = createConfig('web', baseConfig => ({
         sourceMap: true,
         terserOptions: {
           mangle: { safari10: true },
-          output: { ascii_only: true },
+          output: { ascii_only: true }, // eslint-disable-line @typescript-eslint/camelcase
         },
       }),
     ],
@@ -164,7 +176,7 @@ const clientConfig = createConfig('web', baseConfig => ({
     },
   },
   plugins: [
-    ...baseConfig.plugins,
+    ...(baseConfig.plugins || []),
     new LoadablePlugin({
       filename: 'stats.json',
       writeToDisk: { filename: 'build' },
@@ -196,7 +208,7 @@ const serverConfig = createConfig('node', baseConfig => ({
     path: buildDir,
   },
   plugins: [
-    ...baseConfig.plugins,
+    ...(baseConfig.plugins || []),
     new BannerPlugin({
       banner: 'require("source-map-support").install();',
       entryOnly: false,
@@ -205,4 +217,4 @@ const serverConfig = createConfig('node', baseConfig => ({
   ],
 }))
 
-module.exports = [clientConfig, serverConfig]
+export default [clientConfig, serverConfig]

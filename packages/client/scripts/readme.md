@@ -1,34 +1,26 @@
 # Build Automation Scripts
 
-### `yarn start` (`start.js`)
+### `yarn start` (`start.ts`)
 
-- Cleans up the output `/build` directory (`clean.js`)
-- Copies static files to the output folder (`copy.js`)
-- Launches [Webpack](https://webpack.github.io/) compiler in a watch mode (via
-  [webpack-middleware](https://github.com/kriasoft/webpack-middleware))
-- Launches Node.js server from the compiled output folder (`start-server.js`)
-- Launches [Browsersync](https://browsersync.io/) and
-  [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement)
+- Cleans up the output `/build` directory (`clean.ts`)
+- Copies static files to the output folder (`copy.ts`)
+- Launches [Webpack](https://webpack.github.io/) compiler in a watch mode (via [webpack-middleware](https://github.com/kriasoft/webpack-middleware))
+- Launches [Browsersync](https://browsersync.io/) and [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement)
 
-### `yarn build` (`build.js`)
+### `yarn build` (`build.ts`)
 
-- Cleans up the output `/build` folder (`clean.js`)
-- Copies static files to the output folder (`copy.js`)
-- Creates application bundles with Webpack (`bundle.js`, `/config/webpack.config.js`)
-
-### `yarn deploy` (`deploy.js`)
-
-- Builds the project from source files (`build.js`)
-- Pushes the contents of the `/build` folder to a remote server with Git
+- Cleans up the output `/build` folder (`clean.ts`)
+- Copies static files to the output folder (`copy.ts`)
+- Creates application bundles with Webpack (`bundle.ts`, `/config/webpack.config.ts`)
 
 ## Options
 
 | Flag        | Description                                                                         |
 | ----------- | ----------------------------------------------------------------------------------- |
-| `--release` | Minimizes and optimizes the compiled output                                         |
-| `--verbose` | Prints detailed information to the console                                          |
 | `--analyze` | Launches [Webpack Bundle Analyzer](https://github.com/th0r/webpack-bundle-analyzer) |
+| `--release` | Minimizes and optimizes the compiled output                                         |
 | `--silent`  | Do not open the default browser                                                     |
+| `--verbose` | Prints detailed information to the console                                          |
 
 For example:
 
@@ -44,4 +36,4 @@ $ yarn start --release                    # Launch dev server in production mode
 
 ## Miscellaneous
 
-- `run.js` - Helps to launch other scripts
+- `run.ts` - Helps to launch other scripts

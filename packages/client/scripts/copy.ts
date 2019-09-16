@@ -3,10 +3,12 @@ import { dirname, join, relative } from 'path'
 
 import { writeFile, copyFile, makeDir, copyDir, cleanDir } from './lib/fs'
 import { format } from './run'
-import { dependencies, engines } from '../package.json'
+import { dependencies, engines, name, version } from '../package.json'
 
 const config = JSON.stringify(
   {
+    name,
+    version,
     scripts: { start: 'node server.js' },
     dependencies,
     engines,
