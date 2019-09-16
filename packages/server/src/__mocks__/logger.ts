@@ -1,1 +1,3 @@
-export const logAs = () => () => {}
+const noop = () => {}
+
+export const logAs = () => noop

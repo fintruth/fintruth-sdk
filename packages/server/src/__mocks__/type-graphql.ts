@@ -1,7 +1,9 @@
-export const Field = () => () => {}
+const noop = () => {}
 
-export const InputType = () => () => {}
+export const Field = () => noop
 
-export const InterfaceType = () => () => {}
+export const InputType = () => noop
 
-export const ObjectType = () => () => {}
+export const InterfaceType = () => noop
+
+export const ObjectType = () => noop

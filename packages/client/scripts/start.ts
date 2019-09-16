@@ -56,6 +56,8 @@ const createCompilationPromise = (
     })
   })
 
+const noop = () => {}
+
 const start = async () => {
   if (server) {
     return server
@@ -153,7 +155,7 @@ const start = async () => {
   let app: Express
   let appPromise: Promise<any>
   let appPromiseIsResolved = true
-  let appPromiseResolve = () => {}
+  let appPromiseResolve = noop
 
   serverCompiler.hooks.compile.tap('server', () => {
     if (!appPromiseIsResolved) {
