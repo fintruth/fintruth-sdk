@@ -1,10 +1,10 @@
-import { RouteComponentProps } from '@reach/router'
+import { RouteComponentProps, navigate } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 
-import BaseSubnavbar from 'components/subnavbar'
+import BaseTabs, { Tab, TabList } from 'components/tabs'
 import { navigation } from 'translations'
 import RegisterForm from './register-form'
 
@@ -24,34 +24,26 @@ const Content = styled.div`
   width: ${rem(280)};
 `
 
-const Subnavbar = styled(BaseSubnavbar)`
+const Tabs = styled(BaseTabs)`
   margin-bottom: ${rem(50)};
 `
 
-const Register: React.FunctionComponent<Props> = (props: Props) => {
-  const { formatMessage } = useIntl()
-
-  const items = [
-    {
-      id: 'sign-in',
-      content: formatMessage(navigation.route.signIn),
-      to: '/sign-in',
-    },
-    {
-      id: 'register',
-      content: formatMessage(navigation.route.register),
-      to: '/register',
-    },
-  ]
-
-  return (
-    <Root data-testid="register" {...props}>
-      <Content>
-        <Subnavbar items={items} />
-        <RegisterForm />
-      </Content>
-    </Root>
-  )
-}
+const Register: React.FunctionComponent<Props> = (props: Props) => (
+  <Root data-testid="register" {...props}>
+    <Content>
+      <Tabs defaultIndex={1}>
+        <TabList>
+          <Tab onClick={() => navigate('/sign-in')}>
+            <FormattedMessage {...navigation.route.signIn} />
+          </Tab>
+          <Tab onClick={() => navigate('/register')}>
+            <FormattedMessage {...navigation.route.register} />
+          </Tab>
+        </TabList>
+      </Tabs>
+      <RegisterForm />
+    </Content>
+  </Root>
+)
 
 export default Register

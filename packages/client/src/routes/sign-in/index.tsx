@@ -2,11 +2,11 @@ import { useApolloClient } from '@apollo/react-hooks'
 import { RouteComponentProps, navigate } from '@reach/router'
 import { rem } from 'polished'
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 
 import Loading from 'components/loading'
-import BaseSubnavbar from 'components/subnavbar'
+import BaseTabs, { Tab, TabList } from 'components/tabs'
 import { navigation } from 'translations'
 import { CurrentUserQueryData, currentUserQuery } from './graphql'
 import SignInForm from './sign-in-form'
@@ -37,7 +37,7 @@ const Content = styled.div`
   width: ${rem(280)};
 `
 
-const Subnavbar = styled(BaseSubnavbar)`
+const Tabs = styled(BaseTabs)`
   margin-bottom: ${rem(50)};
 `
 
@@ -46,21 +46,7 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   const [signInCredentials, setSignInCredentials] = React.useState<
     SignInCredentials
   >({ email: '', password: '' })
-  const { formatMessage } = useIntl()
   const client = useApolloClient()
-
-  const items = [
-    {
-      id: 'sign-in',
-      content: formatMessage(navigation.route.signIn),
-      to: '/sign-in',
-    },
-    {
-      id: 'register',
-      content: formatMessage(navigation.route.register),
-      to: '/register',
-    },
-  ]
 
   React.useEffect(() => {
     if (currentStep === 'redirect') {
@@ -100,7 +86,16 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <Root data-testid="sign-in" {...props}>
       <Content>
-        <Subnavbar items={items} />
+        <Tabs defaultIndex={0}>
+          <TabList>
+            <Tab onClick={() => navigate('/sign-in')}>
+              <FormattedMessage {...navigation.route.signIn} />
+            </Tab>
+            <Tab onClick={() => navigate('/register')}>
+              <FormattedMessage {...navigation.route.register} />
+            </Tab>
+          </TabList>
+        </Tabs>
         <SignInForm
           onCompleted={isTwoFactorAuthEnabled =>
             setCurrentStep(getNextStep(currentStep, isTwoFactorAuthEnabled))
