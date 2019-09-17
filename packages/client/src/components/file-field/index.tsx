@@ -19,7 +19,7 @@ interface Action {
 interface BaseState {
   hasCropper: boolean
   labelId: string
-  src: ArrayBuffer | string
+  src: string
 }
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

@@ -223,7 +223,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
             const reader = new FileReader()
 
             reader.addEventListener('load', () => {
-              const src = reader.result || undefined
+              const src = (reader.result as string) || undefined
 
               return dispatch({ payload: { src }, type: 'setSrc' })
             })
