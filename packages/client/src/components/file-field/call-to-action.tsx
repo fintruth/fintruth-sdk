@@ -207,29 +207,29 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
             onChange(event)
           }
 
-          if (!event.target.files || !event.target.files[0]) {
-            return
-          }
-
+          const { files } = event.target
           const type = getType(fileName) || 'image/jpeg'
           const file = fileName
-            ? new File([event.target.files[0]], fileName, { type })
-            : event.target.files[0]
+            ? new File([(files && files[0]) || ''], fileName, { type })
+            : (files && files[0]) || ''
+
+          setFieldValue(name, file)
 
           if (hasCropper) {
+            if (typeof file === 'string') {
+              return dispatch({ payload: { src: undefined }, type: 'setSrc' })
+            }
+
             const reader = new FileReader()
 
-            reader.addEventListener('load', () =>
-              dispatch({
-                payload: { src: reader.result as string },
-                type: 'setSrc',
-              })
-            )
+            reader.addEventListener('load', () => {
+              const src = reader.result || undefined
 
-            reader.readAsDataURL(file)
+              return dispatch({ payload: { src }, type: 'setSrc' })
+            })
+
+            return reader.readAsDataURL(file)
           }
-
-          return setFieldValue(name, file)
         }}
         ref={instance => {
           if (ref) {
