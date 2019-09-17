@@ -161,6 +161,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
     children,
     className,
     maxSize = 2 * 10 ** 6,
+    onChange,
     validate,
     variant,
     ...props
@@ -201,15 +202,19 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
         disabled={isDisabled}
         name={name}
         onBlur={onBlur}
-        onChange={({ target: { files } }) => {
-          if (!files || !files[0]) {
+        onChange={event => {
+          if (onChange) {
+            onChange(event)
+          }
+
+          if (!event.target.files || !event.target.files[0]) {
             return
           }
 
           const type = getType(fileName) || 'image/jpeg'
           const file = fileName
-            ? new File([files[0]], fileName, { type })
-            : files[0]
+            ? new File([event.target.files[0]], fileName, { type })
+            : event.target.files[0]
 
           if (hasCropper) {
             const reader = new FileReader()
