@@ -25,7 +25,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   return (
     <BaseInput
       aria-labelledby={labelId}
-      data-field-input
+      data-field-input=""
       isDisabled={isDisabled}
       isRequired={isRequired}
       ref={ref}

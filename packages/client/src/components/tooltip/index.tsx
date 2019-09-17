@@ -47,7 +47,7 @@ const Popup = styled(TooltipPopup)<PopupProps>`
   max-width: ${rem(384)};
   word-break: keep-all;
 
-  &[data-reach-tooltip] {
+  &[data-tooltip] {
     border: unset;
     box-shadow: 0 2px 3px ${({ theme }) => transparentize(0.9, theme.black)},
       0 0 0 1px ${({ theme }) => transparentize(0.9, theme.black)};
@@ -76,7 +76,13 @@ const Tooltip: React.RefForwardingComponent<HTMLDivElement, Props> = (
   return (
     <>
       {React.cloneElement(React.Children.only(children), trigger)}
-      <Popup ref={ref} variant={variant} {...tooltip} {...props} />
+      <Popup
+        data-tooltip=""
+        ref={ref}
+        variant={variant}
+        {...tooltip}
+        {...props}
+      />
     </>
   )
 }

@@ -63,7 +63,7 @@ const Field: React.RefForwardingComponent<HTMLDivElement, Props> = (
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
-        <Root data-field ref={ref} {...props} />
+        <Root data-field="" ref={ref} {...props} />
       </StateContext.Provider>
     </DispatchContext.Provider>
   )

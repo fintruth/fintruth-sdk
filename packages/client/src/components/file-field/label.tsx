@@ -26,7 +26,7 @@ const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
     [dispatch, id, name, seed]
   )
 
-  return <Root id={labelId} data-file-field-label ref={ref} {...props} />
+  return <Root id={labelId} data-file-field-label="" ref={ref} {...props} />
 }
 
 export default React.forwardRef(Label)

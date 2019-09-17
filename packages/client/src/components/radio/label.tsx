@@ -41,7 +41,7 @@ const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
 
   return (
     <Root
-      data-radio-label
+      data-radio-label=""
       htmlFor={inputId}
       isDisabled={isDisabled}
       ref={ref}

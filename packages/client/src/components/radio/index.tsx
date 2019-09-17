@@ -65,7 +65,7 @@ const Radio: React.RefForwardingComponent<HTMLDivElement, Props> = (
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
-        <Root data-radio ref={ref} {...props} />
+        <Root data-radio="" ref={ref} {...props} />
       </StateContext.Provider>
     </DispatchContext.Provider>
   )

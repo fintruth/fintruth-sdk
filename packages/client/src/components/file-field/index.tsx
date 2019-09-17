@@ -79,7 +79,7 @@ const FileField: React.RefForwardingComponent<HTMLDivElement, Props> = (
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
-        <Root data-file-field ref={ref} {...props} />
+        <Root data-file-field="" ref={ref} {...props} />
       </StateContext.Provider>
     </DispatchContext.Provider>
   )

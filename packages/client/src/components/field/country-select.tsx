@@ -51,7 +51,7 @@ const CountrySelect: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   return (
     <BaseSelect
       aria-labelledby={labelId}
-      data-field-country-select
+      data-field-country-select=""
       isDisabled={isDisabled}
       isLoading={isQueryingCountries}
       isMultiple={isMultiple}

@@ -190,14 +190,14 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
   return (
     <Root
       className={className}
-      data-file-field-call-to-action
+      data-file-field-call-to-action=""
       disabled={isDisabled}
       role="group"
       variant={variant}
     >
       <Input
         aria-labelledby={labelId}
-        data-file-field-input
+        data-file-field-input=""
         disabled={isDisabled}
         name={name}
         onBlur={onBlur}

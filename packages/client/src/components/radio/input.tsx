@@ -94,14 +94,14 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
     <>
       <Root
         id={inputId}
-        data-radio-input
+        data-radio-input=""
         disabled={isDisabled}
         ref={ref}
         type={type}
         {...field}
         {...props}
       />
-      <Toggle className={className} data-radio-toggle />
+      <Toggle className={className} data-radio-toggle="" />
     </>
   )
 }

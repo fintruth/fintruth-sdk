@@ -27,7 +27,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
 
   return (
     <BaseSelect
-      data-field-select
+      data-field-select=""
       aria-labelledby={labelId}
       isDisabled={isDisabled}
       isMultiple={isMultiple}

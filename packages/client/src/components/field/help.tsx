@@ -19,7 +19,7 @@ const Help: React.RefForwardingComponent<HTMLParagraphElement, Props> = (
   const { error, touched } = useField<string>(name)[1]
 
   return error && touched ? (
-    <Root data-field-help ref={ref} {...props}>
+    <Root data-field-help="" ref={ref} {...props}>
       {error}
     </Root>
   ) : null

@@ -46,7 +46,7 @@ const Name: React.RefForwardingComponent<HTMLSpanElement, Props> = (
   const { value } = useField<File | string>(name)[0]
 
   return value instanceof File ? (
-    <Root data-file-field-name disabled={isDisabled} ref={ref} {...props}>
+    <Root data-file-field-name="" disabled={isDisabled} ref={ref} {...props}>
       {value.name}
     </Root>
   ) : null

@@ -32,7 +32,7 @@ const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
   return (
     <Root
       id={labelId}
-      data-field-label
+      data-field-label=""
       isRequired={isRequired}
       ref={ref}
       {...props}

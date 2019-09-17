@@ -65,7 +65,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   return (
     <Root
       aria-labelledby={labelId}
-      data-phone-field-select
+      data-phone-field-select=""
       isDisabled={isDisabled}
       isLoading={isQueryingCountries}
       isMultiple={isMultiple}

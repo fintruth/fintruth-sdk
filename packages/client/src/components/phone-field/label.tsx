@@ -35,7 +35,7 @@ const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
   return (
     <Root
       id={labelId}
-      data-phone-field-label
+      data-phone-field-label=""
       htmlFor={controlId}
       isRequired={isRequired}
       ref={ref}

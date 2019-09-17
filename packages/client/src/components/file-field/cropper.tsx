@@ -77,7 +77,7 @@ const Cropper: React.RefForwardingComponent<HTMLImageElement, Props> = (
 
   return src ? (
     <Root
-      data-file-field-cropper
+      data-file-field-cropper=""
       crop={crop}
       disabled={isDisabled}
       imageAlt={alt}

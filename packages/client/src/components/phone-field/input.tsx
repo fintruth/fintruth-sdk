@@ -45,7 +45,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
   return (
     <BaseInput
       id={controlId}
-      data-phone-field-input
+      data-phone-field-input=""
       isDisabled={isDisabled}
       isRequired={isRequired}
       mask={mask}
