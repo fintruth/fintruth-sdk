@@ -49,6 +49,7 @@
     "@reach/dialog": "^0.2.9",
     "@reach/menu-button": "^0.1.18",
     "@reach/router": "^1.2.1",
+    "@reach/tabs": "^0.1.6",
     "@reach/tooltip": "^0.2.2",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
