@@ -174,7 +174,7 @@
     "stylelint-junit-formatter": "^0.2.2",
     "stylelint-order": "^3.1.0",
     "stylelint-processor-styled-components": "^1.8.0",
-    "terser-webpack-plugin": "^2.0.1",
+    "terser-webpack-plugin": "^2.1.0",
     "ts-node": "^8.4.1",
     "url-loader": "^2.1.0",
     "webpack-bundle-analyzer": "^3.5.0",
