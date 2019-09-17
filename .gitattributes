@@ -15,6 +15,7 @@
 *.json         text eol=lf
 *.lock         text eol=lf
 *.md           text eol=lf
+*.mdx          text eol=lf
 *.server       text eol=lf
 *.sh           text eol=lf
 *.snap         text eol=lf

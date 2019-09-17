@@ -1,11 +1,11 @@
 import { action } from '@storybook/addon-actions'
-import centered from '@storybook/addon-centered/react'
 import { boolean, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import { Formik } from 'formik'
 import React from 'react'
 import styled from 'styled-components'
 
+import { centered } from 'utils/story'
 import FileField, {
   FileFieldCallToAction,
   FileFieldCropper,

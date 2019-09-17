@@ -1,9 +1,9 @@
 import { action } from '@storybook/addon-actions'
-import centered from '@storybook/addon-centered/react'
 import { boolean, number, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
+import { centered } from 'utils/story'
 import Button, { Variant } from '.'
 
 const options: Record<string, Variant | ''> = {

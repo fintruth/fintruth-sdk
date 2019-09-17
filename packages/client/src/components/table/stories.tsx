@@ -1,8 +1,8 @@
-import centered from '@storybook/addon-centered/react'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { CellFormatter, Column } from 'reactabular-table'
 
+import { centeredVertically } from 'utils/story'
 import Table from '.'
 
 interface Row {
@@ -56,5 +56,5 @@ const rows: Row[] = [
 ]
 
 storiesOf('Components|Table', module)
-  .addDecorator(centered)
+  .addDecorator(centeredVertically)
   .add('Default', () => <Table columns={columns} rows={rows} />)

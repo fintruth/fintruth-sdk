@@ -1,9 +1,9 @@
 import React from 'react'
-import centered from '@storybook/addon-centered/react'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import { text } from '@storybook/addon-knobs'
 
+import { centered } from 'utils/story'
 import {
   Submenu,
   SubmenuButton,

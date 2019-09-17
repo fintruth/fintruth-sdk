@@ -1,10 +1,10 @@
-import centered from '@storybook/addon-centered/react'
 import { boolean, number, select } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 import styled from 'styled-components'
 
 import { option } from 'styles/mixins'
+import { centered } from 'utils/story'
 import Select, { Variant } from '.'
 
 const variants: Record<string, Variant | ''> = {

@@ -1,8 +1,8 @@
 import React from 'react'
-import centered from '@storybook/addon-centered/react'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 
+import { centered } from 'utils/story'
 import Subnavbar from '.'
 
 const items = [

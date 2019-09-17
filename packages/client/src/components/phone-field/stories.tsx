@@ -1,12 +1,12 @@
 import { MockedProvider } from '@apollo/react-testing'
 import { action } from '@storybook/addon-actions'
-import centered from '@storybook/addon-centered/react'
 import { boolean, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import { Formik } from 'formik'
 import React from 'react'
 
 import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
+import { centered } from 'utils/story'
 import { countriesQuery } from './graphql'
 import PhoneField, {
   PhoneFieldHelp,
