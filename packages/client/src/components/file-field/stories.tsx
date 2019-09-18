@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import { boolean, select, text } from '@storybook/addon-knobs'
+import { boolean, number, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import { Formik } from 'formik'
 import React from 'react'
@@ -54,6 +54,8 @@ storiesOf('Components|File Field', module)
         name="file"
       >
         <FileFieldCallToAction
+          delay={number('delay', 200)}
+          isLoading={boolean('isLoading', false)}
           variant={select<Variant | ''>('variant', variants, '') || undefined}
         >
           <FileFieldIcon />
