@@ -49,4 +49,4 @@ export const copyDir = async (source: string, target: string) => {
 }
 
 export const writeFile = (path: string, data: any) =>
-  promisify(fs.writeFile)(path, data, 'utf8')
+  promisify(fs.writeFile)(path, data, 'utf-8')

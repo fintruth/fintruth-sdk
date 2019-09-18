@@ -85,14 +85,16 @@ export default class CryptoService {
 
     decipher.setAuthTag(tag)
 
-    return decipher.update(encrypted, 'binary', 'utf8') + decipher.final('utf8')
+    return (
+      decipher.update(encrypted, 'binary', 'utf-8') + decipher.final('utf-8')
+    )
   }
 
   private encryptAes(text: string, key: Buffer, iv: Buffer): AesWithAuth {
     const cipher: any = createCipheriv('aes-256-gcm', key, iv)
 
     const encrypted = Buffer.concat([
-      cipher.update(text, 'utf8'),
+      cipher.update(text, 'utf-8'),
       cipher.final(),
     ])
 
