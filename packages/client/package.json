@@ -123,7 +123,7 @@
     "@types/loadable__server": "^5.9.1",
     "@types/mime": "^2.0.1",
     "@types/mkdirp": "^0.5.2",
-    "@types/node-fetch": "^2.5.0",
+    "@types/node-fetch": "^2.5.1",
     "@types/ramda": "^0.26.21",
     "@types/reach__dialog": "^0.1.0",
     "@types/reach__router": "^1.2.4",
