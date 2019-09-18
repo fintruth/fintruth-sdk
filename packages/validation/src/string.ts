@@ -22,32 +22,32 @@ export interface PhoneOptions {
   message?: string
 }
 
+export interface StringLocale {
+  length?: TestOptionsMessage<{ length: number }>
+  min?: TestOptionsMessage<{ min: number }>
+  max?: TestOptionsMessage<{ max: number }>
+  matches?: TestOptionsMessage<{ regex: RegExp }>
+  email?: TestOptionsMessage<{ regex: RegExp }>
+  url?: TestOptionsMessage<{ regex: RegExp }>
+  trim?: TestOptionsMessage
+  lowercase?: TestOptionsMessage
+  uppercase?: TestOptionsMessage
+}
+
 export interface StringSchema<T extends string | null | undefined = string>
   extends Schema<T> {
-  email(message?: TestOptionsMessage<{ regex: RegExp }>): StringSchema<T>
+  email(message?: StringLocale['email']): StringSchema<T>
   ensure(): StringSchema<T>
-  length(
-    limit: number | Ref,
-    message?: TestOptionsMessage<{ length: number | Ref }>
-  ): StringSchema<T>
-  lowercase(message?: TestOptionsMessage): StringSchema<T>
+  length(limit: number | Ref, message?: StringLocale['length']): StringSchema<T>
+  lowercase(message?: StringLocale['lowercase']): StringSchema<T>
   matches(
     regex: RegExp,
     messageOrOptions?:
-      | TestOptionsMessage<{ regex: RegExp }>
-      | {
-          message?: TestOptionsMessage<{ regex: RegExp }>
-          excludeEmptyString?: boolean
-        }
+      | StringLocale['matches']
+      | { message?: StringLocale['matches']; excludeEmptyString?: boolean }
   ): StringSchema<T>
-  max(
-    limit: number | Ref,
-    message?: TestOptionsMessage<{ max: number | Ref }>
-  ): StringSchema<T>
-  min(
-    limit: number | Ref,
-    message?: TestOptionsMessage<{ min: number | Ref }>
-  ): StringSchema<T>
+  max(limit: number | Ref, message?: StringLocale['max']): StringSchema<T>
+  min(limit: number | Ref, message?: StringLocale['min']): StringSchema<T>
   notRequired(): StringSchema<T | undefined>
   nullable(isNullable: false): StringSchema<Exclude<T, null>>
   nullable(isNullable?: boolean): StringSchema<T>
@@ -55,9 +55,9 @@ export interface StringSchema<T extends string | null | undefined = string>
   password(minScore: Score, options?: PasswordOptions | string): StringSchema<T>
   phone(this: StringSchema, options?: PhoneOptions | string): StringSchema<T>
   required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>
-  trim(message?: TestOptionsMessage): StringSchema<T>
-  uppercase(message?: TestOptionsMessage): StringSchema<T>
-  url(message?: TestOptionsMessage<{ regex: RegExp }>): StringSchema<T>
+  trim(message?: StringLocale['trim']): StringSchema<T>
+  uppercase(message?: StringLocale['uppercase']): StringSchema<T>
+  url(message?: StringLocale['url']): StringSchema<T>
 }
 
 export interface StringSchemaConstructor {

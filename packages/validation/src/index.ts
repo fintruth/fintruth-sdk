@@ -52,6 +52,7 @@ import {
   PasswordOptions,
   PhoneOptions,
   Score,
+  StringLocale,
   StringSchema,
   StringSchemaConstructor,
   string,
@@ -66,25 +67,46 @@ export type AnySchemaConstructor =
   | ArraySchemaConstructor
   | ObjectSchemaConstructor
 
-type MappedLocaleSchema<S extends Schema<any>> = {
-  [key in keyof S]?: S[key] extends (...args: infer P) => any
-    ? MessageFromParameters<Required<P>>
-    : never
+interface ArrayLocale {
+  min?: TestOptionsMessage<{ min: number }>
+  max?: TestOptionsMessage<{ max: number }>
 }
 
-type MessageFromParameters<P extends unknown[]> = {
-  [K in keyof P]: P[K] extends TestOptionsMessage<any> ? P[K] : never
-}[number]
+interface DateLocale {
+  min?: TestOptionsMessage<{ min: Date | string }>
+  max?: TestOptionsMessage<{ max: Date | string }>
+}
 
 export interface LocaleObject {
-  array?: MappedLocaleSchema<ArraySchema<any>>
-  bool?: MappedLocaleSchema<BooleanSchema>
-  boolean?: MappedLocaleSchema<BooleanSchema>
-  date?: MappedLocaleSchema<DateSchema>
-  mixed?: MappedLocaleSchema<MixedSchema> & { notType?: LocaleValue }
-  number?: MappedLocaleSchema<NumberSchema>
-  object?: MappedLocaleSchema<ObjectSchema<any>>
-  string?: MappedLocaleSchema<StringSchema>
+  mixed?: MixedLocale
+  string?: StringLocale
+  number?: NumberLocale
+  date?: DateLocale
+  boolean?: {}
+  object?: ObjectLocale
+  array?: ArrayLocale
+}
+
+interface MixedLocale {
+  default?: TestOptionsMessage
+  required?: TestOptionsMessage
+  oneOf?: TestOptionsMessage<{ values: any }>
+  notOneOf?: TestOptionsMessage<{ values: any }>
+  notType?: LocaleValue
+}
+
+interface NumberLocale {
+  min?: TestOptionsMessage<{ min: number }>
+  max?: TestOptionsMessage<{ max: number }>
+  lessThan?: TestOptionsMessage<{ less: number }>
+  moreThan?: TestOptionsMessage<{ more: number }>
+  positive?: TestOptionsMessage<{ more: number }>
+  negative?: TestOptionsMessage<{ less: number }>
+  integer?: TestOptionsMessage
+}
+
+interface ObjectLocale {
+  noUnknown?: TestOptionsMessage
 }
 
 export {
