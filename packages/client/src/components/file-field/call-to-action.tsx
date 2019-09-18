@@ -10,7 +10,8 @@ import { darken, em } from 'polished'
 import React from 'react'
 import styled, { Color, ColorContrast, css } from 'styled-components' // eslint-disable-line import/named
 
-import { control, unselectable } from 'styles/mixins'
+import { useTimer } from 'hooks/time'
+import { center, control, loader, unselectable } from 'styles/mixins'
 import { setRef } from 'utils/react'
 import { useFileFieldContext, Variant } from '.'
 
@@ -24,12 +25,15 @@ interface Props
     React.InputHTMLAttributes<HTMLInputElement>,
     'disabled' | 'required' | 'type'
   > {
+  delay?: number
+  isLoading?: boolean
   maxSize?: number
   validate?: FieldValidator
   variant?: Variant
 }
 
 interface RootProps {
+  isLoading?: boolean
   disabled: boolean
   variant?: Variant
 }
@@ -73,6 +77,18 @@ const validateInput = (value: File | string, context: Context) =>
     .validate(value, { context })
     .then(() => '')
     .catch(error => error.message)
+
+const loading = (color?: string) => css`
+  box-shadow: none !important;
+  color: transparent !important;
+  pointer-events: none;
+
+  &::after {
+    ${loader(color)};
+    ${center(em(16))};
+    position: absolute !important;
+  }
+`
 
 const standard = css`
   background-color: ${({ theme }) => theme.whiteTer};
@@ -130,6 +146,10 @@ const Root = styled.span<RootProps>`
     variant
       ? variation(theme[colors[variant]], theme[colorContrasts[variant]])
       : standard};
+
+  ${({ isLoading, theme, variant }) =>
+    isLoading &&
+    loading(variant ? theme[colorContrasts[variant]] : theme.borderColor)};
 `
 
 const Input = styled.input`
@@ -160,6 +180,8 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
   {
     children,
     className,
+    delay,
+    isLoading = false,
     maxSize = 2 * 10 ** 6,
     onChange,
     validate,
@@ -181,6 +203,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
   })[0]
   const { setFieldValue } = useFormikContext<any>()
   const input = React.useRef<HTMLInputElement>()
+  const isExpired = useTimer(isLoading, delay)
 
   React.useEffect(() => {
     if (!value && input.current) {
@@ -193,6 +216,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
       className={className}
       data-file-field-call-to-action=""
       disabled={isDisabled}
+      isLoading={isExpired}
       role="group"
       variant={variant}
     >
