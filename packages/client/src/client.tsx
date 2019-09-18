@@ -1,15 +1,25 @@
 import { ApolloProvider } from '@apollo/react-hooks'
 import { loadableReady } from '@loadable/component'
-import { Location, createBrowserHistory } from 'history'
+import {
+  HistoryActionType,
+  HistoryLocation,
+  HistorySource,
+  createHistory,
+} from '@reach/router'
 import { Styles } from 'isomorphic-style-loader'
 import StyleContext from 'isomorphic-style-loader/StyleContext'
 import React from 'react'
 import deepForceUpdate from 'react-deep-force-update'
-import { hydrate } from 'react-dom'
+import { hydrate, render } from 'react-dom'
 
-import { createApolloClient } from './apollo'
 import Root from './components/root'
 import { resolvers, typeDefs } from './store/partitions'
+import { createApolloClient } from './apollo'
+
+interface HistoryMeta {
+  location: HistoryLocation
+  action?: HistoryActionType
+}
 
 interface Position {
   scrollX: number
@@ -23,10 +33,10 @@ const client = createApolloClient({
   typeDefs,
 })
 const container = document.querySelector('#root')
-const history = createBrowserHistory()
+const history = createHistory((window as unknown) as HistorySource)
 const scrollPositionsHistory: Record<string, Position> = {}
 let currentLocation = history.location
-let appInstance: any
+let root: any
 
 const insertCss = (...styles: Styles[]) => {
   const removeCss = styles.map(({ _insertCss }) => _insertCss())
@@ -34,8 +44,9 @@ const insertCss = (...styles: Styles[]) => {
   return () => removeCss.forEach(dispose => dispose())
 }
 
-const onLocationChange = async (location: Location, action?: string) => {
+const onLocationChange = async ({ action, location }: HistoryMeta) => {
   const isInitialRender = !action
+  const renderOrHydrate = action ? render : hydrate
 
   // Remember the latest scroll position for the previous location
   if (currentLocation.key) {
@@ -59,7 +70,7 @@ const onLocationChange = async (location: Location, action?: string) => {
 
     await loadableReady()
 
-    appInstance = hydrate(
+    root = renderOrHydrate(
       <ApolloProvider client={client}>
         <StyleContext.Provider value={{ insertCss }}>
           <Root />
@@ -109,14 +120,14 @@ const onLocationChange = async (location: Location, action?: string) => {
 }
 
 history.listen(onLocationChange) // eslint-disable-line @typescript-eslint/no-misused-promises
-onLocationChange(currentLocation)
+onLocationChange({ location: currentLocation })
 
 if (module.hot) {
   module.hot.accept('./components/root', () => {
-    if (appInstance && appInstance.updater.isMounted(appInstance)) {
-      deepForceUpdate(appInstance)
+    if (root && root.updater.isMounted(root)) {
+      deepForceUpdate(root)
     }
 
-    onLocationChange(currentLocation)
+    onLocationChange({ location: currentLocation })
   })
 }

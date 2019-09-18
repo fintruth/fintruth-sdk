@@ -14,20 +14,26 @@ import React from 'react'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 
-import { createApolloClient } from './apollo'
 import Html from './components/html'
 import Root from './components/root'
 import Fault from './routes/fault'
 import { defaults } from './store/partitions'
+import { createApolloClient } from './apollo'
+import { port } from './config'
 
-process.on('unhandledRejection', () => {
-  process.exit(1)
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason)
+
+  return process.exit(1)
 })
 
 global.navigator = global.navigator || { userAgent: 'all' }
 
 const app: Express = express()
 const prettyError = new PrettyError()
+
+prettyError.skipNodeFiles()
+prettyError.skipPackage('express')
 
 app
   .use(bodyParser.json())
@@ -37,25 +43,25 @@ app
   .use(express.static(resolve(__dirname, 'public')))
 
 app.get('*', async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const client = createApolloClient({ defaults, resolvers: {} })
-    const css = new Set()
-    const extractor = new ChunkExtractor({
-      entrypoints: 'client',
-      statsFile: resolve(__dirname, 'stats.json'),
+  const client = createApolloClient({ defaults, resolvers: {} })
+  const css = new Set()
+  const extractor = new ChunkExtractor({
+    entrypoints: 'client',
+    statsFile: resolve(__dirname, 'stats.json'),
+  })
+  const sheet = new ServerStyleSheet()
+
+  const insertCss = (...styles: Styles[]) => {
+    const removeCss = styles.map(({ _getCss, _insertCss }) => {
+      css.add(_getCss())
+
+      return _insertCss()
     })
-    const sheet = new ServerStyleSheet()
 
-    const insertCss = (...styles: Styles[]) => {
-      const removeCss = styles.map(({ _getCss, _insertCss }) => {
-        css.add(_getCss())
+    return () => removeCss.forEach(dispose => dispose())
+  }
 
-        return _insertCss()
-      })
-
-      return () => removeCss.forEach(dispose => dispose())
-    }
-
+  try {
     const root = await renderToStringWithData(
       <ChunkExtractorManager extractor={extractor}>
         <StyleContext.Provider value={{ insertCss }}>
@@ -123,18 +129,13 @@ app.use((err: any, _: Request, res: Response) => {
   return res.send(`<!doctype html>${html}`)
 })
 
-prettyError.skipNodeFiles()
-prettyError.skipPackage('express')
-
 if (module.hot) {
   app.hot = module.hot
 
-  module.hot.accept('components/root')
+  module.hot.accept('./components/root')
 } else {
-  app.listen(process.env.CLIENT_PORT, () =>
-    console.info(
-      `The server is running at http://localhost:${process.env.CLIENT_PORT}`
-    )
+  app.listen(port, () =>
+    console.info(`The server is running at http://localhost:${port}`)
   )
 }
 
