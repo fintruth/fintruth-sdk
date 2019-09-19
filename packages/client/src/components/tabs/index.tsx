@@ -10,7 +10,6 @@ const Root = styled(BaseTabs)`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  flex-shrink: 0;
 `
 
 const Tabs: React.RefForwardingComponent<HTMLDivElement, Props> = (
