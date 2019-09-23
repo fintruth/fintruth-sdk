@@ -1,1 +1,2396 @@
-[]
+[
+  {
+    "id": "form.field.label.confirmEmail",
+    "message": "Confirm Email",
+    "defaultMessage": "Confirm Email",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.email",
+    "message": "Email",
+    "defaultMessage": "Email",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.firstName",
+    "message": "First Name",
+    "defaultMessage": "First Name",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.lastName",
+    "message": "Last Name",
+    "defaultMessage": "Last Name",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.password",
+    "message": "Password",
+    "defaultMessage": "Password",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.verificationCode",
+    "message": "Verification Code",
+    "defaultMessage": "Verification Code",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.submit.continue",
+    "message": "Continue",
+    "defaultMessage": "Continue",
+    "description": "The text of a submit button",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.submit.recover",
+    "message": "Recover",
+    "defaultMessage": "Recover",
+    "description": "The text of a submit button",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.submit.register",
+    "message": "Register",
+    "defaultMessage": "Register",
+    "description": "The text of a submit button",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.submit.signIn",
+    "message": "Sign in",
+    "defaultMessage": "Sign in",
+    "description": "The text of a submit button",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.success.verificationEmail",
+    "message": "A verification email has been sent",
+    "defaultMessage": "A verification email has been sent",
+    "description": "The message displayed when a form is successfully submitted",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "navigation.route.register",
+    "message": "Register",
+    "defaultMessage": "Register",
+    "description": "The text of a local route link",
+    "files": [
+      "src/translations/navigation.ts"
+    ]
+  },
+  {
+    "id": "navigation.route.settings",
+    "message": "Settings",
+    "defaultMessage": "Settings",
+    "description": "The text of a local route link",
+    "files": [
+      "src/translations/navigation.ts"
+    ]
+  },
+  {
+    "id": "navigation.route.signIn",
+    "message": "Sign In",
+    "defaultMessage": "Sign In",
+    "description": "The text of a local route link",
+    "files": [
+      "src/translations/navigation.ts"
+    ]
+  },
+  {
+    "id": "routes.fault.description",
+    "message": "Sorry, a critical error occurred on this page.",
+    "defaultMessage": "Sorry, a critical error occurred on this page.",
+    "description": "The description of the Fault page",
+    "files": [
+      "src/routes/fault/index.tsx"
+    ]
+  },
+  {
+    "id": "routes.fault.title",
+    "message": "Error",
+    "defaultMessage": "Error",
+    "description": "The title of the Fault page",
+    "files": [
+      "src/routes/fault/index.tsx"
+    ]
+  },
+  {
+    "id": "routes.home.title",
+    "message": "Welcome Home!",
+    "defaultMessage": "Welcome Home!",
+    "description": "The title of the Home page",
+    "files": [
+      "src/routes/home/index.tsx"
+    ]
+  },
+  {
+    "id": "routes.notfound.description",
+    "message": "Sorry, but the page you were trying to view does not exist.",
+    "defaultMessage": "Sorry, but the page you were trying to view does not exist.",
+    "description": "The description of the Not Found page",
+    "files": [
+      "src/routes/not-found/index.tsx"
+    ]
+  },
+  {
+    "id": "routes.notfound.title",
+    "message": "Page Not Found",
+    "defaultMessage": "Page Not Found",
+    "description": "The title of the Not Found page",
+    "files": [
+      "src/routes/not-found/index.tsx"
+    ]
+  },
+  {
+    "id": "routes.recover.recoverForm.accountHelp.description",
+    "message": "Already have email and password?",
+    "defaultMessage": "Already have email and password?",
+    "description": "The description in the Account Help section",
+    "files": [
+      "src/routes/recover/recover-form.tsx"
+    ]
+  },
+  {
+    "id": "routes.signIn.signInForm.accountHelp.recover",
+    "message": "Forgot your password?",
+    "defaultMessage": "Forgot your password?",
+    "description": "The Recover link in the Account Help section",
+    "files": [
+      "src/routes/sign-in/sign-in-form.tsx"
+    ]
+  },
+  {
+    "id": "country.name.ac",
+    "message": "Ascension Island",
+    "defaultMessage": "Ascension Island",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ad",
+    "message": "Andorra",
+    "defaultMessage": "Andorra",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ae",
+    "message": "United Arab Emirates",
+    "defaultMessage": "United Arab Emirates",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.af",
+    "message": "Afghanistan",
+    "defaultMessage": "Afghanistan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ag",
+    "message": "Antigua and Barbuda",
+    "defaultMessage": "Antigua and Barbuda",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ai",
+    "message": "Anguilla",
+    "defaultMessage": "Anguilla",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.al",
+    "message": "Albania",
+    "defaultMessage": "Albania",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.am",
+    "message": "Armenia",
+    "defaultMessage": "Armenia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ao",
+    "message": "Angola",
+    "defaultMessage": "Angola",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ar",
+    "message": "Argentina",
+    "defaultMessage": "Argentina",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.as",
+    "message": "American Samoa",
+    "defaultMessage": "American Samoa",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.at",
+    "message": "Austria",
+    "defaultMessage": "Austria",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.au",
+    "message": "Australia",
+    "defaultMessage": "Australia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.aw",
+    "message": "Aruba",
+    "defaultMessage": "Aruba",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ax",
+    "message": "Åland Islands",
+    "defaultMessage": "Åland Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.az",
+    "message": "Azerbaijan",
+    "defaultMessage": "Azerbaijan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ba",
+    "message": "Bosnia and Herzegovina",
+    "defaultMessage": "Bosnia and Herzegovina",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bb",
+    "message": "Barbados",
+    "defaultMessage": "Barbados",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bd",
+    "message": "Bangladesh",
+    "defaultMessage": "Bangladesh",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.be",
+    "message": "Belgium",
+    "defaultMessage": "Belgium",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bf",
+    "message": "Burkina Faso",
+    "defaultMessage": "Burkina Faso",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bg",
+    "message": "Bulgaria",
+    "defaultMessage": "Bulgaria",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bh",
+    "message": "Bahrain",
+    "defaultMessage": "Bahrain",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bi",
+    "message": "Burundi",
+    "defaultMessage": "Burundi",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bj",
+    "message": "Benin",
+    "defaultMessage": "Benin",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bl",
+    "message": "Saint Barthélemy",
+    "defaultMessage": "Saint Barthélemy",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bm",
+    "message": "Bermuda",
+    "defaultMessage": "Bermuda",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bn",
+    "message": "Brunei",
+    "defaultMessage": "Brunei",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bo",
+    "message": "Bolivia",
+    "defaultMessage": "Bolivia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bq",
+    "message": "Caribbean Netherlands",
+    "defaultMessage": "Caribbean Netherlands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.br",
+    "message": "Brazil",
+    "defaultMessage": "Brazil",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bs",
+    "message": "Bahamas",
+    "defaultMessage": "Bahamas",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bt",
+    "message": "Bhutan",
+    "defaultMessage": "Bhutan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bw",
+    "message": "Botswana",
+    "defaultMessage": "Botswana",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.by",
+    "message": "Belarus",
+    "defaultMessage": "Belarus",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.bz",
+    "message": "Belize",
+    "defaultMessage": "Belize",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ca",
+    "message": "Canada",
+    "defaultMessage": "Canada",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cc",
+    "message": "Cocos (Keeling) Islands",
+    "defaultMessage": "Cocos (Keeling) Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cd",
+    "message": "Congo (Democratic)",
+    "defaultMessage": "Congo (Democratic)",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cf",
+    "message": "Central African Republic",
+    "defaultMessage": "Central African Republic",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cg",
+    "message": "Congo",
+    "defaultMessage": "Congo",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ch",
+    "message": "Switzerland",
+    "defaultMessage": "Switzerland",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ci",
+    "message": "Côte d'Ivoire",
+    "defaultMessage": "Côte d'Ivoire",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ck",
+    "message": "Cook Islands",
+    "defaultMessage": "Cook Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cl",
+    "message": "Chile",
+    "defaultMessage": "Chile",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cm",
+    "message": "Cameroon",
+    "defaultMessage": "Cameroon",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cn",
+    "message": "China",
+    "defaultMessage": "China",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.co",
+    "message": "Colombia",
+    "defaultMessage": "Colombia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cr",
+    "message": "Costa Rica",
+    "defaultMessage": "Costa Rica",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cu",
+    "message": "Cuba",
+    "defaultMessage": "Cuba",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cv",
+    "message": "Cabo Verde",
+    "defaultMessage": "Cabo Verde",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cw",
+    "message": "Curaçao",
+    "defaultMessage": "Curaçao",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cx",
+    "message": "Christmas Island",
+    "defaultMessage": "Christmas Island",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cy",
+    "message": "Cyprus",
+    "defaultMessage": "Cyprus",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.cz",
+    "message": "Czech Republic",
+    "defaultMessage": "Czech Republic",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.de",
+    "message": "Germany",
+    "defaultMessage": "Germany",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.dj",
+    "message": "Djibouti",
+    "defaultMessage": "Djibouti",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.dk",
+    "message": "Denmark",
+    "defaultMessage": "Denmark",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.dm",
+    "message": "Dominica",
+    "defaultMessage": "Dominica",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.do",
+    "message": "Dominican Republic",
+    "defaultMessage": "Dominican Republic",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.dz",
+    "message": "Algeria",
+    "defaultMessage": "Algeria",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ec",
+    "message": "Ecuador",
+    "defaultMessage": "Ecuador",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ee",
+    "message": "Estonia",
+    "defaultMessage": "Estonia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.eg",
+    "message": "Egypt",
+    "defaultMessage": "Egypt",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.eh",
+    "message": "Western Sahara",
+    "defaultMessage": "Western Sahara",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.er",
+    "message": "Eritrea",
+    "defaultMessage": "Eritrea",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.es",
+    "message": "Spain",
+    "defaultMessage": "Spain",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.et",
+    "message": "Ethiopia",
+    "defaultMessage": "Ethiopia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.fi",
+    "message": "Finland",
+    "defaultMessage": "Finland",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.fj",
+    "message": "Fiji",
+    "defaultMessage": "Fiji",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.fk",
+    "message": "Falkland Islands",
+    "defaultMessage": "Falkland Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.fm",
+    "message": "Micronesia",
+    "defaultMessage": "Micronesia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.fo",
+    "message": "Faroe Islands",
+    "defaultMessage": "Faroe Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.fr",
+    "message": "France",
+    "defaultMessage": "France",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ga",
+    "message": "Gabon",
+    "defaultMessage": "Gabon",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gb",
+    "message": "United Kingdom",
+    "defaultMessage": "United Kingdom",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gd",
+    "message": "Grenada",
+    "defaultMessage": "Grenada",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ge",
+    "message": "Georgia",
+    "defaultMessage": "Georgia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gf",
+    "message": "French Guiana",
+    "defaultMessage": "French Guiana",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gg",
+    "message": "Guernsey",
+    "defaultMessage": "Guernsey",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gh",
+    "message": "Ghana",
+    "defaultMessage": "Ghana",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gi",
+    "message": "Gibraltar",
+    "defaultMessage": "Gibraltar",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gl",
+    "message": "Greenland",
+    "defaultMessage": "Greenland",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gm",
+    "message": "The Gambia",
+    "defaultMessage": "The Gambia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gn",
+    "message": "Guinea",
+    "defaultMessage": "Guinea",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gp",
+    "message": "Guadeloupe",
+    "defaultMessage": "Guadeloupe",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gq",
+    "message": "Equatorial Guinea",
+    "defaultMessage": "Equatorial Guinea",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gr",
+    "message": "Greece",
+    "defaultMessage": "Greece",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gt",
+    "message": "Guatemala",
+    "defaultMessage": "Guatemala",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gu",
+    "message": "Guam",
+    "defaultMessage": "Guam",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gw",
+    "message": "Guinea-Bissau",
+    "defaultMessage": "Guinea-Bissau",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.gy",
+    "message": "Guyana",
+    "defaultMessage": "Guyana",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.hk",
+    "message": "Hong Kong",
+    "defaultMessage": "Hong Kong",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.hn",
+    "message": "Honduras",
+    "defaultMessage": "Honduras",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.hr",
+    "message": "Croatia",
+    "defaultMessage": "Croatia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ht",
+    "message": "Haiti",
+    "defaultMessage": "Haiti",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.hu",
+    "message": "Hungary",
+    "defaultMessage": "Hungary",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.id",
+    "message": "Indonesia",
+    "defaultMessage": "Indonesia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ie",
+    "message": "Ireland",
+    "defaultMessage": "Ireland",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.il",
+    "message": "Israel",
+    "defaultMessage": "Israel",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.im",
+    "message": "Isle of Man",
+    "defaultMessage": "Isle of Man",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.in",
+    "message": "India",
+    "defaultMessage": "India",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.io",
+    "message": "British Indian Ocean Territory",
+    "defaultMessage": "British Indian Ocean Territory",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.iq",
+    "message": "Iraq",
+    "defaultMessage": "Iraq",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ir",
+    "message": "Iran",
+    "defaultMessage": "Iran",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.is",
+    "message": "Iceland",
+    "defaultMessage": "Iceland",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.it",
+    "message": "Italy",
+    "defaultMessage": "Italy",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.je",
+    "message": "Jersey",
+    "defaultMessage": "Jersey",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.jm",
+    "message": "Jamaica",
+    "defaultMessage": "Jamaica",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.jo",
+    "message": "Jordan",
+    "defaultMessage": "Jordan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.jp",
+    "message": "Japan",
+    "defaultMessage": "Japan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ke",
+    "message": "Kenya",
+    "defaultMessage": "Kenya",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.kg",
+    "message": "Kyrgyzstan",
+    "defaultMessage": "Kyrgyzstan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.kh",
+    "message": "Cambodia",
+    "defaultMessage": "Cambodia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ki",
+    "message": "Kiribati",
+    "defaultMessage": "Kiribati",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.km",
+    "message": "Comoros",
+    "defaultMessage": "Comoros",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.kn",
+    "message": "Saint Kitts and Nevis",
+    "defaultMessage": "Saint Kitts and Nevis",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.kp",
+    "message": "North Korea",
+    "defaultMessage": "North Korea",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.kr",
+    "message": "South Korea",
+    "defaultMessage": "South Korea",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.kw",
+    "message": "Kuwait",
+    "defaultMessage": "Kuwait",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ky",
+    "message": "Cayman Islands",
+    "defaultMessage": "Cayman Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.kz",
+    "message": "Kazakhstan",
+    "defaultMessage": "Kazakhstan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.la",
+    "message": "Laos",
+    "defaultMessage": "Laos",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.lb",
+    "message": "Lebanon",
+    "defaultMessage": "Lebanon",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.lc",
+    "message": "Saint Lucia",
+    "defaultMessage": "Saint Lucia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.li",
+    "message": "Liechtenstein",
+    "defaultMessage": "Liechtenstein",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.lk",
+    "message": "Sri Lanka",
+    "defaultMessage": "Sri Lanka",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.lr",
+    "message": "Liberia",
+    "defaultMessage": "Liberia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ls",
+    "message": "Lesotho",
+    "defaultMessage": "Lesotho",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.lt",
+    "message": "Lithuania",
+    "defaultMessage": "Lithuania",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.lu",
+    "message": "Luxembourg",
+    "defaultMessage": "Luxembourg",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.lv",
+    "message": "Latvia",
+    "defaultMessage": "Latvia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ly",
+    "message": "Libya",
+    "defaultMessage": "Libya",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ma",
+    "message": "Morocco",
+    "defaultMessage": "Morocco",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mc",
+    "message": "Monaco",
+    "defaultMessage": "Monaco",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.md",
+    "message": "Moldova",
+    "defaultMessage": "Moldova",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.me",
+    "message": "Montenegro",
+    "defaultMessage": "Montenegro",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mf",
+    "message": "Saint Martin",
+    "defaultMessage": "Saint Martin",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mg",
+    "message": "Madagascar",
+    "defaultMessage": "Madagascar",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mh",
+    "message": "Marshall Islands",
+    "defaultMessage": "Marshall Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mk",
+    "message": "North Macedonia",
+    "defaultMessage": "North Macedonia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ml",
+    "message": "Mali",
+    "defaultMessage": "Mali",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mm",
+    "message": "Myanmar",
+    "defaultMessage": "Myanmar",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mn",
+    "message": "Mongolia",
+    "defaultMessage": "Mongolia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mo",
+    "message": "Macau",
+    "defaultMessage": "Macau",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mp",
+    "message": "Northern Mariana Islands",
+    "defaultMessage": "Northern Mariana Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mq",
+    "message": "Martinique",
+    "defaultMessage": "Martinique",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mr",
+    "message": "Mauritania",
+    "defaultMessage": "Mauritania",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ms",
+    "message": "Montserrat",
+    "defaultMessage": "Montserrat",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mt",
+    "message": "Malta",
+    "defaultMessage": "Malta",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mu",
+    "message": "Mauritius",
+    "defaultMessage": "Mauritius",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mv",
+    "message": "Maldives",
+    "defaultMessage": "Maldives",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mw",
+    "message": "Malawi",
+    "defaultMessage": "Malawi",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mx",
+    "message": "Mexico",
+    "defaultMessage": "Mexico",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.my",
+    "message": "Malaysia",
+    "defaultMessage": "Malaysia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.mz",
+    "message": "Mozambique",
+    "defaultMessage": "Mozambique",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.na",
+    "message": "Namibia",
+    "defaultMessage": "Namibia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.nc",
+    "message": "New Caledonia",
+    "defaultMessage": "New Caledonia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ne",
+    "message": "Niger",
+    "defaultMessage": "Niger",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.nf",
+    "message": "Norfolk Island",
+    "defaultMessage": "Norfolk Island",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ng",
+    "message": "Nigeria",
+    "defaultMessage": "Nigeria",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ni",
+    "message": "Nicaragua",
+    "defaultMessage": "Nicaragua",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.nl",
+    "message": "Netherlands",
+    "defaultMessage": "Netherlands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.no",
+    "message": "Norway",
+    "defaultMessage": "Norway",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.np",
+    "message": "Nepal",
+    "defaultMessage": "Nepal",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.nr",
+    "message": "Nauru",
+    "defaultMessage": "Nauru",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.nu",
+    "message": "Niue",
+    "defaultMessage": "Niue",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.nz",
+    "message": "New Zealand",
+    "defaultMessage": "New Zealand",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.om",
+    "message": "Oman",
+    "defaultMessage": "Oman",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.pa",
+    "message": "Panama",
+    "defaultMessage": "Panama",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.pe",
+    "message": "Peru",
+    "defaultMessage": "Peru",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.pf",
+    "message": "French Polynesia",
+    "defaultMessage": "French Polynesia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.pg",
+    "message": "Papua New Guinea",
+    "defaultMessage": "Papua New Guinea",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ph",
+    "message": "Philippines",
+    "defaultMessage": "Philippines",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.pk",
+    "message": "Pakistan",
+    "defaultMessage": "Pakistan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.pl",
+    "message": "Poland",
+    "defaultMessage": "Poland",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.pm",
+    "message": "Saint Pierre and Miquelon",
+    "defaultMessage": "Saint Pierre and Miquelon",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.pr",
+    "message": "Puerto Rico",
+    "defaultMessage": "Puerto Rico",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ps",
+    "message": "Palestine",
+    "defaultMessage": "Palestine",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.pt",
+    "message": "Portugal",
+    "defaultMessage": "Portugal",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.pw",
+    "message": "Palau",
+    "defaultMessage": "Palau",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.py",
+    "message": "Paraguay",
+    "defaultMessage": "Paraguay",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.qa",
+    "message": "Qatar",
+    "defaultMessage": "Qatar",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.re",
+    "message": "Réunion",
+    "defaultMessage": "Réunion",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ro",
+    "message": "Romania",
+    "defaultMessage": "Romania",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.rs",
+    "message": "Serbia",
+    "defaultMessage": "Serbia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ru",
+    "message": "Russia",
+    "defaultMessage": "Russia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.rw",
+    "message": "Rwanda",
+    "defaultMessage": "Rwanda",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sa",
+    "message": "Saudi Arabia",
+    "defaultMessage": "Saudi Arabia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sb",
+    "message": "Solomon Islands",
+    "defaultMessage": "Solomon Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sc",
+    "message": "Seychelles",
+    "defaultMessage": "Seychelles",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sd",
+    "message": "Sudan",
+    "defaultMessage": "Sudan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.se",
+    "message": "Sweden",
+    "defaultMessage": "Sweden",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sg",
+    "message": "Singapore",
+    "defaultMessage": "Singapore",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sh",
+    "message": "Saint Helena, Ascension, and Tristan da Cunha",
+    "defaultMessage": "Saint Helena, Ascension, and Tristan da Cunha",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.si",
+    "message": "Slovenia",
+    "defaultMessage": "Slovenia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sj",
+    "message": "Svalbard and Jan Mayen",
+    "defaultMessage": "Svalbard and Jan Mayen",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sk",
+    "message": "Slovakia",
+    "defaultMessage": "Slovakia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sl",
+    "message": "Sierra Leone",
+    "defaultMessage": "Sierra Leone",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sm",
+    "message": "San Marino",
+    "defaultMessage": "San Marino",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sn",
+    "message": "Senegal",
+    "defaultMessage": "Senegal",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.so",
+    "message": "Somalia",
+    "defaultMessage": "Somalia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sr",
+    "message": "Suriname",
+    "defaultMessage": "Suriname",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ss",
+    "message": "South Sudan",
+    "defaultMessage": "South Sudan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.st",
+    "message": "São Tomé and Príncipe",
+    "defaultMessage": "São Tomé and Príncipe",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sv",
+    "message": "El Salvador",
+    "defaultMessage": "El Salvador",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sx",
+    "message": "Sint Maarten",
+    "defaultMessage": "Sint Maarten",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sy",
+    "message": "Syria",
+    "defaultMessage": "Syria",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.sz",
+    "message": "Eswatini",
+    "defaultMessage": "Eswatini",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ta",
+    "message": "Tristan da Cunha",
+    "defaultMessage": "Tristan da Cunha",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tc",
+    "message": "Turks and Caicos Islands",
+    "defaultMessage": "Turks and Caicos Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.td",
+    "message": "Chad",
+    "defaultMessage": "Chad",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tg",
+    "message": "Togo",
+    "defaultMessage": "Togo",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.th",
+    "message": "Thailand",
+    "defaultMessage": "Thailand",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tj",
+    "message": "Tajikistan",
+    "defaultMessage": "Tajikistan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tk",
+    "message": "Tokelau",
+    "defaultMessage": "Tokelau",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tl",
+    "message": "Timor-Leste",
+    "defaultMessage": "Timor-Leste",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tm",
+    "message": "Turkmenistan",
+    "defaultMessage": "Turkmenistan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tn",
+    "message": "Tunisia",
+    "defaultMessage": "Tunisia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.to",
+    "message": "Tonga",
+    "defaultMessage": "Tonga",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tr",
+    "message": "Turkey",
+    "defaultMessage": "Turkey",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tt",
+    "message": "Trinidad and Tobago",
+    "defaultMessage": "Trinidad and Tobago",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tv",
+    "message": "Tuvalu",
+    "defaultMessage": "Tuvalu",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tw",
+    "message": "Taiwan",
+    "defaultMessage": "Taiwan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.tz",
+    "message": "Tanzania",
+    "defaultMessage": "Tanzania",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ua",
+    "message": "Ukraine",
+    "defaultMessage": "Ukraine",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ug",
+    "message": "Uganda",
+    "defaultMessage": "Uganda",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.us",
+    "message": "United States",
+    "defaultMessage": "United States",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.uy",
+    "message": "Uruguay",
+    "defaultMessage": "Uruguay",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.uz",
+    "message": "Uzbekistan",
+    "defaultMessage": "Uzbekistan",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.va",
+    "message": "Vatican City",
+    "defaultMessage": "Vatican City",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.vc",
+    "message": "Saint Vincent and the Grenadines",
+    "defaultMessage": "Saint Vincent and the Grenadines",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ve",
+    "message": "Venezuela",
+    "defaultMessage": "Venezuela",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.vg",
+    "message": "British Virgin Islands",
+    "defaultMessage": "British Virgin Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.vi",
+    "message": "United States Virgin Islands",
+    "defaultMessage": "United States Virgin Islands",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.vn",
+    "message": "Vietnam",
+    "defaultMessage": "Vietnam",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.vu",
+    "message": "Vanuatu",
+    "defaultMessage": "Vanuatu",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.wf",
+    "message": "Wallis and Futuna",
+    "defaultMessage": "Wallis and Futuna",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ws",
+    "message": "Samoa",
+    "defaultMessage": "Samoa",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.xk",
+    "message": "Kosovo",
+    "defaultMessage": "Kosovo",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.ye",
+    "message": "Yemen",
+    "defaultMessage": "Yemen",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.yt",
+    "message": "Mayotte",
+    "defaultMessage": "Mayotte",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.za",
+    "message": "South Africa",
+    "defaultMessage": "South Africa",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.zm",
+    "message": "Zambia",
+    "defaultMessage": "Zambia",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "country.name.zw",
+    "message": "Zimbabwe",
+    "defaultMessage": "Zimbabwe",
+    "description": "The name of a country",
+    "files": [
+      "src/translations/country.ts"
+    ]
+  }
+]
