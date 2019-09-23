@@ -20,8 +20,8 @@ export const copyFile = (source: string, target: string) =>
       }
     }
 
-    const read = fs.createReadStream(source)
-    const write = fs.createWriteStream(target)
+    const read = fs.createReadStream(source, 'utf-8')
+    const write = fs.createWriteStream(target, 'utf-8')
 
     read.on('error', done)
     write.on('close', done)
@@ -47,6 +47,8 @@ export const copyDir = async (source: string, target: string) => {
     })
   )
 }
+
+export const readFile = (path: string) => promisify(fs.readFile)(path, 'utf-8')
 
 export const writeFile = (path: string, data: any) =>
   promisify(fs.writeFile)(path, data, 'utf-8')

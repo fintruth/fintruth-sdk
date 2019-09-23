@@ -974,7 +974,7 @@
     globals "^11.1.0"
     lodash "^4.17.13"
 
-"@babel/types@^7.0.0", "@babel/types@^7.1.6", "@babel/types@^7.2.0", "@babel/types@^7.3.0", "@babel/types@^7.4.0", "@babel/types@^7.4.4", "@babel/types@^7.5.5", "@babel/types@^7.6.0":
+"@babel/types@^7.0.0", "@babel/types@^7.1.6", "@babel/types@^7.2.0", "@babel/types@^7.3.0", "@babel/types@^7.4.0", "@babel/types@^7.4.4", "@babel/types@^7.5.5", "@babel/types@^7.6.0", "@babel/types@^7.6.1":
   version "7.6.1"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.6.1.tgz#53abf3308add3ac2a2884d539151c57c4b3ac648"
   integrity sha512-X7gdiuaCmA0uRjCmRtYJNAVCc/q+5xSgsfKJHqMN4iNLILX39677fJE1O40arPMh0TTtS9ItH67yre6c7k6t0g==
@@ -3019,10 +3019,10 @@
     apollo-link-http-common "^0.2.4"
     graphql "^14.5.3"
 
-"@types/babel__core@^7.1.0":
-  version "7.1.3"
-  resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.3.tgz#e441ea7df63cd080dfcd02ab199e6d16a735fc30"
-  integrity sha512-8fBo0UR2CcwWxeX7WIIgJ7lXjasFxoYgRnFHUj+hRvKkpiBJbxhdAPTCY6/ZKM0uxANFVzt4yObSLuTiTnazDA==
+"@types/babel__core@^7.1.0", "@types/babel__core@^7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.2.tgz#608c74f55928033fce18b99b213c16be4b3d114f"
+  integrity sha512-cfCCrFmiGY/yq0NuKNxIQvZFy9kY/1immpSpTngOnyIbD4+eJOG5mxphhHDv3CHL9GltO4GcKr54kGBg3RNdbg==
   dependencies:
     "@babel/parser" "^7.1.0"
     "@babel/types" "^7.0.0"
@@ -3104,7 +3104,17 @@
   dependencies:
     "@types/node" "*"
 
-"@types/cookies@*", "@types/cookies@^0.7.3":
+"@types/cookies@*":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@types/cookies/-/cookies-0.7.2.tgz#5e0560d46ed9998082dce799af1058dd6a49780a"
+  integrity sha512-jnihWgshWystcJKrz8C9hV+Ot9lqOUyAh2RF+o3BEo6K6AS2l4zYCb9GYaBuZ3C6Il59uIGqpE3HvCun4KKeJA==
+  dependencies:
+    "@types/connect" "*"
+    "@types/express" "*"
+    "@types/keygrip" "*"
+    "@types/node" "*"
+
+"@types/cookies@^0.7.3":
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/@types/cookies/-/cookies-0.7.3.tgz#5a4e2b61b36e19f578851f274be45fa9d802a87e"
   integrity sha512-NEkYn8pNsYZIxf3ZrjdPoeyueiPc0RbQClUpTwmdHkpmQQ8iDAlQYKpabuegHy7BJcqTteSTkhURMEs9ZxyEWg==
@@ -3376,6 +3386,11 @@
   integrity sha512-wxHA1EkDo/vm4EHzXIOLh9nbGeYGHWoESIvCwPBjrD2YGBn2eEdYrBwqgIP905OAhTjUTImZ7DZKI5xpq0Q+vQ==
   dependencies:
     "@types/react" "*"
+
+"@types/lodash@^4.14.138":
+  version "4.14.138"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.138.tgz#34f52640d7358230308344e579c15b378d91989e"
+  integrity sha512-A4uJgHz4hakwNBdHNPdxOTkYmXNgmUAKLbXZ7PKGslgeV0Mb8P3BlbYfPovExek1qnod4pDfRbxuzcVs3dlFLg==
 
 "@types/long@^4.0.0":
   version "4.0.0"
@@ -5117,6 +5132,17 @@ babel-plugin-react-docgen@^3.0.0:
     lodash "^4.17.11"
     react-docgen "^4.1.0"
     recast "^0.14.7"
+
+babel-plugin-react-intl@^4.1.14:
+  version "4.1.14"
+  resolved "https://registry.yarnpkg.com/babel-plugin-react-intl/-/babel-plugin-react-intl-4.1.14.tgz#164e4339c438758578ac064d68710556f7113272"
+  integrity sha512-EJ0RN9KQbVcbxwGwAWOS0fHkcDFtT+DHmAIUoprIEce/MF3rAE3sT/rRFNy6Ge34sAfvw8M2xP6CZD9taXvn9w==
+  dependencies:
+    "@babel/core" "^7.4.5"
+    "@babel/helper-plugin-utils" "^7.0.0"
+    "@types/babel__core" "^7.1.2"
+    fs-extra "^8.0.1"
+    intl-messageformat-parser "^3.0.7"
 
 "babel-plugin-styled-components@>= 1", babel-plugin-styled-components@^1.10.6:
   version "1.10.6"
@@ -10011,7 +10037,7 @@ intl-locales-supported@^1.4.8:
   resolved "https://registry.yarnpkg.com/intl-locales-supported/-/intl-locales-supported-1.4.8.tgz#99263bc4777fac409610093cf65aba7ffbe5c694"
   integrity sha512-kua9s/BGXo3BmqvQiN/xGsMJZnMqlNrZvXzxbDaIUD2Zt4gV5G8o/YUhuTUu3V9DTVWEx9ZSVRCvZxXK1Ig95w==
 
-intl-messageformat-parser@^3.1.1:
+intl-messageformat-parser@^3.0.7, intl-messageformat-parser@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/intl-messageformat-parser/-/intl-messageformat-parser-3.1.1.tgz#9e2800252dba23f59cce136bd85b1f4e9914c48a"
   integrity sha512-rp28ut8Xj/R0IN3wcvJqtVTKWDNaBk9Z5R+D/mSB7rpycc1jsE3vn5ShZa//zN7NpYXF3rkl8A6mZVhWNlMUJA==

@@ -1,5 +1,7 @@
 if (__IS_BROWSER__) {
-  throw new Error('Do not import "config.ts" from inside the client-side code.')
+  throw new Error("Do not import 'config.ts' from inside the client-side code.")
 }
+
+export const locales = ['en']
 
 export const port = Number(process.env.PORT) || 3000
