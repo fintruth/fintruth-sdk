@@ -32,14 +32,14 @@ export const createApolloClient = ({
     cache.writeData({ data: defaults })
   }
 
-  if (__IS_DEV__ && __IS_BROWSER__) {
+  if (__IS_DEV__ && process.env.BROWSER_ENV) {
     links.push(require('apollo-link-logger').default)
   }
 
   links.push(
     createUploadLink({
       credentials: 'include',
-      fetch: __IS_BROWSER__ ? fetch : require('node-fetch').default,
+      fetch: process.env.BROWSER_ENV ? fetch : require('node-fetch').default,
       uri: process.env.API_URI,
     })
   )
@@ -48,8 +48,8 @@ export const createApolloClient = ({
     assumeImmutableResults: true,
     cache,
     link: ApolloLink.from(links),
-    ssrForceFetchDelay: __IS_BROWSER__ ? 100 : undefined,
-    ssrMode: !__IS_BROWSER__,
+    ssrForceFetchDelay: process.env.BROWSER_ENV ? 100 : undefined,
+    ssrMode: !process.env.BROWSER_ENV,
     ...options,
   })
 }
