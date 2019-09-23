@@ -125,8 +125,8 @@ const createConfig = (target: Target, configFactory: ConfigFactory) =>
     },
     plugins: [
       new DefinePlugin({
-        __IS_BROWSER__: target === 'web',
         __IS_DEV__: !isRelease,
+        ...(target === 'web' ? { 'process.env.BROWSER_ENV': `'${env}'` } : {}),
       }),
       new DotenvPlugin({
         path: join(rootDir, envFile),

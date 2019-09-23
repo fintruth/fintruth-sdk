@@ -12,7 +12,7 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   errorOnDeprecated: true,
-  globals: { __IS_BROWSER__: false, __IS_DEV__: true },
+  globals: { __IS_DEV__: true },
   moduleDirectories: [...defaults.moduleDirectories, '<rootDir>/src'],
   restoreMocks: true,
   setupFilesAfterEnv: ['<rootDir>/config/jest/setup.ts'],
