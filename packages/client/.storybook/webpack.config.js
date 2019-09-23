@@ -77,7 +77,10 @@ module.exports = ({ config, mode }) => {
     },
     plugins: [
       ...config.plugins,
-      new DefinePlugin({ __IS_BROWSER__: true, __IS_DEV__: isDev }),
+      new DefinePlugin({
+        __IS_DEV__: isDev,
+        'process.env.BROWSER_ENV': `'${mode}'`,
+      }),
     ],
     resolve: {
       ...config.resolve,
