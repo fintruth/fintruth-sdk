@@ -22,9 +22,9 @@ const rootDir = resolve(__dirname, '..')
 
 const env = process.env.ENV || 'dev'
 const isProd = /prod(uction)?/i.test(env)
-const isStage = /stag(e|ing)/i.test(env)
+const isStaging = /stag(e|ing)/i.test(env)
 
-const isRelease = isProd || isStage || process.argv.includes('--release')
+const isRelease = isProd || isStaging || process.argv.includes('--release')
 const isWatch = process.argv.includes('--watch')
 
 const mergeToFile = async (

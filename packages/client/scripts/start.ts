@@ -1,10 +1,11 @@
 import browserSync from 'browser-sync'
 import express, { Express } from 'express'
-import { resolve } from 'path'
+import { join, resolve } from 'path'
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware'
 import webpack, {
   Compiler,
   Configuration,
+  DefinePlugin,
   HotModuleReplacementPlugin,
   WatchOptions,
 } from 'webpack'
@@ -16,7 +17,16 @@ import run, { format } from './run'
 import webpackConfig from '../config/webpack.config'
 
 const watchOptions: WatchOptions = {}
-const isRelease = process.argv.includes('--release')
+
+const rootDir = resolve(__dirname, '..')
+const localesDir = join(rootDir, 'src/translations/locales')
+const publicDir = join(rootDir, 'public')
+
+const env = process.env.ENV || 'dev'
+const isProd = /prod(uction)?/i.test(env)
+const isStaging = /stag(e|ing)/i.test(env)
+
+const isRelease = isProd || isStaging || process.argv.includes('--release')
 const isSilent = process.argv.includes('--silent')
 let server: Express
 
@@ -99,6 +109,9 @@ const start = async () => {
     filename: filename.replace('chunkhash', 'hash'),
   }
 
+  plugins.unshift(
+    new DefinePlugin({ 'process.env.LOCALES_DIR': `'${localesDir}'` })
+  )
   plugins.push(new HotModuleReplacementPlugin())
 
   plugins = serverConfig.plugins || []
@@ -115,13 +128,14 @@ const start = async () => {
     hotUpdateMainFilename: 'updates/[hash].hot-update.json',
   }
 
+  plugins.unshift(
+    new DefinePlugin({ 'process.env.LOCALES_DIR': `'${localesDir}'` })
+  )
   plugins.push(new HotModuleReplacementPlugin())
 
   server = express()
 
-  server
-    .use(errorOverlayMiddleware())
-    .use(express.static(resolve(__dirname, '../public')))
+  server.use(errorOverlayMiddleware()).use(express.static(publicDir))
 
   await run(clean)
 
