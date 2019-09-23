@@ -1,0 +1,22 @@
+# Compiled Output
+build
+storybook-static
+
+# Dependencies
+node_modules
+
+# Test and Code Coverage
+coverage
+
+# Translations
+src/translations/locales/*.json
+
+# Logs
+*.log*
+
+# Miscellaneous
+.env*
+!.env.defaults
+!.env.example
+.eslintcache
+.stylelintcache
