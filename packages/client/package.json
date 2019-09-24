@@ -99,7 +99,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.6.0",
     "@babel/types": "^7.6.1",
-    "@loadable/babel-plugin": "^5.10.0",
+    "@loadable/babel-plugin": "^5.10.3",
     "@loadable/webpack-plugin": "^5.7.1",
     "@mdx-js/loader": "^1.5.0",
     "@storybook/addon-a11y": "^5.2.1",
