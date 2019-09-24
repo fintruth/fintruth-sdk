@@ -46,7 +46,7 @@
     "@fintruth-sdk/common": "^0.1.0",
     "@fintruth-sdk/validation": "^0.1.0",
     "@loadable/component": "^5.10.2",
-    "@loadable/server": "^5.10.2",
+    "@loadable/server": "^5.10.3",
     "@reach/dialog": "^0.2.9",
     "@reach/menu-button": "^0.1.18",
     "@reach/router": "^1.2.1",
