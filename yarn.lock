@@ -3687,10 +3687,10 @@
     "@types/webpack" "*"
     terser "^3.16.1"
 
-"@types/testing-library__dom@*", "@types/testing-library__dom@^6.0.0", "@types/testing-library__dom@^6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@types/testing-library__dom/-/testing-library__dom-6.0.3.tgz#fb7f98d215de209a9c8ad677c13c2955a5b8a999"
-  integrity sha512-NCjixGZ6iubYpe63YKYJy/bDkPp+HD8fbi+0iXcaYhsYjQhoa7IfFz/WcaCRZJnKSi63c9GSK9pZi/Y8/gTvFA==
+"@types/testing-library__dom@*", "@types/testing-library__dom@^6.0.0", "@types/testing-library__dom@^6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@types/testing-library__dom/-/testing-library__dom-6.4.0.tgz#a9411ed4942a11260ffd1790c4d2225959171c72"
+  integrity sha512-Ae8p2knO5h4JMYcZzOE6lSaV4jg1JqRFjI2J3vU6Dzf9SWQjpyOtJUekFZ51Jv4+Sbsvy4XVocka7lCuzKkUmQ==
   dependencies:
     pretty-format "^24.3.0"
 
