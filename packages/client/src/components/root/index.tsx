@@ -44,30 +44,31 @@ const Root: React.FunctionComponent = () => {
   return (
     <React.StrictMode>
       <IntlProvider defaultLocale="en" locale="en">
+        {/*
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore TS2322 */}
         <ThemeProvider theme={theme}>
-          <>
-            <GlobalStyle />
-            {renderLoadingIf(isQueryingCurrentUser, () =>
-              data.user ? (
-                <Router>
-                  {Fault && <Fault path="/error" />}
-                  <Home path="/" />
-                  <Recover path="/recover" />
-                  <Settings path="/settings" />
-                  <NotFound default />
-                </Router>
-              ) : (
-                <Router>
-                  {Fault && <Fault path="/error" />}
-                  <Home path="/" />
-                  <Recover path="/recover" />
-                  <Register path="/register" />
-                  <SignIn path="/sign-in" />
-                  <NotFound default />
-                </Router>
-              )
-            )}
-          </>
+          <GlobalStyle />
+          {renderLoadingIf(isQueryingCurrentUser, () =>
+            data.user ? (
+              <Router>
+                {Fault && <Fault path="/error" />}
+                <Home path="/" />
+                <Recover path="/recover" />
+                <Settings path="/settings" />
+                <NotFound default />
+              </Router>
+            ) : (
+              <Router>
+                {Fault && <Fault path="/error" />}
+                <Home path="/" />
+                <Recover path="/recover" />
+                <Register path="/register" />
+                <SignIn path="/sign-in" />
+                <NotFound default />
+              </Router>
+            )
+          )}
         </ThemeProvider>
       </IntlProvider>
     </React.StrictMode>
