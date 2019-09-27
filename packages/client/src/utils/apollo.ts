@@ -1,4 +1,3 @@
-import { ErrorLink } from 'apollo-link-error'
 import {
   InMemoryCache,
   InMemoryCacheConfig as InMemoryCacheOptions,
@@ -6,6 +5,7 @@ import {
   IntrospectionResultData,
   defaultDataIdFromObject,
 } from 'apollo-cache-inmemory'
+import { hasPath } from 'ramda'
 
 import introspectionQueryResultData from '../fragment-types.json'
 
@@ -13,34 +13,23 @@ interface IntrospectionFragmentMatcherOptions {
   introspectionQueryResultData?: IntrospectionResultData
 }
 
-export const createErrorLink = () =>
-  new ErrorLink(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-      graphQLErrors.map(({ locations, message, path }) =>
-        console.warn(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        )
-      )
-    }
-
-    if (networkError) {
-      console.warn(`[Network error]: ${networkError}`)
-    }
-  })
-
-export const createFragmentMatcher = (
+const createFragmentMatcher = (
   options: IntrospectionFragmentMatcherOptions = {}
 ) =>
   new IntrospectionFragmentMatcher({ introspectionQueryResultData, ...options })
 
 export const createInMemoryCache = (options: InMemoryCacheOptions = {}) =>
   new InMemoryCache({
-    dataIdFromObject: obj => {
-      switch (obj.__typename) {
+    dataIdFromObject: value => {
+      switch (value.__typename) {
         default:
-          return defaultDataIdFromObject(obj)
+          return defaultDataIdFromObject(value)
       }
     },
     freezeResults: true,
+    fragmentMatcher: createFragmentMatcher(),
     ...options,
   })
+
+export const hasResponseError = <TData = {}>(data: TData | {} = {}) =>
+  hasPath(['response', 'error'], data)

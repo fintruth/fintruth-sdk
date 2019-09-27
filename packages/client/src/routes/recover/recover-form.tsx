@@ -2,7 +2,6 @@ import { useMutation } from '@apollo/react-hooks'
 import { Link as BaseLink } from '@reach/router'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
-import { path } from 'ramda'
 import React from 'react'
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl'
 import { useUIDSeed } from 'react-uid'
@@ -12,6 +11,7 @@ import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help, link } from 'styles/mixins'
 import { form, navigation } from 'translations'
+import { hasResponseError } from 'utils/apollo'
 import {
   QueriedUser,
   RecoverMutationData,
@@ -113,8 +113,8 @@ const RecoverForm: React.FunctionComponent<Props> = ({
             : '',
         }}
         onSubmit={(variables, { resetForm }) =>
-          onSubmit({ variables }).then(value =>
-            path(['data', 'response', 'error'], value) ? undefined : resetForm()
+          onSubmit({ variables }).then(({ data }) =>
+            hasResponseError(data) ? undefined : resetForm()
           )
         }
         validateOnBlur={false}

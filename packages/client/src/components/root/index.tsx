@@ -43,7 +43,7 @@ const Root: React.FunctionComponent = () => {
 
   return (
     <React.StrictMode>
-      <IntlProvider locale="en">
+      <IntlProvider defaultLocale="en" locale="en">
         <ThemeProvider theme={theme}>
           <>
             <GlobalStyle />

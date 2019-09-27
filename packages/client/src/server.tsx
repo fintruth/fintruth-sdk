@@ -135,7 +135,7 @@ app.use((err: any, req: Request, res: Response) => {
 
   const root = renderToString(
     <StyleSheetManager sheet={sheet.instance}>
-      <IntlProvider locale={req.language} defaultLocale="en">
+      <IntlProvider defaultLocale="en" locale={req.language}>
         <Fault error={err} />
       </IntlProvider>
     </StyleSheetManager>

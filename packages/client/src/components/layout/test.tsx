@@ -2,21 +2,15 @@ import { MockedProvider } from '@apollo/react-testing'
 import { waitForElement } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import theme from 'styles/theme'
-import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
-import { renderWithRouter } from 'utils/specification'
+import { createInMemoryCache } from 'utils/apollo'
+import { renderWithContext } from 'utils/specification'
 import Layout from '.'
 
-const fragmentMatcher = createFragmentMatcher()
-
 test('clicking the logo should navigate to the home route', async () => {
-  const { getByAltText, history } = renderWithRouter(
-    <MockedProvider cache={createInMemoryCache({ fragmentMatcher })}>
-      <ThemeProvider theme={theme}>
-        <Layout>child</Layout>
-      </ThemeProvider>
+  const { getByAltText, history } = renderWithContext(
+    <MockedProvider cache={createInMemoryCache()}>
+      <Layout>child</Layout>
     </MockedProvider>,
     { initialPath: '/not-found' }
   )

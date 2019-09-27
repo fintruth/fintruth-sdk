@@ -7,7 +7,7 @@ import { Formik } from 'formik'
 import styled from 'styled-components'
 
 import { Type } from 'components/input'
-import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
+import { createInMemoryCache } from 'utils/apollo'
 import { centered } from 'utils/story'
 import { option } from 'styles/mixins'
 import { countriesQuery } from './graphql'
@@ -222,8 +222,6 @@ export const countries = [
   },
 ]
 
-export const fragmentMatcher = createFragmentMatcher()
-
 export const initialValues = { text: '' }
 
 export const types = {
@@ -283,7 +281,7 @@ export const Option = styled.option`
   </Story>
   <Story name="Country Select">
     <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
+      cache={createInMemoryCache()}
       mocks={[
         { request: { query: countriesQuery }, result: { data: { countries } } },
       ]}

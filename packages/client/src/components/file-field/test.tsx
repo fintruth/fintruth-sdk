@@ -1,9 +1,8 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { Formik } from 'formik'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import theme from 'styles/theme'
+import { renderWithContext } from 'utils/specification'
 import FileField, {
   FileFieldCallToAction,
   FileFieldLabel,
@@ -11,17 +10,15 @@ import FileField, {
 } from '.'
 
 test('should render the uploaded file name correctly after a file is uploaded', () => {
-  const { getByLabelText, getByText, queryByText } = render(
-    <ThemeProvider theme={theme}>
-      <Formik initialValues={{ file: 'logo.jpg' }} onSubmit={() => {}}>
-        <FileField name="file">
-          <FileFieldCallToAction>
-            <FileFieldLabel>label</FileFieldLabel>
-          </FileFieldCallToAction>
-          <FileFieldName />
-        </FileField>
-      </Formik>
-    </ThemeProvider>
+  const { getByLabelText, getByText, queryByText } = renderWithContext(
+    <Formik initialValues={{ file: 'logo.jpg' }} onSubmit={() => {}}>
+      <FileField name="file">
+        <FileFieldCallToAction>
+          <FileFieldLabel>label</FileFieldLabel>
+        </FileFieldCallToAction>
+        <FileFieldName />
+      </FileField>
+    </Formik>
   )
   const input = getByLabelText('label')
 

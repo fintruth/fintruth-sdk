@@ -1,65 +1,43 @@
-import { render } from '@testing-library/react'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import theme from 'styles/theme'
+import { renderWithContext } from 'utils/specification'
 import Select from '.'
 
 test('should render correctly', () => {
-  const { container } = render(
-    <ThemeProvider theme={theme}>
-      <Select />
-    </ThemeProvider>
-  )
+  const { container } = renderWithContext(<Select />)
 
   expect(container.firstChild).toMatchSnapshot()
 })
 
 test('should render correctly when disabled', () => {
-  const { container } = render(
-    <ThemeProvider theme={theme}>
-      <Select isDisabled />
-    </ThemeProvider>
-  )
+  const { container } = renderWithContext(<Select isDisabled />)
 
   expect(container.firstChild).toMatchSnapshot()
 })
 
 test('should render correctly when disabled and multiple', () => {
-  const { container } = render(
-    <ThemeProvider theme={theme}>
-      <Select isDisabled isMultiple />
-    </ThemeProvider>
-  )
+  const { container } = renderWithContext(<Select isDisabled isMultiple />)
 
   expect(container.firstChild).toMatchSnapshot()
 })
 
 test('should render the danger variant correctly', () => {
-  const { container } = render(
-    <ThemeProvider theme={theme}>
-      <Select variant="danger" />
-    </ThemeProvider>
-  )
+  const { container } = renderWithContext(<Select variant="danger" />)
 
   expect(container.firstChild).toMatchSnapshot()
 })
 
 test('should render the danger variant correctly when disabled', () => {
-  const { container } = render(
-    <ThemeProvider theme={theme}>
-      <Select isDisabled variant="danger" />
-    </ThemeProvider>
+  const { container } = renderWithContext(
+    <Select isDisabled variant="danger" />
   )
 
   expect(container.firstChild).toMatchSnapshot()
 })
 
 test('should render the danger variant correctly when multiple', () => {
-  const { container } = render(
-    <ThemeProvider theme={theme}>
-      <Select isMultiple variant="danger" />
-    </ThemeProvider>
+  const { container } = renderWithContext(
+    <Select isMultiple variant="danger" />
   )
 
   expect(container.firstChild).toMatchSnapshot()

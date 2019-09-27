@@ -2,7 +2,6 @@ import { useMutation } from '@apollo/react-hooks'
 import { object, ref, string } from '@fintruth-sdk/validation'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
-import { path } from 'ramda'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useUIDSeed } from 'react-uid'
@@ -12,6 +11,7 @@ import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help } from 'styles/mixins'
 import { form } from 'translations'
+import { hasResponseError } from 'utils/apollo'
 import {
   RegisterMutationData,
   RegisterMutationVariables,
@@ -101,8 +101,8 @@ const RegisterForm: React.FunctionComponent<Props> = ({
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={({ emailConfirm: _, ...input }, { resetForm }) =>
-          onSubmit({ variables: { input } }).then(value =>
-            path(['data', 'response', 'error'], value) ? undefined : resetForm()
+          onSubmit({ variables: { input } }).then(({ data }) =>
+            hasResponseError(data) ? undefined : resetForm()
           )
         }
         validateOnBlur={false}

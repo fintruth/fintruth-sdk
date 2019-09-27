@@ -1,27 +1,21 @@
-import { render } from '@testing-library/react'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import theme from 'styles/theme'
+import { renderWithContext } from 'utils/specification'
 import Label from '.'
 
 test('should not append the required symbol to the provided children', () => {
-  const { getByText } = render(
-    <ThemeProvider theme={theme}>
-      <Label data-testid="label">child</Label>
-    </ThemeProvider>
+  const { getByText } = renderWithContext(
+    <Label data-testid="label">child</Label>
   )
 
   expect(getByText('child')).toHaveAttribute('data-testid', 'label')
 })
 
 test('should append the required symbol to the provided children', () => {
-  const { getByText } = render(
-    <ThemeProvider theme={theme}>
-      <Label data-testid="label" isRequired>
-        child
-      </Label>
-    </ThemeProvider>
+  const { getByText } = renderWithContext(
+    <Label data-testid="label" isRequired>
+      child
+    </Label>
   )
 
   expect(getByText('child*')).toHaveAttribute('data-testid', 'label')

@@ -2,7 +2,7 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
-import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
+import { createInMemoryCache } from 'utils/apollo'
 import {
   emailBuilder,
   profileBuilder,
@@ -17,7 +17,6 @@ import {
 } from './graphql'
 import SignIn from '.'
 
-const fragmentMatcher = createFragmentMatcher()
 const response = responseBuilder()
 
 const email = 'demo@fintruth.com'
@@ -131,48 +130,39 @@ const errorTwoFactorAuthEnabledMocks = [
 
 storiesOf('Routes|Sign In', module)
   .add('Default', () => (
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={defaultMocks}
-    >
+    <MockedProvider cache={createInMemoryCache()} mocks={defaultMocks}>
       <SignIn />
     </MockedProvider>
   ))
   .add('Default (2FA Enabled)', () => (
     <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
+      cache={createInMemoryCache()}
       mocks={defaultTwoFactorAuthEnabledMocks}
     >
       <SignIn />
     </MockedProvider>
   ))
   .add('With Delay', () => (
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={delayMocks}
-    >
+    <MockedProvider cache={createInMemoryCache()} mocks={delayMocks}>
       <SignIn />
     </MockedProvider>
   ))
   .add('With Delay (2FA Enabled)', () => (
     <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
+      cache={createInMemoryCache()}
       mocks={delayTwoFactorAuthEnabledMocks}
     >
       <SignIn />
     </MockedProvider>
   ))
   .add('With Error', () => (
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={errorMocks}
-    >
+    <MockedProvider cache={createInMemoryCache()} mocks={errorMocks}>
       <SignIn />
     </MockedProvider>
   ))
   .add('With Error (2FA Enabled)', () => (
     <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
+      cache={createInMemoryCache()}
       mocks={errorTwoFactorAuthEnabledMocks}
     >
       <SignIn />
