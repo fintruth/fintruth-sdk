@@ -144,7 +144,7 @@
     "@types/terser-webpack-plugin": "^1.2.1",
     "@types/testing-library__dom": "^6.4.0",
     "@types/testing-library__react": "^9.1.1",
-    "@types/webpack": "^4.39.1",
+    "@types/webpack": "^4.39.2",
     "@types/webpack-bundle-analyzer": "^2.13.3",
     "@types/webpack-dev-middleware": "^2.0.3",
     "@types/webpack-env": "^1.14.0",
