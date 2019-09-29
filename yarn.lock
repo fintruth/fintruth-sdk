@@ -14526,10 +14526,10 @@ react-hotkeys@2.0.0-pre4:
   dependencies:
     prop-types "^15.6.1"
 
-react-image-crop@^8.3.0:
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-8.3.0.tgz#a0642dd3daafd77f142bac01887628cb967876b7"
-  integrity sha512-iC6Soqkf588WvEHc4EpKWNaiw4YQe0UbXziBpC8KRPKyaccakmWf7MewDFnYiPfPNEWxj96S390q7BUJz8LGZg==
+react-image-crop@^8.3.1:
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-8.3.1.tgz#80e3f1f6dd987cab3f04469d4764c5422a4e74c7"
+  integrity sha512-oVNonX8L04yjQfYkcLmBcAowJApcVGquGjjhZMY22DsI8+Zs/0YT7OJD8jKSzWphSiBzR0Vc4ewGDjzKXBfoPw==
   dependencies:
     clsx "^1.0.4"
     core-js "^3.2.1"

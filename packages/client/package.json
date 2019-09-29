@@ -79,7 +79,7 @@
     "ramda": "^0.26.1",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
-    "react-image-crop": "^8.3.0",
+    "react-image-crop": "^8.3.1",
     "react-intl": "^3.3.2",
     "react-is": "^16.10.1",
     "react-uid": "^2.2.0",
