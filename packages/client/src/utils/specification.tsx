@@ -8,6 +8,7 @@ import {
   User,
 } from '@fintruth-sdk/common'
 import {
+  History,
   LocationProvider,
   LocationProviderRenderFn,
   createHistory,
@@ -15,24 +16,67 @@ import {
 } from '@reach/router'
 import { render } from '@testing-library/react'
 import React from 'react'
+import { IntlConfig, IntlProvider } from 'react-intl'
+import { DefaultTheme, ThemeProvider } from 'styled-components' // eslint-disable-line import/named
 import { arrayOf, bool, build, fake } from 'test-data-bot'
 
-interface RouterOptions {
+import defaultTheme from 'styles/theme'
+
+type AnyIfEmpty<T extends {}> = keyof T extends never ? any : T
+
+type Theme =
+  | AnyIfEmpty<DefaultTheme>
+  | ((theme: AnyIfEmpty<DefaultTheme>) => AnyIfEmpty<DefaultTheme>)
+
+interface Options extends Partial<IntlConfig> {
+  history?: History
   initialPath?: string
+  theme?: Theme
 }
 
 interface TypeName {
   __typename: string
 }
 
-export const renderWithRouter = (
+export const renderWithContext = (
   node: React.ReactNode | LocationProviderRenderFn,
-  { initialPath = '/' }: RouterOptions = {}
+  {
+    defaultFormats,
+    defaultLocale = 'en',
+    formats,
+    history: providedHistory,
+    initialPath = '/',
+    locale = 'en',
+    messages,
+    onError,
+    textComponent,
+    theme = defaultTheme,
+    timeZone,
+  }: Options = {}
 ) => {
-  const history = createHistory(createMemorySource(initialPath))
+  const history =
+    providedHistory || createHistory(createMemorySource(initialPath))
 
   return {
-    ...render(<LocationProvider history={history}>{node}</LocationProvider>),
+    ...render(
+      <IntlProvider
+        defaultFormats={defaultFormats}
+        defaultLocale={defaultLocale}
+        formats={formats}
+        locale={locale}
+        messages={messages}
+        onError={onError}
+        textComponent={textComponent}
+        timeZone={timeZone}
+      >
+        {/*
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore TS2322 */}
+        <ThemeProvider theme={theme}>
+          <LocationProvider history={history}>{node}</LocationProvider>
+        </ThemeProvider>
+      </IntlProvider>
+    ),
     history,
   }
 }

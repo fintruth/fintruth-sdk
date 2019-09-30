@@ -2,7 +2,7 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
-import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
+import { createInMemoryCache } from 'utils/apollo'
 import {
   emailBuilder,
   enableTwoFactorAuthResponseBuilder,
@@ -23,7 +23,6 @@ import {
 import Settings from '.'
 
 const enableTwoFactorAuthResponse = enableTwoFactorAuthResponseBuilder()
-const fragmentMatcher = createFragmentMatcher()
 const response = responseBuilder()
 
 const familyName = 'User'
@@ -258,48 +257,39 @@ const errorTwoFactorAuthEnabledMocks = [
 
 storiesOf('Routes|Settings', module)
   .add('Default', () => (
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={defaultMocks}
-    >
+    <MockedProvider cache={createInMemoryCache()} mocks={defaultMocks}>
       <Settings />
     </MockedProvider>
   ))
   .add('Default (2FA Enabled)', () => (
     <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
+      cache={createInMemoryCache()}
       mocks={defaultTwoFactorAuthEnabledMocks}
     >
       <Settings />
     </MockedProvider>
   ))
   .add('With Delay', () => (
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={delayMocks}
-    >
+    <MockedProvider cache={createInMemoryCache()} mocks={delayMocks}>
       <Settings />
     </MockedProvider>
   ))
   .add('With Delay (2FA Enabled)', () => (
     <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
+      cache={createInMemoryCache()}
       mocks={delayTwoFactorAuthEnabledMocks}
     >
       <Settings />
     </MockedProvider>
   ))
   .add('With Error', () => (
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={errorMocks}
-    >
+    <MockedProvider cache={createInMemoryCache()} mocks={errorMocks}>
       <Settings />
     </MockedProvider>
   ))
   .add('With Error (2FA Enabled)', () => (
     <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
+      cache={createInMemoryCache()}
       mocks={errorTwoFactorAuthEnabledMocks}
     >
       <Settings />

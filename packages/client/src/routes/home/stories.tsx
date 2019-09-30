@@ -2,13 +2,11 @@ import { MockedProvider } from '@apollo/react-testing'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
-import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
+import { createInMemoryCache } from 'utils/apollo'
 import Home from '.'
 
-const fragmentMatcher = createFragmentMatcher()
-
 storiesOf('Routes|Home', module).add('Default', () => (
-  <MockedProvider cache={createInMemoryCache({ fragmentMatcher })}>
+  <MockedProvider cache={createInMemoryCache()}>
     <Home />
   </MockedProvider>
 ))

@@ -2,19 +2,17 @@ import { MockedProvider } from '@apollo/react-testing'
 import { waitForElement } from '@testing-library/react'
 import React from 'react'
 
-import { createFragmentMatcher, createInMemoryCache } from 'utils/apollo'
+import { createInMemoryCache } from 'utils/apollo'
 import {
   emailBuilder,
   profileBuilder,
-  renderWithRouter,
+  renderWithContext,
   userBuilder,
 } from 'utils/specification'
 import { currentUserQuery } from './graphql'
 import Root from '.'
 
 jest.mock('@reach/utils')
-
-const fragmentMatcher = createFragmentMatcher()
 
 const userId = 'c1eff49f-7f0c-4635-9ed0-5088cd73b32a'
 
@@ -33,11 +31,8 @@ const unauthenticatedMocks = [
 ]
 
 test('should render the "/register" route correctly when authenticated', async () => {
-  const { getByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={authenticatedMocks}
-    >
+  const { getByTestId } = renderWithContext(
+    <MockedProvider cache={createInMemoryCache()} mocks={authenticatedMocks}>
       <Root />
     </MockedProvider>,
     { initialPath: '/register' }
@@ -48,11 +43,8 @@ test('should render the "/register" route correctly when authenticated', async (
 })
 
 test('should render the "/settings" route correctly when unauthenticated', async () => {
-  const { getByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={unauthenticatedMocks}
-    >
+  const { getByTestId } = renderWithContext(
+    <MockedProvider cache={createInMemoryCache()} mocks={unauthenticatedMocks}>
       <Root />
     </MockedProvider>,
     { initialPath: '/settings' }
@@ -63,11 +55,8 @@ test('should render the "/settings" route correctly when unauthenticated', async
 })
 
 test('should render the "/sign-in" route correctly when authenticated', async () => {
-  const { getByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={authenticatedMocks}
-    >
+  const { getByTestId } = renderWithContext(
+    <MockedProvider cache={createInMemoryCache()} mocks={authenticatedMocks}>
       <Root />
     </MockedProvider>,
     { initialPath: '/sign-in' }
@@ -82,11 +71,8 @@ test('should render the default route correctly when authenticated', async () =>
   // @ts-ignore TS2588
   __IS_DEV__ = false
 
-  const { getByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={authenticatedMocks}
-    >
+  const { getByTestId } = renderWithContext(
+    <MockedProvider cache={createInMemoryCache()} mocks={authenticatedMocks}>
       <Root />
     </MockedProvider>,
     { initialPath: '/error' }
@@ -105,11 +91,8 @@ test('should render the default route correctly when unauthenticated', async () 
   // @ts-ignore TS2588
   __IS_DEV__ = false
 
-  const { getByTestId } = renderWithRouter(
-    <MockedProvider
-      cache={createInMemoryCache({ fragmentMatcher })}
-      mocks={unauthenticatedMocks}
-    >
+  const { getByTestId } = renderWithContext(
+    <MockedProvider cache={createInMemoryCache()} mocks={unauthenticatedMocks}>
       <Root />
     </MockedProvider>,
     { initialPath: '/error' }

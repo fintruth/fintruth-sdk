@@ -21,7 +21,7 @@ const insertCss = (...styles: Styles[]) => {
 addDecorator(withA11y)
 addDecorator(withKnobs)
 addDecorator(story => (
-  <IntlProvider locale="en">
+  <IntlProvider defaultLocale="en" locale="en">
     <StyleContext.Provider value={{ insertCss }}>
       <ThemeProvider theme={theme}>
         <>

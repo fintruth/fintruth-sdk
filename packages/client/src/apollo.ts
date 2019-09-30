@@ -1,20 +1,30 @@
+import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 import { ApolloClient, ApolloClientOptions } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
-import { NormalizedCacheObject } from 'apollo-cache-inmemory'
+import { ErrorLink } from 'apollo-link-error'
 import { createUploadLink } from 'apollo-upload-client'
 
-import {
-  createErrorLink,
-  createFragmentMatcher,
-  createInMemoryCache,
-} from './utils/apollo'
+import { createInMemoryCache } from './utils/apollo'
 
 interface Options extends Partial<ApolloClientOptions<NormalizedCacheObject>> {
   defaults?: {}
   preloadedCache?: NormalizedCacheObject
 }
 
-const fragmentMatcher = createFragmentMatcher()
+const createErrorLink = () =>
+  new ErrorLink(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      graphQLErrors.map(({ locations, message, path }) =>
+        console.warn(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        )
+      )
+    }
+
+    if (networkError) {
+      console.warn(`[Network error]: ${networkError}`)
+    }
+  })
 
 export const createApolloClient = ({
   defaults,
@@ -22,7 +32,7 @@ export const createApolloClient = ({
   ...options
 }: Options = {}) => {
   const links: ApolloLink[] = [createErrorLink()]
-  let cache = createInMemoryCache({ fragmentMatcher })
+  let cache = createInMemoryCache()
 
   if (preloadedCache) {
     cache = cache.restore(preloadedCache)

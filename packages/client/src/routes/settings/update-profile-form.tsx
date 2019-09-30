@@ -1,7 +1,6 @@
 import { useMutation } from '@apollo/react-hooks'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
-import { path } from 'ramda'
 import React from 'react'
 import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
@@ -9,6 +8,7 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help } from 'styles/mixins'
+import { hasResponseError } from 'utils/apollo'
 import {
   QueriedProfile,
   UpdateProfileMutationData,
@@ -79,10 +79,8 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
           ? { children: response.error.message, color: 'danger' }
           : { children: 'Your profile information was successfully updated' }
       ),
-    refetchQueries: result =>
-      path(['data', 'response', 'error'], result)
-        ? []
-        : [{ query: currentProfileQuery }],
+    refetchQueries: ({ data }) =>
+      hasResponseError(data) ? [] : [{ query: currentProfileQuery }],
   })
 
   return (

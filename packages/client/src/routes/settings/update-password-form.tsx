@@ -3,7 +3,6 @@ import { object, ref, string } from '@fintruth-sdk/validation'
 import { Link as BaseLink } from '@reach/router'
 import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
-import { path } from 'ramda'
 import React from 'react'
 import { useUIDSeed } from 'react-uid'
 import styled, { Color } from 'styled-components' // eslint-disable-line import/named
@@ -11,6 +10,7 @@ import styled, { Color } from 'styled-components' // eslint-disable-line import/
 import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput } from 'components/field'
 import { help, link } from 'styles/mixins'
+import { hasResponseError } from 'utils/apollo'
 import {
   UpdatePasswordMutationData,
   UpdatePasswordMutationVariables,
@@ -106,8 +106,8 @@ const UpdatePasswordForm: React.FunctionComponent<Props> = ({
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={(variables, { resetForm }) =>
-          onSubmit({ variables }).then(value =>
-            path(['data', 'response', 'error'], value) ? undefined : resetForm()
+          onSubmit({ variables }).then(({ data }) =>
+            hasResponseError(data) ? undefined : resetForm()
           )
         }
         validateOnBlur={false}
