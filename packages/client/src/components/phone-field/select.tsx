@@ -56,7 +56,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   React.useEffect(
     () =>
       dispatch({
-        payload: { placeholder: data[field.value.toLowerCase() as Alpha2Code] },
+        payload: { placeholder: data[field.value as Alpha2Code] },
         type: 'setPlaceholder',
       }),
     [dispatch, field.value]
@@ -72,7 +72,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       isRequired={isRequired}
       onChange={({ target: { value } }) => {
         dispatch({
-          payload: { placeholder: data[value.toLowerCase() as Alpha2Code] },
+          payload: { placeholder: data[value as Alpha2Code] },
           type: 'setPlaceholder',
         })
 
@@ -85,7 +85,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       {countries.map(({ alpha2Code, callingCode }) => (
         <Option key={alpha2Code} value={alpha2Code}>
           {`${formatMessage(
-            country.name[alpha2Code.toLowerCase() as Alpha2Code]
+            country.name[alpha2Code as Alpha2Code]
           )} +${callingCode}`}
         </Option>
       ))}

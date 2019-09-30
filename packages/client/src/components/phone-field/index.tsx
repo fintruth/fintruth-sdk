@@ -3,7 +3,7 @@ import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
-import { Alpha2Code } from './data'
+import { Alpha2Code } from 'translations'
 
 type Dispatch = (action: Action) => void
 
