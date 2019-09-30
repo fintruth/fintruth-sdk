@@ -7,9 +7,9 @@ import styled from 'styled-components'
 
 import BaseSelect, { Props as SelectProps } from 'components/select'
 import { option } from 'styles/mixins'
-import { country } from 'translations'
+import { Alpha2Code, country } from 'translations'
 import { validateSelect } from 'utils/validation'
-import data, { Alpha2Code } from './data'
+import data from './data'
 import { CountriesQueryData, countriesQuery } from './graphql'
 import { usePhoneFieldContext } from '.'
 
@@ -56,7 +56,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   React.useEffect(
     () =>
       dispatch({
-        payload: { placeholder: data[field.value as Alpha2Code] },
+        payload: { placeholder: data[field.value.toLowerCase() as Alpha2Code] },
         type: 'setPlaceholder',
       }),
     [dispatch, field.value]
@@ -72,7 +72,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       isRequired={isRequired}
       onChange={({ target: { value } }) => {
         dispatch({
-          payload: { placeholder: data[value as Alpha2Code] },
+          payload: { placeholder: data[value.toLowerCase() as Alpha2Code] },
           type: 'setPlaceholder',
         })
 
@@ -85,7 +85,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       {countries.map(({ alpha2Code, callingCode }) => (
         <Option key={alpha2Code} value={alpha2Code}>
           {`${formatMessage(
-            country.name[alpha2Code.toLowerCase() as keyof typeof country.name]
+            country.name[alpha2Code.toLowerCase() as Alpha2Code]
           )} +${callingCode}`}
         </Option>
       ))}
