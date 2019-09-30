@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl'
 const rootId = 'country'
 const nameId = `${rootId}.name`
 
-export default {
+export const country = {
   name: defineMessages({
     ac: {
       id: `${nameId}.ac`,
@@ -1232,3 +1232,5 @@ export default {
     },
   }),
 }
+
+export type Alpha2Code = keyof typeof country.name

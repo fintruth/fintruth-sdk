@@ -6,7 +6,7 @@ const labelId = `${fieldId}.label`
 const submitId = `${rootId}.submit`
 const successId = `${rootId}.success`
 
-export default {
+export const form = {
   field: {
     label: defineMessages({
       confirmEmail: {

@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl'
 const rootId = 'navigation'
 const routeId = `${rootId}.route`
 
-export default {
+export const navigation = {
   route: defineMessages({
     register: {
       id: `${routeId}.register`,

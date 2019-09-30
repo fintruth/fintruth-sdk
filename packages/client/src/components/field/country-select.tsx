@@ -7,11 +7,9 @@ import styled from 'styled-components'
 import BaseSelect, { Props as SelectProps } from 'components/select'
 import { validateSelect } from 'utils/validation'
 import { option } from 'styles/mixins'
-import { country } from 'translations'
+import { Alpha2Code, country } from 'translations'
 import { CountriesQueryData, countriesQuery } from './graphql'
 import { useFieldContext } from '.'
-
-type Alpha2Code = keyof typeof country.name
 
 interface Props
   extends Omit<
