@@ -1,12 +1,12 @@
 import {
-  Country as BaseCountry,
-  Email as BaseEmail,
-  EnableTwoFactorAuthResponse as BaseEnableTwoFactorAuthResponse,
-  Profile as BaseProfile,
-  Response as BaseResponse,
-  ResponseError as BaseResponseError,
-  SignInResponse as BaseSignInResponse,
-  User as BaseUser,
+  Country,
+  Email,
+  EnableTwoFactorAuthResponse,
+  Profile,
+  Response,
+  ResponseError,
+  SignInResponse,
+  User,
 } from '@fintruth-sdk/common'
 import {
   History,
@@ -25,25 +25,11 @@ import defaultTheme from 'styles/theme'
 
 type AnyIfEmpty<T extends {}> = keyof T extends never ? any : T
 
-type Country = BaseCountry & TypeName
-
-type Email = BaseEmail & TypeName
-
-type EnableTwoFactorAuthResponse = BaseEnableTwoFactorAuthResponse & TypeName
-
-type Profile = BaseProfile & TypeName
-
-type Response = BaseResponse & TypeName
-
-type ResponseError = BaseResponseError & TypeName
-
-type SignInResponse = BaseSignInResponse & TypeName
-
 type Theme =
   | AnyIfEmpty<DefaultTheme>
   | ((theme: AnyIfEmpty<DefaultTheme>) => AnyIfEmpty<DefaultTheme>)
 
-type User = BaseUser & TypeName
+type WithTypeName<T> = { __typename: string } & T
 
 interface Options extends Partial<IntlConfig> {
   history?: History
@@ -51,11 +37,7 @@ interface Options extends Partial<IntlConfig> {
   theme?: Theme
 }
 
-interface TypeName {
-  __typename: string
-}
-
-export const countries: Country[] = [
+export const countries: WithTypeName<Country>[] = [
   {
     __typename: 'Country',
     id: '3d28b550-a1e6-43b6-b48e-d109a9f84ece',
@@ -1816,7 +1798,8 @@ export const renderWithContext = (
   }
 }
 
-export const emailBuilder = build<Email>('Email').fields({
+export const emailBuilder = build<WithTypeName<Email>>('Email').fields({
+  __typename: 'Email',
   id: fake(({ random }) => random.uuid()),
   isPrimary: bool(),
   isVerified: bool(),
@@ -1824,51 +1807,50 @@ export const emailBuilder = build<Email>('Email').fields({
   value: fake(({ internet }) => internet.email()),
   createdAt: fake(({ date }) => date.past().toISOString()),
   updatedAt: fake(({ date }) => date.recent().toISOString()),
-  __typename: 'Email',
 })
 
-export const profileBuilder = build<Profile>('Profile').fields({
+export const profileBuilder = build<WithTypeName<Profile>>('Profile').fields({
+  __typename: 'Profile',
   id: fake(({ random }) => random.uuid()),
   familyName: fake(({ name }) => name.lastName()),
   givenName: fake(({ name }) => name.firstName()),
   userId: fake(({ random }) => random.uuid()),
   createdAt: fake(({ date }) => date.past().toISOString()),
   updatedAt: fake(({ date }) => date.recent().toISOString()),
-  __typename: 'Profile',
 })
 
-export const responseErrorBuilder = build<ResponseError>(
+export const responseErrorBuilder = build<WithTypeName<ResponseError>>(
   'ResponseError'
 ).fields({
+  __typename: 'ResponseError',
   id: fake(({ random }) => random.uuid()),
   message: 'An unknown error occurred; please try again later.',
-  __typename: 'ResponseError',
 })
 
 export const enableTwoFactorAuthResponseBuilder = build<
-  EnableTwoFactorAuthResponse
+  WithTypeName<EnableTwoFactorAuthResponse>
 >('EnableTwoFactorAuthResponse').fields({
+  __typename: 'EnableTwoFactorAuthResponse',
   dataUrl:
     'data:image/png;base64,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',
   error: responseErrorBuilder(),
   secret: 'NYTDMZSWJ5NHUNCBKAUFOUB6OZBHA3Z3GJVUONZBEUSTCJDJEZ5Q',
-  __typename: 'EnableTwoFactorAuthResponse',
 })
 
-export const responseBuilder = build<Response>('Response').fields({
-  error: responseErrorBuilder(),
-  __typename: 'Response',
-})
+export const responseBuilder = build<WithTypeName<Response>>('Response').fields(
+  { __typename: 'Response', error: responseErrorBuilder() }
+)
 
-export const signInResponseBuilder = build<SignInResponse>(
+export const signInResponseBuilder = build<WithTypeName<SignInResponse>>(
   'SignInResponse'
 ).fields({
+  __typename: 'SignInResponse',
   error: responseErrorBuilder(),
   isTwoFactorAuthEnabled: bool(),
-  __typename: 'SignInResponse',
 })
 
-export const userBuilder = build<User>('User').fields({
+export const userBuilder = build<WithTypeName<User>>('User').fields({
+  __typename: 'User',
   id: fake(({ random }) => random.uuid()),
   emails: arrayOf(emailBuilder, 1),
   isAdmin: bool(),
@@ -1876,5 +1858,4 @@ export const userBuilder = build<User>('User').fields({
   profile: profileBuilder(),
   createdAt: fake(({ date }) => date.past().toISOString()),
   updatedAt: fake(({ date }) => date.recent().toISOString()),
-  __typename: 'User',
 })
