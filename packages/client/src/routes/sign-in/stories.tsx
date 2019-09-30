@@ -9,7 +9,7 @@ import {
   responseBuilder,
   signInResponseBuilder,
   userBuilder,
-} from 'utils/specification'
+} from 'utils/spec'
 import {
   currentUserQuery,
   signInMutation,

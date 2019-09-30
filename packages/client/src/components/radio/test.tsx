@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { Formik } from 'formik'
 import React from 'react'
 
-import { renderWithContext } from 'utils/specification'
+import { renderWithContext } from 'utils/spec'
 import Radio, { RadioInput, RadioLabel } from '.'
 
 test('should only allow one radio button to be checked at a time', async () => {

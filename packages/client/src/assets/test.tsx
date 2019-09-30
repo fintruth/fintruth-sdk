@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { renderWithContext } from 'utils/specification'
+import { renderWithContext } from 'utils/spec'
 import Fixture from './fixture.svg'
 import fixtureUrl from './fixture.png'
 import Assets from '.'

@@ -8,7 +8,7 @@ import {
   profileBuilder,
   renderWithContext,
   userBuilder,
-} from 'utils/specification'
+} from 'utils/spec'
 import { currentUserQuery } from './graphql'
 import Root from '.'
 

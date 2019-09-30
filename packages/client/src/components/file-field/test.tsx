@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react'
 import { Formik } from 'formik'
 import React from 'react'
 
-import { renderWithContext } from 'utils/specification'
+import { renderWithContext } from 'utils/spec'
 import FileField, {
   FileFieldCallToAction,
   FileFieldLabel,

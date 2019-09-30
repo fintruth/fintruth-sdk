@@ -1,0 +1,84 @@
+import { MockedProvider } from '@apollo/react-testing'
+import { Meta, Preview, Story } from '@storybook/addon-docs/blocks'
+import { action } from '@storybook/addon-actions'
+import { boolean, text } from '@storybook/addon-knobs'
+import { storiesOf } from '@storybook/react'
+import { Formik } from 'formik'
+
+import { createInMemoryCache } from 'utils/apollo'
+import { countries } from 'utils/spec'
+import { centered } from 'utils/story'
+import { countriesQuery } from './graphql'
+import PhoneField, {
+  PhoneFieldHelp,
+  PhoneFieldInput,
+  PhoneFieldLabel,
+  PhoneFieldSelect,
+} from '.'
+
+<Meta
+  components={[
+    PhoneField,
+    PhoneFieldHelp,
+    PhoneFieldInput,
+    PhoneFieldLabel,
+    PhoneFieldSelect,
+  ]}
+  decorators={[centered]}
+  title="Components|Phone Field"
+/>
+
+<Preview>
+  <Story name="Default">
+    <MockedProvider
+      cache={createInMemoryCache()}
+      mocks={[
+        { request: { query: countriesQuery }, result: { data: { countries } } },
+      ]}
+    >
+      <Formik
+        initialValues={{ phone: { alpha2Code: 'US', number: '' } }}
+        onSubmit={action('onSubmit')}
+      >
+        <PhoneField
+          isDisabled={boolean('isDisabled', false)}
+          isRequired={boolean('isRequired', true)}
+          name="phone"
+        >
+          <PhoneFieldLabel>{text('label', 'Label')}</PhoneFieldLabel>
+          <PhoneFieldSelect />
+          <PhoneFieldInput />
+          <PhoneFieldHelp />
+        </PhoneField>
+      </Formik>
+    </MockedProvider>
+  </Story>
+  <Story name="With Delay">
+    <MockedProvider
+      cache={createInMemoryCache()}
+      mocks={[
+        {
+          delay: 5000,
+          request: { query: countriesQuery },
+          result: { data: { countries } },
+        },
+      ]}
+    >
+      <Formik
+        initialValues={{ phone: { alpha2Code: 'US', number: '' } }}
+        onSubmit={action('onSubmit')}
+      >
+        <PhoneField
+          isDisabled={boolean('isDisabled', false)}
+          isRequired={boolean('isRequired', true)}
+          name="phone"
+        >
+          <PhoneFieldLabel>{text('label', 'Label')}</PhoneFieldLabel>
+          <PhoneFieldSelect />
+          <PhoneFieldInput />
+          <PhoneFieldHelp />
+        </PhoneField>
+      </Formik>
+    </MockedProvider>
+  </Story>
+</Preview>

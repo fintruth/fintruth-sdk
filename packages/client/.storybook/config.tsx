@@ -23,11 +23,12 @@ addDecorator(withKnobs)
 addDecorator(story => (
   <IntlProvider defaultLocale="en" locale="en">
     <StyleContext.Provider value={{ insertCss }}>
+      {/*
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore TS2322 */}
       <ThemeProvider theme={theme}>
-        <>
-          <GlobalStyle />
-          {story()}
-        </>
+        <GlobalStyle />
+        {story()}
       </ThemeProvider>
     </StyleContext.Provider>
   </IntlProvider>
@@ -48,4 +49,4 @@ addParameters({
   viewport: { viewports: INITIAL_VIEWPORTS },
 })
 
-configure(require.context('../src', true, /(.*\.)?stories\.tsx$/), module)
+configure(require.context('../src', true, /(.*\.)?stories\.(md|ts)x$/), module)

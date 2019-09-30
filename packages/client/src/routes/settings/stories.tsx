@@ -9,7 +9,7 @@ import {
   profileBuilder,
   responseBuilder,
   userBuilder,
-} from 'utils/specification'
+} from 'utils/spec'
 import {
   confirmTwoFactorAuthMutation,
   currentProfileQuery,

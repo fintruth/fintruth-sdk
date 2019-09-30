@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 
 import { createInMemoryCache } from 'utils/apollo'
-import { renderWithContext } from 'utils/specification'
+import { renderWithContext } from 'utils/spec'
 import Layout from '.'
 
 test('clicking the logo should navigate to the home route', async () => {

@@ -8,7 +8,7 @@ import {
   profileBuilder,
   responseBuilder,
   userBuilder,
-} from 'utils/specification'
+} from 'utils/spec'
 import { currentUserQuery, recoverMutation } from './graphql'
 import Recover from '.'
 

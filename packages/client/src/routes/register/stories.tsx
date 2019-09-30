@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import React from 'react'
 
 import { createInMemoryCache } from 'utils/apollo'
-import { responseBuilder } from 'utils/specification'
+import { responseBuilder } from 'utils/spec'
 import { registerMutation } from './graphql'
 import Register from '.'
 
