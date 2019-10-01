@@ -5,7 +5,7 @@ import {
   IntrospectionResultData,
   defaultDataIdFromObject,
 } from 'apollo-cache-inmemory'
-import { hasPath } from 'ramda'
+import { path } from 'ramda'
 
 import introspectionQueryResultData from '../fragment-types.json'
 
@@ -32,4 +32,4 @@ export const createInMemoryCache = (options: InMemoryCacheOptions = {}) =>
   })
 
 export const hasResponseError = <TData = {}>(data: TData | {} = {}) =>
-  hasPath(['response', 'error'], data)
+  !!path(['response', 'error'], data)
