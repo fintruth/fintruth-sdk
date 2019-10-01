@@ -61,15 +61,10 @@ const CountrySelect: React.RefForwardingComponent<HTMLSelectElement, Props> = (
     >
       {placeholder && <Option value="">{placeholder}</Option>}
       {countries
-        .filter(
-          ({ alpha2Code }) =>
-            !exclude.includes(alpha2Code.toLowerCase() as Alpha2Code)
-        )
+        .filter(({ alpha2Code }) => !exclude.includes(alpha2Code as Alpha2Code))
         .map(({ alpha2Code, name }) => (
           <Option key={alpha2Code} value={name}>
-            {formatMessage(
-              country.name[alpha2Code.toLowerCase() as Alpha2Code]
-            )}
+            {formatMessage(country.name[alpha2Code as Alpha2Code])}
           </Option>
         ))}
     </BaseSelect>
