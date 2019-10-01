@@ -1,4 +1,6 @@
-const data = {
+import { Alpha2Code } from 'translations'
+
+const data: Record<Alpha2Code, string> = {
   AC: '40123',
   AD: '312 345',
   AE: '050 123 4567',
@@ -244,8 +246,6 @@ const data = {
   ZA: '071 123 4567',
   ZM: '095 5123456',
   ZW: '071 234 5678',
-} as const
-
-export type Alpha2Code = keyof typeof data
+}
 
 export default data
