@@ -2985,10 +2985,10 @@
     pretty-format "^24.0.0"
     redent "^3.0.0"
 
-"@testing-library/react@^9.2.0":
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-9.2.0.tgz#143ad2d96b03c3c334e47aaf33cc2c9b7d007123"
-  integrity sha512-Hr87KZflfI+vPZjgyzBKQHolQHiXGU5aTGjQSCJdH/yGPbm+IzrvuWPS97GD3RUH3rSS1IXq1e2Sn8Hmyw2ctA==
+"@testing-library/react@^9.3.0":
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-9.3.0.tgz#1dabf46d1ea018a1c89acecc0e7b86859b34c0f8"
+  integrity sha512-FTPCwmLo0tLtP50Au2uGz4/N1BcJTnBx4StDVHZ47zPMEj1/+J2rk/RTj8SLoHRKWCtcmhN4wRmudOXQNP29/w==
   dependencies:
     "@babel/runtime" "^7.6.0"
     "@testing-library/dom" "^6.3.0"
@@ -3441,10 +3441,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@>=6", "@types/node@^12.6.2", "@types/node@^12.7.9":
-  version "12.7.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.9.tgz#da0210f91096aa67138cf5afd04c4d629f8a406a"
-  integrity sha512-P57oKTJ/vYivL2BCfxCC5tQjlS8qW31pbOL6qt99Yrjm95YdHgNZwjrTTjMBh+C2/y6PXIX4oz253+jUzxKKfQ==
+"@types/node@*", "@types/node@>=6", "@types/node@^12.6.2", "@types/node@^12.7.10":
+  version "12.7.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.10.tgz#942c128c37b5d780aff5441fd457cd7ffdc18b36"
+  integrity sha512-ObiPa43kJCkgjG+7usRCoxWhqKCmT5JWvi+8bg54KMkP2CvTliYLmKR9uHLaz+51JDOX/8MjWc6Xz18xHTs7XQ==
 
 "@types/node@^10.1.0":
   version "10.14.19"
@@ -4836,10 +4836,10 @@ autoprefixer@^9.4.9, autoprefixer@^9.5.1:
     postcss "^7.0.17"
     postcss-value-parser "^4.0.0"
 
-aws-sdk@^2.541.0:
-  version "2.541.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.541.0.tgz#dd9902ceb2b6b002893de9d35ae598b332019e0b"
-  integrity sha512-KDw2M4Df0KC6mguYWQm+r9A4dfijsnFKaJtrOtSeoIiHDmTdPzSpsrZXGCb9Mc+npGcMT1144sQNCUZWjG0JDA==
+aws-sdk@^2.542.0:
+  version "2.542.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.542.0.tgz#aac9b58aade3ef9396eee01d7faca6d567ba26d6"
+  integrity sha512-d/ssYomgCSeZeNKKwaaWu0q2GOu9I+0DQzgh8cRCGGGMaDwZoHQP4FqFtBZV14avWN45QT3b+2TH7UJgKLfbAQ==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
