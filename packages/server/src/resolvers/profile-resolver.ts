@@ -8,7 +8,7 @@ import {
 } from 'type-graphql'
 import { Inject } from 'typedi'
 
-import { Context } from 'apollo'
+import { AuthContext, Context } from 'apollo'
 import { ProfileInput, Response } from 'resolvers/types'
 import ProfileService from 'services/profile-service'
 import { Profile } from '../entities'
@@ -22,9 +22,9 @@ export default class ProfileResolver {
   @Mutation(() => Response)
   updateProfile(
     @Arg('input') input: ProfileInput,
-    @Ctx() { ability, user }: Context
+    @Ctx() { ability, user }: AuthContext
   ) {
-    return user && this.profileService.updateByUser(user.id, input, ability)
+    return this.profileService.updateByUser(user.id, input, ability)
   }
 
   @Query(() => Profile, { nullable: true })
