@@ -11,7 +11,7 @@ import {
 } from 'type-graphql'
 import { Inject } from 'typedi'
 
-import { Context } from 'apollo'
+import { AuthContext, Context } from 'apollo'
 import { Daos } from 'models'
 import { Response, UserInput, UserResponse } from 'resolvers/types'
 import { UserService } from 'services'
@@ -27,13 +27,13 @@ export default class UserResolver {
 
   @Authenticated()
   @Mutation(() => UserResponse)
-  addEmail(@Arg('value') value: string, @Ctx() { ability, user }: Context) {
-    return user && this.userService.addEmail(user.id, value, ability)
+  addEmail(@Arg('value') value: string, @Ctx() { ability, user }: AuthContext) {
+    return this.userService.addEmail(user.id, value, ability)
   }
 
   @Authenticated()
   @Mutation(() => UserResponse)
-  createUser(@Arg('input') input: UserInput, @Ctx() { ability }: Context) {
+  createUser(@Arg('input') input: UserInput, @Ctx() { ability }: AuthContext) {
     ability.throwUnlessCan('create', User)
 
     return this.userService.create(input)
@@ -43,9 +43,9 @@ export default class UserResolver {
   @Mutation(() => UserResponse)
   removeEmail(
     @Arg('emailId') emailId: string,
-    @Ctx() { ability, user }: Context
+    @Ctx() { ability, user }: AuthContext
   ) {
-    return user && this.userService.removeEmail(user.id, emailId, ability)
+    return this.userService.removeEmail(user.id, emailId, ability)
   }
 
   @Authenticated()
@@ -53,11 +53,13 @@ export default class UserResolver {
   async updatePassword(
     @Arg('newPassword') newPassword: string,
     @Arg('password') password: string,
-    @Ctx() { ability, user }: Context
+    @Ctx() { ability, user }: AuthContext
   ) {
-    return (
-      user &&
-      this.userService.updatePassword(user.id, password, newPassword, ability)
+    return this.userService.updatePassword(
+      user.id,
+      password,
+      newPassword,
+      ability
     )
   }
 

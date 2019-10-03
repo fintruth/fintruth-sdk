@@ -7,7 +7,7 @@ import {
 } from 'type-graphql'
 import { Inject } from 'typedi'
 
-import { Context } from 'apollo'
+import { AuthContext, Context } from 'apollo'
 import {
   EnableTwoFactorAuthResponse,
   Response,
@@ -24,28 +24,24 @@ export default class AuthResolver {
   @Mutation(() => Response)
   confirmTwoFactorAuth(
     @Arg('token') token: string,
-    @Ctx() { ability, user }: Context
+    @Ctx() { ability, user }: AuthContext
   ) {
-    return (
-      user && this.authService.confirmTwoFactorAuth(token, user.id, ability)
-    )
+    return this.authService.confirmTwoFactorAuth(token, user.id, ability)
   }
 
   @Authenticated()
   @Mutation(() => Response)
   disableTwoFactorAuth(
     @Arg('token') token: string,
-    @Ctx() { ability, user }: Context
+    @Ctx() { ability, user }: AuthContext
   ) {
-    return (
-      user && this.authService.disableTwoFactorAuth(token, user.id, ability)
-    )
+    return this.authService.disableTwoFactorAuth(token, user.id, ability)
   }
 
   @Authenticated()
   @Mutation(() => EnableTwoFactorAuthResponse)
-  enableTwoFactorAuth(@Ctx() { ability, user }: Context) {
-    return user && this.authService.enableTwoFactorAuth(user.id, ability)
+  enableTwoFactorAuth(@Ctx() { ability, user }: AuthContext) {
+    return this.authService.enableTwoFactorAuth(user.id, ability)
   }
 
   @Mutation(() => SignInResponse)

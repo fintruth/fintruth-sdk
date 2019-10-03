@@ -21,6 +21,10 @@ export interface Context {
   user?: User
 }
 
+export interface AuthContext extends Context {
+  user: User
+}
+
 interface RequestParams {
   req: ServerRequest
   res: ServerResponse
