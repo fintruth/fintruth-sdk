@@ -9,38 +9,34 @@ import {
 
 import { spin } from './animations'
 
-type Content = FlattenInterpolation<ThemedStyledProps<{}, DefaultTheme>>
+type Styles = FlattenInterpolation<ThemedStyledProps<{}, DefaultTheme>>
 
 type ViewportBreakpointLower = Exclude<ViewportBreakpoint, 'extraLarge'>
 
 type ViewportBreakpointUpper = Exclude<ViewportBreakpoint, 'small'>
 
-const from = (breakpoint: ViewportBreakpoint) => (content: Content) => css`
-  @media screen and (min-width: ${({ theme }) =>
-      theme.viewport[breakpoint]}px) {
-    ${content}
+const viewportBreakpointScale: Record<
+  ViewportBreakpointLower,
+  ViewportBreakpointUpper
+> = { large: 'extraLarge', medium: 'large', small: 'medium' }
+
+const from = (breakpoint: ViewportBreakpoint) => (styles: Styles) => css`
+  @media screen and (min-width: ${({ theme }) => theme[breakpoint]}px) {
+    ${styles}
   }
 `
 
-const only = (breakpoint: ViewportBreakpointLower) => (content: Content) => {
-  const breakpointScale: Record<
-    ViewportBreakpointLower,
-    ViewportBreakpointUpper
-  > = { large: 'extraLarge', medium: 'large', small: 'medium' }
+const only = (breakpoint: ViewportBreakpointLower) => (styles: Styles) => css`
+  @media screen and (min-width: ${({ theme }) =>
+      theme[breakpoint]}px) and (max-width: ${({ theme }) =>
+      theme[viewportBreakpointScale[breakpoint]] - 1}px) {
+    ${styles}
+  }
+`
 
-  return css`
-    @media screen and (min-width: ${({ theme }) =>
-        theme.viewport[breakpoint]}px) and (max-width: ${({ theme }) =>
-        theme.viewport[breakpointScale[breakpoint]] - 1}px) {
-      ${content};
-    }
-  `
-}
-
-const until = (breakpoint: ViewportBreakpoint) => (content: Content) => css`
-  @media screen and (max-width: ${({ theme }) =>
-      theme.viewport[breakpoint] - 1}px) {
-    ${content};
+const until = (breakpoint: ViewportBreakpoint) => (styles: Styles) => css`
+  @media screen and (max-width: ${({ theme }) => theme[breakpoint] - 1}px) {
+    ${styles}
   }
 `
 
@@ -122,12 +118,15 @@ export const option = css`
   }
 `
 
+export const overflowTouch = css`
+  -webkit-overflow-scrolling: touch;
+`
+
 export const untilSmall = until('small')
 
-export const small = (content: Content) => css`
-  @media screen and (min-width: ${({ theme }) => theme.viewport.small}px),
-    print {
-    ${content};
+export const small = (styles: Styles) => css`
+  @media screen and (min-width: ${({ theme }) => theme.small}px), print {
+    ${styles}
   }
 `
 
@@ -145,9 +144,9 @@ export const large = from('large')
 
 export const largeOnly = only('large')
 
-export const untilExtraLarge = until('large')
+export const untilExtraLarge = until('extraLarge')
 
-export const extraLarge = from('large')
+export const extraLarge = from('extraLarge')
 
 export const unselectable = css`
   -webkit-touch-callout: none;
@@ -167,49 +166,37 @@ export const loader = (color?: string) => css`
   width: ${em(16)};
 `
 
-export const container = (
-  isFluid?: boolean,
-  isLarge?: boolean,
-  isExtraLarge?: boolean
-) => css`
-  margin: 0 auto;
-  position: relative;
+export const container = (isFluid = false) => {
+  const fluid = css`
+    padding-left: ${({ theme }) => theme.gap}px;
+    padding-right: ${({ theme }) => theme.gap}px;
+  `
 
-  ${medium(css`
-    max-width: ${({ theme }) => theme.viewport.medium - 2 * theme.gap}px;
-    width: ${({ theme }) => theme.viewport.medium - 2 * theme.gap}px;
+  const centered = (breakpoint: ViewportBreakpoint) => css`
+    max-width: ${({ theme }) => theme[breakpoint] - 2 * theme.gap}px;
+  `
 
-    ${isFluid &&
-      css`
-        margin-left: ${({ theme }) => theme.gap};
-        margin-right: ${({ theme }) => theme.gap};
-        max-width: none;
-        width: auto;
-      `}
-  `)};
+  return css`
+    flex-grow: 1;
+    margin: 0 auto;
+    position: relative;
+    width: ${isFluid ? '100%' : 'auto'};
 
-  ${isLarge &&
-    untilLarge(css`
-      max-width: ${({ theme }) => theme.viewport.large - 2 * theme.gap}px;
-      width: auto;
-    `)}
+    ${isFluid
+      ? fluid
+      : css`
+          ${medium(centered('medium'))}
 
-  ${large(css`
-    max-width: ${({ theme }) => theme.viewport.large - 2 * theme.gap}px;
-    width: ${({ theme }) => theme.viewport.large - 2 * theme.gap}px;
-  `)};
+          ${untilLarge(centered('large'))}
 
-  ${isExtraLarge &&
-    untilExtraLarge(css`
-      max-width: ${({ theme }) => theme.viewport.extraLarge - 2 * theme.gap}px;
-      width: auto;
-    `)}
+          ${untilExtraLarge(centered('extraLarge'))}
 
-  ${extraLarge(css`
-    max-width: ${({ theme }) => theme.viewport.extraLarge - 2 * theme.gap}px;
-    width: ${({ theme }) => theme.viewport.extraLarge - 2 * theme.gap}px;
-  `)};
-`
+          ${large(centered('large'))}
+
+          ${extraLarge(centered('extraLarge'))}
+        `}
+  `
+}
 
 const shared = css`
   word-break: break-word;
