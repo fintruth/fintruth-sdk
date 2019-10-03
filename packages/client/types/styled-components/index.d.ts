@@ -2,77 +2,96 @@ import 'styled-components'
 
 declare module 'styled-components' {
   export type Color =
-    | 'black'
-    | 'blackBis'
-    | 'blackTer'
-    | 'blue'
-    | 'cyan'
-    | 'danger'
-    | 'gray'
-    | 'grayDark'
-    | 'grayDarker'
-    | 'grayLight'
-    | 'grayLighter'
-    | 'green'
-    | 'info'
-    | 'orange'
-    | 'primary'
-    | 'purple'
-    | 'red'
-    | 'success'
-    | 'turquoise'
-    | 'warning'
     | 'white'
-    | 'whiteBis'
-    | 'whiteTer'
-    | 'yellow'
+    | 'black'
+    | 'light'
+    | 'dark'
+    | 'primary'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'danger'
 
   export type ColorContrast =
-    | 'blueContrast'
-    | 'cyanContrast'
-    | 'dangerContrast'
-    | 'greenContrast'
-    | 'infoContrast'
-    | 'orangeContrast'
+    | 'lightContrast'
+    | 'darkContrast'
     | 'primaryContrast'
-    | 'purpleContrast'
-    | 'redContrast'
+    | 'infoContrast'
     | 'successContrast'
-    | 'turquoiseContrast'
     | 'warningContrast'
-    | 'yellowContrast'
+    | 'dangerContrast'
 
-  export type ViewportBreakpoint = 'extraLarge' | 'large' | 'medium' | 'small'
+  export type Shade =
+    | 'blackBis'
+    | 'blackTer'
+    | 'grayDarker'
+    | 'grayDark'
+    | 'gray'
+    | 'grayLight'
+    | 'grayLighter'
+    | 'grayLightest'
+    | 'whiteTer'
+    | 'whiteBis'
+
+  export type ViewportBreakpoint = 'small' | 'medium' | 'large' | 'extraLarge'
 
   export interface DefaultTheme
     extends Record<Color, string>,
-      Record<ColorContrast, string> {
+      Record<ColorContrast, string>,
+      Record<Shade, string>,
+      Record<ViewportBreakpoint, number> {
+    orange: string
+    yellow: string
+    green: string
+    turquoise: string
+    cyan: string
+    blue: string
+    purple: string
+    red: string
+    orangeContrast: string
+    yellowContrast: string
+    greenContrast: string
+    turquoiseContrast: string
+    cyanContrast: string
+    blueContrast: string
+    purpleContrast: string
+    redContrast: string
     backgroundColor: string
     borderColor: string
     borderHoverColor: string
-    borderRadius: string
-    borderRadiusRounded: string
-    fontFamilyCode: string
-    fontFamilyMonospace: string
-    fontFamilyPrimary: string
-    fontFamilySansSerif: string
-    fontFamilySecondary: string
-    gap: number
-    linkActiveBorderColor: string
-    linkActiveColor: string
-    linkColor: string
-    linkColorContrast: string
-    linkFocusBorderColor: string
-    linkFocusColor: string
-    linkHoverBorderColor: string
-    linkHoverColor: string
-    linkVisitedColor: string
+    borderLightColor: string
+    borderLightHoverColor: string
     textColor: string
     textColorContrast: string
     textLightColor: string
-    textRendering: string
-    textSelectionColor: string
     textStrongColor: string
-    viewport: Record<ViewportBreakpoint, number>
+    textSelectionBackgroundColor: string
+    codeColor: string
+    codeBackgroundColor: string
+    preColor: string
+    preBackgroundColor: string
+    linkColor: string
+    linkColorContrast: string
+    linkVisitedColor: string
+    linkHoverColor: string
+    linkHoverBorderColor: string
+    linkFocusColor: string
+    linkFocusBorderColor: string
+    linkActiveColor: string
+    linkActiveBorderColor: string
+    fontFamilySansSerif: string
+    fontFamilyMonospace: string
+    textRendering: string
+    fontFamilyPrimary: string
+    fontFamilySecondary: string
+    fontFamilyCode: string
+    blockSpacing: string
+    gap: number
+    timingFunction: string
+    borderRadiusSmall: string
+    borderRadius: string
+    borderRadiusLarge: string
+    borderRadiusRounded: string
+    duration: string
   }
 }

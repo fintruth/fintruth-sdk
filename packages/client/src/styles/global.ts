@@ -1,7 +1,11 @@
-import { em, rem } from 'polished'
+import { em, hsl, normalize, rem } from 'polished'
 import { createGlobalStyle } from 'styled-components'
 
+import { overflowTouch } from './mixins'
+
 const GlobalStyle = createGlobalStyle`
+  ${normalize()}
+
   *,
   *::before,
   *::after {
@@ -9,14 +13,16 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
     background-color: ${({ theme }) => theme.white};
     box-sizing: border-box;
     font-size: 16px;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
+    margin: 0;
     min-width: 300px;
     overflow-x: hidden;
     overflow-y: scroll;
+    padding: 0;
     text-rendering: optimizeLegibility;
     text-size-adjust: 100%;
   }
@@ -24,28 +30,11 @@ const GlobalStyle = createGlobalStyle`
   body {
     color: ${({ theme }) => theme.textColor};
     font-family: ${({ theme }) => theme.fontFamilyPrimary};
-    font-size: ${rem(16)};
+    font-size: ${em(16)};
     font-weight: 400;
     line-height: 1.5;
-  }
-
-  strong {
-    color: ${({ theme }) => theme.textStrongColor};
-    font-weight: 700;
-  }
-
-  a {
-    color: ${({ theme }) => theme.linkColor};
-    cursor: pointer;
-    text-decoration: none;
-
-    strong {
-      color: currentColor;
-    }
-
-    &:hover {
-      color: ${({ theme }) => theme.linkHoverColor};
-    }
+    margin: 0;
+    padding: 0;
   }
 
   article,
@@ -58,8 +47,18 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
 
-  audio {
-    max-width: 100%;
+  a {
+    color: ${({ theme }) => theme.linkColor};
+    cursor: pointer;
+    text-decoration: none;
+
+    strong & {
+      color: currentColor;
+    }
+
+    &:hover {
+      color: ${({ theme }) => theme.linkHoverColor};
+    }
   }
 
   audio,
@@ -72,28 +71,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   blockquote,
-  body,
   dd,
   dl,
   dt,
-  fieldset,
   figure,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  hr,
-  html,
-  iframe,
   legend,
   li,
   ol,
-  p,
-  pre,
-  textarea,
-  ul {
+  p {
     margin: 0;
     padding: 0;
   }
@@ -108,30 +93,24 @@ const GlobalStyle = createGlobalStyle`
 
   code,
   pre {
-    font-family: ${({ theme }) => theme.fontFamilyCode};
     -moz-osx-font-smoothing: auto;
     -webkit-font-smoothing: auto;
+    font-family: ${({ theme }) => theme.fontFamilyCode};
   }
 
   code {
-    background-color: ${({ theme }) => theme.backgroundColor};
-    color: ${({ theme }) => theme.red};
+    background-color: ${({ theme }) => theme.codeBackgroundColor};
+    color: ${({ theme }) => theme.codeColor};
     font-size: ${em(14)};
     font-weight: 400;
     padding: ${em(4)} ${em(8)};
   }
 
-  embed,
-  iframe,
-  img,
-  object,
-  video {
-    height: auto;
-    max-width: 100%;
-  }
-
-  fieldset {
+  fieldset,
+  iframe {
     border: none;
+    margin: 0;
+    padding: 0;
   }
 
   h1,
@@ -141,7 +120,9 @@ const GlobalStyle = createGlobalStyle`
   h5,
   h6 {
     font-size: 100%;
-    font-weight: normal;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
   }
 
   hr {
@@ -150,10 +131,13 @@ const GlobalStyle = createGlobalStyle`
     display: block;
     height: 2px;
     margin: ${rem(24)} 0;
+    padding: 0;
   }
 
-  iframe {
-    border: 0;
+  img,
+  video {
+    height: auto;
+    max-width: 100%;
   }
 
   input[type='checkbox'],
@@ -162,10 +146,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   pre {
-    background-color: ${({ theme }) => theme.backgroundColor};
-    color: ${({ theme }) => theme.textColor};
+    ${overflowTouch}
+    background-color: ${({ theme }) => theme.preBackgroundColor};
+    color: ${({ theme }) => theme.preColor};
     font-size: ${em(14)};
-    -webkit-overflow-scrolling: touch;
+    margin: 0;
     overflow-x: auto;
     padding: ${rem(20)} ${rem(24)};
     white-space: pre;
@@ -188,36 +173,48 @@ const GlobalStyle = createGlobalStyle`
     font-weight: inherit;
   }
 
+  strong {
+    color: ${({ theme }) => theme.textStrongColor};
+    font-weight: 700;
+  }
+
   td,
   th {
     padding: 0;
-    text-align: left;
   }
 
   table {
     border-collapse: collapse;
     border-spacing: 0;
 
-    td {
+    td,
+    th {
       vertical-align: top;
     }
 
     th {
       color: ${({ theme }) => theme.textStrongColor};
-      vertical-align: top;
     }
   }
 
+  td:not([align]),
+  th:not([align]) {
+    text-align: left;
+  }
+
   textarea {
+    padding: 0;
     resize: vertical;
   }
 
   ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   ::selection {
-    background-color: ${({ theme }) => theme.textSelectionColor};
+    background-color: ${({ theme }) => theme.textSelectionBackgroundColor};
     text-shadow: none;
   }
 
@@ -227,7 +224,7 @@ const GlobalStyle = createGlobalStyle`
     *::after {
       background-color: transparent !important;
       box-shadow: none !important;
-      color: #000 !important;
+      color: ${hsl(0, 0, 0)} !important;
       text-shadow: none !important;
     }
 
@@ -237,22 +234,21 @@ const GlobalStyle = createGlobalStyle`
     }
 
     a[href]::after {
-      content: ' (' attr(href) ')';
-    }
-
-    a[href^='#']::after,
-    a[href^='javascript:']::after {
-      content: '';
+      content: " (" attr(href) ")";
     }
 
     abbr[title]::after {
-      content: ' (' attr(title) ')';
+      content: " (" attr(title) ")";
     }
 
-    blockquote,
-    pre {
-      border: 1px solid #999;
-      page-break-inside: avoid;
+    a[href^="#"]::after,
+    a[href^="javascript:"]::after {
+      content: "";
+    }
+
+    h2,
+    h3 {
+      page-break-after: avoid;
     }
 
     h2,
@@ -262,13 +258,9 @@ const GlobalStyle = createGlobalStyle`
       widows: 3;
     }
 
-    h2,
-    h3 {
-      page-break-after: avoid;
-    }
-
-    img,
-    tr {
+    pre,
+    blockquote {
+      border: 1px solid ${hsl(0, 0, 0.6)};
       page-break-inside: avoid;
     }
 
@@ -278,6 +270,11 @@ const GlobalStyle = createGlobalStyle`
 
     thead {
       display: table-header-group;
+    }
+
+    tr,
+    img {
+      page-break-inside: avoid;
     }
   }
 `

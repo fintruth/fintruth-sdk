@@ -1,16 +1,20 @@
-import { hsl } from 'polished'
+import { getLuminance, hsl, hsla, rem } from 'polished'
 import { DefaultTheme } from 'styled-components' // eslint-disable-line import/named
 
-import { readableColor } from 'utils/style'
+const contrastColor = (color: string) =>
+  getLuminance(color) > 0.55 ? hsla(0, 0, 0, 0.7) : hsl(0, 0, 1)
 
 const grayDarker = hsl(0, 0, 0.21)
 const grayDark = hsl(0, 0, 0.29)
 const gray = hsl(0, 0, 0.48)
 const grayLight = hsl(0, 0, 0.71)
 const grayLighter = hsl(0, 0, 0.86)
+const grayLightest = hsl(0, 0, 0.93)
 
 const whiteTer = hsl(0, 0, 0.96)
-const white = hsl(0, 0, 1)
+
+const light = whiteTer
+const dark = grayDarker
 
 const orange = hsl(14, 1, 0.53)
 const yellow = hsl(48, 1, 0.67)
@@ -21,21 +25,23 @@ const blue = hsl(217, 0.71, 0.53)
 const purple = hsl(271, 1, 0.71)
 const red = hsl(348, 1, 0.61)
 
+const blueContrast = contrastColor(blue)
+
 const primary = turquoise
 const info = cyan
 const success = green
 const warning = yellow
 const danger = red
 
-const blueContrast = readableColor(blue)
+const backgroundColor = whiteTer
 
 const textColor = grayDark
 
-const gap = 64
-
-const fontFamilyMonospace = 'monospace'
 const fontFamilySansSerif =
   'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif'
+const fontFamilyMonospace = 'monospace'
+
+const gap = 32
 
 const theme: DefaultTheme = {
   black: hsl(0, 0, 0.04),
@@ -47,10 +53,17 @@ const theme: DefaultTheme = {
   gray,
   grayLight,
   grayLighter,
+  grayLightest,
 
   whiteTer,
   whiteBis: hsl(0, 0, 0.98),
-  white,
+  white: hsl(0, 0, 1),
+
+  light,
+  dark,
+
+  lightContrast: dark,
+  darkContrast: light,
 
   orange,
   yellow,
@@ -61,40 +74,45 @@ const theme: DefaultTheme = {
   purple,
   red,
 
+  orangeContrast: contrastColor(orange),
+  yellowContrast: contrastColor(yellow),
+  greenContrast: contrastColor(green),
+  turquoiseContrast: contrastColor(turquoise),
+  cyanContrast: contrastColor(cyan),
+  blueContrast,
+  purpleContrast: contrastColor(purple),
+  redContrast: contrastColor(red),
+
   primary,
   info,
   success,
   warning,
   danger,
 
-  orangeContrast: readableColor(orange),
-  yellowContrast: readableColor(yellow),
-  greenContrast: readableColor(green),
-  turquoiseContrast: readableColor(turquoise),
-  cyanContrast: readableColor(cyan),
-  blueContrast,
-  purpleContrast: readableColor(purple),
-  redContrast: readableColor(red),
+  primaryContrast: contrastColor(primary),
+  infoContrast: contrastColor(info),
+  successContrast: contrastColor(success),
+  warningContrast: contrastColor(warning),
+  dangerContrast: contrastColor(danger),
 
-  primaryContrast: readableColor(primary),
-  infoContrast: readableColor(info),
-  successContrast: readableColor(success),
-  warningContrast: readableColor(warning),
-  dangerContrast: readableColor(danger),
-
-  backgroundColor: whiteTer,
+  backgroundColor,
 
   borderColor: grayLighter,
   borderHoverColor: grayLight,
-
-  borderRadius: '4px',
-  borderRadiusRounded: '999999px',
+  borderLightColor: grayLightest,
+  borderLightHoverColor: grayLight,
 
   textColor,
-  textColorContrast: readableColor(textColor),
+  textColorContrast: contrastColor(textColor),
   textLightColor: gray,
   textStrongColor: grayDarker,
-  textSelectionColor: hsl(213, 0.92, 0.85),
+  textSelectionBackgroundColor: hsl(213, 0.92, 0.85),
+
+  codeColor: red,
+  codeBackgroundColor: backgroundColor,
+
+  preColor: textColor,
+  preBackgroundColor: backgroundColor,
 
   linkColor: blue,
   linkColorContrast: blueContrast,
@@ -109,23 +127,28 @@ const theme: DefaultTheme = {
   linkActiveColor: grayDarker,
   linkActiveBorderColor: grayDark,
 
-  gap,
-
-  fontFamilyMonospace,
   fontFamilySansSerif,
+  fontFamilyMonospace,
+  textRendering: 'optimizeLegibility',
 
   fontFamilyPrimary: fontFamilySansSerif,
   fontFamilySecondary: fontFamilySansSerif,
   fontFamilyCode: fontFamilyMonospace,
 
-  textRendering: 'optimizeLegibility',
+  blockSpacing: rem(24),
 
-  viewport: {
-    small: 769,
-    medium: 960 + 2 * gap,
-    large: 1152 + 2 * gap,
-    extraLarge: 1344 + 2 * gap,
-  },
+  gap,
+  small: 769,
+  medium: 960 + 2 * gap,
+  large: 1152 + 2 * gap,
+  extraLarge: 1344 + 2 * gap,
+
+  timingFunction: 'ease-out',
+  borderRadiusSmall: '2px',
+  borderRadius: '4px',
+  borderRadiusLarge: '6px',
+  borderRadiusRounded: '999999px',
+  duration: '86ms',
 }
 
 export default theme
