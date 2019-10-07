@@ -1,8 +1,9 @@
 {
+  "baseUrl": "http://localhost:3000",
   "fixturesFolder": "test/fixtures",
   "integrationFolder": "test/e2e",
   "pluginsFile": "config/cypress/plugins.js",
   "screenshotsFolder": "test/screenshots",
-  "supportFile": "config/cypress/support.ts",
+  "supportFile": "config/cypress/support.js",
   "videosFolder": "test/videos"
 }
