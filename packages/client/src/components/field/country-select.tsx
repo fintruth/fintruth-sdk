@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { FieldAttributes, FieldValidator, useField } from 'formik'
 import React from 'react'
 import { useIntl } from 'react-intl'
+import { useUIDSeed } from 'react-uid'
 import styled from 'styled-components'
 
 import BaseSelect, { Props as SelectProps } from 'components/select'
@@ -26,11 +27,14 @@ const Option = styled.option`
 `
 
 const CountrySelect: React.RefForwardingComponent<HTMLSelectElement, Props> = (
-  { exclude = [], isMultiple, placeholder, validate, ...props }: Props,
+  { exclude = [], id, isMultiple, placeholder, validate, ...props }: Props,
   ref?: React.Ref<HTMLSelectElement>
 ) => {
-  const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
-  const [{ multiple: _, ...field }, { error, touched }] = useField<
+  const [
+    { controlId, isDisabled, isRequired, name },
+    dispatch,
+  ] = useFieldContext()
+  const [{ multiple: _multiple, ...field }, { error, touched }] = useField<
     FieldAttributes<any>
   >({
     as: 'select',
@@ -40,15 +44,25 @@ const CountrySelect: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       validate || ((value: string) => validateSelect(value, { isRequired })),
   })
   const { formatMessage } = useIntl()
+  const seed = useUIDSeed()
 
   const {
     data: { countries = [] } = {},
     loading: isQueryingCountries,
   } = useQuery<CountriesQueryData>(countriesQuery)
 
+  React.useEffect(
+    () =>
+      dispatch({
+        payload: { controlId: id || seed(name) },
+        type: 'setControlId',
+      }),
+    [dispatch, id, name, seed]
+  )
+
   return (
     <BaseSelect
-      aria-labelledby={labelId}
+      id={controlId}
       data-field-country-select=""
       isDisabled={isDisabled}
       isLoading={isQueryingCountries}

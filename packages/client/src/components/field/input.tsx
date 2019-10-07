@@ -1,5 +1,6 @@
 import { FieldAttributes, FieldValidator, useField } from 'formik'
 import React from 'react'
+import { useUIDSeed } from 'react-uid'
 
 import BaseInput, { Props as InputProps } from 'components/input'
 import { validateInput } from 'utils/validation'
@@ -10,10 +11,13 @@ interface Props extends Omit<InputProps, 'isDisabled' | 'isRequired' | 'name'> {
 }
 
 const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
-  { validate, type, ...props }: Props,
+  { id, type, validate, ...props }: Props,
   ref?: React.Ref<HTMLInputElement>
 ) => {
-  const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
+  const [
+    { controlId, isDisabled, isRequired, name },
+    dispatch,
+  ] = useFieldContext()
   const [field, { error, touched }] = useField<FieldAttributes<any>>({
     name,
     type,
@@ -21,10 +25,20 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
       validate ||
       ((value: string) => validateInput(value, { isRequired, type })),
   })
+  const seed = useUIDSeed()
+
+  React.useEffect(
+    () =>
+      dispatch({
+        payload: { controlId: id || seed(name) },
+        type: 'setControlId',
+      }),
+    [dispatch, id, name, seed]
+  )
 
   return (
     <BaseInput
-      aria-labelledby={labelId}
+      id={controlId}
       data-field-input=""
       isDisabled={isDisabled}
       isRequired={isRequired}

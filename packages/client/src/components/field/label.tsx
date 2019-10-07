@@ -1,6 +1,5 @@
 import { rem } from 'polished'
 import React from 'react'
-import { useUIDSeed } from 'react-uid'
 import styled from 'styled-components'
 
 import BaseLabel, { Props as LabelProps } from 'components/label'
@@ -17,22 +16,15 @@ const Root = styled(BaseLabel)`
 `
 
 const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
-  { id, ...props }: Props,
+  props: Props,
   ref?: React.Ref<HTMLLabelElement>
 ) => {
-  const [{ isRequired, labelId, name }, dispatch] = useFieldContext()
-  const seed = useUIDSeed()
-
-  React.useEffect(
-    () =>
-      dispatch({ payload: { labelId: id || seed(name) }, type: 'setLabelId' }),
-    [dispatch, id, name, seed]
-  )
+  const { controlId, isRequired } = useFieldContext()[0]
 
   return (
     <Root
-      id={labelId}
       data-field-label=""
+      htmlFor={controlId}
       isRequired={isRequired}
       ref={ref}
       {...props}

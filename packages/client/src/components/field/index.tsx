@@ -7,7 +7,7 @@ type Dispatch = (action: Action) => void
 
 type Payload = Partial<BaseState>
 
-type Type = 'setLabelId'
+type Type = 'setControlId'
 
 interface Action {
   payload: Payload
@@ -15,7 +15,7 @@ interface Action {
 }
 
 interface BaseState {
-  labelId: string
+  controlId: string
 }
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
@@ -35,8 +35,8 @@ const StateContext = React.createContext<State | undefined>(undefined)
 
 const reducer = (prevState: BaseState, { type, payload }: Action) => {
   switch (type) {
-    case 'setLabelId':
-      return { ...prevState, labelId: payload.labelId || '' }
+    case 'setControlId':
+      return { ...prevState, controlId: payload.controlId || '' }
     default:
       throw new Error(`Unhandled action type: ${type}`)
   }
@@ -54,7 +54,7 @@ const Field: React.RefForwardingComponent<HTMLDivElement, Props> = (
 ) => {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>
-  >(reducer, { labelId: '' })
+  >(reducer, { controlId: '' })
   const state = React.useMemo<State>(
     () => ({ ...baseState, isDisabled, isRequired, name }),
     [baseState, isDisabled, isRequired, name]

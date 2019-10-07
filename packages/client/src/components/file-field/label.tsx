@@ -1,5 +1,4 @@
 import React from 'react'
-import { useUIDSeed } from 'react-uid'
 import styled from 'styled-components'
 
 import { useFileFieldContext } from '.'
@@ -14,19 +13,14 @@ const Root = styled.label`
 `
 
 const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
-  { id, ...props }: Props,
+  props: Props,
   ref?: React.Ref<HTMLLabelElement>
 ) => {
-  const [{ labelId, name }, dispatch] = useFileFieldContext()
-  const seed = useUIDSeed()
+  const { controlId } = useFileFieldContext()[0]
 
-  React.useEffect(
-    () =>
-      dispatch({ payload: { labelId: id || seed(name) }, type: 'setLabelId' }),
-    [dispatch, id, name, seed]
+  return (
+    <Root htmlFor={controlId} data-file-field-label="" ref={ref} {...props} />
   )
-
-  return <Root id={labelId} data-file-field-label="" ref={ref} {...props} />
 }
 
 export default React.forwardRef(Label)
