@@ -100,7 +100,7 @@ const RegisterForm: React.FunctionComponent<Props> = ({
       {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
-        onSubmit={({ emailConfirm: _, ...input }, { resetForm }) =>
+        onSubmit={({ emailConfirm: _emailConfirm, ...input }, { resetForm }) =>
           onSubmit({ variables: { input } }).then(({ data }) =>
             hasResponseError(data) ? undefined : resetForm()
           )

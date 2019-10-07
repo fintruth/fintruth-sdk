@@ -7,7 +7,7 @@ type Dispatch = (action: Action) => void
 
 type Payload = Partial<BaseState>
 
-type Type = 'setHasCropper' | 'setLabelId' | 'setSrc'
+type Type = 'setControlId' | 'setHasCropper' | 'setSrc'
 
 export type Variant = 'danger' | 'primary'
 
@@ -17,8 +17,8 @@ interface Action {
 }
 
 interface BaseState {
+  controlId: string
   hasCropper: boolean
-  labelId: string
   src: string
 }
 
@@ -41,10 +41,10 @@ const StateContext = React.createContext<State | undefined>(undefined)
 
 const reducer = (prevState: BaseState, { type, payload }: Action) => {
   switch (type) {
+    case 'setControlId':
+      return { ...prevState, controlId: payload.controlId || '' }
     case 'setHasCropper':
       return { ...prevState, hasCropper: payload.hasCropper || false }
-    case 'setLabelId':
-      return { ...prevState, labelId: payload.labelId || '' }
     case 'setSrc':
       return { ...prevState, src: payload.src || '' }
     default:
@@ -70,7 +70,7 @@ const FileField: React.RefForwardingComponent<HTMLDivElement, Props> = (
 ) => {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>
-  >(reducer, { hasCropper: false, labelId: '', src: '' })
+  >(reducer, { controlId: '', hasCropper: false, src: '' })
   const state = React.useMemo<State>(
     () => ({ ...baseState, fileName, isDisabled, isRequired, name }),
     [baseState, fileName, isDisabled, isRequired, name]

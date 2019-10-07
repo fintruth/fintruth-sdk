@@ -8,6 +8,7 @@ import {
 import { getType } from 'mime/lite'
 import { darken, em } from 'polished'
 import React from 'react'
+import { useUIDSeed } from 'react-uid'
 import styled, { Color, ColorContrast, css } from 'styled-components' // eslint-disable-line import/named
 
 import { useTimer } from 'hooks/time'
@@ -181,6 +182,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
     children,
     className,
     delay,
+    id,
     isLoading = false,
     maxSize = 2 * 10 ** 6,
     onChange,
@@ -191,7 +193,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
   ref?: React.Ref<HTMLInputElement>
 ) => {
   const [
-    { fileName, hasCropper, isDisabled, isRequired, labelId, name },
+    { controlId, fileName, hasCropper, isDisabled, isRequired, name },
     dispatch,
   ] = useFileFieldContext()
   const { onBlur, value } = useField<FieldAttributes<any>>({
@@ -204,6 +206,16 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
   const { setFieldValue } = useFormikContext<any>()
   const input = React.useRef<HTMLInputElement>()
   const isExpired = useTimer(isLoading, delay)
+  const seed = useUIDSeed()
+
+  React.useEffect(
+    () =>
+      dispatch({
+        payload: { controlId: id || seed(name) },
+        type: 'setControlId',
+      }),
+    [dispatch, id, name, seed]
+  )
 
   React.useEffect(() => {
     if (!value && input.current) {
@@ -221,7 +233,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
       variant={variant}
     >
       <Input
-        aria-labelledby={labelId}
+        id={controlId}
         data-file-field-input=""
         disabled={isDisabled}
         name={name}

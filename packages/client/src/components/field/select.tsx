@@ -1,5 +1,6 @@
 import { FieldAttributes, FieldValidator, useField } from 'formik'
 import React from 'react'
+import { useUIDSeed } from 'react-uid'
 
 import BaseSelect, { Props as SelectProps } from 'components/select'
 import { validateSelect } from 'utils/validation'
@@ -11,11 +12,14 @@ interface Props
 }
 
 const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
-  { isMultiple, validate, ...props }: Props,
+  { id, isMultiple, validate, ...props }: Props,
   ref?: React.Ref<HTMLSelectElement>
 ) => {
-  const { isDisabled, isRequired, labelId, name } = useFieldContext()[0]
-  const [{ multiple: _, ...field }, { error, touched }] = useField<
+  const [
+    { controlId, isDisabled, isRequired, name },
+    dispatch,
+  ] = useFieldContext()
+  const [{ multiple: _multiple, ...field }, { error, touched }] = useField<
     FieldAttributes<any>
   >({
     as: 'select',
@@ -24,11 +28,21 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
     validate:
       validate || ((value: string) => validateSelect(value, { isRequired })),
   })
+  const seed = useUIDSeed()
+
+  React.useEffect(
+    () =>
+      dispatch({
+        payload: { controlId: id || seed(name) },
+        type: 'setControlId',
+      }),
+    [dispatch, id, name, seed]
+  )
 
   return (
     <BaseSelect
+      id={controlId}
       data-field-select=""
-      aria-labelledby={labelId}
       isDisabled={isDisabled}
       isMultiple={isMultiple}
       isRequired={isRequired}

@@ -40,7 +40,9 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
     dispatch,
   ] = usePhoneFieldContext()
   const { formatMessage } = useIntl()
-  const { multiple: _, onChange, ...field } = useField<FieldAttributes<any>>({
+  const { multiple: _multiple, onChange, ...field } = useField<
+    FieldAttributes<any>
+  >({
     as: 'select',
     multiple: isMultiple,
     name: `${name}.alpha2Code`,
