@@ -103,6 +103,10 @@ const start = async () => {
     rules: rules.filter(({ loader }) => loader !== 'null-loader'),
   }
 
+  if (typeof filename === 'function') {
+    throw new TypeError('Unable to properly update output filename')
+  }
+
   clientConfig.output = {
     ...clientConfig.output,
     chunkFilename: chunkFilename.replace('chunkhash', 'hash'),
