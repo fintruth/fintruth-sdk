@@ -2337,11 +2337,6 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@reach/auto-id@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.2.0.tgz#97f9e48fe736aa5c6f4f32cf73c1f19d005f8550"
-  integrity sha512-lVK/svL2HuQdp7jgvlrLkFsUx50Az9chAhxpiPwBqcS83I2pVWvXp98FOcSCCJCV++l115QmzHhFd+ycw1zLBg==
-
 "@reach/auto-id@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.3.0.tgz#c66b2fc29b5f7e8a7fe1a379dacf33b9b4e27fb1"
@@ -2422,13 +2417,14 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@reach/tabs@^0.1.6":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@reach/tabs/-/tabs-0.1.6.tgz#8d54f89a66826e48c97ac7b481199e1752a8a8b5"
-  integrity sha512-8raBs7+d/+4IdstMD4cXjz2HFamA1K14F1134kgiOvVckrA1b13eQJ9+BmxpPTNVah6lxUaFfVm/eKgxlSMQvw==
+"@reach/tabs@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@reach/tabs/-/tabs-0.3.0.tgz#5fd5f98a2c65d4b6c1eb465d77bc94b58c6d6022"
+  integrity sha512-sOkkqPiCSq94u/+0ITBcKJ2B6w8T0/IFOlBjdgcnGlHbApfTtlhqn8tSEOqj9pLAmMqkZPLdMpGGDYHYDU3irQ==
   dependencies:
-    "@reach/auto-id" "^0.2.0"
-    "@reach/utils" "^0.2.3"
+    "@reach/auto-id" "^0.3.0"
+    "@reach/utils" "^0.3.0"
+    prop-types "^15.7.2"
     warning "^4.0.2"
 
 "@reach/tooltip@^0.3.0":
