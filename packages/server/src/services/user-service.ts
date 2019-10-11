@@ -3,7 +3,7 @@ import { hash } from 'bcrypt'
 import { isNil, mergeLeft } from 'ramda'
 import { Inject, Service } from 'typedi'
 
-import { Ability } from 'auth'
+import { Ability } from 'auth' // eslint-disable-line import/named
 import { Loggable, logAs } from 'logger'
 import { Daos } from 'models'
 import {

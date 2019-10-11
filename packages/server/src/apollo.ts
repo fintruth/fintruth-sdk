@@ -5,7 +5,7 @@ import { Container } from 'typedi'
 import { buildSchema } from 'type-graphql'
 import { useContainer } from 'typeorm'
 
-import { Ability, defineAbilitiesFor } from './auth'
+import { Ability, defineAbilitiesFor } from './auth' // eslint-disable-line import/named
 import { User } from './entities'
 import { logAs } from './logger'
 import { Daos } from './models'

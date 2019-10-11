@@ -3,7 +3,7 @@ import { toDataURL } from 'qrcode'
 import { generateSecret, otpauthURL, totp } from 'speakeasy'
 import { Inject, Service } from 'typedi'
 
-import { Ability } from 'auth'
+import { Ability } from 'auth' // eslint-disable-line import/named
 import { Daos } from 'models'
 import {
   EnableTwoFactorAuthResponse,

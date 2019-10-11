@@ -4,10 +4,6 @@ const typescriptPlugin = require('@typescript-eslint/eslint-plugin')
 const prettierTypescriptConfig = require('eslint-config-prettier/@typescript-eslint')
 const cypressPlugin = require('eslint-plugin-cypress')
 const jestPlugin = require('eslint-plugin-jest')
-const { join, resolve } = require('path')
-
-const rootDir = resolve(__dirname)
-const packagesDir = join(rootDir, 'packages')
 
 module.exports = {
   plugins: [
@@ -54,15 +50,7 @@ module.exports = {
       files: ['**/*.ts?(x)', '**/.*/**/*.ts?(x)'],
       plugins: typescriptPlugin.configs.base.plugins,
       parser: typescriptPlugin.configs.base.parser,
-      parserOptions: {
-        project: [
-          join(rootDir, 'tsconfig.json'),
-          resolve(packagesDir, 'client/tsconfig.json'),
-          resolve(packagesDir, 'common/tsconfig.json'),
-          resolve(packagesDir, 'server/tsconfig.json'),
-          resolve(packagesDir, 'validation/tsconfig.json'),
-        ],
-      },
+      parserOptions: { project: ['tsconfig.json', 'packages/*/tsconfig.json'] },
       rules: {
         ...typescriptPlugin.configs.recommended.rules,
         ...typescriptPlugin.configs['recommended-requiring-type-checking']
@@ -92,5 +80,9 @@ module.exports = {
       rules: jestPlugin.configs.recommended.rules,
     },
   ],
-  settings: { 'import/resolver': { typescript: true } },
+  settings: {
+    'import/extensions': ['.d.ts', '.js', '.ts', '.tsx'],
+    'import/parsers': { '@typescript-eslint/parser': ['.d.ts', '.ts', '.tsx'] },
+    'import/resolver': { typescript: true },
+  },
 }

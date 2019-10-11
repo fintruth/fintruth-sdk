@@ -1,6 +1,6 @@
 import { Inject, Service } from 'typedi'
 
-import { Ability } from 'auth'
+import { Ability } from 'auth' // eslint-disable-line import/named
 import { Daos } from 'models'
 import { Country } from '../entities'
 

@@ -44,4 +44,4 @@ const seedConfig: ConnectionOptions = {
   type: 'postgres',
 }
 
-export = [defaultConfig, seedConfig]
+export default [defaultConfig, seedConfig]
