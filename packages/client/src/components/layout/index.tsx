@@ -4,8 +4,8 @@ import { darken, rem } from 'polished'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-import BaseExpandMore from 'assets/expand-more.svg'
-import BaseUserCircle from 'assets/user-circle.svg'
+import BaseExpandMoreIcon from 'assets/expand-more.svg'
+import BaseUserCircleIcon from 'assets/user-circle.svg'
 import logoUrl from 'assets/logo.png'
 import {
   Submenu,
@@ -151,13 +151,13 @@ const Menu = styled.div`
   `)};
 `
 
-const ExpandMore = styled(BaseExpandMore)`
+const ExpandMoreIcon = styled(BaseExpandMoreIcon)`
   fill: ${({ theme }) => theme.grayDarker};
   height: ${rem(5)};
   margin: 0 ${rem(12)} 0 ${rem(6)};
 `
 
-const UserCircle = styled(BaseUserCircle)`
+const UserCircleIcon = styled(BaseUserCircleIcon)`
   fill: ${({ theme }) => theme.grayDarker};
   height: ${rem(40)};
 `
@@ -232,8 +232,8 @@ const Layout: React.FunctionComponent<Props> = ({
                     <SubmenuButton>
                       {data.user.profile.givenName}{' '}
                       {data.user.profile.familyName}
-                      <ExpandMore aria-hidden />
-                      <UserCircle aria-hidden />
+                      <ExpandMoreIcon aria-hidden />
+                      <UserCircleIcon aria-hidden />
                     </SubmenuButton>
                     <SubmenuList>
                       <SubmenuLink as={BaseLink} to="/settings">

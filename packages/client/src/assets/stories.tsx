@@ -1,16 +1,16 @@
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
-import ExpandLess from './expand-less.svg'
-import ExpandMore from './expand-more.svg'
+import ExpandLessIcon from './expand-less.svg'
+import ExpandMoreIcon from './expand-more.svg'
 import logoUrl from './logo.png'
-import UserCircle from './user-circle.svg'
+import UserCircleIcon from './user-circle.svg'
 import Assets from '.'
 
 const icons = [
-  { Icon: ExpandLess, label: 'Expand Less' },
-  { Icon: ExpandMore, label: 'Expand More' },
-  { Icon: UserCircle, label: 'User Circle' },
+  { Icon: ExpandLessIcon, label: 'Expand Less' },
+  { Icon: ExpandMoreIcon, label: 'Expand More' },
+  { Icon: UserCircleIcon, label: 'User Circle' },
 ]
 
 const images = [{ label: 'Logo', src: logoUrl }]
