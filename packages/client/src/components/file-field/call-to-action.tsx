@@ -9,12 +9,13 @@ import { getType } from 'mime/lite'
 import { darken, em } from 'polished'
 import React from 'react'
 import { useUIDSeed } from 'react-uid'
-import styled, { Color, ColorContrast, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { Variant, css } from 'styled-components' // eslint-disable-line import/named
 
 import { useTimer } from 'hooks/time'
 import { center, control, loader, unselectable } from 'styles/mixins'
+import { variantColorContrasts, variantColors } from 'styles/theme'
 import { setRef } from 'utils/react'
-import { useFileFieldContext, Variant } from '.'
+import { useFileFieldContext } from '.'
 
 interface Context {
   isRequired: boolean
@@ -37,16 +38,6 @@ interface RootProps {
   isLoading?: boolean
   disabled: boolean
   variant?: Variant
-}
-
-const colors: Record<Variant, Color> = {
-  danger: 'danger',
-  primary: 'primary',
-}
-
-const colorContrasts: Record<Variant, ColorContrast> = {
-  danger: 'dangerContrast',
-  primary: 'primaryContrast',
 }
 
 const disabledOpacity = 0.5
@@ -85,8 +76,8 @@ const loading = (color?: string) => css`
   pointer-events: none;
 
   &::after {
-    ${loader(color)};
-    ${center(em(16))};
+    ${loader(color)}
+    ${center(em(16))}
     position: absolute !important;
   }
 `
@@ -135,8 +126,8 @@ const variation = (color: string, colorContrast: string) => css`
 `
 
 const Root = styled.span<RootProps>`
-  ${control};
-  ${unselectable};
+  ${control}
+  ${unselectable}
   border-radius: ${({ theme }) => theme.borderRadius};
   font-size: ${em(16)};
   padding-left: ${em(16)};
@@ -145,12 +136,17 @@ const Root = styled.span<RootProps>`
 
   ${({ theme, variant }) =>
     variant
-      ? variation(theme[colors[variant]], theme[colorContrasts[variant]])
-      : standard};
+      ? variation(
+          theme[variantColors[variant]],
+          theme[variantColorContrasts[variant]]
+        )
+      : standard}
 
   ${({ isLoading, theme, variant }) =>
     isLoading &&
-    loading(variant ? theme[colorContrasts[variant]] : theme.borderColor)};
+    loading(
+      variant ? theme[variantColorContrasts[variant]] : theme.borderColor
+    )}
 `
 
 const Input = styled.input`
@@ -205,7 +201,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
   })[0]
   const { setFieldValue } = useFormikContext<any>()
   const input = React.useRef<HTMLInputElement>()
-  const isExpired = useTimer(isLoading, delay)
+  const isLoaderVisible = useTimer(isLoading, delay)
   const seed = useUIDSeed()
 
   React.useEffect(
@@ -228,7 +224,7 @@ const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
       className={className}
       data-file-field-call-to-action=""
       disabled={isDisabled}
-      isLoading={isExpired}
+      isLoading={isLoaderVisible}
       role="group"
       variant={variant}
     >

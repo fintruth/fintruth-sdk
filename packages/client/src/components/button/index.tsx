@@ -1,15 +1,10 @@
 import { darken, em, transparentize } from 'polished'
 import React from 'react'
-import styled, {
-  Color, // eslint-disable-line import/named
-  ColorContrast, // eslint-disable-line import/named
-  DefaultTheme, // eslint-disable-line import/named
-  css,
-} from 'styled-components'
+import styled, { DefaultTheme, Variant, css } from 'styled-components' // eslint-disable-line import/named
 
+import { useTimer } from 'hooks/time'
 import { center, control, loader, unselectable } from 'styles/mixins'
-
-export type Variant = 'danger' | 'primary'
+import { variantColorContrasts, variantColors } from 'styles/theme'
 
 interface Props
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'> {
@@ -21,14 +16,9 @@ interface Props
   variant?: Variant
 }
 
-const colors: Record<Variant, Color> = {
-  danger: 'danger',
-  primary: 'primary',
-}
-
-const colorContrasts: Record<Variant, ColorContrast> = {
-  danger: 'dangerContrast',
-  primary: 'primaryContrast',
+interface RootProps extends Omit<Props, 'isDisabled'> {
+  disabled?: boolean
+  isLoading: boolean
 }
 
 const disabledOpacity = 0.5
@@ -101,8 +91,8 @@ const loading = (color?: string) => css`
   pointer-events: none;
 
   &::after {
-    ${loader(color)};
-    ${center(em(16))};
+    ${loader(color)}
+    ${center(em(16))}
     position: absolute !important;
   }
 `
@@ -201,9 +191,9 @@ const variation = (
   }
 `
 
-const Root = styled.button<Props>`
-  ${control};
-  ${unselectable};
+const Root = styled.button<RootProps>`
+  ${control}
+  ${unselectable}
   border-width: 1px;
   cursor: pointer;
   justify-content: center;
@@ -213,8 +203,8 @@ const Root = styled.button<Props>`
 
   ${({ isInverted, isLoading, isOutlined, theme, variant }) => {
     if (variant) {
-      const color = theme[colors[variant]]
-      const colorContrast = theme[colorContrasts[variant]]
+      const color = theme[variantColors[variant]]
+      const colorContrast = theme[variantColorContrasts[variant]]
 
       if (isInverted && isOutlined) {
         return invertedOutlined(color, colorContrast, isLoading)
@@ -228,43 +218,36 @@ const Root = styled.button<Props>`
     }
 
     return standard(theme, isLoading)
-  }};
+  }}
 
   ${({ isInverted, isLoading, isOutlined, theme, variant }) =>
     isLoading &&
     loading(
       variant &&
         ((isInverted && !isOutlined) || (!isInverted && isOutlined)
-          ? theme[colors[variant]]
-          : theme[colorContrasts[variant]])
-    )};
+          ? theme[variantColors[variant]]
+          : theme[variantColorContrasts[variant]])
+    )}
 
   strong {
     color: inherit;
   }
 `
 
-const Button: React.FunctionComponent<Props> = ({
-  delay = 200,
-  isDisabled,
-  isLoading,
-  ...props
-}: Props) => {
-  const [isLoaderVisible, setIsLoaderVisible] = React.useState(false)
+const Button: React.RefForwardingComponent<HTMLButtonElement, Props> = (
+  { delay = 200, isDisabled, isLoading = false, ...props }: Props,
+  ref?: React.Ref<HTMLButtonElement>
+) => {
+  const isLoaderVisible = useTimer(isLoading, delay)
 
-  React.useEffect(() => {
-    if (isLoading) {
-      const timeout = setTimeout(() => setIsLoaderVisible(true), delay)
-
-      return () => clearTimeout(timeout)
-    }
-
-    setIsLoaderVisible(false)
-
-    return undefined
-  }, [delay, isLoading])
-
-  return <Root {...props} isLoading={isLoaderVisible} disabled={isDisabled} />
+  return (
+    <Root
+      disabled={isDisabled}
+      isLoading={isLoaderVisible}
+      ref={ref}
+      {...props}
+    />
+  )
 }
 
-export default Button
+export default React.forwardRef(Button)

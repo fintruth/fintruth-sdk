@@ -45,7 +45,7 @@ const Root = styled(ReactCrop)`
   }
 
   & .ReactCrop__image {
-    ${unselectable};
+    ${unselectable}
     max-height: 100%;
   }
 `

@@ -8,7 +8,7 @@ import { usePhoneFieldContext } from '.'
 type Props = Omit<React.HTMLAttributes<HTMLParagraphElement>, 'children'>
 
 const Root = styled.p`
-  ${({ theme }) => help(theme.danger)};
+  ${({ theme }) => help(theme.danger)}
 `
 
 const Help: React.RefForwardingComponent<HTMLParagraphElement, Props> = (

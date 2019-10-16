@@ -8,9 +8,9 @@ import styles from '@reach/tooltip/styles.css'
 import useStyles from 'isomorphic-style-loader/useStyles'
 import { em, rem, transparentize } from 'polished'
 import React from 'react'
-import styled, { Color, ColorContrast, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { Variant, css } from 'styled-components' // eslint-disable-line import/named
 
-export type Variant = 'danger' | 'primary'
+import { variantColorContrasts, variantColors } from 'styles/theme'
 
 interface PopupProps extends TooltipPopupProps {
   variant?: Variant
@@ -19,16 +19,6 @@ interface PopupProps extends TooltipPopupProps {
 interface Props extends TooltipProps {
   position?: (rectA: DOMRect, rectB: DOMRect) => React.CSSProperties
   variant?: Variant
-}
-
-const colors: Record<Variant, Color> = {
-  danger: 'danger',
-  primary: 'primary',
-}
-
-const colorContrasts: Record<Variant, ColorContrast> = {
-  danger: 'dangerContrast',
-  primary: 'primaryContrast',
 }
 
 const standard = css`
@@ -60,8 +50,11 @@ const Popup = styled(TooltipPopup)<PopupProps>`
 
     ${({ theme, variant }) =>
       variant
-        ? variation(theme[colors[variant]], theme[colorContrasts[variant]])
-        : standard};
+        ? variation(
+            theme[variantColors[variant]],
+            theme[variantColorContrasts[variant]]
+          )
+        : standard}
   }
 `
 

@@ -1,15 +1,14 @@
 import { darken, em, transparentize } from 'polished'
 import React from 'react'
-import styled, { Color, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { Variant, css } from 'styled-components' // eslint-disable-line import/named
 import { createTextMaskInputElement } from 'text-mask-core'
 
 import { useTimer } from 'hooks/time'
 import { control, loader } from 'styles/mixins'
+import { variantColors } from 'styles/theme'
 import { setRef } from 'utils/react'
 
 export type Type = 'email' | 'password' | 'tel' | 'text'
-
-export type Variant = 'danger'
 
 interface BaseInputProps {
   variant?: Variant
@@ -36,15 +35,11 @@ interface RootProps {
   variant?: Variant
 }
 
-const colors: Record<Variant, Color> = {
-  danger: 'danger',
-}
-
 const focusBoxShadowSize = `0 0 0 ${em(2)}`
 
 const loading = (color?: string) => css`
   &::after {
-    ${loader(color)};
+    ${loader(color)}
     position: absolute !important;
     right: ${em(10)};
     top: calc(50% - ${em(8)});
@@ -86,21 +81,24 @@ const Root = styled.div<RootProps>`
   vertical-align: top;
 
   ${({ isDisabled, isLoading, theme, variant }) =>
-    !isDisabled && isLoading && loading(variant && theme[colors[variant]])};
+    !isDisabled &&
+    isLoading &&
+    loading(variant && theme[variantColors[variant]])}
 `
 
 const BaseInput = styled.input<BaseInputProps>`
-  ${control};
+  ${control}
   background-color: ${({ theme }) => theme.white};
   border-radius: ${({ theme }) => theme.borderRadius};
-  box-shadow: inset 0 1px 2px ${({ theme }) => transparentize(0.9, theme.black)};
+  box-shadow: inset 0 1px 2px ${({ theme }) =>
+    transparentize(0.9, theme.black)};
   color: ${({ theme }) => theme.grayDarker};
   display: block;
   max-width: 100%;
   width: 100%;
 
   ${({ theme, variant }) =>
-    variant ? variation(theme[colors[variant]]) : standard};
+    variant ? variation(theme[variantColors[variant]]) : standard}
 
   &::placeholder {
     color: ${({ theme }) => transparentize(0.7, theme.grayDarker)};
@@ -139,7 +137,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
 ) => {
   const [maskedInput, setMaskedInput] = React.useState()
   const input = React.useRef<HTMLInputElement>()
-  const isExpired = useTimer(isLoading, delay)
+  const isLoaderVisible = useTimer(isLoading, delay)
 
   const handleChange = React.useCallback<
     React.ChangeEventHandler<HTMLInputElement>
@@ -179,7 +177,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
     <Root
       className={className}
       isDisabled={isDisabled}
-      isLoading={isExpired}
+      isLoading={isLoaderVisible}
       variant={variant}
     >
       <BaseInput

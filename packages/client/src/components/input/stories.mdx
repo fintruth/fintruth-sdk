@@ -1,0 +1,79 @@
+import { Meta, Preview, Story } from '@storybook/addon-docs/blocks'
+import { boolean, number, select, text } from '@storybook/addon-knobs'
+
+import { centered } from 'utils/story'
+import Input from '.'
+
+<Meta component={Input} decorators={[centered]} title="Components|Input" />
+
+<Preview>
+  <Story name="Default">
+    <Input
+      delay={number('delay', 200)}
+      isDisabled={boolean('isDisabled', false)}
+      isGuided={boolean('isGuided', true)}
+      isLoading={boolean('isLoading', false)}
+      mask={
+        select(
+          'mask',
+          {
+            default: '',
+            'credit card': [
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              ' ',
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              ' ',
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              ' ',
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+            ],
+            date: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
+          },
+          ''
+        ) || undefined
+      }
+      placeholder={text('placeholder', 'Placeholder')}
+      type={
+        select(
+          'type',
+          {
+            default: '',
+            email: 'email',
+            password: 'password',
+            tel: 'tel',
+            text: 'text',
+          },
+          ''
+        ) || undefined
+      }
+      variant={
+        select(
+          'variant',
+          {
+            default: '',
+            light: 'light',
+            dark: 'dark',
+            primary: 'primary',
+            info: 'info',
+            success: 'success',
+            warning: 'warning',
+            danger: 'danger',
+          },
+          ''
+        ) || undefined
+      }
+    />
+  </Story>
+</Preview>

@@ -1,0 +1,37 @@
+import { Meta, Preview, Story } from '@storybook/addon-docs/blocks'
+import { select, text } from '@storybook/addon-knobs'
+
+import { centered } from 'utils/story'
+import Tooltip from '.'
+
+<Meta component={Tooltip} decorators={[centered]} title="Components|Tooltip" />
+
+<Preview>
+  <Story name="Default">
+    <Tooltip
+      ariaLabel={text('ariaLabel', 'The label announced by screenreaders')}
+      label={text(
+        'label',
+        'Tooltips with a lot of text are designed to warp into a multiline display.'
+      )}
+      variant={
+        select(
+          'variant',
+          {
+            default: '',
+            light: 'light',
+            dark: 'dark',
+            primary: 'primary',
+            info: 'info',
+            success: 'success',
+            warning: 'warning',
+            danger: 'danger',
+          },
+          ''
+        ) || undefined
+      }
+    >
+      <div>{text('children', 'Tooltip')}</div>
+    </Tooltip>
+  </Story>
+</Preview>

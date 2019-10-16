@@ -2,6 +2,8 @@ import { rem } from 'polished'
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
+import { useTimer } from 'hooks/time'
+
 interface Props {
   delay?: number
 }
@@ -51,13 +53,7 @@ const Loading: React.FunctionComponent<Props> = ({
   delay = 200,
   ...props
 }: Props) => {
-  const [isVisible, setVisible] = React.useState(false)
-
-  React.useEffect(() => {
-    const timeout = setTimeout(() => setVisible(true), delay)
-
-    return () => clearTimeout(timeout)
-  })
+  const isVisible = useTimer(true, delay)
 
   return isVisible ? (
     <Root {...props}>

@@ -9,8 +9,6 @@ type Payload = Partial<BaseState>
 
 type Type = 'setControlId' | 'setHasCropper' | 'setSrc'
 
-export type Variant = 'danger' | 'primary'
-
 interface Action {
   payload: Payload
   type: Type

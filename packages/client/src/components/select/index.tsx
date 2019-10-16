@@ -1,11 +1,10 @@
 import { darken, em, transparentize } from 'polished'
 import React from 'react'
-import styled, { Color, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { Variant, css } from 'styled-components' // eslint-disable-line import/named
 
 import { useTimer } from 'hooks/time'
 import { arrow, control, loader } from 'styles/mixins'
-
-export type Variant = 'danger'
+import { variantColors } from 'styles/theme'
 
 interface BaseSelectProps {
   variant?: Variant
@@ -31,15 +30,11 @@ interface RootProps {
   variant?: Variant
 }
 
-const colors: Record<Variant, Color> = {
-  danger: 'danger',
-}
-
 const focusBoxShadowSize = `0 0 0 ${em(2)}`
 
 const loading = (color?: string) => css`
   &::after {
-    ${loader(color)};
+    ${loader(color)}
     position: absolute !important;
     right: ${em(10)};
     top: calc(50% - ${em(8)});
@@ -49,7 +44,7 @@ const loading = (color?: string) => css`
 
 const single = (color?: string) => css`
   &::after {
-    ${arrow(color)};
+    ${arrow(color)}
     position: absolute !important;
     right: ${em(13)};
     top: calc(50% - 2.5px);
@@ -99,17 +94,18 @@ const Root = styled.div<RootProps>`
       return undefined
     }
 
-    const color = variant && theme[colors[variant]]
+    const color = variant && theme[variantColors[variant]]
 
     return isLoading ? loading(color) : single(color)
-  }};
+  }}
 `
 
 const BaseSelect = styled.select<BaseSelectProps>`
-  ${control};
+  ${control}
   background-color: ${({ theme }) => theme.white};
   border-radius: ${({ theme }) => theme.borderRadius};
-  box-shadow: inset 0 1px 2px ${({ theme }) => transparentize(0.9, theme.black)};
+  box-shadow: inset 0 1px 2px ${({ theme }) =>
+    transparentize(0.9, theme.black)};
   color: ${({ theme }) => theme.grayDarker};
   cursor: pointer;
   display: block;
@@ -120,7 +116,7 @@ const BaseSelect = styled.select<BaseSelectProps>`
   width: 100%;
 
   ${({ theme, variant }) =>
-    variant ? variation(theme[colors[variant]]) : standard};
+    variant ? variation(theme[variantColors[variant]]) : standard}
 
   &:-moz-focusring {
     color: transparent;
@@ -159,13 +155,13 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
   }: Props,
   ref?: React.Ref<HTMLSelectElement>
 ) => {
-  const isExpired = useTimer(isLoading, delay)
+  const isLoaderVisible = useTimer(isLoading, delay)
 
   return (
     <Root
       className={className}
       isDisabled={isDisabled}
-      isLoading={isExpired}
+      isLoading={isLoaderVisible}
       isMultiple={isMultiple}
       variant={variant}
     >

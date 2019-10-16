@@ -28,7 +28,7 @@ const Root = styled(BaseSelect)`
 `
 
 const Option = styled.option`
-  ${option};
+  ${option}
 `
 
 const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (

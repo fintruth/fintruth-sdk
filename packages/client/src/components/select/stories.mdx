@@ -1,11 +1,10 @@
 import { Meta, Preview, Story } from '@storybook/addon-docs/blocks'
 import { boolean, number, select } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
 import styled from 'styled-components'
 
 import { option } from 'styles/mixins'
 import { centered } from 'utils/story'
-import Select, { Variant } from '.'
+import Select from '.'
 
 export const Option = styled.option`
   ${option}
@@ -20,7 +19,20 @@ export const Option = styled.option`
       isDisabled={boolean('isDisabled', false)}
       isLoading={boolean('isLoading', false)}
       isMultiple={boolean('isMultiple', false)}
-      variant={select('variant', { default: '', danger: 'danger' }, '')}
+      variant={select(
+        'variant',
+        {
+          default: '',
+          light: 'light',
+          dark: 'dark',
+          primary: 'primary',
+          info: 'info',
+          success: 'success',
+          warning: 'warning',
+          danger: 'danger',
+        },
+        ''
+      )}
     >
       <Option value="optionA">Option A</Option>
       <Option value="optionB">Option B</Option>

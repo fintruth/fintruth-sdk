@@ -1,16 +1,7 @@
 import 'styled-components'
 
 declare module 'styled-components' {
-  export type Color =
-    | 'white'
-    | 'black'
-    | 'light'
-    | 'dark'
-    | 'primary'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'danger'
+  export type Color = Variant | 'white' | 'black'
 
   export type ColorContrast =
     | 'lightContrast'
@@ -32,6 +23,15 @@ declare module 'styled-components' {
     | 'grayLightest'
     | 'whiteTer'
     | 'whiteBis'
+
+  export type Variant =
+    | 'light'
+    | 'dark'
+    | 'primary'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'danger'
 
   export type ViewportBreakpoint = 'small' | 'medium' | 'large' | 'extraLarge'
 

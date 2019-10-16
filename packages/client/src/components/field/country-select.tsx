@@ -23,7 +23,7 @@ interface Props
 }
 
 const Option = styled.option`
-  ${option};
+  ${option}
 `
 
 const CountrySelect: React.RefForwardingComponent<HTMLSelectElement, Props> = (

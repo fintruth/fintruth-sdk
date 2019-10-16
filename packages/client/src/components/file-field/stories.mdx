@@ -1,0 +1,123 @@
+import { action } from '@storybook/addon-actions'
+import { Meta, Preview, Story } from '@storybook/addon-docs/blocks'
+import { boolean, number, select, text } from '@storybook/addon-knobs'
+import { Formik } from 'formik'
+import styled from 'styled-components'
+
+import { centered } from 'utils/story'
+import FileField, {
+  FileFieldCallToAction,
+  FileFieldCropper,
+  FileFieldHelp,
+  FileFieldIcon,
+  FileFieldLabel,
+  FileFieldName,
+  containerHorizontal,
+  ctaHorizontalLeft,
+  nameHorizontalRight,
+} from '.'
+
+export const ContainerHorizontal = styled.div`
+  ${containerHorizontal}
+`
+
+export const FileFieldCallToActionHorizontal = styled(FileFieldCallToAction)`
+  ${ctaHorizontalLeft}
+`
+
+export const FileFieldNameHorizontal = styled(FileFieldName)`
+  ${nameHorizontalRight}
+`
+
+<Meta
+  components={[
+    FileField,
+    FileFieldCallToAction,
+    FileFieldCropper,
+    FileFieldHelp,
+    FileFieldIcon,
+    FileFieldLabel,
+    FileFieldName,
+  ]}
+  decorators={[centered]}
+  title="Components|File Field"
+/>
+
+<Preview>
+  <Story name="Default">
+    <Formik initialValues={{ file: '' }} onSubmit={action('onSubmit')}>
+      <FileField
+        fileName={text('fileName', '')}
+        isDisabled={boolean('isDisabled', false)}
+        isRequired={boolean('isRequired', true)}
+        name="file"
+      >
+        <FileFieldCallToAction
+          delay={number('delay', 200)}
+          isLoading={boolean('isLoading', false)}
+          variant={
+            select(
+              'variant',
+              {
+                default: '',
+                light: 'light',
+                dark: 'dark',
+                primary: 'primary',
+                info: 'info',
+                success: 'success',
+                warning: 'warning',
+                danger: 'danger',
+              },
+              ''
+            ) || undefined
+          }
+        >
+          <FileFieldIcon />
+          <FileFieldLabel>{text('label', 'Label')}</FileFieldLabel>
+        </FileFieldCallToAction>
+        <FileFieldName />
+        <FileFieldCropper alt="Cropped Image" />
+        <FileFieldHelp />
+      </FileField>
+    </Formik>
+  </Story>
+  <Story name="Horizontal">
+    <Formik initialValues={{ file: '' }} onSubmit={action('onSubmit')}>
+      <FileField
+        fileName={text('fileName', '')}
+        isDisabled={boolean('isDisabled', false)}
+        isRequired={boolean('isRequired', true)}
+        name="file"
+      >
+        <ContainerHorizontal>
+          <FileFieldCallToActionHorizontal
+            delay={number('delay', 200)}
+            isLoading={boolean('isLoading', false)}
+            variant={
+              select(
+                'variant',
+                {
+                  default: '',
+                  light: 'light',
+                  dark: 'dark',
+                  primary: 'primary',
+                  info: 'info',
+                  success: 'success',
+                  warning: 'warning',
+                  danger: 'danger',
+                },
+                ''
+              ) || undefined
+            }
+          >
+            <FileFieldIcon />
+            <FileFieldLabel>{text('label', 'Label')}</FileFieldLabel>
+          </FileFieldCallToActionHorizontal>
+          <FileFieldNameHorizontal />
+        </ContainerHorizontal>
+        <FileFieldCropper alt="Cropped Image" />
+        <FileFieldHelp />
+      </FileField>
+    </Formik>
+  </Story>
+</Preview>

@@ -13,7 +13,7 @@ interface RootProps {
 }
 
 const Root = styled.span<RootProps>`
-  ${control};
+  ${control}
   border: 1px solid ${({ theme }) => theme.borderColor};
   border-radius: ${({ theme }) => theme.borderRadius};
   display: block;

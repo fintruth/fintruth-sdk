@@ -1,5 +1,5 @@
 import { getLuminance, hsl, hsla, rem } from 'polished'
-import { DefaultTheme } from 'styled-components' // eslint-disable-line import/named
+import { Color, ColorContrast, DefaultTheme, Variant } from 'styled-components' // eslint-disable-line import/named
 
 const contrastColor = (color: string) =>
   getLuminance(color) > 0.55 ? hsla(0, 0, 0, 0.7) : hsl(0, 0, 1)
@@ -149,6 +149,26 @@ const theme: DefaultTheme = {
   borderRadiusLarge: '6px',
   borderRadiusRounded: '999999px',
   duration: '86ms',
+}
+
+export const variantColors: Record<Variant, Color> = {
+  danger: 'danger',
+  dark: 'dark',
+  info: 'info',
+  light: 'light',
+  primary: 'primary',
+  success: 'success',
+  warning: 'warning',
+}
+
+export const variantColorContrasts: Record<Variant, ColorContrast> = {
+  danger: 'dangerContrast',
+  dark: 'darkContrast',
+  info: 'infoContrast',
+  light: 'lightContrast',
+  primary: 'primaryContrast',
+  success: 'successContrast',
+  warning: 'warningContrast',
 }
 
 export default theme
