@@ -11,7 +11,7 @@ import { Inject } from 'typedi'
 
 import { AuthContext, Context } from 'apollo'
 import {
-  createRateLimiterMiddleware,
+  createRateLimitMiddleware,
   ExceptionInterceptor,
 } from 'resolvers/middlewares'
 import {
@@ -57,7 +57,7 @@ export default class AuthResolver {
 
   @UseMiddleware([
     ExceptionInterceptor([Error]),
-    createRateLimiterMiddleware(rateLimiter, { max: 5, window: '30s' }),
+    createRateLimitMiddleware(rateLimiter, { max: 5, window: '30s' }),
   ])
   @Mutation(() => SignInResponse)
   async signIn(
@@ -70,7 +70,7 @@ export default class AuthResolver {
 
   @UseMiddleware([
     ExceptionInterceptor([Error]),
-    createRateLimiterMiddleware(rateLimiter, { max: 5, window: '30s' }),
+    createRateLimitMiddleware(rateLimiter, { max: 5, window: '30s' }),
   ])
   @Mutation(() => Response)
   async signInTwoFactorAuth(

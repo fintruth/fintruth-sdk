@@ -2,7 +2,7 @@ import { MiddlewareFn } from 'type-graphql'
 
 import { Context } from 'apollo'
 
-type RateLimiterFn = (data: Data, args: Options) => Promise<string | undefined>
+type RateLimitFn = (data: Data, args: Options) => Promise<string | undefined>
 interface Data {
   args: Record<string, any>
   context: any
@@ -18,8 +18,8 @@ interface Options {
   arrayLengthField?: string
 }
 
-export const createRateLimiterMiddleware = (
-  rateLimiter: RateLimiterFn,
+export const createRateLimitMiddleware = (
+  rateLimiter: RateLimitFn,
   opts: Options
 ): MiddlewareFn<Context> => async ({ args, context, info, root }, next) => {
   const error = await rateLimiter({ args, context, info, parent: root }, opts)

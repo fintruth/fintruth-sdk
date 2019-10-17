@@ -11,7 +11,7 @@ import { User } from './entities'
 import { logAs } from './logger'
 import { Daos } from './models'
 import * as resolvers from './resolvers'
-import { createRateLimiterMiddleware } from './resolvers/middlewares'
+import { createRateLimitMiddleware } from './resolvers/middlewares'
 import { ConfigService } from './services'
 import { ServerRequest, ServerResponse } from './server'
 
@@ -54,7 +54,7 @@ export const createApolloServer = async (): Promise<ApolloServer> => {
     container: Container,
     emitSchemaFile: !isProd && './schema.graphql',
     globalMiddlewares: [
-      createRateLimiterMiddleware(rateLimiter, { max, window }),
+      createRateLimitMiddleware(rateLimiter, { max, window }),
     ],
     resolvers: Object.values(resolvers),
     validate: false, // https://github.com/typestack/class-validator/issues/261
