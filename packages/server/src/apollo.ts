@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-express'
 import { GraphQLError } from 'graphql'
+import { getGraphQLRateLimiter } from 'graphql-rate-limit'
 import { tap } from 'ramda'
 import { Container } from 'typedi'
 import { buildSchema } from 'type-graphql'
@@ -10,7 +11,7 @@ import { User } from './entities'
 import { logAs } from './logger'
 import { Daos } from './models'
 import * as resolvers from './resolvers'
-import { RateLimit } from './resolvers/middlewares'
+import { createRateLimitMiddleware } from './resolvers/middlewares'
 import { ConfigService } from './services'
 import { ServerRequest, ServerResponse } from './server'
 
@@ -44,11 +45,17 @@ export const createApolloServer = async (): Promise<ApolloServer> => {
     media: { maxFileSize },
   } = Container.get(ConfigService)
 
+  const rateLimiter = getGraphQLRateLimiter({
+    identifyContext: ({ ip }: Context) => ip,
+  })
+
   const schema = await buildSchema({
     authChecker: ({ context: { user } }) => !!user,
     container: Container,
     emitSchemaFile: !isProd && './schema.graphql',
-    globalMiddlewares: [RateLimit(max, window)],
+    globalMiddlewares: [
+      createRateLimitMiddleware(rateLimiter, { max, window }),
+    ],
     resolvers: Object.values(resolvers),
     validate: false, // https://github.com/typestack/class-validator/issues/261
   })

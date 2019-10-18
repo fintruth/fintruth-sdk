@@ -1,19 +1,30 @@
+import { getGraphQLRateLimiter } from 'graphql-rate-limit'
 import {
   Arg,
   Authorized as Authenticated,
   Ctx,
   Mutation,
   Resolver,
+  UseMiddleware,
 } from 'type-graphql'
 import { Inject } from 'typedi'
 
 import { AuthContext, Context } from 'apollo'
+import {
+  createRateLimitMiddleware,
+  ExceptionInterceptor,
+} from 'resolvers/middlewares'
 import {
   EnableTwoFactorAuthResponse,
   Response,
   SignInResponse,
 } from 'resolvers/types'
 import { AuthService } from 'services'
+
+const rateLimiter = getGraphQLRateLimiter({
+  identifyContext: ({ ip }: Context) => ip,
+  formatError: () => 'too many login attempts, try again shortly',
+})
 
 @Resolver()
 export default class AuthResolver {
@@ -44,6 +55,10 @@ export default class AuthResolver {
     return this.authService.enableTwoFactorAuth(user.id, ability)
   }
 
+  @UseMiddleware([
+    ExceptionInterceptor([Error]),
+    createRateLimitMiddleware(rateLimiter, { max: 5, window: '30s' }),
+  ])
   @Mutation(() => SignInResponse)
   async signIn(
     @Arg('email') email: string,
@@ -53,6 +68,10 @@ export default class AuthResolver {
     return this.authService.authenticate(email, password, res)
   }
 
+  @UseMiddleware([
+    ExceptionInterceptor([Error]),
+    createRateLimitMiddleware(rateLimiter, { max: 5, window: '30s' }),
+  ])
   @Mutation(() => Response)
   async signInTwoFactorAuth(
     @Arg('email') email: string,
