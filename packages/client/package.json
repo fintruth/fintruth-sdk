@@ -86,7 +86,7 @@
     "reactabular-table": "^8.14.0",
     "serialize-javascript": "^2.1.0",
     "source-map-support": "^0.5.13",
-    "styled-components": "5.0.0-beta.9",
+    "styled-components": "5.0.0-beta.11",
     "text-mask-core": "^5.1.2"
   },
   "devDependencies": {
