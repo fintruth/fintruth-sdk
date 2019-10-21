@@ -1,8 +1,8 @@
-import { Dialog, DialogProps } from '@reach/dialog'
 import { rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
+import Dialog, { Props as DialogProps } from 'components/dialog'
 import DisableTwoFactorAuthForm from './disable-two-factor-auth-form'
 
 type Props = DialogProps

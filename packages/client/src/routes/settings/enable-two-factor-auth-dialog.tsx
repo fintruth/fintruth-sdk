@@ -1,8 +1,8 @@
-import { Dialog, DialogProps } from '@reach/dialog'
 import { darken, rem } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
 
+import Dialog, { Props as DialogProps } from 'components/dialog'
 import { link } from 'styles/mixins'
 import ConfirmTwoFactorAuthForm from './confirm-two-factor-auth-form'
 

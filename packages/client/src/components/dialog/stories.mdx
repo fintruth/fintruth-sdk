@@ -1,0 +1,24 @@
+import { action } from '@storybook/addon-actions'
+import { Meta, Preview, Story } from '@storybook/addon-docs/blocks'
+import { boolean, number, select, text } from '@storybook/addon-knobs'
+
+import Dialog, { DialogClose, DialogContent, DialogOverlay } from '.'
+
+<Meta
+  components={[Dialog, DialogClose, DialogContent, DialogOverlay]}
+  title="Components|Dialog"
+/>
+
+<Preview>
+  <Story name="Default">
+    <Dialog isOpen={boolean('isOpen', false)} onDismiss={action('onDismiss')}>
+      {text('children', 'Dialog')}
+    </Dialog>
+  </Story>
+  <Story name="With Close">
+    <Dialog isOpen={boolean('isOpen', false)} onDismiss={action('onDismiss')}>
+      <DialogClose />
+      {text('children', 'Dialog')}
+    </Dialog>
+  </Story>
+</Preview>

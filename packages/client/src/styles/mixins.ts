@@ -1,4 +1,4 @@
-import { em, rem } from 'polished'
+import { em, rem, transparentize } from 'polished'
 import {
   DefaultTheme, // eslint-disable-line import/named
   FlattenInterpolation, // eslint-disable-line import/named
@@ -8,6 +8,8 @@ import {
 } from 'styled-components'
 
 import { spin } from './animations'
+
+type Size = 'small' | 'medium' | 'large'
 
 type Styles = FlattenInterpolation<ThemedStyledProps<{}, DefaultTheme>>
 
@@ -122,6 +124,14 @@ export const overflowTouch = css`
   -webkit-overflow-scrolling: touch;
 `
 
+export const overlay = (offset = 0) => css`
+  bottom: ${offset};
+  left: ${offset};
+  position: absolute;
+  right: ${offset};
+  top: ${offset};
+`
+
 export const untilSmall = until('small')
 
 export const small = (styles: Styles) => css`
@@ -152,6 +162,66 @@ export const unselectable = css`
   -webkit-touch-callout: none;
   user-select: none;
 `
+
+export const close = (size?: Size) => {
+  const length = size
+    ? { small: '16px', medium: '24px', large: '32px' }[size]
+    : '20px'
+
+  return css`
+    ${unselectable}
+    appearance: none;
+    background-color: ${({ theme }) => transparentize(0.8, theme.black)};
+    border: none;
+    border-radius: ${({ theme }) => theme.borderRadiusRounded};
+    cursor: pointer;
+    display: inline-block;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-size: 0;
+    height: ${length};
+    max-height: ${length};
+    max-width: ${length};
+    min-height: ${length};
+    min-width: ${length};
+    outline: none;
+    pointer-events: auto;
+    position: relative;
+    vertical-align: top;
+    width: ${length};
+
+    &::before,
+    &::after {
+      background-color: ${({ theme }) => theme.white};
+      content: '';
+      display: block;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%) rotate(45deg);
+      transform-origin: center center;
+    }
+
+    &::before {
+      height: 2px;
+      width: 50%;
+    }
+
+    &::after {
+      height: 50%;
+      width: 2px;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: ${({ theme }) => transparentize(0.7, theme.black)};
+    }
+
+    &:active {
+      background-color: ${({ theme }) => transparentize(0.6, theme.black)};
+    }
+  `
+}
 
 export const loader = (color?: string) => css`
   animation: ${spin()} 500ms infinite linear;

@@ -47,10 +47,6 @@ const Html: React.FunctionComponent<Props> = ({
       <link rel="manifest" href="/site.webmanifest" />
       <link
         rel="stylesheet"
-        href="https://unpkg.com/@reach/dialog@0.2.9/styles.css"
-      />
-      <link
-        rel="stylesheet"
         href="https://unpkg.com/@reach/menu-button@0.1.18/styles.css"
       />
       {styles}
