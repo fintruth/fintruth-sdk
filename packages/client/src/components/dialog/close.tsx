@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import { close } from 'styles/mixins'
 import { useDialogOverlayContext } from './overlay'
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   onDismiss?: (
     event?: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
   ) => void
@@ -28,7 +29,6 @@ const Close = React.forwardRef<HTMLButtonElement, Props>(function Close(
 
   return (
     <Root
-      aria-label="close"
       data-dialog-close=""
       onClick={event => {
         if (onClick) {

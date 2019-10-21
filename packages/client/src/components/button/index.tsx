@@ -234,10 +234,10 @@ const Root = styled.button<RootProps>`
   }
 `
 
-const Button: React.RefForwardingComponent<HTMLButtonElement, Props> = (
+const Button = React.forwardRef<HTMLButtonElement, Props>(function Button(
   { delay = 200, isDisabled, isLoading = false, ...props }: Props,
   ref?: React.Ref<HTMLButtonElement>
-) => {
+) {
   const isLoaderVisible = useTimer(isLoading, delay)
 
   return (
@@ -248,6 +248,6 @@ const Button: React.RefForwardingComponent<HTMLButtonElement, Props> = (
       {...props}
     />
   )
-}
+})
 
-export default React.forwardRef(Button)
+export default Button

@@ -16,10 +16,10 @@ interface Props
 
 const defaultMask = new Array(30).fill(/[-,.()\d\setx]/)
 
-const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
+const Input = React.forwardRef<HTMLInputElement, Props>(function Input(
   { id, mask = defaultMask, type = 'tel', validate, ...props }: Props,
   ref?: React.Ref<HTMLInputElement>
-) => {
+) {
   const [
     { controlId, isDisabled, isRequired, name, placeholder },
     dispatch,
@@ -57,6 +57,6 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
       {...props}
     />
   )
-}
+})
 
-export default React.forwardRef(Input)
+export default Input

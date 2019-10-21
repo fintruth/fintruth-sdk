@@ -56,7 +56,7 @@ const Root = styled.div`
   }
 `
 
-const FileField: React.RefForwardingComponent<HTMLDivElement, Props> = (
+const FileField = React.forwardRef<HTMLDivElement, Props>(function FileField(
   {
     fileName = '',
     isDisabled = false,
@@ -65,7 +65,7 @@ const FileField: React.RefForwardingComponent<HTMLDivElement, Props> = (
     ...props
   }: Props,
   ref?: React.Ref<HTMLDivElement>
-) => {
+) {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>
   >(reducer, { controlId: '', hasCropper: false, src: '' })
@@ -81,7 +81,7 @@ const FileField: React.RefForwardingComponent<HTMLDivElement, Props> = (
       </StateContext.Provider>
     </DispatchContext.Provider>
   )
-}
+})
 
 export const useFileFieldContext = (): [State, Dispatch] => {
   const dispatch = React.useContext<Dispatch | undefined>(DispatchContext)
@@ -102,4 +102,4 @@ export { default as FileFieldIcon } from './icon'
 export * from './mixins'
 export { default as FileFieldName } from './name'
 export { default as FileFieldLabel } from './label'
-export default React.forwardRef(FileField)
+export default FileField

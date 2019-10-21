@@ -117,7 +117,7 @@ const BaseInput = styled.input<BaseInputProps>`
   }
 `
 
-const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
+const Input = React.forwardRef<HTMLInputElement, Props>(function Input(
   {
     autoComplete = 'off',
     className,
@@ -134,7 +134,7 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
     ...props
   }: Props,
   ref?: React.Ref<HTMLInputElement>
-) => {
+) {
   const [maskedInput, setMaskedInput] = React.useState()
   const input = React.useRef<HTMLInputElement>()
   const isLoaderVisible = useTimer(isLoading, delay)
@@ -199,6 +199,6 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
       />
     </Root>
   )
-}
+})
 
-export default React.forwardRef(Input)
+export default Input

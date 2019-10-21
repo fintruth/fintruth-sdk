@@ -11,10 +11,10 @@ interface Props
   validate?: FieldValidator
 }
 
-const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
+const Select = React.forwardRef<HTMLSelectElement, Props>(function Select(
   { id, isMultiple, validate, ...props }: Props,
   ref?: React.Ref<HTMLSelectElement>
-) => {
+) {
   const [
     { controlId, isDisabled, isRequired, name },
     dispatch,
@@ -52,6 +52,6 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       {...props}
     />
   )
-}
+})
 
-export default React.forwardRef(Select)
+export default Select

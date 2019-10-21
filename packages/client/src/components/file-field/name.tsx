@@ -38,10 +38,10 @@ const Root = styled.span<RootProps>`
   }
 `
 
-const Name: React.RefForwardingComponent<HTMLSpanElement, Props> = (
+const Name = React.forwardRef<HTMLSpanElement, Props>(function Name(
   props: Props,
   ref?: React.Ref<HTMLSpanElement>
-) => {
+) {
   const { isDisabled, name } = useFileFieldContext()[0]
   const { value } = useField<File | string>(name)[0]
 
@@ -50,6 +50,6 @@ const Name: React.RefForwardingComponent<HTMLSpanElement, Props> = (
       {value.name}
     </Root>
   ) : null
-}
+})
 
-export default React.forwardRef(Name)
+export default Name

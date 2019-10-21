@@ -173,110 +173,113 @@ const Input = styled.input`
   }
 `
 
-const CallToAction: React.RefForwardingComponent<HTMLInputElement, Props> = (
-  {
-    children,
-    className,
-    delay,
-    id,
-    isLoading = false,
-    maxSize = 2 * 10 ** 6,
-    onChange,
-    validate,
-    variant,
-    ...props
-  }: Props,
-  ref?: React.Ref<HTMLInputElement>
-) => {
-  const [
-    { controlId, fileName, hasCropper, isDisabled, isRequired, name },
-    dispatch,
-  ] = useFileFieldContext()
-  const { onBlur, value } = useField<FieldAttributes<any>>({
-    name,
-    type: 'file',
-    validate:
-      validate ||
-      ((value: File | string) => validateInput(value, { isRequired, maxSize })),
-  })[0]
-  const { setFieldValue } = useFormikContext<any>()
-  const input = React.useRef<HTMLInputElement>()
-  const isLoaderVisible = useTimer(isLoading, delay)
-  const seed = useUIDSeed()
+const CallToAction = React.forwardRef<HTMLInputElement, Props>(
+  function CallToAction(
+    {
+      children,
+      className,
+      delay,
+      id,
+      isLoading = false,
+      maxSize = 2 * 10 ** 6,
+      onChange,
+      validate,
+      variant,
+      ...props
+    }: Props,
+    ref?: React.Ref<HTMLInputElement>
+  ) {
+    const [
+      { controlId, fileName, hasCropper, isDisabled, isRequired, name },
+      dispatch,
+    ] = useFileFieldContext()
+    const { onBlur, value } = useField<FieldAttributes<any>>({
+      name,
+      type: 'file',
+      validate:
+        validate ||
+        ((value: File | string) =>
+          validateInput(value, { isRequired, maxSize })),
+    })[0]
+    const { setFieldValue } = useFormikContext<any>()
+    const input = React.useRef<HTMLInputElement>()
+    const isLoaderVisible = useTimer(isLoading, delay)
+    const seed = useUIDSeed()
 
-  React.useEffect(
-    () =>
-      dispatch({
-        payload: { controlId: id || seed(name) },
-        type: 'setControlId',
-      }),
-    [dispatch, id, name, seed]
-  )
+    React.useEffect(
+      () =>
+        dispatch({
+          payload: { controlId: id || seed(name) },
+          type: 'setControlId',
+        }),
+      [dispatch, id, name, seed]
+    )
 
-  React.useEffect(() => {
-    if (!value && input.current) {
-      input.current.value = ''
-    }
-  }, [value])
+    React.useEffect(() => {
+      if (!value && input.current) {
+        input.current.value = ''
+      }
+    }, [value])
 
-  return (
-    <Root
-      className={className}
-      data-file-field-call-to-action=""
-      disabled={isDisabled}
-      isLoading={isLoaderVisible}
-      role="group"
-      variant={variant}
-    >
-      <Input
-        id={controlId}
-        data-file-field-input=""
+    return (
+      <Root
+        className={className}
+        data-file-field-call-to-action=""
         disabled={isDisabled}
-        name={name}
-        onBlur={onBlur}
-        onChange={event => {
-          if (onChange) {
-            onChange(event)
-          }
-
-          const { files } = event.target
-          const type = getType(fileName) || 'image/jpeg'
-          const file = fileName
-            ? new File([(files && files[0]) || ''], fileName, { type })
-            : (files && files[0]) || ''
-
-          setFieldValue(name, file)
-
-          if (hasCropper) {
-            if (typeof file === 'string') {
-              return dispatch({ payload: { src: undefined }, type: 'setSrc' })
+        isLoading={isLoaderVisible}
+        role="group"
+        variant={variant}
+      >
+        <Input
+          id={controlId}
+          data-file-field-input=""
+          disabled={isDisabled}
+          name={name}
+          onBlur={onBlur}
+          onChange={event => {
+            if (onChange) {
+              onChange(event)
             }
 
-            const reader = new FileReader()
+            const { files } = event.target
+            const type = getType(fileName) || 'image/jpeg'
+            const file = fileName
+              ? new File([(files && files[0]) || ''], fileName, { type })
+              : (files && files[0]) || ''
 
-            reader.addEventListener('load', () => {
-              const src = (reader.result as string) || undefined
+            setFieldValue(name, file)
 
-              return dispatch({ payload: { src }, type: 'setSrc' })
-            })
+            if (hasCropper) {
+              if (typeof file === 'string') {
+                return dispatch({ payload: { src: undefined }, type: 'setSrc' })
+              }
 
-            return reader.readAsDataURL(file)
-          }
-        }}
-        ref={instance => {
-          if (ref) {
-            setRef(ref, instance)
-          }
+              const reader = new FileReader()
 
-          return setRef(input, instance)
-        }}
-        required={isRequired}
-        type="file"
-        {...props}
-      />
-      {children}
-    </Root>
-  )
-}
+              reader.addEventListener('load', () => {
+                const src = (reader.result as string) || undefined
 
-export default React.forwardRef(CallToAction)
+                return dispatch({ payload: { src }, type: 'setSrc' })
+              })
+
+              return reader.readAsDataURL(file)
+            }
+          }}
+          ref={instance => {
+            if (ref) {
+              setRef(ref, instance)
+            }
+
+            return setRef(input, instance)
+          }}
+          required={isRequired}
+          type="file"
+          {...props}
+        />
+        {children}
+      </Root>
+    )
+  }
+)
+
+export default CallToAction

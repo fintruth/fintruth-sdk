@@ -31,10 +31,10 @@ const Option = styled.option`
   ${option}
 `
 
-const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
+const Select = React.forwardRef<HTMLSelectElement, Props>(function Select(
   { isMultiple, validate, ...props }: Props,
   ref?: React.Ref<HTMLSelectElement>
-) => {
+) {
   const [
     { isDisabled, isRequired, labelId, name },
     dispatch,
@@ -93,6 +93,6 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       ))}
     </Root>
   )
-}
+})
 
-export default React.forwardRef(Select)
+export default Select

@@ -18,14 +18,16 @@ const Root = styled.label`
   }
 `
 
-const Label = (
+const Label = React.forwardRef<HTMLLabelElement, Props>(function Label(
   { children, isRequired, ...props }: Props,
   ref?: React.Ref<HTMLLabelElement>
-) => (
-  <Root ref={ref} {...props}>
-    {children}
-    {isRequired && '*'}
-  </Root>
-)
+) {
+  return (
+    <Root ref={ref} {...props}>
+      {children}
+      {isRequired && '*'}
+    </Root>
+  )
+})
 
-export default React.forwardRef(Label)
+export default Label

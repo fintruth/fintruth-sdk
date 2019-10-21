@@ -48,10 +48,10 @@ const Root = styled.div`
   }
 `
 
-const Field: React.RefForwardingComponent<HTMLDivElement, Props> = (
+const Field = React.forwardRef<HTMLDivElement, Props>(function Field(
   { isDisabled = false, isRequired = true, name, ...props }: Props,
   ref?: React.Ref<HTMLDivElement>
-) => {
+) {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>
   >(reducer, { controlId: '' })
@@ -67,7 +67,7 @@ const Field: React.RefForwardingComponent<HTMLDivElement, Props> = (
       </StateContext.Provider>
     </DispatchContext.Provider>
   )
-}
+})
 
 export const useFieldContext = (): [State, Dispatch] => {
   const dispatch = React.useContext<Dispatch | undefined>(DispatchContext)
@@ -86,4 +86,4 @@ export { default as FieldHelp } from './help'
 export { default as FieldInput } from './input'
 export { default as FieldLabel } from './label'
 export { default as FieldSelect } from './select'
-export default React.forwardRef(Field)
+export default Field

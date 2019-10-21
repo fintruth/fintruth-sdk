@@ -58,10 +58,10 @@ const Popup = styled(TooltipPopup)<PopupProps>`
   }
 `
 
-const Tooltip: React.RefForwardingComponent<HTMLDivElement, Props> = (
+const Tooltip = React.forwardRef<HTMLDivElement, Props>(function Tooltip(
   { children, variant, ...props }: Props,
   ref?: React.Ref<HTMLDivElement>
-) => {
+) {
   const [trigger, tooltip] = useTooltip()
 
   useStyles(styles)
@@ -78,6 +78,6 @@ const Tooltip: React.RefForwardingComponent<HTMLDivElement, Props> = (
       />
     </>
   )
-}
+})
 
-export default React.forwardRef(Tooltip)
+export default Tooltip

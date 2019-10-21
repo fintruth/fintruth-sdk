@@ -16,10 +16,10 @@ const Root = styled(BaseLabel)`
   }
 `
 
-const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
+const Label = React.forwardRef<HTMLLabelElement, Props>(function Label(
   { id, ...props }: Props,
   ref?: React.Ref<HTMLLabelElement>
-) => {
+) {
   const [
     { controlId, isRequired, labelId, name },
     dispatch,
@@ -42,6 +42,6 @@ const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
       {...props}
     />
   )
-}
+})
 
-export default React.forwardRef(Label)
+export default Label

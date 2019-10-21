@@ -76,10 +76,10 @@ const Toggle = styled.div`
   }
 `
 
-const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
+const Input = React.forwardRef<HTMLInputElement, Props>(function Input(
   { className, id, value, ...props }: Props,
   ref?: React.Ref<HTMLInputElement>
-) => {
+) {
   const [{ inputId, isDisabled, name }, dispatch] = useRadioContext()
   const field = useField<FieldAttributes<any>>({ name, type, value })[0]
   const seed = useUIDSeed()
@@ -104,6 +104,6 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
       <Toggle className={className} data-radio-toggle="" />
     </>
   )
-}
+})
 
-export default React.forwardRef(Input)
+export default Input

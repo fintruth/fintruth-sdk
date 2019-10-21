@@ -26,63 +26,67 @@ const Option = styled.option`
   ${option}
 `
 
-const CountrySelect: React.RefForwardingComponent<HTMLSelectElement, Props> = (
-  { exclude = [], id, isMultiple, placeholder, validate, ...props }: Props,
-  ref?: React.Ref<HTMLSelectElement>
-) => {
-  const [
-    { controlId, isDisabled, isRequired, name },
-    dispatch,
-  ] = useFieldContext()
-  const [{ multiple: _multiple, ...field }, { error, touched }] = useField<
-    FieldAttributes<any>
-  >({
-    as: 'select',
-    multiple: isMultiple,
-    name,
-    validate:
-      validate || ((value: string) => validateSelect(value, { isRequired })),
-  })
-  const { formatMessage } = useIntl()
-  const seed = useUIDSeed()
+const CountrySelect = React.forwardRef<HTMLSelectElement, Props>(
+  function CountrySelect(
+    { exclude = [], id, isMultiple, placeholder, validate, ...props }: Props,
+    ref?: React.Ref<HTMLSelectElement>
+  ) {
+    const [
+      { controlId, isDisabled, isRequired, name },
+      dispatch,
+    ] = useFieldContext()
+    const [{ multiple: _multiple, ...field }, { error, touched }] = useField<
+      FieldAttributes<any>
+    >({
+      as: 'select',
+      multiple: isMultiple,
+      name,
+      validate:
+        validate || ((value: string) => validateSelect(value, { isRequired })),
+    })
+    const { formatMessage } = useIntl()
+    const seed = useUIDSeed()
 
-  const {
-    data: { countries = [] } = {},
-    loading: isQueryingCountries,
-  } = useQuery<CountriesQueryData>(countriesQuery)
+    const {
+      data: { countries = [] } = {},
+      loading: isQueryingCountries,
+    } = useQuery<CountriesQueryData>(countriesQuery)
 
-  React.useEffect(
-    () =>
-      dispatch({
-        payload: { controlId: id || seed(name) },
-        type: 'setControlId',
-      }),
-    [dispatch, id, name, seed]
-  )
+    React.useEffect(
+      () =>
+        dispatch({
+          payload: { controlId: id || seed(name) },
+          type: 'setControlId',
+        }),
+      [dispatch, id, name, seed]
+    )
 
-  return (
-    <BaseSelect
-      id={controlId}
-      data-field-country-select=""
-      isDisabled={isDisabled}
-      isLoading={isQueryingCountries}
-      isMultiple={isMultiple}
-      isRequired={isRequired}
-      ref={ref}
-      variant={error && touched ? 'danger' : undefined}
-      {...field}
-      {...props}
-    >
-      {placeholder && <Option value="">{placeholder}</Option>}
-      {countries
-        .filter(({ alpha2Code }) => !exclude.includes(alpha2Code as Alpha2Code))
-        .map(({ alpha2Code, name }) => (
-          <Option key={alpha2Code} value={name}>
-            {formatMessage(country.name[alpha2Code as Alpha2Code])}
-          </Option>
-        ))}
-    </BaseSelect>
-  )
-}
+    return (
+      <BaseSelect
+        id={controlId}
+        data-field-country-select=""
+        isDisabled={isDisabled}
+        isLoading={isQueryingCountries}
+        isMultiple={isMultiple}
+        isRequired={isRequired}
+        ref={ref}
+        variant={error && touched ? 'danger' : undefined}
+        {...field}
+        {...props}
+      >
+        {placeholder && <Option value="">{placeholder}</Option>}
+        {countries
+          .filter(
+            ({ alpha2Code }) => !exclude.includes(alpha2Code as Alpha2Code)
+          )
+          .map(({ alpha2Code, name }) => (
+            <Option key={alpha2Code} value={name}>
+              {formatMessage(country.name[alpha2Code as Alpha2Code])}
+            </Option>
+          ))}
+      </BaseSelect>
+    )
+  }
+)
 
-export default React.forwardRef(CountrySelect)
+export default CountrySelect

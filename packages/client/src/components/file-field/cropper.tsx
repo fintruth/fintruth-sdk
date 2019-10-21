@@ -50,10 +50,10 @@ const Root = styled(ReactCrop)`
   }
 `
 
-const Cropper: React.RefForwardingComponent<HTMLImageElement, Props> = (
+const Cropper = React.forwardRef<HTMLImageElement, Props>(function Cropper(
   { alt, initialCrop = defaultInitialCrop, isLocked, onLoad, ...props }: Props,
   ref?: React.Ref<HTMLImageElement>
-) => {
+) {
   const [{ isDisabled, name, src }, dispatch] = useFileFieldContext()
   const [crop, setCrop] = React.useState<Crop>(initialCrop)
   const { setFieldValue } = useFormikContext<any>()
@@ -138,6 +138,6 @@ const Cropper: React.RefForwardingComponent<HTMLImageElement, Props> = (
       {...props}
     />
   ) : null
-}
+})
 
-export default React.forwardRef(Cropper)
+export default Cropper

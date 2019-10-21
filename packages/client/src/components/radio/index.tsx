@@ -50,10 +50,10 @@ const Root = styled.div`
   }
 `
 
-const Radio: React.RefForwardingComponent<HTMLDivElement, Props> = (
+const Radio = React.forwardRef<HTMLDivElement, Props>(function Radio(
   { isDisabled = false, name, ...props }: Props,
   ref?: React.Ref<HTMLDivElement>
-) => {
+) {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>
   >(reducer, { inputId: '' })
@@ -69,7 +69,7 @@ const Radio: React.RefForwardingComponent<HTMLDivElement, Props> = (
       </StateContext.Provider>
     </DispatchContext.Provider>
   )
-}
+})
 
 export const useRadioContext = (): [State, Dispatch] => {
   const dispatch = React.useContext<Dispatch | undefined>(DispatchContext)
@@ -85,4 +85,4 @@ export const useRadioContext = (): [State, Dispatch] => {
 
 export { default as RadioInput } from './input'
 export { default as RadioLabel } from './label'
-export default React.forwardRef(Radio)
+export default Radio

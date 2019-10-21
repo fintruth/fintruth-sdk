@@ -33,10 +33,10 @@ const Root = styled.label<RootProps>`
   }
 `
 
-const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
+const Label = React.forwardRef<HTMLLabelElement, Props>(function Label(
   props: Props,
   ref?: React.Ref<HTMLLabelElement>
-) => {
+) {
   const { inputId, isDisabled } = useRadioContext()[0]
 
   return (
@@ -48,6 +48,6 @@ const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
       {...props}
     />
   )
-}
+})
 
-export default React.forwardRef(Label)
+export default Label

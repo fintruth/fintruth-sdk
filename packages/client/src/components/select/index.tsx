@@ -141,7 +141,7 @@ const BaseSelect = styled.select<BaseSelectProps>`
   }
 `
 
-const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
+const Select = React.forwardRef<HTMLSelectElement, Props>(function Select(
   {
     autoComplete = 'off',
     className,
@@ -154,7 +154,7 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
     ...props
   }: Props,
   ref?: React.Ref<HTMLSelectElement>
-) => {
+) {
   const isLoaderVisible = useTimer(isLoading, delay)
 
   return (
@@ -176,6 +176,6 @@ const Select: React.RefForwardingComponent<HTMLSelectElement, Props> = (
       />
     </Root>
   )
-}
+})
 
-export default React.forwardRef(Select)
+export default Select

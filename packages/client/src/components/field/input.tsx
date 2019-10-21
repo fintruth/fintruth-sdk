@@ -10,10 +10,10 @@ interface Props extends Omit<InputProps, 'isDisabled' | 'isRequired' | 'name'> {
   validate?: FieldValidator
 }
 
-const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
+const Input = React.forwardRef<HTMLInputElement, Props>(function Input(
   { id, type, validate, ...props }: Props,
   ref?: React.Ref<HTMLInputElement>
-) => {
+) {
   const [
     { controlId, isDisabled, isRequired, name },
     dispatch,
@@ -49,6 +49,6 @@ const Input: React.RefForwardingComponent<HTMLInputElement, Props> = (
       {...props}
     />
   )
-}
+})
 
-export default React.forwardRef(Input)
+export default Input

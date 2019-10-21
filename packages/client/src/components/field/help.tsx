@@ -11,10 +11,10 @@ const Root = styled.p`
   ${({ theme }) => help(theme.danger)}
 `
 
-const Help: React.RefForwardingComponent<HTMLParagraphElement, Props> = (
+const Help = React.forwardRef<HTMLParagraphElement, Props>(function Help(
   props: Props,
   ref?: React.Ref<HTMLParagraphElement>
-) => {
+) {
   const { name } = useFieldContext()[0]
   const { error, touched } = useField<string>(name)[1]
 
@@ -23,6 +23,6 @@ const Help: React.RefForwardingComponent<HTMLParagraphElement, Props> = (
       {error}
     </Root>
   ) : null
-}
+})
 
-export default React.forwardRef(Help)
+export default Help

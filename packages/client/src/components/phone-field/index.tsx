@@ -61,10 +61,10 @@ const Root = styled.div`
   }
 `
 
-const PhoneField: React.RefForwardingComponent<HTMLDivElement, Props> = (
+const PhoneField = React.forwardRef<HTMLDivElement, Props>(function PhoneField(
   { isDisabled = false, isRequired = true, name, ...props }: Props,
   ref?: React.Ref<HTMLDivElement>
-) => {
+) {
   const [baseState, dispatch] = React.useReducer<
     React.Reducer<BaseState, Action>
   >(reducer, { controlId: '', labelId: '', placeholder: '' })
@@ -80,7 +80,7 @@ const PhoneField: React.RefForwardingComponent<HTMLDivElement, Props> = (
       </StateContext.Provider>
     </DispatchContext.Provider>
   )
-}
+})
 
 export const usePhoneFieldContext = (): [State, Dispatch] => {
   const dispatch = React.useContext<Dispatch | undefined>(DispatchContext)
@@ -98,4 +98,4 @@ export { default as PhoneFieldHelp } from './help'
 export { default as PhoneFieldInput } from './input'
 export { default as PhoneFieldLabel } from './label'
 export { default as PhoneFieldSelect } from './select'
-export default React.forwardRef(PhoneField)
+export default PhoneField

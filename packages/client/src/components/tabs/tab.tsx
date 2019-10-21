@@ -47,9 +47,11 @@ const Root = styled(BaseTab)`
   }
 `
 
-const Tab: React.RefForwardingComponent<HTMLButtonElement, Props> = (
+const Tab = React.forwardRef<HTMLButtonElement, Props>(function Tab(
   { isDisabled, ...props }: Props,
   ref?: React.Ref<HTMLButtonElement>
-) => <Root data-tabs-tab="" disabled={isDisabled} ref={ref} {...props} />
+) {
+  return <Root data-tabs-tab="" disabled={isDisabled} ref={ref} {...props} />
+})
 
-export default React.forwardRef(Tab)
+export default Tab

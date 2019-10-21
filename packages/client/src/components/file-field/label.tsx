@@ -12,15 +12,15 @@ const Root = styled.label`
   white-space: nowrap;
 `
 
-const Label: React.RefForwardingComponent<HTMLLabelElement, Props> = (
+const Label = React.forwardRef<HTMLLabelElement, Props>(function Label(
   props: Props,
   ref?: React.Ref<HTMLLabelElement>
-) => {
+) {
   const { controlId } = useFileFieldContext()[0]
 
   return (
     <Root htmlFor={controlId} data-file-field-label="" ref={ref} {...props} />
   )
-}
+})
 
-export default React.forwardRef(Label)
+export default Label
