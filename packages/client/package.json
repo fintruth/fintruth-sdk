@@ -81,7 +81,7 @@
     "react-dom": "^16.10.2",
     "react-image-crop": "^8.4.0",
     "react-intl": "^3.3.2",
-    "react-is": "^16.10.2",
+    "react-is": "^16.11.0",
     "react-uid": "^2.2.0",
     "reactabular-table": "^8.14.0",
     "serialize-javascript": "^2.1.0",
