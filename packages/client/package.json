@@ -102,7 +102,7 @@
     "@loadable/babel-plugin": "^5.10.3",
     "@loadable/webpack-plugin": "^5.7.1",
     "@mdx-js/loader": "^1.5.1",
-    "@storybook/addon-a11y": "^5.2.4",
+    "@storybook/addon-a11y": "^5.2.5",
     "@storybook/addon-actions": "^5.2.5",
     "@storybook/addon-docs": "^5.2.5",
     "@storybook/addon-knobs": "^5.2.5",
