@@ -14,7 +14,7 @@ export const mergePartitionsByKey = (
   key: keyof Partition,
   partitions: Partitions
 ) => {
-  let action: Function = reduce(mergeDeepRight, {})
+  let action: Function = reduce(mergeDeepRight, {} as object)
   let initialValue: {} | string = {}
 
   if (key === 'typeDefs') {
