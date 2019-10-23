@@ -80,7 +80,7 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-image-crop": "^8.4.0",
-    "react-intl": "^3.3.2",
+    "react-intl": "^3.4.0",
     "react-is": "^16.11.0",
     "react-uid": "^2.2.0",
     "reactabular-table": "^8.14.0",
