@@ -66,7 +66,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-request-language": "^1.1.15",
-    "formik": "2.0.1-rc.13",
+    "formik": "2.0.3",
     "graphql": "^14.5.8",
     "invariant": "^2.2.4",
     "isomorphic-style-loader": "^5.1.0",
