@@ -88,10 +88,11 @@ const Cropper = React.forwardRef<HTMLImageElement, Props>(function Cropper(
           return
         }
 
+        const { name: fileName = 'image.jpg', type = 'image/jpeg' } =
+          value instanceof File ? value : {}
         const canvas = document.createElement('canvas')
         const scaleX = image.current.naturalWidth / image.current.width
         const scaleY = image.current.naturalHeight / image.current.height
-        const type = value.type || 'image/jpeg'
 
         canvas.width = width
         canvas.height = height
@@ -114,10 +115,7 @@ const Cropper = React.forwardRef<HTMLImageElement, Props>(function Cropper(
 
         const file = await new Promise(resolve =>
           canvas.toBlob(
-            blob =>
-              resolve(
-                new File([blob || ''], value.name || 'image.jpg', { type })
-              ),
+            blob => resolve(new File([blob || ''], fileName, { type })),
             type,
             1
           )
