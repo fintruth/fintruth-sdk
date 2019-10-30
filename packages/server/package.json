@@ -64,7 +64,7 @@
     "qrcode": "^1.4.2",
     "ramda": "^0.26.1",
     "reflect-metadata": "^0.1.13",
-    "source-map-support": "^0.5.15",
+    "source-map-support": "^0.5.16",
     "speakeasy": "^2.0.0",
     "split": "^1.0.1",
     "type-graphql": "~0.17.5",
