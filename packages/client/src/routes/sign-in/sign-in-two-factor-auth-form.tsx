@@ -10,9 +10,11 @@ import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help } from 'styles/mixins'
 import { form } from 'translations'
+import { hasResponseError } from 'utils/apollo'
 import {
   SignInTwoFactorAuthMutationData,
   SignInTwoFactorAuthMutationVariables,
+  currentUserQuery,
   signInTwoFactorAuthMutation,
 } from './graphql'
 
@@ -76,11 +78,14 @@ const SignInTwoFactorAuthForm: React.FunctionComponent<Props> = ({
     SignInTwoFactorAuthMutationData,
     SignInTwoFactorAuthMutationVariables
   >(signInTwoFactorAuthMutation, {
+    awaitRefetchQueries: true,
     fetchPolicy: 'no-cache',
     onCompleted: ({ response }) =>
       response.error
         ? setHelpProps({ children: response.error.message })
         : onCompleted(),
+    refetchQueries: ({ data }) =>
+      hasResponseError(data) ? [] : [{ query: currentUserQuery }],
   })
 
   return (

@@ -2,7 +2,6 @@ import { useMutation } from '@apollo/react-hooks'
 import { Link as BaseLink } from '@reach/router'
 import { Form, Formik } from 'formik'
 import { rem } from 'polished'
-import { path } from 'ramda'
 import React from 'react'
 import { FormattedMessage, defineMessages } from 'react-intl'
 import { useUIDSeed } from 'react-uid'
@@ -12,9 +11,11 @@ import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
 import { help, link } from 'styles/mixins'
 import { form } from 'translations'
+import { hasResponseError } from 'utils/apollo'
 import {
   SignInMutationData,
   SignInMutationVariables,
+  currentUserQuery,
   signInMutation,
 } from './graphql'
 import { SignInCredentials } from './sign-in-two-factor-auth-form'
@@ -89,11 +90,16 @@ const SignInForm: React.FunctionComponent<Props> = ({
     SignInMutationData,
     SignInMutationVariables
   >(signInMutation, {
+    awaitRefetchQueries: true,
     fetchPolicy: 'no-cache',
     onCompleted: ({ response }) =>
       response.error
         ? setHelpProps({ children: response.error.message })
         : onCompleted(response.isTwoFactorAuthEnabled),
+    refetchQueries: ({ data }) =>
+      hasResponseError(data) || data.response.isTwoFactorAuthEnabled
+        ? []
+        : [{ query: currentUserQuery }],
   })
 
   return (
@@ -102,8 +108,8 @@ const SignInForm: React.FunctionComponent<Props> = ({
       <Formik<Values>
         initialValues={initialValues}
         onSubmit={variables =>
-          onSubmit({ variables }).then(value =>
-            path(['data', 'response', 'user'], value)
+          onSubmit({ variables }).then(({ data }) =>
+            data && data.response.isTwoFactorAuthEnabled
               ? setSignInCredentials(variables)
               : undefined
           )

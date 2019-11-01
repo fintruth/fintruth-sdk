@@ -1,5 +1,5 @@
 import { useApolloClient, useMutation, useQuery } from '@apollo/react-hooks'
-import { Link as BaseLink, navigate } from '@reach/router'
+import { Link } from '@reach/router'
 import { darken, rem } from 'polished'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -23,12 +23,10 @@ import {
   signOutMutation,
 } from './graphql'
 
+type Props = React.HTMLAttributes<HTMLDivElement>
+
 interface MenuProps {
   isOpen: boolean
-}
-
-interface Props {
-  children?: React.ReactNode
 }
 
 interface TogglerIconProps {
@@ -61,7 +59,7 @@ const Brand = styled.div`
   `)};
 `
 
-const LogoLink = styled(BaseLink)`
+const LogoLink = styled(Link)`
   align-items: center;
   display: flex;
   padding: ${rem(8)} ${rem(12)};
@@ -162,7 +160,7 @@ const UserCircleIcon = styled(BaseUserCircleIcon)`
   height: ${rem(40)};
 `
 
-const MenuLink = styled(BaseLink)`
+const MenuLink = styled(Link)`
   color: ${({ theme }) => theme.grayDarker};
   display: block;
   font-size: ${rem(14)};
@@ -182,31 +180,24 @@ const MenuLink = styled(BaseLink)`
   }
 `
 
-const Layout: React.FunctionComponent<Props> = ({
-  children,
-  ...props
-}: Props) => {
+const Layout = React.forwardRef<HTMLDivElement, Props>(function Layout(
+  { children, ...props }: Props,
+  ref?: React.Ref<HTMLDivElement>
+) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const client = useApolloClient()
 
-  const [onSignOut] = useMutation<SignOutMutationData>(signOutMutation, {
-    onCompleted: () =>
-      client
-        .resetStore()
-        .then(() =>
-          window.location.pathname !== '/'
-            ? navigate('/', { replace: true })
-            : undefined
-        )
-        .catch(error => __IS_DEV__ && console.error(error)),
-  })
+  const onSignOut = useMutation<SignOutMutationData>(signOutMutation, {
+    onCompleted: () => client.resetStore(),
+  })[0]
 
-  const { data = {}, loading: isQueryingCurrentUser } = useQuery<
-    CurrentUserQueryData
-  >(currentUserQuery)
+  const {
+    data: { user = null } = {},
+    loading: isQueryingCurrentUser,
+  } = useQuery<CurrentUserQueryData>(currentUserQuery)
 
   return (
-    <Root {...props}>
+    <Root ref={ref} {...props}>
       {renderLoadingIf(isQueryingCurrentUser, () => (
         <>
           <header>
@@ -227,16 +218,15 @@ const Layout: React.FunctionComponent<Props> = ({
                 </Toggler>
               </Brand>
               <Menu isOpen={isMenuOpen}>
-                {data.user ? (
+                {user ? (
                   <Submenu>
                     <SubmenuButton>
-                      {data.user.profile.givenName}{' '}
-                      {data.user.profile.familyName}
+                      {user.profile.givenName} {user.profile.familyName}
                       <ExpandMoreIcon aria-hidden />
                       <UserCircleIcon aria-hidden />
                     </SubmenuButton>
                     <SubmenuList>
-                      <SubmenuLink as={BaseLink} to="/settings">
+                      <SubmenuLink as={Link} to="/settings">
                         Account Settings
                       </SubmenuLink>
                       <SubmenuItem onSelect={() => onSignOut()}>
@@ -258,6 +248,6 @@ const Layout: React.FunctionComponent<Props> = ({
       ))}
     </Root>
   )
-}
+})
 
 export default Layout

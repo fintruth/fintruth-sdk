@@ -4,13 +4,13 @@ export type AllowedNames<Base, Condition> = FilterFlags<
 >[keyof Base]
 
 export type FilterFlags<Base, Condition> = {
-  [Key in keyof Base]: Condition extends Extract<Base[Key], Condition>
+  [Key in keyof Required<Base>]: Condition extends Extract<Base[Key], Condition>
     ? Key
     : never
 }
 
-export type Primitive = string | number | boolean
+type Primitive = boolean | number | string
 
-export type Shallow<Base> = SubType<Base, Primitive>
+export type Queried<Base> = { __typename: string } & SubType<Base, Primitive>
 
 export type SubType<Base, Condition> = Pick<Base, AllowedNames<Base, Condition>>
