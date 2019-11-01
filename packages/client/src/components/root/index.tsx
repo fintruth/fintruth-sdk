@@ -37,9 +37,13 @@ const SignIn = loadable(() =>
 const Root: React.FunctionComponent = () => {
   const Fault = __IS_DEV__ ? require('routes/fault').default : undefined
 
-  const { data = {}, loading: isQueryingCurrentUser } = useQuery<
-    CurrentUserQueryData
-  >(currentUserQuery, { fetchPolicy: 'network-only', ssr: false })
+  const {
+    data: { user = null } = {},
+    loading: isQueryingCurrentUser,
+  } = useQuery<CurrentUserQueryData>(currentUserQuery, {
+    fetchPolicy: 'network-only',
+    ssr: false,
+  })
 
   return (
     <React.StrictMode>
@@ -50,7 +54,7 @@ const Root: React.FunctionComponent = () => {
         <ThemeProvider theme={theme}>
           <GlobalStyle />
           {renderLoadingIf(isQueryingCurrentUser, () =>
-            data.user ? (
+            user ? (
               <Router>
                 {Fault && <Fault path="/error" />}
                 <Home path="/" />
