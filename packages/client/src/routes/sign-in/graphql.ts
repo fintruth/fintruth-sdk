@@ -1,9 +1,7 @@
 import {
-  Profile,
+  Queried,
   ResponseError,
-  Shallow,
   SignInResponse,
-  User,
   shallowProfilePropsFragment,
   shallowResponseErrorPropsFragment,
   shallowSignInResponsePropsFragment,
@@ -11,25 +9,15 @@ import {
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
-type QueriedProfile = Shallow<Profile>
-
-type QueriedResponseError = Shallow<ResponseError>
-
-export interface CurrentUserQueryData {
-  user?: QueriedUser
-}
+type QueriedResponseError = Queried<ResponseError>
 
 interface QueriedResponse {
   error: QueriedResponseError
 }
 
-interface QueriedSignInResponse extends Shallow<SignInResponse> {
-  error: QueriedResponseError
-}
-
-interface QueriedUser extends Shallow<User> {
-  profile: QueriedProfile
-}
+interface QueriedSignInResponse
+  extends QueriedResponse,
+    Queried<SignInResponse> {}
 
 export interface SignInMutationData {
   response: QueriedSignInResponse
