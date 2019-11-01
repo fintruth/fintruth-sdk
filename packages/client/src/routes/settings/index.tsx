@@ -13,6 +13,7 @@ import EnableTwoFactorAuthDialog from './enable-two-factor-auth-dialog'
 import {
   CurrentUserQueryData,
   EnableTwoFactorAuthMutationData,
+  QueriedProfile,
   currentUserQuery,
   enableTwoFactorAuthMutation,
 } from './graphql'
@@ -85,7 +86,8 @@ const Button = styled(BaseButton)`
   margin-left: ${rem(20)};
 `
 
-const defaultProfile = {
+const defaultProfile: QueriedProfile = {
+  __typename: 'Profile',
   id: '',
   familyName: '',
   givenName: '',

@@ -1,3 +1,4 @@
+import { navigate } from '@reach/router'
 import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 import { ApolloClient, ApolloClientOptions } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
@@ -54,7 +55,7 @@ export const createApolloClient = ({
     })
   )
 
-  return new ApolloClient({
+  const client = new ApolloClient({
     assumeImmutableResults: true,
     cache,
     link: ApolloLink.from(links),
@@ -62,4 +63,8 @@ export const createApolloClient = ({
     ssrMode: !process.env.BROWSER_ENV,
     ...options,
   })
+
+  client.onResetStore(() => navigate('/', { replace: true }))
+
+  return client
 }

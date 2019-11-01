@@ -1,19 +1,19 @@
 import {
   Profile,
-  Shallow,
+  Queried,
   User,
   shallowProfilePropsFragment,
   shallowUserPropsFragment,
 } from '@fintruth-sdk/common'
 import gql from 'graphql-tag'
 
-type QueriedProfile = Shallow<Profile>
+type QueriedProfile = Queried<Profile>
 
 export interface CurrentUserQueryData {
   user?: QueriedUser
 }
 
-interface QueriedUser extends Shallow<User> {
+interface QueriedUser extends Queried<User> {
   profile: QueriedProfile
 }
 
