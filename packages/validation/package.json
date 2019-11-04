@@ -43,8 +43,8 @@
     "@types/zxcvbn": "^4.4.0"
   },
   "engines": {
-    "node": ">=10.16",
-    "yarn": ">=1.16"
+    "node": ">=12.13",
+    "yarn": ">=1.19"
   },
   "private": true,
   "lint-staged": {
