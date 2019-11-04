@@ -189,7 +189,7 @@
     "webpack-hot-middleware": "^2.25.0"
   },
   "engines": {
-    "node": ">=12.13",
+    "node": ">=10.16",
     "yarn": ">=1.19"
   },
   "private": true,
