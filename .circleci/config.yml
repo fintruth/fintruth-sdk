@@ -90,7 +90,7 @@ jobs:
   client:
     environment:
       API_URI: http://localhost:4000/api
-      CLIENT_PORT: 3000
+      CLIENT_PORT: \3000
       COVERAGE_DIR: coverage
       REPORTS_DIR: reports
     executor: fintruth-sdk
@@ -203,10 +203,10 @@ jobs:
       DB_HOST: localhost
       DB_USERNAME: postgres
       DB_DATABASE: fintruth-sdk
-      GRAPHQL_RATE_LIMIT_MAX: 10
+      GRAPHQL_RATE_LIMIT_MAX: \10
       GRAPHQL_RATE_LIMIT_WINDOW: 10s
       REPORTS_DIR: reports
-      SERVER_PORT: 4000
+      SERVER_PORT: \4000
     executor: fintruth-sdk
     working_directory: ~/fintruth-sdk
     steps:
@@ -272,7 +272,7 @@ jobs:
       - store_test_results:
           path: packages/validation/reports
 workflows:
-  version: 2.1
+  version: 2
   test:
     jobs:
       - common

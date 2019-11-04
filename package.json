@@ -1,6 +1,7 @@
 {
-  "name": "fintruth-sdk",
-  "version": "0.1.0",
+  "name": "root",
+  "version": "0.0.0",
+  "private": true,
   "description": "Software development kit for Fintruth projects",
   "keywords": [
     "boilerplate",
@@ -78,7 +79,6 @@
     "node": ">=10.16",
     "yarn": ">=1.16"
   },
-  "private": true,
   "workspaces": {
     "packages": [
       "packages/*"
