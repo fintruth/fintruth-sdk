@@ -75,7 +75,7 @@ executors:
       cypress_tag:
         type: string
         description: Pick a specific cypress/base image variant.
-        default: 12.13
+        default: 12.12.0
       postgres_tag:
         type: string
         description: Pick a specific postgres image variant.
