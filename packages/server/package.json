@@ -61,7 +61,7 @@
     "morgan": "^1.9.1",
     "nact": "^7.2.1",
     "pg": "^7.12.1",
-    "qrcode": "^1.4.2",
+    "qrcode": "^1.4.3",
     "ramda": "^0.26.1",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.16",
