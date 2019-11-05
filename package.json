@@ -70,7 +70,7 @@
     "prettylint": "^1.0.0",
     "test-data-bot": "^0.8.0",
     "ts-loader": "^6.2.1",
-    "typescript": "~3.6.4",
+    "typescript": "~3.7.2",
     "wait-on": "^3.3.0",
     "webpack": "^4.41.2",
     "webpack-node-externals": "^1.7.2"
