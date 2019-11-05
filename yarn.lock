@@ -1099,10 +1099,10 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-transform-typescript" "^7.7.0"
 
-"@babel/runtime-corejs3@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.7.0.tgz#fe7e822c7d582d5119bddee430115df3bc7efa6f"
-  integrity sha512-fdNLfplVJktJoinhrhEN84fWHViZZ0WIENUf3oKPBcBP5+kZIm8uMGehUbv7Rg4qYTIVGIy9DuVxItwowxqZDg==
+"@babel/runtime-corejs3@^7.7.1":
+  version "7.7.1"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.7.1.tgz#6f8068ece5a2a2b0a9d7010264743ceb5c90a7fa"
+  integrity sha512-AryML1eITnHKOTUNMR0xG53kQl7Jc+KwySDTcKeGu/7M2G/9fBvoVXGgZGwGRN+9C5UNNyoH+9XRkOMXt+nHVw==
   dependencies:
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.2"
@@ -5964,7 +5964,7 @@ buffer@^4.3.0, buffer@^4.9.1:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-buffer@^5.1.0:
+buffer@^5.1.0, buffer@^5.4.3:
   version "5.4.3"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.4.3.tgz#3fbc9c69eb713d323e3fc1a895eee0710c072115"
   integrity sha512-zvj65TkFeIt3i6aj5bIvJDzjjQQGs4o/sNoezg1F1kYap9Nu2jcUdpwzRSJTHMMzG0H7bZkn4rNQpImhuxWX2A==
@@ -14577,11 +14577,12 @@ q@^1.1.2, q@^1.5.1:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-qrcode@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/qrcode/-/qrcode-1.4.3.tgz#adc4a55a41a504784f995747b08c94ad20378bb8"
-  integrity sha512-a2T3TwrzIW6Zbfe+h4mI9awWgLmW9OyyUQzF5ra0EAKCcXscHEKMrBPGku+jIlNh9YkwgjVOsf25HdU6+TJ2tw==
+qrcode@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/qrcode/-/qrcode-1.4.4.tgz#f0c43568a7e7510a55efc3b88d9602f71963ea83"
+  integrity sha512-oLzEC5+NKFou9P0bMj5+v6Z40evexeE29Z9cummZXZ9QXyMr3lphkURzxjXgPJC5azpxcshoDWV1xE46z+/c3Q==
   dependencies:
+    buffer "^5.4.3"
     buffer-alloc "^1.2.0"
     buffer-from "^1.1.1"
     dijkstrajs "^1.0.1"
