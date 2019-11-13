@@ -30,7 +30,7 @@
     "test:e2e": "wait-on http://localhost:3000 http://localhost:4000 && cypress run"
   },
   "devDependencies": {
-    "@cypress/webpack-preprocessor": "^4.1.0",
+    "@cypress/webpack-preprocessor": "^4.1.1",
     "@testing-library/cypress": "^5.0.2",
     "@types/faker": "^4.1.7",
     "@types/jest": "24.0.19",
