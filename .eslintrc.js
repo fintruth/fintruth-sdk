@@ -38,7 +38,13 @@ module.exports = {
     'no-param-reassign': ['error', { props: true }],
     'import/order': [
       'error',
-      { groups: [['builtin', 'external']], 'newlines-between': 'always' },
+      {
+        groups: [
+          ['builtin', 'external'],
+          ['internal', 'parent', 'sibling', 'index', 'unknown'],
+        ],
+        'newlines-between': 'always',
+      },
     ],
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
@@ -83,6 +89,8 @@ module.exports = {
   settings: {
     'import/extensions': ['.d.ts', '.js', '.ts', '.tsx'],
     'import/parsers': { '@typescript-eslint/parser': ['.d.ts', '.ts', '.tsx'] },
-    'import/resolver': { typescript: true },
+    'import/resolver': {
+      typescript: { alwaysTryTypes: true, directory: 'tsconfig.json' },
+    },
   },
 }
