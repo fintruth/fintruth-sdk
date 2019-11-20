@@ -23,9 +23,6 @@ addDecorator(withKnobs)
 addDecorator(story => (
   <IntlProvider defaultLocale="en" locale="en">
     <StyleContext.Provider value={{ insertCss }}>
-      {/*
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore TS2322 */}
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         {story()}
@@ -41,7 +38,7 @@ addParameters({
     theme: {
       brandTitle: '@fintruth-sdk/client',
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore 2322
+      // @ts-ignore TS2322
       brandUrl:
         'https://github.com/fintruth/fintruth-sdk/tree/develop/packages/client#readme',
     },
