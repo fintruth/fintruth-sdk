@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react'
+import { act, fireEvent } from '@testing-library/react'
 import { Formik } from 'formik'
 import React from 'react'
 
@@ -9,7 +9,7 @@ import FileField, {
   FileFieldName,
 } from '.'
 
-test('should render the uploaded file name correctly after a file is uploaded', () => {
+test('should render the uploaded file name correctly after a file is uploaded', async () => {
   const { getByLabelText, getByText, queryByText } = renderWithContext(
     <Formik initialValues={{ file: 'logo.jpg' }} onSubmit={() => {}}>
       <FileField name="file">
@@ -28,7 +28,10 @@ test('should render the uploaded file name correctly after a file is uploaded', 
 
   expect(queryByText('logo.jpg')).not.toBeInTheDocument()
 
-  fireEvent.change(input)
+  // eslint-disable-next-line @typescript-eslint/require-await
+  await act(async () => {
+    fireEvent.change(input)
+  })
 
   expect(getByText('logo.png')).toBeInTheDocument()
 })
