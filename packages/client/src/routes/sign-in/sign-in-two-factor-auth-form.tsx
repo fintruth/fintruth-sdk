@@ -4,7 +4,7 @@ import { rem } from 'polished'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useUIDSeed } from 'react-uid'
-import styled, { Color } from 'styled-components' // eslint-disable-line import/named
+import styled, { Color } from 'styled-components'
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'

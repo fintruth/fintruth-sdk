@@ -1,6 +1,6 @@
 import { Inject, Service } from 'typedi'
 
-import { Ability } from 'auth' // eslint-disable-line import/named
+import { Ability } from 'auth'
 import { Loggable, logAs } from 'logger'
 import { Daos } from 'models'
 import { ProfileInput, Response, ResponseError } from 'resolvers/types'

@@ -1,7 +1,7 @@
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js'
 import { Inject, Service } from 'typedi'
 
-import { Ability } from 'auth' // eslint-disable-line import/named
+import { Ability } from 'auth'
 import { Daos } from 'models'
 import { PhoneInput } from 'resolvers/types'
 import { Phone } from '../entities'

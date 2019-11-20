@@ -3,7 +3,7 @@ import { Form as BaseForm, Formik } from 'formik'
 import { rem } from 'polished'
 import React from 'react'
 import { useUIDSeed } from 'react-uid'
-import styled, { Color } from 'styled-components' // eslint-disable-line import/named
+import styled, { Color } from 'styled-components'
 
 import BaseButton from 'components/button'
 import BaseField, { FieldHelp, FieldInput, FieldLabel } from 'components/field'

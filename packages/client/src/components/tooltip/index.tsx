@@ -8,7 +8,7 @@ import styles from '@reach/tooltip/styles.css'
 import useStyles from 'isomorphic-style-loader/useStyles'
 import { em, rem, transparentize } from 'polished'
 import React from 'react'
-import styled, { Variant, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { Variant, css } from 'styled-components'
 
 import { variantColorContrasts, variantColors } from 'styles/theme'
 

@@ -1,6 +1,6 @@
 import { darken, em, transparentize } from 'polished'
 import React from 'react'
-import styled, { Variant, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { Variant, css } from 'styled-components'
 import { createTextMaskInputElement } from 'text-mask-core'
 
 import { useTimer } from 'hooks/time'

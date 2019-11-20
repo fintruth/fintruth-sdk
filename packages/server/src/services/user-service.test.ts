@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/unbound-method,dot-notation */
+/* eslint-disable dot-notation, @typescript-eslint/unbound-method */
 import { equals } from 'ramda'
 import { Container } from 'typedi'
 import { DeepPartial } from 'typeorm'

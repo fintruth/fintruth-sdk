@@ -1,6 +1,6 @@
 import { darken, em, transparentize } from 'polished'
 import React from 'react'
-import styled, { DefaultTheme, Variant, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { DefaultTheme, Variant, css } from 'styled-components'
 
 import { useTimer } from 'hooks/time'
 import { center, control, loader, unselectable } from 'styles/mixins'

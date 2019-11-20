@@ -9,7 +9,7 @@ import { getType } from 'mime/lite'
 import { darken, em } from 'polished'
 import React from 'react'
 import { useUIDSeed } from 'react-uid'
-import styled, { Variant, css } from 'styled-components' // eslint-disable-line import/named
+import styled, { Variant, css } from 'styled-components'
 
 import { useTimer } from 'hooks/time'
 import { center, control, loader, unselectable } from 'styles/mixins'

@@ -1,9 +1,9 @@
 import { em, rem, transparentize } from 'polished'
 import {
-  DefaultTheme, // eslint-disable-line import/named
-  FlattenInterpolation, // eslint-disable-line import/named
-  ThemedStyledProps, // eslint-disable-line import/named
-  ViewportBreakpoint, // eslint-disable-line import/named
+  DefaultTheme,
+  FlattenInterpolation,
+  ThemedStyledProps,
+  ViewportBreakpoint,
   css,
 } from 'styled-components'
 

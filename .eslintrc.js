@@ -67,6 +67,7 @@ module.exports = {
           'warn',
           { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
         ],
+        'import/named': 'off',
         ...prettierTypescriptConfig.rules,
       },
     },

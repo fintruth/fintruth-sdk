@@ -1,5 +1,5 @@
 import { getLuminance, hsl, hsla, rem } from 'polished'
-import { Color, ColorContrast, DefaultTheme, Variant } from 'styled-components' // eslint-disable-line import/named
+import { Color, ColorContrast, DefaultTheme, Variant } from 'styled-components'
 
 const contrastColor = (color: string) =>
   getLuminance(color) > 0.55 ? hsla(0, 0, 0, 0.7) : hsl(0, 0, 1)
