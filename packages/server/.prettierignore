@@ -1,0 +1,19 @@
+# Compiled Output
+build
+
+# Dependencies
+node_modules
+
+# Migrations and Seeds
+src/migrations/*.ts
+
+# Test and Code Coverage
+coverage
+
+# Logs
+*.log*
+
+# Miscellaneous
+.env*
+!.env.example
+.eslintcache

@@ -23,7 +23,7 @@
     "build:release": "yarn build --release",
     "clean": "del build coverage .eslintcache \"*.log*\"",
     "lint": "run-p lint:*",
-    "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\"",
+    "lint:files": "prettylint \"**/*.{json,md,yml}\"",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{js,ts}\"",
     "lint:types": "tsc --noEmit",
     "migration:create": "yarn typeorm migration:create --name",
