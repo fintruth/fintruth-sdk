@@ -34,7 +34,7 @@ interface RequestParams {
 const log = logAs('Apollo')
 const logError = (error: GraphQLError) => log(error, 'error')
 
-useContainer(Container) // eslint-disable-line react-hooks/rules-of-hooks
+useContainer(Container)
 
 export const createApolloServer = async (): Promise<ApolloServer> => {
   const {
