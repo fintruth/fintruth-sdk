@@ -7044,7 +7044,7 @@ core-js@^2.4.0, core-js@^2.5.7, core-js@^2.6.5:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.10.tgz#8a5b8391f8cc7013da703411ce5b585706300d7f"
   integrity sha512-I39t74+4t+zau64EN1fE5v2W31Adtc/REhzWN+gWRRXg6WH5qAsZm62DHpQ1+Yhe4047T55jvzz7MUqF/dBBlA==
 
-core-js@^3.0.1, core-js@^3.0.4, core-js@^3.3.3, core-js@^3.4.2:
+core-js@^3.0.1, core-js@^3.0.4, core-js@^3.4.2:
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.4.2.tgz#ee2b1a60b50388d8ddcda8cdb44a92c7a9ea76df"
   integrity sha512-bUTfqFWtNKWp73oNIfRkqwYZJeNT3lstzZcAkhhiuvDraRSgOH1/+F9ZklbpR4zpdKuo4cpXN8tKP7s61yjX+g==
@@ -14966,13 +14966,13 @@ react-hotkeys@2.0.0-pre4:
   dependencies:
     prop-types "^15.6.1"
 
-react-image-crop@^8.4.0:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-8.4.0.tgz#48cba2a30f2a27a6a13afa5867843bdc8c6b8a1b"
-  integrity sha512-RYaWFrbC49ZPoC16n48oytCkJEMoXFIE6Kqo34NRp9+wRtNXDvtienppcIrrU/30WQfnY2tqhr3uXTYrNgEhXw==
+react-image-crop@^8.4.1:
+  version "8.4.1"
+  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-8.4.1.tgz#5bf22fee839a189cd5276fd0ad0e6528b5817a6b"
+  integrity sha512-m+xatR/OIAzPKPnBFLS0f0FlaYg+PE7mcR8BOwv62S+zFEhJe1LA9ZAh9xbWAFz4/jxAdgMKt8eG9q55AIztbA==
   dependencies:
     clsx "^1.0.4"
-    core-js "^3.3.3"
+    core-js "^3.4.2"
     prop-types "^15.7.2"
 
 react-input-autosize@^2.2.2:
@@ -17004,10 +17004,10 @@ stylelint-order@^3.1.1:
     postcss "^7.0.17"
     postcss-sorting "^5.0.1"
 
-stylelint-processor-styled-components@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/stylelint-processor-styled-components/-/stylelint-processor-styled-components-1.8.0.tgz#7dc48c6c95f9c3c9daa49efa5f3d1be49e7296e2"
-  integrity sha512-sADydhLPwtR9YJBydlO6X209sjT3rG9nr7sn/cEFZtoeZF3tI60HtxIOFC12vVVMvpKFS+E0smMiKA6FcVZO9A==
+stylelint-processor-styled-components@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/stylelint-processor-styled-components/-/stylelint-processor-styled-components-1.9.0.tgz#597fc40b5a2e02c9e01a810212406c3a7ff2e3ef"
+  integrity sha512-tWsCnURm8uqqVySWsGfXdto1qR/0MaATGx2ovWu/hqG+gnrjGZZOdeNEIEb12tpIbCnLV0a6q1Bb3yhDjGGzSQ==
   dependencies:
     "@babel/parser" "^7.0.0"
     "@babel/traverse" "^7.0.0"
