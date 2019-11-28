@@ -7023,10 +7023,10 @@ core-js@^2.4.0, core-js@^2.5.7, core-js@^2.6.5:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.10.tgz#8a5b8391f8cc7013da703411ce5b585706300d7f"
   integrity sha512-I39t74+4t+zau64EN1fE5v2W31Adtc/REhzWN+gWRRXg6WH5qAsZm62DHpQ1+Yhe4047T55jvzz7MUqF/dBBlA==
 
-core-js@^3.0.1, core-js@^3.0.4, core-js@^3.4.2, core-js@^3.4.4:
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.4.4.tgz#e3d422f8a51adc4cae2bfa04cef26a5ccc046d29"
-  integrity sha512-vKea1DrcLA80Hrfc7AQgfoGvEaByfR5mH08t+zuWOWY94TFBmabdEL56mUbcijvadG9RxsXR2gUUFrfj4/iTcA==
+core-js@^3.0.1, core-js@^3.0.4, core-js@^3.4.2, core-js@^3.4.5:
+  version "3.4.5"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.4.5.tgz#3dda65611d95699b5eb7742ea451ea052d37aa65"
+  integrity sha512-OuvejWH6vIaUo59Ndlh89purNm4DCIy/v3QoYlcGnn+PkYI8BhNHfCuAESrWX+ZPfq9JccVJ+XXgOMy77PJexg==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -7313,10 +7313,10 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress@^3.5.0, cypress@^3.6.1:
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-3.6.1.tgz#4420957923879f60b7a5146ccbf81841a149b653"
-  integrity sha512-6n0oqENdz/oQ7EJ6IgESNb2M7Bo/70qX9jSJsAziJTC3kICfEMmJUlrAnP9bn+ut24MlXQST5nRXhUP5nRIx6A==
+cypress@^3.5.0, cypress@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-3.7.0.tgz#e2cd71b87b6ce0d4c72c6ea25da1005d75c1f231"
+  integrity sha512-o+vfRxqAba8TduelzfZQ4WHmj2yNEjaoO2EuZ8dZ9pJpuW+WGtBGheKIp6zkoQsp8ZgFe8OoHh1i2mY8BDnMAw==
   dependencies:
     "@cypress/listr-verbose-renderer" "0.4.1"
     "@cypress/xvfb" "1.2.4"
@@ -16945,10 +16945,10 @@ styled-components@5.0.0-rc.2:
     stylis-rule-sheet "^0.0.10"
     supports-color "^5.5.0"
 
-stylelint-config-prettier@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/stylelint-config-prettier/-/stylelint-config-prettier-6.0.0.tgz#600aa218d8e34cf44a025903b0f60c079fd83366"
-  integrity sha512-f/BKiUAczB4KODC1w5eY6LoNgfq6QzdSnSc4ccAATKo1IfYCuG3IZwaxj/5AAxl1kyaW7kPLBOXG66O4gSIKTQ==
+stylelint-config-prettier@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/stylelint-config-prettier/-/stylelint-config-prettier-7.0.0.tgz#a34bd0686dc22f9394271a59b9d7a8a58ec92452"
+  integrity sha512-qF2HcWd4QJJozdqjq/IbnoANHwP7FVRG6dqxGBKWNI/L6bdWi8aXI0hRtkkar2QjrP5riGACE2uDxfcL4AZqRA==
 
 stylelint-config-recommended@^3.0.0:
   version "3.0.0"
@@ -17577,10 +17577,10 @@ ts-loader@^6.2.1:
     micromatch "^4.0.0"
     semver "^6.0.0"
 
-ts-node@^8.5.2:
-  version "8.5.2"
-  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-8.5.2.tgz#434f6c893bafe501a30b32ac94ee36809ba2adce"
-  integrity sha512-W1DK/a6BGoV/D4x/SXXm6TSQx6q3blECUzd5TN+j56YEMX3yPVMpHsICLedUw3DvGF3aTQ8hfdR9AKMaHjIi+A==
+ts-node@^8.5.4:
+  version "8.5.4"
+  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-8.5.4.tgz#a152add11fa19c221d0b48962c210cf467262ab2"
+  integrity sha512-izbVCRV68EasEPQ8MSIGBNK9dc/4sYJJKYA+IarMQct1RtEot6Xp0bXuClsbUSnKpg50ho+aOAx8en5c+y4OFw==
   dependencies:
     arg "^4.1.0"
     diff "^4.0.1"
