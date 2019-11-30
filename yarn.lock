@@ -146,7 +146,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@^7.4.0", "@babel/generator@^7.6.0", "@babel/generator@^7.6.2", "@babel/generator@^7.7.4":
+"@babel/generator@^7.4.0", "@babel/generator@^7.6.0", "@babel/generator@^7.6.2", "@babel/generator@^7.7.2", "@babel/generator@^7.7.4":
   version "7.7.4"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.7.4.tgz#db651e2840ca9aa66f327dcec1dc5f5fa9611369"
   integrity sha512-m5qo2WgdOJeyYngKImbkyQrnUN1mPceaG5BV+G0E3gWsa4l/jCSryWJdM2x8OuGAOyh+3d5pVYfZWCiNFtynxg==
@@ -416,7 +416,7 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.0.0", "@babel/parser@^7.1.0", "@babel/parser@^7.1.6", "@babel/parser@^7.3.2", "@babel/parser@^7.4.2", "@babel/parser@^7.4.3", "@babel/parser@^7.6.0", "@babel/parser@^7.6.2", "@babel/parser@^7.7.4":
+"@babel/parser@^7.0.0", "@babel/parser@^7.1.0", "@babel/parser@^7.1.6", "@babel/parser@^7.3.2", "@babel/parser@^7.4.3", "@babel/parser@^7.6.0", "@babel/parser@^7.6.2", "@babel/parser@^7.7.3", "@babel/parser@^7.7.4":
   version "7.7.4"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.7.4.tgz#75ab2d7110c2cf2fa949959afb05fa346d2231bb"
   integrity sha512-jIwvLO0zCL+O/LmEJQjWA75MQTWwx3c3u2JOTDK5D3/9egrWRRA0/0hk9XXywYnXZVVpzrBYeIQTmhwUaePI9g==
@@ -856,7 +856,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-syntax-jsx" "^7.7.4"
 
-"@babel/plugin-transform-react-jsx@^7.0.0", "@babel/plugin-transform-react-jsx@^7.3.0", "@babel/plugin-transform-react-jsx@^7.7.4":
+"@babel/plugin-transform-react-jsx@^7.0.0", "@babel/plugin-transform-react-jsx@^7.7.0", "@babel/plugin-transform-react-jsx@^7.7.4":
   version "7.7.4"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.7.4.tgz#d91205717fae4e2f84d020cd3057ec02a10f11da"
   integrity sha512-LixU4BS95ZTEAZdPaIuyg/k8FiiqN9laQ0dMHB4MlpydHY53uQdWCUrwjLr5o6ilS6fAgZey4Q14XBjl5tL6xw==
@@ -2669,23 +2669,23 @@
     react-inspector "^3.0.2"
     uuid "^3.3.2"
 
-"@storybook/addon-docs@^5.2.6":
-  version "5.2.6"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-5.2.6.tgz#73184f37b2716928b81a8ff4f43ac3bf51332ab0"
-  integrity sha512-HLOlT3+FdxYWPFuMtym6tTqEpItobdOmjNNLZPVzGdbmj7lFEGDpW6JiZuYoEQaXW2rm0v7EpdoE3Szr133GOQ==
+"@storybook/addon-docs@^5.2.7":
+  version "5.2.7"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-5.2.7.tgz#cab58fa944fe876173350346175ea516f8437306"
+  integrity sha512-9flGY+5k8BYKB5Mf0A87FyqjDYhoqPNL+XDEc4bexnWMu0x50RawmXeEk2QliG81TpCmRizqDsnOnOMmXgw3uw==
   dependencies:
-    "@babel/generator" "^7.4.0"
-    "@babel/parser" "^7.4.2"
-    "@babel/plugin-transform-react-jsx" "^7.3.0"
+    "@babel/generator" "^7.7.2"
+    "@babel/parser" "^7.7.3"
+    "@babel/plugin-transform-react-jsx" "^7.7.0"
     "@mdx-js/loader" "^1.1.0"
     "@mdx-js/mdx" "^1.1.0"
     "@mdx-js/react" "^1.0.27"
-    "@storybook/addons" "5.2.6"
-    "@storybook/api" "5.2.6"
-    "@storybook/components" "5.2.6"
-    "@storybook/router" "5.2.6"
-    "@storybook/source-loader" "5.2.6"
-    "@storybook/theming" "5.2.6"
+    "@storybook/addons" "5.2.7"
+    "@storybook/api" "5.2.7"
+    "@storybook/components" "5.2.7"
+    "@storybook/router" "5.2.7"
+    "@storybook/source-loader" "5.2.7"
+    "@storybook/theming" "5.2.7"
     core-js "^3.0.1"
     global "^4.3.2"
     js-string-escape "^1.0.1"
@@ -3100,13 +3100,13 @@
     memoizerific "^1.11.3"
     qs "^6.6.0"
 
-"@storybook/source-loader@5.2.6":
-  version "5.2.6"
-  resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-5.2.6.tgz#06e6b5e93ea4c635c7d05c517ad8711de9030ba3"
-  integrity sha512-OJWmmLlt84efk+xLEqkyVQBlD5n9tbPlkrepQKtGBpR0JXeGyyvJ/3S8jnpW3NYUrFjUgHPkSWBp/c5CfzPwSw==
+"@storybook/source-loader@5.2.7":
+  version "5.2.7"
+  resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-5.2.7.tgz#680e610d4682a0c427a86297d5edea42b8fb62f9"
+  integrity sha512-N/nvrCFwjU3s6uXO78TZVrmMEMk1OfnXwl0OFA1Dl115KDtNFDxYPOqSewy5JF+3GnaRfMow29pYeOwJaiUb8A==
   dependencies:
-    "@storybook/addons" "5.2.6"
-    "@storybook/router" "5.2.6"
+    "@storybook/addons" "5.2.7"
+    "@storybook/router" "5.2.7"
     core-js "^3.0.1"
     estraverse "^4.2.0"
     global "^4.3.2"
