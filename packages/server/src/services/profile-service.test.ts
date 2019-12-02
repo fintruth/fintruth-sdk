@@ -4,9 +4,11 @@ import { Container } from 'typedi'
 import ProfileService from './profile-service'
 import { Profile } from '../entities'
 
+const noop = () => {} // eslint-disable-line @typescript-eslint/no-empty-function
+
 const abilityMock: any = {
   can: T,
-  throwUnlessCan: () => {},
+  throwUnlessCan: noop,
 }
 
 const getProfileDaoMock: any = (profileMock?: Partial<Profile>) => ({
