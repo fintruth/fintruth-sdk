@@ -14,7 +14,7 @@ interface Props
   validate?: FieldValidator
 }
 
-const defaultMask = new Array(30).fill(/[-,.()\d\setx]/)
+const defaultMask = new Array(30).fill(/[\d\s(),-.etx]/)
 
 const Input = React.forwardRef<HTMLInputElement, Props>(function Input(
   { id, mask = defaultMask, type = 'tel', validate, ...props }: Props,
