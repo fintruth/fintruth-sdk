@@ -11,8 +11,10 @@ jest.mock('bcrypt', () => ({
   hash: () => 'hash',
 }))
 
+const noop = () => {} // eslint-disable-line @typescript-eslint/no-empty-function
+
 const abilityMock: any = {
-  throwUnlessCan: () => {},
+  throwUnlessCan: noop,
 }
 
 const getUserDaoMock: any = (userMock?: DeepPartial<User>) => ({

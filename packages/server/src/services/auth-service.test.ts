@@ -16,18 +16,20 @@ jest.mock('qrcode', () => ({
 jest.mock('speakeasy', () => ({
   generateSecret: () => ({ ascii: '', base32: 'base32' }),
   otpauthURL: () => '',
-  totp: () => {},
+  totp: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
 }))
 
 jest.mock('./config-service')
 
+const noop = () => {} // eslint-disable-line @typescript-eslint/no-empty-function
+
 const abilityMock: any = {
-  throwUnlessCan: () => {},
+  throwUnlessCan: noop,
 }
 
 const resMock: any = {
   cookies: {
-    set: () => {},
+    set: noop,
   },
 }
 
@@ -35,7 +37,7 @@ const getUserDaoMock: any = (userMock?: User) => ({
   findByEmail: () => Promise.resolve(userMock),
   findById: () => Promise.resolve(userMock),
   findOne: () => Promise.resolve(userMock),
-  update: () => {},
+  update: noop,
 })
 
 const userMock = new User({

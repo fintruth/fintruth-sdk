@@ -9,9 +9,11 @@ import FileField, {
   FileFieldName,
 } from '.'
 
+const noop = () => {} // eslint-disable-line @typescript-eslint/no-empty-function
+
 test('should render the uploaded file name correctly after a file is uploaded', async () => {
   const { getByLabelText, getByText, queryByText } = renderWithContext(
-    <Formik initialValues={{ file: 'logo.jpg' }} onSubmit={() => {}}>
+    <Formik initialValues={{ file: 'logo.jpg' }} onSubmit={noop}>
       <FileField name="file">
         <FileFieldCallToAction>
           <FileFieldLabel>label</FileFieldLabel>

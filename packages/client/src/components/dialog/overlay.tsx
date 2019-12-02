@@ -30,7 +30,7 @@ interface State {
 const DispatchContext = React.createContext<Dispatch | undefined>(undefined)
 const StateContext = React.createContext<State | undefined>(undefined)
 
-const noop = () => {}
+const noop = () => {} // eslint-disable-line @typescript-eslint/no-empty-function
 
 const reducer = (prevState: State, { type, payload }: Action) => {
   switch (type) {

@@ -6,9 +6,11 @@ import React from 'react'
 import { renderWithContext } from 'utils/spec'
 import Radio, { RadioInput, RadioLabel } from '.'
 
+const noop = () => {} // eslint-disable-line @typescript-eslint/no-empty-function
+
 test('should only allow one radio button to be checked at a time', async () => {
   const { getByLabelText } = renderWithContext(
-    <Formik initialValues={{ radioGroup: 'radio-a' }} onSubmit={() => {}}>
+    <Formik initialValues={{ radioGroup: 'radio-a' }} onSubmit={noop}>
       <>
         <Radio name="radioGroup">
           <RadioInput value="radio-a" />

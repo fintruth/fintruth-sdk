@@ -1,16 +1,18 @@
 import { mergePartitions, mergePartitionsByKey } from './store'
 
+const noop = () => {} // eslint-disable-line @typescript-eslint/no-empty-function
+
 describe('mergePartitions', () => {
   test('should return a merged partitions object', () => {
     const partitions = {
       a: { defaults: { a: { b: true } }, typeDefs: 'a' },
-      b: { resolvers: { a: { b: () => {} } }, typeDefs: 'b' },
-      c: { defaults: { c: null }, resolvers: { a: { c: () => {} } } },
+      b: { resolvers: { a: { b: noop } }, typeDefs: 'b' },
+      c: { defaults: { c: null }, resolvers: { a: { c: noop } } },
     }
 
     expect(mergePartitions(partitions)).toStrictEqual({
       defaults: { a: { b: true }, c: null },
-      resolvers: { a: { b: expect.any(Function), c: expect.any(Function) } },
+      resolvers: { a: { b: noop, c: noop } },
       typeDefs: 'ab',
     })
   })
@@ -33,12 +35,12 @@ describe('mergePartitionsByKey', () => {
   test('should return a merged resolvers object', () => {
     const partitions = {
       a: {},
-      b: { resolvers: { a: { b: () => {} } } },
-      c: { resolvers: { a: { c: () => {} } } },
+      b: { resolvers: { a: { b: noop } } },
+      c: { resolvers: { a: { c: noop } } },
     }
 
     expect(mergePartitionsByKey('resolvers', partitions)).toStrictEqual({
-      a: { b: expect.any(Function), c: expect.any(Function) },
+      a: { b: noop, c: noop },
     })
   })
 
