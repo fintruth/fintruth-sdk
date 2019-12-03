@@ -51,7 +51,7 @@ const createConfig = (target: Target, configFactory: ConfigFactory) =>
             },
             {
               test: /\.css$/,
-              include: /[/\\\\]node_modules[/\\\\]/,
+              include: /[/\\]node_modules[/\\]/,
               rules: [
                 {
                   issuer: { not: [/\.css$/] },
@@ -65,7 +65,7 @@ const createConfig = (target: Target, configFactory: ConfigFactory) =>
             },
             {
               test: /\.mjs$/,
-              include: /[/\\\\]node_modules[/\\\\]/,
+              include: /[/\\]node_modules[/\\]/,
               type: 'javascript/auto',
             },
             {
@@ -166,7 +166,7 @@ const clientConfig = createConfig('web', baseConfig => ({
     splitChunks: {
       cacheGroups: {
         commons: {
-          test: /[/\\\\]node_modules[/\\\\]/,
+          test: /[/\\]node_modules[/\\]/,
           chunks: 'initial',
           name: 'vendors',
         },

@@ -41,7 +41,7 @@ const baseConfig = {
         oneOf: [
           {
             test: /\.mjs$/,
-            include: /[/\\\\]node_modules[/\\\\]/,
+            include: /[/\\]node_modules[/\\]/,
             type: 'javascript/auto',
           },
           {

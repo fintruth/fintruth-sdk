@@ -24,7 +24,7 @@ module.exports = ({ config, mode }) => {
             },
             {
               test: /\.css$/,
-              include: /[/\\\\]node_modules[/\\\\]/,
+              include: /[/\\]node_modules[/\\]/,
               rules: [
                 {
                   issuer: { not: [/\.css$/] },
