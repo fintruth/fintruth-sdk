@@ -74,7 +74,7 @@ const Select = React.forwardRef<HTMLSelectElement, Props>(function Select(
       isRequired={isRequired}
       onChange={({ target: { value } }) => {
         dispatch({
-          payload: { placeholder: data[value] },
+          payload: { placeholder: data[value as Alpha2Code] }, // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
           type: 'setPlaceholder',
         })
 
@@ -86,7 +86,9 @@ const Select = React.forwardRef<HTMLSelectElement, Props>(function Select(
     >
       {countries.map(({ alpha2Code, callingCode }) => (
         <Option key={alpha2Code} value={alpha2Code}>
-          {`${formatMessage(country.name[alpha2Code])} +${callingCode}`}
+          {`${formatMessage(
+            country.name[alpha2Code as Alpha2Code] // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
+          )} +${callingCode}`}
         </Option>
       ))}
     </Root>
