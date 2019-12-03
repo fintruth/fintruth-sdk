@@ -77,13 +77,11 @@ const CountrySelect = React.forwardRef<HTMLSelectElement, Props>(
         {placeholder && <Option value="">{placeholder}</Option>}
         {countries
           .filter(
-            ({ alpha2Code }) => !exclude.includes(alpha2Code as Alpha2Code) // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
+            ({ alpha2Code }) => !exclude.includes(alpha2Code as Alpha2Code)
           )
           .map(({ alpha2Code, name }) => (
             <Option key={alpha2Code} value={name}>
-              {formatMessage(
-                country.name[alpha2Code as Alpha2Code] // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
-              )}
+              {formatMessage(country.name[alpha2Code as Alpha2Code])}
             </Option>
           ))}
       </BaseSelect>
