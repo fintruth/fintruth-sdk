@@ -53,7 +53,7 @@
     "@reach/router": "^1.2.1",
     "@reach/tabs": "0.3.0",
     "@reach/tooltip": "0.3.0",
-    "apollo-cache-inmemory": "^1.6.3",
+    "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.4",
     "apollo-link": "^1.2.13",
     "apollo-link-error": "^1.1.12",
