@@ -34,7 +34,7 @@
     "@testing-library/cypress": "^5.0.2",
     "@types/faker": "^4.1.8",
     "@types/jest": "^24.0.23",
-    "@types/node": "^12.12.17",
+    "@types/node": "^12.12.18",
     "@types/testing-library__cypress": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
@@ -73,7 +73,7 @@
     "ts-loader": "^6.2.1",
     "typescript": "~3.7.3",
     "wait-on": "^3.3.0",
-    "webpack": "^4.41.2",
+    "webpack": "^4.41.3",
     "webpack-node-externals": "^1.7.2"
   },
   "engines": {
