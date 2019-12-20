@@ -3134,10 +3134,10 @@
     "@testing-library/dom" "^6.11.0"
     "@types/testing-library__react" "^9.1.2"
 
-"@testing-library/user-event@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-8.0.0.tgz#6ef1f5e156f34ecc1de7d2669bebe7fdc356c73c"
-  integrity sha512-Gs77yKERe65xrGbv/BjO+gQ9OQFrSN3ltngP1kUMyopZmjVbmI0st9u7g4Qlvju8PSrS6Efk25gOIjpB5Vf+XA==
+"@testing-library/user-event@^8.0.2":
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-8.0.2.tgz#d68096d531594a66ecbf0b56993253fcc032064b"
+  integrity sha512-BjAO+JpR7ay9CARUm6UqeCOPJjNYeupM7VyWeVzLZqBmu5qMSs/jCvFoFJarxdX9zhSwygkTjZWGRtEqmjUGPA==
 
 "@types/accepts@*", "@types/accepts@^1.3.5":
   version "1.3.5"
