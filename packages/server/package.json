@@ -41,7 +41,7 @@
     "watch": "nodemon"
   },
   "dependencies": {
-    "@casl/ability": "^3.3.0",
+    "@casl/ability": "^3.4.0",
     "@fintruth-sdk/common": "^0.1.0",
     "@fintruth-sdk/validation": "^0.1.0",
     "apollo-server-express": "^2.9.14",
@@ -69,7 +69,7 @@
     "split": "^1.0.1",
     "type-graphql": "~0.17.5",
     "typedi": "~0.8.0",
-    "typeorm": "~0.2.21",
+    "typeorm": "~0.2.22",
     "typeorm-typedi-extensions": "~0.2.3",
     "uuid": "^3.3.3",
     "winston": "3.1.0"
