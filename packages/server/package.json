@@ -67,7 +67,7 @@
     "source-map-support": "^0.5.16",
     "speakeasy": "^2.0.0",
     "split": "^1.0.1",
-    "type-graphql": "~0.17.5",
+    "type-graphql": "~0.17.6",
     "typedi": "~0.8.0",
     "typeorm": "~0.2.22",
     "typeorm-typedi-extensions": "~0.2.3",
