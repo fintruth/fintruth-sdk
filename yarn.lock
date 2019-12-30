@@ -9385,10 +9385,10 @@ format@^0.2.2:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
 
-formik@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/formik/-/formik-2.0.8.tgz#a17740007a9a1394360142c128bb686acb5dbc7c"
-  integrity sha512-PxC9G6EvLdJzMv7z+bsvpI/Euplv2vVgTQebD5yNza4t3fiMBB+iD90VOVTLCyH5Pnv3bljsZiKsIqGp/UNKKg==
+formik@^2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/formik/-/formik-2.0.9.tgz#114838c586c37f09c26f505e3fa2d6230c8a88ad"
+  integrity sha512-J7Sl5319Gfb5QhDI0eJVFuAG130Igjj/vYwcXcDC20gvfGlPuygIzPUl2Nt/cTVau5eSzMZnnjnBCsDe7QVOyw==
   dependencies:
     deepmerge "^2.1.1"
     hoist-non-react-statics "^3.3.0"
