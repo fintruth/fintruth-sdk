@@ -13128,10 +13128,10 @@ mz@^2.4.0, mz@^2.5.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nact@^7.2.1:
-  version "7.2.2"
-  resolved "https://registry.yarnpkg.com/nact/-/nact-7.2.2.tgz#0e5b5acf8e1a5efe3e5b81f2d92b94235aca14d2"
-  integrity sha512-Me9hrQrQELG8n0/6qpADMojpSO5mhPNX7IkOKAfiA4wmR3Mn9I5hRgR41ZZ16iDgLKk1y+OFZDJnYgZGgklRLg==
+nact@7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/nact/-/nact-7.2.1.tgz#84d9abc05c6087db92145b286497dadb3d075b05"
+  integrity sha512-wgAjVMg5KYMlEC/xyOuWq16kOIC9CGevIIQ7Kdjen4WSOaSuFYkjsoJ/CShmGNCtvYkH3vxWO3iCKQDQC8lgWg==
   dependencies:
     denque "^1.2.3"
 
