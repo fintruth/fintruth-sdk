@@ -26,11 +26,11 @@
     "build": "tsc",
     "build:release": "yarn build",
     "clean": "del build coverage .eslintcache \"*.log*\" tsconfig.tsbuildinfo",
-    "lint": "run-p lint:*",
+    "lint": "npm-run-all --parallel \"lint:*\"",
     "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\"",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{js,ts}\"",
     "lint:types": "tsc --noEmit",
-    "test": "run-p test:*",
+    "test": "npm-run-all --parallel \"test:*\"",
     "test:units": "jest --passWithNoTests"
   },
   "dependencies": {

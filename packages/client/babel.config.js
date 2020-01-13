@@ -1,29 +1,33 @@
 'use strict'
 
-const { node } = require('./package.json').engines
+const packageConfig = require('./package.json')
 
 const createConfig = ({ caller, env }) => {
+  const { 0: node = '10.16' } =
+    /(\d+\.?)+/.exec(packageConfig.engines.node) || []
   const isDev = env('development')
   const isProd = env('production')
   const isTest = env('test')
 
   return {
     plugins: [
-      '@babel/plugin-syntax-dynamic-import',
-      [
-        '@babel/plugin-transform-runtime',
-        { corejs: !isTest && 3, helpers: false },
-      ],
+      ...(isProd
+        ? [
+            '@babel/transform-react-constant-elements',
+            '@babel/transform-react-inline-elements',
+          ]
+        : []),
+      ['@babel/transform-runtime', { corejs: !isTest && 3, helpers: false }],
       '@loadable/babel-plugin',
+      ...(isTest ? [] : ['polished']),
       'graphql-tag',
-      ['ramda', { useEs: true }],
       ['styled-components', { displayName: isDev, pure: isProd }],
     ],
     presets: [
       [
         '@babel/preset-env',
         caller(({ target = 'node' } = {}) => target === 'node')
-          ? { targets: { node: node.match(/(\d+\.?)+/)[0] } }
+          ? { targets: { node } }
           : { corejs: 3, modules: false, useBuiltIns: 'entry' },
       ],
       [
@@ -32,17 +36,6 @@ const createConfig = ({ caller, env }) => {
       ],
       '@babel/preset-typescript',
     ],
-    env: {
-      development: { plugins: ['polished'] },
-      production: {
-        plugins: [
-          '@babel/transform-react-constant-elements',
-          '@babel/transform-react-inline-elements',
-          'polished',
-        ],
-      },
-      test: { plugins: ['dynamic-import-node'] },
-    },
     ignore: ['build', 'node_modules'],
   }
 }

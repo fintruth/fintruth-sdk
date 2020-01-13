@@ -1,17 +1,17 @@
 import chokidar from 'chokidar'
 import { dirname, join, relative } from 'path'
 
+import packageConfig from '../package.json'
 import { writeFile, copyFile, makeDir, copyDir, cleanDir } from './lib/fs'
 import { format } from './run'
-import { dependencies, engines, name, version } from '../package.json'
 
 const config = JSON.stringify(
   {
-    name,
-    version,
+    name: packageConfig.name,
+    version: packageConfig.version,
     scripts: { start: 'node server.js' },
-    dependencies,
-    engines,
+    dependencies: packageConfig.dependencies,
+    engines: packageConfig.engines,
     private: true,
   },
   null,

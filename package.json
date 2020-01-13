@@ -21,13 +21,15 @@
     "build": "lerna run --stream build",
     "build:release": "lerna run --stream build:release",
     "clean": "del test/{screenshots,videos} .eslintcache \"*.log*\" && lerna run --stream clean",
-    "lint": "run-p lint:* && lerna run --stream lint",
+    "lint": "npm-run-all --parallel \"lint:*\"",
     "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\" \"!packages/**\"",
+    "lint:packages": "lerna run --stream lint",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" --ignore-pattern \"packages/**\" \"**/*.{js,ts}\"",
     "lint:types": "tsc --noEmit",
     "start": "lerna run --parallel --scope @fintruth-sdk/client --scope @fintruth-sdk/server --stream start",
-    "test": "run-p test:* && lerna run --stream test",
-    "test:e2e": "wait-on http://localhost:3000 http://localhost:4000 && cypress run"
+    "test": "npm-run-all --parallel \"test:*\"",
+    "test:e2e": "wait-on http://localhost:3000 http://localhost:4000 && cypress run",
+    "test:packages": "lerna run --stream test"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^4.1.1",
