@@ -1,6 +1,5 @@
 'use strict'
 
-const ForkTsCheckerPlugin = require('fork-ts-checker-webpack-plugin')
 const { join, resolve } = require('path')
 
 const rootDir = resolve(__dirname, '../..')
@@ -18,13 +17,11 @@ module.exports = {
               join(rootDir, 'test'),
             ],
             loader: require.resolve('ts-loader'),
-            options: { transpileOnly: true },
           },
         ],
       },
     ],
     strictExportPresence: true,
   },
-  plugins: [new ForkTsCheckerPlugin()],
   resolve: { extensions: ['.js', '.json', '.mjs', '.ts', '.wasm'] },
 }
