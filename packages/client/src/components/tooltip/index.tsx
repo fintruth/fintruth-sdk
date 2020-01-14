@@ -17,7 +17,6 @@ interface PopupProps extends TooltipPopupProps {
 }
 
 interface Props extends TooltipProps {
-  position?: (rectA: DOMRect, rectB: DOMRect) => React.CSSProperties
   variant?: Variant
 }
 
@@ -59,22 +58,35 @@ const Popup = styled(TooltipPopup)<PopupProps>`
 `
 
 const Tooltip = React.forwardRef<HTMLDivElement, Props>(function Tooltip(
-  { children, variant, ...props }: Props,
+  { children, DEBUG_STYLE, id, variant, ...restProps }: Props,
   ref?: React.Ref<HTMLDivElement>
 ) {
-  const [trigger, tooltip] = useTooltip()
+  const child = React.Children.only(children) as any
+
+  const [trigger, tooltip] = useTooltip({
+    DEBUG_STYLE,
+    id,
+    onBlur: child.props.onBlur,
+    onFocus: child.props.onFocus,
+    onKeyDown: child.props.onKeyDown,
+    onMouseDown: child.props.onMouseDown,
+    onMouseEnter: child.props.onMouseEnter,
+    onMouseLeave: child.props.onMouseLeave,
+    onMouseMove: child.props.onMouseMove,
+    ref: child.ref,
+  })
 
   useStyles(styles)
 
   return (
     <>
-      {React.cloneElement(React.Children.only(children), trigger)}
+      {React.cloneElement(child, trigger)}
       <Popup
         data-tooltip=""
         ref={ref}
         variant={variant}
         {...tooltip}
-        {...props}
+        {...restProps}
       />
     </>
   )
