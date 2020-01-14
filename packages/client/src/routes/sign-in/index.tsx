@@ -68,12 +68,15 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <Root data-testid="sign-in" {...props}>
       <Content>
-        <Tabs defaultIndex={0}>
+        <Tabs
+          defaultIndex={0}
+          onChange={index => navigate(index === 0 ? '/sign-in' : '/register')}
+        >
           <TabList>
-            <Tab onClick={() => navigate('/sign-in')}>
+            <Tab>
               <FormattedMessage {...navigation.route.signIn} />
             </Tab>
-            <Tab onClick={() => navigate('/register')}>
+            <Tab>
               <FormattedMessage {...navigation.route.register} />
             </Tab>
           </TabList>

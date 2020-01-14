@@ -31,12 +31,15 @@ const Tabs = styled(BaseTabs)`
 const Register: React.FunctionComponent<Props> = (props: Props) => (
   <Root data-testid="register" {...props}>
     <Content>
-      <Tabs defaultIndex={1}>
+      <Tabs
+        defaultIndex={1}
+        onChange={index => navigate(index === 0 ? '/sign-in' : '/register')}
+      >
         <TabList>
-          <Tab onClick={() => navigate('/sign-in')}>
+          <Tab>
             <FormattedMessage {...navigation.route.signIn} />
           </Tab>
-          <Tab onClick={() => navigate('/register')}>
+          <Tab>
             <FormattedMessage {...navigation.route.register} />
           </Tab>
         </TabList>
