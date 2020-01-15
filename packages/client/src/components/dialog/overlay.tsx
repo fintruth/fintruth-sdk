@@ -1,4 +1,4 @@
-import { DialogOverlay, DialogOverlayProps } from '@reach/dialog'
+import { DialogOverlay } from '@reach/dialog'
 import styles from '@reach/dialog/styles.css'
 import invariant from 'invariant'
 import useStyles from 'isomorphic-style-loader/useStyles'
@@ -12,7 +12,15 @@ type Dispatch = (action: Action) => void
 
 type Payload = Partial<State>
 
-type Props = DialogOverlayProps
+interface Props
+  extends React.HTMLAttributes<HTMLDivElement>,
+    React.RefAttributes<HTMLDivElement> {
+  allowPinchZoom?: boolean
+  children?: React.ReactNode
+  initialFocusRef?: React.RefObject<HTMLElement>
+  isOpen?: boolean
+  onDismiss?: (event?: React.SyntheticEvent<Element, Event> | undefined) => void
+}
 
 type Type = 'setOnDismiss'
 
@@ -22,9 +30,7 @@ interface Action {
 }
 
 interface State {
-  onDismiss: (
-    event?: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
-  ) => void
+  onDismiss: (event?: React.SyntheticEvent<Element, Event> | undefined) => void
 }
 
 const DispatchContext = React.createContext<Dispatch | undefined>(undefined)
