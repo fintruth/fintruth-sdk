@@ -2521,17 +2521,17 @@
   resolved "https://registry.yarnpkg.com/@sheerun/mutationobserver-shim/-/mutationobserver-shim-0.3.2.tgz#8013f2af54a2b7d735f71560ff360d3a8176a87b"
   integrity sha512-vTCdPp/T/Q3oSqwHmZ5Kpa9oI7iLtGl3RQaA/NyLHikvcrPxACkkKVr/XzkSPJWXHRhKGzVvb0urJsbMlRxi1Q==
 
-"@storybook/addon-a11y@^5.3.4":
-  version "5.3.4"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-5.3.4.tgz#7f8f6006a1eda175cb8d2fcfe893171a105f3bef"
-  integrity sha512-sEhtw9EhvOlVbISvKiiKc3PkBgaaFbJeVeEfhEWukS3RGZi4lMpt7RyCpo+0U8V3vZhoWyY/HWGbWRu+eJ2Sjg==
+"@storybook/addon-a11y@^5.3.6":
+  version "5.3.6"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-5.3.6.tgz#d713a245331aca38c064c027ded8ed6f2946684b"
+  integrity sha512-nVGh9pZkcjtR4irtzCsxv+NbmqzU/Me2+sdjwVo9B7PYCcLUnRwo4ri1j3g7m85W20eS1hyaKe5yLzkaentPNg==
   dependencies:
-    "@storybook/addons" "5.3.4"
-    "@storybook/api" "5.3.4"
-    "@storybook/client-logger" "5.3.4"
-    "@storybook/components" "5.3.4"
-    "@storybook/core-events" "5.3.4"
-    "@storybook/theming" "5.3.4"
+    "@storybook/addons" "5.3.6"
+    "@storybook/api" "5.3.6"
+    "@storybook/client-logger" "5.3.6"
+    "@storybook/components" "5.3.6"
+    "@storybook/core-events" "5.3.6"
+    "@storybook/theming" "5.3.6"
     axe-core "^3.3.2"
     core-js "^3.0.1"
     global "^4.3.2"
@@ -5447,10 +5447,10 @@ autoprefixer@^9.7.2, autoprefixer@^9.7.3:
     postcss "^7.0.26"
     postcss-value-parser "^4.0.2"
 
-aws-sdk@^2.605.0:
-  version "2.605.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.605.0.tgz#149fb9946784aef418250250b2845b8e1ffc8413"
-  integrity sha512-ZFvFBqZVALn4y/BhIIISXxkssENyQwMF94X9qF6WiEvivNNaQ3I80u1Qr2e5VCpIFT+5ZcxrKYz3RsiVzAMnqw==
+aws-sdk@^2.606.0:
+  version "2.606.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.606.0.tgz#877ffad75f3ae8688a244f4efbb29ae7662295b9"
+  integrity sha512-PI4vabKfMdvACzefIpm4cL4Fwji+pQQlK1zPXtz9+JzdPCp5FcEhbpjJucfeMaOByrC2ThXXOdCf1rUhjSiYFg==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
