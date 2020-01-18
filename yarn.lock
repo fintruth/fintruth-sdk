@@ -2490,13 +2490,13 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@reach/tabs@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@reach/tabs/-/tabs-0.7.2.tgz#e568248f928b8b13a290fecca232ece9ef18db58"
-  integrity sha512-VHHas2nvUCBFO7kIUzhhj7UaltERo85Ek8Gg7UpUC19/ByEFTtTXvywGTdRDu5wfqewqc1XKKXn8zM20YY2x0Q==
+"@reach/tabs@^0.7.3":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@reach/tabs/-/tabs-0.7.3.tgz#b2edb5f215c9434dcd87fce420f91c44ba5962b2"
+  integrity sha512-5GyW7SnjASM9wS4KvfElt1v4WxqLttGM+jEt4LPWz+eg/4kolpF3x0g3UNo+lvC1TXtC/ein2ZZ24p/e7sPo0w==
   dependencies:
-    "@reach/auto-id" "^0.7.2"
-    "@reach/utils" "^0.7.2"
+    "@reach/auto-id" "^0.7.3"
+    "@reach/utils" "^0.7.3"
     prop-types "^15.7.2"
     warning "^4.0.3"
 
