@@ -2411,10 +2411,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@reach/auto-id@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.7.2.tgz#1f3aa4c2f09630e90863d4ed90bb23050289ba9c"
-  integrity sha512-9jBoMUnwB4ijh2w9wWQ3oW5oV0NMr2VW3tYDXI8xbd8BW25Bsqvjv8Y3Vp035HwJoLq3I7afA2i+jjBrsJtYAQ==
+"@reach/auto-id@^0.7.2", "@reach/auto-id@^0.7.3":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.7.3.tgz#4456640b223452c2e5cc527c4c74cb98d4dc45ca"
+  integrity sha512-5TUE7x7/WYgUaQZ3rrAfpo9L2PeuF45SEXfezQztUZZ0Pao/MuyLlPxUG8NgnibobjsE9l/JpB1Tp06narz3ug==
 
 "@reach/dialog@^0.7.2":
   version "0.7.2"
@@ -2477,13 +2477,13 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@reach/tabs@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@reach/tabs/-/tabs-0.7.2.tgz#e568248f928b8b13a290fecca232ece9ef18db58"
-  integrity sha512-VHHas2nvUCBFO7kIUzhhj7UaltERo85Ek8Gg7UpUC19/ByEFTtTXvywGTdRDu5wfqewqc1XKKXn8zM20YY2x0Q==
+"@reach/tabs@^0.7.3":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@reach/tabs/-/tabs-0.7.3.tgz#b2edb5f215c9434dcd87fce420f91c44ba5962b2"
+  integrity sha512-5GyW7SnjASM9wS4KvfElt1v4WxqLttGM+jEt4LPWz+eg/4kolpF3x0g3UNo+lvC1TXtC/ein2ZZ24p/e7sPo0w==
   dependencies:
-    "@reach/auto-id" "^0.7.2"
-    "@reach/utils" "^0.7.2"
+    "@reach/auto-id" "^0.7.3"
+    "@reach/utils" "^0.7.3"
     prop-types "^15.7.2"
     warning "^4.0.3"
 
@@ -2499,10 +2499,10 @@
     "@reach/visually-hidden" "^0.7.2"
     prop-types "^15.7.2"
 
-"@reach/utils@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.7.2.tgz#0bc91cc449a5a9be5735b4626c920ee3e74e0e8b"
-  integrity sha512-oGmA5eqM1f4NAyFSQvyFCcRRvgFTSiiPhw8Djn5PGfPY+sgmfyrUsJpo9FwJnl7P0nKb4liWq5jbWlZXUtWhLQ==
+"@reach/utils@^0.7.2", "@reach/utils@^0.7.3":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.7.3.tgz#b387aeeb7d3e10da361fd1c07f0392935730c25d"
+  integrity sha512-7TZ2PQYeDHc/D9iT8wN6OL9AGlhfk3SvFmyF6H6EiuDeOZ+oJ5xivk5KQcS1h/HVNs226bcIGqpXltcdTiUMtw==
 
 "@reach/visually-hidden@^0.7.2":
   version "0.7.2"
