@@ -50,12 +50,10 @@
   "lint-staged": {
     "*.{js,ts}": [
       "eslint --fix",
-      "jest --bail --findRelatedTests",
-      "git add"
+      "jest --bail --findRelatedTests"
     ],
     "*.{json,md,yml}": [
-      "prettylint --fix",
-      "git add"
+      "prettylint --fix"
     ]
   }
 }

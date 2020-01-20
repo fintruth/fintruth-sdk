@@ -93,12 +93,10 @@
   },
   "lint-staged": {
     "!(packages/**)*.{js,ts}": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ],
     "!(packages/**)*.{json,md,yml}": [
-      "prettylint --fix",
-      "git add"
+      "prettylint --fix"
     ]
   }
 }
