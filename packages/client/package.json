@@ -108,7 +108,7 @@
     "@storybook/addon-viewport": "^5.3.6",
     "@storybook/addons": "^5.3.6",
     "@storybook/react": "^5.3.6",
-    "@svgr/webpack": "^5.0.1",
+    "@svgr/webpack": "^5.1.0",
     "@testing-library/dom": "^6.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
