@@ -35,7 +35,7 @@
     "@cypress/webpack-preprocessor": "^4.1.1",
     "@testing-library/cypress": "^5.0.2",
     "@types/faker": "^4.1.9",
-    "@types/jest": "^24.9.0",
+    "@types/jest": "^24.9.1",
     "@types/node": "^13.1.8",
     "@types/testing-library__cypress": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^2.17.0",
