@@ -2537,14 +2537,14 @@
     react-focus-lock "^2.2.1"
     react-remove-scroll "^2.2.0"
 
-"@reach/menu-button@^0.7.3":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@reach/menu-button/-/menu-button-0.7.3.tgz#9e3ac0ce59b1ff81624518199b739265aca9a79f"
-  integrity sha512-/Th8xQkYOP4rgbbDcOU4x4VsIrIOtx36G3qXCZ1kaJvchTDvf5mQQVTGCiEDt2Knw0aqsAi3lKmJ8/klpg7A3Q==
+"@reach/menu-button@^0.7.4":
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/@reach/menu-button/-/menu-button-0.7.4.tgz#6b2cb91e5471dfc67aa10380c2779eb3d21d98bf"
+  integrity sha512-74mBITfBJgpbgBAQe1oNVOdz1HcUXHc3QuuABAOg2zU6ctxKXbz7QYD54NlSLkAJTc20g02wndwJs8ZkmXbgkg==
   dependencies:
-    "@reach/auto-id" "^0.7.3"
-    "@reach/popover" "^0.7.3"
-    "@reach/utils" "^0.7.3"
+    "@reach/auto-id" "^0.7.4"
+    "@reach/popover" "^0.7.4"
+    "@reach/utils" "^0.7.4"
     prop-types "^15.7.2"
     warning "^4.0.3"
 
@@ -2553,14 +2553,14 @@
   resolved "https://registry.yarnpkg.com/@reach/observe-rect/-/observe-rect-1.0.5.tgz#28bf3c5c35da7fef72cd124af4ac32308d0c3f15"
   integrity sha512-EQLHhquzwAh2TFtMJU0PXJRmhpOrAhzApgoI4Lwn72J7ygrMk3Ys3a3i8KDnV0TetbwAxn4XSHi4pE8sPWUYLg==
 
-"@reach/popover@^0.7.3":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@reach/popover/-/popover-0.7.3.tgz#a5281b54ff216613cec543101a83f60035f344c8"
-  integrity sha512-6kdssDSJfr4Yfpg6yfT4f7HRX79niawFu6BIcpDTFm4/V9pe3GzUIRyaPo97/zl/2RlX6DMeO4tHv9DYVNPZIw==
+"@reach/popover@^0.7.4":
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/@reach/popover/-/popover-0.7.4.tgz#def055c588a76ef4a48ac81f0b4e7373e2781b28"
+  integrity sha512-fNODnIqXOJ+Co43E5c1mEvR/ubF7S26ZvDcNHBAVJ0mlJBdO77AdI0ar/nE5fb3qCHBhbOcmOu8OpqsLP4hv1g==
   dependencies:
-    "@reach/portal" "^0.7.3"
-    "@reach/rect" "^0.7.3"
-    "@reach/utils" "^0.7.3"
+    "@reach/portal" "^0.7.4"
+    "@reach/rect" "^0.7.4"
+    "@reach/utils" "^0.7.4"
     tabbable "^4.0.0"
 
 "@reach/portal@^0.7.3", "@reach/portal@^0.7.4":
@@ -2569,6 +2569,14 @@
   integrity sha512-yI/UUtErNfb3RbWRMfJW1BTJGjE07/OjVONU8qJ65E28rsnLlwk5UDnWeDPvwIpOixXhUaUI5Bk1HEHDqAOa1w==
 
 "@reach/rect@^0.7.3", "@reach/rect@^0.7.4":
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/@reach/rect/-/rect-0.7.4.tgz#98fa7a42e7ff7e74ba501d38a1b8797fa87b6bb3"
+  integrity sha512-5AhFGxgMHRkrY9gB9tV+juX7FgH/sXcZAvwzspO+nCjnMOa9PK+YA2kZHrRfSRy5WPGiYq0ezmaxjHsl0aHpCQ==
+  dependencies:
+    "@reach/observe-rect" "^1.0.5"
+    prop-types "^15.7.2"
+
+"@reach/rect@^0.7.4":
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/@reach/rect/-/rect-0.7.4.tgz#98fa7a42e7ff7e74ba501d38a1b8797fa87b6bb3"
   integrity sha512-5AhFGxgMHRkrY9gB9tV+juX7FgH/sXcZAvwzspO+nCjnMOa9PK+YA2kZHrRfSRy5WPGiYq0ezmaxjHsl0aHpCQ==
