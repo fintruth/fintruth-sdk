@@ -2526,13 +2526,13 @@
   resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.7.4.tgz#c20bf6db87ef2f34b1bfb4bf450d675524a368c1"
   integrity sha512-Om3A3FSyQW2nfkskgNLhItdoCOPCRCsmzlwu26qemu6DwiJLNVUBWlBuXhWgMmys/q3hRx3eRYFrzSLl8uheTA==
 
-"@reach/dialog@^0.7.3":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@reach/dialog/-/dialog-0.7.3.tgz#a42ee1b74d61a09e1e61c5d00adae1a19045a0ee"
-  integrity sha512-2GegrOTPhgihHtkDp95r/GoZx5qoPokPfZxPOF0G0mgaM5YM+yfGX+Nl4h6Z/XmKWVLZRGOTEFT8eTvc913wqA==
+"@reach/dialog@^0.7.4":
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/@reach/dialog/-/dialog-0.7.4.tgz#60927fbe4e65fe0e7684f8fa1f1b155385cfb5ce"
+  integrity sha512-KKvInRkRSj6TALsKlEVHhWwT6CZAmtGDNG606COMwveEAqXXolQm3dWgIz5H7atUR6rj++f/wOYBAQYZyEfelQ==
   dependencies:
-    "@reach/portal" "^0.7.3"
-    "@reach/utils" "^0.7.3"
+    "@reach/portal" "^0.7.4"
+    "@reach/utils" "^0.7.4"
     prop-types "^15.7.2"
     react-focus-lock "^2.2.1"
     react-remove-scroll "^2.2.0"
@@ -5639,10 +5639,10 @@ babel-plugin-react-intl@^5.1.17:
     intl-messageformat-parser "^3.6.3"
     schema-utils "^2.2.0"
 
-"babel-plugin-styled-components@>= 1", babel-plugin-styled-components@^1.10.6:
-  version "1.10.6"
-  resolved "https://registry.yarnpkg.com/babel-plugin-styled-components/-/babel-plugin-styled-components-1.10.6.tgz#f8782953751115faf09a9f92431436912c34006b"
-  integrity sha512-gyQj/Zf1kQti66100PhrCRjI5ldjaze9O0M3emXRPAN80Zsf8+e1thpTpaXJXVHXtaM4/+dJEgZHyS9Its+8SA==
+"babel-plugin-styled-components@>= 1", babel-plugin-styled-components@^1.10.7:
+  version "1.10.7"
+  resolved "https://registry.yarnpkg.com/babel-plugin-styled-components/-/babel-plugin-styled-components-1.10.7.tgz#3494e77914e9989b33cc2d7b3b29527a949d635c"
+  integrity sha512-MBMHGcIA22996n9hZRf/UJLVVgkEOITuR2SvjHLb5dSTUyR4ZRGn+ngITapes36FI3WLxZHfRhkA1ffHxihOrg==
   dependencies:
     "@babel/helper-annotate-as-pure" "^7.0.0"
     "@babel/helper-module-imports" "^7.0.0"
