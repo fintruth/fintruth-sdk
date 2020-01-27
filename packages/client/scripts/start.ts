@@ -1,6 +1,6 @@
+import { join, resolve } from 'path'
 import browserSync from 'browser-sync'
 import express, { Express } from 'express'
-import { join, resolve } from 'path'
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware'
 import webpack, {
   Compiler,
@@ -12,9 +12,9 @@ import webpack, {
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 
+import webpackConfig from '../config/webpack.config'
 import clean from './clean'
 import run, { format } from './run'
-import webpackConfig from '../config/webpack.config'
 
 const watchOptions: WatchOptions = {}
 
@@ -23,8 +23,8 @@ const localesDir = join(rootDir, 'src/translations/locales')
 const publicDir = join(rootDir, 'public')
 
 const env = process.env.ENV || 'dev'
-const isProd = /prod(uction)?/i.test(env)
-const isStaging = /stag(e|ing)/i.test(env)
+const isProd = /^prod(uction)?$/i.test(env)
+const isStaging = /^stag(e|ing)$/i.test(env)
 
 const isRelease = isProd || isStaging || process.argv.includes('--release')
 const isSilent = process.argv.includes('--silent')
@@ -269,9 +269,9 @@ const start = async () => {
     browserSync.create().init(
       {
         middleware: [server],
-        open: !isSilent,
-        server: 'src/server.tsx',
-        ...(isRelease ? { notify: false, ui: false } : {}),
+        open: !isSilent && 'local',
+        server: { baseDir: '../public' },
+        ...(isRelease ? { notify: false, ui: {} } : {}),
       },
       (error, bs) => (error ? reject(error) : resolve(bs))
     )

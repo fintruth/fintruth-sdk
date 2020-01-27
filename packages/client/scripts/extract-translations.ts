@@ -1,10 +1,10 @@
+import { join, resolve } from 'path'
 import { PluginItem, loadPartialConfig, transformFileAsync } from '@babel/core'
 import { ExtractedMessageDescriptor } from 'babel-plugin-react-intl'
 import chokidar from 'chokidar'
-import { resolve } from 'path'
 
-import { readDir, readFile, writeFile } from './lib/fs'
 import { locales } from '../src/config'
+import { readDir, readFile, writeFile } from './utils/file-system'
 
 type Translations = Record<string, Translation>
 
@@ -12,7 +12,7 @@ interface Translation {
   id: string
   defaultMessage: string
   description: string
-  files: string[]
+  files?: string[]
   message: string
 }
 
@@ -21,8 +21,8 @@ const extractedTranslations: Record<string, ExtractedMessageDescriptor[]> = {}
 const rootDir = resolve(__dirname, '..')
 
 const env = process.env.ENV || 'dev'
-const isProd = /prod(uction)?/i.test(env)
-const isStaging = /stag(e|ing)/i.test(env)
+const isProd = /^prod(uction)?$/i.test(env)
+const isStaging = /^stag(e|ing)$/i.test(env)
 
 const isRelease = isProd || isStaging || process.argv.includes('--release')
 const isWatch = process.argv.includes('--watch')
@@ -32,11 +32,11 @@ const mergeToFile = async (
   newTranslations: Translations,
   toBuild: boolean
 ) => {
-  const originalTranslations: Record<string, Translation> = {}
-  const file = resolve(rootDir, `src/translations/locales/${locale}.json`)
+  const originalTranslations: Translations = {}
+  const file = join(rootDir, `src/i18n/translations/${locale}.json`)
 
   try {
-    const data: Translation[] = JSON.parse(await readFile(file))
+    const data: Translation[] = JSON.parse((await readFile(file)) as string)
 
     data.forEach(translation => {
       originalTranslations[translation.id] = translation
@@ -62,32 +62,28 @@ const mergeToFile = async (
     }
   })
 
-  const filteredOriginalTranslations = Object.keys(originalTranslations)
+  const updatedTranslations = Object.keys(originalTranslations)
     .map(id => originalTranslations[id])
     .filter(({ files, message }) => files || message)
-  const data = `${JSON.stringify(filteredOriginalTranslations, null, 2)}\n`
+    .sort((a, b) => a.id.localeCompare(b.id))
+  const data = `${JSON.stringify(updatedTranslations, null, 2)}\n`
 
   await writeFile(file, data)
 
   if (toBuild) {
-    await writeFile(resolve(rootDir, `build/translations/${locale}.json`), data)
+    await writeFile(join(rootDir, `build/translations/${locale}.json`), data)
   }
 }
 
 const processFile = async (file: string, presets: PluginItem[]) => {
-  const posixFile = file.replace(/\\/g, '/')
-
   const { metadata: { 'react-intl': { messages = [] } = {} } = {} } =
     (await transformFileAsync(file, { plugins: ['react-intl'], presets })) || {}
+  const posixFile = file.replace(/\\/g, '/')
 
   if (messages.length > 0) {
-    extractedTranslations[posixFile] = messages.sort((a, b) => {
-      if (a.id === b.id) {
-        return 0
-      }
-
-      return a.id < b.id ? -1 : 1
-    })
+    extractedTranslations[posixFile] = messages.sort((a, b) =>
+      a.id.localeCompare(b.id)
+    )
   } else {
     delete extractedTranslations[posixFile]
   }
@@ -106,7 +102,7 @@ const updateTranslations = async (toBuild = false) => {
           message: translation.message || '',
           defaultMessage: defaultMessage || translation.defaultMessage || '',
           description: description || translation.description || '',
-          files: [...files, file].sort(),
+          files: [...files, file].sort((a, b) => a.localeCompare(b)),
         }
       }
     )
@@ -124,7 +120,7 @@ const extractTranslations = async () => {
       filename: '',
     }) || {}
   const files = await readDir('src/**/*.ts?(x)', {
-    ignore: ['src/**/*(*.)test.ts?(x)'],
+    ignore: 'src/**/?(*.)test.ts?(x)',
     nosort: true,
   })
 
@@ -134,7 +130,7 @@ const extractTranslations = async () => {
   if (isWatch) {
     const watcher = chokidar.watch('src/**/*.ts?(x)', {
       ignoreInitial: true,
-      ignored: ['src/**/*(*.)test.ts?(x)'],
+      ignored: 'src/**/?(*.)test.ts?(x)',
     })
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises

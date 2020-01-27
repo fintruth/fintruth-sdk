@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs, { WriteFileOptions } from 'fs'
 import { dirname, resolve } from 'path'
 import { promisify } from 'util'
 import glob, { IOptions as GlobOptions } from 'glob'
@@ -15,7 +15,15 @@ type MakeDirOptions =
       recursive?: boolean
     }
 
-export const cleanDir = (path: string, options: GlobOptions) =>
+type ReadFileOptions =
+  | null
+  | string
+  | {
+      encoding?: null | string
+      flag?: string
+    }
+
+export const cleanDir = (path: string, options?: GlobOptions) =>
   promisify(rimraf)(path, { glob: options })
 
 export const copyFile = (source: string, target: string) =>
@@ -43,7 +51,7 @@ export const makeDir = (
   options: MakeDirOptions = { recursive: true }
 ) => promisify(fs.mkdir)(path, options)
 
-export const readDir = (path: string, options: GlobOptions) =>
+export const readDir = (path: string, options?: GlobOptions) =>
   promisify(glob)(path, options)
 
 export const copyDir = async (
@@ -64,7 +72,11 @@ export const copyDir = async (
   )
 }
 
-export const readFile = (path: string) => promisify(fs.readFile)(path, 'utf-8')
+export const readFile = (path: string, options: ReadFileOptions = 'utf-8') =>
+  promisify(fs.readFile)(path, options)
 
-export const writeFile = (path: string, data: any) =>
-  promisify(fs.writeFile)(path, data, 'utf-8')
+export const writeFile = (
+  path: string,
+  data: any,
+  options: WriteFileOptions = 'utf-8'
+) => promisify(fs.writeFile)(path, data, options)
