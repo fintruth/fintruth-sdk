@@ -1,15 +1,27 @@
 import fs from 'fs'
-import glob, { IOptions } from 'glob'
-import mkdirp from 'mkdirp'
 import { dirname, resolve } from 'path'
-import rimraf from 'rimraf'
 import { promisify } from 'util'
+import glob, { IOptions as GlobOptions } from 'glob'
+import rimraf from 'rimraf'
 
-export const cleanDir = (path: string, options: IOptions) =>
+type CopyDirOptions = Omit<GlobOptions, 'cwd'>
+
+type MakeDirOptions =
+  | null
+  | number
+  | string
+  | {
+      mode?: number
+      recursive?: boolean
+    }
+
+export const cleanDir = (path: string, options: GlobOptions) =>
   promisify(rimraf)(path, { glob: options })
 
 export const copyFile = (source: string, target: string) =>
   new Promise((resolve, reject) => {
+    const readStream = fs.createReadStream(source)
+    const writeStream = fs.createWriteStream(target)
     let callbackCalled = false
 
     const done = (error: any) => {
@@ -20,22 +32,26 @@ export const copyFile = (source: string, target: string) =>
       }
     }
 
-    const read = fs.createReadStream(source)
-    const write = fs.createWriteStream(target)
-
-    read.on('error', done)
-    write.on('close', done)
-    write.on('error', done)
-    read.pipe(write)
+    readStream.on('error', done)
+    writeStream.on('close', done)
+    writeStream.on('error', done)
+    readStream.pipe(writeStream)
   })
 
-export const makeDir = (path: string) => promisify(mkdirp)(path)
+export const makeDir = (
+  path: string,
+  options: MakeDirOptions = { recursive: true }
+) => promisify(fs.mkdir)(path, options)
 
-export const readDir = (path: string, options: IOptions) =>
+export const readDir = (path: string, options: GlobOptions) =>
   promisify(glob)(path, options)
 
-export const copyDir = async (source: string, target: string) => {
-  const dirs = await readDir('**/*.*', { cwd: source, dot: true, nosort: true })
+export const copyDir = async (
+  source: string,
+  target: string,
+  { dot = true, nosort = true, ...options }: CopyDirOptions = {}
+) => {
+  const dirs = await readDir('**/*.*', { cwd: source, dot, nosort, ...options })
 
   await Promise.all(
     dirs.map(async dir => {
