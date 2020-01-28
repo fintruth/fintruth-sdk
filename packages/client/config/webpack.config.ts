@@ -1,6 +1,6 @@
+import { join, resolve } from 'path'
 import LoadablePlugin from '@loadable/webpack-plugin'
 import DotenvPlugin from 'dotenv-webpack'
-import { join, resolve } from 'path'
 import TerserPlugin from 'terser-webpack-plugin'
 import { Configuration, BannerPlugin, DefinePlugin } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
@@ -22,15 +22,17 @@ type Target =
 
 const rootDir = resolve(__dirname, '..')
 const buildDir = join(rootDir, 'build')
+const srcDir = join(rootDir, 'src')
 
-const env = process.env.ENV || 'dev'
-const isProd = /prod(uction)?/i.test(env)
-const isStaging = /stag(e|ing)/i.test(env)
-const envFile = isProd ? '.env.prod' : isStaging ? '.env.staging' : '.env'
+const env = process.env.ENV || 'development'
+const isProd = /^prod(uction)?$/i.test(env)
+const isStaging = /^stag(e|ing)$/i.test(env)
 
 const isAnalyze = process.argv.includes('--analyze')
 const isRelease = isProd || isStaging || process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
+
+const envFile = isProd ? '.env.prod' : isStaging ? '.env.staging' : '.env'
 
 const createConfig = (target: Target, configFactory: ConfigFactory) =>
   configFactory({
@@ -75,7 +77,7 @@ const createConfig = (target: Target, configFactory: ConfigFactory) =>
             },
             {
               test: /\.ts(x)?$/,
-              include: join(rootDir, 'src'),
+              include: srcDir,
               loader: require.resolve('babel-loader'),
               options: {
                 cacheCompression: isRelease,
@@ -113,7 +115,7 @@ const createConfig = (target: Target, configFactory: ConfigFactory) =>
       devtoolModuleFilenameTemplate: ({ absoluteResourcePath }) =>
         resolve(absoluteResourcePath).replace(/\\/g, '/'),
       filename: isRelease ? '[name].[chunkhash:8].js' : '[name].js',
-      path: resolve(buildDir, 'public/assets'),
+      path: join(buildDir, 'public/assets'),
       pathinfo: isVerbose,
       publicPath: '/assets/',
     },
@@ -130,7 +132,7 @@ const createConfig = (target: Target, configFactory: ConfigFactory) =>
     ],
     resolve: {
       extensions: ['.js', '.json', '.mjs', '.ts', '.tsx', '.wasm'],
-      modules: ['node_modules', join(rootDir, 'src')],
+      modules: ['node_modules', srcDir],
     },
     stats: {
       cached: isVerbose,
@@ -147,7 +149,7 @@ const createConfig = (target: Target, configFactory: ConfigFactory) =>
     target,
   })
 
-const clientConfig = createConfig('web', baseConfig => ({
+const clientConfig = createConfig('web', ({ plugins = [], ...baseConfig }) => ({
   ...baseConfig,
   entry: { client: resolve('./src/client.tsx') },
   name: 'client',
@@ -176,7 +178,7 @@ const clientConfig = createConfig('web', baseConfig => ({
     },
   },
   plugins: [
-    ...(baseConfig.plugins || []),
+    ...plugins,
     new LoadablePlugin({
       filename: 'stats.json',
       writeToDisk: { filename: 'build' },
@@ -185,36 +187,39 @@ const clientConfig = createConfig('web', baseConfig => ({
   ],
 }))
 
-const serverConfig = createConfig('node', baseConfig => ({
-  ...baseConfig,
-  entry: { server: resolve('./src/server.tsx') },
-  externals: [
-    nodeExternals({
-      modulesDir: join(rootDir, 'node_modules'),
-      whitelist: [/\.(bmp|css|gif|jp(e)?g|png|webp)$/],
-    }),
-    nodeExternals({
-      modulesDir: resolve(rootDir, '../../node_modules'),
-      whitelist: [/\.(bmp|css|gif|jp(e)?g|png|webp)$/],
-    }),
-  ],
-  name: 'server',
-  node: false,
-  output: {
-    ...baseConfig.output,
-    chunkFilename: 'chunks/[name].js',
-    filename: '[name].js',
-    libraryTarget: 'commonjs2',
-    path: buildDir,
-  },
-  plugins: [
-    ...(baseConfig.plugins || []),
-    new BannerPlugin({
-      banner: 'require("source-map-support").install();',
-      entryOnly: false,
-      raw: true,
-    }),
-  ],
-}))
+const serverConfig = createConfig(
+  'node',
+  ({ output = {}, plugins = [], ...baseConfig }) => ({
+    ...baseConfig,
+    entry: { server: resolve('./src/server.tsx') },
+    externals: [
+      nodeExternals({
+        modulesDir: join(rootDir, 'node_modules'),
+        whitelist: [/\.(bmp|css|gif|jp(e)?g|png|webp)$/],
+      }),
+      nodeExternals({
+        modulesDir: resolve(rootDir, '../../node_modules'),
+        whitelist: [/\.(bmp|css|gif|jp(e)?g|png|webp)$/],
+      }),
+    ],
+    name: 'server',
+    node: false,
+    output: {
+      ...output,
+      chunkFilename: 'chunks/[name].js',
+      filename: '[name].js',
+      libraryTarget: 'commonjs2',
+      path: buildDir,
+    },
+    plugins: [
+      ...plugins,
+      new BannerPlugin({
+        banner: 'require("source-map-support").install();',
+        entryOnly: false,
+        raw: true,
+      }),
+    ],
+  })
+)
 
 export default [clientConfig, serverConfig]

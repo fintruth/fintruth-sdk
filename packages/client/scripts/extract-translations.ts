@@ -4,23 +4,16 @@ import { ExtractedMessageDescriptor } from 'babel-plugin-react-intl'
 import chokidar from 'chokidar'
 
 import { locales } from '../src/config'
+import { Translation } from '../src/common'
 import { readDir, readFile, writeFile } from './utils/file-system'
 
 type Translations = Record<string, Translation>
-
-interface Translation {
-  id: string
-  defaultMessage: string
-  description: string
-  files?: string[]
-  message: string
-}
 
 const extractedTranslations: Record<string, ExtractedMessageDescriptor[]> = {}
 
 const rootDir = resolve(__dirname, '..')
 
-const env = process.env.ENV || 'dev'
+const env = process.env.ENV || 'development'
 const isProd = /^prod(uction)?$/i.test(env)
 const isStaging = /^stag(e|ing)$/i.test(env)
 

@@ -6,7 +6,7 @@ import { Formik } from 'formik'
 import styled from 'styled-components'
 
 import { createInMemoryCache } from 'utils/apollo'
-import { countries } from 'utils/spec'
+import { queriedCountries } from 'utils/data'
 import { centered } from 'utils/story'
 import { option } from 'styles/mixins'
 import { countriesQuery } from './graphql'
@@ -90,7 +90,10 @@ export const Option = styled.option`
     <MockedProvider
       cache={createInMemoryCache()}
       mocks={[
-        { request: { query: countriesQuery }, result: { data: { countries } } },
+        {
+          request: { query: countriesQuery },
+          result: { data: { countries: queriedCountries } },
+        },
       ]}
     >
       <Formik initialValues={{ text: '' }} onSubmit={action('onSubmit')}>

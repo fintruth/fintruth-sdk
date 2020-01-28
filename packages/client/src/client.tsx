@@ -6,6 +6,7 @@ import {
   HistorySource,
   createHistory,
 } from '@reach/router'
+import { createUploadLink } from 'apollo-upload-client'
 import { Styles } from 'isomorphic-style-loader'
 import StyleContext from 'isomorphic-style-loader/StyleContext'
 import React from 'react'
@@ -13,10 +14,10 @@ import deepForceUpdate from 'react-deep-force-update'
 import { hydrate, render } from 'react-dom'
 
 import Root from './components/root'
-import { resolvers, typeDefs } from './store/partitions'
-import { createApolloClient } from './apollo'
+import { resolvers, typeDefs } from './store'
+import { createApolloClient, createErrorLink } from './utils/apollo'
 
-interface HistoryMeta {
+interface HistoryMetadata {
   location: HistoryLocation
   action?: HistoryActionType
 }
@@ -28,15 +29,21 @@ interface Position {
 
 const client = createApolloClient({
   defaults: window.__APOLLO_STATE__,
+  links: [
+    createErrorLink(),
+    ...(__IS_DEV__ ? [require('apollo-link-logger').default] : []),
+    createUploadLink({ credentials: 'include', uri: process.env.API_URI }),
+  ],
   preloadedCache: window.__APOLLO_CACHE__,
   resolvers,
+  ssrForceFetchDelay: 100,
   typeDefs,
 })
 const container = document.querySelector('#root')
 const history = createHistory((window as unknown) as HistorySource)
 const scrollPositionsHistory: Record<string, Position> = {}
 let currentLocation = history.location
-let root: any
+let root: React.ComponentType | void
 
 const insertCss = (...styles: Styles[]) => {
   const removeCss = styles.map(({ _insertCss }) => _insertCss())
@@ -44,7 +51,7 @@ const insertCss = (...styles: Styles[]) => {
   return () => removeCss.forEach(dispose => dispose())
 }
 
-const onLocationChange = async ({ action, location }: HistoryMeta) => {
+const onLocationChange = async ({ action, location }: HistoryMetadata) => {
   const isInitialRender = !action
   const renderOrHydrate = action ? render : hydrate
 
@@ -124,6 +131,8 @@ onLocationChange({ location: currentLocation })
 
 if (module.hot) {
   module.hot.accept('./components/root', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore TS2339
     if (root && root.updater.isMounted(root)) {
       deepForceUpdate(root)
     }

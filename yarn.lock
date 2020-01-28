@@ -3521,6 +3521,11 @@
   dependencies:
     "@types/webpack" "*"
 
+"@types/emoji-regex@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@types/emoji-regex/-/emoji-regex-8.0.0.tgz#df215c9ff818e071087fb8e7e6e74c4cb42a1303"
+  integrity sha512-iacbaYN9IWWrGWTwlYLVOeUtN/e4cjN9Uh6v7Yo1Qa/vJzeSQeh10L/erBBSl53BTmbnQ07vsWp8mmNHGI4WbQ==
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -3755,6 +3760,13 @@
   integrity sha512-wxHA1EkDo/vm4EHzXIOLh9nbGeYGHWoESIvCwPBjrD2YGBn2eEdYrBwqgIP905OAhTjUTImZ7DZKI5xpq0Q+vQ==
   dependencies:
     "@types/react" "*"
+
+"@types/loadable__webpack-plugin@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@types/loadable__webpack-plugin/-/loadable__webpack-plugin-5.7.0.tgz#ee192a66d2ae25ba75fb76a2de5da9b72548bb1d"
+  integrity sha512-CtZwYbpLQshq3KOd2ez/UxTyRX40nyEMuPtCRIYln7jaCmLyqlTWwqhh9r1+sF4kOiymNXxyMEQdnI0X1E2e/Q==
+  dependencies:
+    "@types/webpack" "*"
 
 "@types/lodash@^4.14.149":
   version "4.14.149"
@@ -8676,6 +8688,15 @@ eslint-plugin-es@^3.0.0:
   dependencies:
     eslint-utils "^2.0.0"
     regexpp "^3.0.0"
+
+eslint-plugin-formatjs@^1.5.11:
+  version "1.5.11"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-formatjs/-/eslint-plugin-formatjs-1.5.11.tgz#2a06d4a63d8ed9c19fdd183e561e838865c06757"
+  integrity sha512-83W85Nnw9OQQg46J3xGq5CTkX/240L35TIozEtVNBOA6BZhTMUSYM/0qSqMoIE7SBMCazXoifJ9ynY0Iq4pKAQ==
+  dependencies:
+    "@types/emoji-regex" "^8.0.0"
+    emoji-regex "^8.0.0"
+    intl-messageformat-parser "^3.6.4"
 
 eslint-plugin-import@^2.20.0:
   version "2.20.0"

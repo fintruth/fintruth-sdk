@@ -19,10 +19,10 @@ import run, { format } from './run'
 const watchOptions: WatchOptions = {}
 
 const rootDir = resolve(__dirname, '..')
-const localesDir = join(rootDir, 'src/translations/locales')
 const publicDir = join(rootDir, 'public')
+const translationsDir = join(rootDir, 'src/i18n/translations')
 
-const env = process.env.ENV || 'dev'
+const env = process.env.ENV || 'development'
 const isProd = /^prod(uction)?$/i.test(env)
 const isStaging = /^stag(e|ing)$/i.test(env)
 
@@ -114,7 +114,7 @@ const start = async () => {
   }
 
   plugins.unshift(
-    new DefinePlugin({ 'process.env.LOCALES_DIR': `'${localesDir}'` })
+    new DefinePlugin({ 'process.env.TRANSLATIONS_DIR': `'${translationsDir}'` })
   )
   plugins.push(new HotModuleReplacementPlugin())
 
@@ -133,7 +133,7 @@ const start = async () => {
   }
 
   plugins.unshift(
-    new DefinePlugin({ 'process.env.LOCALES_DIR': `'${localesDir}'` })
+    new DefinePlugin({ 'process.env.TRANSLATIONS_DIR': `'${translationsDir}'` })
   )
   plugins.push(new HotModuleReplacementPlugin())
 

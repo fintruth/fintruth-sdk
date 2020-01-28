@@ -4,41 +4,45 @@ import { renderWithContext } from 'utils/spec'
 import Select from '.'
 
 test('should render correctly', () => {
-  const { container } = renderWithContext(<Select />)
+  const { firstChild } = renderWithContext(<Select />).container
 
-  expect(container.firstChild).toMatchSnapshot()
+  expect(firstChild).toMatchSnapshot()
 })
 
 test('should render correctly when disabled', () => {
-  const { container } = renderWithContext(<Select isDisabled />)
+  const { firstChild } = renderWithContext(<Select isDisabled />).container
 
-  expect(container.firstChild).toMatchSnapshot()
+  expect(firstChild).toMatchSnapshot()
 })
 
 test('should render correctly when disabled and multiple', () => {
-  const { container } = renderWithContext(<Select isDisabled isMultiple />)
+  const { firstChild } = renderWithContext(
+    <Select isDisabled isMultiple />
+  ).container
 
-  expect(container.firstChild).toMatchSnapshot()
+  expect(firstChild).toMatchSnapshot()
 })
 
 test('should render the danger variant correctly', () => {
-  const { container } = renderWithContext(<Select variant="danger" />)
+  const { firstChild } = renderWithContext(
+    <Select variant="danger" />
+  ).container
 
-  expect(container.firstChild).toMatchSnapshot()
+  expect(firstChild).toMatchSnapshot()
 })
 
 test('should render the danger variant correctly when disabled', () => {
-  const { container } = renderWithContext(
+  const { firstChild } = renderWithContext(
     <Select isDisabled variant="danger" />
-  )
+  ).container
 
-  expect(container.firstChild).toMatchSnapshot()
+  expect(firstChild).toMatchSnapshot()
 })
 
 test('should render the danger variant correctly when multiple', () => {
-  const { container } = renderWithContext(
+  const { firstChild } = renderWithContext(
     <Select isMultiple variant="danger" />
-  )
+  ).container
 
-  expect(container.firstChild).toMatchSnapshot()
+  expect(firstChild).toMatchSnapshot()
 })

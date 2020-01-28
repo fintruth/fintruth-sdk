@@ -255,16 +255,16 @@ export const container = (isFluid = false) => {
     ${isFluid
       ? fluid
       : css`
-          ${medium(centered('medium'))}
+          ${extraLarge(centered('extraLarge'))};
 
-          ${untilLarge(centered('large'))}
+          ${untilExtraLarge(centered('extraLarge'))};
 
-          ${untilExtraLarge(centered('extraLarge'))}
+          ${large(centered('large'))};
 
-          ${large(centered('large'))}
+          ${untilLarge(centered('large'))};
 
-          ${extraLarge(centered('extraLarge'))}
-        `}
+          ${medium(centered('medium'))};
+        `};
   `
 }
 

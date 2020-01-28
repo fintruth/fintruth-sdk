@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 
 import BaseTabs, { Tab, TabList } from 'components/tabs'
-import { navigation } from 'translations'
+import { navigation } from 'i18n'
 import SignInForm from './sign-in-form'
 import SignInTwoFactorAuthForm, {
   SignInCredentials,
