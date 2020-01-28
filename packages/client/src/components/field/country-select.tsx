@@ -6,9 +6,9 @@ import { useUIDSeed } from 'react-uid'
 import styled from 'styled-components'
 
 import BaseSelect, { Props as SelectProps } from 'components/select'
+import { Alpha2Code, country } from 'i18n'
 import { validateSelect } from 'utils/validation'
 import { option } from 'styles/mixins'
-import { Alpha2Code, country } from 'translations'
 import { CountriesQueryData, countriesQuery } from './graphql'
 import { useFieldContext } from '.'
 

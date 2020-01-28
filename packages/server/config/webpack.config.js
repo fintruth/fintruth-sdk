@@ -10,19 +10,13 @@ const nodeExternals = require('webpack-node-externals')
 const rootDir = resolve(__dirname, '..')
 const buildDir = join(rootDir, 'build')
 
-const env = process.env.ENV || 'dev'
-const isProd = /prod(uction)?/i.test(env)
-const isStaging = /stag(e|ing)/i.test(env)
-let envFile = '.env'
+const env = process.env.ENV || 'development'
+const isProd = /^prod(uction)?$/i.test(env)
+const isStaging = /^stag(e|ing)$/i.test(env)
+const envFile = isProd ? '.env.prod' : isStaging ? '.env.staging' : '.env'
 
 const isRelease = isProd || isStaging || process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
-
-if (isProd) {
-  envFile += '.prod'
-} else if (isStaging) {
-  envFile += '.staging'
-}
 
 const baseConfig = {
   bail: isRelease,

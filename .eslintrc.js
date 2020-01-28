@@ -7,6 +7,7 @@ const jestPlugin = require('eslint-plugin-jest')
 
 module.exports = {
   plugins: [
+    'formatjs',
     'import',
     'jsx-a11y',
     'monorepo',
@@ -36,6 +37,7 @@ module.exports = {
   rules: {
     'no-console': ['error', { allow: ['error', 'info', 'warn'] }],
     'no-param-reassign': ['error', { props: true }],
+    'formatjs/enforce-description': 'error',
     'import/order': [
       'error',
       {
@@ -54,9 +56,9 @@ module.exports = {
   overrides: [
     {
       files: ['**/*.ts?(x)', '**/.*/**/*.ts?(x)'],
-      plugins: typescriptPlugin.configs.base.plugins,
       parser: typescriptPlugin.configs.base.parser,
       parserOptions: { project: ['tsconfig.json', 'packages/*/tsconfig.json'] },
+      plugins: typescriptPlugin.configs.base.plugins,
       rules: {
         ...typescriptPlugin.configs.recommended.rules,
         ...typescriptPlugin.configs['recommended-requiring-type-checking']
@@ -80,10 +82,11 @@ module.exports = {
     {
       files: [
         'packages/*/config/jest/**/*.?(js|ts)',
+        'packages/*/src/**/__mocks__/**/*.ts',
         'packages/*/src/**/?(*.)test.ts?(x)',
       ],
-      plugins: jestPlugin.configs.recommended.plugins,
       globals: jestPlugin.environments.globals.globals,
+      plugins: jestPlugin.configs.recommended.plugins,
       rules: jestPlugin.configs.recommended.rules,
     },
   ],

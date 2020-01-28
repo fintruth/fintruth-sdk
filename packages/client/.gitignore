@@ -1,4 +1,4 @@
-# Compiled Output
+# Artifacts and Compiled Output
 build
 storybook-static
 
@@ -13,7 +13,6 @@ coverage
 
 # Miscellaneous
 .env*
-!.env.defaults
 !.env.example
 .eslintcache
 .stylelintcache

@@ -4,25 +4,27 @@ import { renderWithContext } from 'utils/spec'
 import Input from '.'
 
 test('should render correctly', () => {
-  const { container } = renderWithContext(<Input />)
+  const { firstChild } = renderWithContext(<Input />).container
 
-  expect(container.firstChild).toMatchSnapshot()
+  expect(firstChild).toMatchSnapshot()
 })
 
 test('should render correctly when disabled', () => {
-  const { container } = renderWithContext(<Input isDisabled />)
+  const { firstChild } = renderWithContext(<Input isDisabled />).container
 
-  expect(container.firstChild).toMatchSnapshot()
+  expect(firstChild).toMatchSnapshot()
 })
 
 test('should render the danger variant correctly', () => {
-  const { container } = renderWithContext(<Input variant="danger" />)
+  const { firstChild } = renderWithContext(<Input variant="danger" />).container
 
-  expect(container.firstChild).toMatchSnapshot()
+  expect(firstChild).toMatchSnapshot()
 })
 
 test('should render the danger variant correctly when disabled', () => {
-  const { container } = renderWithContext(<Input isDisabled variant="danger" />)
+  const { firstChild } = renderWithContext(
+    <Input isDisabled variant="danger" />
+  ).container
 
-  expect(container.firstChild).toMatchSnapshot()
+  expect(firstChild).toMatchSnapshot()
 })

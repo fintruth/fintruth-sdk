@@ -1,7 +1,7 @@
 import { IntrospectionResultData } from 'apollo-cache-inmemory'
 import fetch from 'node-fetch'
 
-import { writeFile } from './lib/fs'
+import { writeFile } from './utils/file-system'
 
 interface IntrospectionQueryResult {
   data: IntrospectionResultData
