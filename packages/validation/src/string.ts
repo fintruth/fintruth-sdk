@@ -54,7 +54,9 @@ export interface StringSchema<T extends string | null | undefined = string>
   nullable(isNullable?: true): StringSchema<T | null>
   password(minScore: Score, options?: PasswordOptions | string): StringSchema<T>
   phone(this: StringSchema, options?: PhoneOptions | string): StringSchema<T>
-  required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>
+  required(
+    message?: TestOptionsMessage
+  ): StringSchema<Exclude<T, null | undefined>>
   trim(message?: StringLocale['trim']): StringSchema<T>
   uppercase(message?: StringLocale['uppercase']): StringSchema<T>
   url(message?: StringLocale['url']): StringSchema<T>
