@@ -93,6 +93,7 @@ jobs:
       CLIENT_PORT: \3000
       COVERAGE_DIR: coverage
       REPORTS_DIR: reports
+      TRANSLATIONS_DIR: translations
     executor: fintruth-sdk
     working_directory: ~/fintruth-sdk
     steps:
