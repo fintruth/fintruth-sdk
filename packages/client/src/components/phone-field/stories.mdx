@@ -5,7 +5,7 @@ import { boolean, text } from '@storybook/addon-knobs'
 import { Formik } from 'formik'
 
 import { createInMemoryCache } from 'utils/apollo'
-import { countries } from 'utils/spec'
+import { queriedCountries } from 'utils/data'
 import { centered } from 'utils/story'
 import { countriesQuery } from './graphql'
 import PhoneField, {
@@ -32,7 +32,10 @@ import PhoneField, {
     <MockedProvider
       cache={createInMemoryCache()}
       mocks={[
-        { request: { query: countriesQuery }, result: { data: { countries } } },
+        {
+          request: { query: countriesQuery },
+          result: { data: { countries: queriedCountries } },
+        },
       ]}
     >
       <Formik
@@ -59,7 +62,7 @@ import PhoneField, {
         {
           delay: 5000,
           request: { query: countriesQuery },
-          result: { data: { countries } },
+          result: { data: { countries: queriedCountries } },
         },
       ]}
     >

@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 
 import BaseTabs, { Tab, TabList } from 'components/tabs'
-import { navigation } from 'translations'
+import { navigation } from 'i18n'
 import RegisterForm from './register-form'
 
 type Props = RouteComponentProps

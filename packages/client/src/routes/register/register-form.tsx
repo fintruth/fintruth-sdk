@@ -9,8 +9,8 @@ import styled, { Color } from 'styled-components'
 
 import BaseButton from 'components/button'
 import Field, { FieldHelp, FieldInput, FieldLabel } from 'components/field'
+import { form } from 'i18n'
 import { help } from 'styles/mixins'
-import { form } from 'translations'
 import { hasResponseError } from 'utils/apollo'
 import {
   RegisterMutationData,

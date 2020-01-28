@@ -4,22 +4,24 @@ import serialize from 'serialize-javascript'
 
 type StateKey = keyof State
 
-interface Props extends React.HtmlHTMLAttributes<HTMLElement> {
+export interface HtmlProps extends React.HtmlHTMLAttributes<HTMLHtmlElement> {
+  alternateLocales?: string[]
   children: string
   description?: string
   links?: React.ReactElement[]
   scripts?: React.ReactElement[]
   state?: State
-  styles: React.ReactElement[]
+  styles?: React.ReactElement[]
   title?: string
 }
 
 interface State {
   __APOLLO_CACHE__: NormalizedCacheObject
-  __APOLLO_STATE__: {}
+  __APOLLO_STATE__: Record<string, any>
 }
 
-const Html: React.FunctionComponent<Props> = ({
+const Html: React.FunctionComponent<HtmlProps> = ({
+  alternateLocales = [],
   children,
   description = 'An opinionated boilerplate for web development',
   lang = 'en',
@@ -28,9 +30,9 @@ const Html: React.FunctionComponent<Props> = ({
   state = { __APOLLO_CACHE__: {}, __APOLLO_STATE__: {} },
   styles,
   title = 'Fintruth Starter Kit',
-  ...props
-}: Props) => (
-  <html lang={lang} {...props}>
+  ...restProps
+}: HtmlProps) => (
+  <html lang={lang} {...restProps}>
     <head>
       <meta charSet="utf-8" />
       <title>{title}</title>
@@ -38,6 +40,9 @@ const Html: React.FunctionComponent<Props> = ({
       <meta name="description" content={description} />
       <meta name="theme-color" content="#000" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
+      {alternateLocales.map(locale => (
+        <meta key={locale} property="og:locale:alternate" content={locale} />
+      ))}
       {links}
       <link
         rel="apple-touch-icon"

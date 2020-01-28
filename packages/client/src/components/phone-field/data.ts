@@ -1,4 +1,4 @@
-import { Alpha2Code } from 'translations'
+import { Alpha2Code } from 'i18n'
 
 const data: Record<Alpha2Code, string> = {
   AC: '40123',

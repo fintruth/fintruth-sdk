@@ -1,13 +1,33 @@
 'use strict'
 
 module.exports = {
+  plugins: ['stylelint-order'],
   extends: [
     'stylelint-config-standard',
     'stylelint-config-styled-components',
     'stylelint-config-prettier',
   ],
-  plugins: ['stylelint-order'],
-  processors: ['stylelint-processor-styled-components'],
+  processors: [
+    [
+      'stylelint-processor-styled-components',
+      {
+        parserPlugins: [
+          'asyncGenerators',
+          'classProperties',
+          ['decorators', { decoratorsBeforeExport: true }],
+          'dynamicImport',
+          'exportExtensions',
+          'functionBind',
+          'functionSent',
+          'jsx',
+          'nullishCoalescingOperator',
+          'objectRestSpread',
+          'optionalCatchBinding',
+          'optionalChaining',
+        ],
+      },
+    ],
+  ],
   rules: {
     'declaration-empty-line-before': [
       'never',

@@ -1,8 +1,14 @@
-import chokidar from 'chokidar'
 import { dirname, join, relative } from 'path'
+import chokidar from 'chokidar'
 
 import packageConfig from '../package.json'
-import { writeFile, copyFile, makeDir, copyDir, cleanDir } from './lib/fs'
+import {
+  cleanDir,
+  copyDir,
+  copyFile,
+  makeDir,
+  writeFile,
+} from './utils/file-system'
 import { format } from './run'
 
 const config = JSON.stringify(
@@ -25,14 +31,14 @@ const copy = async () => {
 
   await Promise.all([
     copyDir('public', 'build/public'),
-    copyDir('src/translations/locales', 'build/locales'),
+    copyDir('src/i18n/translations', 'build/translations'),
     copyFile('../../yarn.lock', 'build/yarn.lock'),
     writeFile('build/package.json', config),
   ])
 
   if (isWatch) {
     const watcher = chokidar.watch(
-      ['public/**/*', 'src/translations/locales/**/*'],
+      ['public/**/*', 'src/i18n/translations/**/*'],
       { ignoreInitial: true }
     )
 
@@ -45,10 +51,10 @@ const copy = async () => {
         src.startsWith('src') ? relative('src', src) : src
       )
 
-      if (eventName === 'add' || eventName === 'change') {
+      if (/^(add|change)$/.test(eventName)) {
         await makeDir(dirname(dist))
         await copyFile(path, dist)
-      } else if (eventName === 'unlink' || eventName === 'unlinkDir') {
+      } else if (/^unlink(Dir)?$/.test(eventName)) {
         cleanDir(dist, { dot: true, nosort: true })
       } else {
         return
