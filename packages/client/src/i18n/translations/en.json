@@ -5,7 +5,7 @@
     "defaultMessage": "Ascension Island",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -14,7 +14,7 @@
     "defaultMessage": "Andorra",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -23,7 +23,7 @@
     "defaultMessage": "United Arab Emirates",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -32,7 +32,7 @@
     "defaultMessage": "Afghanistan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -41,7 +41,7 @@
     "defaultMessage": "Antigua and Barbuda",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -50,7 +50,7 @@
     "defaultMessage": "Anguilla",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -59,7 +59,7 @@
     "defaultMessage": "Albania",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -68,7 +68,7 @@
     "defaultMessage": "Armenia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -77,7 +77,7 @@
     "defaultMessage": "Angola",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -86,7 +86,7 @@
     "defaultMessage": "Argentina",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -95,7 +95,7 @@
     "defaultMessage": "American Samoa",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -104,7 +104,7 @@
     "defaultMessage": "Austria",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -113,7 +113,7 @@
     "defaultMessage": "Australia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -122,7 +122,7 @@
     "defaultMessage": "Aruba",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -131,7 +131,7 @@
     "defaultMessage": "Åland Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -140,7 +140,7 @@
     "defaultMessage": "Azerbaijan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -149,7 +149,7 @@
     "defaultMessage": "Bosnia and Herzegovina",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -158,7 +158,7 @@
     "defaultMessage": "Barbados",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -167,7 +167,7 @@
     "defaultMessage": "Bangladesh",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -176,7 +176,7 @@
     "defaultMessage": "Belgium",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -185,7 +185,7 @@
     "defaultMessage": "Burkina Faso",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -194,7 +194,7 @@
     "defaultMessage": "Bulgaria",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -203,7 +203,7 @@
     "defaultMessage": "Bahrain",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -212,7 +212,7 @@
     "defaultMessage": "Burundi",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -221,7 +221,7 @@
     "defaultMessage": "Benin",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -230,7 +230,7 @@
     "defaultMessage": "Saint Barthélemy",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -239,7 +239,7 @@
     "defaultMessage": "Bermuda",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -248,7 +248,7 @@
     "defaultMessage": "Brunei",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -257,7 +257,7 @@
     "defaultMessage": "Bolivia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -266,7 +266,7 @@
     "defaultMessage": "Caribbean Netherlands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -275,7 +275,7 @@
     "defaultMessage": "Brazil",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -284,7 +284,7 @@
     "defaultMessage": "Bahamas",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -293,7 +293,7 @@
     "defaultMessage": "Bhutan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -302,7 +302,7 @@
     "defaultMessage": "Botswana",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -311,7 +311,7 @@
     "defaultMessage": "Belarus",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -320,7 +320,7 @@
     "defaultMessage": "Belize",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -329,7 +329,7 @@
     "defaultMessage": "Canada",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -338,7 +338,7 @@
     "defaultMessage": "Cocos (Keeling) Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -347,7 +347,7 @@
     "defaultMessage": "Congo (Democratic)",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -356,7 +356,7 @@
     "defaultMessage": "Central African Republic",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -365,7 +365,7 @@
     "defaultMessage": "Congo",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -374,7 +374,7 @@
     "defaultMessage": "Switzerland",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -383,7 +383,7 @@
     "defaultMessage": "Côte d'Ivoire",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -392,7 +392,7 @@
     "defaultMessage": "Cook Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -401,7 +401,7 @@
     "defaultMessage": "Chile",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -410,7 +410,7 @@
     "defaultMessage": "Cameroon",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -419,7 +419,7 @@
     "defaultMessage": "China",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -428,7 +428,7 @@
     "defaultMessage": "Colombia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -437,7 +437,7 @@
     "defaultMessage": "Costa Rica",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -446,7 +446,7 @@
     "defaultMessage": "Cuba",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -455,7 +455,7 @@
     "defaultMessage": "Cabo Verde",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -464,7 +464,7 @@
     "defaultMessage": "Curaçao",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -473,7 +473,7 @@
     "defaultMessage": "Christmas Island",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -482,7 +482,7 @@
     "defaultMessage": "Cyprus",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -491,7 +491,7 @@
     "defaultMessage": "Czech Republic",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -500,7 +500,7 @@
     "defaultMessage": "Germany",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -509,7 +509,7 @@
     "defaultMessage": "Djibouti",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -518,7 +518,7 @@
     "defaultMessage": "Denmark",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -527,7 +527,7 @@
     "defaultMessage": "Dominica",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -536,7 +536,7 @@
     "defaultMessage": "Dominican Republic",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -545,7 +545,7 @@
     "defaultMessage": "Algeria",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -554,7 +554,7 @@
     "defaultMessage": "Ecuador",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -563,7 +563,7 @@
     "defaultMessage": "Estonia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -572,7 +572,7 @@
     "defaultMessage": "Egypt",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -581,7 +581,7 @@
     "defaultMessage": "Western Sahara",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -590,7 +590,7 @@
     "defaultMessage": "Eritrea",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -599,7 +599,7 @@
     "defaultMessage": "Spain",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -608,7 +608,7 @@
     "defaultMessage": "Ethiopia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -617,7 +617,7 @@
     "defaultMessage": "Finland",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -626,7 +626,7 @@
     "defaultMessage": "Fiji",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -635,7 +635,7 @@
     "defaultMessage": "Falkland Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -644,7 +644,7 @@
     "defaultMessage": "Micronesia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -653,7 +653,7 @@
     "defaultMessage": "Faroe Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -662,7 +662,7 @@
     "defaultMessage": "France",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -671,7 +671,7 @@
     "defaultMessage": "Gabon",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -680,7 +680,7 @@
     "defaultMessage": "United Kingdom",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -689,7 +689,7 @@
     "defaultMessage": "Grenada",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -698,7 +698,7 @@
     "defaultMessage": "Georgia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -707,7 +707,7 @@
     "defaultMessage": "French Guiana",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -716,7 +716,7 @@
     "defaultMessage": "Guernsey",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -725,7 +725,7 @@
     "defaultMessage": "Ghana",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -734,7 +734,7 @@
     "defaultMessage": "Gibraltar",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -743,7 +743,7 @@
     "defaultMessage": "Greenland",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -752,7 +752,7 @@
     "defaultMessage": "The Gambia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -761,7 +761,7 @@
     "defaultMessage": "Guinea",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -770,7 +770,7 @@
     "defaultMessage": "Guadeloupe",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -779,7 +779,7 @@
     "defaultMessage": "Equatorial Guinea",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -788,7 +788,7 @@
     "defaultMessage": "Greece",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -797,7 +797,7 @@
     "defaultMessage": "Guatemala",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -806,7 +806,7 @@
     "defaultMessage": "Guam",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -815,7 +815,7 @@
     "defaultMessage": "Guinea-Bissau",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -824,7 +824,7 @@
     "defaultMessage": "Guyana",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -833,7 +833,7 @@
     "defaultMessage": "Hong Kong",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -842,7 +842,7 @@
     "defaultMessage": "Honduras",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -851,7 +851,7 @@
     "defaultMessage": "Croatia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -860,7 +860,7 @@
     "defaultMessage": "Haiti",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -869,7 +869,7 @@
     "defaultMessage": "Hungary",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -878,7 +878,7 @@
     "defaultMessage": "Indonesia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -887,7 +887,7 @@
     "defaultMessage": "Ireland",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -896,7 +896,7 @@
     "defaultMessage": "Israel",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -905,7 +905,7 @@
     "defaultMessage": "Isle of Man",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -914,7 +914,7 @@
     "defaultMessage": "India",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -923,7 +923,7 @@
     "defaultMessage": "British Indian Ocean Territory",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -932,7 +932,7 @@
     "defaultMessage": "Iraq",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -941,7 +941,7 @@
     "defaultMessage": "Iran",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -950,7 +950,7 @@
     "defaultMessage": "Iceland",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -959,7 +959,7 @@
     "defaultMessage": "Italy",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -968,7 +968,7 @@
     "defaultMessage": "Jersey",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -977,7 +977,7 @@
     "defaultMessage": "Jamaica",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -986,7 +986,7 @@
     "defaultMessage": "Jordan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -995,7 +995,7 @@
     "defaultMessage": "Japan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1004,7 +1004,7 @@
     "defaultMessage": "Kenya",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1013,7 +1013,7 @@
     "defaultMessage": "Kyrgyzstan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1022,7 +1022,7 @@
     "defaultMessage": "Cambodia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1031,7 +1031,7 @@
     "defaultMessage": "Kiribati",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1040,7 +1040,7 @@
     "defaultMessage": "Comoros",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1049,7 +1049,7 @@
     "defaultMessage": "Saint Kitts and Nevis",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1058,7 +1058,7 @@
     "defaultMessage": "North Korea",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1067,7 +1067,7 @@
     "defaultMessage": "South Korea",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1076,7 +1076,7 @@
     "defaultMessage": "Kuwait",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1085,7 +1085,7 @@
     "defaultMessage": "Cayman Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1094,7 +1094,7 @@
     "defaultMessage": "Kazakhstan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1103,7 +1103,7 @@
     "defaultMessage": "Laos",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1112,7 +1112,7 @@
     "defaultMessage": "Lebanon",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1121,7 +1121,7 @@
     "defaultMessage": "Saint Lucia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1130,7 +1130,7 @@
     "defaultMessage": "Liechtenstein",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1139,7 +1139,7 @@
     "defaultMessage": "Sri Lanka",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1148,7 +1148,7 @@
     "defaultMessage": "Liberia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1157,7 +1157,7 @@
     "defaultMessage": "Lesotho",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1166,7 +1166,7 @@
     "defaultMessage": "Lithuania",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1175,7 +1175,7 @@
     "defaultMessage": "Luxembourg",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1184,7 +1184,7 @@
     "defaultMessage": "Latvia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1193,7 +1193,7 @@
     "defaultMessage": "Libya",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1202,7 +1202,7 @@
     "defaultMessage": "Morocco",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1211,7 +1211,7 @@
     "defaultMessage": "Monaco",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1220,7 +1220,7 @@
     "defaultMessage": "Moldova",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1229,7 +1229,7 @@
     "defaultMessage": "Montenegro",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1238,7 +1238,7 @@
     "defaultMessage": "Saint Martin",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1247,7 +1247,7 @@
     "defaultMessage": "Madagascar",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1256,7 +1256,7 @@
     "defaultMessage": "Marshall Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1265,7 +1265,7 @@
     "defaultMessage": "North Macedonia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1274,7 +1274,7 @@
     "defaultMessage": "Mali",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1283,7 +1283,7 @@
     "defaultMessage": "Myanmar",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1292,7 +1292,7 @@
     "defaultMessage": "Mongolia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1301,7 +1301,7 @@
     "defaultMessage": "Macau",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1310,7 +1310,7 @@
     "defaultMessage": "Northern Mariana Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1319,7 +1319,7 @@
     "defaultMessage": "Martinique",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1328,7 +1328,7 @@
     "defaultMessage": "Mauritania",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1337,7 +1337,7 @@
     "defaultMessage": "Montserrat",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1346,7 +1346,7 @@
     "defaultMessage": "Malta",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1355,7 +1355,7 @@
     "defaultMessage": "Mauritius",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1364,7 +1364,7 @@
     "defaultMessage": "Maldives",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1373,7 +1373,7 @@
     "defaultMessage": "Malawi",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1382,7 +1382,7 @@
     "defaultMessage": "Mexico",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1391,7 +1391,7 @@
     "defaultMessage": "Malaysia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1400,7 +1400,7 @@
     "defaultMessage": "Mozambique",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1409,7 +1409,7 @@
     "defaultMessage": "Namibia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1418,7 +1418,7 @@
     "defaultMessage": "New Caledonia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1427,7 +1427,7 @@
     "defaultMessage": "Niger",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1436,7 +1436,7 @@
     "defaultMessage": "Norfolk Island",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1445,7 +1445,7 @@
     "defaultMessage": "Nigeria",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1454,7 +1454,7 @@
     "defaultMessage": "Nicaragua",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1463,7 +1463,7 @@
     "defaultMessage": "Netherlands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1472,7 +1472,7 @@
     "defaultMessage": "Norway",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1481,7 +1481,7 @@
     "defaultMessage": "Nepal",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1490,7 +1490,7 @@
     "defaultMessage": "Nauru",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1499,7 +1499,7 @@
     "defaultMessage": "Niue",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1508,7 +1508,7 @@
     "defaultMessage": "New Zealand",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1517,7 +1517,7 @@
     "defaultMessage": "Oman",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1526,7 +1526,7 @@
     "defaultMessage": "Panama",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1535,7 +1535,7 @@
     "defaultMessage": "Peru",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1544,7 +1544,7 @@
     "defaultMessage": "French Polynesia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1553,7 +1553,7 @@
     "defaultMessage": "Papua New Guinea",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1562,7 +1562,7 @@
     "defaultMessage": "Philippines",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1571,7 +1571,7 @@
     "defaultMessage": "Pakistan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1580,7 +1580,7 @@
     "defaultMessage": "Poland",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1589,7 +1589,7 @@
     "defaultMessage": "Saint Pierre and Miquelon",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1598,7 +1598,7 @@
     "defaultMessage": "Puerto Rico",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1607,7 +1607,7 @@
     "defaultMessage": "Palestine",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1616,7 +1616,7 @@
     "defaultMessage": "Portugal",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1625,7 +1625,7 @@
     "defaultMessage": "Palau",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1634,7 +1634,7 @@
     "defaultMessage": "Paraguay",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1643,7 +1643,7 @@
     "defaultMessage": "Qatar",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1652,7 +1652,7 @@
     "defaultMessage": "Réunion",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1661,7 +1661,7 @@
     "defaultMessage": "Romania",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1670,7 +1670,7 @@
     "defaultMessage": "Serbia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1679,7 +1679,7 @@
     "defaultMessage": "Russia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1688,7 +1688,7 @@
     "defaultMessage": "Rwanda",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1697,7 +1697,7 @@
     "defaultMessage": "Saudi Arabia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1706,7 +1706,7 @@
     "defaultMessage": "Solomon Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1715,7 +1715,7 @@
     "defaultMessage": "Seychelles",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1724,7 +1724,7 @@
     "defaultMessage": "Sudan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1733,7 +1733,7 @@
     "defaultMessage": "Sweden",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1742,7 +1742,7 @@
     "defaultMessage": "Singapore",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1751,7 +1751,7 @@
     "defaultMessage": "Saint Helena, Ascension, and Tristan da Cunha",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1760,7 +1760,7 @@
     "defaultMessage": "Slovenia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1769,7 +1769,7 @@
     "defaultMessage": "Svalbard and Jan Mayen",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1778,7 +1778,7 @@
     "defaultMessage": "Slovakia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1787,7 +1787,7 @@
     "defaultMessage": "Sierra Leone",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1796,7 +1796,7 @@
     "defaultMessage": "San Marino",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1805,7 +1805,7 @@
     "defaultMessage": "Senegal",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1814,7 +1814,7 @@
     "defaultMessage": "Somalia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1823,7 +1823,7 @@
     "defaultMessage": "Suriname",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1832,7 +1832,7 @@
     "defaultMessage": "South Sudan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1841,7 +1841,7 @@
     "defaultMessage": "São Tomé and Príncipe",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1850,7 +1850,7 @@
     "defaultMessage": "El Salvador",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1859,7 +1859,7 @@
     "defaultMessage": "Sint Maarten",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1868,7 +1868,7 @@
     "defaultMessage": "Syria",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1877,7 +1877,7 @@
     "defaultMessage": "Eswatini",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1886,7 +1886,7 @@
     "defaultMessage": "Tristan da Cunha",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1895,7 +1895,7 @@
     "defaultMessage": "Turks and Caicos Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1904,7 +1904,7 @@
     "defaultMessage": "Chad",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1913,7 +1913,7 @@
     "defaultMessage": "Togo",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1922,7 +1922,7 @@
     "defaultMessage": "Thailand",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1931,7 +1931,7 @@
     "defaultMessage": "Tajikistan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1940,7 +1940,7 @@
     "defaultMessage": "Tokelau",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1949,7 +1949,7 @@
     "defaultMessage": "Timor-Leste",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1958,7 +1958,7 @@
     "defaultMessage": "Turkmenistan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1967,7 +1967,7 @@
     "defaultMessage": "Tunisia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1976,7 +1976,7 @@
     "defaultMessage": "Tonga",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1985,7 +1985,7 @@
     "defaultMessage": "Turkey",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -1994,7 +1994,7 @@
     "defaultMessage": "Trinidad and Tobago",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2003,7 +2003,7 @@
     "defaultMessage": "Tuvalu",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2012,7 +2012,7 @@
     "defaultMessage": "Taiwan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2021,7 +2021,7 @@
     "defaultMessage": "Tanzania",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2030,7 +2030,7 @@
     "defaultMessage": "Ukraine",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2039,7 +2039,7 @@
     "defaultMessage": "Uganda",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2048,7 +2048,7 @@
     "defaultMessage": "United States",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2057,7 +2057,7 @@
     "defaultMessage": "Uruguay",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2066,7 +2066,7 @@
     "defaultMessage": "Uzbekistan",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2075,7 +2075,7 @@
     "defaultMessage": "Vatican City",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2084,7 +2084,7 @@
     "defaultMessage": "Saint Vincent and the Grenadines",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2093,7 +2093,7 @@
     "defaultMessage": "Venezuela",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2102,7 +2102,7 @@
     "defaultMessage": "British Virgin Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2111,7 +2111,7 @@
     "defaultMessage": "United States Virgin Islands",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2120,7 +2120,7 @@
     "defaultMessage": "Vietnam",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2129,7 +2129,7 @@
     "defaultMessage": "Vanuatu",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2138,7 +2138,7 @@
     "defaultMessage": "Wallis and Futuna",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2147,7 +2147,7 @@
     "defaultMessage": "Samoa",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2156,7 +2156,7 @@
     "defaultMessage": "Kosovo",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2165,7 +2165,7 @@
     "defaultMessage": "Yemen",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2174,7 +2174,7 @@
     "defaultMessage": "Mayotte",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2183,7 +2183,7 @@
     "defaultMessage": "South Africa",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2192,7 +2192,7 @@
     "defaultMessage": "Zambia",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2201,7 +2201,7 @@
     "defaultMessage": "Zimbabwe",
     "description": "The name of a country",
     "files": [
-      "src/translations/country.ts"
+      "src/i18n/country.ts"
     ]
   },
   {
@@ -2210,7 +2210,7 @@
     "defaultMessage": "Confirm Email",
     "description": "The label of a field",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2219,7 +2219,7 @@
     "defaultMessage": "Email",
     "description": "The label of a field",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2228,7 +2228,7 @@
     "defaultMessage": "First Name",
     "description": "The label of a field",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2237,7 +2237,7 @@
     "defaultMessage": "Last Name",
     "description": "The label of a field",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2246,7 +2246,7 @@
     "defaultMessage": "Password",
     "description": "The label of a field",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2255,7 +2255,7 @@
     "defaultMessage": "Verification Code",
     "description": "The label of a field",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2264,7 +2264,7 @@
     "defaultMessage": "Continue",
     "description": "The text of a submit button",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2273,7 +2273,7 @@
     "defaultMessage": "Recover",
     "description": "The text of a submit button",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2282,7 +2282,7 @@
     "defaultMessage": "Register",
     "description": "The text of a submit button",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2291,7 +2291,7 @@
     "defaultMessage": "Sign in",
     "description": "The text of a submit button",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2300,7 +2300,7 @@
     "defaultMessage": "A verification email has been sent",
     "description": "The message displayed when a form is successfully submitted",
     "files": [
-      "src/translations/form.ts"
+      "src/i18n/form.ts"
     ]
   },
   {
@@ -2309,7 +2309,7 @@
     "defaultMessage": "Register",
     "description": "The text of a local route link",
     "files": [
-      "src/translations/navigation.ts"
+      "src/i18n/navigation.ts"
     ]
   },
   {
@@ -2318,7 +2318,7 @@
     "defaultMessage": "Settings",
     "description": "The text of a local route link",
     "files": [
-      "src/translations/navigation.ts"
+      "src/i18n/navigation.ts"
     ]
   },
   {
@@ -2327,7 +2327,7 @@
     "defaultMessage": "Sign In",
     "description": "The text of a local route link",
     "files": [
-      "src/translations/navigation.ts"
+      "src/i18n/navigation.ts"
     ]
   },
   {
