@@ -1,22 +1,21 @@
-# Compiled Output
+# Artifacts and Compiled Output
 build
 storybook-static
 
 # Dependencies
 node_modules
 
+# Internationalization
+src/i18n/translations/*.json
+
 # Test and Code Coverage
 coverage
-
-# Translations
-src/translations/locales/*.json
 
 # Logs
 *.log*
 
 # Miscellaneous
 .env*
-!.env.defaults
 !.env.example
 .eslintcache
 .stylelintcache

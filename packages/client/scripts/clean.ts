@@ -1,8 +1,8 @@
-import { cleanDir } from './lib/fs'
+import { cleanDir } from './utils/file-system'
 
 const clean = () =>
   Promise.all([
-    cleanDir('?(build|coverage)', { dot: true, nosort: true }),
+    cleanDir('?(build|coverage|storybook-static)', { dot: true, nosort: true }),
     cleanDir('.?(eslint|stylelint)cache', { nosort: true }),
     cleanDir('*.log*', { dot: true, nosort: true }),
   ])

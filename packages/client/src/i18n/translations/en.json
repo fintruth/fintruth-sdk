@@ -1,194 +1,5 @@
 [
   {
-    "id": "form.field.label.confirmEmail",
-    "message": "Confirm Email",
-    "defaultMessage": "Confirm Email",
-    "description": "The label of a field",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "form.field.label.email",
-    "message": "Email",
-    "defaultMessage": "Email",
-    "description": "The label of a field",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "form.field.label.firstName",
-    "message": "First Name",
-    "defaultMessage": "First Name",
-    "description": "The label of a field",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "form.field.label.lastName",
-    "message": "Last Name",
-    "defaultMessage": "Last Name",
-    "description": "The label of a field",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "form.field.label.password",
-    "message": "Password",
-    "defaultMessage": "Password",
-    "description": "The label of a field",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "form.field.label.verificationCode",
-    "message": "Verification Code",
-    "defaultMessage": "Verification Code",
-    "description": "The label of a field",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "form.submit.continue",
-    "message": "Continue",
-    "defaultMessage": "Continue",
-    "description": "The text of a submit button",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "form.submit.recover",
-    "message": "Recover",
-    "defaultMessage": "Recover",
-    "description": "The text of a submit button",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "form.submit.register",
-    "message": "Register",
-    "defaultMessage": "Register",
-    "description": "The text of a submit button",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "form.submit.signIn",
-    "message": "Sign in",
-    "defaultMessage": "Sign in",
-    "description": "The text of a submit button",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "form.success.verificationEmail",
-    "message": "A verification email has been sent",
-    "defaultMessage": "A verification email has been sent",
-    "description": "The message displayed when a form is successfully submitted",
-    "files": [
-      "src/translations/form.ts"
-    ]
-  },
-  {
-    "id": "navigation.route.register",
-    "message": "Register",
-    "defaultMessage": "Register",
-    "description": "The text of a local route link",
-    "files": [
-      "src/translations/navigation.ts"
-    ]
-  },
-  {
-    "id": "navigation.route.settings",
-    "message": "Settings",
-    "defaultMessage": "Settings",
-    "description": "The text of a local route link",
-    "files": [
-      "src/translations/navigation.ts"
-    ]
-  },
-  {
-    "id": "navigation.route.signIn",
-    "message": "Sign In",
-    "defaultMessage": "Sign In",
-    "description": "The text of a local route link",
-    "files": [
-      "src/translations/navigation.ts"
-    ]
-  },
-  {
-    "id": "routes.fault.description",
-    "message": "Sorry, a critical error occurred on this page.",
-    "defaultMessage": "Sorry, a critical error occurred on this page.",
-    "description": "The description of the Fault page",
-    "files": [
-      "src/routes/fault/index.tsx"
-    ]
-  },
-  {
-    "id": "routes.fault.title",
-    "message": "Error",
-    "defaultMessage": "Error",
-    "description": "The title of the Fault page",
-    "files": [
-      "src/routes/fault/index.tsx"
-    ]
-  },
-  {
-    "id": "routes.home.title",
-    "message": "Welcome Home!",
-    "defaultMessage": "Welcome Home!",
-    "description": "The title of the Home page",
-    "files": [
-      "src/routes/home/index.tsx"
-    ]
-  },
-  {
-    "id": "routes.notfound.description",
-    "message": "Sorry, but the page you were trying to view does not exist.",
-    "defaultMessage": "Sorry, but the page you were trying to view does not exist.",
-    "description": "The description of the Not Found page",
-    "files": [
-      "src/routes/not-found/index.tsx"
-    ]
-  },
-  {
-    "id": "routes.notfound.title",
-    "message": "Page Not Found",
-    "defaultMessage": "Page Not Found",
-    "description": "The title of the Not Found page",
-    "files": [
-      "src/routes/not-found/index.tsx"
-    ]
-  },
-  {
-    "id": "routes.recover.recoverForm.accountHelp.description",
-    "message": "Already have email and password?",
-    "defaultMessage": "Already have email and password?",
-    "description": "The description in the Account Help section",
-    "files": [
-      "src/routes/recover/recover-form.tsx"
-    ]
-  },
-  {
-    "id": "routes.signIn.signInForm.accountHelp.recover",
-    "message": "Forgot your password?",
-    "defaultMessage": "Forgot your password?",
-    "description": "The Recover link in the Account Help section",
-    "files": [
-      "src/routes/sign-in/sign-in-form.tsx"
-    ]
-  },
-  {
     "id": "country.name.ac",
     "message": "Ascension Island",
     "defaultMessage": "Ascension Island",
@@ -2391,6 +2202,195 @@
     "description": "The name of a country",
     "files": [
       "src/translations/country.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.confirmEmail",
+    "message": "Confirm Email",
+    "defaultMessage": "Confirm Email",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.email",
+    "message": "Email",
+    "defaultMessage": "Email",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.firstName",
+    "message": "First Name",
+    "defaultMessage": "First Name",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.lastName",
+    "message": "Last Name",
+    "defaultMessage": "Last Name",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.password",
+    "message": "Password",
+    "defaultMessage": "Password",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.field.label.verificationCode",
+    "message": "Verification Code",
+    "defaultMessage": "Verification Code",
+    "description": "The label of a field",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.submit.continue",
+    "message": "Continue",
+    "defaultMessage": "Continue",
+    "description": "The text of a submit button",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.submit.recover",
+    "message": "Recover",
+    "defaultMessage": "Recover",
+    "description": "The text of a submit button",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.submit.register",
+    "message": "Register",
+    "defaultMessage": "Register",
+    "description": "The text of a submit button",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.submit.signIn",
+    "message": "Sign in",
+    "defaultMessage": "Sign in",
+    "description": "The text of a submit button",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "form.success.verificationEmail",
+    "message": "A verification email has been sent",
+    "defaultMessage": "A verification email has been sent",
+    "description": "The message displayed when a form is successfully submitted",
+    "files": [
+      "src/translations/form.ts"
+    ]
+  },
+  {
+    "id": "navigation.route.register",
+    "message": "Register",
+    "defaultMessage": "Register",
+    "description": "The text of a local route link",
+    "files": [
+      "src/translations/navigation.ts"
+    ]
+  },
+  {
+    "id": "navigation.route.settings",
+    "message": "Settings",
+    "defaultMessage": "Settings",
+    "description": "The text of a local route link",
+    "files": [
+      "src/translations/navigation.ts"
+    ]
+  },
+  {
+    "id": "navigation.route.signIn",
+    "message": "Sign In",
+    "defaultMessage": "Sign In",
+    "description": "The text of a local route link",
+    "files": [
+      "src/translations/navigation.ts"
+    ]
+  },
+  {
+    "id": "routes.fault.description",
+    "message": "Sorry, a critical error occurred on this page.",
+    "defaultMessage": "Sorry, a critical error occurred on this page.",
+    "description": "The description of the Fault page",
+    "files": [
+      "src/routes/fault/index.tsx"
+    ]
+  },
+  {
+    "id": "routes.fault.title",
+    "message": "Error",
+    "defaultMessage": "Error",
+    "description": "The title of the Fault page",
+    "files": [
+      "src/routes/fault/index.tsx"
+    ]
+  },
+  {
+    "id": "routes.home.title",
+    "message": "Welcome Home!",
+    "defaultMessage": "Welcome Home!",
+    "description": "The title of the Home page",
+    "files": [
+      "src/routes/home/index.tsx"
+    ]
+  },
+  {
+    "id": "routes.notfound.description",
+    "message": "Sorry, but the page you were trying to view does not exist.",
+    "defaultMessage": "Sorry, but the page you were trying to view does not exist.",
+    "description": "The description of the Not Found page",
+    "files": [
+      "src/routes/not-found/index.tsx"
+    ]
+  },
+  {
+    "id": "routes.notfound.title",
+    "message": "Page Not Found",
+    "defaultMessage": "Page Not Found",
+    "description": "The title of the Not Found page",
+    "files": [
+      "src/routes/not-found/index.tsx"
+    ]
+  },
+  {
+    "id": "routes.recover.recoverForm.accountHelp.description",
+    "message": "Already have email and password?",
+    "defaultMessage": "Already have email and password?",
+    "description": "The description in the Account Help section",
+    "files": [
+      "src/routes/recover/recover-form.tsx"
+    ]
+  },
+  {
+    "id": "routes.signIn.signInForm.accountHelp.recover",
+    "message": "Forgot your password?",
+    "defaultMessage": "Forgot your password?",
+    "description": "The Recover link in the Account Help section",
+    "files": [
+      "src/routes/sign-in/sign-in-form.tsx"
     ]
   }
 ]

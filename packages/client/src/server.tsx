@@ -1,7 +1,9 @@
+import { join } from 'path'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { renderToStringWithData } from '@apollo/react-ssr'
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 import { ServerLocation, isRedirect } from '@reach/router'
+import { createUploadLink } from 'apollo-upload-client'
 import { ApolloServer } from 'apollo-server-express'
 import bodyParser from 'body-parser'
 import compression from 'compression'
@@ -11,25 +13,21 @@ import express, { Express, NextFunction, Request, Response } from 'express'
 import requestLanguage from 'express-request-language'
 import { Styles } from 'isomorphic-style-loader'
 import StyleContext from 'isomorphic-style-loader/StyleContext'
-import { join } from 'path'
+import fetch from 'node-fetch'
 import PrettyError from 'pretty-error'
 import React from 'react'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import { IntlProvider } from 'react-intl'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 
+import schema from './api/schema'
+import { Context } from './common'
 import Html from './components/html'
 import Root from './components/root'
 import Fault from './routes/fault'
-import { defaults } from './store/partitions'
-import { createApolloClient } from './apollo'
-import { locales, port, publicDir, rootDir } from './config'
-import schema from './schema'
-
-export interface Context {
-  locale: string
-  res: Response
-}
+import { Defaults, defaults as baseDefaults, resolvers } from './store'
+import { createApolloClient, createErrorLink } from './utils/apollo'
+import { locales, port } from './config'
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason)
@@ -57,7 +55,7 @@ app
   .use(compression())
   .use(cookieParser())
   .use(cors())
-  .use(express.static(publicDir))
+  .use(express.static(join(__dirname, 'public')))
   .use(
     requestLanguage({
       cookie: { name: 'lang', url: '/lang/{language}' },
@@ -68,11 +66,30 @@ app
   .use(server.getMiddleware({ cors: false, path: '/api' }))
 
 app.get('*', async (req: Request, res: Response, next: NextFunction) => {
-  const client = createApolloClient({ defaults, resolvers: {} })
   const css = new Set()
+  const defaults: Defaults = {
+    ...baseDefaults,
+    currentLocale: locales.includes(req.language) ? req.language : 'en',
+    locales,
+  }
+
+  const alternateLocales = locales.filter(locale => locale !== req.language)
+  const client = createApolloClient({
+    defaults,
+    links: [
+      createErrorLink(),
+      createUploadLink({
+        credentials: 'include',
+        fetch: (fetch as unknown) as WindowOrWorkerGlobalScope['fetch'],
+        uri: process.env.API_URI,
+      }),
+    ],
+    resolvers,
+    ssrMode: true,
+  })
   const extractor = new ChunkExtractor({
     entrypoints: 'client',
-    statsFile: join(rootDir, 'stats.json'),
+    statsFile: join(__dirname, 'stats.json'),
   })
   const sheet = new ServerStyleSheet()
 
@@ -103,6 +120,7 @@ app.get('*', async (req: Request, res: Response, next: NextFunction) => {
 
     const html = renderToStaticMarkup(
       <Html
+        alternateLocales={alternateLocales}
         lang={req.language}
         links={extractor.getLinkElements()}
         scripts={extractor.getScriptElements()}

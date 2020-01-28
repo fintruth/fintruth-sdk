@@ -1,4 +1,4 @@
-import { act } from '@testing-library/react'
+import { act, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Formik } from 'formik'
 import React from 'react'
@@ -9,7 +9,7 @@ import Radio, { RadioInput, RadioLabel } from '.'
 const noop = () => {} // eslint-disable-line @typescript-eslint/no-empty-function
 
 test('should only allow one radio button to be checked at a time', async () => {
-  const { getByLabelText } = renderWithContext(
+  renderWithContext(
     <Formik initialValues={{ radioGroup: 'radio-a' }} onSubmit={noop}>
       <>
         <Radio name="radioGroup">
@@ -23,8 +23,8 @@ test('should only allow one radio button to be checked at a time', async () => {
       </>
     </Formik>
   )
-  const radioA = getByLabelText('Radio A') as HTMLInputElement
-  const radioB = getByLabelText('Radio B') as HTMLInputElement
+  const radioA = screen.getByLabelText('Radio A') as HTMLInputElement
+  const radioB = screen.getByLabelText('Radio B') as HTMLInputElement
 
   expect(radioA.checked).toBe(true)
   expect(radioB.checked).toBe(false)
