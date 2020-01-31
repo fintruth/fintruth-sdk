@@ -2548,13 +2548,13 @@
   resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.8.0.tgz#13a73facfa42e78eea7f97aba675e15f386ec801"
   integrity sha512-7Aazft/dB2/4NSGl2ixx2n4BKsQLFEiVtEiw3/GdFb6U7+bJ1qJLzWAsSkFc7ACeNtbkhM34RuBZTd44bOtzbQ==
 
-"@reach/dialog@^0.7.4":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@reach/dialog/-/dialog-0.7.4.tgz#60927fbe4e65fe0e7684f8fa1f1b155385cfb5ce"
-  integrity sha512-KKvInRkRSj6TALsKlEVHhWwT6CZAmtGDNG606COMwveEAqXXolQm3dWgIz5H7atUR6rj++f/wOYBAQYZyEfelQ==
+"@reach/dialog@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@reach/dialog/-/dialog-0.8.0.tgz#0f65ede5bf7103e290fe073ab5bebb2713c93ae4"
+  integrity sha512-K1QU9tTF522m1UesT81sDj3ldqzv1xQ0W3RU1FlqXAi0bwmNtQ7s471+J0lu3JhEeGtTlVZUcPQIg8iwlIkgig==
   dependencies:
-    "@reach/portal" "^0.7.4"
-    "@reach/utils" "^0.7.4"
+    "@reach/portal" "^0.8.0"
+    "@reach/utils" "^0.8.0"
     prop-types "^15.7.2"
     react-focus-lock "^2.2.1"
     react-remove-scroll "^2.2.0"
