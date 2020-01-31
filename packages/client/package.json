@@ -49,7 +49,7 @@
     "@loadable/component": "^5.12.0",
     "@loadable/server": "^5.12.0",
     "@reach/dialog": "^0.8.0",
-    "@reach/menu-button": "^0.7.4",
+    "@reach/menu-button": "^0.8.0",
     "@reach/router": "^1.2.1",
     "@reach/tabs": "^0.7.4",
     "@reach/tooltip": "^0.8.0",
