@@ -104,7 +104,7 @@
     "@storybook/addon-a11y": "^5.3.9",
     "@storybook/addon-actions": "^5.3.9",
     "@storybook/addon-docs": "^5.3.9",
-    "@storybook/addon-knobs": "^5.3.9",
+    "@storybook/addon-knobs": "^5.3.10",
     "@storybook/addon-viewport": "^5.3.9",
     "@storybook/addons": "^5.3.10",
     "@storybook/react": "^5.3.9",
