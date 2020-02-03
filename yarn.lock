@@ -984,7 +984,7 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4", "@babel/runtime@^7.7.6", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.3":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4", "@babel/runtime@^7.7.6", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4":
   version "7.8.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.4.tgz#d79f5a2040f7caa24d53e563aad49cbc05581308"
   integrity sha512-neAp3zt80trRVBI1x0azq6c57aNBqYZH8KhMm3TaB7wEI5Q4A2SHfBHE8w9gOhI/lrqxtEbXZgQIrHP+wvSGwQ==
@@ -3479,16 +3479,16 @@
     "@svgr/plugin-svgo" "^5.1.0"
     loader-utils "^1.2.3"
 
-"@testing-library/cypress@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-5.2.0.tgz#dc1eee422c6efb51c6b9ccc16768f983e3beca2d"
-  integrity sha512-1ktU/mnZy28MfYTIuqO1KAn+4zP5f3iCDRVO4mcs/N5fvUBsjJAcrNEsFVVa6fzBJrphGzkUMHBbAh7uwXm9Lg==
+"@testing-library/cypress@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-5.2.1.tgz#fc9f40fe0de95b1f4c3888a908c432e11a092fe7"
+  integrity sha512-XJH7SdefT1chy6FDsl2PcWH6IOikswrHbjDTaymzJrteBi8eyEDBFVKoHtAlcSYikjJ8BykHM2qLyQjC7xB1wg==
   dependencies:
-    "@babel/runtime" "^7.5.5"
-    "@testing-library/dom" "^6.0.0"
-    "@types/testing-library__cypress" "^5.0.0"
+    "@babel/runtime" "^7.8.4"
+    "@testing-library/dom" "^6.12.2"
+    "@types/testing-library__cypress" "^5.0.2"
 
-"@testing-library/dom@^6.0.0", "@testing-library/dom@^6.11.0", "@testing-library/dom@^6.12.2":
+"@testing-library/dom@^6.11.0", "@testing-library/dom@^6.12.2":
   version "6.12.2"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-6.12.2.tgz#5d549acf43f2e0c23b2abfd4e36d65594c3b2741"
   integrity sha512-KCnvHra5fV+wDxg3wJObGvZFxq7v1DJt829GNFLuRDjKxVNc/B5AdsylNF5PMHFbWMXDsHwM26d2NZcZO9KjbQ==
@@ -4229,7 +4229,7 @@
     "@types/webpack" "*"
     terser "^4.3.9"
 
-"@types/testing-library__cypress@^5.0.0", "@types/testing-library__cypress@^5.0.2":
+"@types/testing-library__cypress@^5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@types/testing-library__cypress/-/testing-library__cypress-5.0.2.tgz#b7ceef8efb5de417f7daedd76b6e30d63ae8dbf0"
   integrity sha512-Q4U1/HOY7EDUtwyHYMFOHTRrkOH/nClz6MudjtDxRlgmIudmVzuXJmNFNGR4GmcXovNc2fJFXsGaRUKZT0Df/w==
