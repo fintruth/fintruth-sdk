@@ -10,7 +10,7 @@
   ],
   "homepage": "https://github.com/fintruth/fintruth-sdk/tree/develop/packages/validation#readme",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "author": "Fintruth LLC <support@fintruth.com> (https://www.fintruth.com)",
   "files": [
     "build"

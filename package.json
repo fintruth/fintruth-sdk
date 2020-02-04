@@ -11,7 +11,7 @@
   ],
   "homepage": "https://github.com/fintruth/fintruth-sdk#readme",
   "bugs": "https://github.com/fintruth/fintruth-sdk/issues",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "author": "Fintruth LLC <support@fintruth.com> (https://www.fintruth.com)",
   "repository": {
     "type": "git",
