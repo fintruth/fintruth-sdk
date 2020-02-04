@@ -34,7 +34,7 @@
     "test:units": "jest --passWithNoTests"
   },
   "dependencies": {
-    "graphql-tag": "^2.10.1"
+    "graphql-tag": "^2.10.2"
   },
   "devDependencies": {
     "@ef-carbon/tspm": "^2.2.5"
