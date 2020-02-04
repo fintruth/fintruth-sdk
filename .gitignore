@@ -1,12 +1,23 @@
 # Dependencies
 node_modules
 
-# Test and Code Coverage
+# Compiled output
+**/build
+**/storybook-static
+
+# Test output
+**/coverage
 test/screenshots
 test/videos
+
+# Environment config
+.env*
+!.env.example
 
 # Logs
 *.log*
 
-# Miscellaneous
+# Misc
+.DS_Store
 .eslintcache
+.stylelintcache
