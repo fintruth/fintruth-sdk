@@ -2550,16 +2550,17 @@
   resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.8.0.tgz#13a73facfa42e78eea7f97aba675e15f386ec801"
   integrity sha512-7Aazft/dB2/4NSGl2ixx2n4BKsQLFEiVtEiw3/GdFb6U7+bJ1qJLzWAsSkFc7ACeNtbkhM34RuBZTd44bOtzbQ==
 
-"@reach/dialog@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@reach/dialog/-/dialog-0.8.0.tgz#0f65ede5bf7103e290fe073ab5bebb2713c93ae4"
-  integrity sha512-K1QU9tTF522m1UesT81sDj3ldqzv1xQ0W3RU1FlqXAi0bwmNtQ7s471+J0lu3JhEeGtTlVZUcPQIg8iwlIkgig==
+"@reach/dialog@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@reach/dialog/-/dialog-0.8.2.tgz#2d49fd9eb68170f17995f1ba4ca2171ea567e1da"
+  integrity sha512-QH62/MEbqojNNezXE/IRnGnageNm9tksqqxhpoMhgv1SoQULT8/WuZ/4oY3Sx7MsFX09ssqc7KiCk6A/B+ilhw==
   dependencies:
-    "@reach/portal" "^0.8.0"
-    "@reach/utils" "^0.8.0"
+    "@reach/portal" "^0.8.2"
+    "@reach/utils" "^0.8.2"
     prop-types "^15.7.2"
     react-focus-lock "^2.2.1"
     react-remove-scroll "^2.2.0"
+    tslib "^1.10.0"
 
 "@reach/menu-button@^0.8.0":
   version "0.8.0"
@@ -2587,10 +2588,12 @@
     "@reach/utils" "^0.8.0"
     tabbable "^4.0.0"
 
-"@reach/portal@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@reach/portal/-/portal-0.8.0.tgz#60b17921f6036a4fe809c83ee3ce6a9dfc75fb8f"
-  integrity sha512-yxNzz/zvya4PBJ4mQvQXidYU33TdREm0w8zmv9piyq85E4azQriBPQjxkIYtIvV8oh17JjJBuSt/W5VSZ7HV+w==
+"@reach/portal@^0.8.0", "@reach/portal@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@reach/portal/-/portal-0.8.2.tgz#7b00910eade9d17a7c141d7923e663a1a5ff8f95"
+  integrity sha512-IXOse/oHYoNQgDB2YqRSx4dKTWQv+JJNWTtGz9tGALF8ePbyNY3tq5zp5bsJIYTV1oL5j/m8PBaM2HSBU4mZRA==
+  dependencies:
+    tslib "^1.10.0"
 
 "@reach/rect@^0.8.0":
   version "0.8.0"
@@ -2632,10 +2635,13 @@
     "@reach/visually-hidden" "^0.8.0"
     prop-types "^15.7.2"
 
-"@reach/utils@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.8.0.tgz#8610590a42bf713d5686e357271609c713bb5c24"
-  integrity sha512-NjOjrFdf7VS6zyTAyXzYgRwLfluECrWe7XLb5Nh9HQA81+9lkvzkR5U9TP07lDDBCup/rFIF56S1XNB/StRrfA==
+"@reach/utils@^0.8.0", "@reach/utils@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.8.2.tgz#0adb27de5038a9c9d1c302aee7ae7de4260a36b8"
+  integrity sha512-JrQC5nTr0pS0FR9qLKinBViRhQ75hdjr+rLROfqtT8QljnalvlmN6hkibap5YJRe4cOQtpjUplioCErQ4zBxJw==
+  dependencies:
+    tslib "^1.10.0"
+    warning "^4.0.3"
 
 "@reach/visually-hidden@^0.8.0":
   version "0.8.0"
