@@ -2627,14 +2627,16 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@reach/tabs@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@reach/tabs/-/tabs-0.8.0.tgz#4808f7a6b74d75645e68780055d8f709ab650534"
-  integrity sha512-QW8wiN11/BjZvlVeIeFauFndzH8uBzjjlirA0ghUHfs0JsSgW6tcrQy9yDISfrNaxFfhEs8ADiSMd1ia9j4Chg==
+"@reach/tabs@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@reach/tabs/-/tabs-0.8.2.tgz#043b2ce1f118251c4b21f44755a29b5c243a6735"
+  integrity sha512-RsMZaVmpw7CT/3xLLC4MDMyxss3ow+0HD0k8N1ZMs/MBSiIZ6fVefye2AFeFj1v9sgZcOqKjFJl1+gvzUAuA5w==
   dependencies:
-    "@reach/auto-id" "^0.8.0"
-    "@reach/utils" "^0.8.0"
+    "@reach/auto-id" "^0.8.2"
+    "@reach/descendants" "^0.8.2"
+    "@reach/utils" "^0.8.2"
     prop-types "^15.7.2"
+    tslib "^1.10.0"
     warning "^4.0.3"
 
 "@reach/tooltip@^0.8.2":
