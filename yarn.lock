@@ -2545,10 +2545,12 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@reach/auto-id@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.8.0.tgz#13a73facfa42e78eea7f97aba675e15f386ec801"
-  integrity sha512-7Aazft/dB2/4NSGl2ixx2n4BKsQLFEiVtEiw3/GdFb6U7+bJ1qJLzWAsSkFc7ACeNtbkhM34RuBZTd44bOtzbQ==
+"@reach/auto-id@^0.8.0", "@reach/auto-id@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.8.2.tgz#ea33a29dd08d186585650754f983129492cd86ce"
+  integrity sha512-yVsU0NZa1xjw9dM8+emYLxvpO7QCPnKqZDUNJl5djuAKantaGzTDIoozViI9FdIy965O1XDKHswuAi64utboMQ==
+  dependencies:
+    tslib "^1.10.0"
 
 "@reach/dialog@^0.8.2":
   version "0.8.2"
@@ -2595,13 +2597,14 @@
   dependencies:
     tslib "^1.10.0"
 
-"@reach/rect@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@reach/rect/-/rect-0.8.0.tgz#451f22e6d5500179b250fb857ea3ec2e86b1f753"
-  integrity sha512-jtKhzzbCXKLgrFg9ned0bzRnI6lbBYJybq6XDwwzisFd3AzKiqG07rwSLvTOpwTzpiVjCtCUotekI+QnsQbkVA==
+"@reach/rect@^0.8.0", "@reach/rect@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@reach/rect/-/rect-0.8.2.tgz#4e51ef1b734f26a42c3cdfa8d812a11b8017d3ef"
+  integrity sha512-6vrGm/9Cjw5ygbzccJdmrERqLxmaR2dATzkOvmsnTuR54BH/UgUjUYMxy/pVCmHZacNMTZRqOJwAyJQBOdCD4w==
   dependencies:
     "@reach/observe-rect" "^1.0.5"
     prop-types "^15.7.2"
+    tslib "^1.10.0"
 
 "@reach/router@^1.2.1", "@reach/router@^1.3.1":
   version "1.3.1"
@@ -2623,17 +2626,18 @@
     prop-types "^15.7.2"
     warning "^4.0.3"
 
-"@reach/tooltip@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@reach/tooltip/-/tooltip-0.8.0.tgz#67f6890552f234270600a0c8ef0c394d32a8f552"
-  integrity sha512-66Pao92xud1neEq+Lawct0Y0lT+clQfyNPc1kb2/eRrGsIa+nmcjOzMbAOhnXfa74H+YY84RdAVysu/ZK3KZNQ==
+"@reach/tooltip@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@reach/tooltip/-/tooltip-0.8.2.tgz#3e5ca86571cf34b1382d46c8d79b00d443369431"
+  integrity sha512-7D1Oql+Z8ldZ0ZFytE39xLwlbI0etujiWNw6aJ4Jhl5Ggt/ULjxcZYv/8W4lmaiCuHhnl0gMzhH/S/+L+l4vjQ==
   dependencies:
-    "@reach/auto-id" "^0.8.0"
-    "@reach/portal" "^0.8.0"
-    "@reach/rect" "^0.8.0"
-    "@reach/utils" "^0.8.0"
-    "@reach/visually-hidden" "^0.8.0"
+    "@reach/auto-id" "^0.8.2"
+    "@reach/portal" "^0.8.2"
+    "@reach/rect" "^0.8.2"
+    "@reach/utils" "^0.8.2"
+    "@reach/visually-hidden" "^0.8.2"
     prop-types "^15.7.2"
+    tslib "^1.10.0"
 
 "@reach/utils@^0.8.0", "@reach/utils@^0.8.2":
   version "0.8.2"
@@ -2643,10 +2647,12 @@
     tslib "^1.10.0"
     warning "^4.0.3"
 
-"@reach/visually-hidden@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@reach/visually-hidden/-/visually-hidden-0.8.0.tgz#4ec0da48ac604ba2bff11ccf7ff718c2349d0dc9"
-  integrity sha512-I57HouNSVKOZCUUPCs8Pvzzy45eyDQS5Yl6xY/ng0XYwOzwxCpbC7TGGAv1yinIebLG/uoLoUNJA1/SOnKx5gA==
+"@reach/visually-hidden@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@reach/visually-hidden/-/visually-hidden-0.8.2.tgz#2b58a2c69ab1c41838b8fef8a1d7370106a6d69c"
+  integrity sha512-U9KdaC1/YzskqAARqSc/ikOdZRbRkAUixwKIFbTsooUCXK+yAE08ikEoKSmCwDuGXxn7vgCit1ur4i994Ohzdw==
+  dependencies:
+    tslib "^1.10.0"
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
@@ -16969,10 +16975,10 @@ rimraf@^2.2.8, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@^2.6.3, rimra
   dependencies:
     glob "^7.1.3"
 
-rimraf@^3.0.0, rimraf@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-3.0.1.tgz#48d3d4cb46c80d388ab26cd61b1b466ae9ae225a"
-  integrity sha512-IQ4ikL8SjBiEDZfk+DFVwqRK8md24RWMEJkdSlgNLkyyAImcjf8SWvU1qFMDOb4igBClbTQ/ugPqXcRwdFTxZw==
+rimraf@^3.0.0, rimraf@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-3.0.2.tgz#f1a5402ba6220ad52cc1282bac1ae3aa49fd061a"
+  integrity sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
   dependencies:
     glob "^7.1.3"
 
