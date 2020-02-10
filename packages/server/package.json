@@ -76,7 +76,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
-    "@types/compression": "^1.0.1",
+    "@types/compression": "^1.7.0",
     "@types/cookies": "^0.7.4",
     "@types/cors": "^2.8.6",
     "@types/dotenv-safe": "^8.1.0",
