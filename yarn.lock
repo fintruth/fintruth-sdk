@@ -2639,15 +2639,15 @@
     tslib "^1.10.0"
     warning "^4.0.3"
 
-"@reach/tooltip@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@reach/tooltip/-/tooltip-0.8.2.tgz#3e5ca86571cf34b1382d46c8d79b00d443369431"
-  integrity sha512-7D1Oql+Z8ldZ0ZFytE39xLwlbI0etujiWNw6aJ4Jhl5Ggt/ULjxcZYv/8W4lmaiCuHhnl0gMzhH/S/+L+l4vjQ==
+"@reach/tooltip@^0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@reach/tooltip/-/tooltip-0.8.4.tgz#940dd75c1e78c43e44b2f97d4c956787aba239bf"
+  integrity sha512-ot1gFs80OG0PBpa2iSUTIHo5+ZwHLpGNTJ+Km6Rx85jPFXwkZx5pSBQb99qjiFAIeW8GUOcOmjaNDJimwQidtQ==
   dependencies:
     "@reach/auto-id" "^0.8.2"
     "@reach/portal" "^0.8.2"
     "@reach/rect" "^0.8.2"
-    "@reach/utils" "^0.8.2"
+    "@reach/utils" "^0.8.4"
     "@reach/visually-hidden" "^0.8.2"
     prop-types "^15.7.2"
     tslib "^1.10.0"
