@@ -2552,12 +2552,12 @@
   dependencies:
     tslib "^1.10.0"
 
-"@reach/descendants@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@reach/descendants/-/descendants-0.8.2.tgz#ffb87d18be4e62f344429dd5c7293f386e3da8a2"
-  integrity sha512-2pky3FWngEXpqrQ9RJ+ZHSW8r9TmIffD+dXo9LDXfSUbSbXtUdWekzuLb+0JLIpN2ijGOp9Rwu9UF3ZWHq86Xg==
+"@reach/descendants@^0.8.2", "@reach/descendants@^0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@reach/descendants/-/descendants-0.8.4.tgz#b193129e653c474a42c289ba185fd1e1360ffa72"
+  integrity sha512-vCGiX5IX+qTwZUMDlE4cdsiAjdgxCyJxdNSeJrzu1d/+joJ089AEgDnKiVvynUwcNBYwzKC2CJSGQqRD3v4nzw==
   dependencies:
-    "@reach/utils" "^0.8.2"
+    "@reach/utils" "^0.8.4"
     tslib "^1.10.0"
 
 "@reach/dialog@^0.8.2":
@@ -2572,15 +2572,15 @@
     react-remove-scroll "^2.2.0"
     tslib "^1.10.0"
 
-"@reach/menu-button@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@reach/menu-button/-/menu-button-0.8.2.tgz#fe95afddc2f3580d4d9e262829700816393f6864"
-  integrity sha512-ny+q+pq6zoTKz+ZK5s2RM4hOcqCLmIC+RnbRGouVjasN6+K50kyDxmF9xubrVadLFMZ88bUV6hPbUgFd5iEeRQ==
+"@reach/menu-button@^0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@reach/menu-button/-/menu-button-0.8.4.tgz#5c87b389871d2d45471501068d3df039c5b6dfb2"
+  integrity sha512-R9swIBEHNR9AhoScfBdxU0Vih7hYuzY3JGmeXG7O9uvYMN3J6z0l/9CLh76Vdx0dxIYHKGdzJza9iVQH2QfsPA==
   dependencies:
     "@reach/auto-id" "^0.8.2"
-    "@reach/descendants" "^0.8.2"
-    "@reach/popover" "^0.8.2"
-    "@reach/utils" "^0.8.2"
+    "@reach/descendants" "^0.8.4"
+    "@reach/popover" "^0.8.4"
+    "@reach/utils" "^0.8.4"
     prop-types "^15.7.2"
     tslib "^1.10.0"
     warning "^4.0.3"
@@ -2590,14 +2590,14 @@
   resolved "https://registry.yarnpkg.com/@reach/observe-rect/-/observe-rect-1.0.5.tgz#28bf3c5c35da7fef72cd124af4ac32308d0c3f15"
   integrity sha512-EQLHhquzwAh2TFtMJU0PXJRmhpOrAhzApgoI4Lwn72J7ygrMk3Ys3a3i8KDnV0TetbwAxn4XSHi4pE8sPWUYLg==
 
-"@reach/popover@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@reach/popover/-/popover-0.8.2.tgz#29ccf40da971d9ad2850d568dcdba24e5f94f9a9"
-  integrity sha512-0zH1Pz7tMfEh3vpouQCwhwioA46cZ/NmD9tnI2MugwppcraLzCqHbKrtI4r4B+geJcjbLeJPMDrjqxYyO6GXJA==
+"@reach/popover@^0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@reach/popover/-/popover-0.8.4.tgz#dd5c6f7726bcc5f4771eb6d3d38cc6a641604bf1"
+  integrity sha512-13adZOZMPB2ZYe2e0NnbDz/Zy8493B/vTZUtRWm3YBW6HLVeq+f7OQvCqY0i8fvw81q0xCT1MIaAZ6UXrw81tg==
   dependencies:
     "@reach/portal" "^0.8.2"
     "@reach/rect" "^0.8.2"
-    "@reach/utils" "^0.8.2"
+    "@reach/utils" "^0.8.4"
     tabbable "^4.0.0"
     tslib "^1.10.0"
 
@@ -2652,10 +2652,10 @@
     prop-types "^15.7.2"
     tslib "^1.10.0"
 
-"@reach/utils@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.8.2.tgz#0adb27de5038a9c9d1c302aee7ae7de4260a36b8"
-  integrity sha512-JrQC5nTr0pS0FR9qLKinBViRhQ75hdjr+rLROfqtT8QljnalvlmN6hkibap5YJRe4cOQtpjUplioCErQ4zBxJw==
+"@reach/utils@^0.8.2", "@reach/utils@^0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.8.4.tgz#c5045637401beff8fa5e8e278fafc5af226c2fee"
+  integrity sha512-RZq5Y5K5+CakM5zzecNypP28U60/9sm3PraZznCsfcB/O3+3O0kgg5X+a7IHD3GnRqJVYTzAjA6sral6kPYLKQ==
   dependencies:
     tslib "^1.10.0"
     warning "^4.0.3"
