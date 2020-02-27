@@ -2530,7 +2530,7 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@reach/auto-id@^0.8.2", "@reach/auto-id@^0.8.5":
+"@reach/auto-id@^0.8.5":
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.8.5.tgz#940500d4c93624852efa5ecbed29c5d7015eb6e9"
   integrity sha512-FmyoQ5Mvw+WXLd3JOlDmHDQKqhTiZ+BwtEq9HW6pgzYMztq1wr5itv4lrSDqOYa/hJfNrkBC8iCtaIKcykuYnQ==
@@ -2586,7 +2586,7 @@
     tabbable "^4.0.0"
     tslib "^1.10.0"
 
-"@reach/portal@^0.8.2", "@reach/portal@^0.8.5":
+"@reach/portal@^0.8.5":
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/@reach/portal/-/portal-0.8.5.tgz#586e8686e9ba34368b1df3fc9a84c3ef923dd2d3"
   integrity sha512-YRQgItjxw6DznndN4T3YS6Ikuq+FPZg8fekXeM1feuQSnMlAtEAyYVaMhpAKSD65+Yc9Zu0Utfxp5ji+wO+FLg==
@@ -2624,20 +2624,20 @@
     tslib "^1.10.0"
     warning "^4.0.3"
 
-"@reach/tooltip@^0.8.4":
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/@reach/tooltip/-/tooltip-0.8.4.tgz#940dd75c1e78c43e44b2f97d4c956787aba239bf"
-  integrity sha512-ot1gFs80OG0PBpa2iSUTIHo5+ZwHLpGNTJ+Km6Rx85jPFXwkZx5pSBQb99qjiFAIeW8GUOcOmjaNDJimwQidtQ==
+"@reach/tooltip@^0.8.5":
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/@reach/tooltip/-/tooltip-0.8.5.tgz#e774415dcafc2b32476b729ebec825d118598ae2"
+  integrity sha512-TWRHyBSvxx2cUI2s7NvgU+b+re+N5rjoCir/A/WMpUej0Q3FBWvpuGZvP+HI0AKA55y5NULQsWCyEpcxohfMGA==
   dependencies:
-    "@reach/auto-id" "^0.8.2"
-    "@reach/portal" "^0.8.2"
+    "@reach/auto-id" "^0.8.5"
+    "@reach/portal" "^0.8.5"
     "@reach/rect" "^0.8.2"
-    "@reach/utils" "^0.8.4"
+    "@reach/utils" "^0.8.5"
     "@reach/visually-hidden" "^0.8.2"
     prop-types "^15.7.2"
     tslib "^1.10.0"
 
-"@reach/utils@^0.8.4", "@reach/utils@^0.8.5":
+"@reach/utils@^0.8.5":
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.8.5.tgz#6675d6f81054c8dce1b9d535280b0e3c5174fe7d"
   integrity sha512-nc84exIqBa+EohJPBFjePQP88dBAP4l+tChxwWszzZ+R6tTtSgOg40WyQ5EjPYJFbltnbZIbASHefcEBrFxqng==
