@@ -1,6 +1,6 @@
 import { ResponseError as IResponseError } from '@fintruth-sdk/common'
 import { Field, ID, ObjectType } from 'type-graphql'
-import uuid from 'uuid/v4'
+import { v4 as uuid } from 'uuid'
 
 @ObjectType()
 export default class ResponseError implements IResponseError {
