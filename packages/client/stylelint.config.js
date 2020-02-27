@@ -28,11 +28,13 @@ module.exports = {
       },
     ],
   ],
+  ignoreFiles: ['!**/.*', '.git'],
   rules: {
     'declaration-empty-line-before': [
       'never',
       { ignore: ['after-comment', 'after-declaration'] },
     ],
+    'value-keyword-case': null,
     'order/order': [
       'custom-properties',
       'dollar-variables',
