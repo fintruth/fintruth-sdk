@@ -16,7 +16,9 @@ interface PopupProps extends TooltipPopupProps {
   variant?: Variant
 }
 
-interface Props extends TooltipProps {
+interface Props
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+    TooltipProps {
   variant?: Variant
 }
 
