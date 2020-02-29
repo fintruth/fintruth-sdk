@@ -28,7 +28,7 @@
     "lint": "npm-run-all --parallel \"lint:*\"",
     "lint:files": "prettylint --ignore-path .gitignore \"**/*.{json,md,yml}\"",
     "lint:scripts": "eslint --cache --ignore-path .gitignore --ignore-pattern \"!**/.*\" \"**/*.{js,ts}\"",
-    "lint:types": "tsc --noEmit",
+    "lint:types": "tsc --composite false --noEmit",
     "postbuild": "ef-tspm",
     "test": "npm-run-all --parallel \"test:*\"",
     "test:units": "jest --passWithNoTests"

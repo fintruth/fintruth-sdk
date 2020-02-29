@@ -37,6 +37,8 @@ interface RootProps {
 
 const focusBoxShadowSize = `0 0 0 ${em(2)}`
 
+const noop = () => {} // eslint-disable-line @typescript-eslint/no-empty-function
+
 const loading = (color?: string) => css`
   &::after {
     ${loader(color)}
@@ -135,7 +137,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(function Input(
   }: Props,
   ref?: React.Ref<HTMLInputElement>
 ) {
-  const [maskedInput, setMaskedInput] = React.useState()
+  const [maskedInput, setMaskedInput] = React.useState({ update: noop })
   const input = React.useRef<HTMLInputElement>()
   const isLoaderVisible = useTimer(isLoading, delay)
 
