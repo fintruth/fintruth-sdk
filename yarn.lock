@@ -3338,7 +3338,7 @@
     "@testing-library/dom" "^6.12.2"
     "@types/testing-library__cypress" "^5.0.2"
 
-"@testing-library/dom@^6.12.2", "@testing-library/dom@^6.13.0", "@testing-library/dom@^6.15.0":
+"@testing-library/dom@^6.12.2", "@testing-library/dom@^6.15.0":
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-6.15.0.tgz#042abea7b4685b70d9a919100da9024507dc20bb"
   integrity sha512-8N24c4XwOigPicwc8n4ECgEoJW2/mMzRJBxu4Uo0zhLERZTbNzqpL5fyCigu7JGUXX+ITuiK4z9/lnHbYRHLwQ==
