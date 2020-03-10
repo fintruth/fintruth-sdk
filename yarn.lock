@@ -2533,13 +2533,13 @@
     "@reach/utils" "^0.8.5"
     tslib "^1.10.0"
 
-"@reach/dialog@^0.8.5":
-  version "0.8.5"
-  resolved "https://registry.yarnpkg.com/@reach/dialog/-/dialog-0.8.5.tgz#e6768897656b3322159ff0e3cb839124f4a9c6c2"
-  integrity sha512-2PqYVTKwGWGGA0O5wc/2+KBsBTqNxbO2P/fW0KWVH6expfDMr5TtBTiHxeF9VS8KmAlSFn2OrUXDIAXozL0zuQ==
+"@reach/dialog@^0.8.6":
+  version "0.8.6"
+  resolved "https://registry.yarnpkg.com/@reach/dialog/-/dialog-0.8.6.tgz#964474495e31ac49fb4b901daf254b6ce8e0fcd4"
+  integrity sha512-4zEVkbb1KZr1T2nUqrsVo63bO0iqGKWMxYUzuP/dSw2FN2hyiWrnPcEAioKmA8GPAhmzraGHLnKjtoxKI/ukQw==
   dependencies:
-    "@reach/portal" "^0.8.5"
-    "@reach/utils" "^0.8.5"
+    "@reach/portal" "^0.8.6"
+    "@reach/utils" "^0.8.6"
     prop-types "^15.7.2"
     react-focus-lock "^2.2.1"
     react-remove-scroll "^2.2.0"
