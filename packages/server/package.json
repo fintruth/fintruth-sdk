@@ -91,7 +91,7 @@
     "@types/uuid": "^7.0.0",
     "dotenv-webpack": "^1.7.0",
     "file-loader": "^5.1.0",
-    "fork-ts-checker-webpack-plugin": "^4.0.5",
+    "fork-ts-checker-webpack-plugin": "^4.1.0",
     "nodemon": "^2.0.2",
     "ts-jest": "^25.2.1",
     "ts-node": "^8.6.2",
