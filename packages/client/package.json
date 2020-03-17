@@ -164,7 +164,7 @@
     "css-loader": "^3.4.2",
     "dotenv-safe": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
-    "file-loader": "^5.1.0",
+    "file-loader": "^6.0.0",
     "glob": "^7.1.6",
     "graphql-tag": "^2.10.3",
     "jest-junit": "^10.0.0",
