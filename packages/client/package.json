@@ -157,7 +157,7 @@
     "babel-plugin-graphql-tag": "^2.5.0",
     "babel-plugin-polished": "^1.1.0",
     "babel-plugin-ramda": "^2.0.0",
-    "babel-plugin-react-intl": "^6.0.1",
+    "babel-plugin-react-intl": "^6.1.0",
     "babel-plugin-styled-components": "^1.10.7",
     "browser-sync": "^2.26.7",
     "chokidar": "^3.3.1",
