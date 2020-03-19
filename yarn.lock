@@ -2621,10 +2621,10 @@
     tslib "^1.10.0"
     warning "^4.0.3"
 
-"@reach/tooltip@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@reach/tooltip/-/tooltip-0.9.0.tgz#eb80ad3fdf7ccfd602b74f0a7bd5cc1f74ddea93"
-  integrity sha512-dhDyyQbKoeMZttvgr5fWmBshxm7rfbe5EQqA9svLN+Ym6fJpIk1A9JhgPWsPhrxCKME+Nxo3AN3sItXggkcRTw==
+"@reach/tooltip@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@reach/tooltip/-/tooltip-0.9.1.tgz#c636b93baf27ad94b8ff0a6890d3949210ee56b4"
+  integrity sha512-yOd/rehu/KnT6RYhFs4oOFPywRx7oCnta/Bevs3lf8pWYmZ1FOJRuxOmtncwl5hp0GpAAdgzsgNXXfX2o479Gw==
   dependencies:
     "@reach/auto-id" "^0.9.0"
     "@reach/portal" "^0.9.0"
