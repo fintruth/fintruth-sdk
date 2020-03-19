@@ -2532,10 +2532,10 @@
     "@reach/utils" "^0.9.0"
     tslib "^1.10.0"
 
-"@reach/descendants@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@reach/descendants/-/descendants-0.9.0.tgz#8cac90fcd5dad38098008b9aee6e88c8cd11269e"
-  integrity sha512-5xBAqre67nPMQ/Og/5PV3zRHfzXA3WMYkqAPDC7aMp35bT9sui7YqwVNeFIiOx3BMyhn8ee1+8OSPYVSdabJwA==
+"@reach/descendants@^0.9.0", "@reach/descendants@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@reach/descendants/-/descendants-0.9.1.tgz#f17eec0a245d3b6a7cccd020b8edf5b7d1115fc2"
+  integrity sha512-SIlCSzxmL7OVZVG6/9vICtawGZbpSOcEjxuUfZiVLs62QOSLINEUPgSnFKCOtGxIEQOEgNxQ/DMkpNkWEva2Tw==
   dependencies:
     "@reach/utils" "^0.9.0"
     tslib "^1.10.0"
@@ -2552,13 +2552,13 @@
     react-remove-scroll "^2.2.0"
     tslib "^1.10.0"
 
-"@reach/menu-button@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@reach/menu-button/-/menu-button-0.9.0.tgz#c79b5a2bd66c038c0f35ecd1d8feed73bb1d23b7"
-  integrity sha512-O82C4z8Ki8BTubIJNTtPlD578mIXP5tptqXT4u+1vS9QLKU6mIse03FWjLtbRiGAZSeukKKwIIc0N40OqUqgDQ==
+"@reach/menu-button@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@reach/menu-button/-/menu-button-0.9.1.tgz#1cf30f70a47c4aa03c96466430191ee3ea5b9eed"
+  integrity sha512-YkI1hXA3bJtAPY9EGIuPm9bkm8aD1mbOKnhlnotXNLf5nqVacmzi09k8q4GCUVBJkENAmE8xYwhIe2fE/UqZsg==
   dependencies:
     "@reach/auto-id" "^0.9.0"
-    "@reach/descendants" "^0.9.0"
+    "@reach/descendants" "^0.9.1"
     "@reach/popover" "^0.9.0"
     "@reach/utils" "^0.9.0"
     prop-types "^15.7.2"
