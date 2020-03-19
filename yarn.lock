@@ -2532,7 +2532,7 @@
     "@reach/utils" "^0.9.0"
     tslib "^1.10.0"
 
-"@reach/descendants@^0.9.0", "@reach/descendants@^0.9.1":
+"@reach/descendants@^0.9.1":
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/@reach/descendants/-/descendants-0.9.1.tgz#f17eec0a245d3b6a7cccd020b8edf5b7d1115fc2"
   integrity sha512-SIlCSzxmL7OVZVG6/9vICtawGZbpSOcEjxuUfZiVLs62QOSLINEUPgSnFKCOtGxIEQOEgNxQ/DMkpNkWEva2Tw==
@@ -2609,13 +2609,13 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@reach/tabs@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@reach/tabs/-/tabs-0.9.0.tgz#cee0f374fb49cb300d829abdbd730816ac0f93bd"
-  integrity sha512-jJnYSfhhPLNxuEaH72m3Lo+RSFY7B4rpIB1ujtrljwxNcU095zpSDCgxx66bw5wK0sE387brsLTLyJXEvdlfOg==
+"@reach/tabs@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@reach/tabs/-/tabs-0.9.1.tgz#267158eaca5d0d6b0fe1756a3720ae3e31a86407"
+  integrity sha512-DshPhMfWzP2F8Aiy97DOnKXC1/mz0vnKZPtYkbdDAOTjYE4m2S5Iaw896iS/WWmT5pG0XawrhWJLtkpzDJVQ4A==
   dependencies:
     "@reach/auto-id" "^0.9.0"
-    "@reach/descendants" "^0.9.0"
+    "@reach/descendants" "^0.9.1"
     "@reach/utils" "^0.9.0"
     prop-types "^15.7.2"
     tslib "^1.10.0"
