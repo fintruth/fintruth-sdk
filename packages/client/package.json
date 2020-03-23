@@ -125,7 +125,7 @@
     "@types/glob": "^7.1.1",
     "@types/invariant": "^2.2.31",
     "@types/loadable__component": "^5.10.0",
-    "@types/loadable__server": "^5.12.0",
+    "@types/loadable__server": "^5.12.1",
     "@types/loadable__webpack-plugin": "^5.7.0",
     "@types/lodash": "^4.14.149",
     "@types/mime": "^2.0.1",
