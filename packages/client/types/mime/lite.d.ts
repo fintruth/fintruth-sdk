@@ -1,11 +1,11 @@
 declare module 'mime/lite' {
-  export interface TypeMap {
+  interface TypeMap {
     [key: string]: string[]
   }
 
-  export function define(mimes: TypeMap, force?: boolean): void
+  function define(mimes: TypeMap, force?: boolean): void
 
-  export function getExtension(mime: string): null | string
+  function getExtension(mime: string): null | string
 
-  export function getType(path: string): null | string
+  function getType(path: string): null | string
 }

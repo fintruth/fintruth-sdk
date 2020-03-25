@@ -1,9 +1,9 @@
 import 'styled-components'
 
 declare module 'styled-components' {
-  export type Color = Variant | 'white' | 'black'
+  type Color = Variant | 'white' | 'black'
 
-  export type ColorContrast =
+  type ColorContrast =
     | 'lightContrast'
     | 'darkContrast'
     | 'primaryContrast'
@@ -12,7 +12,7 @@ declare module 'styled-components' {
     | 'warningContrast'
     | 'dangerContrast'
 
-  export type Shade =
+  type Shade =
     | 'blackBis'
     | 'blackTer'
     | 'grayDarker'
@@ -24,7 +24,7 @@ declare module 'styled-components' {
     | 'whiteTer'
     | 'whiteBis'
 
-  export type Variant =
+  type Variant =
     | 'light'
     | 'dark'
     | 'primary'
@@ -33,9 +33,9 @@ declare module 'styled-components' {
     | 'warning'
     | 'danger'
 
-  export type ViewportBreakpoint = 'small' | 'medium' | 'large' | 'extraLarge'
+  type ViewportBreakpoint = 'small' | 'medium' | 'large' | 'extraLarge'
 
-  export interface DefaultTheme
+  interface DefaultTheme
     extends Record<Color, string>,
       Record<ColorContrast, string>,
       Record<Shade, string>,
