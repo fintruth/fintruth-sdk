@@ -1,5 +1,5 @@
 import { MockedProvider } from '@apollo/react-testing'
-import { screen, waitForElement } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
@@ -14,7 +14,7 @@ test('clicking the logo should navigate to the home route', async () => {
     </MockedProvider>,
     { initialPath: '/not-found' }
   )
-  const logoElement = await waitForElement(() => screen.getByAltText('Logo'))
+  const logoElement = await waitFor(() => screen.getByAltText('Logo'))
 
   expect(logoElement).toBeInTheDocument()
   expect(history.location.pathname).toStrictEqual('/not-found')
