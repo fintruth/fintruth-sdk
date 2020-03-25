@@ -6,31 +6,31 @@ declare module 'reactabular-table' {
     TableHTMLAttributes,
   } from 'react'
 
-  export type CellFormatter<RowData = any> = (
+  type CellFormatter<RowData = any> = (
     value: any,
     extraParams: ExtraCellParams<RowData>
   ) => ReactElement | string
 
-  export type CellTransform<RowData = any> = (
+  type CellTransform<RowData = any> = (
     value: any,
     extraParams: ExtraCellParams<RowData>
   ) => Record<string, any>
 
-  export type HeaderFormatter<RowData = any> = (
+  type HeaderFormatter<RowData = any> = (
     label: string,
     extraParams: ExtraHeaderParams<RowData>
   ) => ReactElement | string
 
-  export type HeaderTransform<RowData = any> = (
+  type HeaderTransform<RowData = any> = (
     label: string,
     extraParams: ExtraHeaderParams<RowData>
   ) => Record<string, any>
 
-  export type Row = Record<string, any>
+  type Row = Record<string, any>
 
-  export type RowKey<RowData = any> = (data: RowKeyData<RowData>) => string
+  type RowKey<RowData = any> = (data: RowKeyData<RowData>) => string
 
-  export interface BodyProps<RowData = any>
+  interface BodyProps<RowData = any>
     extends TableHTMLAttributes<HTMLTableSectionElement> {
     onRow?: (
       rowData: RowData,
@@ -40,14 +40,14 @@ declare module 'reactabular-table' {
     rows: Column[] | [][]
   }
 
-  export interface CellType<RowData = any> {
+  interface CellType<RowData = any> {
     formatters?: CellFormatter<RowData>[]
     property?: keyof RowData
     props?: HTMLAttributes<HTMLTableCellElement>
     transforms?: CellTransform<RowData>[]
   }
 
-  export interface Column<RowData = any> {
+  interface Column<RowData = any> {
     cell?: CellType<RowData>
     header?: HeaderType<RowData>
     property?: keyof RowData
@@ -73,24 +73,24 @@ declare module 'reactabular-table' {
     rowKey?: RowKey<RowData> | keyof RowData
   }
 
-  export interface HeaderProps<RowData = any>
+  interface HeaderProps<RowData = any>
     extends TableHTMLAttributes<HTMLTableSectionElement> {
     headerRows?: Column<RowData>[][]
   }
 
-  export interface HeaderType<RowData = any> {
+  interface HeaderType<RowData = any> {
     formatters?: HeaderFormatter<RowData>[]
     label?: string
     props?: HTMLAttributes<HTMLTableCellElement>
     transforms?: HeaderTransform<RowData>[]
   }
 
-  export interface ProviderProps extends TableHTMLAttributes<HTMLTableElement> {
+  interface ProviderProps extends TableHTMLAttributes<HTMLTableElement> {
     columns: Column[]
     renderers?: Renderers
   }
 
-  export interface Renderers {
+  interface Renderers {
     body?: SectionRenderers
     header?: SectionRenderers
     table?: string
@@ -101,7 +101,7 @@ declare module 'reactabular-table' {
     rowIndex: number
   }
 
-  export interface SectionRenderers {
+  interface SectionRenderers {
     wrapper?: string
     row?: string
     cell?: string

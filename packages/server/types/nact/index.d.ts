@@ -1,5 +1,36 @@
 declare module 'nact' {
-  export interface ActorRef {
+  type ActorState<T> = T
+
+  type ActorName = string
+
+  type PersistenceKey = string
+
+  type StatelessActorMessageHandlerFunction<Message> = (
+    msg: Message,
+    context: ActorContext
+  ) => void
+
+  type StatefulActorMessageHandlerFunction<State, Message> = (
+    state: ActorState<State>,
+    msg: Message,
+    context: ActorContext
+  ) => ActorState<State>
+
+  type PersistenceActorMessageHandlerFunction<State, Message> = (
+    state: ActorState<State>,
+    msg: Message,
+    context: PersistentActorContext<Message>
+  ) => ActorState<State>
+
+  interface ActorContext extends ActorRef {
+    sender: ActorRef
+  }
+
+  interface ActorProperties {
+    shutdownAfter?: number
+  }
+
+  interface ActorRef {
     parent: ActorRef
     path: string
     self: ActorRef
@@ -7,48 +38,12 @@ declare module 'nact' {
     children: Map<ActorName, ActorRef>
   }
 
-  export interface ActorContext extends ActorRef {
-    sender: ActorRef
-  }
-
-  export interface PersistentActorContext<Message> extends ActorContext {
+  interface PersistentActorContext<Message> extends ActorContext {
     recovering: boolean
     persist(msg: Message): Promise<void>
   }
 
-  export type ActorState<T> = T
-
-  export type ActorName = string
-
-  export type PersistenceKey = string
-
-  export type StatelessActorMessageHandlerFunction<Message> = (
-    msg: Message,
-    context: ActorContext
-  ) => void
-
-  export type StatefulActorMessageHandlerFunction<State, Message> = (
-    state: ActorState<State>,
-    msg: Message,
-    context: ActorContext
-  ) => ActorState<State>
-
-  export type PersistenceActorMessageHandlerFunction<State, Message> = (
-    state: ActorState<State>,
-    msg: Message,
-    context: PersistentActorContext<Message>
-  ) => ActorState<State>
-
-  export interface ActorProperties {
-    shutdownAfter?: number
-  }
-
-  export interface StatefulActorProperties<State> extends ActorProperties {
-    initialState?: ActorState<State>
-    initialStateFunc?: (ctx: ActorContext) => ActorState<State>
-  }
-
-  export interface PersistentActorProperties extends ActorProperties {
+  interface PersistentActorProperties extends ActorProperties {
     snapshotEvery: number
     snapshotEncoder(snapshot: any): any
     snapshotDecoder(serialized: any): any
@@ -56,15 +51,10 @@ declare module 'nact' {
     decoder(serialized: any): any
   }
 
-  /**
-   * start actor system
-   */
-  export function start(): ActorRef
-
-  /**
-   * stop an actor
-   */
-  export function stop(actor: ActorRef): void
+  interface StatefulActorProperties<State> extends ActorProperties {
+    initialState?: ActorState<State>
+    initialStateFunc?: (ctx: ActorContext) => ActorState<State>
+  }
 
   /**
    * dispatch a message to actor
@@ -76,7 +66,7 @@ declare module 'nact' {
    * @param sender
    *  sender actor
    */
-  export function dispatch(actor: ActorRef, msg: any, sender?: ActorRef): void
+  function dispatch(actor: ActorRef, msg: any, sender?: ActorRef): void
 
   /**
    * query
@@ -88,7 +78,7 @@ declare module 'nact' {
    * @param timeout
    *  timeout(unit: ms, throws an Error if exceeded)
    */
-  export function query<Message = any, Response = any>(
+  function query<Message = any, Response = any>(
     actor: ActorRef,
     msg: Message,
     timeout: number
@@ -105,29 +95,11 @@ declare module 'nact' {
    *   actor name
    * @param properties
    */
-  export function spawn<State = {}, Message = any>(
+  function spawn<State = {}, Message = any>(
     parent: ActorRef,
     f: StatefulActorMessageHandlerFunction<State, Message>,
     name?: ActorName,
     properties?: StatefulActorProperties<State>
-  ): ActorRef
-
-  /**
-   * spawn a stateless actor
-   *
-   * @param parent
-   *   parent actor
-   * @param f
-   *   message handler function
-   * @param name
-   *   actor name
-   * @param properties
-   */
-  export function spawnStateless<Message = any>(
-    parent: ActorRef,
-    f: StatelessActorMessageHandlerFunction<Message>,
-    name?: ActorName,
-    properties?: ActorProperties
   ): ActorRef
 
   /**
@@ -148,11 +120,39 @@ declare module 'nact' {
    *   actor name
    * @param properties
    */
-  export function spawnPersistent<State = {}, Message = any>(
+  function spawnPersistent<State = {}, Message = any>(
     parent: ActorRef,
     f: StatefulActorMessageHandlerFunction<State, Message>,
     persistenceKey: PersistenceKey,
     name?: ActorName,
     properties?: PersistentActorProperties
   ): ActorRef
+
+  /**
+   * spawn a stateless actor
+   *
+   * @param parent
+   *   parent actor
+   * @param f
+   *   message handler function
+   * @param name
+   *   actor name
+   * @param properties
+   */
+  function spawnStateless<Message = any>(
+    parent: ActorRef,
+    f: StatelessActorMessageHandlerFunction<Message>,
+    name?: ActorName,
+    properties?: ActorProperties
+  ): ActorRef
+
+  /**
+   * start actor system
+   */
+  function start(): ActorRef
+
+  /**
+   * stop an actor
+   */
+  function stop(actor: ActorRef): void
 }
