@@ -23,13 +23,9 @@ export default class UserInput implements IUserInput {
 
     return object()
       .shape({
-        email: string()
-          .required()
-          .email(),
+        email: string().required().email(),
         isAdmin: boolean(),
-        password: string()
-          .required()
-          .password(2),
+        password: string().required().password(2),
       })
       .validate({ profile, ...input })
   }

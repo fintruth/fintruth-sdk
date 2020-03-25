@@ -4,7 +4,7 @@ const webpackPreprocessor = require('@cypress/webpack-preprocessor')
 
 const webpackConfig = require('./webpack.config')
 
-const configurePlugins = on => {
+const configurePlugins = (on) => {
   on(
     'file:preprocessor',
     webpackPreprocessor({ webpackOptions: webpackConfig })

@@ -6,7 +6,7 @@ import { unselectable } from 'styles/mixins'
 
 type Props = TabListProps
 
-const TabList = styled(BaseTabList).attrs(attrs => ({
+const TabList = styled(BaseTabList).attrs((attrs) => ({
   'data-tabs-tab-list': '',
   ...attrs,
 }))<Props>`

@@ -49,7 +49,7 @@ const createFragmentMatcher = (
 
 export const createInMemoryCache = (options: InMemoryCacheOptions = {}) =>
   new InMemoryCache({
-    dataIdFromObject: value => {
+    dataIdFromObject: (value) => {
       switch (value.__typename) {
         default:
           return defaultDataIdFromObject(value)

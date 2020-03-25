@@ -68,7 +68,7 @@ const validateInput = (value: File | string, context: Context) =>
     )
     .validate(value, { context })
     .then(() => '')
-    .catch(error => error.message)
+    .catch((error) => error.message)
 
 const loading = (color?: string) => css`
   box-shadow: none !important;
@@ -236,7 +236,7 @@ const CallToAction = React.forwardRef<HTMLInputElement, Props>(
           disabled={isDisabled}
           name={name}
           onBlur={onBlur}
-          onChange={event => {
+          onChange={(event) => {
             if (onChange) {
               onChange(event)
             }
@@ -265,7 +265,7 @@ const CallToAction = React.forwardRef<HTMLInputElement, Props>(
               return reader.readAsDataURL(file)
             }
           }}
-          ref={instance => {
+          ref={(instance) => {
             if (ref) {
               setRef(ref, instance)
             }

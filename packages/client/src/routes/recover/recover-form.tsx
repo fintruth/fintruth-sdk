@@ -48,7 +48,7 @@ const translations = {
   }),
 }
 
-const Help = styled.p.attrs(attrs => ({ color: 'success', ...attrs }))<
+const Help = styled.p.attrs((attrs) => ({ color: 'success', ...attrs }))<
   HelpProps
 >`
   ${({ color, theme }) => help(theme[color])};

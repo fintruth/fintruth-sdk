@@ -5,7 +5,7 @@ import BaseIcon from './icon.svg'
 
 type Props = React.SVGAttributes<SVGSVGElement>
 
-const Icon = styled(BaseIcon).attrs(attrs => ({
+const Icon = styled(BaseIcon).attrs((attrs) => ({
   'data-file-field-icon': '',
   ...attrs,
 }))<Props>`

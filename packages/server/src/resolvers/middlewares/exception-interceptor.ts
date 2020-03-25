@@ -11,7 +11,7 @@ const ExceptionInterceptor = (
     return await next()
   } catch (error) {
     const isFilteredType = anyPass(
-      constructors.map(constructor => is(constructor))
+      constructors.map((constructor) => is(constructor))
     )
 
     if (isFilteredType(error)) {

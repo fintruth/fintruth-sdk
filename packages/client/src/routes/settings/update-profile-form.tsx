@@ -35,7 +35,7 @@ interface Values {
   givenName: string
 }
 
-const Help = styled.p.attrs(attrs => ({ color: 'success', ...attrs }))<
+const Help = styled.p.attrs((attrs) => ({ color: 'success', ...attrs }))<
   HelpProps
 >`
   ${({ color, theme }) => help(theme[color])};
@@ -88,7 +88,7 @@ const UpdateProfileForm: React.FunctionComponent<Props> = ({
       {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={{ familyName, givenName }}
-        onSubmit={input => onSubmit({ variables: { input } })}
+        onSubmit={(input) => onSubmit({ variables: { input } })}
         validateOnBlur={false}
         validateOnChange={false}
       >

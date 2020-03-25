@@ -48,7 +48,7 @@ let root: React.ComponentType | void
 const insertCss = (...styles: Styles[]) => {
   const removeCss = styles.map(({ _insertCss }) => _insertCss())
 
-  return () => removeCss.forEach(dispose => dispose())
+  return () => removeCss.forEach((dispose) => dispose())
 }
 
 const onLocationChange = async ({ action, location }: HistoryMetadata) => {

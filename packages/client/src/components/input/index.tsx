@@ -144,7 +144,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(function Input(
   const handleChange = React.useCallback<
     React.ChangeEventHandler<HTMLInputElement>
   >(
-    event => {
+    (event) => {
       maskedInput.update()
 
       return onChange && onChange(event)
@@ -186,7 +186,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(function Input(
         autoComplete={autoComplete}
         disabled={isDisabled}
         onChange={handleChange}
-        ref={instance => {
+        ref={(instance) => {
           if (ref) {
             setRef(ref, instance)
           }

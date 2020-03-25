@@ -15,12 +15,12 @@ import theme from 'styles/theme'
 const insertCss = (...styles: Styles[]) => {
   const removeCss = styles.map(({ _insertCss }) => _insertCss())
 
-  return () => removeCss.forEach(dispose => dispose())
+  return () => removeCss.forEach((dispose) => dispose())
 }
 
 addDecorator(withA11y)
 addDecorator(withKnobs)
-addDecorator(story => (
+addDecorator((story) => (
   <IntlProvider defaultLocale="en" locale="en">
     <StyleContext.Provider value={{ insertCss }}>
       <ThemeProvider theme={theme}>

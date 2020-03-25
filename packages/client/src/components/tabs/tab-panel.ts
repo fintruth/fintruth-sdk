@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 type Props = TabPanelProps
 
-const TabPanel = styled(BaseTabPanel).attrs(attrs => ({
+const TabPanel = styled(BaseTabPanel).attrs((attrs) => ({
   'data-tabs-tab-panel': '',
   ...attrs,
 }))<Props>`

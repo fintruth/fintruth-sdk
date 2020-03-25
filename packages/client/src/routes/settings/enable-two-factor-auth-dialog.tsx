@@ -25,7 +25,7 @@ const Header = styled.h1`
   margin: 0 0 ${rem(20)} 0;
 `
 
-const Link = styled.a.attrs(attrs => ({
+const Link = styled.a.attrs((attrs) => ({
   rel: 'noopener noreferrer',
   target: '_blank',
   ...attrs,

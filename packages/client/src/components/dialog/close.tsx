@@ -30,7 +30,7 @@ const Close = React.forwardRef<HTMLButtonElement, Props>(function Close(
   return (
     <Root
       data-dialog-close=""
-      onClick={event => {
+      onClick={(event) => {
         if (onClick) {
           onClick(event)
         }

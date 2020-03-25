@@ -104,9 +104,10 @@ describe('UserService', () => {
       })
 
       it('should return a failure response using an invalid password', async () => {
-        const result = await service['validateUserPassword']('userId', 'bad')(
-          () => Promise.resolve(new Response())
-        )
+        const result = await service['validateUserPassword'](
+          'userId',
+          'bad'
+        )(() => Promise.resolve(new Response()))
 
         expect(result.error).toStrictEqual(
           new ResponseError('incorrect password', expect.any(String))

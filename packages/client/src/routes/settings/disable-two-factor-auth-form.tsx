@@ -35,7 +35,7 @@ interface Values {
 
 const initialValues: Values = { token: '' }
 
-const Help = styled.p.attrs(attrs => ({ color: 'danger', ...attrs }))<
+const Help = styled.p.attrs((attrs) => ({ color: 'danger', ...attrs }))<
   HelpProps
 >`
   ${({ color, theme }) => help(theme[color])};
@@ -91,7 +91,7 @@ const DisableTwoFactorAuthForm: React.FunctionComponent<Props> = ({
       {helpProps && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
-        onSubmit={variables => onSubmit({ variables })}
+        onSubmit={(variables) => onSubmit({ variables })}
         validateOnBlur={false}
         validateOnChange={false}
       >

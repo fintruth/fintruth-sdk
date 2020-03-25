@@ -53,7 +53,7 @@ const translations = {
   }),
 }
 
-const Help = styled.p.attrs(attrs => ({ color: 'danger', ...attrs }))<
+const Help = styled.p.attrs((attrs) => ({ color: 'danger', ...attrs }))<
   HelpProps
 >`
   ${({ color, theme }) => help(theme[color])};
@@ -107,7 +107,7 @@ const SignInForm: React.FunctionComponent<Props> = ({
       {helpProps.children && <Help {...helpProps} />}
       <Formik<Values>
         initialValues={initialValues}
-        onSubmit={variables =>
+        onSubmit={(variables) =>
           onSubmit({ variables }).then(({ data }) =>
             data && data.response.isTwoFactorAuthEnabled
               ? setSignInCredentials(variables)

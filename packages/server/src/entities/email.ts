@@ -35,10 +35,7 @@ export default class Email extends BaseEntity implements IEmail {
   }
 
   static async fromString(value: string) {
-    await string()
-      .required()
-      .email()
-      .validate(value)
+    await string().required().email().validate(value)
 
     return new Email({ value })
   }

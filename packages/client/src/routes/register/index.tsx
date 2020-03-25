@@ -33,7 +33,7 @@ const Register: React.FunctionComponent<Props> = (props: Props) => (
     <Content>
       <Tabs
         defaultIndex={1}
-        onChange={index => navigate(index === 0 ? '/sign-in' : '/register')}
+        onChange={(index) => navigate(index === 0 ? '/sign-in' : '/register')}
       >
         <TabList>
           <Tab>

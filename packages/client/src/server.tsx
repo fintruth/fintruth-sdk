@@ -73,7 +73,7 @@ app.get('*', async (req: Request, res: Response, next: NextFunction) => {
     locales,
   }
 
-  const alternateLocales = locales.filter(locale => locale !== req.language)
+  const alternateLocales = locales.filter((locale) => locale !== req.language)
   const client = createApolloClient({
     defaults,
     links: [
@@ -100,7 +100,7 @@ app.get('*', async (req: Request, res: Response, next: NextFunction) => {
       return _insertCss()
     })
 
-    return () => removeCss.forEach(dispose => dispose())
+    return () => removeCss.forEach((dispose) => dispose())
   }
 
   try {

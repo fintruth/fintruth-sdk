@@ -82,7 +82,7 @@ const Cropper = React.forwardRef<HTMLImageElement, Props>(function Cropper(
       disabled={isDisabled}
       imageAlt={alt}
       locked={isLocked}
-      onChange={crop => setCrop(crop)}
+      onChange={(crop) => setCrop(crop)}
       onComplete={async ({ height, width, x = 0, y = 0 }) => {
         if (!image.current || !width || !height) {
           return
@@ -113,9 +113,9 @@ const Cropper = React.forwardRef<HTMLImageElement, Props>(function Cropper(
           )
         }
 
-        const file = await new Promise(resolve =>
+        const file = await new Promise((resolve) =>
           canvas.toBlob(
-            blob => resolve(new File([blob || ''], fileName, { type })),
+            (blob) => resolve(new File([blob || ''], fileName, { type })),
             type,
             1
           )
@@ -123,7 +123,7 @@ const Cropper = React.forwardRef<HTMLImageElement, Props>(function Cropper(
 
         return setFieldValue(name, file)
       }}
-      onImageLoaded={instance => {
+      onImageLoaded={(instance) => {
         if (ref) {
           setRef(ref, instance)
         }

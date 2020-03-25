@@ -31,7 +31,7 @@ export const validateInput = (value: string, context: InputContext) =>
     )
     .validate(value, { context })
     .then(() => '')
-    .catch(error => error.message)
+    .catch((error) => error.message)
 
 export const validateSelect = (value: string, context: SelectContext) =>
   string()
@@ -40,4 +40,4 @@ export const validateSelect = (value: string, context: SelectContext) =>
     )
     .validate(value, { context })
     .then(() => '')
-    .catch(error => error.message)
+    .catch((error) => error.message)

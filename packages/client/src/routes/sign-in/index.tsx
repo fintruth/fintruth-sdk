@@ -70,7 +70,7 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
       <Content>
         <Tabs
           defaultIndex={0}
-          onChange={index => navigate(index === 0 ? '/sign-in' : '/register')}
+          onChange={(index) => navigate(index === 0 ? '/sign-in' : '/register')}
         >
           <TabList>
             <Tab>

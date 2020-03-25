@@ -5,7 +5,7 @@ import { medium } from 'styles/mixins'
 
 type Props = DialogContentProps
 
-const Content = styled(DialogContent).attrs(attrs => ({
+const Content = styled(DialogContent).attrs((attrs) => ({
   'data-dialog-content': '',
   ...attrs,
 }))<Props>`

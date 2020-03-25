@@ -40,7 +40,7 @@ export default class UserService {
   private validateUserPassword = (id: string, password: string) => (
     fn: UserResponseFn
   ) => {
-    return this.validateUser(id)(async user => {
+    return this.validateUser(id)(async (user) => {
       if (!user.validatePassword(password)) {
         return new UserResponse({
           error: new ResponseError('incorrect password'),
@@ -64,7 +64,7 @@ export default class UserService {
       })
     }
 
-    return this.validateUser(id)(async user => {
+    return this.validateUser(id)(async (user) => {
       if (!(await this.isEmailAvailable(value))) {
         return new UserResponse({
           error: new ResponseError('email is not available'),
@@ -129,7 +129,7 @@ export default class UserService {
       })
     }
 
-    return this.validateUser(id)(async user => {
+    return this.validateUser(id)(async (user) => {
       await this.daos.emails.delete({ id: emailId, userId: id })
 
       const emails = await this.daos.emails.findByUser(id)
@@ -146,7 +146,10 @@ export default class UserService {
     partial: Partial<User>,
     ability: Ability
   ) {
-    return this.validateUserPassword(id, password)(async user => {
+    return this.validateUserPassword(
+      id,
+      password
+    )(async (user) => {
       ability.throwUnlessCan('update', user)
 
       await this.daos.users.update(id, partial)
@@ -165,10 +168,7 @@ export default class UserService {
   ) {
     const valid = await object()
       .shape({
-        newPassword: string()
-          .required()
-          .notOneOf([password])
-          .password(2),
+        newPassword: string().required().notOneOf([password]).password(2),
       })
       .validate({ newPassword })
       .catch(this.logDebug)

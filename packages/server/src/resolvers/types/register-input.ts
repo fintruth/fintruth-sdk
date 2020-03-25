@@ -20,12 +20,8 @@ export default class RegisterInput implements IRegisterInput {
 
     return object<RegisterInput>()
       .shape({
-        email: string()
-          .required()
-          .email(),
-        password: string()
-          .required()
-          .password(2),
+        email: string().required().email(),
+        password: string().required().password(2),
       })
       .validate({ profile, ...input })
   }
