@@ -63,7 +63,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-unicorn": "^18.0.1",
     "husky": "^4.2.3",
-    "jest": "^25.2.3",
+    "jest": "^25.2.4",
     "jest-circus": "^25.2.3",
     "jest-config": "^25.2.3",
     "lerna": "^3.20.2",
