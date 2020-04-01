@@ -4242,10 +4242,10 @@
     "@types/webpack" "*"
     terser "^4.3.9"
 
-"@types/testing-library__cypress@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@types/testing-library__cypress/-/testing-library__cypress-5.0.3.tgz#94969b7c1eea96e09d8e023a1d225590fa75a1fe"
-  integrity sha512-efMwaVnsWEBDz0Ikm84Kh/oiUxMfz5LQtWx/Y6s2Bj0KkQ6+569/101X3Gz2bJy+otaXWPzOUOwDeAfzOJWoeQ==
+"@types/testing-library__cypress@^5.0.3", "@types/testing-library__cypress@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@types/testing-library__cypress/-/testing-library__cypress-5.0.4.tgz#8e53e4fdb019c86fdcd1ffef546b45bafe264ee3"
+  integrity sha512-WsIbL9PaPh33fTNz/REgpBXKQb1E8nz7nv964ILpDKdHq3H1IaumUy8vcMyKiLs9dKaBRoses8mkqcuMaQJhpQ==
   dependencies:
     "@types/testing-library__dom" "*"
     cypress "*"
