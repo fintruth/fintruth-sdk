@@ -43,6 +43,7 @@ export const createServer = (): Application =>
     .use(morgan('common', { stream: logger.stream } as any)) // eslint-disable-line @typescript-eslint/unbound-method
     .use(
       expressJwt({
+        algorithms: ['HS256'],
         credentialsRequired: false,
         getToken: (req: Request) => req.cookies.get('token-id'),
         secret,
