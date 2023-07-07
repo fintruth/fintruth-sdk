@@ -174,7 +174,7 @@
     "react-dev-utils": "^11.0.4",
     "react-error-overlay": "^6.0.7",
     "rimraf": "^3.0.2",
-    "stylelint": "^13.3.0",
+    "stylelint": "^15.10.1",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-config-styled-components": "^0.1.1",
